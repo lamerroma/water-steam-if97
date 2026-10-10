@@ -24,3 +24,7 @@ test('Multi-file site uses matching local assets and the same application as sta
  const embedded=read('standalone.html').toString().match(/<script>([\s\S]*?)<\/script>/)[1];assert.equal(embedded,code.replace(/<\/script/gi,'<\\/script'));
  assert.match(html,/script-src 'self'/);assert.match(html,/style-src 'self'/);
 });
+test('CoolProp WASM is embedded exactly and browser bindings do not require eval',()=>{
+ const code=read('assets/app.js').toString(),base64=code.match(/const COOLPROP_WASM_BASE64 = "([^"]+)"/)[1];assert.deepEqual(Buffer.from(base64,'base64'),read('vendor/coolprop.wasm'));
+ assert.doesNotMatch(code,/new Function\(/);assert.ok(code.includes('coolpropStaticFunction'));
+});

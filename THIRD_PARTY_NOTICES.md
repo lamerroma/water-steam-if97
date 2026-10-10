@@ -56,7 +56,7 @@ Cantera: BSD-3-Clause; повний notice `vendor/CANTERA-LICENSE` включе
 
 ## CoolProp audit
 
-CoolProp 8.0.0, MIT (https://github.com/CoolProp/CoolProp/blob/master/LICENSE), використаний лише зовнішнім оракулом. Його код не скопійовано до репозиторію чи HTML. `scripts/reference-coolprop.py` — власна обгортка; `tests/fixtures/coolprop.json` — отримані числові значення. Це другий інструмент водяної перевірки поряд із Python iapws, а не друге runtime-ядро.
+CoolProp 8.0.0, MIT (https://github.com/CoolProp/CoolProp/blob/master/LICENSE), використовується як зовнішній оракул водяних моделей; локальну JS/WASM-збірку 8.0.0 включено для психрометрії. `scripts/reference-coolprop.py` — власна обгортка; `tests/fixtures/coolprop.json` — отримані числові значення. Це другий інструмент водяної перевірки поряд із Python iapws, водяне ядро залишається власним; психрометрія використовує локальний CoolProp.
 
 Наукові транспортні поправки: власна транскрипція R12-08 Eqs. (14)–(21), R15-11 Eqs. (18)–(23), з опорною похідною IAPWS-95. Офіційні контрольні значення таблиць 5 обох Releases використано з атрибуцією IAPWS.
 
@@ -67,3 +67,7 @@ CoolProp 8.0.0, MIT (https://github.com/CoolProp/CoolProp/blob/master/LICENSE), 
 ## Новий числовий набір перевірки води
 
 `tests/fixtures/water-conformance.json` згенеровано зовнішніми CoolProp 8.0.0 (MIT) та Python iapws 1.5.5 (GPL-3.0) як числовими оракулами. Код Python iapws не включено й не перенесено до застосунку. Генератор scripts/reference-water-conformance.py потребує цих пакетів тільки під час створення контрольних даних; runtime та звичайні тести залишаються автономними. Метадані та початкові результати CoolProp P–T збережено у наборі.
+
+## CoolProp runtime для вологого повітря
+
+Офіційні файли CoolProp 8.0.0: https://sourceforge.net/projects/coolprop/files/CoolProp/8.0.0/Javascript/ . MIT, повний текст у vendor/COOLPROP-LICENSE. JS і WASM закріплені SHA256. scripts/coolprop-static-bindings.mjs перетворює фабрики bindings на статичні функції під час збірки; математичний WASM не змінюється. WASM вбудовано в обидва формати, без runtime мережевих завантажень. Розробники CoolProp зберігають авторство власного коду.

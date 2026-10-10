@@ -1,3 +1,4 @@
+import {initializeHumidAir} from './humid-air-scientific.js';
 import {printableReport} from './print-report.js';
 import {compression,heatExchanger,engineeringStates,engineeringCSV} from './engineering.js';
 import {batchUnits,batchRange,parseBatchCSV,calculateBatch,batchStates,batchCSV} from './batch.js';
@@ -180,7 +181,7 @@ divider.addEventListener('pointerup',()=>{resizing=false;});divider.addEventList
 divider.addEventListener('keydown',e=>{if(e.key==='ArrowUp'||e.key==='ArrowDown'){e.preventDefault();resizeOutput(Number(divider.getAttribute('aria-valuenow'))+(e.key==='ArrowUp'?20:-20));}});
 resetMode();renderHistory();
 (async()=>{
- try {const bytes=Uint8Array.from(atob(WASM_BASE64),c=>c.charCodeAt(0));await initialize(bytes);$('calculate').disabled=false;$('calculate').innerHTML=icon('calc')+'Розрахувати';persistenceReady=true;$('result-status').textContent='Готово до розрахунку';restoreLocal();}
+ try {const bytes=Uint8Array.from(atob(WASM_BASE64),c=>c.charCodeAt(0));await initialize(bytes);await initializeHumidAir(Uint8Array.from(atob(COOLPROP_WASM_BASE64),c=>c.charCodeAt(0)));$('calculate').disabled=false;$('calculate').innerHTML=icon('calc')+'Розрахувати';persistenceReady=true;$('result-status').textContent='Готово до розрахунку';restoreLocal();}
  catch(e){$('error').textContent='Не вдалося ініціалізувати WebAssembly. Використайте сучасний браузер. '+e.message;$('error').hidden=false;$('calculate').textContent='Помилка завантаження';}
 })();
 
