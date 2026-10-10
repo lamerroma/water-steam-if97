@@ -2,7 +2,7 @@ import test from 'node:test';import assert from 'node:assert/strict';import {rea
 import {initialize,calculate} from '../src/engine.js';import {ph,ps} from '../vendor/seuif97.js';import {helmholtz} from '../src/equations.js';
 import {raw95,T95C} from '../src/iapws95.js';import {viscosityScientific,conductivity} from '../src/transport.js';
 import {gasState,gasInverse,gasComposition,AIR,GAS_DATA} from '../src/gases.js';
-import {humidAir} from '../src/humid-air.js';import {rankine,rankineReheat,rankineRegen,brayton} from '../src/cycles.js';import {ice} from '../src/ice.js';import {d2oPT,d2oSaturation,D2O_M} from '../src/d2o.js';
+import {humidAir} from '../src/humid-air.js';import {rankine,rankineReheat,rankineRegen,brayton} from '../src/cycles.js';import {ice} from '../src/ice.js';import {d2oPT,d2oSaturation,D2O_M} from '../src/d2o.js';import {seawater} from '../src/seawater.js';
 await initialize(await readFile(new URL('../vendor/seuif97_bg.wasm',import.meta.url)));
 const close=(a,b,t=1e-8)=>assert.ok(Math.abs(a-b)<=t*Math.max(Math.abs(b),1e-8),`${a} != ${b}`);
 const cp=JSON.parse(await readFile(new URL('fixtures/coolprop.json',import.meta.url),'utf8'));
@@ -49,6 +49,19 @@ const d2oTable8=[ // [T,p,rhoL_molar,rhoV_molar,hL_molar,hV_molar,sL_molar,sV_mo
 ];
 for(const [T,p,rl,rv,hl,hv,sl,sv] of d2oTable8)test(`D2O R16-17 Table 8 saturation: T=${T} K`,()=>{const sat=d2oSaturation(T);close(sat.p,p,1e-6);close(sat.liquid.rho,rl*D2O_M,1e-6);close(sat.vapor.rho,rv*D2O_M,1e-6);close(sat.liquid.h,hl/D2O_M,1e-6);close(sat.vapor.h,hv/D2O_M,1e-6);close(sat.liquid.s,sl/D2O_M,1e-6);close(sat.vapor.s,sv/D2O_M,1e-6);});
 test('D2O rejects out-of-range inputs and keeps liquid/vapor density order',()=>{assert.throws(()=>d2oPT(-1,300));assert.throws(()=>d2oPT(1,900));assert.throws(()=>d2oSaturation(276));assert.throws(()=>d2oSaturation(644));const sat=d2oSaturation(350);assert.ok(sat.liquid.rho>sat.vapor.rho);assert.ok(sat.vapor.h>sat.liquid.h);});
+
+// IAPWS R13-08(2008) seawater Table 8: three official check points for the full
+// Property-of-seawater column (g=gW+gS), gW reusing the verified IAPWS-95 core.
+const SW_SN=0.03516504;
+// g=0, h=0, s=0 at point (a) only by construction (Eq. 5/6 reference-state pinning);
+// checked against a small absolute floor rather than the shared relative tolerance.
+const seawaterTable8=[
+ [SW_SN,273.15,101325,{g:0,h:0,u:-0.985548978e2,f:-0.985548978e2,s:0,rho:0.102810720e4,cp:0.398648579e4,w:0.144900246e4,muW:-0.225047137e4}],
+ [0.1,353,101325,{g:-0.295243229e5,h:0.294363423e6,u:0.294265035e6,f:-0.296227102e5,s:0.917529024e3,rho:0.102985888e4,cp:0.374507355e4,w:0.396127835e4,muW:-0.547200505e5}],
+ [SW_SN,273.15,1e8,{g:0.951294557e5,h:0.907439992e5,u:-0.263309532e4,f:0.175236121e4,s:-0.160551219e2,rho:0.107092645e4,cp:0.377190387e4,w:0.162198998e4,muW:0.953214082e5}],
+];
+for(const [S,T,p,ref] of seawaterTable8)test(`Seawater R13-08 Table 8: S=${S}, T=${T} K, p=${p} Pa`,()=>{const q=seawater(S,T,p);for(const [key,want] of Object.entries(ref))want===0?assert.ok(Math.abs(q[key])<1e-6,`${key}: ${q[key]} != 0`):close(q[key],want,1e-6);});
+test('Seawater reduces to pure water at S=0 and rejects out-of-range inputs',()=>{const q=seawater(0,293.15,101325);close(q.rho,998.207150,1e-6);assert.equal(q.muW,q.g);assert.throws(()=>seawater(-.01,300,1e5));assert.throws(()=>seawater(.13,300,1e5));assert.throws(()=>seawater(.01,200,1e5));assert.throws(()=>seawater(.01,300,-1));assert.throws(()=>seawater(.01,300,2e8));});
 
 // Official R12-08 Table 5 and R15-11 Table 5, scientific critical enhancement.
 const viscTable=[[122,25.520677],[222,31.337589],[272,36.228143],[322,42.961579],[372,45.688204],[422,49.436256]];

@@ -2,7 +2,7 @@
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
 const root=new URL('../',import.meta.url);
 const read=path=>readFile(new URL(path,root),'utf8');
-const files=['vendor/seuif97.js','src/coefficients.js','src/equations.js','src/transport.js','src/dielectric.js','src/extra-inputs.js','src/iapws95.js','src/engine.js','src/units.js','src/diagram-units.js','src/print-report.js','src/export.js','src/batch.js','src/processes.js','src/exergy.js','src/engineering.js','src/project.js','src/gas-data.js','src/gases.js','src/humid-air.js','src/cycles.js','src/ice.js','src/d2o.js','src/app.js','src/learning-ui.js'];
+const files=['vendor/seuif97.js','src/coefficients.js','src/equations.js','src/transport.js','src/dielectric.js','src/extra-inputs.js','src/iapws95.js','src/engine.js','src/units.js','src/diagram-units.js','src/print-report.js','src/export.js','src/batch.js','src/processes.js','src/exergy.js','src/engineering.js','src/project.js','src/gas-data.js','src/gases.js','src/humid-air.js','src/cycles.js','src/ice.js','src/d2o.js','src/seawater.js','src/app.js','src/learning-ui.js'];
 let code='"use strict";\n(async()=>{\n';
 code+='const WASM_BASE64 = '+JSON.stringify((await readFile(new URL('vendor/seuif97_bg.wasm',root))).toString('base64'))+';\n';
 for(const file of files) {
