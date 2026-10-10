@@ -2,7 +2,7 @@ import test from 'node:test';import assert from 'node:assert/strict';import {rea
 import {initialize,calculate} from '../src/engine.js';import {ph,ps} from '../vendor/seuif97.js';import {helmholtz} from '../src/equations.js';
 import {raw95,T95C} from '../src/iapws95.js';import {viscosityScientific,conductivity} from '../src/transport.js';
 import {gasState,gasInverse,gasComposition,AIR,GAS_DATA} from '../src/gases.js';
-import {humidAir} from '../src/humid-air.js';import {rankine,rankineReheat,rankineRegen,brayton} from '../src/cycles.js';
+import {humidAir} from '../src/humid-air.js';import {rankine,rankineReheat,rankineRegen,brayton} from '../src/cycles.js';import {ice} from '../src/ice.js';
 await initialize(await readFile(new URL('../vendor/seuif97_bg.wasm',import.meta.url)));
 const close=(a,b,t=1e-8)=>assert.ok(Math.abs(a-b)<=t*Math.max(Math.abs(b),1e-8),`${a} != ${b}`);
 const cp=JSON.parse(await readFile(new URL('fixtures/coolprop.json',import.meta.url),'utf8'));
@@ -23,6 +23,16 @@ test('Brayton variable Cp: isentropic ideal limits and closure',()=>{const c=bra
 for(const model of ['IF97','IAPWS-95'])test(`Rankine reheat ${model}: energy closure and efficiency gain over simple cycle`,()=>{const base=rankine(10,.01,773.15,.85,.8,1,model);const c=rankineReheat(10,2,.01,773.15,773.15,.85,.8,1,model);close(c.heat-c.rejected,c.net,1e-9);assert.equal(c.states.length,6);assert.ok(c.efficiency>base.efficiency);for(const q of c.states)assert.equal(q.model,model);});
 for(const model of ['IF97','IAPWS-95'])test(`Rankine regeneration ${model}: energy closure, mass-balanced FWH and efficiency gain`,()=>{const base=rankine(10,.01,773.15,.85,.8,1,model);const c=rankineRegen(10,1,.01,773.15,.85,.8,1,model);close(c.heat-c.rejected,c.net,1e-8);assert.equal(c.states.length,7);assert.ok(c.efficiency>base.efficiency);for(const q of c.states)assert.equal(q.model,model);});
 test('Rankine reheat/regen reject an intermediate pressure outside (pLow, pHigh)',()=>{assert.throws(()=>rankineReheat(10,11,.01,773.15,773.15));assert.throws(()=>rankineReheat(10,.005,.01,773.15,773.15));assert.throws(()=>rankineRegen(10,11,.01,773.15));assert.throws(()=>rankineRegen(10,.005,.01,773.15));});
+
+// IAPWS R10-06(2009) Table 6: triple point, normal-pressure melting point, and 100 K / 100 MPa.
+// v's check value is Table 6's (dg/dp)_T, since v = (dg/dp)_T exactly.
+const iceTable6=[
+ [273.16,611.657,{g:0.611784135,v:0.109085812737e-2,h:-0.333444253966e6,f:-0.554468750e-1,u:-0.333444921197e6,s:-0.122069433940e4,cp:0.209678431622e4,rho:0.916709492200e3,alpha:0.159863102566e-3,beta:0.135714764659e7,kappaT:0.117793449348e-9,kappaS:0.114161597779e-9}],
+ [273.152519,101325,{g:0.101342740069e3,v:0.109084388214e-2,h:-0.333354873637e6,s:-0.122076932550e4,cp:0.209671391024e4,rho:0.916721463419e3}],
+ [100,100e6,{g:-0.222296513088e6,v:0.106193389260e-2,h:-0.483491635676e6,u:-0.589685024936e6,f:-0.328489902347e6,s:-0.261195122589e4,cp:0.866333195517e3,rho:0.941678203297e3,alpha:0.258495528207e-4,beta:0.291466166994e6,kappaT:0.886880048115e-10,kappaS:0.886060982687e-10}],
+];
+for(const [T,p,ref] of iceTable6)test(`Ice Ih R10-06 Table 6: T=${T} K, p=${p} Pa`,()=>{const q=ice(T,p);for(const [key,want] of Object.entries(ref))close(q[key],want,1e-6);});
+test('Ice Ih rejects out-of-range inputs and matches v with (dg/dp)T sign/scale',()=>{assert.throws(()=>ice(273.17,1e5));assert.throws(()=>ice(0,1e5));assert.throws(()=>ice(200,-1));assert.throws(()=>ice(200,211e6));const q=ice(260,1e6);assert.ok(q.rho>900&&q.rho<920);assert.ok(q.cp>1800&&q.cp<2200);close(q.v,1/q.rho,1e-12);});
 
 // Official R12-08 Table 5 and R15-11 Table 5, scientific critical enhancement.
 const viscTable=[[122,25.520677],[222,31.337589],[272,36.228143],[322,42.961579],[372,45.688204],[422,49.436256]];
