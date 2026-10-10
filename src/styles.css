@@ -34,3 +34,13 @@
 .results-scroll::-webkit-scrollbar-track,.setup-content::-webkit-scrollbar-track,.history-scroll::-webkit-scrollbar-track,.tabs::-webkit-scrollbar-track,#help-view::-webkit-scrollbar-track,#process-view::-webkit-scrollbar-track,.center-pane::-webkit-scrollbar-track,#batch-results::-webkit-scrollbar-track,#process-result::-webkit-scrollbar-track{background:transparent}
 .results-scroll::-webkit-scrollbar-thumb,.setup-content::-webkit-scrollbar-thumb,.history-scroll::-webkit-scrollbar-thumb,.tabs::-webkit-scrollbar-thumb,#help-view::-webkit-scrollbar-thumb,#process-view::-webkit-scrollbar-thumb,.center-pane::-webkit-scrollbar-thumb,#batch-results::-webkit-scrollbar-thumb,#process-result::-webkit-scrollbar-thumb{background:#aebed8;border-radius:4px}
 .results-scroll::-webkit-scrollbar-thumb:hover,.setup-content::-webkit-scrollbar-thumb:hover,.history-scroll::-webkit-scrollbar-thumb:hover,.tabs::-webkit-scrollbar-thumb:hover,#help-view::-webkit-scrollbar-thumb:hover,#process-view::-webkit-scrollbar-thumb:hover,.center-pane::-webkit-scrollbar-thumb:hover,#batch-results::-webkit-scrollbar-thumb:hover,#process-result::-webkit-scrollbar-thumb:hover{background:#8aa0c4}
+/* Original inline-SVG icon set: alignment next to button text, icon-only toolbar buttons centered. */
+.icon{flex-shrink:0;vertical-align:-3px}
+.menu button,.form-buttons button,#learn-form>button,#learn-csv,#learn-json,.copy,#export-csv,.presets button{display:inline-flex;align-items:center;gap:6px}
+.menu button .icon{margin-right:1px}
+.toolbar button{display:inline-flex;align-items:center;justify-content:center}
+.toolbar button .icon{vertical-align:0}
+.tabs button{display:inline-flex;align-items:center;gap:5px}
+.copy{justify-content:center;width:18px;height:18px}
+#calculate{gap:7px}
+.menu-right button{display:inline-flex;align-items:center;gap:4px}
