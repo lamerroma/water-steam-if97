@@ -27,5 +27,5 @@ export function engineeringCSV(kind,result,system='si'){
  const convert=(k,v,u)=>system==='english'?englishProperty(k,v,u):[v,u];
  const head=['state',...['p','T','h','s','x'].map(k=>`${k} [${convert(k,null,{p:'MPa',T:'K',h:'kJ/kg',s:'kJ/(kg K)',x:'-'}[k])[1]}]`)];
  const metrics=[['power',result.power,'kW'],['flow',result.flow,'kg/s'],...(result.work!=null?[['work',result.work,'kJ/kg'],['eta',result.eta,'-']]:[['coldFlow',result.coldFlow,'kg/s']])];
- return '\uFEFF'+[head.join(';'),...engineeringStates(result).map(([name,q])=>[name,...['p','T','h','s','x'].map(k=>convert(k,q[k],'')[0]??'')].join(';')),'',`process;${kind}`,`model;${result.inlet.model||'IF97'}`,'quantity;value;unit',...metrics.map(([k,v,u])=>{const [a,b]=convert(k==='coldFlow'?'flow':k,v,u);return `${k};${a};${b}`;})].join('\r\n');
+ return '\uFEFF'+[head.join(';'),...engineeringStates(result).map(([name,q])=>[name,...['p','T','h','s','x'].map(k=>convert(k,q[k],'')[0]??'')].join(';')),'',`process;${kind}`,`model;${result.inlet.model||'IF97'}`,'pressure_basis;absolute','quantity;value;unit',...metrics.map(([k,v,u])=>{const [a,b]=convert(k==='coldFlow'?'flow':k,v,u);return `${k};${a};${b}`;})].join('\r\n');
 }
