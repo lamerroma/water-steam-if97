@@ -109,60 +109,311 @@ SOFTWARE.
 Formulations and verification tables: International Association for the Properties of Water and Steam (IAPWS), R7-97(2012), R12-08, R15-11, R1-76(2014), R8-97, R6-95(2018), R14-08(2011), R10-06(2009), R13-08(2008), R16-17(2018).
 -->
 <!doctype html>
-<html lang="uk"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Навчальний теплофізичний калькулятор: вода, пара, лід, важка та морська вода, гази, вологе повітря, інженерні процеси"><title>Навчальний теплофізичний калькулятор</title><style>*{box-sizing:border-box}html,body{margin:0;height:100%;font:11px Arial,Helvetica,sans-serif;color:#292929}body{display:flex;flex-direction:column;background:#dfe8f5}button,select,input{font:inherit;color:inherit}button{cursor:pointer}button:disabled{cursor:default;opacity:.5}button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid #356caf;outline-offset:1px}[hidden]{display:none!important}.site-nav{height:35px;min-height:35px;display:flex;align-items:center;gap:14px;background:#30689f;color:#dce9f8;padding:0 18px}.site-nav button{color:inherit;background:none;border:0;padding:0}.site-nav span{margin-left:auto}.menubar,.toolbar{display:flex;align-items:center;background:linear-gradient(#f0f5fc,#c6d7ec);border-bottom:1px solid #9eb6d5;min-height:25px;padding:2px 5px;gap:6px}.menubar{min-height:27px}.menubar>button,summary{padding:3px 16px;border:0;background:none;cursor:pointer}.menubar details{position:relative}summary{list-style:none}.menu{position:absolute;z-index:5;top:24px;left:0;background:#f5f7fa;box-shadow:1px 2px 5px #7186a1;border:1px solid #a6b8d0;min-width:170px}.menu button{display:block;width:100%;text-align:left;background:none;border:0;padding:7px 12px}.menu button:hover{background:#d6e5f7}.menu-right{margin-left:auto;color:#536783}.toolbar{min-height:25px;gap:3px}.toolbar button{width:24px;height:21px;border:1px solid transparent;background:none;color:#55749d;font-size:17px;padding:0}.toolbar button:hover{border-color:#8ba5c6;background:#fff}.toolbar i{height:18px;border-left:1px solid #9eb6d5;margin:0 5px}.toolbar span{margin-left:10px;color:#4f6891}.toolbar b{margin-left:auto;font-size:15px}.desktop{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 182px;grid-template-rows:minmax(270px,1fr) 218px;gap:4px;padding:3px}.center-pane,.setup-pane,.output-pane{border:1px solid #99b3d5;background:#f8f8f8;min-width:0;min-height:0}.center-pane{display:flex;flex-direction:column}.tabs{display:flex;overflow-x:auto;min-height:27px;background:linear-gradient(#edf3fb,#bfd0e7);padding:2px 3px 0;gap:3px;border-bottom:1px solid #9ab3d5}.tabs button{white-space:nowrap;background:linear-gradient(#ecf3fd,#d9e6f7);border:1px solid #9db5d5;border-radius:3px 3px 0 0;padding:4px 8px;color:#455f85;font-size:11px}.tabs button[aria-selected=true]{background:#f8f8f8;border-bottom-color:#f8f8f8;color:#23456e;font-weight:bold}.calculator-view{display:flex;flex-direction:column;flex:1;min-height:0}.input-area{display:flex;gap:20px;padding:9px 8px 7px;min-height:143px;border-bottom:1px solid #becde1}#calculator{width:400px;flex-shrink:0}fieldset{border:1px solid #bcbcbc;padding:8px 14px;margin:0}legend{font-weight:bold;color:#284e7e;padding:0 3px}.form-row{display:flex;align-items:center;min-height:25px;gap:7px}.form-row label{width:150px;flex-shrink:0}.form-row input{width:140px;height:22px;background:white;border:1px solid #a8afba;padding:3px 5px;box-shadow:inset 0 1px 2px #ddd}.form-row select{height:22px;background:linear-gradient(#fff,#ededf1);border:1px solid #a9adbb}#mode{width:211px}#unit-a,#unit-b{width:64px}.form-buttons{display:flex;gap:8px;margin:5px 0 0 157px}.form-buttons button,.presets button,#export-csv{border:1px solid #abb5c2;background:linear-gradient(#fff,#dfdfdf);border-radius:2px;padding:3px 8px;white-space:nowrap}.product-info{padding:10px 10px 0;min-width:170px}.product-info>strong{display:block;color:#316799;font-size:18px;text-decoration:underline;margin-bottom:10px}.product-info>b{display:block;font-size:13px}.product-info p{max-width:340px;color:#626a75;line-height:1.4}.presets{display:flex;gap:5px}#error{background:#fff0f0;color:#a22020;border:1px solid #d49292;padding:7px;margin:5px 0}.results-scroll{overflow:auto;flex:1;min-height:0;padding:0 6px 6px}.property-table,.sat-table{border-collapse:collapse;width:100%;table-layout:fixed}.property-table th,.sat-table th,#history th{background:linear-gradient(#fafafa,#e6e8ee);color:#333;border-right:1px solid #c8cbd2;border-bottom:1px solid #c2c7d0;font-weight:bold;padding:5px 6px;text-align:left;height:23px}.property-table td,.sat-table td{border-bottom:1px dotted #d9dde3;border-right:1px dotted #d9dde3;height:24px;padding:4px 6px;color:#456b9e}.property-table tr:nth-child(even),.sat-table tr:nth-child(even){background:#f1f3f5}.property-table th:nth-child(1){width:28px}.property-table th:nth-child(2){width:42%}.property-table th:nth-child(3){width:70px}.property-table th:nth-child(4){width:32px}.property-table th:nth-child(5){width:150px}.property-table td:nth-child(5){text-align:right;color:#202020;font-variant-numeric:tabular-nums}.property-table .group td{font-weight:bold;color:#3c608c;background:#edf2f9;border-bottom:2px solid #bdd0ea;height:28px}.copy{padding:0;border:0;background:none;color:#83a5cd;font-size:15px}.state-banner{padding:6px 4px;color:#285283}.state-banner span{float:right}.state-meta{margin:4px;color:#526d8b}.notes{margin:5px;color:#5d6571;line-height:1.4}.notes p{margin:4px}.sat-table th,.sat-table td{text-align:right}.sat-table th:first-child,.sat-table td:first-child{text-align:left;width:45%}.sat-table small{margin-left:8px;color:#657a91}.symbol{margin-left:7px;color:#6a7c96}.setup-pane h2,.output-pane h2{font-size:11px;color:#254b7d;margin:0;background:linear-gradient(#e5edf9,#b9cce8);height:24px;padding:5px 7px;border-bottom:1px solid #9bb4d6}.setup-content{overflow:auto;height:calc(100% - 24px);padding:9px 12px}.setup-content fieldset{border:0;border-bottom:1px dotted #aeb7c5;margin:0 0 14px;padding:6px 2px 14px}.setup-content legend{font-size:10px;font-weight:normal;color:#536c93;padding:0 6px}.setup-content label{display:block;margin:6px 0}.setup-content select{width:100%;height:23px}.setup-content input{vertical-align:middle;accent-color:#477ccd}.setup-content p{line-height:1.55}.setup-content small,.unavailable{color:#7d8591}.output-pane{grid-column:1/-1;display:flex;flex-direction:column}.output-pane h2 span{font-weight:normal;margin-left:14px;color:#637695}.output-pane h2 button{float:right;font-size:10px;padding:1px 6px;margin-top:-2px}.history-scroll{flex:1;overflow:auto;background:repeating-linear-gradient(#fff 0 23px,#f1f3f5 23px 46px)}#history{border-collapse:collapse;min-width:1550px;width:100%;font-variant-numeric:tabular-nums}#history th{text-align:center;font-size:10px}#history td{height:23px;padding:3px 6px;border-right:1px dotted #d2d7df;border-bottom:1px dotted #d2d7df;text-align:right;white-space:nowrap}#history tr:nth-child(even){background:#f0f3f6}#history th:first-child{width:28px}.output-tabs{height:24px;border-top:1px solid #a4bad6;background:linear-gradient(#eaf1fa,#bdd0e9);padding:3px 5px;color:#3e618d}.output-tabs b{border:1px solid #9fb7d6;background:#e5eefb;padding:4px 8px}.output-tabs span{margin-left:12px}footer{height:21px;min-height:21px;display:flex;align-items:center;justify-content:space-between;padding:0 5px;background:linear-gradient(#edf3fb,#ccdbed);border-top:1px solid #9fb4cf;color:#71306e;font-size:10px}#help-view{overflow:auto;padding:18px;line-height:1.6}.method h2{font-size:16px;color:#345b89}.method h3{font-size:13px}.method a{color:#316a9d}.method details{border:1px solid #b9c8dc;padding:8px}.method summary{padding:0;font-weight:bold}.gray{filter:grayscale(1)}@media(min-width:1250px){#calculator{width:430px}.input-area{gap:30px}.product-info{padding-left:25px}.desktop{grid-template-rows:minmax(270px,1fr) 240px}}@media(max-width:700px){body{height:auto;min-height:100vh}.site-nav{gap:10px;padding:0 7px}.site-nav span{display:none}.menu-right{font-size:9px}.desktop{display:flex;flex-direction:column;flex:1}.center-pane{min-height:550px}.input-area{display:block;min-height:185px}#calculator{width:100%}.form-row label{width:125px}.form-row input{width:calc(100% - 196px)}#mode{width:calc(100% - 132px)}fieldset{padding:6px}.form-buttons{margin-left:132px}.product-info{padding:7px 0}.product-info>strong,.product-info>b{display:none}.product-info p{margin:3px}.presets{float:right}.results-scroll{height:350px}.setup-pane{height:auto}.setup-content{display:flex;gap:12px;overflow:auto}.setup-content fieldset{min-width:150px;margin:0}.output-pane{height:230px;flex-shrink:0}.property-table{min-width:600px}.sat-table{min-width:580px}footer{height:auto;min-height:28px;gap:10px;align-items:flex-start;padding:4px}footer span{max-width:55%}}@media print{body{height:auto}.menubar,.toolbar,.site-nav,.setup-pane,.tabs{display:none}.desktop{display:block}.results-scroll,.history-scroll{overflow:visible}.output-pane{margin-top:15px}.center-pane{border:0}.input-area{min-height:0}.product-info{display:none}footer{margin-top:20px}}
-
-/* Measured desktop geometry, matching the reference's compact engineering layout. */
-:root{--output-height:218px;--ui-scale:1}html{font-size:calc(11px * var(--ui-scale))}body{font-size:1rem}.desktop{position:relative;grid-template-rows:minmax(270px,1fr) var(--output-height);gap:5px}.input-area{height:116px;min-height:116px;padding:9px 7px 7px;gap:20px}#calculator{width:400px}.input-area fieldset{height:102px}.form-buttons{margin:20px 0 0;display:flex;flex-direction:column;align-items:flex-start;gap:15px;min-width:190px}.form-buttons button{padding:3px 9px;height:23px}.form-buttons span{color:#637895;font-size:10px;max-width:185px}.product-info{padding:20px 8px 0;margin-left:auto}.product-info>strong{font-size:17px;margin-bottom:11px}.product-info p,.presets{display:none}.results-scroll{padding:5px 6px 6px}.property-table{min-width:1080px;table-layout:fixed}.property-table th:nth-child(1){width:27px}.property-table th:nth-child(2){width:330px}.property-table th:nth-child(3){width:100px}.property-table th:nth-child(4){width:35px}.property-table th:nth-child(5){width:160px;text-align:right}.property-table th:nth-child(6){width:160px}.property-table th:nth-child(7){width:270px;font-weight:normal}.property-table th{position:sticky;top:0;z-index:1}.property-table td{height:24px;padding:4px 6px}.property-table .group td{height:28px}.group button{padding:0;border:0;background:none;font-weight:bold;color:inherit;text-align:left;width:100%}.constant{color:#555!important;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.setup-pane h2 button{float:right;background:none;border:1px solid #9fb5d1;color:#466b9a;height:16px;padding:0 3px;margin-top:-2px}.menubar .menu-right{display:flex;align-items:center;gap:12px}.menu-right button{background:none;border:0;color:#4d6484;font-size:10px}.menu-right select{height:20px;border:1px solid #aebed3;background:#eaf1fa}.output-tabs button{float:right;background:none;border:0;color:#41618c;font-size:10px}.output-pane h2 button{height:18px}#output-resize{position:absolute;left:3px;right:3px;bottom:calc(var(--output-height) + 3px);height:5px;cursor:row-resize;touch-action:none;z-index:3}#output-resize:focus-visible{background:#7598c6}.setup-collapsed .desktop{grid-template-columns:1fr}.setup-collapsed .setup-pane{display:none}.output-collapsed .desktop{grid-template-rows:minmax(270px,1fr) 24px}.output-collapsed .history-scroll,.output-collapsed .output-tabs{display:none}.output-collapsed #output-resize{bottom:27px}.output-collapsed #export-csv{display:none}.output-pane h2>button{margin-left:8px}.site-nav button:hover,.menubar button:hover{color:#fff;text-shadow:0 0 1px #416285}.menubar button:hover{color:#234a7c}.toolbar button:focus-visible{background:#fff}#state-summary{line-height:1.3}
-@media(min-width:1250px){.desktop{grid-template-rows:minmax(270px,1fr) var(--output-height)}#calculator{width:400px}.input-area{gap:20px}.product-info{padding-left:8px}}
-@media(max-width:1100px) and (min-width:701px){.product-info{display:none}.input-area{gap:20px}.form-buttons{min-width:145px}.property-table th:nth-child(2){width:290px}.property-table{min-width:1040px}}
-@media(max-width:700px){html{font-size:11px}.input-area{height:auto;min-height:155px;display:block}.input-area fieldset{height:102px}#calculator{width:100%}.form-buttons{margin:7px 0;flex-direction:row;align-items:center;gap:8px}.form-buttons span{display:none}.product-info{display:none}.menu-right{display:none!important}.menubar{gap:0;overflow-x:auto;white-space:nowrap}.menubar>button,summary{padding:4px 6px}.center-pane{min-height:550px}.desktop{display:flex}.output-pane{height:218px}.output-collapsed .output-pane{height:24px}.property-table{min-width:1040px}#output-resize{display:none}.setup-collapsed .setup-pane{display:none}.results-scroll{height:340px}}
-@media print{.form-buttons,.output-tabs,#output-resize{display:none}.property-table th{position:static}.results-scroll{overflow:visible}.property-table{min-width:0;font-size:8px;table-layout:auto}.property-table th{width:auto!important}.property-table th:last-child,.property-table td:last-child{display:none}}
-
-#process-view{overflow:auto;flex:1;padding:14px;color:#294967}#process-view h2{font-size:16px}#process-form fieldset{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px}#process-form label{display:flex;flex-direction:column;gap:4px}#process-form input{width:145px;padding:5px;border:1px solid #a7b7cc}#process-view button{padding:5px 10px;margin-right:8px}#process-view table{border-collapse:collapse;width:100%;min-width:620px;background:white}#process-view td,#process-view th{padding:8px;border:1px solid #c3d1e1;text-align:right}#process-error{color:#a22}#steam-diagram{width:100%;min-width:580px;height:auto;font:12px Arial}#process-result{overflow:auto}
-
-#steam-diagram{touch-action:none;cursor:grab}#steam-diagram circle{cursor:pointer}#diagram-selected{border:1px solid #b7c8dd;padding:8px}#diagram-range{display:inline-block;padding:6px;color:#516681}
-/* Keep tab controls above the horizontal scrollbar at narrow desktop widths. */
-.tabs{min-height:39px;flex-shrink:0;padding-bottom:8px;scrollbar-width:thin}.tabs::-webkit-scrollbar{height:6px}.tabs button{flex-shrink:0;align-self:flex-start}
-
-#ambient-p,#ambient-t{width:100%;padding:4px;margin:4px 0;border:1px solid #a7b7cc}#ambient-status{font-size:10px}
-
-/* Compact desktop grid and functional unit tabs mirror the reference layout. */
-@media(min-width:701px){.input-area{min-height:118px;padding-top:7px;padding-bottom:5px}.property-table td{padding-top:4px;padding-bottom:4px}.setup-content legend{font-weight:normal;font-size:10px}.output-tabs button[data-action^="units-"]{border:1px solid #9db5d5;background:linear-gradient(#edf3fb,#d0def0);padding:3px 8px}.output-tabs button[data-action="export-history"]{margin-left:auto}}
-
-#batch-form fieldset,#engineering-form fieldset{display:flex;flex-wrap:wrap;gap:10px}#batch-form label,#engineering-form label{display:flex;flex-direction:column;gap:4px}#batch-text{display:block;width:100%;max-width:850px;font:12px monospace}#batch-results{overflow:auto}#batch-error{color:#a22}#process-view input,#process-view select{padding:4px;max-width:180px}
-
-.state-name{width:110px;border:1px solid transparent;background:transparent;padding:2px}.state-name:focus{background:white;border-color:#9db5d5}#history button{padding:0 5px;border:1px solid #9db5d5;background:#edf3fb}#project-title{width:150px;margin:4px 10px}#project-save-status{max-width:200px;margin:4px 10px;color:#516681}
-
-@media print{html,body,.desktop,.center-pane,.calculator-view{height:auto!important;min-height:0!important;display:block!important;overflow:visible!important}.site-nav,.menubar,.toolbar,.tabs,.setup-pane,.input-area,button,#engineering-form,#batch-form,#process-form,footer{display:none!important}.output-pane,.results-scroll,.history-scroll,#process-view{height:auto!important;overflow:visible!important}.output-pane{break-before:page}.state-name{border:0}table thead{display:table-header-group}tr{break-inside:avoid}.history-scroll table{font-size:7px}}
-/* Educational modules keep explicit SI labels and the desktop table appearance. */
-.process-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:12px 0}.process-grid label{display:flex;flex-direction:column;gap:5px;font-size:13px}.process-grid input,.process-grid select{width:100%;box-sizing:border-box;padding:6px}#learn-form>label{display:block;margin:10px 0}#learn-form>button,#learn-csv,#learn-json{padding:7px 14px;margin:5px 0}#learn-error{color:#a51a1a;background:#ffecec;padding:10px}#learn-output{margin-top:16px}#learn-output .sat-table{width:100%;margin:10px 0}.tabs{overflow-x:auto;flex-shrink:0}
-/* Row highlight on hover, matching the reference calculator's grid row-over state. */
-.property-table tbody tr:hover,.sat-table tbody tr:hover,#history tbody tr:hover,#learn-output .sat-table tbody tr:hover{background:#efefef}
-.property-table .group tr:hover,.property-table tr.group:hover{background:#edf2f9}
-/* Click-to-explain glossary: property name becomes a toggle, explanation expands as a row below it. */
-.glossary-toggle{padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;display:inline-flex;align-items:center;gap:4px;text-decoration:underline dotted;text-underline-offset:2px}
+<html lang="uk"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Навчальний теплофізичний калькулятор: вода, пара, лід, важка та морська вода, гази, вологе повітря, інженерні процеси"><title>Навчальний теплофізичний калькулятор</title><style>/* Shared sizes follow the interface scale, including controls and secondary text. */
+:root{--ui-scale:1;--output-height:218px;--line:#a5bad4;--muted:#526780;--panel:#f8fafc}
+*{box-sizing:border-box}
+html{font-size:calc(13px * var(--ui-scale));height:100%}
+body{margin:0;min-height:100%;height:100%;display:flex;flex-direction:column;background:#dfe8f5;color:#292929;font:1rem/1.4 Arial,Helvetica,sans-serif}
+button,select,input,textarea{font:inherit;color:inherit}
+button,summary{cursor:pointer}
+button:disabled{cursor:default;opacity:.5}
+button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid #356caf;outline-offset:2px}
+[hidden]{display:none!important}
+button{border:1px solid #abb9cc;border-radius:3px;background:linear-gradient(#fff,#e5ebf3);padding:.35rem .65rem}
+input,select,textarea{min-width:0;border:1px solid #a7b7cc;border-radius:2px;background:#fff;padding:.3rem .4rem}
+input[type=radio]{accent-color:#477ccd}
+.site-nav{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;background:#30689f;color:#eef5ff;padding:.5rem 1rem;flex-shrink:0}
+.site-nav button{color:inherit;background:none;border:0;padding:0}
+.site-nav span{margin-left:auto;font-size:.9rem}
+.menubar,.toolbar{display:flex;flex-wrap:wrap;align-items:center;background:linear-gradient(#f0f5fc,#c6d7ec);border-bottom:1px solid var(--line);padding:.25rem .5rem;gap:.25rem;flex-shrink:0}
+.menubar>button,.menubar summary{padding:.3rem .6rem;border:0;background:none}
+.menubar details{position:relative}
+summary{list-style:none}
+summary::-webkit-details-marker{display:none}
+.menu{position:absolute;z-index:10;top:100%;left:0;background:#f5f7fa;box-shadow:1px 3px 8px #7186a1;border:1px solid var(--line);min-width:17rem;padding:.35rem}
+.menu button{display:flex;align-items:center;width:100%;text-align:left;background:none;border:0;padding:.5rem .6rem}
+.menu button:hover{background:#d6e5f7}
+.menu-right{margin-left:auto;display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;color:var(--muted)}
+.menu-right button{display:inline-flex;align-items:center;gap:.3rem;background:none;border:0}
+.menu-right label{display:flex;align-items:center;gap:.3rem}
+.toolbar button{width:2rem;height:2rem;display:inline-flex;align-items:center;justify-content:center;padding:0;border-color:transparent;background:none;color:#45658d}
+.toolbar button:hover{border-color:#8ba5c6;background:#fff}
+.toolbar i{height:1.4rem;border-left:1px solid var(--line);margin:0 .25rem}
+.toolbar span{flex:1;min-width:10rem;margin-left:.4rem;color:var(--muted);font-size:.9rem}
+.toolbar b{font-size:1.2rem}
+.desktop{position:relative;flex:1;min-height:calc(28rem + var(--output-height) + 16px);display:grid;grid-template-columns:minmax(0,1fr) 18rem;grid-template-rows:minmax(28rem,1fr) var(--output-height);gap:6px;padding:5px}
+.center-pane,.setup-pane,.output-pane{border:1px solid var(--line);background:var(--panel);min-width:0;min-height:0}
+.center-pane{display:flex;flex-direction:column;container-type:inline-size}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;background:linear-gradient(#edf3fb,#bfd0e7);padding:5px;border-bottom:1px solid var(--line);flex-shrink:0}
+.tabs button{display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap;background:#e6eef9;border:1px solid #9db5d5;padding:.35rem .5rem;color:#38567d;font-size:.9rem}
+.tabs button[aria-selected=true]{background:#fff;color:#23456e;font-weight:bold;border-color:#668cb9;box-shadow:inset 0 -2px #668cb9}
+.section-picker{display:none;align-items:center;gap:.65rem;padding:.65rem;background:#e5edf9;border-bottom:1px solid var(--line);flex-shrink:0}
+.section-picker select{flex:1;width:100%}
+.calculator-view{display:flex;flex-direction:column;flex:1;min-height:0}
+.input-area{display:flex;flex-wrap:wrap;align-items:flex-start;gap:.8rem;padding:.75rem;flex-shrink:0;border-bottom:1px solid #becde1}
+#calculator{flex:1 1 29rem;min-width:0;max-width:36rem}
+fieldset{min-width:0;border:1px solid #b5c2d2;padding:.6rem .75rem;margin:0}
+legend{font-weight:bold;color:#284e7e;padding:0 .25rem}
+.form-row{display:grid;grid-template-columns:minmax(9rem,1.1fr) minmax(5rem,1fr) 5.5rem;align-items:center;gap:.5rem;margin:.35rem 0}
+.form-row label{min-width:0}
+.form-row input,.form-row select{width:100%;height:auto;min-height:2rem}
+#mode{grid-column:2/-1}
+.form-buttons{display:flex;flex-direction:column;align-items:flex-start;gap:.5rem;flex:0 1 16rem;padding-top:.9rem;margin:0;min-width:0}
+.form-buttons button{display:inline-flex;align-items:center;gap:.4rem;white-space:normal}
+#state-summary{color:var(--muted);font-size:.9rem;line-height:1.45;overflow-wrap:anywhere}
+.product-info{margin-left:auto;padding:.75rem .25rem;max-width:19rem}
+.product-info>strong{display:block;color:#316799;font-size:1.2rem;margin-bottom:.4rem}
+.product-info>b{font-size:1rem}
+.product-info p,.presets{display:none}
+#error,#learn-error,#scientific-error{background:#fff0f0;color:#a22020;border:1px solid #d49292;padding:.65rem;margin:.6rem 0;overflow-wrap:anywhere}
+.results-scroll{overflow:auto;flex:1;min-height:0;padding:.4rem}
+.property-table,.sat-table{border-collapse:collapse;width:100%;table-layout:fixed;background:#fff}
+.property-table th,.sat-table th,#history th{background:linear-gradient(#fafafa,#e6e8ee);border-right:1px solid #c8cbd2;border-bottom:1px solid #c2c7d0;font-weight:bold;padding:.5rem;text-align:left}
+.property-table td,.sat-table td{border-bottom:1px dotted #d9dde3;border-right:1px dotted #d9dde3;padding:.4rem .5rem;color:#365e90;overflow-wrap:anywhere}
+.property-table tr:nth-child(even),.sat-table tr:nth-child(even){background:#f1f4f8}
+.property-table th{position:sticky;top:0;z-index:1}
+.property-table th:nth-child(1){width:2.5rem}
+.property-table th:nth-child(2){width:28%}
+.property-table th:nth-child(3){width:4.5rem}
+.property-table th:nth-child(4){width:2.5rem}
+.property-table th:nth-child(5){width:10rem;text-align:right}
+.property-table th:nth-child(6){width:8rem}
+.property-table th:nth-child(7){width:25%;font-weight:normal}
+.property-table td:nth-child(5){text-align:right;color:#202020;font-variant-numeric:tabular-nums;white-space:nowrap}
+.property-table .group td{font-weight:bold;color:#3c608c;background:#edf2f9;border-bottom:2px solid #bdd0ea}
+.group button{padding:.2rem 0;border:0;background:none;font-weight:bold;color:inherit;text-align:left;width:100%}
+.copy{display:inline-flex;align-items:center;justify-content:center;padding:0;border:0;background:none;color:#557aa5;width:1.6rem;height:1.6rem}
+.constant{color:#555!important;font-size:.9rem}
+.compact-constants{display:none;margin:.65rem 0;border:1px solid #b9c8dc;padding:.65rem;background:#edf2f9}
+.compact-constants summary{font-weight:bold;color:#345b89}
+.compact-constants ul{padding-left:1.3rem}
+.compact-constants li{margin:.4rem 0}
+.state-banner{padding:.5rem;color:#285283;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem}
+.state-meta{margin:.5rem;color:var(--muted)}
+.notes{margin:.5rem;color:#505e6d;line-height:1.5}
+.notes p{margin:.35rem 0}
+.sat-table th,.sat-table td{text-align:right}
+.sat-table th:first-child,.sat-table td:first-child{text-align:left;width:45%}
+.sat-table small,.symbol{margin-left:.5rem;color:var(--muted)}
+.sat-scroll{overflow:auto}
+.setup-pane{display:flex;flex-direction:column}
+.setup-pane h2,.output-pane h2{display:flex;align-items:center;flex-wrap:wrap;gap:.4rem;font-size:.95rem;color:#254b7d;margin:0;background:linear-gradient(#e5edf9,#b9cce8);padding:.4rem .5rem;border-bottom:1px solid var(--line);flex-shrink:0}
+.setup-pane h2 button,.output-pane h2 button{float:none;margin:0;padding:.15rem .45rem;height:auto;font-size:.9rem}
+.setup-pane h2 button{margin-left:auto}
+.setup-content{overflow:auto;flex:1;min-height:0;padding:.65rem}
+.setup-content fieldset{border:0;border-bottom:1px dotted #aeb7c5;margin:0 0 .75rem;padding:.5rem .2rem .9rem}
+.setup-content legend{font-size:.9rem;font-weight:normal;color:var(--muted)}
+.setup-content label{display:block;margin:.5rem 0}
+.setup-content select{width:100%;height:auto}
+.setup-content input{vertical-align:middle}
+.setup-content p{line-height:1.5}
+.setup-content small,.unavailable{font-size:.9rem;color:#64748b}
+#ambient-p,#ambient-t{display:block;width:100%;padding:.4rem;margin:.35rem 0}
+#ambient-status{font-size:.9rem}
+.output-pane{grid-column:1/-1;display:flex;flex-direction:column}
+.output-pane h2 span{font-weight:normal;color:var(--muted);font-size:.9rem}
+#export-csv{margin-left:auto;display:inline-flex;align-items:center;gap:.4rem;white-space:normal}
+.output-pane h2 button[data-action=toggle-output]{order:1}
+.history-scroll{flex:1;min-height:0;overflow:auto;background:#fff}
+#history{border-collapse:collapse;min-width:110rem;width:100%;font-variant-numeric:tabular-nums}
+#history th{position:sticky;top:0;z-index:1;text-align:center;font-size:.9rem;white-space:nowrap}
+#history td{padding:.35rem .5rem;border-right:1px dotted #d2d7df;border-bottom:1px dotted #d2d7df;text-align:right;white-space:nowrap;height:2rem}
+#history tr:nth-child(even){background:#f0f3f6}
+#history th:first-child{width:2.5rem}
+#history button{padding:.1rem .4rem;background:#edf3fb}
+.state-name{width:9rem;border:1px solid transparent;background:transparent;padding:.15rem}
+.state-name:focus{background:white;border-color:#9db5d5}
+.output-tabs{display:flex;align-items:center;flex-wrap:wrap;gap:.4rem;height:auto;border-top:1px solid var(--line);background:linear-gradient(#eaf1fa,#bdd0e9);padding:.35rem .5rem;color:#3e618d;flex-shrink:0;font-size:.9rem}
+.output-tabs button{float:none;padding:.25rem .45rem;font-size:inherit;white-space:normal}
+#history-count{order:-1;margin-right:auto}
+#output-resize{position:absolute;left:5px;right:5px;bottom:calc(var(--output-height) + 5px);height:6px;cursor:row-resize;touch-action:none;z-index:3}
+#output-resize:focus-visible{background:#7598c6}
+.setup-collapsed .desktop{grid-template-columns:1fr}
+.setup-collapsed .setup-pane{display:none}
+.output-collapsed .desktop{grid-template-rows:minmax(28rem,1fr) auto;min-height:32rem}
+.output-collapsed .history-scroll,.output-collapsed .output-tabs,.output-collapsed #export-csv,.output-collapsed #output-resize{display:none}
+footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;padding:.3rem .5rem;background:linear-gradient(#edf3fb,#ccdbed);border-top:1px solid var(--line);color:#65345f;font-size:.85rem;flex-shrink:0}
+#help-view{overflow:auto;flex:1;min-height:0;padding:1.2rem;line-height:1.6}
+.method h2,#process-view h2{font-size:1.25rem;color:#345b89}
+.method h3{font-size:1.1rem}
+.method a{color:#316a9d}
+.method details{border:1px solid #b9c8dc;padding:.65rem}
+.method summary{font-weight:bold}
+.gray{filter:grayscale(1)}
+#process-view{overflow:auto;flex:1;min-height:0;padding:1rem;color:#294967;line-height:1.5}
+#process-view button{padding:.4rem .65rem;margin:.25rem .4rem .25rem 0}
+#process-form fieldset,#batch-form fieldset,#engineering-form fieldset{display:flex;flex-wrap:wrap;gap:.8rem;margin:.75rem 0}
+#process-form label,#batch-form label,#engineering-form label{display:flex;flex-direction:column;gap:.3rem;min-width:0;flex:1 1 12rem;max-width:22rem}
+#process-view input,#process-view select{padding:.4rem;max-width:100%}
+#process-form input{width:100%}
+#process-view table{border-collapse:collapse;width:100%;min-width:36rem;background:white}
+#process-view td,#process-view th{padding:.6rem;border:1px solid #c3d1e1;text-align:right}
+#process-view td:first-child,#process-view th:first-child{text-align:left}
+#process-error,#batch-error{color:#a22}
+#steam-diagram{width:100%;min-width:36rem;height:auto;font:12px Arial;touch-action:none;cursor:grab}
+#steam-diagram circle{cursor:pointer}
+#diagram-selected{border:1px solid #b7c8dd;padding:.65rem}
+#diagram-range{display:inline-block;padding:.5rem;color:var(--muted)}
+.diagram-active .desktop{grid-template-rows:minmax(40rem,1fr) var(--output-height);min-height:calc(40rem + var(--output-height) + 16px)}
+.diagram-active.output-collapsed .desktop{grid-template-rows:minmax(40rem,1fr) auto;min-height:42rem}
+.diagram-expanded .desktop,.diagram-expanded.output-collapsed .desktop{grid-template-columns:1fr;grid-template-rows:minmax(34rem,1fr);min-height:35rem}
+.diagram-expanded .setup-pane,.diagram-expanded .output-pane,.diagram-expanded #output-resize{display:none}
+#process-view:has(#steam-diagram){display:flex;flex-direction:column;gap:.45rem;overflow:auto;padding:.65rem}
+.diagram-heading{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;flex-shrink:0}
+.diagram-heading h2{margin:0}
+.diagram-controls{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;flex-shrink:0}
+.diagram-controls label{display:flex;align-items:center;gap:.4rem;flex:1;min-width:14rem}
+.diagram-controls select{flex:1;min-width:0;max-width:100%}
+.diagram-stage{flex:1;min-height:14rem;position:relative;border:1px solid #c3d1e1;background:#fff}
+#steam-diagram{display:block;width:100%;height:100%;min-width:0;min-height:0;font:13px Arial;user-select:none;cursor:grab}
+#steam-diagram.is-dragging{cursor:grabbing}
+#steam-diagram [data-point]{cursor:pointer}
+#steam-diagram [data-point]:focus .diagram-marker{stroke:#234d82;stroke-width:3}
+.diagram-legend{display:flex;align-items:center;flex-wrap:wrap;gap:.2rem .5rem;font-size:.9rem;flex-shrink:0}
+#process-view .diagram-legend button{margin:0;padding:.1rem .35rem;background:#fff}
+.diagram-legend button[aria-pressed=false]{opacity:.5;text-decoration:line-through}
+.diagram-legend span{color:#12477c}
+#process-view #diagram-selected{padding:.4rem .6rem;font-size:.9rem;flex-shrink:0}
+.diagram-metrics{display:flex;flex-wrap:wrap;gap:.25rem 1rem;margin:.3rem 0}
+.diagram-tools{flex-shrink:0;font-size:.9rem}
+.diagram-tools summary{color:#345b89;text-decoration:underline dotted}
+#process-view .diagram-controls button,#process-view .diagram-heading button{margin:0}
+#process-result,#batch-results,#eng-result,#scientific-output{overflow:auto}
+#batch-text{display:block;width:100%;max-width:65rem;font:1rem monospace}
+#project-title{width:100%;margin:.35rem 0}
+#project-save-status{margin:.35rem 0;color:var(--muted)}
+.process-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));gap:.8rem;margin:.9rem 0}
+.process-grid label{display:flex;flex-direction:column;gap:.35rem;min-width:0}
+.process-grid input,.process-grid select{width:100%;padding:.45rem}
+#learn-form>label{display:block;margin:.7rem 0}
+#learn-form>button,#learn-csv,#learn-json{padding:.5rem .9rem;margin:.35rem 0}
+#learn-output{margin-top:1rem}
+#learn-output .sat-table{width:100%;margin:.75rem 0;min-width:0}
+#scientific-form>label{display:block;margin:.7rem 0 .25rem}
+#scientific-form>input,#scientific-form>select{display:block;width:100%;max-width:28rem}
+#scientific-form>button{display:block;margin-top:1rem}
+.property-table tbody tr:hover,.sat-table tbody tr:hover,#history tbody tr:hover{background:#edf2f8}
+.property-table tr.group:hover{background:#edf2f9}
+.glossary-toggle{padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;display:inline-flex;align-items:baseline;gap:.3rem;text-decoration:underline dotted;text-underline-offset:3px;max-width:100%}
 .glossary-toggle:hover{color:#1d4273}
-.glossary-toggle .icon{opacity:.6;flex-shrink:0}
-.glossary-row td{background:#eef4fb;color:#3c5a80;line-height:1.5;padding:6px 10px;white-space:normal}
-#hints-toggle{border:1px solid transparent;border-radius:2px;padding:1px 6px}
-#hints-toggle[aria-pressed="true"]{color:#1d4273;border-color:#9eb6d5;background:#e2ecfa}
-#hints-toggle[aria-pressed="false"]{opacity:.6}
-/* One consistent thin scrollbar across every scrollable pane (results, setup, history, tabs, help, process views). */
-.results-scroll,.setup-content,.history-scroll,.tabs,#help-view,#process-view,.center-pane,#batch-results,#process-result{scrollbar-width:thin;scrollbar-color:#aebed8 transparent}
-.results-scroll::-webkit-scrollbar,.setup-content::-webkit-scrollbar,.history-scroll::-webkit-scrollbar,.tabs::-webkit-scrollbar,#help-view::-webkit-scrollbar,#process-view::-webkit-scrollbar,.center-pane::-webkit-scrollbar,#batch-results::-webkit-scrollbar,#process-result::-webkit-scrollbar{width:8px;height:8px}
-.results-scroll::-webkit-scrollbar-track,.setup-content::-webkit-scrollbar-track,.history-scroll::-webkit-scrollbar-track,.tabs::-webkit-scrollbar-track,#help-view::-webkit-scrollbar-track,#process-view::-webkit-scrollbar-track,.center-pane::-webkit-scrollbar-track,#batch-results::-webkit-scrollbar-track,#process-result::-webkit-scrollbar-track{background:transparent}
-.results-scroll::-webkit-scrollbar-thumb,.setup-content::-webkit-scrollbar-thumb,.history-scroll::-webkit-scrollbar-thumb,.tabs::-webkit-scrollbar-thumb,#help-view::-webkit-scrollbar-thumb,#process-view::-webkit-scrollbar-thumb,.center-pane::-webkit-scrollbar-thumb,#batch-results::-webkit-scrollbar-thumb,#process-result::-webkit-scrollbar-thumb{background:#aebed8;border-radius:4px}
-.results-scroll::-webkit-scrollbar-thumb:hover,.setup-content::-webkit-scrollbar-thumb:hover,.history-scroll::-webkit-scrollbar-thumb:hover,.tabs::-webkit-scrollbar-thumb:hover,#help-view::-webkit-scrollbar-thumb:hover,#process-view::-webkit-scrollbar-thumb:hover,.center-pane::-webkit-scrollbar-thumb:hover,#batch-results::-webkit-scrollbar-thumb:hover,#process-result::-webkit-scrollbar-thumb:hover{background:#8aa0c4}
-/* Original inline-SVG icon set: alignment next to button text, icon-only toolbar buttons centered. */
-.icon{flex-shrink:0;vertical-align:-3px}
-.menu button,.form-buttons button,#learn-form>button,#learn-csv,#learn-json,.copy,#export-csv,.presets button{display:inline-flex;align-items:center;gap:6px}
-.menu button .icon{margin-right:1px}
-.toolbar button{display:inline-flex;align-items:center;justify-content:center}
-.toolbar button .icon{vertical-align:0}
-.tabs button{display:inline-flex;align-items:center;gap:5px}
-.copy{justify-content:center;width:18px;height:18px}
-#calculate{gap:7px}
-.menu-right button{display:inline-flex;align-items:center;gap:4px}
+.glossary-toggle .icon{opacity:.7;flex-shrink:0}
+.glossary-tooltip{cursor:help;text-decoration:underline dotted;text-underline-offset:3px}
+.glossary-tooltip .icon{opacity:.7;width:.85em;height:.85em}
+#process-view .glossary-toggle{padding:0;margin:0}
+.glossary-row td{background:#eef4fb;color:#3c5a80;line-height:1.5;padding:.6rem .75rem;white-space:normal}
+#hints-toggle{border:1px solid transparent;border-radius:2px;padding:.2rem .45rem}
+#hints-toggle[aria-pressed=true]{color:#1d4273;border-color:#9eb6d5;background:#e2ecfa}
+#hints-toggle[aria-pressed=false]{opacity:.6}
+.results-scroll,.setup-content,.history-scroll,.tabs,#help-view,#process-view,#batch-results,#process-result{scrollbar-width:thin;scrollbar-color:#8fa6c7 #edf2f8}
+.icon{flex-shrink:0;vertical-align:-3px;width:1.1em;height:1.1em}
+.menu button .icon{margin-right:.35rem}
+.toolbar button .icon{vertical-align:0;width:1.25rem;height:1.25rem}
+.copy .icon{width:1rem;height:1rem}
+.glossary-toggle .icon{width:.85em;height:.85em}
+#calculate{gap:.5rem}
+@container(max-width:65rem){
+ .tabs{display:none}
+ .section-picker{display:flex}
+}
+@media(max-width:1400px){
+ .product-info{display:none}
+ .property-table{table-layout:auto}
+ .property-table th:nth-child(7),.property-table td.constant{display:none}
+ .property-table th:nth-child(2){width:40%}
+ .compact-constants{display:block}
+}
+@media(max-width:1100px){
+ .desktop{grid-template-columns:minmax(0,1fr) 16rem}
+ .site-nav span{display:none}
+ .form-buttons{flex:0 1 13rem}
+ #calculator{max-width:none;flex-basis:25rem}
+ .property-table th:nth-child(5){width:9rem}
+ .property-table th:nth-child(6){width:6rem}
+}
+@media(max-width:900px){
+ body{height:auto;min-height:100vh}
+ .desktop{display:flex;flex-direction:column;min-height:0;flex:1}
+ .tabs{display:none}
+ .section-picker{display:flex}
+ .center-pane{min-height:0}
+ .calculator-view,#process-view,#help-view{flex:none}
+ .results-scroll{max-height:65vh;min-height:14rem;flex:none;overflow:auto}
+ .setup-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:.75rem;overflow:visible}
+ .setup-content fieldset{margin:0}
+ .setup-pane{height:auto}
+ .output-pane{height:20rem;flex:none}
+ .output-collapsed .output-pane{height:auto}
+ #output-resize{display:none}
+ #process-view,#help-view{max-height:75vh;overflow:auto}
+ .diagram-active .desktop,.diagram-expanded .desktop,.diagram-active.output-collapsed .desktop{min-height:0}
+ #process-view:has(#steam-diagram){max-height:none}
+ .diagram-stage{height:25rem;flex:none}
+ .menubar .menu-right{width:100%;margin:0;padding:.25rem 0}
+}
+@media(max-width:700px){
+ .site-nav{display:none}
+ .menubar{position:relative}
+ .menubar details{position:static}
+ .menu{top:100%;left:.5rem;right:.5rem;min-width:0}
+ .menubar>button,.menubar summary{padding:.3rem .4rem}
+ .toolbar span{display:none}
+ .toolbar b{margin-left:auto}
+ .input-area{padding:.65rem}
+ .form-row{grid-template-columns:minmax(0,1fr) 5.5rem;gap:.4rem}
+ .form-row label{grid-column:1/-1}
+ #mode{grid-column:1/-1}
+ .form-row input,.form-row select{min-height:2.4rem}
+ .form-buttons{flex:1 1 100%;flex-direction:row;flex-wrap:wrap;align-items:center;gap:.5rem;padding:0}
+ .form-buttons button{min-height:2.4rem}
+ #state-summary{flex-basis:100%}
+ .results-scroll{padding:.4rem;max-height:65vh}
+ /* Stack each property without losing its result, unit, symbol or copy action. */
+ .property-table,.property-table tbody{display:block;min-width:0;width:100%}
+ .property-table thead{display:none}
+ .property-table tr[data-property]{display:grid;grid-template-columns:minmax(0,1fr) minmax(4rem,auto) 2rem;gap:.25rem .5rem;padding:.6rem;border-bottom:1px solid #d1dcea}
+ .property-table tr[data-property]>td{border:0;padding:0;min-width:0}
+ .property-table tr[data-property]>td:nth-child(1){display:none}
+ .property-table tr[data-property]>td:nth-child(2){grid-row:1;grid-column:1/3}
+ .property-table tr[data-property]>td:nth-child(3){grid-row:1;grid-column:3;font-size:.9rem;text-align:right}
+ .property-table tr[data-property]>td:nth-child(4){grid-row:2;grid-column:3}
+ .property-table tr[data-property]>td:nth-child(5){grid-row:2;grid-column:1;text-align:left;font-weight:bold;font-size:1.1rem;white-space:normal}
+ .property-table tr[data-property]>td:nth-child(6){grid-row:2;grid-column:2;text-align:right;font-size:.9rem}
+ .property-table .group,.property-table .group td{display:block}
+ .property-table .group td{padding:.5rem}
+ .property-table .glossary-row,.property-table .glossary-row td{display:block}
+ .property-table .glossary-row td:first-child{display:none}
+ .sat-table{min-width:0}
+ .sat-table th:first-child,.sat-table td:first-child{width:40%}
+ .sat-table small,.symbol{display:block;margin:.2rem 0}
+ #process-view .sat-table{min-width:0}
+ #process-view .sat-table th,#process-view .sat-table td{padding:.4rem;overflow-wrap:anywhere}
+ #process-view .sat-table th:first-child,#process-view .sat-table td:first-child{width:40%}
+ #learn-output .sat-table th:nth-child(2),#learn-output .sat-table td:nth-child(2){white-space:nowrap}
+ .output-pane h2 span{display:none}
+ #export-csv{font-size:.85rem}
+ .output-tabs{gap:.4rem}
+ #history-count{flex-basis:100%;margin:0}
+ footer span{max-width:100%}
+}
+@media print{
+ html{font-size:10px}
+ html,body,.desktop,.center-pane,.calculator-view{height:auto!important;min-height:0!important;display:block!important;overflow:visible!important}
+ .site-nav,.menubar,.toolbar,.tabs,.section-picker,.setup-pane,.input-area,button,#engineering-form,#batch-form,#process-form,#learn-form,#scientific-form,footer,#output-resize,.output-tabs{display:none!important}
+ .output-pane,.results-scroll,.history-scroll,#process-view,#help-view{height:auto!important;max-height:none!important;overflow:visible!important}
+ .output-pane{break-before:page}
+ .property-table,.property-table tbody{display:table}
+ .property-table tbody{display:table-row-group}
+ .property-table thead{display:table-header-group}
+ .property-table tr[data-property],.property-table .group,.property-table .glossary-row{display:table-row}
+ .property-table tr[data-property]>td,.property-table .group td,.property-table .glossary-row td{display:table-cell;padding:4px}
+ .property-table th{position:static;width:auto!important}
+ .property-table th:last-child,.property-table td.constant,.compact-constants{display:none}
+ .state-name{border:0}
+ .history-scroll table{font-size:7px;min-width:0}
+ table thead{display:table-header-group}
+ tr{break-inside:avoid}
+ .glossary-toggle{display:inline!important;text-decoration:none}
+}
 </style></head>
 <body>
 <nav class="site-nav"><button data-action="general">Калькулятор</button><button data-action="help">Довідка калькулятора</button><button data-action="export">Експорт CSV</button><button data-action="help">Джерела та ліцензії</button><span>Навчальний теплофізичний калькулятор · автономна версія</span></nav>
@@ -171,6 +422,7 @@ Formulations and verification tables: International Association for the Properti
 <main class="desktop">
 <section class="center-pane">
 <div class="tabs" role="tablist" aria-label="Розділи калькулятора"><button id="tab-general" role="tab" aria-selected="true" data-action="general">▣ 1. Загальні властивості</button><button id="tab-saturation" role="tab" aria-selected="false" data-action="saturation">▤ 2. Властивості насичення</button><button role="tab" aria-selected="false" data-action="turbine">3. Парова турбіна</button><button role="tab" aria-selected="false" data-action="flash">4. Випаровування</button><button role="tab" aria-selected="false" data-action="ts">5. T–s діаграма</button><button role="tab" aria-selected="false" data-action="hsdiagram">6. h–s діаграма</button><button role="tab" aria-selected="false" data-action="batch">7. Пакетні розрахунки</button><button role="tab" aria-selected="false" data-action="engineering">8. Інженерні процеси</button><button role="tab" aria-selected="false" data-action="gases">9. Гази та суміші</button><button role="tab" aria-selected="false" data-action="humid">10. Вологе повітря</button><button role="tab" aria-selected="false" data-action="cycles">11. Навчальні цикли</button><button role="tab" aria-selected="false" data-action="ice">12. Лід (IAPWS-06)</button><button role="tab" aria-selected="false" data-action="d2o">13. Важка вода (D2O)</button><button role="tab" aria-selected="false" data-action="seawater">14. Морська вода (IAPWS-08)</button><button role="tab" aria-selected="false" data-action="boundaries">15. Фазові межі</button><button role="tab" aria-selected="false" data-action="comparison">16. IF97 / IAPWS-95</button><button id="tab-help" role="tab" aria-selected="false" data-action="help">ⓘ Довідка</button></div>
+<label class="section-picker" for="section-select">Розділ<select id="section-select" aria-label="Розділ калькулятора"></select></label>
 <div id="process-view" hidden></div><div id="calculator-view" class="calculator-view">
 <div class="input-area"><form id="calculator" novalidate><fieldset><legend>Вхідні дані</legend><div class="form-row"><label for="mode">Оберіть функцію:</label><select id="mode"><option value="pt">1. функція (p, t)</option><option value="ph">2. функція (p, h)</option><option value="ps">3. функція (p, s)</option><option value="pv">4. функція (p, v)</option><option value="pu">5. функція (p, u)</option><option value="th">6. функція (t, h)</option><option value="ts">7. функція (t, s)</option><option value="tv">8. функція (t, v)</option><option value="tu">9. функція (t, u)</option><option value="hs">10. функція (h, s)</option><option value="us">11. функція (u, s)</option><option value="vs">12. функція (v, s)</option><option value="hv">13. функція (h, v)</option><option value="uv">14. функція (u, v)</option><option value="satp">15. насичення за p</option><option value="satt">16. насичення за t</option><option value="px">17. функція (p, x)</option><option value="tx">18. функція (t, x)</option><option value="prho">19. функція (p, ρ)</option><option value="trho">20. функція (t, ρ)</option></select></div><div class="form-row"><label id="label-a" for="input-a">1. Тиск (абсолютний):</label><input id="input-a" inputmode="decimal" value="3" autocomplete="off"><select id="unit-a" aria-label="Одиниця першого параметра"></select></div><div class="form-row" id="field-b"><label id="label-b" for="input-b">2. Температура:</label><input id="input-b" inputmode="decimal" value="26.85" autocomplete="off"><select id="unit-b" aria-label="Одиниця другого параметра"></select></div></fieldset><p id="error" role="alert" hidden></p></form><div class="form-buttons"><button type="submit" form="calculator" id="calculate" disabled>Завантаження…</button><button type="button" data-action="clear">Очистити результати</button><span id="state-summary">Задайте стан води або пари</span></div><div class="product-info"><strong>Таблиці води та пари</strong><b>IAPWS-IF97</b><p id="mode-help">Абсолютний тиск · автономний розрахунок</p><div class="presets"><button data-p="3" data-t="300">Рідина</button><button data-p="30" data-t="700">Пара</button><button data-p="25.5837018" data-t="650">Область 3</button></div></div></div>
 <div class="results-scroll"><div id="results" aria-live="polite"></div></div>
@@ -2666,10 +2918,11 @@ rows.splice(6,0,rows.splice(rows.findIndex(r=>r[0]==='ex'),1)[0]);
 const constants=['Газова стала R = 0,461526 кДж/(кг·K)','Молярна газова стала Rm = 8,31451 Дж/(моль·K)','Молярна маса M = 18,015257 г/моль','Критична температура Tc = 647,096 K','Критичний тиск pc = 22,064 МПа','Критична густина ρc = 322 кг/м³','Потрійна точка Tt = 273,16 K','Потрійна точка pt = 611,657 Па'];
 let openGlossary=new Set(),hintsEnabled=true;
 // Shared by the main property table and the other learning panels (ice/D2O/seawater/
-// gases/humid air/cycles, see learning-ui.js): a property name becomes a button with a
-// native hover tooltip and a click-to-expand explanation row, unless hints are off.
-function glossaryCell(key,label){
+// gases/humid air/cycles, see learning-ui.js). The main table uses hover-only labels;
+// learning panels also allow expanding the explanation by clicking its button.
+function glossaryCell(key,label,expand=true){
  if(!hintsEnabled||!GLOSSARY[key])return escapeHTML(label);
+ if(!expand)return `<span class="glossary-tooltip" title="${escapeHTML(GLOSSARY[key])}">${escapeHTML(label)} ${icon('help',11)}</span>`;
  return `<button class="glossary-toggle" data-glossary="${key}" aria-expanded="${openGlossary.has(key)}" title="${escapeHTML(GLOSSARY[key])}">${escapeHTML(label)} ${icon('help',11)}</button>`;
 }
 function glossaryDetailRow(key,leadCells,span,extraHidden){
@@ -2677,6 +2930,7 @@ function glossaryDetailRow(key,leadCells,span,extraHidden){
  return `<tr class="glossary-row" data-glossary-row="${key}" ${extraHidden?'hidden':''}>${'<td></td>'.repeat(leadCells)}<td colspan="${span}">${GLOSSARY[key]}</td></tr>`;
 }
 function propertyTable(state) {
+ const modelConstants=modelValue()==='IAPWS-95'?['Газова стала R = 0,46151805 кДж/(кг·K)','','','Критична температура Tc = 647,096 K','Критичний тиск pc = 22,064 МПа','Критична густина ρc = 322 кг/м³','Потрійна точка Tt = 273,16 K','Потрійна точка (EOS) pt ≈ 611,654771 Па']:constants;
  return `<table class="property-table"><thead><tr><th>№</th><th>Назва властивості</th><th>Символ</th><th>⧉</th><th>Результат</th><th>Одиниці</th><th>Константи ${modelValue()}</th></tr></thead><tbody>${rows.map(([key,name,symbol,unit],i)=>{
  const value=state?(key==='T'?state.T-273.15:state[key]):null;
  const [v,u]=display(key,value,unit);
@@ -2684,10 +2938,9 @@ function propertyTable(state) {
  const groupName=i===0?'1. Термодинамічні властивості — основні':i===11?'2. Термодинамічні властивості — стан':i===26?'3. Транспортні властивості':null;
  const collapsed=collapsedGroups.has(groupId);
  const group=groupName?`<tr class="group"><td colspan="7"><button data-group="${groupId}" aria-expanded="${!collapsed}">${collapsed?'⊞':'⊟'} ${groupName}</button></td></tr>`:'';
- const nameCell=glossaryCell(key,name);
- const glossaryRowHtml=glossaryDetailRow(key,1,6,collapsed);
- return `${group}<tr data-group-row="${groupId}" ${collapsed?'hidden':''} data-property="${key}"><td>${i+1}</td><td>${nameCell}</td><td>${symbol}</td><td><button class="copy" data-copy="${key}" aria-label="Копіювати: ${name}" ${v==null?'disabled':''}>${icon('copy',13)}</button></td><td>${state?format(v):''}</td><td>${u}</td><td class="constant">${(modelValue()==='IAPWS-95'?['Газова стала R = 0,46151805 кДж/(кг·K)','','','Критична температура Tc = 647,096 K','Критичний тиск pc = 22,064 МПа','Критична густина ρc = 322 кг/м³','Потрійна точка Tt = 273,16 K','Потрійна точка (EOS) pt ≈ 611,654771 Па'][i]:constants[i])||''}</td></tr>${glossaryRowHtml}`;
- }).join('')}</tbody></table>`;
+ const nameCell=glossaryCell(key,name,false);
+ return `${group}<tr data-group-row="${groupId}" ${collapsed?'hidden':''} data-property="${key}"><td>${i+1}</td><td>${nameCell}</td><td>${symbol}</td><td><button class="copy" data-copy="${key}" aria-label="Копіювати: ${name}" ${v==null?'disabled':''}>${icon('copy',13)}</button></td><td>${state?format(v):''}</td><td>${u}</td><td class="constant">${modelConstants[i]||''}</td></tr>`;
+ }).join('')}</tbody></table><details class="compact-constants"><summary>Константи ${modelValue()}</summary><ul>${modelConstants.filter(Boolean).map(text=>`<li>${escapeHTML(text)}</li>`).join('')}</ul></details>`;
 }
 let historyUndo=null,unsavedProject=false;
 function renderHistory() {
@@ -2702,6 +2955,7 @@ $('history-undo').onclick=()=>{if(!historyUndo)return;historyStates.splice(0,his
 window.addEventListener('beforeunload',e=>{if(unsavedProject){e.preventDefault();e.returnValue='';}});
 
 function selectView(view) {
+ leaveDiagram();
  for(const b of document.querySelectorAll('[role="tab"]'))b.setAttribute('aria-selected','false');$('process-view').hidden=true;$('calculator-view').hidden=view==='help';$('help-view').hidden=view!=='help';
  for(const name of ['general','saturation','help'])$('tab-'+name).setAttribute('aria-selected',String(name===view));
  if(view==='saturation'&&!['satp','satt','px','tx'].includes($('mode').value)){$('mode').value='satp';resetMode();}
@@ -2786,10 +3040,10 @@ function exportHistory(){
  const url=URL.createObjectURL(new Blob([content],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='water-steam-history.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);$('result-status').textContent='CSV історії підготовлено';
 }
 $('ui-scale').addEventListener('change',()=>{document.documentElement.style.setProperty('--ui-scale',$('ui-scale').value);});
-const divider=$('output-resize');let resizing=false;
+const divider=$('output-resize');let resizing=false,resizeStartY=0,resizeStartHeight=218;
 function resizeOutput(height){const max=Math.max(100,Math.min(400,window.innerHeight-350));const h=Math.round(Math.max(100,Math.min(max,height)));document.documentElement.style.setProperty('--output-height',h+'px');divider.setAttribute('aria-valuenow',String(h));}
-divider.addEventListener('pointerdown',e=>{if(window.innerWidth<=700)return;resizing=true;divider.setPointerCapture(e.pointerId);document.body.classList.remove('output-collapsed');});
-divider.addEventListener('pointermove',e=>{if(resizing)resizeOutput(window.innerHeight-e.clientY-24);});
+divider.addEventListener('pointerdown',e=>{if(window.innerWidth<=900)return;resizing=true;resizeStartY=e.clientY;resizeStartHeight=Number(divider.getAttribute('aria-valuenow'));divider.setPointerCapture(e.pointerId);document.body.classList.remove('output-collapsed');});
+divider.addEventListener('pointermove',e=>{if(resizing)resizeOutput(resizeStartHeight+resizeStartY-e.clientY);});
 divider.addEventListener('pointerup',()=>{resizing=false;});divider.addEventListener('pointercancel',()=>{resizing=false;});
 divider.addEventListener('keydown',e=>{if(e.key==='ArrowUp'||e.key==='ArrowDown'){e.preventDefault();resizeOutput(Number(divider.getAttribute('aria-valuenow'))+(e.key==='ArrowUp'?20:-20));}});
 resetMode();renderHistory();
@@ -2813,11 +3067,14 @@ function ensureCoolProp(){
  return coolPropReady;
 }
 
-let diagramCache=null, plottedProcess=null, diagramRedraw=null;
+let diagramCache=null, plottedProcess=null, diagramRedraw=null,diagramObserver=null;
+const diagramRanges=new Map(),diagramIsobars=new Map();
+function leaveDiagram(){document.body.classList.remove('diagram-active','diagram-expanded');diagramObserver?.disconnect();diagramObserver=null;}
 function massTo(v,u){return u==='kgh'?v/3600:u==='lbs'?v*.45359237:u==='lbh'?v*.45359237/3600:v;}
 function massFrom(v,u){return u==='kgh'?v*3600:u==='lbs'?v/.45359237:u==='lbh'?v*3600/.45359237:v;}
 function processDisplay(k,v,u){return $('output-system').value==='english'?englishProperty(k,k==='T'?v+273.15:v,u):[v,u];}
 function showProcess(kind){
+ leaveDiagram();
  $('calculator-view').hidden=true;$('help-view').hidden=true;$('process-view').hidden=false;
  for(const b of document.querySelectorAll('[role="tab"]'))b.setAttribute('aria-selected',String(b.dataset.action===kind));
  if(kind==='ts'||kind==='hsdiagram'){showDiagram(kind);return;}
@@ -2848,39 +3105,67 @@ function showProcess(kind){
  }catch(e){$('process-error').textContent=e.message;$('result-status').textContent='Перевірте вхідні дані';}});
 }
 function showDiagram(kind){
+ diagramObserver?.disconnect();
+ document.body.classList.add('diagram-active');
  const dq=(k,v)=>diagramQuantity(k,v,$('output-system').value,$('output-energy').value);
  const dt=(k,v)=>{const [n,u]=dq(k,v);return format(n)+' '+u;};
  if(!diagramCache)diagramCache=diagramData(modelValue());
- const isTS=kind==='ts',baseY=isTS?800:4500;
- let range={xmin:0,xmax:11,ymin:0,ymax:baseY},selected=null;
+ const isTS=kind==='ts',vertical=isTS?'T':'h',baseY=isTS?800:4500,viewKey=modelValue()+':'+kind;
+ const initial={xmin:0,xmax:11,ymin:0,ymax:baseY};
+ let range={...(diagramRanges.get(viewKey)||initial)},selected=null,plot;
  const colors=['#a75b00','#3977a6','#8b4599','#27825a','#b84242','#706c25','#555'];
  const process=plottedProcess;
  const processPoints=process?[[process.result.inlet,'Вхід'],...(process.result.ideal?[[process.result.ideal,'Ізоентропний вихід']]:[]),[process.result.outlet,'Вихід'],...(process.result.coldInlet?[[process.result.coldInlet,'Холодний вхід'],[process.result.coldOutlet,'Холодний вихід']]:[])]:[];
- const choices=[...historyStates.filter(q=>(q.model||'IF97')===modelValue()).map((q,i)=>[q,`Журнал № ${historyStates.length-i}`]),...processPoints];
- const X=s=>60+(s-range.xmin)/(range.xmax-range.xmin)*820;
+ const choices=[...historyStates.map((q,i)=>[q,q.name||`Журнал № ${historyStates.length-i}`]).filter(([q])=>(q.model||'IF97')===modelValue()),...processPoints];
+ const hiddenIsobars=diagramIsobars.get(viewKey)||new Set();diagramIsobars.set(viewKey,hiddenIsobars);
+ $('process-view').innerHTML=`<div class="diagram-heading"><h2>${isTS?'T–s':'h–s'} діаграма · ${modelValue()}</h2><button id="diagram-expand" aria-pressed="${document.body.classList.contains('diagram-expanded')}">Розгорнути графік</button></div><div class="diagram-controls" aria-label="Керування діаграмою"><button id="diagram-in" aria-label="Збільшити масштаб" title="Збільшити масштаб">＋</button><button id="diagram-out" aria-label="Зменшити масштаб" title="Зменшити масштаб">−</button><button id="diagram-reset">Весь графік</button><button id="diagram-fit" ${choices.length?'':'disabled'}>До точок</button><label for="diagram-point">Точка<select id="diagram-point" ${choices.length?'':'disabled'}><option value="">${choices.length?'Виберіть стан':'Немає розрахованих станів'}</option>${choices.map(([q,label],i)=>`<option value="${i}">${escapeHTML(label)} · ${dt('p',q.p)} · ${dt('T',q.T-273.15)}</option>`).join('')}</select></label></div><div class="diagram-stage"><svg id="steam-diagram" style="font:13px Arial" tabindex="0" role="group" aria-label="${isTS?'T–s':'h–s'} діаграма води й пари" aria-describedby="diagram-help" xmlns="http://www.w3.org/2000/svg"></svg></div><div id="diagram-legend" class="diagram-legend" aria-label="Ізобари">${diagramCache.isobars.map(({p},i)=>`<button data-isobar="${i}" aria-pressed="${!hiddenIsobars.has(i)}" title="Показати або приховати ізобару" style="color:${colors[i]}">━ ${dt('p',p)}</button>`).join('')}<span>━ Насичення</span></div><div id="diagram-selected" aria-live="polite">${choices.length?'Виберіть точку на графіку або зі списку.':'Щоб додати точку, спочатку розрахуйте стан у вкладці «Загальні властивості».'}</div><details class="diagram-tools"><summary>Дії та керування</summary><p id="diagram-help">Перетягування — переміщення. Ctrl + колесо або +/− — масштаб. На сенсорному екрані можна збільшувати двома пальцями. Стрілки переміщують сфокусований графік. Кольорові кнопки показують або приховують ізобари. Лінії процесу з’єднують кінцеві стани; проміжний шлях реальної турбіни не визначений її ККД.</p><button id="diagram-refresh">Оновити точки</button><button id="diagram-save">Зберегти SVG</button><button id="diagram-clear" ${process?'':'disabled'}>Прибрати процес</button><span id="diagram-range"></span></details>`;
+ const svg=$('steam-diagram'),stage=svg.parentElement;
  const value=q=>isTS?q.T-273.15:q.h;
- const Y=q=>450-(value(q)-range.ymin)/(range.ymax-range.ymin)*400;
+ const X=s=>plot.left+(s-range.xmin)/(range.xmax-range.xmin)*plot.width;
+ const Y=q=>plot.bottom-(value(q)-range.ymin)/(range.ymax-range.ymin)*plot.height;
  const path=points=>{let pen=false;return points.map(q=>{if(!q||!Number.isFinite(q.s)||!Number.isFinite(value(q))){pen=false;return '';}const str=`${pen?'L':'M'}${X(q.s).toFixed(2)},${Y(q).toFixed(2)}`;pen=true;return str;}).join(' ');};
- $('process-view').innerHTML=`<h2>${isTS?'T–s':'h–s'} діаграма · ${modelValue()}</h2><p>Масштаб: кнопки +/− або колесо над графіком. Переміщення: перетягування або стрілки після фокусування графіка. Виберіть позначену точку для властивостей. Лінії процесу з’єднують кінцеві стани; проміжний шлях реальної турбіни не визначений її ККД.</p><button id="diagram-in">+</button><button id="diagram-out">−</button><button id="diagram-reset">Скинути масштаб</button><button id="diagram-refresh">Оновити точки</button><button id="diagram-save">Зберегти SVG</button><button id="diagram-clear">Прибрати процес</button><span id="diagram-range"></span><svg id="steam-diagram" tabindex="0" role="img" aria-label="${isTS?'T–s':'h–s'} діаграма води й пари" viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg"></svg><p id="diagram-legend">${diagramCache.isobars.map(({p},i)=>`<span style="color:${colors[i]}">━ ${dt('p',p)}</span>`).join(' · ')} · Насичення: синя товста лінія. ${process?process.kind+': зелений відрізок; ізоентропне розширення: пунктир.':''}</p><div id="diagram-selected" aria-live="polite">Виберіть точку журналу або процесу.</div>`;
- const svg=$('steam-diagram');
+ const tick=(k,v)=>new Intl.NumberFormat('uk-UA',{maximumSignificantDigits:4}).format(dq(k,v)[0]);
  function draw(){
- svg.innerHTML=`<defs><clipPath id="plot-clip"><rect x="60" y="50" width="820" height="400"/></clipPath></defs><rect width="960" height="520" fill="white"/>${Array.from({length:6},(_,i)=>`<path d="M60 ${450-i*80}H880 M${60+i*164} 50V450" stroke="#dde3eb"/><text x="50" y="${454-i*80}" text-anchor="end">${format(dq(isTS?'T':'h',range.ymin+(range.ymax-range.ymin)*i/5)[0])}</text><text x="${60+i*164}" y="470" text-anchor="middle">${format(dq('s',range.xmin+(range.xmax-range.xmin)*i/5)[0])}</text>`).join('')}<path d="M60 50V450H880" fill="none" stroke="#333"/><text x="470" y="505" text-anchor="middle">s, ${dq('s',null)[1]}</text><text x="65" y="25">${isTS?'t':'h'}, ${dq(isTS?'T':'h',null)[1]}</text><g clip-path="url(#plot-clip)">${diagramCache.isobars.map(({p,points},i)=>`<path d="${path(points)}" fill="none" stroke="${colors[i]}" stroke-width="1.2"><title>${dt('p',p)}</title></path>`).join('')}${diagramCache.dome.map(points=>`<path d="${path(points)}" fill="none" stroke="#12477c" stroke-width="3"/>`).join('')}${process?`<path d="${path([process.result.inlet,process.result.outlet])}" fill="none" stroke="#12804a" stroke-width="3"/>${process.result.coldInlet?`<path d="${path([process.result.coldInlet,process.result.coldOutlet])}" fill="none" stroke="#1a77b9" stroke-width="3"/>`:''}${process.result.ideal?`<path d="${path([process.result.inlet,process.result.ideal])}" fill="none" stroke="#12804a" stroke-width="2" stroke-dasharray="6 4"/>`:''}`:''}${choices.map(([q,label],i)=>`<circle data-point="${i}" tabindex="0" role="button" aria-label="${label}" cx="${X(q.s)}" cy="${Y(q)}" r="${selected===i?7:5}" fill="${selected===i?'#f09a00':'#c62828'}"><title>${label}: p=${dt('p',q.p)}; t=${dt('T',q.T-273.15)}; h=${dt('h',q.h)}; s=${dt('s',q.s)}</title></circle>`).join('')}</g>`;
- $('diagram-range').textContent=` s: ${dt('s',range.xmin)}…${dt('s',range.xmax)}; ${isTS?'t':'h'}: ${dt(isTS?'T':'h',range.ymin)}…${dt(isTS?'T':'h',range.ymax)}`;
+  if(!stage.isConnected)return;
+  const width=Math.max(240,stage.clientWidth),height=Math.max(180,stage.clientHeight);
+  plot={left:width<500?68:80,top:32,right:width-20,bottom:height-48};plot.width=plot.right-plot.left;plot.height=plot.bottom-plot.top;
+  svg.setAttribute('viewBox',`0 0 ${width} ${height}`);svg.setAttribute('width',width);svg.setAttribute('height',height);
+  const focusIndex=document.activeElement?.getAttribute('data-point'),ticks=width<500?2:5;
+  svg.innerHTML=`<defs><clipPath id="plot-clip"><rect x="${plot.left}" y="${plot.top}" width="${plot.width}" height="${plot.height}"/></clipPath></defs><rect width="${width}" height="${height}" fill="white"/>${Array.from({length:6},(_,i)=>{const y=plot.bottom-i*plot.height/5;return `<path d="M${plot.left} ${y}H${plot.right}" stroke="#dde3eb"/><text x="${plot.left-8}" y="${y+4}" text-anchor="end">${tick(vertical,range.ymin+(range.ymax-range.ymin)*i/5)}</text>`;}).join('')}${Array.from({length:ticks+1},(_,i)=>{const x=plot.left+i*plot.width/ticks;return `<path d="M${x} ${plot.top}V${plot.bottom}" stroke="#dde3eb"/><text x="${x}" y="${plot.bottom+20}" text-anchor="${i===ticks?'end':i===0?'start':'middle'}">${tick('s',range.xmin+(range.xmax-range.xmin)*i/ticks)}</text>`;}).join('')}<path d="M${plot.left} ${plot.top}V${plot.bottom}H${plot.right}" fill="none" stroke="#333"/><text x="${plot.left+plot.width/2}" y="${height-8}" text-anchor="middle">s, ${dq('s',null)[1]}</text><text x="${plot.left}" y="20">${isTS?'t':'h'}, ${dq(vertical,null)[1]}</text><g clip-path="url(#plot-clip)">${diagramCache.isobars.map(({p,points},i)=>hiddenIsobars.has(i)?'':`<path d="${path(points)}" fill="none" stroke="${colors[i]}" stroke-width="1.6"><title>${dt('p',p)}</title></path>`).join('')}${diagramCache.dome.map(points=>`<path d="${path(points)}" fill="none" stroke="#12477c" stroke-width="3"/>`).join('')}${process?`<path d="${path([process.result.inlet,process.result.outlet])}" fill="none" stroke="#12804a" stroke-width="3"/>${process.result.coldInlet?`<path d="${path([process.result.coldInlet,process.result.coldOutlet])}" fill="none" stroke="#1a77b9" stroke-width="3"/>`:''}${process.result.ideal?`<path d="${path([process.result.inlet,process.result.ideal])}" fill="none" stroke="#12804a" stroke-width="2" stroke-dasharray="6 4"/>`:''}`:''}${choices.map(([q,label],i)=>{const inside=q.s>=range.xmin&&q.s<=range.xmax&&value(q)>=range.ymin&&value(q)<=range.ymax;return `<g data-point="${i}" tabindex="${inside?0:-1}" role="button" aria-label="${escapeHTML(label)}" transform="translate(${X(q.s)},${Y(q)})"><circle r="14" fill="transparent"/><circle class="diagram-marker" r="${selected===i?7:5}" fill="${selected===i?'#f09a00':'#c62828'}" stroke="white" stroke-width="1.5"/><title>${escapeHTML(label)}: p=${dt('p',q.p)}; t=${dt('T',q.T-273.15)}; h=${dt('h',q.h)}; s=${dt('s',q.s)}</title></g>`;}).join('')}</g>`;
+  if(focusIndex!==null&&focusIndex!==undefined)svg.querySelector(`[data-point="${focusIndex}"]`)?.focus({preventScroll:true});
+  $('diagram-range').textContent=`s: ${dt('s',range.xmin)}…${dt('s',range.xmax)}; ${isTS?'t':'h'}: ${dt(vertical,range.ymin)}…${dt(vertical,range.ymax)}`;
+  diagramRanges.set(viewKey,{...range});
  }
- function choose(i){selected=i;const [q,label]=choices[i];$('diagram-selected').innerHTML=`<h3>${label}</h3><p>${q.phase} · p=${dt('p',q.p)} · t=${dt('T',q.T-273.15)} · h=${dt('h',q.h)} · s=${dt('s',q.s)} · x=${format(q.x)}</p><button id="diagram-transfer">Показати всі властивості</button>`;$('diagram-transfer').onclick=()=>{selectModel(q.model||'IF97');selectView('general');$('mode').value='ph';resetMode();$('input-a').value=String(q.p);$('input-b').value=String(q.h);run();};draw();}
+ function choose(i){
+  if(!choices[i])return;selected=i;$('diagram-point').value=String(i);const [q,label]=choices[i],y=value(q),w=range.xmax-range.xmin,h=range.ymax-range.ymin;
+  if(q.s<range.xmin||q.s>range.xmax||y<range.ymin||y>range.ymax)range={xmin:q.s-w/2,xmax:q.s+w/2,ymin:y-h/2,ymax:y+h/2};
+  $('diagram-selected').innerHTML=`<strong>${escapeHTML(label)} · ${escapeHTML(q.phase)}</strong><div class="diagram-metrics"><span>p: ${dt('p',q.p)}</span><span>t: ${dt('T',q.T-273.15)}</span><span>h: ${dt('h',q.h)}</span><span>s: ${dt('s',q.s)}</span><span>x: ${format(q.x)}</span></div><button id="diagram-transfer">Усі властивості стану</button>`;
+  $('diagram-transfer').onclick=()=>{selectModel(q.model||'IF97');selectView('general');$('mode').value='ph';resetMode();$('input-a').value=String(q.p);$('input-b').value=String(q.h);run();};draw();
+ }
  function zoom(f,cx=.5,cy=.5){const w=range.xmax-range.xmin,h=range.ymax-range.ymin;if(w*f<.05||w*f>44)return;const x=range.xmin+w*cx,y=range.ymin+h*cy;range={xmin:x-w*f*cx,xmax:x+w*f*(1-cx),ymin:y-h*f*cy,ymax:y+h*f*(1-cy)};draw();}
- $('diagram-in').onclick=()=>zoom(.8);$('diagram-out').onclick=()=>zoom(1.25);$('diagram-reset').onclick=()=>{range={xmin:0,xmax:11,ymin:0,ymax:baseY};draw();};
+ function fractions(x,y){const pt=svg.createSVGPoint();pt.x=x;pt.y=y;const p=pt.matrixTransform(svg.getScreenCTM().inverse());return {x:Math.max(0,Math.min(1,(p.x-plot.left)/plot.width)),y:Math.max(0,Math.min(1,(plot.bottom-p.y)/plot.height))};}
+ $('diagram-in').onclick=()=>zoom(.8);$('diagram-out').onclick=()=>zoom(1.25);$('diagram-reset').onclick=()=>{range={...initial};draw();};
+ $('diagram-fit').onclick=()=>{if(!choices.length)return;const xs=choices.map(([q])=>q.s),ys=choices.map(([q])=>value(q)),xmin=Math.min(...xs),xmax=Math.max(...xs),ymin=Math.min(...ys),ymax=Math.max(...ys),padX=Math.max(.5,(xmax-xmin)*.15),padY=Math.max(baseY*.06,(ymax-ymin)*.15);range={xmin:xmin-padX,xmax:xmax+padX,ymin:ymin-padY,ymax:ymax+padY};draw();};
+ $('diagram-point').onchange=()=>{if($('diagram-point').value!=='')choose(Number($('diagram-point').value));};
+ function expandLabel(){const expanded=document.body.classList.contains('diagram-expanded');$('diagram-expand').textContent=expanded?'Повернути панелі':'Розгорнути графік';$('diagram-expand').setAttribute('aria-pressed',String(expanded));}
+ $('diagram-expand').onclick=()=>{document.body.classList.toggle('diagram-expanded');expandLabel();};expandLabel();
  $('diagram-refresh').onclick=()=>showDiagram(kind);$('diagram-clear').onclick=()=>{plottedProcess=null;storedProcess=null;saveProject();showDiagram(kind);};
  $('diagram-save').onclick=()=>{const url=URL.createObjectURL(new Blob([svg.outerHTML],{type:'image/svg+xml;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=kind+'.svg';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
- svg.addEventListener('wheel',e=>{e.preventDefault();const b=svg.getBoundingClientRect();zoom(e.deltaY<0?.8:1.25,Math.max(0,Math.min(1,(e.clientX-b.left)/b.width)),Math.max(0,Math.min(1,1-(e.clientY-b.top)/b.height)));},{passive:false});
- let drag=null,moved=false;
- svg.addEventListener('pointerdown',e=>{if(e.target.closest('[data-point]'))return;drag={x:e.clientX,y:e.clientY,range:{...range}};moved=false;svg.setPointerCapture(e.pointerId);});
- svg.addEventListener('pointermove',e=>{if(!drag)return;const b=svg.getBoundingClientRect(),dx=(e.clientX-drag.x)/b.width*960/820*(drag.range.xmax-drag.range.xmin),dy=(e.clientY-drag.y)/b.height*520/400*(drag.range.ymax-drag.range.ymin);moved=Math.abs(dx)+Math.abs(dy)>0;range={xmin:drag.range.xmin-dx,xmax:drag.range.xmax-dx,ymin:drag.range.ymin+dy,ymax:drag.range.ymax+dy};draw();});
- svg.addEventListener('pointerup',()=>{drag=null;});svg.addEventListener('pointercancel',()=>{drag=null;});
- svg.addEventListener('click',e=>{const point=e.target.closest('[data-point]');if(point)choose(Number(point.dataset.point));});
- svg.addEventListener('keydown',e=>{const point=e.target.closest('[data-point]');if(point&&['Enter',' '].includes(e.key)){e.preventDefault();choose(Number(point.dataset.point));return;}if(['+','=','-'].includes(e.key)){e.preventDefault();zoom(e.key==='-'?1.25:.8);}if(e.key.startsWith('Arrow')){e.preventDefault();const dx=(range.xmax-range.xmin)*.1,dy=(range.ymax-range.ymin)*.1;const x=e.key==='ArrowLeft'?-dx:e.key==='ArrowRight'?dx:0,y=e.key==='ArrowDown'?-dy:e.key==='ArrowUp'?dy:0;range={xmin:range.xmin+x,xmax:range.xmax+x,ymin:range.ymin+y,ymax:range.ymax+y};draw();}});
- diagramRedraw=()=>{draw();$('diagram-legend').innerHTML=diagramCache.isobars.map(({p},i)=>`<span style="color:${colors[i]}">━ ${dt('p',p)}</span>`).join(' · ');if(selected!==null)choose(selected);};
- draw();
+ $('diagram-legend').onclick=e=>{const b=e.target.closest('[data-isobar]');if(!b)return;const i=Number(b.dataset.isobar);hiddenIsobars.has(i)?hiddenIsobars.delete(i):hiddenIsobars.add(i);b.setAttribute('aria-pressed',String(!hiddenIsobars.has(i)));draw();};
+ svg.addEventListener('wheel',e=>{if(!e.ctrlKey)return;e.preventDefault();const p=fractions(e.clientX,e.clientY);zoom(e.deltaY<0?.8:1.25,p.x,p.y);},{passive:false});
+ const pointers=new Map();let gesture=null,moved=false,downPoint=null;
+ function rebase(){const ps=[...pointers.values()];gesture={range:{...range},points:ps.map(p=>({...p}))};}
+ svg.addEventListener('pointerdown',e=>{if(e.button!==0)return;if(!pointers.size){moved=false;downPoint=e.target.closest('[data-point]')?.dataset.point??null;}else moved=true;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});svg.setPointerCapture(e.pointerId);rebase();svg.classList.add('is-dragging');});
+ svg.addEventListener('pointermove',e=>{
+  if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});const ps=[...pointers.values()],start=gesture.points,w=gesture.range.xmax-gesture.range.xmin,h=gesture.range.ymax-gesture.range.ymin;
+  if(ps.length===1){const dx=ps[0].x-start[0].x,dy=ps[0].y-start[0].y;if(Math.hypot(dx,dy)>4)moved=true;const r=svg.getBoundingClientRect();range={xmin:gesture.range.xmin-dx/r.width*svg.viewBox.baseVal.width/plot.width*w,xmax:gesture.range.xmax-dx/r.width*svg.viewBox.baseVal.width/plot.width*w,ymin:gesture.range.ymin+dy/r.height*svg.viewBox.baseVal.height/plot.height*h,ymax:gesture.range.ymax+dy/r.height*svg.viewBox.baseVal.height/plot.height*h};}
+  else {moved=true;const distance=p=>Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y),factor=distance(start)/Math.max(distance(ps),1);if(w*factor<.05||w*factor>44)return;const a=fractions((start[0].x+start[1].x)/2,(start[0].y+start[1].y)/2),c=fractions((ps[0].x+ps[1].x)/2,(ps[0].y+ps[1].y)/2),x=gesture.range.xmin+a.x*w,y=gesture.range.ymin+a.y*h;range={xmin:x-c.x*w*factor,xmax:x+(1-c.x)*w*factor,ymin:y-c.y*h*factor,ymax:y+(1-c.y)*h*factor};}draw();
+ });
+ function endGesture(e,cancel=false){if(!pointers.has(e.pointerId))return;pointers.delete(e.pointerId);if(pointers.size){rebase();return;}gesture=null;svg.classList.remove('is-dragging');if(!cancel&&!moved&&downPoint!==null)choose(Number(downPoint));downPoint=null;}
+ svg.addEventListener('pointerup',e=>endGesture(e));svg.addEventListener('pointercancel',e=>endGesture(e,true));svg.addEventListener('lostpointercapture',e=>endGesture(e,true));
+ svg.addEventListener('keydown',e=>{const point=e.target.closest('[data-point]');if(point&&['Enter',' '].includes(e.key)){e.preventDefault();choose(Number(point.dataset.point));return;}if(['+','=','-'].includes(e.key)){e.preventDefault();zoom(e.key==='-'?1.25:.8);}if(e.key.startsWith('Arrow')){e.preventDefault();const dx=(range.xmax-range.xmin)*.1,dy=(range.ymax-range.ymin)*.1,x=e.key==='ArrowLeft'?-dx:e.key==='ArrowRight'?dx:0,y=e.key==='ArrowDown'?-dy:e.key==='ArrowUp'?dy:0;range={xmin:range.xmin+x,xmax:range.xmax+x,ymin:range.ymin+y,ymax:range.ymax+y};draw();}});
+ diagramRedraw=()=>{draw();for(const b of $('diagram-legend').querySelectorAll('[data-isobar]'))b.textContent='━ '+dt('p',diagramCache.isobars[Number(b.dataset.isobar)].p);if(selected!==null)choose(selected);};
+ diagramObserver=new ResizeObserver(draw);diagramObserver.observe(stage);draw();
 }
 
 const STORAGE_KEY='water-steam-if97-project-v1';
@@ -2940,6 +3225,16 @@ function renderEngineering(){if(!engineeringResult||!$('eng-result'))return;cons
 
 const reportExport=document.createElement('button');reportExport.innerHTML=icon('report')+'Звіт для друку HTML';reportExport.onclick=()=>{fileMenu.closest('details').open=false;const states=historyStates.length?historyStates:last?.state?[last.state]:[];if(!states.length){$('result-status').textContent='Спочатку розрахуйте хоча б один стан';return;}downloadFile(printableReport($('project-title').value,states,$('output-system').value,$('output-energy').value),'water-steam-report.html','text/html;charset=utf-8');};fileMenu.append(reportExport);
 document.querySelector('[role=tablist]').addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;const tabs=[...document.querySelectorAll('[role=tab]')],i=tabs.indexOf(e.target);if(i<0)return;e.preventDefault();const n=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[n].focus();tabs[n].click();});
+
+// Start with room for results on phones; the menu can reveal settings at any time.
+if(window.matchMedia('(max-width:700px)').matches)document.body.classList.add('setup-collapsed');
+// A native section picker keeps every panel reachable on narrow screens.
+const sectionTabs=[...document.querySelectorAll('[role="tab"]')];
+$('section-select').replaceChildren(...sectionTabs.map(tab=>new Option(tab.textContent.trim(),tab.dataset.action)));
+$('section-select').onchange=()=>sectionTabs.find(tab=>tab.dataset.action===$('section-select').value)?.click();
+const syncSection=()=>{const selected=sectionTabs.find(tab=>tab.getAttribute('aria-selected')==='true');if(selected)$('section-select').value=selected.dataset.action;};
+new MutationObserver(syncSection).observe(document.querySelector('[role="tablist"]'),{subtree:true,attributes:true,attributeFilter:['aria-selected']});
+syncSection();
 
 
 // src/learning-export.js

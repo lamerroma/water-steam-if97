@@ -2485,10 +2485,11 @@ rows.splice(6,0,rows.splice(rows.findIndex(r=>r[0]==='ex'),1)[0]);
 const constants=['Газова стала R = 0,461526 кДж/(кг·K)','Молярна газова стала Rm = 8,31451 Дж/(моль·K)','Молярна маса M = 18,015257 г/моль','Критична температура Tc = 647,096 K','Критичний тиск pc = 22,064 МПа','Критична густина ρc = 322 кг/м³','Потрійна точка Tt = 273,16 K','Потрійна точка pt = 611,657 Па'];
 let openGlossary=new Set(),hintsEnabled=true;
 // Shared by the main property table and the other learning panels (ice/D2O/seawater/
-// gases/humid air/cycles, see learning-ui.js): a property name becomes a button with a
-// native hover tooltip and a click-to-expand explanation row, unless hints are off.
-function glossaryCell(key,label){
+// gases/humid air/cycles, see learning-ui.js). The main table uses hover-only labels;
+// learning panels also allow expanding the explanation by clicking its button.
+function glossaryCell(key,label,expand=true){
  if(!hintsEnabled||!GLOSSARY[key])return escapeHTML(label);
+ if(!expand)return `<span class="glossary-tooltip" title="${escapeHTML(GLOSSARY[key])}">${escapeHTML(label)} ${icon('help',11)}</span>`;
  return `<button class="glossary-toggle" data-glossary="${key}" aria-expanded="${openGlossary.has(key)}" title="${escapeHTML(GLOSSARY[key])}">${escapeHTML(label)} ${icon('help',11)}</button>`;
 }
 function glossaryDetailRow(key,leadCells,span,extraHidden){
@@ -2496,6 +2497,7 @@ function glossaryDetailRow(key,leadCells,span,extraHidden){
  return `<tr class="glossary-row" data-glossary-row="${key}" ${extraHidden?'hidden':''}>${'<td></td>'.repeat(leadCells)}<td colspan="${span}">${GLOSSARY[key]}</td></tr>`;
 }
 function propertyTable(state) {
+ const modelConstants=modelValue()==='IAPWS-95'?['Газова стала R = 0,46151805 кДж/(кг·K)','','','Критична температура Tc = 647,096 K','Критичний тиск pc = 22,064 МПа','Критична густина ρc = 322 кг/м³','Потрійна точка Tt = 273,16 K','Потрійна точка (EOS) pt ≈ 611,654771 Па']:constants;
  return `<table class="property-table"><thead><tr><th>№</th><th>Назва властивості</th><th>Символ</th><th>⧉</th><th>Результат</th><th>Одиниці</th><th>Константи ${modelValue()}</th></tr></thead><tbody>${rows.map(([key,name,symbol,unit],i)=>{
  const value=state?(key==='T'?state.T-273.15:state[key]):null;
  const [v,u]=display(key,value,unit);
@@ -2503,10 +2505,9 @@ function propertyTable(state) {
  const groupName=i===0?'1. Термодинамічні властивості — основні':i===11?'2. Термодинамічні властивості — стан':i===26?'3. Транспортні властивості':null;
  const collapsed=collapsedGroups.has(groupId);
  const group=groupName?`<tr class="group"><td colspan="7"><button data-group="${groupId}" aria-expanded="${!collapsed}">${collapsed?'⊞':'⊟'} ${groupName}</button></td></tr>`:'';
- const nameCell=glossaryCell(key,name);
- const glossaryRowHtml=glossaryDetailRow(key,1,6,collapsed);
- return `${group}<tr data-group-row="${groupId}" ${collapsed?'hidden':''} data-property="${key}"><td>${i+1}</td><td>${nameCell}</td><td>${symbol}</td><td><button class="copy" data-copy="${key}" aria-label="Копіювати: ${name}" ${v==null?'disabled':''}>${icon('copy',13)}</button></td><td>${state?format(v):''}</td><td>${u}</td><td class="constant">${(modelValue()==='IAPWS-95'?['Газова стала R = 0,46151805 кДж/(кг·K)','','','Критична температура Tc = 647,096 K','Критичний тиск pc = 22,064 МПа','Критична густина ρc = 322 кг/м³','Потрійна точка Tt = 273,16 K','Потрійна точка (EOS) pt ≈ 611,654771 Па'][i]:constants[i])||''}</td></tr>${glossaryRowHtml}`;
- }).join('')}</tbody></table>`;
+ const nameCell=glossaryCell(key,name,false);
+ return `${group}<tr data-group-row="${groupId}" ${collapsed?'hidden':''} data-property="${key}"><td>${i+1}</td><td>${nameCell}</td><td>${symbol}</td><td><button class="copy" data-copy="${key}" aria-label="Копіювати: ${name}" ${v==null?'disabled':''}>${icon('copy',13)}</button></td><td>${state?format(v):''}</td><td>${u}</td><td class="constant">${modelConstants[i]||''}</td></tr>`;
+ }).join('')}</tbody></table><details class="compact-constants"><summary>Константи ${modelValue()}</summary><ul>${modelConstants.filter(Boolean).map(text=>`<li>${escapeHTML(text)}</li>`).join('')}</ul></details>`;
 }
 let historyUndo=null,unsavedProject=false;
 function renderHistory() {
@@ -2521,6 +2522,7 @@ $('history-undo').onclick=()=>{if(!historyUndo)return;historyStates.splice(0,his
 window.addEventListener('beforeunload',e=>{if(unsavedProject){e.preventDefault();e.returnValue='';}});
 
 function selectView(view) {
+ leaveDiagram();
  for(const b of document.querySelectorAll('[role="tab"]'))b.setAttribute('aria-selected','false');$('process-view').hidden=true;$('calculator-view').hidden=view==='help';$('help-view').hidden=view!=='help';
  for(const name of ['general','saturation','help'])$('tab-'+name).setAttribute('aria-selected',String(name===view));
  if(view==='saturation'&&!['satp','satt','px','tx'].includes($('mode').value)){$('mode').value='satp';resetMode();}
@@ -2605,10 +2607,10 @@ function exportHistory(){
  const url=URL.createObjectURL(new Blob([content],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='water-steam-history.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);$('result-status').textContent='CSV історії підготовлено';
 }
 $('ui-scale').addEventListener('change',()=>{document.documentElement.style.setProperty('--ui-scale',$('ui-scale').value);});
-const divider=$('output-resize');let resizing=false;
+const divider=$('output-resize');let resizing=false,resizeStartY=0,resizeStartHeight=218;
 function resizeOutput(height){const max=Math.max(100,Math.min(400,window.innerHeight-350));const h=Math.round(Math.max(100,Math.min(max,height)));document.documentElement.style.setProperty('--output-height',h+'px');divider.setAttribute('aria-valuenow',String(h));}
-divider.addEventListener('pointerdown',e=>{if(window.innerWidth<=700)return;resizing=true;divider.setPointerCapture(e.pointerId);document.body.classList.remove('output-collapsed');});
-divider.addEventListener('pointermove',e=>{if(resizing)resizeOutput(window.innerHeight-e.clientY-24);});
+divider.addEventListener('pointerdown',e=>{if(window.innerWidth<=900)return;resizing=true;resizeStartY=e.clientY;resizeStartHeight=Number(divider.getAttribute('aria-valuenow'));divider.setPointerCapture(e.pointerId);document.body.classList.remove('output-collapsed');});
+divider.addEventListener('pointermove',e=>{if(resizing)resizeOutput(resizeStartHeight+resizeStartY-e.clientY);});
 divider.addEventListener('pointerup',()=>{resizing=false;});divider.addEventListener('pointercancel',()=>{resizing=false;});
 divider.addEventListener('keydown',e=>{if(e.key==='ArrowUp'||e.key==='ArrowDown'){e.preventDefault();resizeOutput(Number(divider.getAttribute('aria-valuenow'))+(e.key==='ArrowUp'?20:-20));}});
 resetMode();renderHistory();
@@ -2632,11 +2634,14 @@ function ensureCoolProp(){
  return coolPropReady;
 }
 
-let diagramCache=null, plottedProcess=null, diagramRedraw=null;
+let diagramCache=null, plottedProcess=null, diagramRedraw=null,diagramObserver=null;
+const diagramRanges=new Map(),diagramIsobars=new Map();
+function leaveDiagram(){document.body.classList.remove('diagram-active','diagram-expanded');diagramObserver?.disconnect();diagramObserver=null;}
 function massTo(v,u){return u==='kgh'?v/3600:u==='lbs'?v*.45359237:u==='lbh'?v*.45359237/3600:v;}
 function massFrom(v,u){return u==='kgh'?v*3600:u==='lbs'?v/.45359237:u==='lbh'?v*3600/.45359237:v;}
 function processDisplay(k,v,u){return $('output-system').value==='english'?englishProperty(k,k==='T'?v+273.15:v,u):[v,u];}
 function showProcess(kind){
+ leaveDiagram();
  $('calculator-view').hidden=true;$('help-view').hidden=true;$('process-view').hidden=false;
  for(const b of document.querySelectorAll('[role="tab"]'))b.setAttribute('aria-selected',String(b.dataset.action===kind));
  if(kind==='ts'||kind==='hsdiagram'){showDiagram(kind);return;}
@@ -2667,39 +2672,67 @@ function showProcess(kind){
  }catch(e){$('process-error').textContent=e.message;$('result-status').textContent='Перевірте вхідні дані';}});
 }
 function showDiagram(kind){
+ diagramObserver?.disconnect();
+ document.body.classList.add('diagram-active');
  const dq=(k,v)=>diagramQuantity(k,v,$('output-system').value,$('output-energy').value);
  const dt=(k,v)=>{const [n,u]=dq(k,v);return format(n)+' '+u;};
  if(!diagramCache)diagramCache=diagramData(modelValue());
- const isTS=kind==='ts',baseY=isTS?800:4500;
- let range={xmin:0,xmax:11,ymin:0,ymax:baseY},selected=null;
+ const isTS=kind==='ts',vertical=isTS?'T':'h',baseY=isTS?800:4500,viewKey=modelValue()+':'+kind;
+ const initial={xmin:0,xmax:11,ymin:0,ymax:baseY};
+ let range={...(diagramRanges.get(viewKey)||initial)},selected=null,plot;
  const colors=['#a75b00','#3977a6','#8b4599','#27825a','#b84242','#706c25','#555'];
  const process=plottedProcess;
  const processPoints=process?[[process.result.inlet,'Вхід'],...(process.result.ideal?[[process.result.ideal,'Ізоентропний вихід']]:[]),[process.result.outlet,'Вихід'],...(process.result.coldInlet?[[process.result.coldInlet,'Холодний вхід'],[process.result.coldOutlet,'Холодний вихід']]:[])]:[];
- const choices=[...historyStates.filter(q=>(q.model||'IF97')===modelValue()).map((q,i)=>[q,`Журнал № ${historyStates.length-i}`]),...processPoints];
- const X=s=>60+(s-range.xmin)/(range.xmax-range.xmin)*820;
+ const choices=[...historyStates.map((q,i)=>[q,q.name||`Журнал № ${historyStates.length-i}`]).filter(([q])=>(q.model||'IF97')===modelValue()),...processPoints];
+ const hiddenIsobars=diagramIsobars.get(viewKey)||new Set();diagramIsobars.set(viewKey,hiddenIsobars);
+ $('process-view').innerHTML=`<div class="diagram-heading"><h2>${isTS?'T–s':'h–s'} діаграма · ${modelValue()}</h2><button id="diagram-expand" aria-pressed="${document.body.classList.contains('diagram-expanded')}">Розгорнути графік</button></div><div class="diagram-controls" aria-label="Керування діаграмою"><button id="diagram-in" aria-label="Збільшити масштаб" title="Збільшити масштаб">＋</button><button id="diagram-out" aria-label="Зменшити масштаб" title="Зменшити масштаб">−</button><button id="diagram-reset">Весь графік</button><button id="diagram-fit" ${choices.length?'':'disabled'}>До точок</button><label for="diagram-point">Точка<select id="diagram-point" ${choices.length?'':'disabled'}><option value="">${choices.length?'Виберіть стан':'Немає розрахованих станів'}</option>${choices.map(([q,label],i)=>`<option value="${i}">${escapeHTML(label)} · ${dt('p',q.p)} · ${dt('T',q.T-273.15)}</option>`).join('')}</select></label></div><div class="diagram-stage"><svg id="steam-diagram" style="font:13px Arial" tabindex="0" role="group" aria-label="${isTS?'T–s':'h–s'} діаграма води й пари" aria-describedby="diagram-help" xmlns="http://www.w3.org/2000/svg"></svg></div><div id="diagram-legend" class="diagram-legend" aria-label="Ізобари">${diagramCache.isobars.map(({p},i)=>`<button data-isobar="${i}" aria-pressed="${!hiddenIsobars.has(i)}" title="Показати або приховати ізобару" style="color:${colors[i]}">━ ${dt('p',p)}</button>`).join('')}<span>━ Насичення</span></div><div id="diagram-selected" aria-live="polite">${choices.length?'Виберіть точку на графіку або зі списку.':'Щоб додати точку, спочатку розрахуйте стан у вкладці «Загальні властивості».'}</div><details class="diagram-tools"><summary>Дії та керування</summary><p id="diagram-help">Перетягування — переміщення. Ctrl + колесо або +/− — масштаб. На сенсорному екрані можна збільшувати двома пальцями. Стрілки переміщують сфокусований графік. Кольорові кнопки показують або приховують ізобари. Лінії процесу з’єднують кінцеві стани; проміжний шлях реальної турбіни не визначений її ККД.</p><button id="diagram-refresh">Оновити точки</button><button id="diagram-save">Зберегти SVG</button><button id="diagram-clear" ${process?'':'disabled'}>Прибрати процес</button><span id="diagram-range"></span></details>`;
+ const svg=$('steam-diagram'),stage=svg.parentElement;
  const value=q=>isTS?q.T-273.15:q.h;
- const Y=q=>450-(value(q)-range.ymin)/(range.ymax-range.ymin)*400;
+ const X=s=>plot.left+(s-range.xmin)/(range.xmax-range.xmin)*plot.width;
+ const Y=q=>plot.bottom-(value(q)-range.ymin)/(range.ymax-range.ymin)*plot.height;
  const path=points=>{let pen=false;return points.map(q=>{if(!q||!Number.isFinite(q.s)||!Number.isFinite(value(q))){pen=false;return '';}const str=`${pen?'L':'M'}${X(q.s).toFixed(2)},${Y(q).toFixed(2)}`;pen=true;return str;}).join(' ');};
- $('process-view').innerHTML=`<h2>${isTS?'T–s':'h–s'} діаграма · ${modelValue()}</h2><p>Масштаб: кнопки +/− або колесо над графіком. Переміщення: перетягування або стрілки після фокусування графіка. Виберіть позначену точку для властивостей. Лінії процесу з’єднують кінцеві стани; проміжний шлях реальної турбіни не визначений її ККД.</p><button id="diagram-in">+</button><button id="diagram-out">−</button><button id="diagram-reset">Скинути масштаб</button><button id="diagram-refresh">Оновити точки</button><button id="diagram-save">Зберегти SVG</button><button id="diagram-clear">Прибрати процес</button><span id="diagram-range"></span><svg id="steam-diagram" tabindex="0" role="img" aria-label="${isTS?'T–s':'h–s'} діаграма води й пари" viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg"></svg><p id="diagram-legend">${diagramCache.isobars.map(({p},i)=>`<span style="color:${colors[i]}">━ ${dt('p',p)}</span>`).join(' · ')} · Насичення: синя товста лінія. ${process?process.kind+': зелений відрізок; ізоентропне розширення: пунктир.':''}</p><div id="diagram-selected" aria-live="polite">Виберіть точку журналу або процесу.</div>`;
- const svg=$('steam-diagram');
+ const tick=(k,v)=>new Intl.NumberFormat('uk-UA',{maximumSignificantDigits:4}).format(dq(k,v)[0]);
  function draw(){
- svg.innerHTML=`<defs><clipPath id="plot-clip"><rect x="60" y="50" width="820" height="400"/></clipPath></defs><rect width="960" height="520" fill="white"/>${Array.from({length:6},(_,i)=>`<path d="M60 ${450-i*80}H880 M${60+i*164} 50V450" stroke="#dde3eb"/><text x="50" y="${454-i*80}" text-anchor="end">${format(dq(isTS?'T':'h',range.ymin+(range.ymax-range.ymin)*i/5)[0])}</text><text x="${60+i*164}" y="470" text-anchor="middle">${format(dq('s',range.xmin+(range.xmax-range.xmin)*i/5)[0])}</text>`).join('')}<path d="M60 50V450H880" fill="none" stroke="#333"/><text x="470" y="505" text-anchor="middle">s, ${dq('s',null)[1]}</text><text x="65" y="25">${isTS?'t':'h'}, ${dq(isTS?'T':'h',null)[1]}</text><g clip-path="url(#plot-clip)">${diagramCache.isobars.map(({p,points},i)=>`<path d="${path(points)}" fill="none" stroke="${colors[i]}" stroke-width="1.2"><title>${dt('p',p)}</title></path>`).join('')}${diagramCache.dome.map(points=>`<path d="${path(points)}" fill="none" stroke="#12477c" stroke-width="3"/>`).join('')}${process?`<path d="${path([process.result.inlet,process.result.outlet])}" fill="none" stroke="#12804a" stroke-width="3"/>${process.result.coldInlet?`<path d="${path([process.result.coldInlet,process.result.coldOutlet])}" fill="none" stroke="#1a77b9" stroke-width="3"/>`:''}${process.result.ideal?`<path d="${path([process.result.inlet,process.result.ideal])}" fill="none" stroke="#12804a" stroke-width="2" stroke-dasharray="6 4"/>`:''}`:''}${choices.map(([q,label],i)=>`<circle data-point="${i}" tabindex="0" role="button" aria-label="${label}" cx="${X(q.s)}" cy="${Y(q)}" r="${selected===i?7:5}" fill="${selected===i?'#f09a00':'#c62828'}"><title>${label}: p=${dt('p',q.p)}; t=${dt('T',q.T-273.15)}; h=${dt('h',q.h)}; s=${dt('s',q.s)}</title></circle>`).join('')}</g>`;
- $('diagram-range').textContent=` s: ${dt('s',range.xmin)}…${dt('s',range.xmax)}; ${isTS?'t':'h'}: ${dt(isTS?'T':'h',range.ymin)}…${dt(isTS?'T':'h',range.ymax)}`;
+  if(!stage.isConnected)return;
+  const width=Math.max(240,stage.clientWidth),height=Math.max(180,stage.clientHeight);
+  plot={left:width<500?68:80,top:32,right:width-20,bottom:height-48};plot.width=plot.right-plot.left;plot.height=plot.bottom-plot.top;
+  svg.setAttribute('viewBox',`0 0 ${width} ${height}`);svg.setAttribute('width',width);svg.setAttribute('height',height);
+  const focusIndex=document.activeElement?.getAttribute('data-point'),ticks=width<500?2:5;
+  svg.innerHTML=`<defs><clipPath id="plot-clip"><rect x="${plot.left}" y="${plot.top}" width="${plot.width}" height="${plot.height}"/></clipPath></defs><rect width="${width}" height="${height}" fill="white"/>${Array.from({length:6},(_,i)=>{const y=plot.bottom-i*plot.height/5;return `<path d="M${plot.left} ${y}H${plot.right}" stroke="#dde3eb"/><text x="${plot.left-8}" y="${y+4}" text-anchor="end">${tick(vertical,range.ymin+(range.ymax-range.ymin)*i/5)}</text>`;}).join('')}${Array.from({length:ticks+1},(_,i)=>{const x=plot.left+i*plot.width/ticks;return `<path d="M${x} ${plot.top}V${plot.bottom}" stroke="#dde3eb"/><text x="${x}" y="${plot.bottom+20}" text-anchor="${i===ticks?'end':i===0?'start':'middle'}">${tick('s',range.xmin+(range.xmax-range.xmin)*i/ticks)}</text>`;}).join('')}<path d="M${plot.left} ${plot.top}V${plot.bottom}H${plot.right}" fill="none" stroke="#333"/><text x="${plot.left+plot.width/2}" y="${height-8}" text-anchor="middle">s, ${dq('s',null)[1]}</text><text x="${plot.left}" y="20">${isTS?'t':'h'}, ${dq(vertical,null)[1]}</text><g clip-path="url(#plot-clip)">${diagramCache.isobars.map(({p,points},i)=>hiddenIsobars.has(i)?'':`<path d="${path(points)}" fill="none" stroke="${colors[i]}" stroke-width="1.6"><title>${dt('p',p)}</title></path>`).join('')}${diagramCache.dome.map(points=>`<path d="${path(points)}" fill="none" stroke="#12477c" stroke-width="3"/>`).join('')}${process?`<path d="${path([process.result.inlet,process.result.outlet])}" fill="none" stroke="#12804a" stroke-width="3"/>${process.result.coldInlet?`<path d="${path([process.result.coldInlet,process.result.coldOutlet])}" fill="none" stroke="#1a77b9" stroke-width="3"/>`:''}${process.result.ideal?`<path d="${path([process.result.inlet,process.result.ideal])}" fill="none" stroke="#12804a" stroke-width="2" stroke-dasharray="6 4"/>`:''}`:''}${choices.map(([q,label],i)=>{const inside=q.s>=range.xmin&&q.s<=range.xmax&&value(q)>=range.ymin&&value(q)<=range.ymax;return `<g data-point="${i}" tabindex="${inside?0:-1}" role="button" aria-label="${escapeHTML(label)}" transform="translate(${X(q.s)},${Y(q)})"><circle r="14" fill="transparent"/><circle class="diagram-marker" r="${selected===i?7:5}" fill="${selected===i?'#f09a00':'#c62828'}" stroke="white" stroke-width="1.5"/><title>${escapeHTML(label)}: p=${dt('p',q.p)}; t=${dt('T',q.T-273.15)}; h=${dt('h',q.h)}; s=${dt('s',q.s)}</title></g>`;}).join('')}</g>`;
+  if(focusIndex!==null&&focusIndex!==undefined)svg.querySelector(`[data-point="${focusIndex}"]`)?.focus({preventScroll:true});
+  $('diagram-range').textContent=`s: ${dt('s',range.xmin)}…${dt('s',range.xmax)}; ${isTS?'t':'h'}: ${dt(vertical,range.ymin)}…${dt(vertical,range.ymax)}`;
+  diagramRanges.set(viewKey,{...range});
  }
- function choose(i){selected=i;const [q,label]=choices[i];$('diagram-selected').innerHTML=`<h3>${label}</h3><p>${q.phase} · p=${dt('p',q.p)} · t=${dt('T',q.T-273.15)} · h=${dt('h',q.h)} · s=${dt('s',q.s)} · x=${format(q.x)}</p><button id="diagram-transfer">Показати всі властивості</button>`;$('diagram-transfer').onclick=()=>{selectModel(q.model||'IF97');selectView('general');$('mode').value='ph';resetMode();$('input-a').value=String(q.p);$('input-b').value=String(q.h);run();};draw();}
+ function choose(i){
+  if(!choices[i])return;selected=i;$('diagram-point').value=String(i);const [q,label]=choices[i],y=value(q),w=range.xmax-range.xmin,h=range.ymax-range.ymin;
+  if(q.s<range.xmin||q.s>range.xmax||y<range.ymin||y>range.ymax)range={xmin:q.s-w/2,xmax:q.s+w/2,ymin:y-h/2,ymax:y+h/2};
+  $('diagram-selected').innerHTML=`<strong>${escapeHTML(label)} · ${escapeHTML(q.phase)}</strong><div class="diagram-metrics"><span>p: ${dt('p',q.p)}</span><span>t: ${dt('T',q.T-273.15)}</span><span>h: ${dt('h',q.h)}</span><span>s: ${dt('s',q.s)}</span><span>x: ${format(q.x)}</span></div><button id="diagram-transfer">Усі властивості стану</button>`;
+  $('diagram-transfer').onclick=()=>{selectModel(q.model||'IF97');selectView('general');$('mode').value='ph';resetMode();$('input-a').value=String(q.p);$('input-b').value=String(q.h);run();};draw();
+ }
  function zoom(f,cx=.5,cy=.5){const w=range.xmax-range.xmin,h=range.ymax-range.ymin;if(w*f<.05||w*f>44)return;const x=range.xmin+w*cx,y=range.ymin+h*cy;range={xmin:x-w*f*cx,xmax:x+w*f*(1-cx),ymin:y-h*f*cy,ymax:y+h*f*(1-cy)};draw();}
- $('diagram-in').onclick=()=>zoom(.8);$('diagram-out').onclick=()=>zoom(1.25);$('diagram-reset').onclick=()=>{range={xmin:0,xmax:11,ymin:0,ymax:baseY};draw();};
+ function fractions(x,y){const pt=svg.createSVGPoint();pt.x=x;pt.y=y;const p=pt.matrixTransform(svg.getScreenCTM().inverse());return {x:Math.max(0,Math.min(1,(p.x-plot.left)/plot.width)),y:Math.max(0,Math.min(1,(plot.bottom-p.y)/plot.height))};}
+ $('diagram-in').onclick=()=>zoom(.8);$('diagram-out').onclick=()=>zoom(1.25);$('diagram-reset').onclick=()=>{range={...initial};draw();};
+ $('diagram-fit').onclick=()=>{if(!choices.length)return;const xs=choices.map(([q])=>q.s),ys=choices.map(([q])=>value(q)),xmin=Math.min(...xs),xmax=Math.max(...xs),ymin=Math.min(...ys),ymax=Math.max(...ys),padX=Math.max(.5,(xmax-xmin)*.15),padY=Math.max(baseY*.06,(ymax-ymin)*.15);range={xmin:xmin-padX,xmax:xmax+padX,ymin:ymin-padY,ymax:ymax+padY};draw();};
+ $('diagram-point').onchange=()=>{if($('diagram-point').value!=='')choose(Number($('diagram-point').value));};
+ function expandLabel(){const expanded=document.body.classList.contains('diagram-expanded');$('diagram-expand').textContent=expanded?'Повернути панелі':'Розгорнути графік';$('diagram-expand').setAttribute('aria-pressed',String(expanded));}
+ $('diagram-expand').onclick=()=>{document.body.classList.toggle('diagram-expanded');expandLabel();};expandLabel();
  $('diagram-refresh').onclick=()=>showDiagram(kind);$('diagram-clear').onclick=()=>{plottedProcess=null;storedProcess=null;saveProject();showDiagram(kind);};
  $('diagram-save').onclick=()=>{const url=URL.createObjectURL(new Blob([svg.outerHTML],{type:'image/svg+xml;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=kind+'.svg';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
- svg.addEventListener('wheel',e=>{e.preventDefault();const b=svg.getBoundingClientRect();zoom(e.deltaY<0?.8:1.25,Math.max(0,Math.min(1,(e.clientX-b.left)/b.width)),Math.max(0,Math.min(1,1-(e.clientY-b.top)/b.height)));},{passive:false});
- let drag=null,moved=false;
- svg.addEventListener('pointerdown',e=>{if(e.target.closest('[data-point]'))return;drag={x:e.clientX,y:e.clientY,range:{...range}};moved=false;svg.setPointerCapture(e.pointerId);});
- svg.addEventListener('pointermove',e=>{if(!drag)return;const b=svg.getBoundingClientRect(),dx=(e.clientX-drag.x)/b.width*960/820*(drag.range.xmax-drag.range.xmin),dy=(e.clientY-drag.y)/b.height*520/400*(drag.range.ymax-drag.range.ymin);moved=Math.abs(dx)+Math.abs(dy)>0;range={xmin:drag.range.xmin-dx,xmax:drag.range.xmax-dx,ymin:drag.range.ymin+dy,ymax:drag.range.ymax+dy};draw();});
- svg.addEventListener('pointerup',()=>{drag=null;});svg.addEventListener('pointercancel',()=>{drag=null;});
- svg.addEventListener('click',e=>{const point=e.target.closest('[data-point]');if(point)choose(Number(point.dataset.point));});
- svg.addEventListener('keydown',e=>{const point=e.target.closest('[data-point]');if(point&&['Enter',' '].includes(e.key)){e.preventDefault();choose(Number(point.dataset.point));return;}if(['+','=','-'].includes(e.key)){e.preventDefault();zoom(e.key==='-'?1.25:.8);}if(e.key.startsWith('Arrow')){e.preventDefault();const dx=(range.xmax-range.xmin)*.1,dy=(range.ymax-range.ymin)*.1;const x=e.key==='ArrowLeft'?-dx:e.key==='ArrowRight'?dx:0,y=e.key==='ArrowDown'?-dy:e.key==='ArrowUp'?dy:0;range={xmin:range.xmin+x,xmax:range.xmax+x,ymin:range.ymin+y,ymax:range.ymax+y};draw();}});
- diagramRedraw=()=>{draw();$('diagram-legend').innerHTML=diagramCache.isobars.map(({p},i)=>`<span style="color:${colors[i]}">━ ${dt('p',p)}</span>`).join(' · ');if(selected!==null)choose(selected);};
- draw();
+ $('diagram-legend').onclick=e=>{const b=e.target.closest('[data-isobar]');if(!b)return;const i=Number(b.dataset.isobar);hiddenIsobars.has(i)?hiddenIsobars.delete(i):hiddenIsobars.add(i);b.setAttribute('aria-pressed',String(!hiddenIsobars.has(i)));draw();};
+ svg.addEventListener('wheel',e=>{if(!e.ctrlKey)return;e.preventDefault();const p=fractions(e.clientX,e.clientY);zoom(e.deltaY<0?.8:1.25,p.x,p.y);},{passive:false});
+ const pointers=new Map();let gesture=null,moved=false,downPoint=null;
+ function rebase(){const ps=[...pointers.values()];gesture={range:{...range},points:ps.map(p=>({...p}))};}
+ svg.addEventListener('pointerdown',e=>{if(e.button!==0)return;if(!pointers.size){moved=false;downPoint=e.target.closest('[data-point]')?.dataset.point??null;}else moved=true;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});svg.setPointerCapture(e.pointerId);rebase();svg.classList.add('is-dragging');});
+ svg.addEventListener('pointermove',e=>{
+  if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});const ps=[...pointers.values()],start=gesture.points,w=gesture.range.xmax-gesture.range.xmin,h=gesture.range.ymax-gesture.range.ymin;
+  if(ps.length===1){const dx=ps[0].x-start[0].x,dy=ps[0].y-start[0].y;if(Math.hypot(dx,dy)>4)moved=true;const r=svg.getBoundingClientRect();range={xmin:gesture.range.xmin-dx/r.width*svg.viewBox.baseVal.width/plot.width*w,xmax:gesture.range.xmax-dx/r.width*svg.viewBox.baseVal.width/plot.width*w,ymin:gesture.range.ymin+dy/r.height*svg.viewBox.baseVal.height/plot.height*h,ymax:gesture.range.ymax+dy/r.height*svg.viewBox.baseVal.height/plot.height*h};}
+  else {moved=true;const distance=p=>Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y),factor=distance(start)/Math.max(distance(ps),1);if(w*factor<.05||w*factor>44)return;const a=fractions((start[0].x+start[1].x)/2,(start[0].y+start[1].y)/2),c=fractions((ps[0].x+ps[1].x)/2,(ps[0].y+ps[1].y)/2),x=gesture.range.xmin+a.x*w,y=gesture.range.ymin+a.y*h;range={xmin:x-c.x*w*factor,xmax:x+(1-c.x)*w*factor,ymin:y-c.y*h*factor,ymax:y+(1-c.y)*h*factor};}draw();
+ });
+ function endGesture(e,cancel=false){if(!pointers.has(e.pointerId))return;pointers.delete(e.pointerId);if(pointers.size){rebase();return;}gesture=null;svg.classList.remove('is-dragging');if(!cancel&&!moved&&downPoint!==null)choose(Number(downPoint));downPoint=null;}
+ svg.addEventListener('pointerup',e=>endGesture(e));svg.addEventListener('pointercancel',e=>endGesture(e,true));svg.addEventListener('lostpointercapture',e=>endGesture(e,true));
+ svg.addEventListener('keydown',e=>{const point=e.target.closest('[data-point]');if(point&&['Enter',' '].includes(e.key)){e.preventDefault();choose(Number(point.dataset.point));return;}if(['+','=','-'].includes(e.key)){e.preventDefault();zoom(e.key==='-'?1.25:.8);}if(e.key.startsWith('Arrow')){e.preventDefault();const dx=(range.xmax-range.xmin)*.1,dy=(range.ymax-range.ymin)*.1,x=e.key==='ArrowLeft'?-dx:e.key==='ArrowRight'?dx:0,y=e.key==='ArrowDown'?-dy:e.key==='ArrowUp'?dy:0;range={xmin:range.xmin+x,xmax:range.xmax+x,ymin:range.ymin+y,ymax:range.ymax+y};draw();}});
+ diagramRedraw=()=>{draw();for(const b of $('diagram-legend').querySelectorAll('[data-isobar]'))b.textContent='━ '+dt('p',diagramCache.isobars[Number(b.dataset.isobar)].p);if(selected!==null)choose(selected);};
+ diagramObserver=new ResizeObserver(draw);diagramObserver.observe(stage);draw();
 }
 
 const STORAGE_KEY='water-steam-if97-project-v1';
@@ -2759,6 +2792,16 @@ function renderEngineering(){if(!engineeringResult||!$('eng-result'))return;cons
 
 const reportExport=document.createElement('button');reportExport.innerHTML=icon('report')+'Звіт для друку HTML';reportExport.onclick=()=>{fileMenu.closest('details').open=false;const states=historyStates.length?historyStates:last?.state?[last.state]:[];if(!states.length){$('result-status').textContent='Спочатку розрахуйте хоча б один стан';return;}downloadFile(printableReport($('project-title').value,states,$('output-system').value,$('output-energy').value),'water-steam-report.html','text/html;charset=utf-8');};fileMenu.append(reportExport);
 document.querySelector('[role=tablist]').addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;const tabs=[...document.querySelectorAll('[role=tab]')],i=tabs.indexOf(e.target);if(i<0)return;e.preventDefault();const n=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[n].focus();tabs[n].click();});
+
+// Start with room for results on phones; the menu can reveal settings at any time.
+if(window.matchMedia('(max-width:700px)').matches)document.body.classList.add('setup-collapsed');
+// A native section picker keeps every panel reachable on narrow screens.
+const sectionTabs=[...document.querySelectorAll('[role="tab"]')];
+$('section-select').replaceChildren(...sectionTabs.map(tab=>new Option(tab.textContent.trim(),tab.dataset.action)));
+$('section-select').onchange=()=>sectionTabs.find(tab=>tab.dataset.action===$('section-select').value)?.click();
+const syncSection=()=>{const selected=sectionTabs.find(tab=>tab.getAttribute('aria-selected')==='true');if(selected)$('section-select').value=selected.dataset.action;};
+new MutationObserver(syncSection).observe(document.querySelector('[role="tablist"]'),{subtree:true,attributes:true,attributeFilter:['aria-selected']});
+syncSection();
 
 
 // src/learning-export.js
