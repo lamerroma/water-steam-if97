@@ -14,3 +14,12 @@
 .tabs{min-height:39px;flex-shrink:0;padding-bottom:8px;scrollbar-width:thin}.tabs::-webkit-scrollbar{height:6px}.tabs button{flex-shrink:0;align-self:flex-start}
 
 #ambient-p,#ambient-t{width:100%;padding:4px;margin:4px 0;border:1px solid #a7b7cc}#ambient-status{font-size:10px}
+
+/* Compact desktop grid and functional unit tabs mirror the reference layout. */
+@media(min-width:701px){.input-area{min-height:118px;padding-top:7px;padding-bottom:5px}.property-table td{padding-top:4px;padding-bottom:4px}.setup-content legend{font-weight:normal;font-size:10px}.output-tabs button[data-action^="units-"]{border:1px solid #9db5d5;background:linear-gradient(#edf3fb,#d0def0);padding:3px 8px}.output-tabs button[data-action="export-history"]{margin-left:auto}}
+
+#batch-form fieldset,#engineering-form fieldset{display:flex;flex-wrap:wrap;gap:10px}#batch-form label,#engineering-form label{display:flex;flex-direction:column;gap:4px}#batch-text{display:block;width:100%;max-width:850px;font:12px monospace}#batch-results{overflow:auto}#batch-error{color:#a22}#process-view input,#process-view select{padding:4px;max-width:180px}
+
+.state-name{width:110px;border:1px solid transparent;background:transparent;padding:2px}.state-name:focus{background:white;border-color:#9db5d5}#history button{padding:0 5px;border:1px solid #9db5d5;background:#edf3fb}#project-title{width:150px;margin:4px 10px}#project-save-status{max-width:200px;margin:4px 10px;color:#516681}
+
+@media print{html,body,.desktop,.center-pane,.calculator-view{height:auto!important;min-height:0!important;display:block!important;overflow:visible!important}.site-nav,.menubar,.toolbar,.tabs,.setup-pane,.input-area,button,#engineering-form,#batch-form,#process-form,footer{display:none!important}.output-pane,.results-scroll,.history-scroll,#process-view{height:auto!important;overflow:visible!important}.output-pane{break-before:page}.state-name{border:0}table thead{display:table-header-group}tr{break-inside:avoid}.history-scroll table{font-size:7px}}

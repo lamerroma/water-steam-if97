@@ -13,3 +13,4 @@ test('Vendored artifacts match pinned SHA256 manifest',()=>{
  const manifest=JSON.parse(read('vendor/SHA256.json'));
  for(const [p,hash] of Object.entries(manifest))assert.equal(crypto.createHash('sha256').update(read('vendor/'+p)).digest('hex'),hash,p);
 });
+test('standalone page has embedded script, styles and WASM with no remote runtime assets',()=>{const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');assert.equal((html.match(/<script\b/g)||[]).length,1);assert.ok(!/<(?:script|link|img|iframe)\b[^>]*(?:src|href)\s*=\s*["']https?:/i.test(html));assert.ok(html.includes('const WASM_BASE64'));assert.ok(html.includes('await initialize(bytes)'));assert.ok(!/^import /m.test(html));});

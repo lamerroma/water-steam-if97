@@ -1,0 +1,12 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {initialize} from '../src/engine.js';
+import {compression,heatExchanger,engineeringCSV} from '../src/engineering.js';
+import {readProject} from '../src/project.js';
+await initialize(fs.readFileSync(new URL('../vendor/seuif97_bg.wasm',import.meta.url)));
+const close=(a,b,t=1e-7)=>assert.ok(Math.abs(a-b)<t,`${a} vs ${b}`);
+test('pump and compressor consume power and obey isentropic efficiency',()=>{for(const [kind,p,T,p2] of [['pump',.1,300,10],['compressor',.1,423.15,1]]){const r=compression(kind,p,T,p2,.8,2);close(r.ideal.s,r.inlet.s);close(r.outlet.h-r.inlet.h,r.work);close((r.ideal.h-r.inlet.h)/r.work,.8);close(r.power,2*r.work);assert.ok(r.outlet.s>=r.inlet.s);close(compression(kind,p,T,p2,1).outlet.h,r.ideal.h);assert.ok(engineeringCSV(kind,r,'english').includes('Btu/h'));}});
+test('compression rejects wrong phase, invalid pressure or efficiency',()=>{assert.throws(()=>compression('pump',.1,500,1,.8));assert.throws(()=>compression('compressor',.1,300,1,.8));assert.throws(()=>compression('pump',1,300,.1,.8));assert.throws(()=>compression('pump',.1,300,1,1.1));});
+test('heat exchanger conserves both stream enthalpy and rejects temperature crossings',()=>{const r=heatExchanger(1,423.15,1,2,.1,293.15,.1,3,200);close(2*(r.inlet.h-r.outlet.h),200);close(3*(r.coldOutlet.h-r.coldInlet.h),200);assert.ok(r.outlet.T>r.coldInlet.T);assert.ok(r.coldOutlet.T<r.inlet.T);assert.throws(()=>heatExchanger(1,423.15,1,1,.1,293.15,.1,1,1000));assert.throws(()=>heatExchanger(1,423.15,1,0,.1,293.15,.1,1,100));});
+test('new engineering processes re-evaluate canonical inputs on project import',()=>{for(const process of [{type:'pump',args:[.1,300,10,.8,2]},{type:'compressor',args:[.1,423.15,1,.8,2]},{type:'heat-exchanger',args:[1,423.15,1,2,.1,293.15,.1,3,200]}]){const p={format:'water-steam-if97',version:1,history:[],form:{mode:'pt',a:'3',b:'300',ua:'MPa',ub:'K'},process};assert.equal(readProject(JSON.stringify(p)).process.type,process.type);}});
