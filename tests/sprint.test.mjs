@@ -2,7 +2,7 @@ import test from 'node:test';import assert from 'node:assert/strict';import {rea
 import {initialize,calculate} from '../src/engine.js';import {ph,ps} from '../vendor/seuif97.js';import {helmholtz} from '../src/equations.js';
 import {raw95,T95C} from '../src/iapws95.js';import {viscosityScientific,conductivity} from '../src/transport.js';
 import {gasState,gasInverse,gasComposition,AIR,GAS_DATA} from '../src/gases.js';
-import {humidAir} from '../src/humid-air.js';import {rankine,rankineReheat,rankineRegen,brayton} from '../src/cycles.js';import {ice} from '../src/ice.js';
+import {humidAir} from '../src/humid-air.js';import {rankine,rankineReheat,rankineRegen,brayton} from '../src/cycles.js';import {ice} from '../src/ice.js';import {d2oPT,d2oSaturation,D2O_M} from '../src/d2o.js';
 await initialize(await readFile(new URL('../vendor/seuif97_bg.wasm',import.meta.url)));
 const close=(a,b,t=1e-8)=>assert.ok(Math.abs(a-b)<=t*Math.max(Math.abs(b),1e-8),`${a} != ${b}`);
 const cp=JSON.parse(await readFile(new URL('fixtures/coolprop.json',import.meta.url),'utf8'));
@@ -33,6 +33,22 @@ const iceTable6=[
 ];
 for(const [T,p,ref] of iceTable6)test(`Ice Ih R10-06 Table 6: T=${T} K, p=${p} Pa`,()=>{const q=ice(T,p);for(const [key,want] of Object.entries(ref))close(q[key],want,1e-6);});
 test('Ice Ih rejects out-of-range inputs and matches v with (dg/dp)T sign/scale',()=>{assert.throws(()=>ice(273.17,1e5));assert.throws(()=>ice(0,1e5));assert.throws(()=>ice(200,-1));assert.throws(()=>ice(200,211e6));const q=ice(260,1e6);assert.ok(q.rho>900&&q.rho<920);assert.ok(q.cp>1800&&q.cp<2200);close(q.v,1/q.rho,1e-12);});
+
+// IAPWS R16-17(2018) heavy water: official Tables 7 and 8 (mass-based, converted via M=20.027508 g/mol).
+const d2oTable7=[ // [T,p,rho_molar,cv_molar,w,s_molar]
+ [300,0.529123711e-1,55.126,0.833839128e2,0.140374625e4,0.673910582e1],
+ [500,8.35329492,46.260,0.626885994e2,0.117888631e4,0.495587000e2],
+ [643.8,21.6503820,20.000,0.992661842e2,0.256043612e3,0.817656125e2],
+ [800,1.64466177,0.25,0.344327932e2,0.639281410e3,0.142125615e3],
+];
+for(const [T,p,rhoMolar,cv,w,s] of d2oTable7)test(`D2O R16-17 Table 7: T=${T} K, p=${p} MPa`,()=>{const q=d2oPT(p,T);close(q.rho,rhoMolar*D2O_M,1e-6);close(q.cv,cv/D2O_M,1e-6);close(q.w,w,1e-6);close(q.s,s/D2O_M,1e-6);});
+const d2oTable8=[ // [T,p,rhoL_molar,rhoV_molar,hL_molar,hV_molar,sL_molar,sV_molar]
+ [280,0.823054058e-3,55.2072786,0.353747143e-3,257.444444,46610.6716,0.924406091,166.471646],
+ [450,0.921212105,49.2937575,0.264075691,14512.7149,51501.9146,40.6584121,122.856634],
+ [625,0.172118129e2,30.6770554,6.94443339,32453.3556,47246.0343,73.1042291,96.7725149],
+];
+for(const [T,p,rl,rv,hl,hv,sl,sv] of d2oTable8)test(`D2O R16-17 Table 8 saturation: T=${T} K`,()=>{const sat=d2oSaturation(T);close(sat.p,p,1e-6);close(sat.liquid.rho,rl*D2O_M,1e-6);close(sat.vapor.rho,rv*D2O_M,1e-6);close(sat.liquid.h,hl/D2O_M,1e-6);close(sat.vapor.h,hv/D2O_M,1e-6);close(sat.liquid.s,sl/D2O_M,1e-6);close(sat.vapor.s,sv/D2O_M,1e-6);});
+test('D2O rejects out-of-range inputs and keeps liquid/vapor density order',()=>{assert.throws(()=>d2oPT(-1,300));assert.throws(()=>d2oPT(1,900));assert.throws(()=>d2oSaturation(276));assert.throws(()=>d2oSaturation(644));const sat=d2oSaturation(350);assert.ok(sat.liquid.rho>sat.vapor.rho);assert.ok(sat.vapor.h>sat.liquid.h);});
 
 // Official R12-08 Table 5 and R15-11 Table 5, scientific critical enhancement.
 const viscTable=[[122,25.520677],[222,31.337589],[272,36.228143],[322,42.961579],[372,45.688204],[422,49.436256]];
