@@ -12,3 +12,5 @@
 #steam-diagram{touch-action:none;cursor:grab}#steam-diagram circle{cursor:pointer}#diagram-selected{border:1px solid #b7c8dd;padding:8px}#diagram-range{display:inline-block;padding:6px;color:#516681}
 /* Keep tab controls above the horizontal scrollbar at narrow desktop widths. */
 .tabs{min-height:39px;flex-shrink:0;padding-bottom:8px;scrollbar-width:thin}.tabs::-webkit-scrollbar{height:6px}.tabs button{flex-shrink:0;align-self:flex-start}
+
+#ambient-p,#ambient-t{width:100%;padding:4px;margin:4px 0;border:1px solid #a7b7cc}#ambient-status{font-size:10px}

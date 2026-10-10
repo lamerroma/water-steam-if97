@@ -2,7 +2,7 @@
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
 const root=new URL('../',import.meta.url);
 const read=path=>readFile(new URL(path,root),'utf8');
-const files=['vendor/seuif97.js','src/coefficients.js','src/equations.js','src/transport.js','src/engine.js','src/units.js','src/export.js','src/processes.js','src/project.js','src/app.js'];
+const files=['vendor/seuif97.js','src/coefficients.js','src/equations.js','src/transport.js','src/engine.js','src/units.js','src/export.js','src/processes.js','src/exergy.js','src/project.js','src/app.js'];
 let code='"use strict";\n(async()=>{\n';
 code+='const WASM_BASE64 = '+JSON.stringify((await readFile(new URL('vendor/seuif97_bg.wasm',root))).toString('base64'))+';\n';
 for(const file of files) {

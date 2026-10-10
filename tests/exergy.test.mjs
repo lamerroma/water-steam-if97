@@ -1,0 +1,6 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+import {initialize,calculate} from '../src/engine.js';import {referenceState,flowExergy,withExergy} from '../src/exergy.js';import {exportCSV} from '../src/export.js';
+await initialize(fs.readFileSync(new URL('../vendor/seuif97_bg.wasm',import.meta.url)));
+test('flow exergy vanishes at reference and matches enthalpy entropy balance',()=>{const r=referenceState();assert.equal(flowExergy(r,r),0);const s=calculate('pt',3,673.15).state;assert.ok(flowExergy(s,r)>0);assert.equal(flowExergy(s,r),s.h-r.h-r.T*(s.s-r.s));});
+test('two-phase flow exergy follows mass balance and CSV records reference',()=>{const r=referenceState(),q=calculate('px',.1,.3),v=withExergy(q,r);assert.ok(Math.abs(v.state.ex-(.7*v.saturation.liquid.ex+.3*v.saturation.vapor.ex))<1e-9);const csv=exportCSV(v,'J',{p:r.p,T:r.T});assert.ok(csv.includes('p0'));assert.ok(csv.includes('T0'));assert.ok(csv.includes('"ex"'));assert.ok(csv.includes('Дж/кг'));});
+test('reference rejects ambiguous saturation and invalid inputs',()=>{const q=calculate('satp',.1).saturation;assert.throws(()=>referenceState(.1,q.T));assert.throws(()=>referenceState(-1,298.15));assert.throws(()=>referenceState(NaN,298.15));});

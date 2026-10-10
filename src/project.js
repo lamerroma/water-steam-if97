@@ -1,3 +1,4 @@
+import {referenceState} from './exergy.js';
 import {calculate} from './engine.js';
 import {turbine,flash} from './processes.js';
 export const PROJECT_VERSION=1;
@@ -12,7 +13,8 @@ export function readProject(text){
  const f=p.form;if(!f||!['pt','ph','ps','satp','satt','px','tx','hs'].includes(f.mode)||!['MPa','kPa','Pa','bar','atm','C','K','kJkg','Jkg'].includes(f.ua)||!['MPa','kPa','Pa','bar','atm','C','K','kJkg','Jkg','kJkgK','JkgK','fraction','percent'].includes(f.ub)||typeof f.a!=='string'||typeof f.b!=='string'||f.a.length>80||f.b.length>80)throw Error('Некоректні параметри введення.');
  const allowedA=['satt','tx'].includes(f.mode)?['C','K']:f.mode==='hs'?['kJkg','Jkg']:['MPa','kPa','Pa','bar','atm'];const allowedB=['px','tx'].includes(f.mode)?['fraction','percent']:f.mode==='ph'?['kJkg','Jkg']:['ps','hs'].includes(f.mode)?['kJkgK','JkgK']:['C','K'];if(!allowedA.includes(f.ua)||!allowedB.includes(f.ub))throw Error('Одиниці не відповідають режиму.');
  const drafts={};for(const type of ['turbine','flash']){const d=p.drafts?.[type];if(!d)continue;const v={};for(const k of ['p1','t1','p2','eta','flow','power','mode','pressure','temperature','mass'])if(typeof d[k]==='string'&&d[k].length<80)v[k]=d[k];drafts[type]=v;}
- return {states,process,form:f,drafts,energy:p.energy==='J'?'J':'kJ',gray:p.gray===true,scale:['1','1.15','1.3'].includes(p.scale)?p.scale:'1'};
+ const ambient=p.ambient||{p:.101325,T:298.15};referenceState(ambient.p,ambient.T);
+ return {ambient,states,process,form:f,drafts,energy:p.energy==='J'?'J':'kJ',gray:p.gray===true,scale:['1','1.15','1.3'].includes(p.scale)?p.scale:'1'};
 }
 export function processCSV(type,r){
  const states=[['inlet',r.inlet],...(r.ideal?[['isentropic_outlet',r.ideal]]:[]),['outlet',r.outlet]];
