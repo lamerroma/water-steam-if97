@@ -1,0 +1,156 @@
+{
+  "source": "NIST WebBook controls already archived with exact query URLs; local CoolProp 8 WASM",
+  "conclusion": "The same differences are reproduced at T,rho. No integration or unit-conversion error was found. This does not certify either model against experiment.",
+  "rows": [
+    {
+      "id": "CH4",
+      "T": 300,
+      "p": 0.101325,
+      "rho": 0.6528052720761099,
+      "NIST_rho": 0.65280527,
+      "properties": {
+        "mu": {
+          "unit": "Pa s",
+          "browserCore": 0.000011255039218871347,
+          "directDensity": 0.000011255039218871347,
+          "NIST": 0.00001113569,
+          "relativeDifference": 0.01071772102773573,
+          "inputPathDifference": 0
+        },
+        "lambda": {
+          "unit": "W/(m K)",
+          "browserCore": 0.03439510053409794,
+          "directDensity": 0.03439510053409794,
+          "NIST": 0.034214863,
+          "relativeDifference": 0.0052678139935249555,
+          "inputPathDifference": 0
+        }
+      }
+    },
+    {
+      "id": "CH4",
+      "T": 130,
+      "p": 2,
+      "rho": 396.26894762267557,
+      "NIST_rho": 396.26895,
+      "properties": {
+        "mu": {
+          "unit": "Pa s",
+          "browserCore": 0.00008296004774340926,
+          "directDensity": 0.00008296004774340922,
+          "NIST": 0.000083442704,
+          "relativeDifference": 0.005784283507767632,
+          "inputPathDifference": 4.900862833873727e-16
+        },
+        "lambda": {
+          "unit": "W/(m K)",
+          "browserCore": 0.16004913534381351,
+          "directDensity": 0.16004913534381351,
+          "NIST": 0.15994456,
+          "relativeDifference": 0.0006538224483127221,
+          "inputPathDifference": 0
+        }
+      }
+    },
+    {
+      "id": "CH4",
+      "T": 193,
+      "p": 4.7,
+      "rho": 102.33178255233739,
+      "NIST_rho": 102.33178,
+      "properties": {
+        "mu": {
+          "unit": "Pa s",
+          "browserCore": 0.000011602033544043738,
+          "directDensity": 0.000011602033538295854,
+          "NIST": 0.000010929751,
+          "relativeDifference": 0.061509410785638104,
+          "inputPathDifference": 4.954204145275221e-10
+        },
+        "lambda": {
+          "unit": "W/(m K)",
+          "browserCore": 0.053365260379450365,
+          "directDensity": 0.05336525995919659,
+          "NIST": 0.05411694,
+          "relativeDifference": 0.013889913593592646,
+          "inputPathDifference": 7.875044111929045e-9
+        }
+      }
+    },
+    {
+      "id": "He",
+      "T": 300,
+      "p": 0.101325,
+      "rho": 0.16251557124354038,
+      "NIST_rho": 0.16251557,
+      "properties": {
+        "mu": {
+          "unit": "Pa s",
+          "browserCore": 0.000019929719619187127,
+          "directDensity": 0.000019929719619187127,
+          "NIST": 0.00001992972,
+          "relativeDifference": 1.910778846418593e-8,
+          "inputPathDifference": 0
+        },
+        "lambda": {
+          "unit": "W/(m K)",
+          "browserCore": 0.1559743213913112,
+          "directDensity": 0.1559743213913112,
+          "NIST": 0.15597432,
+          "relativeDifference": 8.920129961999329e-9,
+          "inputPathDifference": 0
+        }
+      }
+    },
+    {
+      "id": "He",
+      "T": 4,
+      "p": 1,
+      "rho": 152.02487013646817,
+      "NIST_rho": 152.02487,
+      "properties": {
+        "mu": {
+          "unit": "Pa s",
+          "browserCore": 0.000004922127001197029,
+          "directDensity": 0.000004922127001197029,
+          "NIST": 0.000004922127,
+          "relativeDifference": 2.43193370493218e-10,
+          "inputPathDifference": 0
+        },
+        "lambda": {
+          "unit": "W/(m K)",
+          "browserCore": 0.022616928927221412,
+          "directDensity": 0.022616928927221412,
+          "NIST": 0.022616914,
+          "relativeDifference": 6.600025721370242e-7,
+          "inputPathDifference": 0
+        }
+      }
+    },
+    {
+      "id": "He",
+      "T": 5.3,
+      "p": 0.25,
+      "rho": 80.47451497856417,
+      "NIST_rho": 80.474515,
+      "properties": {
+        "mu": {
+          "unit": "Pa s",
+          "browserCore": 0.0000023233172063892373,
+          "directDensity": 0.0000023233172063892373,
+          "NIST": 0.0000023233172,
+          "relativeDifference": 2.750049491208074e-9,
+          "inputPathDifference": 0
+        },
+        "lambda": {
+          "unit": "W/(m K)",
+          "browserCore": 0.022894650695717084,
+          "directDensity": 0.02289465069468326,
+          "NIST": 0.020399778,
+          "relativeDifference": 0.12229901206361575,
+          "inputPathDifference": 4.5155628145760125e-11
+        }
+      }
+    }
+  ]
+}

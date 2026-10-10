@@ -1,0 +1,8 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+import {initializeHumidAir} from '../src/humid-air-scientific.js';import {realGasState,realGasMixture} from '../src/real-gases.js';import {AIR,FLUE} from '../src/gases.js';
+await initializeHumidAir(fs.readFileSync(new URL('../vendor/coolprop.wasm',import.meta.url)));
+const refs=JSON.parse(fs.readFileSync(new URL('fixtures/nist-gases.json',import.meta.url)));
+for(const r of refs.states)test(`NIST independent ${r.id} ${r.T} K ${r.p} MPa thermodynamics`,()=>{const q=realGasState(r.id,r.p,r.T);for(const k of ['rho','cp','cv','w'])assert.ok(Math.abs(q[k]-r[k])/Math.abs(r[k])<1e-4,k);});
+test('HEOS dry air and flue presets: measured binding controls and physical identity',()=>{for(const [composition,density] of [[AIR,.88229149431504],[FLUE,.8718646584610963]]){const q=realGasMixture(.101325,400,composition);assert.ok(Math.abs(q.rho-density)<1e-9);assert.ok(Math.abs(q.h-q.u-q.p*1000/q.rho)<1e-8);assert.equal(q.mu,null);assert.match(q.validation.status,/не підтверджена/);}});
+test('HEOS mixture rejects unsupported compounds and unchecked states',()=>{assert.throws(()=>realGasMixture(.1,300,{NO:1}));assert.throws(()=>realGasMixture(6,300,AIR));assert.throws(()=>realGasMixture(.1,200,AIR));assert.throws(()=>realGasMixture(.1,300,{N2:.5}));});
+test('Separate transport ranges do not extrapolate while EOS remains usable',()=>{const q=realGasState('He',.1,1000);assert.equal(q.lambda,null);assert.ok(q.mu>0);const o=realGasState('O2',.1,1500);assert.equal(o.mu,null);assert.ok(o.lambda>0);assert.ok(o.rho>0);});
