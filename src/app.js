@@ -3,15 +3,15 @@ import {readProject,processCSV} from './project.js';
 import {turbine,turbineInverse,flash,diagramData} from './processes.js';
 import {exportCSV} from './export.js';
 import {initialize,calculate,PMIN_SAT,TC,PC} from './engine.js';
-import {parseNumber,toCanonical,fromCanonical} from './units.js';
+import {parseNumber,toCanonical,fromCanonical,englishProperty} from './units.js';
 const $=id=>document.getElementById(id);
 let last=null, revision=0, persistenceReady=false, storedProcess=null;
 const processDrafts={};let ambient={p:.101325,T:298.15},ambientRef=null;
 function ambientResult(result){return withExergy(result,ambientRef||referenceState(ambient.p,ambient.T));}
 const historyStates=[];
 const collapsedGroups=new Set();
-const PU=[['MPa','МПа'],['kPa','кПа'],['Pa','Па'],['bar','бар'],['atm','атм']];
-const TU=[['C','°C'],['K','K']], HU=[['kJkg','кДж/кг'],['Jkg','Дж/кг']], SU=[['kJkgK','кДж/(кг·K)'],['JkgK','Дж/(кг·K)']];
+const PU=[['MPa','МПа'],['kPa','кПа'],['Pa','Па'],['bar','бар'],['atm','атм'],['psi','psi']];
+const TU=[['C','°C'],['K','K'],['F','°F']], HU=[['kJkg','кДж/кг'],['Jkg','Дж/кг'],['Btulb','Btu/lb']], SU=[['kJkgK','кДж/(кг·K)'],['JkgK','Дж/(кг·K)'],['BtulbR','Btu/(lb·°R)']];
 const definitions=[['h','Ентальпія','h','кДж/кг'],['s','Ентропія','s','кДж/(кг·K)'],['rho','Густина','ρ','кг/м³'],['v','Питомий об’єм','v','м³/кг'],['cp','Ізобарна теплоємність','Cₚ','кДж/(кг·K)'],['cv','Ізохорна теплоємність','Cᵥ','кДж/(кг·K)'],['w','Швидкість звуку','w','м/с'],['ex','Фізична ексергія потоку','ex','кДж/кг'],['u','Внутрішня енергія','u','кДж/кг'],['dc','Статична відносна діелектрична проникність','εr','–'],['mu','Динамічна в’язкість','μ','Па·с'],['lambda','Теплопровідність','λ','Вт/(м·K)']];
 function options(id,list) {$(id).replaceChildren(...list.map(([v,l])=>{const o=document.createElement('option');o.value=v;o.textContent=l;return o;}));$(id).dataset.previous=$(id).value;}
 function resetMode() {
@@ -30,11 +30,11 @@ function invalidate() {
   $('results').innerHTML=propertyTable(null);$('state-summary').textContent=$('mode-help').textContent;
 }
 function format(n) {if(n===null||n===undefined||!Number.isFinite(n))return '—';return new Intl.NumberFormat('uk-UA',{maximumSignificantDigits:8,notation:Math.abs(n)>0&&Math.abs(n)<1e-4?'scientific':'standard'}).format(n);}
-function display(key,value,unit) {if(['h','s','cp','cv','u','A','G','ijt','ex'].includes(key)&&$('output-energy').value==='J')return [value===null?null:value*1000,unit.replace('кДж','Дж')];return [value,unit];}
+function display(key,value,unit) {if($('output-system').value==='english')return englishProperty(key,key==='T'&&value!=null?value+273.15:value,unit);if(['h','s','cp','cv','u','A','G','ijt','ex'].includes(key)&&$('output-energy').value==='J')return [value===null?null:value*1000,unit.replace('кДж','Дж')];return [value,unit];}
 const rows=[['p','Тиск (абсолютний)','p','МПа'],['T','Температура','t','°C'],['rho','Густина','ρ','кг/м³'],['v','Питомий об’єм','v','м³/кг'],['h','Питома ентальпія','h','кДж/кг'],['s','Питома ентропія','s','кДж/(кг·K)'],['u','Питома внутрішня енергія','u','кДж/кг'],['cp','Питома ізобарна теплоємність','cp','кДж/(кг·K)'],['cv','Питома ізохорна теплоємність','cv','кДж/(кг·K)'],['w','Швидкість звуку','w','м/с'],['ex','Фізична ексергія потоку','ex','кДж/кг'],['x','Ступінь сухості (масова частка пари)','x','–'],['region','Область IF97','region','–'],['isentropic','Ізентропний показник','κs','–'],['A','Питома енергія Гельмгольца','a','кДж/кг'],['G','Питома енергія Гіббса','g','кДж/кг'],['Z','Коефіцієнт стисливості','Z','–'],['alpha','Ізобарне об’ємне розширення','α','1/K'],['kappa','Ізотермічна стисливість','κT','1/МПа'],['dvdt','Похідна (∂v/∂T)p','vT','м³/(кг·K)'],['dvdp','Похідна (∂v/∂p)T','vp','м³/(кг·МПа)'],['dpdt','Похідна (∂p/∂T)v','pT','МПа/K'],['dpdv','Похідна (∂p/∂v)T','pv','МПа·кг/м³'],['ijt','Ізотермічний коефіцієнт Джоуля–Томсона','δT','кДж/(кг·МПа)'],['jt','Коефіцієнт Джоуля–Томсона','μJT','K/МПа'],['dc','Статична відносна діелектрична проникність','εr','–'],['mu','Динамічна в’язкість','μ','Па·с'],['nu','Кінематична в’язкість','ν','м²/с'],['lambda','Теплопровідність','λ','Вт/(м·K)'],['diffusivity','Температуропровідність','aT','м²/с'],['Pr','Число Прандтля','Pr','–'],['sigma','Поверхневий натяг рідина–пара','σ','Н/м']];
 const constants=['Газова стала R = 0,461526 кДж/(кг·K)','Молярна газова стала Rm = 8,31451 Дж/(моль·K)','Молярна маса M = 18,015257 г/моль','Критична температура Tc = 647,096 K','Критичний тиск pc = 22,064 МПа','Критична густина ρc = 322 кг/м³','Потрійна точка Tt = 273,16 K','Потрійна точка pt = 611,657 Па'];
 function propertyTable(state) {
- return `<table class="property-table"><thead><tr><th>№</th><th>Назва властивості</th><th>Символ</th><th>⧉</th><th>Результат</th><th>Одиниці (SI)</th><th>Константи IF97</th></tr></thead><tbody>${rows.map(([key,name,symbol,unit],i)=>{
+ return `<table class="property-table"><thead><tr><th>№</th><th>Назва властивості</th><th>Символ</th><th>⧉</th><th>Результат</th><th>Одиниці</th><th>Константи IF97</th></tr></thead><tbody>${rows.map(([key,name,symbol,unit],i)=>{
  const value=state?(key==='T'?state.T-273.15:state[key]):null;
  const [v,u]=display(key,value,unit);
  const groupId=i<11?'main':i<26?'state':'transport';
@@ -46,7 +46,8 @@ function propertyTable(state) {
 }
 function renderHistory() {
  const keys=['p','T','v','h','s','u','cp','cv','w','x','region','mu','lambda'];
- $('history-body').innerHTML=historyStates.map((s,i)=>`<tr><td>${historyStates.length-i}</td>${keys.map(k=>`<td>${format(k==='T'?s.T-273.15:s[k])}</td>`).join('')}<td>IF97</td></tr>`).join('')+Array.from({length:Math.max(0,6-historyStates.length)},(_,i)=>`<tr><td>${historyStates.length+i+1}</td>${'<td></td>'.repeat(14)}</tr>`).join('');
+ $('history-body').innerHTML=historyStates.map((s,i)=>`<tr><td>${historyStates.length-i}</td>${keys.map(k=>`<td>${format(display(k,k==='T'?s.T-273.15:s[k],rows.find(r=>r[0]===k)?.[3]||'')[0])}</td>`).join('')}<td>IF97</td></tr>`).join('')+Array.from({length:Math.max(0,6-historyStates.length)},(_,i)=>`<tr><td>${historyStates.length+i+1}</td>${'<td></td>'.repeat(14)}</tr>`).join('');
+ document.querySelector('#history thead tr').innerHTML='<th>№</th>'+keys.map(k=>`<th>${k} [${display(k,null,rows.find(r=>r[0]===k)?.[3]||'–')[1]}]</th>`).join('')+'<th>Модель</th>';
  $('history-count').textContent=`Станів: ${historyStates.length}`;
 }
 function selectView(view) {
@@ -95,11 +96,11 @@ for(const letter of ['a','b']) {
  $('unit-'+letter).addEventListener('change',()=>{const select=$('unit-'+letter);try{const n=parseNumber($('input-'+letter).value);$('input-'+letter).value=String(Number(fromCanonical(toCanonical(n,select.dataset.previous),select.value).toPrecision(12)));}catch{}select.dataset.previous=select.value;invalidate();});
 }
 $('calculator').addEventListener('submit',run);
-$('output-energy').addEventListener('change',()=>{if(last)render();else $('results').innerHTML=propertyTable(null);});
+$('output-energy').addEventListener('change',()=>{renderHistory();if(last)render();else $('results').innerHTML=propertyTable(null);});
 for(const button of document.querySelectorAll('[data-p]')) button.addEventListener('click',()=>{$('mode').value='pt';resetMode();$('input-a').value=button.dataset.p;$('unit-b').value='K';$('unit-b').dataset.previous='K';$('input-b').value=button.dataset.t;run();});
 $('export-csv').addEventListener('click',()=>{
  if(!last)return;
- const csv=exportCSV(ambientResult(last),$('output-energy').value,ambient);
+ const csv=exportCSV(ambientResult(last),$('output-energy').value,ambient,$('output-system').value);
  const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='water-steam-if97.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 });
 document.addEventListener('click',event=>{
@@ -123,7 +124,8 @@ function exportHistory(){
  if(!historyStates.length){$('result-status').textContent='Історія порожня — спочатку розрахуйте стан';return;}
  const keys=['p','T','v','h','s','u','cp','cv','w','x','region','mu','lambda'];
  const headings=['p [MPa]','T [K]','v [m3/kg]','h [kJ/kg]','s [kJ/(kg K)]','u [kJ/kg]','cp [kJ/(kg K)]','cv [kJ/(kg K)]','w [m/s]','x [-]','region [-]','mu [Pa s]','lambda [W/(m K)]'];
- const content='\ufeff'+[headings.join(';'),...historyStates.map(s=>keys.map(k=>Number.isFinite(s[k])?String(s[k]):'').join(';'))].join('\r\n');
+ const selectedHeadings=keys.map(k=>`${k} [${display(k,null,rows.find(r=>r[0]===k)?.[3]||'–')[1]}]`);
+ const content='\ufeff'+[selectedHeadings.join(';'),...historyStates.map(s=>keys.map(k=>{const v=display(k,k==='T'?s.T-273.15:s[k],rows.find(r=>r[0]===k)?.[3]||'')[0];return Number.isFinite(v)?String(v):'';}).join(';'))].join('\r\n');
  const url=URL.createObjectURL(new Blob([content],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='water-steam-history.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);$('result-status').textContent='CSV історії підготовлено';
 }
 $('ui-scale').addEventListener('change',()=>{document.documentElement.style.setProperty('--ui-scale',$('ui-scale').value);});
@@ -140,30 +142,33 @@ resetMode();renderHistory();
 })();
 
 let diagramCache=null, plottedProcess=null;
+function massTo(v,u){return u==='kgh'?v/3600:u==='lbs'?v*.45359237:u==='lbh'?v*.45359237/3600:v;}
+function massFrom(v,u){return u==='kgh'?v*3600:u==='lbs'?v/.45359237:u==='lbh'?v*3600/.45359237:v;}
+function processDisplay(k,v,u){return $('output-system').value==='english'?englishProperty(k,k==='T'?v+273.15:v,u):[v,u];}
 function showProcess(kind){
  $('calculator-view').hidden=true;$('help-view').hidden=true;$('process-view').hidden=false;
  for(const b of document.querySelectorAll('[role="tab"]'))b.setAttribute('aria-selected',String(b.dataset.action===kind));
  if(kind==='ts'||kind==='hsdiagram'){showDiagram(kind);return;}
  const tur=kind==='turbine';const draft=processDrafts[kind]||{};
- $('process-view').innerHTML=`<h2>${tur?'Парова турбіна':'Дроселювання та випаровування'}</h2><p>${tur?'Адіабатичне розширення з ізоентропним ККД. Потужність потоку без механічних і генераторних втрат.':'Адіабатичне дроселювання: h₂ = h₁. Поділ потоків наведено лише для рівноважного двофазного стану.'} Змінами кінетичної й потенціальної енергій знехтувано.</p><form id="process-form"><label>Режим<select id="process-mode">${tur?'<option value="power">Потужність</option><option value="flow">Витрата пари</option><option value="efficiency">Ізоентропний ККД</option>':'<option value="subcooled">Однофазний вхід P–T</option><option value="saturated">Насичений конденсат</option>'}</select></label><fieldset><legend>Вхідні дані · абсолютний тиск</legend><label>Одиниця тиску<select id="process-pressure"><option value="MPa">МПа</option><option value="bar">бар</option><option value="kPa">кПа</option></select></label><label>Одиниця температури<select id="process-temperature"><option value="C">°C</option><option value="K">K</option></select></label><label>Одиниця витрати<select id="process-mass"><option value="kgs">кг/с</option><option value="kgh">кг/год</option></select></label>${[['p1','Вхідний тиск','3'],['t1','Вхідна температура',tur?'400':'200'],['p2','Вихідний тиск','0.1'],...(tur?[['eta','Ізоентропний ККД, %','85']]:[]),['flow','Масова витрата','1'],...(tur?[['power','Потужність, кВт','600']]:[])].map(([id,label,value])=>`<label>${label}<input id="process-${id}" value="${value}" inputmode="decimal" required></label>`).join('')}</fieldset><button type="submit">Розрахувати</button></form><p id="process-error" role="alert"></p><div id="process-result"></div>`;
- for(const id of ['p1','t1','p2','eta','flow','power','mode','pressure','temperature','mass'])if($('process-'+id)&&draft[id])$('process-'+id).value=draft[id];
+ $('process-view').innerHTML=`<h2>${tur?'Парова турбіна':'Дроселювання та випаровування'}</h2><p>${tur?'Адіабатичне розширення з ізоентропним ККД. Потужність потоку без механічних і генераторних втрат.':'Адіабатичне дроселювання: h₂ = h₁. Поділ потоків наведено лише для рівноважного двофазного стану.'} Змінами кінетичної й потенціальної енергій знехтувано.</p><form id="process-form"><label>Режим<select id="process-mode">${tur?'<option value="power">Потужність</option><option value="flow">Витрата пари</option><option value="efficiency">Ізоентропний ККД</option>':'<option value="subcooled">Однофазний вхід P–T</option><option value="saturated">Насичений конденсат</option>'}</select></label><fieldset><legend>Вхідні дані · абсолютний тиск</legend><label>Одиниця тиску<select id="process-pressure"><option value="MPa">МПа</option><option value="bar">бар</option><option value="kPa">кПа</option><option value="psi">psi</option></select></label><label>Одиниця температури<select id="process-temperature"><option value="C">°C</option><option value="K">K</option><option value="F">°F</option></select></label><label>Одиниця витрати<select id="process-mass"><option value="kgs">кг/с</option><option value="kgh">кг/год</option><option value="lbs">lb/s</option><option value="lbh">lb/h</option></select></label>${tur?'<label>Одиниця потужності<select id="process-power-unit"><option value="kW">кВт</option><option value="Btuh">Btu/h</option></select></label>':''}${[['p1','Вхідний тиск','3'],['t1','Вхідна температура',tur?'400':'200'],['p2','Вихідний тиск','0.1'],...(tur?[['eta','Ізоентропний ККД, %','85']]:[]),['flow','Масова витрата','1'],...(tur?[['power','Потужність','600']]:[])].map(([id,label,value])=>`<label>${label}<input id="process-${id}" value="${value}" inputmode="decimal" required></label>`).join('')}</fieldset><button type="submit">Розрахувати</button></form><p id="process-error" role="alert"></p><div id="process-result"></div>`;
+ for(const id of ['p1','t1','p2','eta','flow','power','mode','pressure','temperature','mass','power-unit'])if($('process-'+id)&&draft[id])$('process-'+id).value=draft[id];
  function updateProcessMode(){const mode=$('process-mode').value;for(const id of ['eta','flow','power','t1']){const el=$('process-'+id);if(!el)continue;const hidden=tur?(id==='power'&&mode==='power')||(id==='eta'&&mode==='efficiency')||(id==='flow'&&mode==='flow'):id==='t1'&&mode==='saturated';el.disabled=hidden;el.closest('label').hidden=hidden;}}
  updateProcessMode();$('process-mode').addEventListener('change',()=>{updateProcessMode();$('process-result').innerHTML='';rememberDraft();});
- function rememberDraft(){processDrafts[kind]={};for(const id of ['p1','t1','p2','eta','flow','power','mode','pressure','temperature','mass'])if($('process-'+id))processDrafts[kind][id]=$('process-'+id).value;saveProject();}
- for(const id of ['pressure','temperature','mass']){
- const el=$('process-'+id);el.dataset.previous=el.value;el.addEventListener('change',()=>{try{for(const k of id==='pressure'?['p1','p2']:id==='temperature'?['t1']:['flow']){const input=$('process-'+k),v=parseNumber(input.value);input.value=String(id==='mass'?(el.value==='kgh'?v*3600:v/3600):fromCanonical(toCanonical(v,el.dataset.previous),el.value));}}catch{}el.dataset.previous=el.value;$('process-result').innerHTML='';rememberDraft();});
+ function rememberDraft(){processDrafts[kind]={};for(const id of ['p1','t1','p2','eta','flow','power','mode','pressure','temperature','mass','power-unit'])if($('process-'+id))processDrafts[kind][id]=$('process-'+id).value;saveProject();}
+ for(const id of ['pressure','temperature','mass','power-unit']){
+ const el=$('process-'+id);if(!el)continue;el.dataset.previous=el.value;el.addEventListener('change',()=>{try{for(const k of id==='pressure'?['p1','p2']:id==='temperature'?['t1']:id==='power-unit'?['power']:['flow']){const input=$('process-'+k),v=parseNumber(input.value);input.value=String(id==='power-unit'?v*(el.dataset.previous==='Btuh'?1055.05585262/3600000:1)/(el.value==='Btuh'?1055.05585262/3600000:1):id==='mass'?(massFrom(massTo(v,el.dataset.previous),el.value)):fromCanonical(toCanonical(v,el.dataset.previous),el.value));}}catch{}el.dataset.previous=el.value;$('process-result').innerHTML='';rememberDraft();});
  }
  $('process-form').addEventListener('input',rememberDraft);
  for(const input of $('process-form').querySelectorAll('input'))input.addEventListener('input',()=>{$('process-result').innerHTML='';$('process-error').textContent='';$('result-status').textContent='Параметри процесу змінено — розрахуйте знову';});
  $('process-form').addEventListener('submit',event=>{event.preventDefault();$('process-result').innerHTML='';$('process-error').textContent='';try{
- const n=id=>{const v=parseNumber($('process-'+id).value);return ['p1','p2'].includes(id)?toCanonical(v,$('process-pressure').value):id==='t1'?toCanonical(v,$('process-temperature').value)-273.15:id==='flow'&&$('process-mass').value==='kgh'?v/3600:v;};
+ const n=id=>{const v=parseNumber($('process-'+id).value);return ['p1','p2'].includes(id)?toCanonical(v,$('process-pressure').value):id==='t1'?toCanonical(v,$('process-temperature').value)-273.15:id==='flow'?massTo(v,$('process-mass').value):id==='power'&&$('process-power-unit').value==='Btuh'?v*1055.05585262/3600000:v;};
  const pm=$('process-mode').value,saturated=!tur&&pm==='saturated';
  const Tin=saturated?calculate('px',n('p1'),0).state.T:n('t1')+273.15;
  const r=tur?(pm==='power'?turbine(n('p1'),Tin,n('p2'),n('eta')/100,n('flow')):turbineInverse(pm,n('p1'),Tin,n('p2'),n('power'),pm==='flow'?n('eta')/100:n('flow'))):flash(n('p1'),Tin,n('p2'),n('flow'),saturated?1:0);
  storedProcess={type:kind,args:tur?[n('p1'),Tin,n('p2'),r.eta,r.flow]:[n('p1'),Tin,n('p2'),r.flow,saturated?1:0]};plottedProcess={kind:tur?'Турбіна':'Дроселювання',result:r};rememberDraft();saveProject();
  const metrics=tur?[['Питома робота',r.work,'кДж/кг'],['Потужність потоку',r.power,'кВт'],['Витрата пари',r.flow,'кг/с'],['Ізоентропний ККД',r.eta*100,'%']]:[['Витрата пари',r.vaporFlow,'кг/с'],['Витрата рідини',r.liquidFlow,'кг/с']];
- $('process-result').innerHTML=`<p>${metrics.map(([l,v,u])=>`${l}: <strong>${format(v)} ${u}</strong>`).join(' · ')}</p>${!tur&&r.outlet.x==null?'<p>Вихід однофазний; баланс сепарації на рідину й пару не застосовується.</p>':''}<table><thead><tr><th>Стан</th><th>p, МПа</th><th>t, °C</th><th>h, кДж/кг</th><th>s, кДж/(кг·K)</th><th>x</th><th>Фаза</th></tr></thead><tbody>${[['Вхід',r.inlet],...(tur?[['Ізоентропний вихід',r.ideal]]:[]),['Вихід',r.outlet]].map(([l,q])=>`<tr><td>${l}</td>${[q.p,q.T-273.15,q.h,q.s,q.x].map(v=>`<td>${format(v)}</td>`).join('')}<td>${q.phase}</td></tr>`).join('')}</tbody></table><button id="process-csv">CSV процесу</button><button id="process-plot">Нанести процес на h–s діаграму</button><button id="process-transfer">Показати вихід у загальних властивостях</button>`;
- $('process-csv').onclick=()=>downloadFile(processCSV(kind,r),kind+'.csv','text/csv;charset=utf-8');
+ $('process-result').innerHTML=`<p>${metrics.map(([l,v,u])=>`${l}: <strong>${format(processDisplay(l==='Питома робота'?'work':l==='Потужність потоку'?'power':u==='кг/с'?'flow':'eta',v,u)[0])} ${processDisplay(l==='Питома робота'?'work':l==='Потужність потоку'?'power':u==='кг/с'?'flow':'eta',v,u)[1]}</strong>`).join(' · ')}</p>${!tur&&r.outlet.x==null?'<p>Вихід однофазний; баланс сепарації на рідину й пару не застосовується.</p>':''}<table><thead><tr><th>Стан</th>${[['p','МПа'],['T','°C'],['h','кДж/кг'],['s','кДж/(кг·K)']].map(([k,u])=>`<th>${k}, ${processDisplay(k,null,u)[1]}</th>`).join('')}<th>x</th><th>Фаза</th></tr></thead><tbody>${[['Вхід',r.inlet],...(tur?[['Ізоентропний вихід',r.ideal]]:[]),['Вихід',r.outlet]].map(([l,q])=>`<tr><td>${l}</td>${[['p',q.p],['T',q.T-273.15],['h',q.h],['s',q.s],['x',q.x]].map(([k,v])=>`<td>${format(processDisplay(k,v,'')[0])}</td>`).join('')}<td>${q.phase}</td></tr>`).join('')}</tbody></table><button id="process-csv">CSV процесу</button><button id="process-plot">Нанести процес на h–s діаграму</button><button id="process-transfer">Показати вихід у загальних властивостях</button>`;
+ $('process-csv').onclick=()=>downloadFile(processCSV(kind,r,$('output-system').value),kind+'.csv','text/csv;charset=utf-8');
  $('process-plot').addEventListener('click',()=>showProcess('hsdiagram'));
  $('process-transfer').addEventListener('click',()=>{selectView('general');$('mode').value='ph';resetMode();$('input-a').value=String(r.outlet.p);$('input-b').value=String(r.outlet.h);run();});
  $('result-status').textContent='Розрахунок процесу виконано';
@@ -203,9 +208,9 @@ function showDiagram(kind){
 }
 
 const STORAGE_KEY='water-steam-if97-project-v1';
-function projectSnapshot(){return {format:'water-steam-if97',version:1,history:historyStates.map(q=>({p:q.p,h:q.h})),process:storedProcess,form:{mode:$('mode').value,a:$('input-a').value,b:$('input-b').value,ua:$('unit-a').value,ub:$('unit-b').value},drafts:processDrafts,ambient,energy:$('output-energy').value,gray:document.body.classList.contains('gray'),scale:$('ui-scale').value};}
+function projectSnapshot(){return {format:'water-steam-if97',version:1,history:historyStates.map(q=>({p:q.p,h:q.h})),process:storedProcess,form:{mode:$('mode').value,a:$('input-a').value,b:$('input-b').value,ua:$('unit-a').value,ub:$('unit-b').value},drafts:processDrafts,ambient,system:$('output-system').value,energy:$('output-energy').value,gray:document.body.classList.contains('gray'),scale:$('ui-scale').value};}
 function saveProject(){if(!persistenceReady)return;try{localStorage.setItem(STORAGE_KEY,JSON.stringify(projectSnapshot()));}catch{$('result-status').textContent='Локальне збереження недоступне — експортуйте проєкт у файл';}}
-function applyProject(p){historyStates.splice(0,historyStates.length,...p.states);revision=p.states.length;ambient=p.ambient;ambientRef=referenceState(ambient.p,ambient.T);$('ambient-p').value=String(ambient.p);$('ambient-t').value=String(ambient.T-273.15);selectView('general');$('mode').value=p.form.mode;resetMode();for(const [id,v] of [['input-a',p.form.a],['input-b',p.form.b],['unit-a',p.form.ua],['unit-b',p.form.ub]])$(id).value=v;for(const id of ['unit-a','unit-b']){if(!$(id).value)throw Error('Одиниці не відповідають режиму.');$(id).dataset.previous=$(id).value;}Object.keys(processDrafts).forEach(k=>delete processDrafts[k]);Object.assign(processDrafts,p.drafts);storedProcess=p.process?{type:p.process.type,args:p.process.args}:null;plottedProcess=p.process?{kind:p.process.type==='turbine'?'Турбіна':'Дроселювання',result:p.process.result}:null;$('output-energy').value=p.energy;document.body.classList.toggle('gray',p.gray);$('ui-scale').value=p.scale;document.documentElement.style.setProperty('--ui-scale',p.scale);renderHistory();invalidate();}
+function applyProject(p){historyStates.splice(0,historyStates.length,...p.states);revision=p.states.length;ambient=p.ambient;ambientRef=referenceState(ambient.p,ambient.T);$('ambient-p').value=String(ambient.p);$('ambient-t').value=String(ambient.T-273.15);selectView('general');$('mode').value=p.form.mode;resetMode();for(const [id,v] of [['input-a',p.form.a],['input-b',p.form.b],['unit-a',p.form.ua],['unit-b',p.form.ub]])$(id).value=v;for(const id of ['unit-a','unit-b']){if(!$(id).value)throw Error('Одиниці не відповідають режиму.');$(id).dataset.previous=$(id).value;}Object.keys(processDrafts).forEach(k=>delete processDrafts[k]);Object.assign(processDrafts,p.drafts);storedProcess=p.process?{type:p.process.type,args:p.process.args}:null;plottedProcess=p.process?{kind:p.process.type==='turbine'?'Турбіна':'Дроселювання',result:p.process.result}:null;$('output-system').value=p.system;$('output-energy').value=p.energy;document.body.classList.toggle('gray',p.gray);$('ui-scale').value=p.scale;document.documentElement.style.setProperty('--ui-scale',p.scale);renderHistory();invalidate();}
 function restoreLocal(){try{const text=localStorage.getItem(STORAGE_KEY);if(text)applyProject(readProject(text));}catch{$('result-status').textContent='Збережений проєкт не відновлено; можна імпортувати файл';}}
 function downloadFile(content,name,type){const url=URL.createObjectURL(new Blob([content],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 const fileMenu=document.querySelector('.menubar .menu');
@@ -217,3 +222,5 @@ document.addEventListener('change',saveProject);document.addEventListener('click
 window.addEventListener('pagehide',saveProject);
 
 $('ambient-apply').onclick=()=>{try{const next={p:parseNumber($('ambient-p').value),T:parseNumber($('ambient-t').value)+273.15};const ref=referenceState(next.p,next.T);ambient=next;ambientRef=ref;$('ambient-status').textContent=`Застосовано P₀=${format(ambient.p)} МПа, T₀=${format(ambient.T)} K · ${ref.phase}`;if(last)render();saveProject();}catch(e){$('ambient-status').textContent=e.message;}};
+
+$('output-system').addEventListener('change',()=>{if(last)render();else $('results').innerHTML=propertyTable(null);renderHistory();if($('process-form')&&$('process-result')?.textContent.trim())$('process-form').requestSubmit();saveProject();});

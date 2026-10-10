@@ -1,0 +1,15 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {toCanonical,fromCanonical,englishProperty} from '../src/units.js';
+import {initialize,calculate} from '../src/engine.js';
+import {exportCSV} from '../src/export.js';
+import {readProject,processCSV} from '../src/project.js';
+import {turbine} from '../src/processes.js';
+await initialize(fs.readFileSync(new URL('../vendor/seuif97_bg.wasm',import.meta.url)));
+const near=(a,b)=>assert.ok(Math.abs(a-b)<1e-10*Math.max(1,Math.abs(b)),`${a} vs ${b}`);
+test('NIST IT energy, entropy and absolute Fahrenheit conversions',()=>{near(toCanonical(1,'Btulb'),2.326);near(toCanonical(1,'BtulbR'),4.1868);near(toCanonical(32,'F'),273.15);near(toCanonical(212,'F'),373.15);near(toCanonical(1,'psi'),.006894757293168361);for(const u of ['F','psi','Btulb','BtulbR'])near(fromCanonical(toCanonical(123.45,u),u),123.45);});
+test('English property conversions preserve physical identities',()=>{const v=englishProperty('v',.001)[0],rho=englishProperty('rho',1000)[0];near(v*rho,1);near(englishProperty('dvdp',2)[0]*englishProperty('dpdv',.5)[0],1);near(englishProperty('mu',.001)[0]/rho,englishProperty('nu',1e-6)[0]);near(englishProperty('power',1)[0],3412.141633127942);near(englishProperty('sigma',1)[0],.06852176585679176);assert.equal(englishProperty('cp',null)[0],null);assert.deepEqual(englishProperty('Pr',7,'–'),[7,'–']);});
+test('English inputs produce the same IF97 state',()=>{const a=calculate('pt',3,300).state,b=calculate('pt',toCanonical(fromCanonical(3,'psi'),'psi'),toCanonical(80.33,'F')).state;near(a.h,b.h);near(a.s,b.s);});
+test('English current and process CSV have converted values and units',()=>{const state=calculate('pt',3,300).state,csv=exportCSV({state},'J',null,'english');near(Number(csv.match(/"h","([^"]+)","Btu\/lb"/)[1]),state.h/2.326);assert.ok(csv.includes('"°F"'));const pc=processCSV('turbine',turbine(3,673.15,.1,.85,2),'english');assert.ok(pc.includes('p [psi]'));assert.ok(pc.includes('Btu/h'));assert.ok(pc.includes('lb/s'));});
+test('English project forms, output preference and process drafts survive import',()=>{const p={format:'water-steam-if97',version:1,history:[],system:'english',form:{mode:'hs',a:'100',b:'1',ua:'Btulb',ub:'BtulbR'},drafts:{turbine:{'power-unit':'Btuh',mass:'lbh'}}};const q=readProject(JSON.stringify(p));assert.equal(q.system,'english');assert.equal(q.drafts.turbine['power-unit'],'Btuh');delete p.system;assert.equal(readProject(JSON.stringify(p)).system,'si');});
