@@ -1,6 +1,6 @@
 // IAPWS R6-95(2018), Eqs. (4)-(6), Tables 1-3. © 2018 IAPWS.
 // Independent transcription; MPa, K, kg/m³, kJ/kg. No IF97 property substitution.
-import {viscosity,surfaceTension} from './transport.js';
+import {viscosity,viscosityScientific,conductivity,surfaceTension} from './transport.js';
 import {dielectric} from './dielectric.js';
 export const R95=.46151805, T95C=647.096, D95C=322, P95C=22.064;
 const N95=[.012533547935523,7.8957634722828,-8.7803203303561,.31802509345418,-.26145533859358,-.0078199751687981,.0088089493102134,-.66856572307965,.20433810950965,-.000066212605039687,-.19232721156002,-.25709043003438,.16074868486251,-.040092828925807,.00000039343422603254,-.0000075941377088144,.00056250979351888,-.000015608652257135,.0000000011537996422951,.00000036582165144204,-.0000000000013251180074668,-.00000000062639586912454,-.10793600908932,.017611491008752,.22132295167546,-.40247669763528,.58083399985759,.0049969146990806,-.031358700712549,-.74315929710341,.47807329915480,.020527940895948,-.13636435110343,.014180634400617,.0083326504880713,-.029052336009585,.038615085574206,-.020393486513704,-.0016554050063734,.0019955571979541,.00015870308324157,-.000016388568342530,.043613615723811,.034994005463765,-.076788197844621,.022446277332006,-.000062689710414685,-.00000000055711118565645,-.19905718354408,.31777497330738,-.11841182425981];
@@ -47,8 +47,9 @@ function lowerT95(p){let lo=273.16,hi=355;if(p<=meltingLimit95(lo))return lo;for
 
 function decorate95(q,phase,x=null){
  if(!(q.drhodp>0&&q.cp>0&&q.cv>0&&Number.isFinite(q.w)))throw Error('IAPWS-95: нестабільний або сингулярний стан.');
- const kappa=q.drhodp/q.rho,mu=q.T<=1173.15&&q.p<=100?viscosity(q.T,q.rho):null;
- return {...q,phase,x,kappa,dvdt:q.v*q.alpha,dvdp:-q.v*kappa,dpdt:q.alpha/kappa,dpdv:-1/(q.v*kappa),jt:1000*q.v*(q.T*q.alpha-1)/q.cp,ijt:1000*q.v*(1-q.T*q.alpha),A:q.u-q.T*q.s,G:q.h-q.T*q.s,Z:1000*q.p*q.v/(R95*q.T),isentropic:q.w*q.w*q.rho/(q.p*1e6),dc:dielectric(q.T,q.rho),mu,nu:mu==null?null:mu/q.rho,lambda:null,diffusivity:null,Pr:null,sigma:x===0||x===1?surfaceTension(q.T):null,notes:['IAPWS-95 R6-95(2018). Насичення — рівновага основного рівняння. Теплопровідність і критичний доданок в’язкості IAPWS-95 ще не реалізовані; μ — промисловий варіант μ₂=1, лише P≤100 МПа, T≤1173,15 K. Області 1–5 IF97 до цієї моделі не застосовуються.']};
+ const kappa=q.drhodp/q.rho,ref=raw95(1.5*T95C,q.rho).drhodp;
+ const mu=q.T<=1173&&q.p<=100?viscosityScientific(q,ref):null,lambda=mu==null?null:conductivity(q,ref,mu);
+ return {...q,phase,x,kappa,dvdt:q.v*q.alpha,dvdp:-q.v*kappa,dpdt:q.alpha/kappa,dpdv:-1/(q.v*kappa),jt:1000*q.v*(q.T*q.alpha-1)/q.cp,ijt:1000*q.v*(1-q.T*q.alpha),A:q.u-q.T*q.s,G:q.h-q.T*q.s,Z:1000*q.p*q.v/(R95*q.T),isentropic:q.w*q.w*q.rho/(q.p*1e6),dc:dielectric(q.T,q.rho),mu,nu:mu==null?null:mu/q.rho,lambda,diffusivity:lambda==null?null:lambda/(q.rho*q.cp*1000),Pr:lambda==null?null:mu*q.cp*1000/lambda,sigma:x===0||x===1?surfaceTension(q.T):null,notes:['IAPWS-95 R6-95(2018). Насичення — рівновага основного рівняння. μ та λ: наукові IAPWS 2008/2011 з критичними доданками та опорною похідною IAPWS-95; реалізовано лише P≤100 МПа, T≤1173 K. Області 1–5 IF97 до цієї моделі не застосовуються.']};
 }
 function seedSaturation95(T){const z=1-T/T95C,liquid=[1.99274064,1.09965342,-.510839303,-1.75493479,-45.5170352,-674694.45],le=[1/3,2/3,5/3,16/3,43/3,110/3],vapor=[-2.0315024,-2.6830294,-5.38626492,-17.2991605,-44.7586581,-63.9201063],ve=[1/3,2/3,4/3,3,37/6,71/6];return [D95C*(1+liquid.reduce((s,n,i)=>s+n*z**le[i],0)),D95C*Math.exp(vapor.reduce((s,n,i)=>s+n*z**ve[i],0))];}
 const satCache95=new Map();

@@ -1,7 +1,7 @@
 import {extraInputs} from './extra-inputs.js';
 import {calculate95} from './iapws95.js';
 import {dielectric} from './dielectric.js';
-import init, {initSync,pt,px,hs} from '../vendor/seuif97.js';
+import init, {initSync,pt,px,hs,ph,ps} from '../vendor/seuif97.js';
 import {gibbs,helmholtz,TC,PC,RHOC,PMIN_SAT,saturationPressure,saturationTemperature,boundary23Pressure,boundary23Temperature} from './equations.js';
 import {viscosity,conductivity,surfaceTension} from './transport.js';
 export {TC,PC,PMIN_SAT,saturationPressure,saturationTemperature,boundary23Pressure};
@@ -122,10 +122,16 @@ export function solveInverse(p,target,key,tolerance) {
     let answer;
     if(Math.abs(target-a[key])<1e-9)answer=a;
     else if(Math.abs(target-b[key])<1e-9)answer=b;
-    else for(let k=0;k<90;k++) {
-      const mid=(lo+hi)/2,m=evaluate(mid);
+    else {let seed;try{seed=(key==='h'?ph(p,target,1):ps(p,target,1))+273.15;}catch{}
+     let mid=Number.isFinite(seed)&&seed>lo&&seed<hi?seed:(lo+hi)/2;
+     for(let k=0;k<90;k++) {
+      const m=evaluate(mid);
       if(Math.abs(m[key]-target)<(tolerance??(key==='h'?2e-8:2e-11))){answer=m;break;}
       if(m[key]<target)lo=mid;else hi=mid;
+      const next=mid-(m[key]-target)/(key==='h'?m.cp:m.cp/mid);
+      // Safeguarded Newton: retain the fundamental-region bracket and bisection fallback.
+      mid=Number.isFinite(next)&&next>lo&&next<hi?next:(lo+hi)/2;
+     }
     }
     if(!answer)throw Error('Інверсія не збіглася поблизу межі областей.');
     const phase=region===1?'Стиснена рідина':region===2||region===5?'Перегріта пара':answer.T>=TC&&p>=PC?'Надкритичний флюїд':'Густий флюїд / пара';

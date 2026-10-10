@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-10T06:16:13.492Z",
+  "node": "v24.19.0",
+  "cpu": "Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz",
+  "baselineRef": "1bc0477",
+  "pointCount": 9,
+  "notes": [
+    "Includes regions 1, 2, 3 and 5. Each median: 7 runs × 270 calls.",
+    "WASM returns one property; JS returns a decorated state and validates/refines roots. These are different workloads.",
+    "Region 5 HS may use fallback. This microbenchmark does not predict browser diagram latency."
+  ],
+  "results": [
+    {
+      "name": "IF97 JS PT",
+      "medianMillisecondsPerState": 0.03297973703703713,
+      "statesPerSecond": 30321.648680126622
+    },
+    {
+      "name": "IF97 JS PH refined",
+      "medianMillisecondsPerState": 0.20644372592592589,
+      "statesPerSecond": 4843.93505065303
+    },
+    {
+      "name": "IF97 JS PS refined",
+      "medianMillisecondsPerState": 0.20671547037037036,
+      "statesPerSecond": 4837.567300639417
+    },
+    {
+      "name": "IF97 JS HS refined",
+      "medianMillisecondsPerState": 0.7893531370370376,
+      "statesPerSecond": 1266.860107446534
+    },
+    {
+      "name": "SEUIF97 WASM PT density",
+      "medianMillisecondsPerState": 0.00034615555555488016,
+      "statesPerSecond": 2888874.6228470053
+    },
+    {
+      "name": "SEUIF97 WASM PH temperature",
+      "medianMillisecondsPerState": 0.0008021592592588907,
+      "statesPerSecond": 1246635.239146766
+    },
+    {
+      "name": "SEUIF97 WASM PS temperature",
+      "medianMillisecondsPerState": 0.002083211111111841,
+      "statesPerSecond": 480028.1616519821
+    },
+    {
+      "name": "SEUIF97 WASM HS pressure",
+      "medianMillisecondsPerState": 0.004569862962964382,
+      "statesPerSecond": 218824.94247733837
+    },
+    {
+      "name": "Baseline 1bc0477 JS PH",
+      "medianMillisecondsPerState": 0.6286687740740743,
+      "statesPerSecond": 1590.6627483969369
+    },
+    {
+      "name": "Baseline 1bc0477 JS PS",
+      "medianMillisecondsPerState": 0.6424097370370367,
+      "statesPerSecond": 1556.6389211537546
+    },
+    {
+      "name": "Baseline 1bc0477 JS HS",
+      "medianMillisecondsPerState": 2.9101147851851876,
+      "statesPerSecond": 343.62905720791497
+    }
+  ]
+}

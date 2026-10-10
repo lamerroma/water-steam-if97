@@ -43,6 +43,46 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+Cantera NASA7 data / BSD-3-Clause:
+
+Copyright (c) 2001-2009, California Institute of Technology
+All rights reserved.
+
+Copyright (c) 2009 Sandia Corporation. Under the terms of
+Contract AC04-94AL85000 with Sandia Corporation, the U.S. Government
+retains certain rights in this software.
+
+Copyright (c) 2011-2026, Cantera Developers.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+- Redistributions of source code must retain the above copyright
+  notice, this list of conditions and the following disclaimer.
+
+- Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+
+- Neither the name of the California Institute of Technology, Sandia
+  Corporation nor the names of other  contributors may be used to
+  endorse or promote products derived from this software without
+  specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 Formulations and verification tables: International Association for the Properties of Water and Steam (IAPWS), R7-97(2012), R12-08, R15-11, R1-76(2014), R8-97, R6-95(2018), R14-08(2011).
 -->
 <!doctype html>
@@ -71,6 +111,8 @@ Formulations and verification tables: International Association for the Properti
 .state-name{width:110px;border:1px solid transparent;background:transparent;padding:2px}.state-name:focus{background:white;border-color:#9db5d5}#history button{padding:0 5px;border:1px solid #9db5d5;background:#edf3fb}#project-title{width:150px;margin:4px 10px}#project-save-status{max-width:200px;margin:4px 10px;color:#516681}
 
 @media print{html,body,.desktop,.center-pane,.calculator-view{height:auto!important;min-height:0!important;display:block!important;overflow:visible!important}.site-nav,.menubar,.toolbar,.tabs,.setup-pane,.input-area,button,#engineering-form,#batch-form,#process-form,footer{display:none!important}.output-pane,.results-scroll,.history-scroll,#process-view{height:auto!important;overflow:visible!important}.output-pane{break-before:page}.state-name{border:0}table thead{display:table-header-group}tr{break-inside:avoid}.history-scroll table{font-size:7px}}
+/* Educational modules keep explicit SI labels and the desktop table appearance. */
+.process-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:12px 0}.process-grid label{display:flex;flex-direction:column;gap:5px;font-size:13px}.process-grid input,.process-grid select{width:100%;box-sizing:border-box;padding:6px}#learn-form>label{display:block;margin:10px 0}#learn-form>button,#learn-csv,#learn-json{padding:7px 14px;margin:5px 0}#learn-error{color:#a51a1a;background:#ffecec;padding:10px}#learn-output{margin-top:16px}#learn-output .sat-table{width:100%;margin:10px 0}.tabs{overflow-x:auto;flex-shrink:0}
 </style></head>
 <body>
 <nav class="site-nav"><button data-action="general">Калькулятор</button><button data-action="help">Довідка калькулятора</button><button data-action="export">Експорт CSV</button><button data-action="help">Джерела та ліцензії</button><span>Таблиці води та пари · автономна версія</span></nav>
@@ -78,13 +120,13 @@ Formulations and verification tables: International Association for the Properti
 <div class="toolbar"><button title="Очистити результати" aria-label="Очистити результати" data-action="clear">▤</button><button title="Зберегти CSV" aria-label="Зберегти CSV" data-action="export">▣</button><button title="Друк" aria-label="Друк" data-action="print">▧</button><i></i><button title="Загальні властивості" aria-label="Загальні властивості" data-action="general">⚗</button><button title="Насичення" aria-label="Насичення" data-action="saturation">≈</button><i></i><button title="Довідка" aria-label="Довідка" data-action="help">ⓘ</button><span>IF97 / IAPWS-95 · вода та водяна пара</span><b>🇺🇦</b></div>
 <main class="desktop">
 <section class="center-pane">
-<div class="tabs" role="tablist" aria-label="Розділи калькулятора"><button id="tab-general" role="tab" aria-selected="true" data-action="general">▣ 1. Загальні властивості</button><button id="tab-saturation" role="tab" aria-selected="false" data-action="saturation">▤ 2. Властивості насичення</button><button role="tab" aria-selected="false" data-action="turbine">3. Парова турбіна</button><button role="tab" aria-selected="false" data-action="flash">4. Випаровування</button><button role="tab" aria-selected="false" data-action="ts">5. T–s діаграма</button><button role="tab" aria-selected="false" data-action="hsdiagram">6. h–s діаграма</button><button role="tab" aria-selected="false" data-action="batch">7. Пакетні розрахунки</button><button role="tab" aria-selected="false" data-action="engineering">8. Інженерні процеси</button><button id="tab-help" role="tab" aria-selected="false" data-action="help">ⓘ Довідка</button></div>
+<div class="tabs" role="tablist" aria-label="Розділи калькулятора"><button id="tab-general" role="tab" aria-selected="true" data-action="general">▣ 1. Загальні властивості</button><button id="tab-saturation" role="tab" aria-selected="false" data-action="saturation">▤ 2. Властивості насичення</button><button role="tab" aria-selected="false" data-action="turbine">3. Парова турбіна</button><button role="tab" aria-selected="false" data-action="flash">4. Випаровування</button><button role="tab" aria-selected="false" data-action="ts">5. T–s діаграма</button><button role="tab" aria-selected="false" data-action="hsdiagram">6. h–s діаграма</button><button role="tab" aria-selected="false" data-action="batch">7. Пакетні розрахунки</button><button role="tab" aria-selected="false" data-action="engineering">8. Інженерні процеси</button><button role="tab" aria-selected="false" data-action="gases">9. Гази та суміші</button><button role="tab" aria-selected="false" data-action="humid">10. Вологе повітря</button><button role="tab" aria-selected="false" data-action="cycles">11. Навчальні цикли</button><button id="tab-help" role="tab" aria-selected="false" data-action="help">ⓘ Довідка</button></div>
 <div id="process-view" hidden></div><div id="calculator-view" class="calculator-view">
 <div class="input-area"><form id="calculator" novalidate><fieldset><legend>Вхідні дані</legend><div class="form-row"><label for="mode">Оберіть функцію:</label><select id="mode"><option value="pt">1. функція (p, t)</option><option value="ph">2. функція (p, h)</option><option value="ps">3. функція (p, s)</option><option value="satp">4. насичення за p</option><option value="satt">5. насичення за t</option><option value="px">6. функція (p, x)</option><option value="tx">7. функція (t, x)</option><option value="hs">8. функція (h, s)</option><option value="th">9. функція (t, h)</option><option value="ts">10. функція (t, s)</option><option value="prho">11. функція (p, ρ)</option><option value="trho">12. функція (t, ρ)</option></select></div><div class="form-row"><label id="label-a" for="input-a">1. Тиск (абсолютний):</label><input id="input-a" inputmode="decimal" value="3" autocomplete="off"><select id="unit-a" aria-label="Одиниця першого параметра"></select></div><div class="form-row" id="field-b"><label id="label-b" for="input-b">2. Температура:</label><input id="input-b" inputmode="decimal" value="26.85" autocomplete="off"><select id="unit-b" aria-label="Одиниця другого параметра"></select></div></fieldset><p id="error" role="alert" hidden></p></form><div class="form-buttons"><button type="submit" form="calculator" id="calculate" disabled>Завантаження…</button><button type="button" data-action="clear">Очистити результати</button><span id="state-summary">Задайте стан води або пари</span></div><div class="product-info"><strong>Таблиці води та пари</strong><b>IAPWS-IF97</b><p id="mode-help">Абсолютний тиск · автономний розрахунок</p><div class="presets"><button data-p="3" data-t="300">Рідина</button><button data-p="30" data-t="700">Пара</button><button data-p="25.5837018" data-t="650">Область 3</button></div></div></div>
 <div class="results-scroll"><div id="results" aria-live="polite"></div></div>
-</div><div id="help-view" hidden><section class="method"><div class="section-title"><span class="step">i</span><h2>Модель і межі застосування</h2></div><div class="method-grid"><div><h3>IF97 та IAPWS-95</h3><p>IAPWS-95 R6-95(2018): фундаментальне рівняння Гельмгольца, 56 залишкових членів, аналітичні похідні. Реалізовано 273,16…1273 K до 1000 МПа з перевіркою межі плавлення R14-08(2011). Точна критична точка, T&lt;273,16 K та лід не підтримуються. λ IAPWS-95 поки не наведена; μ₂=1 явно позначена як промисловий варіант.</p><h3>П’ять областей IF97</h3><p>Області 1, 2, 3 і 5 — однофазні стани. Область 4 — рівновага рідина–пара. Насичення: 273,15–647,096 K, до 22,064 МПа. Метастабільна пара й лід не моделюються.</p></div><div><h3>Транспортні властивості</h3><p>В’язкість: IAPWS 2008, промисловий варіант. Теплопровідність: IAPWS 2011, промисловий варіант з критичним доданком. Наведено лише до 1173,15 K. Діелектрична проникність: R8-97 при T ≤ 873 K; густина взята з IF97, тоді як R8-97 рекомендує IAPWS-95 для перетворення P–T у густину. У суміші значення не усереднюється.</p></div><div><h3>Прозорі обчислення</h3><p>Основні рівняння IF97; область 3 уточнюється до кореня рівняння тиску. P–h, P–s та h–s розв’язуються чисельно з контролем фаз і меж. У двофазній суміші похідні не підміняються усередненими числами.</p></div></div><details><summary>Джерела, ліцензії та числова точність</summary><p>Формуляції належать International Association for the Properties of Water and Steam (IAPWS). Реалізація використовує локальну SEUIF97 2.3.8 (MIT, © 2023 Cheng Maohua); початкові наближення області 3 і h–s; повний текст ліцензії та атрибуція включені в репозиторій. Цей калькулятор не сертифікований IAPWS.</p><p>Результати показано з 8 значущими цифрами; це формат відображення, а не гарантія фізичної точності. Невеликі розриви між рівняннями на межах IF97 не інтерполюються. Надзвичайно близько до критичної точки можливе повідомлення про незбіжність.</p><p><a href="https://iapws.org/technical-guidance/release/IF97-Rev" target="_blank" rel="noopener">IAPWS R7-97(2012)</a> · <a href="https://iapws.org/technical-guidance/release/viscosity" target="_blank" rel="noopener">R12-08</a> · <a href="https://iapws.org/technical-guidance/release/ThCond" target="_blank" rel="noopener">R15-11</a> · <a href="https://iapws.org/technical-guidance/release/Dielec" target="_blank" rel="noopener">R8-97</a> · <a href="https://iapws.org/technical-guidance/release/Surf-H2O" target="_blank" rel="noopener">R1-76(2014)</a> · <a href="https://github.com/thermalogic/RustSEUIF97" target="_blank" rel="noopener">SEUIF97 / MIT</a></p></details></section>
+</div><div id="help-view" hidden><section class="method"><div class="section-title"><span class="step">i</span><h2>Модель і межі застосування</h2></div><div class="method-grid"><div><h3>IF97 та IAPWS-95</h3><p>IAPWS-95 R6-95(2018): фундаментальне рівняння Гельмгольца, 56 залишкових членів, аналітичні похідні. Реалізовано 273,16…1273 K до 1000 МПа з перевіркою межі плавлення R14-08(2011). Точна критична точка, T&lt;273,16 K та лід не підтримуються. μ і λ IAPWS-95 включають наукові критичні доданки та опорну похідну IAPWS-95; наведені при P ≤ 100 МПа і T ≤ 1173 K.</p><h3>П’ять областей IF97</h3><p>Області 1, 2, 3 і 5 — однофазні стани. Область 4 — рівновага рідина–пара. Насичення: 273,15–647,096 K, до 22,064 МПа. Метастабільна пара й лід не моделюються.</p></div><div><h3>Транспортні властивості</h3><p>В’язкість: IAPWS 2008, промисловий варіант. Теплопровідність: IAPWS 2011, промисловий варіант з критичним доданком. Наведено лише до 1173,15 K. Діелектрична проникність: R8-97 при T ≤ 873 K; густина взята з IF97, тоді як R8-97 рекомендує IAPWS-95 для перетворення P–T у густину. У суміші значення не усереднюється.</p></div><div><h3>Прозорі обчислення</h3><p>Основні рівняння IF97; область 3 уточнюється до кореня рівняння тиску. P–h, P–s та h–s розв’язуються чисельно з контролем фаз і меж. У двофазній суміші похідні не підміняються усередненими числами.</p></div></div><details><summary>Джерела, ліцензії та числова точність</summary><p>Формуляції належать International Association for the Properties of Water and Steam (IAPWS). Реалізація використовує локальну SEUIF97 2.3.8 (MIT, © 2023 Cheng Maohua); зворотні рівняння як початкові наближення області 3, P–h, P–s і h–s; повний текст ліцензії та атрибуція включені в репозиторій. NASA7 дані Cantera — BSD-3-Clause, повний текст включено в HTML. Цей калькулятор не сертифікований IAPWS.</p><p>Результати показано з 8 значущими цифрами; це формат відображення, а не гарантія фізичної точності. Невеликі розриви між рівняннями на межах IF97 не інтерполюються. Надзвичайно близько до критичної точки можливе повідомлення про незбіжність.</p><p><a href="https://iapws.org/technical-guidance/release/IF97-Rev" target="_blank" rel="noopener">IAPWS R7-97(2012)</a> · <a href="https://iapws.org/technical-guidance/release/viscosity" target="_blank" rel="noopener">R12-08</a> · <a href="https://iapws.org/technical-guidance/release/ThCond" target="_blank" rel="noopener">R15-11</a> · <a href="https://iapws.org/technical-guidance/release/Dielec" target="_blank" rel="noopener">R8-97</a> · <a href="https://iapws.org/technical-guidance/release/Surf-H2O" target="_blank" rel="noopener">R1-76(2014)</a> · <a href="https://github.com/thermalogic/RustSEUIF97" target="_blank" rel="noopener">SEUIF97 / MIT</a></p></details></section>
 </div></section>
-<aside class="setup-pane"><h2>▣ Панель налаштувань<button data-action="toggle-setup" aria-label="Згорнути панель налаштувань">»</button></h2><div class="setup-content"><fieldset><legend>ОДИНИЦІ</legend><p>Тиск і температура — біля полів введення.</p><label for="output-system">Одиниці результатів</label><select id="output-system"><option value="si">SI</option><option value="english">Англійські · Btu IT</option></select><label for="output-energy">Енергетичні величини</label><select id="output-energy"><option value="kJ">кДж · SI</option><option value="J">Дж · SI</option></select></fieldset><fieldset><legend>ДОВКІЛЛЯ · ЕКСЕРГІЯ</legend><label>Температура T₀, °C<input id="ambient-t" value="25" inputmode="decimal"></label><label>Абсолютний тиск P₀, МПа<input id="ambient-p" value="0.101325" inputmode="decimal"></label><button id="ambient-apply" type="button">Оновити довкілля</button><p id="ambient-status">Фізична ексергія потоку; без хімічної, кінетичної та потенціальної складових.</p></fieldset><fieldset><legend>ФОРМУЛЯЦІЯ</legend><label><input type="radio" checked name="formulation" value="IF97"> IAPWS-IF97</label><label><input type="radio" name="formulation" value="IAPWS-95"> IAPWS-95</label><small id="model-help">Обрана формуляція застосовується до калькулятора, інженерних задач, серій і діаграм. IAPWS-95: λ ще не реалізована; μ — промисловий варіант.</small></fieldset><fieldset><legend>МЕЖІ ЗАСТОСУВАННЯ</legend><p>IAPWS-95: 273,16…1273 K; до 1000 МПа, вище межі плавлення. Критична точка виключена.</p><p>273,15–1073,15 K<br>до 100 МПа</p><p>1073,15–2273,15 K<br>до 50 МПа</p><p>Насичення: до 647,096 K та 22,064 МПа.</p></fieldset><fieldset><legend>СТАН МОДЕЛІ</legend><p>Області 1–5 IF97.</p><p>В’язкість: IAPWS 2008.<br>Теплопровідність: IAPWS 2011.</p><p>Без реєстрації. Без сервера.</p></fieldset></div></aside>
+<aside class="setup-pane"><h2>▣ Панель налаштувань<button data-action="toggle-setup" aria-label="Згорнути панель налаштувань">»</button></h2><div class="setup-content"><fieldset><legend>ОДИНИЦІ</legend><p>Тиск і температура — біля полів введення.</p><label for="output-system">Одиниці результатів</label><select id="output-system"><option value="si">SI</option><option value="english">Англійські · Btu IT</option></select><label for="output-energy">Енергетичні величини</label><select id="output-energy"><option value="kJ">кДж · SI</option><option value="J">Дж · SI</option></select></fieldset><fieldset><legend>ДОВКІЛЛЯ · ЕКСЕРГІЯ</legend><label>Температура T₀, °C<input id="ambient-t" value="25" inputmode="decimal"></label><label>Абсолютний тиск P₀, МПа<input id="ambient-p" value="0.101325" inputmode="decimal"></label><button id="ambient-apply" type="button">Оновити довкілля</button><p id="ambient-status">Фізична ексергія потоку; без хімічної, кінетичної та потенціальної складових.</p></fieldset><fieldset><legend>ФОРМУЛЯЦІЯ</legend><label><input type="radio" checked name="formulation" value="IF97"> IAPWS-IF97</label><label><input type="radio" name="formulation" value="IAPWS-95"> IAPWS-95</label><small id="model-help">Обрана формуляція застосовується до калькулятора, інженерних задач, серій і діаграм. IAPWS-95: наукові μ і λ з критичними доданками (P ≤ 100 МПа, T ≤ 1173 K).</small></fieldset><fieldset><legend>МЕЖІ ЗАСТОСУВАННЯ</legend><p>IAPWS-95: 273,16…1273 K; до 1000 МПа, вище межі плавлення. Критична точка виключена.</p><p>273,15–1073,15 K<br>до 100 МПа</p><p>1073,15–2273,15 K<br>до 50 МПа</p><p>Насичення: до 647,096 K та 22,064 МПа.</p></fieldset><fieldset><legend>СТАН МОДЕЛІ</legend><p>Області 1–5 IF97.</p><p>В’язкість: IAPWS 2008.<br>Теплопровідність: IAPWS 2011.</p><p>Без реєстрації. Без сервера.</p></fieldset></div></aside>
 <div id="output-resize" role="separator" tabindex="0" aria-label="Висота панелі результатів" aria-orientation="horizontal" aria-valuemin="100" aria-valuemax="400" aria-valuenow="218"></div><section class="output-pane"><h2>▣ Панель результатів <span>— історія розрахунків</span><button data-action="toggle-output" aria-label="Згорнути панель результатів">⌄</button><button id="export-csv" disabled>↓ CSV поточного стану</button></h2><div class="history-scroll"><table id="history"><thead><tr><th>№</th><th>p [МПа]</th><th>t [°C]</th><th>v [м³/кг]</th><th>h [кДж/кг]</th><th>s [кДж/(кг·K)]</th><th>u [кДж/кг]</th><th>cp [кДж/(кг·K)]</th><th>cv [кДж/(кг·K)]</th><th>w [м/с]</th><th>x [–]</th><th>Область</th><th>μ [Па·с]</th><th>λ [Вт/(м·K)]</th><th>Модель</th></tr></thead><tbody id="history-body"></tbody></table></div><div class="output-tabs"><button data-action="units-si">Одиниці SI</button><button data-action="units-english">Англійські одиниці</button><button id="history-undo" disabled>Скасувати видалення</button><span id="history-count">0 станів</span><button data-action="export-history">↓ CSV історії</button></div></section>
 </main><footer><span id="model-status">Таблиці води та пари → IAPWS-IF97 (промислова формуляція)</span><span id="result-status" role="status">Завантаження ядра…</span></footer><noscript>Для розрахунку ввімкніть JavaScript.</noscript><script>"use strict";
 (async()=>{
@@ -924,7 +966,7 @@ function viscosity(T,rho) {
 }
 const L=[[1.60397357,-0.646013523,0.111443906,0.102997357,-0.0504123634,0.00609859258],[2.33771842,-2.78843778,1.53616167,-0.463045512,0.0832827019,-0.00719201245],[2.19650529,-4.54580785,3.55777244,-1.40944978,0.275418278,-0.0205938816],[-1.21051378,1.60812989,-0.621178141,0.0716373224,0,0],[-2.720337,4.57586331,-3.18369245,1.1168348,-0.19268305,0.012913842]];
 const A=[[6.53786807199516,-5.61149954923348,3.39624167361325,-2.27492629730878,10.2631854662709,1.97815050331519],[6.52717759281799,-6.30816983387575,8.08379285492595,-9.82240510197603,12.1358413791395,-5.54349664571295],[5.35500529896124,-3.96415689925446,8.91990208918795,-12.033872950579,9.19494865194302,-2.16866274479712],[1.55225959906681,0.464621290821181,8.93237374861479,-11.0321960061126,6.16780999933360,-0.965458722086812],[1.11999926419994,0.595748562571649,9.88952565078920,-10.325505114704,4.66861294457414,-0.503243546373828]];
-function conductivity(state) {
+function conductivity(state,referenceDerivative=null,scientificMu=null) {
   const {T,rho,cp,cv,drhodp,region}=state,t=T/TC,d=rho/RHOC;
   const l0=Math.sqrt(t)/[0.002443221,0.01323095,0.006770357,-0.003454586,0.0004096266].reduce((s,n,i)=>s+n/t**i,0);
   const l1=Math.exp(d*L.reduce((s,row,i)=>s+(1/t-1)**i*row.reduce((r,n,j)=>r+n*(d-1)**j,0),0));
@@ -933,12 +975,12 @@ function conductivity(state) {
     let c=cp/0.46151805,zeta=drhodp*PC/RHOC;
     if(c<0||c>1e13)c=1e13;if(zeta<0||zeta>1e13)zeta=1e13;
     const j=d<=0.310559006?0:d<=0.776397516?1:d<=1.242236025?2:d<=1.863354037?3:4;
-    const ref=1/A[j].reduce((s,n,i)=>s+n*d**i,0);
+    const ref=referenceDerivative==null?1/A[j].reduce((s,n,i)=>s+n*d**i,0):referenceDerivative*PC/RHOC;
     const dx=Math.max(0,d*(zeta-ref*1.5/t)),y=0.13/0.4*(dx/0.06)**(0.630/1.239);
     if(y>=1.2e-7) {
       const invK=cv/cp;
       const z=2/(Math.PI*y)*((1-invK)*Math.atan(y)+invK*y+Math.expm1(-1/(1/y+y*y/(3*d*d))));
-      l2=177.8514*d*c*t/(viscosity(T,rho)*1e6)*z;
+      l2=177.8514*d*c*t/((scientificMu??viscosity(T,rho))*1e6)*z;
     }
   }
   return (l0*l1+l2)*1e-3;
@@ -948,6 +990,16 @@ function conductivity(state) {
 function surfaceTension(T) {
  if(!Number.isFinite(T)||T<273.16-1e-10||T>647.096)return null;
  const tau=1-Math.max(T,273.16)/647.096;return 0.2358*tau**1.256*(1-0.625*tau);
+}
+
+// R12-08 Eqs. (14)-(21), scientific critical enhancement with EOS derivative at TR.
+function viscosityScientific(state,referenceDerivative){
+ const t=state.T/TC,d=state.rho/RHOC,dx=Math.max(0,d*PC/RHOC*(state.drhodp-referenceDerivative*1.5/t));
+ const xi=.13*(dx/.06)**(.630/1.239),c=xi/1.9,z=xi/1.1;let Y=0;
+ if(xi<=.3817016416)Y=c*z**5/5*(1-c+c*c-765/504*z*z);
+ else{const psi=Math.acos(1/Math.sqrt(1+z*z)),w=Math.sqrt(Math.abs((c-1)/(c+1)))*Math.tan(psi/2),L=c>1?Math.log((1+w)/(1-w)):2*Math.atan(w);
+ Y=Math.sin(3*psi)/12-Math.sin(2*psi)/(4*c)+(1/(c*c)-5/4)*Math.sin(psi)-((1-1.5*c*c)*psi-Math.abs(c*c-1)**1.5*L)/(c*c*c);}
+ return viscosity(state.T,state.rho)*Math.exp(.068*Y);
 }
 
 
@@ -1037,8 +1089,9 @@ function lowerT95(p){let lo=273.16,hi=355;if(p<=meltingLimit95(lo))return lo;for
 
 function decorate95(q,phase,x=null){
  if(!(q.drhodp>0&&q.cp>0&&q.cv>0&&Number.isFinite(q.w)))throw Error('IAPWS-95: нестабільний або сингулярний стан.');
- const kappa=q.drhodp/q.rho,mu=q.T<=1173.15&&q.p<=100?viscosity(q.T,q.rho):null;
- return {...q,phase,x,kappa,dvdt:q.v*q.alpha,dvdp:-q.v*kappa,dpdt:q.alpha/kappa,dpdv:-1/(q.v*kappa),jt:1000*q.v*(q.T*q.alpha-1)/q.cp,ijt:1000*q.v*(1-q.T*q.alpha),A:q.u-q.T*q.s,G:q.h-q.T*q.s,Z:1000*q.p*q.v/(R95*q.T),isentropic:q.w*q.w*q.rho/(q.p*1e6),dc:dielectric(q.T,q.rho),mu,nu:mu==null?null:mu/q.rho,lambda:null,diffusivity:null,Pr:null,sigma:x===0||x===1?surfaceTension(q.T):null,notes:['IAPWS-95 R6-95(2018). Насичення — рівновага основного рівняння. Теплопровідність і критичний доданок в’язкості IAPWS-95 ще не реалізовані; μ — промисловий варіант μ₂=1, лише P≤100 МПа, T≤1173,15 K. Області 1–5 IF97 до цієї моделі не застосовуються.']};
+ const kappa=q.drhodp/q.rho,ref=raw95(1.5*T95C,q.rho).drhodp;
+ const mu=q.T<=1173&&q.p<=100?viscosityScientific(q,ref):null,lambda=mu==null?null:conductivity(q,ref,mu);
+ return {...q,phase,x,kappa,dvdt:q.v*q.alpha,dvdp:-q.v*kappa,dpdt:q.alpha/kappa,dpdv:-1/(q.v*kappa),jt:1000*q.v*(q.T*q.alpha-1)/q.cp,ijt:1000*q.v*(1-q.T*q.alpha),A:q.u-q.T*q.s,G:q.h-q.T*q.s,Z:1000*q.p*q.v/(R95*q.T),isentropic:q.w*q.w*q.rho/(q.p*1e6),dc:dielectric(q.T,q.rho),mu,nu:mu==null?null:mu/q.rho,lambda,diffusivity:lambda==null?null:lambda/(q.rho*q.cp*1000),Pr:lambda==null?null:mu*q.cp*1000/lambda,sigma:x===0||x===1?surfaceTension(q.T):null,notes:['IAPWS-95 R6-95(2018). Насичення — рівновага основного рівняння. μ та λ: наукові IAPWS 2008/2011 з критичними доданками та опорною похідною IAPWS-95; реалізовано лише P≤100 МПа, T≤1173 K. Області 1–5 IF97 до цієї моделі не застосовуються.']};
 }
 function seedSaturation95(T){const z=1-T/T95C,liquid=[1.99274064,1.09965342,-.510839303,-1.75493479,-45.5170352,-674694.45],le=[1/3,2/3,5/3,16/3,43/3,110/3],vapor=[-2.0315024,-2.6830294,-5.38626492,-17.2991605,-44.7586581,-63.9201063],ve=[1/3,2/3,4/3,3,37/6,71/6];return [D95C*(1+liquid.reduce((s,n,i)=>s+n*z**le[i],0)),D95C*Math.exp(vapor.reduce((s,n,i)=>s+n*z**ve[i],0))];}
 const satCache95=new Map();
@@ -1204,10 +1257,16 @@ function solveInverse(p,target,key,tolerance) {
     let answer;
     if(Math.abs(target-a[key])<1e-9)answer=a;
     else if(Math.abs(target-b[key])<1e-9)answer=b;
-    else for(let k=0;k<90;k++) {
-      const mid=(lo+hi)/2,m=evaluate(mid);
+    else {let seed;try{seed=(key==='h'?ph(p,target,1):ps(p,target,1))+273.15;}catch{}
+     let mid=Number.isFinite(seed)&&seed>lo&&seed<hi?seed:(lo+hi)/2;
+     for(let k=0;k<90;k++) {
+      const m=evaluate(mid);
       if(Math.abs(m[key]-target)<(tolerance??(key==='h'?2e-8:2e-11))){answer=m;break;}
       if(m[key]<target)lo=mid;else hi=mid;
+      const next=mid-(m[key]-target)/(key==='h'?m.cp:m.cp/mid);
+      // Safeguarded Newton: retain the fundamental-region bracket and bisection fallback.
+      mid=Number.isFinite(next)&&next>lo&&next<hi?next:(lo+hi)/2;
+     }
     }
     if(!answer)throw Error('Інверсія не збіглася поблизу межі областей.');
     const phase=region===1?'Стиснена рідина':region===2||region===5?'Перегріта пара':answer.T>=TC&&p>=PC?'Надкритичний флюїд':'Густий флюїд / пара';
@@ -1526,6 +1585,81 @@ function processCSV(type,r,system='si'){
 }
 
 
+// src/gas-data.js
+// NASA TM-4513 (1993), NASA7 coefficients via Cantera. BSD-3-Clause, see vendor/CANTERA-LICENSE.
+const GAS_DATA=[{"id":"N2","M":28.013999999999996,"range":[200.0,1000.0,6000.0],"coeff":[[3.53100528,-0.000123660987,-5.02999437e-07,2.43530612e-09,-1.40881235e-12,-1046.97628,2.96747468],[2.95257626,0.00139690057,-4.92631691e-07,7.86010367e-11,-4.60755321e-15,-923.948645,5.87189252]],"sourceName":"N2"},{"id":"O2","M":31.998,"range":[200.0,1000.0,6000.0],"coeff":[[3.78245636,-0.00299673415,9.847302e-06,-9.68129508e-09,3.24372836e-12,-1063.94356,3.65767573],[3.66096083,0.000656365523,-1.41149485e-07,2.05797658e-11,-1.29913248e-15,-1215.97725,3.41536184]],"sourceName":"O2"},{"id":"CO2","M":44.009,"range":[200.0,1000.0,6000.0],"coeff":[[2.35677352,0.00898459677,-7.12356269e-06,2.45919022e-09,-1.43699548e-13,-48371.9697,9.90105222],[4.63659493,0.00274131991,-9.95828531e-07,1.60373011e-10,-9.16103468e-15,-49024.9341,-1.93534855]],"sourceName":"CO2"},{"id":"CO","M":28.009999999999998,"range":[200.0,1000.0,6000.0],"coeff":[[3.57953347,-0.00061035368,1.01681433e-06,9.07005884e-10,-9.04424499e-13,-14344.086,3.50840928],[3.04848583,0.00135172818,-4.85794075e-07,7.88536486e-11,-4.69807489e-15,-14266.1171,6.0170979]],"sourceName":"CO"},{"id":"H2","M":2.016,"range":[200.0,1000.0,6000.0],"coeff":[[2.34433112,0.00798052075,-1.9478151e-05,2.01572094e-08,-7.37611761e-12,-917.935173,0.683010238],[2.93286579,0.000826607967,-1.46402335e-07,1.54100359e-11,-6.88804432e-16,-813.065597,-1.02432887]],"sourceName":"H2"},{"id":"H2O","M":18.015,"range":[200.0,1000.0,6000.0],"coeff":[[4.19864056,-0.0020364341,6.52040211e-06,-5.48797062e-09,1.77197817e-12,-30293.7267,-0.849032208],[2.67703787,0.00297318329,-7.7376969e-07,9.44336689e-11,-4.26900959e-15,-29885.8938,6.88255571]],"sourceName":"H2O"},{"id":"CH4","M":16.043,"range":[200.0,1000.0,6000.0],"coeff":[[5.14987613,-0.0136709788,4.91800599e-05,-4.84743026e-08,1.66693956e-11,-10246.6476,-4.64130376],[1.63552643,0.0100842795,-3.36916254e-06,5.34958667e-10,-3.15518833e-14,-10005.6455,9.99313326]],"sourceName":"CH4"},{"id":"Ar","M":39.95,"range":[200.0,6000.0],"coeff":[[2.5,0.0,0.0,0.0,0.0,-745.375,4.37967491]],"sourceName":"Ar"},{"id":"He","M":4.002602,"range":[200.0,6000.0],"coeff":[[2.5,0.0,0.0,0.0,0.0,-745.375,0.928724724]],"sourceName":"He"},{"id":"NO","M":30.006000000000004,"range":[200.0,1000.0,6000.0],"coeff":[[4.21859896,-0.00463988124,1.10443049e-05,-9.34055507e-09,2.80554874e-12,9845.09964,2.28061001],[3.26071234,0.00119101135,-4.29122646e-07,6.94481463e-11,-4.03295681e-15,9921.43132,6.36900518]],"sourceName":"NO"},{"id":"SO2","M":64.058,"range":[300.0,1000.0,5000.0],"coeff":[[3.2665338,0.0053237902,6.8437552e-07,-5.2810047e-09,2.5590454e-12,-36908.148,9.66465108],[5.2451364,0.0019704204,-8.0375769e-07,1.5149969e-10,-1.0558004e-14,-37558.227,-1.07404892]],"sourceName":"SO2"}];
+
+
+// src/gases.js
+// Frozen ideal-gas thermodynamics: NASA7 / NASA TM-4513. MPa, K, kg, kJ.
+const GAS_R=8.31446261815324, GAS_P0=.101325;
+const AIR={N2:.78084,O2:.20946,Ar:.00934,CO2:.00036};
+const FLUE={N2:.73,CO2:.10,H2O:.12,O2:.05};
+function gasComposition(fractions,basis='mole'){
+ if(!['mole','mass'].includes(basis))throw Error('Базис складу: молярний або масовий.');
+ if(!fractions||typeof fractions!=='object'||Array.isArray(fractions))throw Error('Задайте склад суміші.');
+ const entries=Object.entries(fractions).map(([id,x])=>{const d=GAS_DATA.find(s=>s.id===id);if(!d||!Number.isFinite(x)||x<0)throw Error('Невідома речовина або некоректна частка: '+id);return {d,x};});
+ const total=entries.reduce((a,b)=>a+b.x,0);if(Math.abs(total-1)>1e-8)throw Error('Сума часток має дорівнювати 1 (100 %).');
+ const positive=entries.filter(s=>s.x>0);if(!positive.length)throw Error('Суміш порожня.');
+ const divisor=basis==='mass'?positive.reduce((a,b)=>a+b.x/b.d.M,0):1;
+ return positive.map(({d,x})=>({d,x:basis==='mass'?x/d.M/divisor:x}));
+}
+function gasLimits(fractions,basis='mole') {const c=gasComposition(fractions,basis);return {min:Math.max(...c.map(q=>q.d.range[0])),max:Math.min(...c.map(q=>q.d.range.at(-1)))};}
+function speciesNASA(d,T){const a=d.coeff[T<=d.range[1]?0:1];return {cp:GAS_R*(a[0]+a[1]*T+a[2]*T**2+a[3]*T**3+a[4]*T**4),h:GAS_R*T*(a[0]+a[1]*T/2+a[2]*T**2/3+a[3]*T**3/4+a[4]*T**4/5+a[5]/T),s:GAS_R*(a[0]*Math.log(T)+a[1]*T+a[2]*T**2/2+a[3]*T**3/3+a[4]*T**4/4+a[6])};}
+function gasState(p,T,fractions=AIR,basis='mole'){
+ if(!Number.isFinite(p)||p<=0||!Number.isFinite(T))throw Error('Газ: потрібні скінченні T та додатний абсолютний P.');
+ const comp=gasComposition(fractions,basis),lim=gasLimits(fractions,basis);
+ if(T<lim.min||T>lim.max)throw Error(`NASA7: для цього складу T = ${lim.min}…${lim.max} K; екстраполяція заборонена.`);
+ let M=0,cp=0,h=0,s=0;for(const q of comp){const z=speciesNASA(q.d,T);M+=q.x*q.d.M;cp+=q.x*z.cp;h+=q.x*z.h;s+=q.x*(z.s-GAS_R*Math.log(q.x*p/GAS_P0));}
+ const R=GAS_R/M;cp/=M;h/=M;s/=M;const cv=cp-R,rho=1000*p/(R*T),v=1/rho;
+ if(!(cv>0&&cp>cv))throw Error('NASA7: нефізична теплоємність.');
+ return {model:'NASA7 · ідеальний газ',p,T,M,R,cp,cv,h,s,rho,v,u:h-R*T,w:Math.sqrt(cp/cv*R*T*1000),gamma:cp/cv,Z:1,composition:Object.fromEntries(comp.map(q=>[q.d.id,q.x])),basis:'mole',limits:lim,mu:null,lambda:null};
+}
+function gasInverse(p,target,key,fractions=AIR,basis='mole'){
+ if(!['h','s'].includes(key)||!Number.isFinite(target))throw Error('Газова інверсія: скінченні h або s.');
+ const lim=gasLimits(fractions,basis);let lo=lim.min,hi=lim.max;
+ if(target<gasState(p,lo,fractions,basis)[key]-1e-10||target>gasState(p,hi,fractions,basis)[key]+1e-10)throw Error('Задана величина поза діапазоном NASA7.');
+ let T=(lo+hi)/2;for(let k=0;k<90;k++){const q=gasState(p,T,fractions,basis),error=q[key]-target;if(Math.abs(error)<1e-9)return q;if(error<0)lo=T;else hi=T;const n=T-error/(key==='h'?q.cp:q.cp/T);T=n>lo&&n<hi?n:(lo+hi)/2;}
+ throw Error('Газова інверсія не збіглася.');
+}
+
+
+// src/humid-air.js
+// Educational ideal moist-air model. IAPWS-95 saturation / liquid enthalpy,
+// NASA7 integrated dry-air and water-vapour ideal-gas cp; not a virial humid-air EOS.
+const HA_MIN=273.16, HA_MAX=373.15;
+function haEnthalpy(T,W){const air=gasState(.101325,T,AIR),air0=gasState(.101325,HA_MIN,AIR),v=gasState(.101325,T,{H2O:1}),v0=gasState(.101325,HA_MIN,{H2O:1});const latent=saturationT95(HA_MIN).latentHeat;return air.h-air0.h+W*(latent+v.h-v0.h);}
+function haRatio(T,p,rh){const pv=rh*saturationT95(T).p;if(pv>=p)throw Error('Парціальний тиск пари має бути нижчим за загальний тиск.');const ratio=gasState(.1,300,{H2O:1}).M/gasState(.1,300,AIR).M;return {pv,W:ratio*pv/(p-pv)};}
+function humidAir(p,T,rh){
+ if(![p,T,rh].every(Number.isFinite)||p<.05||p>.2||T<HA_MIN||T>HA_MAX||rh<0||rh>1)throw Error('Вологе повітря: P=0,05…0,2 МПа, T=273,16…373,15 K, RH=0…1. Лід не моделюється.');
+ const {pv,W}=haRatio(T,p,rh),h=haEnthalpy(T,W),a=gasState(p,T,AIR),v=a.R*T/(1000*(p-pv));
+ let dew=null;if(pv>=saturationT95(HA_MIN).p){let lo=HA_MIN,hi=T;for(let i=0;i<55;i++){const m=(lo+hi)/2;if(saturationT95(m).p<pv)lo=m;else hi=m;}dew=(lo+hi)/2;}
+ const wetError=t=>{const w=haRatio(t,p,1).W,liquid=saturationT95(t).liquid.h-saturationT95(HA_MIN).liquid.h;return haEnthalpy(t,w)-(w-W)*liquid-h;};
+ let wet=null;if(wetError(HA_MIN)<=0){let lo=HA_MIN,hi=T;for(let i=0;i<50;i++){const m=(lo+hi)/2;if(wetError(m)>0)hi=m;else lo=m;}wet=(lo+hi)/2;}
+ return {model:'Ідеальне вологе повітря · NASA7 + IAPWS-95',p,T,rh,pv,W,h,dew,wet,v,rho:(1+W)/v,cp:gasState(p,T,AIR).cp+W*gasState(p,T,{H2O:1}).cp,notes:['h, Cp та v віднесені до 1 кг сухого повітря; ρ — маса всієї суміші на об’єм.','Нуль ентальпії: сухе повітря і рідина при 273,16 K.','Ідеальна суміш без віріальних поправок. Точка роси / мокрого термометра нижче 273,16 K не наведена.']};
+}
+
+
+// src/cycles.js
+function cycleChecks(values){if(!values.every(Number.isFinite))throw Error('Цикл: потрібні скінченні числа.');}
+function efficiencies(a,b,flow){if(a<=0||a>1||b<=0||b>1||flow<=0)throw Error('0 < ККД агрегатів ≤ 1; витрата > 0.');}
+function balances(states,works,heat,flow,model,assumptions){const net=works.turbine-works.compressor, rejected=heat-net;if(!(heat>0&&net>0&&rejected>=0))throw Error('Задані параметри не утворюють енергетичний цикл з додатною корисною роботою.');return {states:states.map(q=>({...q,model:q.model||model})),...works,heat,rejected,net,efficiency:net/heat,power:flow*net,flow,model,assumptions};}
+function rankine(pHigh,pLow,Tmax,etaT=.85,etaPump=.8,flow=1,model='IF97'){
+ cycleChecks([pHigh,pLow,Tmax,etaT,etaPump,flow]);efficiencies(etaT,etaPump,flow);if(pHigh<=pLow)throw Error('Тиск котла має перевищувати тиск конденсатора.');
+ const one=calculate('px',pLow,0,model).state;
+ const pumpIdeal=calculate('ps',pHigh,one.s,model).state,two=calculate('ph',pHigh,one.h+(pumpIdeal.h-one.h)/etaPump,model).state;
+ const three=calculate('pt',pHigh,Tmax,model).state;if(!three||three.h<=two.h||three.rho>322&&Tmax<647.096)throw Error('На вході турбіни потрібна пара або надкритичний флюїд.');
+ const turbineIdeal=calculate('ps',pLow,three.s,model).state,four=calculate('ph',pLow,three.h-etaT*(three.h-turbineIdeal.h),model).state;
+ return balances([one,two,three,four],{compressor:two.h-one.h,turbine:three.h-four.h},three.h-two.h,flow,model,['Простий цикл Ренкіна без регенерації та проміжного перегріву.','Без втрат тиску і тепла в трубопроводах; насос і турбіна задаються ізоентропними ККД.']);
+}
+function brayton(pLow,ratio,Tmin,Tmax,etaT=.9,etaC=.85,flow=1,composition=AIR){
+ cycleChecks([pLow,ratio,Tmin,Tmax,etaT,etaC,flow]);efficiencies(etaT,etaC,flow);if(ratio<=1||Tmax<=Tmin)throw Error('Ступінь підвищення тиску > 1 та T₃ > T₁.');
+ const pHigh=pLow*ratio,one=gasState(pLow,Tmin,composition),ci=gasInverse(pHigh,one.s,'s',composition),two=gasInverse(pHigh,one.h+(ci.h-one.h)/etaC,'h',composition);
+ const three=gasState(pHigh,Tmax,composition),ti=gasInverse(pLow,three.s,'s',composition),four=gasInverse(pLow,three.h-etaT*(three.h-ti.h),'h',composition);
+ return balances([one,two,three,four],{compressor:two.h-one.h,turbine:three.h-four.h},three.h-two.h,flow,one.model,['Замкнений цикл Брайтона, ідеальний газ зі сталим складом і змінною Cp(T).','Підігрів моделюється підведенням тепла; горіння, реакції й дисоціація не моделюються.']);
+}
+
+
 // src/app.js
 const $=id=>document.getElementById(id);
 let last=null, revision=0, persistenceReady=false, storedProcess=null;
@@ -1801,6 +1935,55 @@ function renderEngineering(){if(!engineeringResult||!$('eng-result'))return;cons
 
 const reportExport=document.createElement('button');reportExport.textContent='Звіт для друку HTML';reportExport.onclick=()=>{fileMenu.closest('details').open=false;const states=historyStates.length?historyStates:last?.state?[last.state]:[];if(!states.length){$('result-status').textContent='Спочатку розрахуйте хоча б один стан';return;}downloadFile(printableReport($('project-title').value,states,$('output-system').value,$('output-energy').value),'water-steam-report.html','text/html;charset=utf-8');};fileMenu.append(reportExport);
 document.querySelector('[role=tablist]').addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;const tabs=[...document.querySelectorAll('[role=tab]')],i=tabs.indexOf(e.target);if(i<0)return;e.preventDefault();const n=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[n].focus();tabs[n].click();});
+
+
+// src/learning-ui.js
+// Shared workspace panels; these modules use explicit SI inputs/outputs independent of steam table settings.
+let learningResult=null;
+const learnField=(id,title,value)=>`<label>${title}<input id="${id}" value="${value}" inputmode="decimal" required></label>`;
+const learnNumber=id=>parseNumber($(id).value);
+function learningPanel(kind){
+ selectView('general');$('calculator-view').hidden=true;$('process-view').hidden=false;document.querySelector(`[data-action="${kind}"]`).setAttribute('aria-selected','true');$('tab-general').setAttribute('aria-selected','false');learningResult=null;
+ let body='';
+ if(kind==='gases')body=`<h2>11 газів і суміші · NASA7</h2><p>Ідеальний газ зі сталим складом. Ентальпія включає ентальпії утворення NASA; ентропія — з тиском і змішуванням. Конденсація, реакції та реальні гази не моделюються. Транспортні властивості газів не наведено.</p><form id="learn-form"><div class="process-grid"><label>Режим<select id="gas-mode"><option value="pt">P–T</option><option value="ph">P–h</option><option value="ps">P–s</option></select></label>${learnField('gas-p','Абсолютний тиск, МПа',.101325)}<label><span id="gas-b-title">Температура, K</span><input id="gas-b" value="300" inputmode="decimal" required></label><label>Базис складу<select id="gas-basis"><option value="mole">Молярні частки</option><option value="mass">Масові частки</option></select></label><label>Готовий склад<select id="gas-preset"><option value="air">Сухе повітря</option><option value="flue">Приклад димових газів</option>${GAS_DATA.map(d=>`<option>${d.id}</option>`).join('')}<option value="custom">Власна суміш</option></select></label></div><p>Частки 0…1; сума = 1. Зміна базису перераховує введений склад.</p><div class="process-grid">${GAS_DATA.map(d=>learnField('fraction-'+d.id,d.id,AIR[d.id]||0)).join('')}</div><button type="submit">Розрахувати газ</button></form>`;
+ if(kind==='humid')body=`<h2>Вологе повітря · навчальна ідеальна суміш</h2><p>Насичення IAPWS-95 + інтегровані Cp(T) NASA7. Без віріальних поправок. P = 0,05…0,2 МПа; T = 273,16…373,15 K. Показники h, Cp і v — на 1 кг сухого повітря; ρ — для всієї суміші. Нуль h: сухе повітря та рідина при 273,16 K.</p><form id="learn-form"><div class="process-grid">${learnField('ha-p','Абсолютний тиск, МПа',.101325)}${learnField('ha-t','Температура, °C',30)}${learnField('ha-rh','Відносна вологість, %',50)}</div><button type="submit">Розрахувати вологе повітря</button></form>`;
+ if(kind==='cycles')body=`<h2>Навчальні енергетичні цикли</h2><p>Ренкін: обрана формуляція води (${escapeHTML(modelValue())}), без регенерації й перегріву між ступенями. Брайтон: сухе повітря NASA7, замкнений цикл зі змінною Cp(T), без реакцій. Втрати тиску та тепла в трубопроводах не враховано.</p><form id="learn-form"><label>Цикл<select id="cycle-kind"><option value="rankine">Ренкіна</option><option value="brayton">Брайтона</option></select></label><div class="process-grid">${learnField('cycle-low','Нижній абсолютний тиск, МПа',.01)}${learnField('cycle-high','Тиск котла, МПа / ступінь стиснення',10)}${learnField('cycle-tmin','T₁ Брайтона, K (Ренкін: насичена рідина)',300)}${learnField('cycle-tmax','T₃ на вході турбіни, K',773.15)}${learnField('cycle-et','Ізоентропний ККД турбіни, 0…1',.85)}${learnField('cycle-ec','Ізоентропний ККД насоса / компресора, 0…1',.8)}${learnField('cycle-flow','Масова витрата, кг/с',1)}</div><button type="submit">Розрахувати цикл</button></form>`;
+ $('process-view').innerHTML=`<section class="method">${body}<p id="learn-error" role="alert" hidden></p><div id="learn-output" aria-live="polite"></div></section>`;
+ $('process-view').scrollTop=0;
+ const ids=[...$('learn-form').querySelectorAll('input,select')];let draft;try{draft=JSON.parse(localStorage.getItem('water-steam-learning-'+kind)||'null');}catch{}if(draft)for(const el of ids)if(draft[el.id]!=null)el.value=draft[el.id];
+ const saveDraft=()=>{try{localStorage.setItem('water-steam-learning-'+kind,JSON.stringify(Object.fromEntries(ids.map(el=>[el.id,el.value]))));}catch{}};
+ $('learn-form').oninput=()=>{learningResult=null;$('learn-output').replaceChildren();$('learn-error').hidden=true;saveDraft();};
+ $('learn-form').onchange=()=>{learningResult=null;$('learn-output').replaceChildren();saveDraft();};
+ if(kind==='gases'){
+  const gasLabel=()=>{$('gas-b-title').textContent=$('gas-mode').value==='pt'?'Температура, K':$('gas-mode').value==='ph'?'Ентальпія, кДж/кг':'Ентропія, кДж/(кг·K)';};gasLabel();
+  let oldBasis=$('gas-basis').value;
+  const setFractions=q=>{for(const d of GAS_DATA)$('fraction-'+d.id).value=String(q[d.id]||0);};
+  const fromMole=q=>{if($('gas-basis').value==='mole')return q;const M=GAS_DATA.reduce((s,d)=>s+(q[d.id]||0)*d.M,0);return Object.fromEntries(GAS_DATA.map(d=>[d.id,(q[d.id]||0)*d.M/M]));};
+  $('gas-preset').onchange=()=>{const v=$('gas-preset').value;if(v!=='custom')setFractions(fromMole(v==='air'?AIR:v==='flue'?FLUE:{[v]:1}));};
+  $('gas-basis').onchange=()=>{try{const q=gasState(.1,Math.max(300,...GAS_DATA.filter(d=>learnNumber('fraction-'+d.id)>0).map(d=>d.range[0])),readGasFractions(),oldBasis);setFractions(fromMole(q.composition));oldBasis=$('gas-basis').value;}catch(e){$('gas-basis').value=oldBasis;$('learn-error').textContent=e.message;$('learn-error').hidden=false;}};
+  for(const d of GAS_DATA)$('fraction-'+d.id).oninput=()=>{$('gas-preset').value='custom';};
+  $('gas-mode').onchange=()=>{gasLabel();$('gas-b').value=$('gas-mode').value==='pt'?'300':$('gas-mode').value==='ph'?'0':'7';};
+ }
+ if(kind==='cycles')$('cycle-kind').onchange=()=>{const gas=$('cycle-kind').value==='brayton';$('cycle-low').value=gas?'.101325':'.01';$('cycle-high').value=gas?'8':'10';$('cycle-tmax').value=gas?'1400':'773.15';$('cycle-tmin').disabled=!gas;};
+ if(kind==='cycles')$('cycle-tmin').disabled=$('cycle-kind').value==='rankine';
+ $('learn-form').onsubmit=e=>{e.preventDefault();$('learn-error').hidden=true;try{
+  let q;if(kind==='gases'){const m=$('gas-mode').value;q=m==='pt'?gasState(learnNumber('gas-p'),learnNumber('gas-b'),readGasFractions(),$('gas-basis').value):gasInverse(learnNumber('gas-p'),learnNumber('gas-b'),m==='ph'?'h':'s',readGasFractions(),$('gas-basis').value);}
+  if(kind==='humid')q=humidAir(learnNumber('ha-p'),learnNumber('ha-t')+273.15,learnNumber('ha-rh')/100);
+  if(kind==='cycles'){const a=['cycle-low','cycle-high','cycle-tmin','cycle-tmax','cycle-et','cycle-ec','cycle-flow'].map(learnNumber);q=$('cycle-kind').value==='rankine'?rankine(a[1],a[0],a[3],a[4],a[5],a[6],modelValue()):brayton(...a);}
+  learningResult=q;renderLearning(kind,q);$('learn-output').scrollIntoView({block:'start'});saveDraft();
+ }catch(err){learningResult=null;$('learn-output').replaceChildren();$('learn-error').hidden=false;$('learn-error').textContent=err.message;}};
+}
+function readGasFractions(){return Object.fromEntries(GAS_DATA.map(d=>[d.id,learnNumber('fraction-'+d.id)]));}
+function learningRows(entries){return `<table class="sat-table"><thead><tr><th>Показник</th><th>Результат</th><th>Одиниця</th></tr></thead><tbody>${entries.map(([k,v,u])=>`<tr><td>${k}</td><td>${format(v)}</td><td>${u}</td></tr>`).join('')}</tbody></table>`;}
+function renderLearning(kind,q){let entries=[],html=`<p><strong>${escapeHTML(q.model)}</strong></p>`;
+ if(kind==='gases'){entries=[['T',q.T,'K'],['P',q.p,'МПа'],['M',q.M,'кг/кмоль'],['h',q.h,'кДж/кг'],['s',q.s,'кДж/(кг·K)'],['u',q.u,'кДж/кг'],['ρ',q.rho,'кг/м³'],['v',q.v,'м³/кг'],['Cp',q.cp,'кДж/(кг·K)'],['Cv',q.cv,'кДж/(кг·K)'],['w',q.w,'м/с'],['Cp/Cv',q.gamma,'–']];html+=`<p>Діапазон складу: ${q.limits.min}…${q.limits.max} K. Z = 1 за моделлю. Молярний склад: ${Object.entries(q.composition).map(([k,v])=>k+'='+format(v)).join('; ')}.</p>`;}
+ if(kind==='humid'){entries=[['Вологовміст W',q.W,'кг пари/кг сухого повітря'],['Парціальний Pᵥ',q.pv,'МПа'],['Ентальпія',q.h,'кДж/кг сухого повітря'],['Cp',q.cp,'кДж/(кг сухого повітря·K)'],['Питомий об’єм',q.v,'м³/кг сухого повітря'],['Густина суміші',q.rho,'кг/м³'],['Точка роси',q.dew==null?null:q.dew-273.15,'°C'],['Мокрий термометр',q.wet==null?null:q.wet-273.15,'°C']];html+=notes(q.notes);}
+ if(kind==='cycles'){entries=[['Робота турбіни',q.turbine,'кДж/кг'],['Робота насоса / компресора',q.compressor,'кДж/кг'],['Підведене тепло',q.heat,'кДж/кг'],['Відведене тепло',q.rejected,'кДж/кг'],['Корисна робота',q.net,'кДж/кг'],['Термічний ККД',q.efficiency*100,'%'],['Потужність',q.power,'кВт']];html+=notes(q.assumptions)+`<p>qᵢₙ = h₃ − h₂; qₒᵤₜ = h₄ − h₁; wₙₑₜ = (h₃ − h₄) − (h₂ − h₁); η = wₙₑₜ / qᵢₙ.</p><table class="sat-table"><thead><tr><th>Стан</th><th>P, МПа</th><th>T, K</th><th>h, кДж/кг</th><th>s, кДж/(кг·K)</th><th>x</th></tr></thead><tbody>${q.states.map((z,i)=>`<tr><td>${i+1}</td>${['p','T','h','s','x'].map(k=>`<td>${format(z[k])}</td>`).join('')}</tr>`).join('')}</tbody></table>`;}
+ $('learn-output').innerHTML=html+learningRows(entries)+'<p><button id="learn-csv">CSV розрахунку</button> <button id="learn-json">JSON: входи та результати</button></p>';
+ $('learn-csv').onclick=()=>{const inputRows=[...$('learn-form').querySelectorAll('input,select')].map(el=>[el.id,el.value]);const lines=[['model',q.model],['input','value'],...inputRows,['quantity','value','unit'],...entries,...(q.states?[['state','p [MPa]','T [K]','h [kJ/kg]','s [kJ/(kg K)]'],...q.states.map((z,i)=>[i+1,z.p,z.T,z.h,z.s])]:[])];downloadFile('\uFEFF'+lines.map(row=>row.map(v=>String(v??'').replaceAll(';',',')).join(';')).join('\r\n'),'water-steam-'+kind+'.csv','text/csv;charset=utf-8');};
+ $('learn-json').onclick=()=>downloadFile(JSON.stringify({module:kind,inputs:Object.fromEntries([...$('learn-form').querySelectorAll('input,select')].map(el=>[el.id,el.value])),result:q},null,2),'water-steam-'+kind+'.json','application/json');
+}
+document.addEventListener('click',e=>{const kind=e.target.closest('[data-action]')?.dataset.action;if(['gases','humid','cycles'].includes(kind))learningPanel(kind);});
 
 })();
 </script></body></html>
