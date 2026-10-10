@@ -7,6 +7,7 @@ import {rankine,rankineReheat,rankineRegen,brayton} from './cycles.js';
 import {ice} from './ice.js';
 import {d2oPT,d2oSaturation} from './d2o.js';
 import {seawater} from './seawater.js';
+import {LABEL_GLOSSARY} from './glossary.js';
 // Shared workspace panels; these modules use explicit SI inputs/outputs independent of steam table settings.
 let learningResult=null,currentPanelKind=null;
 const learnField=(id,title,value)=>`<label>${title}<input id="${id}" value="${value}" inputmode="decimal" required></label>`;
@@ -66,7 +67,7 @@ function learningPanel(kind){
  }catch(err){learningResult=null;$('learn-output').replaceChildren();$('learn-error').hidden=false;$('learn-error').textContent=err.message;}};
 }
 function readGasFractions(){return Object.fromEntries(GAS_DATA.map(d=>[d.id,learnNumber('fraction-'+d.id)]));}
-function learningRows(entries){return `<table class="sat-table"><thead><tr><th>Показник</th><th>Результат</th><th>Одиниця</th></tr></thead><tbody>${entries.map(([k,v,u])=>`<tr><td>${k}</td><td>${format(v)}</td><td>${u}</td></tr>`).join('')}</tbody></table>`;}
+function learningRows(entries){return `<table class="sat-table"><thead><tr><th>Показник</th><th>Результат</th><th>Одиниця</th></tr></thead><tbody>${entries.map(([k,v,u])=>{const gkey=LABEL_GLOSSARY[k];return `<tr><td>${glossaryCell(gkey,k)}</td><td>${format(v)}</td><td>${u}</td></tr>${glossaryDetailRow(gkey,0,3)}`;}).join('')}</tbody></table>`;}
 function renderLearning(kind,q){let entries=[],html=`<p><strong>${escapeHTML(q.model)}</strong></p>`;
  if(kind==='gases'){entries=[['T',q.T,'K'],['P',q.p,'МПа'],['M',q.M,'кг/кмоль'],['h',q.h,'кДж/кг'],['s',q.s,'кДж/(кг·K)'],['u',q.u,'кДж/кг'],['ρ',q.rho,'кг/м³'],['v',q.v,'м³/кг'],['Cp',q.cp,'кДж/(кг·K)'],['Cv',q.cv,'кДж/(кг·K)'],['w',q.w,'м/с'],['Cp/Cv',q.gamma,'–'],['Z',q.Z,'–'],['В’язкість',q.mu,'Па·с'],['Теплопровідність',q.lambda,'Вт/(м·K)'],['Сухість',q.quality??null,'–']];html+=`<p>Діапазон температур: ${q.limits.min}…${q.limits.max} K. Z = ${format(q.Z)}. ${q.limits.pmax?`P≤${format(q.limits.pmax)} МПа.`:``} Молярний склад: ${Object.entries(q.composition).map(([k,v])=>k+'='+format(v)).join('; ')}.</p>`;html+=notes(q.notes||[]);if(q.validation)html+=`<p><strong>Перевірка:</strong> ${escapeHTML(q.validation.status)} ${escapeHTML(q.validation.transport)} <a href="${escapeHTML(q.validation.source)}" target="_blank" rel="noopener">Джерела моделі</a></p>`;}
  if(kind==='humid'){entries=[['Тиск',q.p,'МПа'],['Температура',q.T-273.15,'°C'],['Відносна вологість',q.rh*100,'%'],['Вологовміст W',q.W,'кг пари/кг сухого повітря'],['Парціальний Pᵥ',q.pv,'МПа'],['Ентальпія',q.h,'кДж/кг сухого повітря'],['Cp',q.cp,'кДж/(кг сухого повітря·K)'],['Питомий об’єм',q.v,'м³/кг сухого повітря'],['Густина суміші',q.rho,'кг/м³'],['Точка роси',q.dew==null?null:q.dew-273.15,'°C'],['Мокрий термометр',q.wet==null?null:q.wet-273.15,'°C']];html+=notes(q.notes);}

@@ -28,6 +28,14 @@
 /* Row highlight on hover, matching the reference calculator's grid row-over state. */
 .property-table tbody tr:hover,.sat-table tbody tr:hover,#history tbody tr:hover,#learn-output .sat-table tbody tr:hover{background:#efefef}
 .property-table .group tr:hover,.property-table tr.group:hover{background:#edf2f9}
+/* Click-to-explain glossary: property name becomes a toggle, explanation expands as a row below it. */
+.glossary-toggle{padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;display:inline-flex;align-items:center;gap:4px;text-decoration:underline dotted;text-underline-offset:2px}
+.glossary-toggle:hover{color:#1d4273}
+.glossary-toggle .icon{opacity:.6;flex-shrink:0}
+.glossary-row td{background:#eef4fb;color:#3c5a80;line-height:1.5;padding:6px 10px;white-space:normal}
+#hints-toggle{border:1px solid transparent;border-radius:2px;padding:1px 6px}
+#hints-toggle[aria-pressed="true"]{color:#1d4273;border-color:#9eb6d5;background:#e2ecfa}
+#hints-toggle[aria-pressed="false"]{opacity:.6}
 /* One consistent thin scrollbar across every scrollable pane (results, setup, history, tabs, help, process views). */
 .results-scroll,.setup-content,.history-scroll,.tabs,#help-view,#process-view,.center-pane,#batch-results,#process-result{scrollbar-width:thin;scrollbar-color:#aebed8 transparent}
 .results-scroll::-webkit-scrollbar,.setup-content::-webkit-scrollbar,.history-scroll::-webkit-scrollbar,.tabs::-webkit-scrollbar,#help-view::-webkit-scrollbar,#process-view::-webkit-scrollbar,.center-pane::-webkit-scrollbar,#batch-results::-webkit-scrollbar,#process-result::-webkit-scrollbar{width:8px;height:8px}

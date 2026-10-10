@@ -139,6 +139,14 @@ Formulations and verification tables: International Association for the Properti
 /* Row highlight on hover, matching the reference calculator's grid row-over state. */
 .property-table tbody tr:hover,.sat-table tbody tr:hover,#history tbody tr:hover,#learn-output .sat-table tbody tr:hover{background:#efefef}
 .property-table .group tr:hover,.property-table tr.group:hover{background:#edf2f9}
+/* Click-to-explain glossary: property name becomes a toggle, explanation expands as a row below it. */
+.glossary-toggle{padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;display:inline-flex;align-items:center;gap:4px;text-decoration:underline dotted;text-underline-offset:2px}
+.glossary-toggle:hover{color:#1d4273}
+.glossary-toggle .icon{opacity:.6;flex-shrink:0}
+.glossary-row td{background:#eef4fb;color:#3c5a80;line-height:1.5;padding:6px 10px;white-space:normal}
+#hints-toggle{border:1px solid transparent;border-radius:2px;padding:1px 6px}
+#hints-toggle[aria-pressed="true"]{color:#1d4273;border-color:#9eb6d5;background:#e2ecfa}
+#hints-toggle[aria-pressed="false"]{opacity:.6}
 /* One consistent thin scrollbar across every scrollable pane (results, setup, history, tabs, help, process views). */
 .results-scroll,.setup-content,.history-scroll,.tabs,#help-view,#process-view,.center-pane,#batch-results,#process-result{scrollbar-width:thin;scrollbar-color:#aebed8 transparent}
 .results-scroll::-webkit-scrollbar,.setup-content::-webkit-scrollbar,.history-scroll::-webkit-scrollbar,.tabs::-webkit-scrollbar,#help-view::-webkit-scrollbar,#process-view::-webkit-scrollbar,.center-pane::-webkit-scrollbar,#batch-results::-webkit-scrollbar,#process-result::-webkit-scrollbar{width:8px;height:8px}
@@ -158,7 +166,7 @@ Formulations and verification tables: International Association for the Properti
 </style></head>
 <body>
 <nav class="site-nav"><button data-action="general">Калькулятор</button><button data-action="help">Довідка калькулятора</button><button data-action="export">Експорт CSV</button><button data-action="help">Джерела та ліцензії</button><span>Навчальний теплофізичний калькулятор · автономна версія</span></nav>
-<div class="menubar"><details><summary>Файл</summary><div class="menu"><label for="project-title">Назва проєкту</label><input id="project-title" value="Вода та пара" maxlength="80"><p id="project-save-status" role="status">Локальне збереження</p><button data-action="clear">Очистити результати</button><button data-action="export">CSV поточного стану</button><button data-action="export-history">CSV усієї історії</button><button data-action="print">Друк</button></div></details><details><summary>Тема</summary><div class="menu"><button data-action="blue">Блакитна</button><button data-action="gray">Сіра</button></div></details><details><summary>Діаграми</summary><div class="menu"><button data-action="ts">T–s діаграма</button><button data-action="hsdiagram">h–s діаграма</button></div></details><button data-action="help">Довідка</button><button data-action="toggle-setup">Панель налаштувань</button><button data-action="toggle-output">Панель результатів</button><span class="menu-right"><label>Масштаб <select id="ui-scale" aria-label="Масштаб інтерфейсу"><option value="1">100%</option><option value="1.15">115%</option><option value="1.3">130%</option></select></label><button data-action="fullscreen">▣ Повний екран</button></span></div>
+<div class="menubar"><details><summary>Файл</summary><div class="menu"><label for="project-title">Назва проєкту</label><input id="project-title" value="Вода та пара" maxlength="80"><p id="project-save-status" role="status">Локальне збереження</p><button data-action="clear">Очистити результати</button><button data-action="export">CSV поточного стану</button><button data-action="export-history">CSV усієї історії</button><button data-action="print">Друк</button></div></details><details><summary>Тема</summary><div class="menu"><button data-action="blue">Блакитна</button><button data-action="gray">Сіра</button></div></details><details><summary>Діаграми</summary><div class="menu"><button data-action="ts">T–s діаграма</button><button data-action="hsdiagram">h–s діаграма</button></div></details><button data-action="help">Довідка</button><button data-action="toggle-setup">Панель налаштувань</button><button data-action="toggle-output">Панель результатів</button><span class="menu-right"><label>Масштаб <select id="ui-scale" aria-label="Масштаб інтерфейсу"><option value="1">100%</option><option value="1.15">115%</option><option value="1.3">130%</option></select></label><button data-action="hints" id="hints-toggle" aria-pressed="true">Підказки</button><button data-action="fullscreen">▣ Повний екран</button></span></div>
 <div class="toolbar"><button title="Очистити результати" aria-label="Очистити результати" data-action="clear">▤</button><button title="Зберегти CSV" aria-label="Зберегти CSV" data-action="export">▣</button><button title="Друк" aria-label="Друк" data-action="print">▧</button><i></i><button title="Загальні властивості" aria-label="Загальні властивості" data-action="general">⚗</button><button title="Насичення" aria-label="Насичення" data-action="saturation">≈</button><i></i><button title="Довідка" aria-label="Довідка" data-action="help">ⓘ</button><span>IF97 / IAPWS-95 · вода та водяна пара</span><b>🇺🇦</b></div>
 <main class="desktop">
 <section class="center-pane">
@@ -1970,7 +1978,7 @@ function readProject(text){
  const drafts={};for(const type of ['turbine','flash','engineering']){const d=p.drafts?.[type];if(!d)continue;const v={};for(const k of ['p1','t1','p2','eta','flow','power','mode','pressure','temperature','mass','power-unit','pc1','tc1','pc2','coldflow'])if(typeof d[k]==='string'&&d[k].length<80)v[k]=d[k];drafts[type]=v;}
  const ambient=p.ambient||{p:.101325,T:298.15};referenceState(ambient.p,ambient.T);
  if(p.title!=null&&(typeof p.title!=='string'||p.title.length>80))throw Error('Назва проєкту має бути до 80 символів.');
- return {title:p.title||'Вода та пара',system:p.system==='english'?'english':'si',ambient,states,process,form:f,drafts,energy:p.energy==='J'?'J':'kJ',gray:p.gray===true,scale:['1','1.15','1.3'].includes(p.scale)?p.scale:'1'};
+ return {title:p.title||'Вода та пара',system:p.system==='english'?'english':'si',ambient,states,process,form:f,drafts,energy:p.energy==='J'?'J':'kJ',gray:p.gray===true,scale:['1','1.15','1.3'].includes(p.scale)?p.scale:'1',hints:p.hints!==false};
 }
 function processCSV(type,r,system='si'){
  const convert=(k,v,u='')=>system==='english'?englishProperty(k,v,u):[v,u];
@@ -2522,6 +2530,81 @@ function decorate(S,T,p,W,Sl,tot){
 }
 
 
+// src/glossary.js
+// Plain-language, example-driven explanations for students meeting these terms for the
+// first time. Not a substitute for a textbook -- short, intuitive, with everyday analogies
+// where they help. GLOSSARY is keyed by canonical property key (used directly by the main
+// property table). LABEL_GLOSSARY maps the descriptive Ukrainian labels used in the other
+// learning panels (gases/humid air/ice/D2O/seawater/cycles) back to the same GLOSSARY keys,
+// so one explanation is reused everywhere the same physical quantity appears.
+const GLOSSARY={
+ p:'Сила, з якою частинки речовини «штовхають» на кожен квадратний сантиметр стінки посудини чи труби. Уявіть натовп у кімнаті: що щільніше людей притиснуто до стін, то більший тиск. Абсолютний тиск визначає температуру кипіння: що вищий тиск, то вища точка кипіння — у скороварці вода кипить не при 100°C, а вище.',
+ T:'Наскільки «швидко» в середньому рухаються молекули речовини: гарячіше — швидше, холодніше — повільніше. У таблиці показана в °C для зручності, але формули завжди використовують шкалу Кельвіна (°C + 273,15), де 0 K — найхолодніший можливий стан, коли рух молекул практично зупиняється.',
+ rho:'Скільки кілограмів речовини вміщується в одному кубічному метрі — наскільки «щільно упаковані» молекули. Пара в сотні разів легша за рідку воду, тому для тієї самої маси вона займає набагато більший об’єм.',
+ v:'Скільки місця (м³) займає рівно 1 кілограм речовини — обернена величина до густини. З’являється у формулах роботи, бо «робота = тиск × зміна об’єму».',
+ h:'Зручна «бухгалтерська» енергія для процесів при сталому тиску — а в теплоенергетиці майже все рахують саме так (турбіни, котли, теплообмінники). Поєднує внутрішню енергію речовини й «роботу», яку довкілля виконує, щоб впихнути цю речовину в систему при даному тиску. Різниця ентальпій на вході й виході турбіни — це і є енергія, яку турбіна забрала.',
+ s:'Міра «безладу» чи розсіяної енергії в речовині — складно уявити напряму, та є просте правило: в ідеальному процесі без втрат (ідеальна турбіна) ентропія не змінюється, а в реальному процесі з тертям вона завжди зростає. Тому за ентропією можна оцінити, наскільки реальний процес «гірший» за ідеальний.',
+ u:'Уся енергія, «захована» всередині речовини через рух і взаємне притягання її молекул — як енергія в стисненій пружині, лише на молекулярному рівні. На відміну від ентальпії, тут не враховано енергію, пов’язану з тиском і об’ємом ззовні.',
+ cp:'Скільки тепла (кДж) треба підвести до 1 кг речовини, щоб вона нагрілась на 1 градус, якщо тиск весь час однаковий. Чим більша cp, тим «важче» нагріти речовину — вода має дуже високу теплоємність, тому повільно нагрівається й повільно остигає.',
+ cv:'Те саме, що й cp, але якщо об’єм посудини зафіксований і змінюватись не може. Завжди трохи менша за cp, бо при сталому об’ємі жодна частина тепла не йде на «розштовхування» стінок посудини.',
+ w:'З якою швидкістю маленьке збурення тиску (звукова хвиля) пробігає крізь речовину. У турбінах важливо: пара не може текти крізь сопло швидше за власну швидкість звуку (так зване «запирання» потоку).',
+ ex:'Скільки корисної роботи максимум можна «видобути» з потоку речовини, давши йому охолонути й розширитися аж до умов довкілля (кімнатна температура й атмосферний тиск). Чесніша оцінка «цінності» потоку, ніж просто ентальпія, бо враховує принципово недосяжну частину енергії.',
+ x:'Яка частка маси суміші пари й води — це пара, а яка ще рідина. x=0 — щойно почала закипати (ще вся рідина), x=1 — википіла повністю (вже вся пара). x=0,5 означає, що рівно половина маси — пара, половина — краплі рідини.',
+ region:'Технічна «адреса»: яке з п’яти рівнянь стандарту IAPWS-IF97 використане для цієї точки. 1 — стиснена рідина, 2 — перегріта пара, 3 — зона біля критичної точки (де рідина й пара стають «невідрізнюваними»), 4 — межа кипіння/конденсації, 5 — дуже висока температура.',
+ isentropic:'Технічний коефіцієнт κs: наскільки сильно змінюється тиск, якщо трохи стиснути чи розширити речовину без обміну теплом із довкіллям. Використовується в розрахунках сопел і швидкості звуку.',
+ A:'Теоретична величина: максимальна корисна робота, яку можна отримати з речовини, якщо її температура й об’єм лишаються незмінними. На практиці рідко рахують напряму — радше «будівельний матеріал» для виведення інших формул.',
+ G:'Схожа на енергію Гельмгольца, але для умов сталої температури й тиску — саме такі умови найчастіше трапляються в житті. На лінії кипіння/конденсації енергія Гіббса рідини й пари рівно однакова — це і є фізична причина, чому вони можуть існувати в рівновазі одна з одною.',
+ Z:'Наскільки реальна поведінка речовини відрізняється від «ідеального газу» зі шкільної фізики (pV=nRT). Z=1 — речовина поводиться точно як ідеальний газ. Z помітно відмінний від 1 — молекули «відчувають» одна одну (тяжіють чи відштовхуються), і шкільну формулу застосовувати не можна.',
+ alpha:'Наскільки сильно розширюється речовина, нагріта на 1 градус при сталому тиску. Через це ртуть піднімається в термометрі, а рейки кладуть із зазорами — більшість речовин трохи «розпухає» від тепла.',
+ kappa:'Наскільки легко речовину стиснути: наскільки зменшується її об’єм при зростанні тиску й сталій температурі. Гази стискаються легко (велика κT), рідини й тверді тіла — майже ні (дуже мала κT).',
+ dvdt:'Технічна величина для точних розрахунків: наскільки зміниться питомий об’єм, якщо трохи підняти температуру при сталому тиску. Не «називана» властивість сама по собі, а інструмент для обчислення чутливості процесу.',
+ dvdp:'Технічна величина: наскільки зміниться питомий об’єм, якщо трохи підняти тиск при сталій температурі. Та сама ідея, що й ізотермічна стисливість κT, лише в іншій формі запису.',
+ dpdt:'Технічна величина: наскільки зміниться тиск, якщо трохи підняти температуру в герметично закритій, нерозширюваній посудині. Застосовується, зокрема, у формулі ефекту Джоуля–Томсона.',
+ dpdv:'Технічна величина: наскільки зміниться тиск при малій зміні питомого об’єму й сталій температурі. Для будь-якої стабільної речовини завжди від’ємна — стиснути речовину завжди означає підняти тиск, ніколи навпаки.',
+ ijt:'Допоміжна технічна величина δT, пов’язана зі звичайним ефектом Джоуля–Томсона (нижче): показує зміну ентальпії, а не температури, у тому самому процесі дроселювання.',
+ jt:'Наскільки зміниться температура газу чи пари, пропущених крізь вузьке звуження (вентиль, дросель) без підведення тепла й без роботи. Для водяної пари зазвичай додатний — пара охолоджується при дроселюванні. Саме цей ефект лежить в основі побутового холодильника.',
+ dc:'У скільки разів вода послаблює електричне поле всередині себе порівняно з вакуумом. Встроміть шматок води в електричне поле — воно всередині стане значно слабшим. Важливо для датчиків рівня, хімічного аналізу й електрообладнання, що контактує з водою чи парою.',
+ mu:'Наскільки речовина чинить опір течії — наскільки важко змусити один шар рідини чи пари ковзати повз сусідній. Мед в’язкіший за воду, вода в’язкіша за повітря. Чим вища в’язкість, тим більше енергії втрачається на тертя в трубі.',
+ nu:'Та сама в’язкість, поділена на густину — зручніша форма для деяких формул гідродинаміки, наприклад числа Рейнольдса, яке визначає, чи потік плавний (ламінарний), чи з вихорами (турбулентний).',
+ lambda:'Наскільки добре речовина передає тепло крізь себе без переміщення самої речовини (на відміну від конвекції, де тепло переносить рух гарячих мас рідини). Метал швидко нагрівається на плиті (висока λ), повітря — ізолятор (низька λ).',
+ diffusivity:'Наскільки швидко «хвиля» зміни температури поширюється всередині речовини. Висока температуропровідність — речовина швидко вирівнює температуру по всьому об’єму; низька — гарячі й холодні ділянки довго тримаються поруч.',
+ Pr:'Безрозмірне число: що «перемагає» в речовині — поширення руху (в’язкість) чи поширення тепла (температуропровідність). Визначає форму профілю швидкості й температури біля гарячої стінки теплообмінника.',
+ sigma:'Сила, що «стягує» поверхню рідини, мов натягнута плівка — тому крапля роси кругла, а деякі комахи «ходять» по воді. У котлах впливає на те, як утворюються й відриваються бульбашки пари при кипінні.',
+ M:'Маса одного моля речовини (6,022×10²³ молекул) у грамах чи кілограмах на кіломоль — наскільки «важка» одна молекула порівняно з іншими. У суміші газів впливає, скільки «важить» кожен компонент у загальній масі.',
+ gamma:'Відношення двох теплоємностей Cp/Cv — наскільки «важче» нагріти газ при сталому тиску, ніж при сталому об’ємі. Для повітря приблизно 1,4. Визначає поведінку газу у швидких (адіабатичних) процесах стиснення й розширення — у компресорах і турбінах.',
+ RH:'Наскільки повітря «заповнене» водяною парою порівняно з максимумом, який воно може утримати при цій температурі, у відсотках. 100% — повітря насичене (далі туман чи роса); 0% — повітря повністю сухе. Тепле повітря утримує більше пари, ніж холодне.',
+ W:'Скільки кілограмів водяної пари припадає на 1 кілограм абсолютно сухого повітря. На відміну від відносної вологості (у відсотках), це абсолютна кількість вологи — не змінюється, коли повітря просто нагрівають чи охолоджують без додавання/видалення вологи.',
+ pv:'Який тиск створювала б сама водяна пара, якби в посудині більше нічого не було — уявіть, що все повітря прибрали, лишили тільки пару. Сума парціального тиску пари й парціального тиску сухого повітря дає загальний тиск суміші.',
+ dew:'Температура, до якої треба охолодити вологе повітря, щоб пара в ньому почала конденсуватись у краплі — так вранці на траві з’являється роса, а на холодній склянці з напоєм — запітніння. Чим вологіше повітря, тим вища точка роси.',
+ wet:'Температура, яку показав би термометр, обгорнутий вологою тканиною, що обдувається повітрям (вода з тканини випаровується й охолоджує термометр). Сухіше повітря довкола — сильніше випаровування — нижча ця температура порівняно зі звичайним («сухим») термометром.',
+ beta:'Наскільки сильно зростає тиск усередині речовини, нагрітої в абсолютно герметичній жорсткій посудині, де об’єм не може змінитись. Тому заповнена по вінця й щільно закрита пляшка з рідиною може тріснути від нагрівання.',
+ S:'Скільки грамів солей розчинено в кожному кілограмі морської води. Морська вода в середньому має солоність близько 35 г/кг (3,5% маси — розчинені солі, здебільшого звичайна кухонна сіль).',
+ muW:'Технічна величина з термодинаміки розчинів: наскільки «охоче» молекули чистої води переходять у розчин чи виходять із нього — визначає напрямок осмосу й випаровування/кристалізації. Що солоніша вода, то нижчий цей показник.',
+ turbineWork:'Скільки корисної механічної енергії (на 1 кг пари) турбіна забирає з пари, що проходить крізь неї, обертаючи вал генератора. Чим більша різниця тиску й температури між входом і виходом, тим більше роботи можна отримати.',
+ compressorWork:'Скільки енергії (на 1 кг речовини) треба витратити, щоб підняти тиск рідини насосом чи газу компресором. Це енергія, яку ми вкладаємо в систему — на відміну від роботи турбіни, яку ми з системи забираємо.',
+ heatIn:'Скільки теплової енергії (на 1 кг робочого тіла) підводиться до циклу — зазвичай у котлі чи парогенераторі, де паливо чи інше джерело тепла перетворює воду на пару високого тиску.',
+ heatOut:'Скільки теплової енергії (на 1 кг робочого тіла) цикл віддає назовні — зазвичай у конденсаторі, де відпрацьована пара охолоджується назад до рідкого стану перед поверненням у насос.',
+ netWork:'Різниця між тим, що турбіна виробила, і тим, що насос чи компресор спожив — фактична корисна енергія, яку цикл віддає назовні (наприклад, електрогенератору). Саме її ділять на підведене тепло, щоб порахувати ККД циклу.',
+ efficiency:'Яка частка підведеного тепла перетворюється на корисну роботу, у відсотках. Решта неминуче «втрачається» у відведене тепло конденсатора. Жоден реальний тепловий цикл не може мати ККД 100% — це фундаментальне обмеження другого закону термодинаміки, не недолік конкретної конструкції.',
+ power:'Скільки енергії цикл виробляє чи споживає за секунду (кіловати = кілоджоулі за секунду) — залежить і від роботи на кожен кілограм робочого тіла, і від того, скільки кілограмів проходить через установку щосекунди (масової витрати).',
+};
+
+// Descriptive Ukrainian labels used by the other learning panels -> canonical GLOSSARY key.
+const LABEL_GLOSSARY={
+ 'T':'T','P':'p','M':'M','h':'h','s':'s','u':'u','ρ':'rho','v':'v','Cp':'cp','Cv':'cv','w':'w',
+ 'Cp/Cv':'gamma','Z':'Z','В’язкість':'mu','Теплопровідність':'lambda','Сухість':'x',
+ 'Тиск':'p','Температура':'T','Відносна вологість':'RH','Вологовміст W':'W','Парціальний Pᵥ':'pv',
+ 'Ентальпія':'h','Питомий об’єм':'v','Густина суміші':'rho','Точка роси':'dew','Мокрий термометр':'wet',
+ 'Густина':'rho','Питома ентальпія':'h','Питома внутрішня енергія':'u','Енергія Гельмгольца':'A',
+ 'Енергія Гіббса':'G','Питома ентропія':'s','Питома теплоємність cp':'cp',
+ 'Кубічний коеф. розширення α':'alpha','Коефіцієнт тиску β':'beta','Ізотермічна стисливість κT':'kappa',
+ 'Ізентропна стисливість κs':'isentropic','Ізохорна теплоємність cv':'cv','Ізобарна теплоємність cp':'cp',
+ 'Швидкість звуку':'w','Абсолютна солоність':'S','Хімічний потенціал води μW':'muW',
+ 'Робота турбіни':'turbineWork','Робота насоса / компресора':'compressorWork','Підведене тепло':'heatIn',
+ 'Відведене тепло':'heatOut','Корисна робота':'netWork','Термічний ККД':'efficiency','Потужність':'power',
+};
+
+
 // src/app.js
 const $=id=>document.getElementById(id);
 // Small original inline-SVG icon set (stroke, currentColor) - no external assets, nothing from the reference site.
@@ -2581,6 +2664,18 @@ function display(key,value,unit) {if($('output-system').value==='english')return
 const rows=[['p','Тиск (абсолютний)','p','МПа'],['T','Температура','t','°C'],['rho','Густина','ρ','кг/м³'],['v','Питомий об’єм','v','м³/кг'],['h','Питома ентальпія','h','кДж/кг'],['s','Питома ентропія','s','кДж/(кг·K)'],['u','Питома внутрішня енергія','u','кДж/кг'],['cp','Питома ізобарна теплоємність','cp','кДж/(кг·K)'],['cv','Питома ізохорна теплоємність','cv','кДж/(кг·K)'],['w','Швидкість звуку','w','м/с'],['ex','Фізична ексергія потоку','ex','кДж/кг'],['x','Ступінь сухості (масова частка пари)','x','–'],['region','Область IF97','region','–'],['isentropic','Ізентропний показник','κs','–'],['A','Питома енергія Гельмгольца','a','кДж/кг'],['G','Питома енергія Гіббса','g','кДж/кг'],['Z','Коефіцієнт стисливості','Z','–'],['alpha','Ізобарне об’ємне розширення','α','1/K'],['kappa','Ізотермічна стисливість','κT','1/МПа'],['dvdt','Похідна (∂v/∂T)p','vT','м³/(кг·K)'],['dvdp','Похідна (∂v/∂p)T','vp','м³/(кг·МПа)'],['dpdt','Похідна (∂p/∂T)v','pT','МПа/K'],['dpdv','Похідна (∂p/∂v)T','pv','МПа·кг/м³'],['ijt','Ізотермічний коефіцієнт Джоуля–Томсона','δT','кДж/(кг·МПа)'],['jt','Коефіцієнт Джоуля–Томсона','μJT','K/МПа'],['dc','Статична відносна діелектрична проникність','εr','–'],['mu','Динамічна в’язкість','μ','Па·с'],['nu','Кінематична в’язкість','ν','м²/с'],['lambda','Теплопровідність','λ','Вт/(м·K)'],['diffusivity','Температуропровідність','aT','м²/с'],['Pr','Число Прандтля','Pr','–'],['sigma','Поверхневий натяг рідина–пара','σ','Н/м']];
 rows.splice(6,0,rows.splice(rows.findIndex(r=>r[0]==='ex'),1)[0]);
 const constants=['Газова стала R = 0,461526 кДж/(кг·K)','Молярна газова стала Rm = 8,31451 Дж/(моль·K)','Молярна маса M = 18,015257 г/моль','Критична температура Tc = 647,096 K','Критичний тиск pc = 22,064 МПа','Критична густина ρc = 322 кг/м³','Потрійна точка Tt = 273,16 K','Потрійна точка pt = 611,657 Па'];
+let openGlossary=new Set(),hintsEnabled=true;
+// Shared by the main property table and the other learning panels (ice/D2O/seawater/
+// gases/humid air/cycles, see learning-ui.js): a property name becomes a button with a
+// native hover tooltip and a click-to-expand explanation row, unless hints are off.
+function glossaryCell(key,label){
+ if(!hintsEnabled||!GLOSSARY[key])return escapeHTML(label);
+ return `<button class="glossary-toggle" data-glossary="${key}" aria-expanded="${openGlossary.has(key)}" title="${escapeHTML(GLOSSARY[key])}">${escapeHTML(label)} ${icon('help',11)}</button>`;
+}
+function glossaryDetailRow(key,leadCells,span,extraHidden){
+ if(!hintsEnabled||!GLOSSARY[key]||!openGlossary.has(key))return '';
+ return `<tr class="glossary-row" data-glossary-row="${key}" ${extraHidden?'hidden':''}>${'<td></td>'.repeat(leadCells)}<td colspan="${span}">${GLOSSARY[key]}</td></tr>`;
+}
 function propertyTable(state) {
  return `<table class="property-table"><thead><tr><th>№</th><th>Назва властивості</th><th>Символ</th><th>⧉</th><th>Результат</th><th>Одиниці</th><th>Константи ${modelValue()}</th></tr></thead><tbody>${rows.map(([key,name,symbol,unit],i)=>{
  const value=state?(key==='T'?state.T-273.15:state[key]):null;
@@ -2589,7 +2684,9 @@ function propertyTable(state) {
  const groupName=i===0?'1. Термодинамічні властивості — основні':i===11?'2. Термодинамічні властивості — стан':i===26?'3. Транспортні властивості':null;
  const collapsed=collapsedGroups.has(groupId);
  const group=groupName?`<tr class="group"><td colspan="7"><button data-group="${groupId}" aria-expanded="${!collapsed}">${collapsed?'⊞':'⊟'} ${groupName}</button></td></tr>`:'';
- return `${group}<tr data-group-row="${groupId}" ${collapsed?'hidden':''} data-property="${key}"><td>${i+1}</td><td>${name}</td><td>${symbol}</td><td><button class="copy" data-copy="${key}" aria-label="Копіювати: ${name}" ${v==null?'disabled':''}>${icon('copy',13)}</button></td><td>${state?format(v):''}</td><td>${u}</td><td class="constant">${(modelValue()==='IAPWS-95'?['Газова стала R = 0,46151805 кДж/(кг·K)','','','Критична температура Tc = 647,096 K','Критичний тиск pc = 22,064 МПа','Критична густина ρc = 322 кг/м³','Потрійна точка Tt = 273,16 K','Потрійна точка (EOS) pt ≈ 611,654771 Па'][i]:constants[i])||''}</td></tr>`;
+ const nameCell=glossaryCell(key,name);
+ const glossaryRowHtml=glossaryDetailRow(key,1,6,collapsed);
+ return `${group}<tr data-group-row="${groupId}" ${collapsed?'hidden':''} data-property="${key}"><td>${i+1}</td><td>${nameCell}</td><td>${symbol}</td><td><button class="copy" data-copy="${key}" aria-label="Копіювати: ${name}" ${v==null?'disabled':''}>${icon('copy',13)}</button></td><td>${state?format(v):''}</td><td>${u}</td><td class="constant">${(modelValue()==='IAPWS-95'?['Газова стала R = 0,46151805 кДж/(кг·K)','','','Критична температура Tc = 647,096 K','Критичний тиск pc = 22,064 МПа','Критична густина ρc = 322 кг/м³','Потрійна точка Tt = 273,16 K','Потрійна точка (EOS) pt ≈ 611,654771 Па'][i]:constants[i])||''}</td></tr>${glossaryRowHtml}`;
  }).join('')}</tbody></table>`;
 }
 let historyUndo=null,unsavedProject=false;
@@ -2659,9 +2756,10 @@ $('export-csv').addEventListener('click',()=>{
  const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='water-steam-if97.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 });
 document.addEventListener('click',event=>{
- const target=event.target.closest('[data-action],[data-copy],[data-group]');if(!target)return;
+ const target=event.target.closest('[data-action],[data-copy],[data-group],[data-glossary]');if(!target)return;
  const action=target.dataset.action;
  if(target.dataset.group){const g=target.dataset.group;collapsedGroups.has(g)?collapsedGroups.delete(g):collapsedGroups.add(g);if(last)render();else $('results').innerHTML=propertyTable(null);}
+ if(target.dataset.glossary){const g=target.dataset.glossary;openGlossary.has(g)?openGlossary.delete(g):openGlossary.add(g);if(last)render();else $('results').innerHTML=propertyTable(null);}
  if(action==='toggle-setup'){document.body.classList.toggle('setup-collapsed');}
  if(action==='toggle-output'){document.body.classList.toggle('output-collapsed');}
  if(action==='fullscreen'){if(document.fullscreenElement)document.exitFullscreen?.();else document.documentElement.requestFullscreen?.().catch(()=>{$('result-status').textContent='Повний екран недоступний';});}
@@ -2675,6 +2773,7 @@ document.addEventListener('click',event=>{
  if(action==='export')$('export-csv').click();
  if(action==='print')window.print();
  if(action==='blue'||action==='gray')document.body.classList.toggle('gray',action==='gray');
+ if(action==='hints'){hintsEnabled=!hintsEnabled;$('hints-toggle').setAttribute('aria-pressed',String(hintsEnabled));if(!hintsEnabled)openGlossary.clear();if(last)render();else $('results').innerHTML=propertyTable(null);if(currentPanelKind&&learningResult)renderLearning(currentPanelKind,learningResult);}
  if(target.dataset.copy&&last?.state){const k=target.dataset.copy;const row=rows.find(r=>r[0]===k);const raw=k==='T'?last.state.T-273.15:ambientResult(last).state[k];const [value]=display(k,raw,row[3]);if(navigator.clipboard?.writeText)navigator.clipboard.writeText(String(value)).then(()=>{$('result-status').textContent='Значення скопійовано';}).catch(()=>{$('result-status').textContent='Копіювання недоступне в цьому браузері';});else $('result-status').textContent='Копіювання недоступне в цьому браузері';}
  if(action)for(const d of document.querySelectorAll('.menubar details'))d.open=false;
 });
@@ -2785,9 +2884,9 @@ function showDiagram(kind){
 }
 
 const STORAGE_KEY='water-steam-if97-project-v1';
-function projectSnapshot(){return {format:'water-steam-if97',version:1,title:$('project-title').value,history:historyStates.map(q=>({p:q.p,h:q.h,model:q.model||'IF97',name:q.name||''})),process:storedProcess,form:{model:modelValue(),mode:$('mode').value,a:$('input-a').value,b:$('input-b').value,ua:$('unit-a').value,ub:$('unit-b').value},drafts:processDrafts,ambient,system:$('output-system').value,energy:$('output-energy').value,gray:document.body.classList.contains('gray'),scale:$('ui-scale').value};}
+function projectSnapshot(){return {format:'water-steam-if97',version:1,title:$('project-title').value,history:historyStates.map(q=>({p:q.p,h:q.h,model:q.model||'IF97',name:q.name||''})),process:storedProcess,form:{model:modelValue(),mode:$('mode').value,a:$('input-a').value,b:$('input-b').value,ua:$('unit-a').value,ub:$('unit-b').value},drafts:processDrafts,ambient,system:$('output-system').value,energy:$('output-energy').value,gray:document.body.classList.contains('gray'),scale:$('ui-scale').value,hints:hintsEnabled};}
 function saveProject(){if(!persistenceReady)return;try{localStorage.setItem(STORAGE_KEY,JSON.stringify(projectSnapshot()));unsavedProject=false;$('project-save-status').textContent='Збережено локально · JSON для резервної копії';}catch{unsavedProject=true;$('project-save-status').textContent='Є незбережені зміни — експортуйте JSON';$('result-status').textContent='Локальне збереження недоступне — експортуйте проєкт у файл';}}
-function applyProject(p){diagramCache=null;selectModel(p.form.model||'IF97');$('project-title').value=p.title;historyUndo=null;historyStates.splice(0,historyStates.length,...p.states);revision=p.states.length;ambient=p.ambient;ambientRef=referenceState(ambient.p,ambient.T);$('ambient-p').value=String(ambient.p);$('ambient-t').value=String(ambient.T-273.15);selectView('general');$('mode').value=p.form.mode;resetMode();for(const [id,v] of [['input-a',p.form.a],['input-b',p.form.b],['unit-a',p.form.ua],['unit-b',p.form.ub]])$(id).value=v;for(const id of ['unit-a','unit-b']){if(!$(id).value)throw Error('Одиниці не відповідають режиму.');$(id).dataset.previous=$(id).value;}Object.keys(processDrafts).forEach(k=>delete processDrafts[k]);Object.assign(processDrafts,p.drafts);storedProcess=p.process?{type:p.process.type,args:p.process.args,model:p.process.model||'IF97'}:null;plottedProcess=p.process?{kind:processLabel(p.process.type),result:p.process.result}:null;$('output-system').value=p.system;$('output-energy').value=p.energy;document.body.classList.toggle('gray',p.gray);$('ui-scale').value=p.scale;document.documentElement.style.setProperty('--ui-scale',p.scale);renderHistory();invalidate();}
+function applyProject(p){diagramCache=null;selectModel(p.form.model||'IF97');$('project-title').value=p.title;historyUndo=null;historyStates.splice(0,historyStates.length,...p.states);revision=p.states.length;ambient=p.ambient;ambientRef=referenceState(ambient.p,ambient.T);$('ambient-p').value=String(ambient.p);$('ambient-t').value=String(ambient.T-273.15);selectView('general');$('mode').value=p.form.mode;resetMode();for(const [id,v] of [['input-a',p.form.a],['input-b',p.form.b],['unit-a',p.form.ua],['unit-b',p.form.ub]])$(id).value=v;for(const id of ['unit-a','unit-b']){if(!$(id).value)throw Error('Одиниці не відповідають режиму.');$(id).dataset.previous=$(id).value;}Object.keys(processDrafts).forEach(k=>delete processDrafts[k]);Object.assign(processDrafts,p.drafts);storedProcess=p.process?{type:p.process.type,args:p.process.args,model:p.process.model||'IF97'}:null;plottedProcess=p.process?{kind:processLabel(p.process.type),result:p.process.result}:null;$('output-system').value=p.system;$('output-energy').value=p.energy;document.body.classList.toggle('gray',p.gray);hintsEnabled=p.hints!==false;$('hints-toggle').setAttribute('aria-pressed',String(hintsEnabled));if(!hintsEnabled)openGlossary.clear();$('ui-scale').value=p.scale;document.documentElement.style.setProperty('--ui-scale',p.scale);renderHistory();invalidate();}
 function restoreLocal(){try{const text=localStorage.getItem(STORAGE_KEY);if(text)applyProject(readProject(text));}catch{$('result-status').textContent='Збережений проєкт не відновлено; можна імпортувати файл';}}
 function downloadFile(content,name,type){const url=URL.createObjectURL(new Blob([content],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 const fileMenu=document.querySelector('.menubar .menu');
@@ -2921,7 +3020,7 @@ function learningPanel(kind){
  }catch(err){learningResult=null;$('learn-output').replaceChildren();$('learn-error').hidden=false;$('learn-error').textContent=err.message;}};
 }
 function readGasFractions(){return Object.fromEntries(GAS_DATA.map(d=>[d.id,learnNumber('fraction-'+d.id)]));}
-function learningRows(entries){return `<table class="sat-table"><thead><tr><th>Показник</th><th>Результат</th><th>Одиниця</th></tr></thead><tbody>${entries.map(([k,v,u])=>`<tr><td>${k}</td><td>${format(v)}</td><td>${u}</td></tr>`).join('')}</tbody></table>`;}
+function learningRows(entries){return `<table class="sat-table"><thead><tr><th>Показник</th><th>Результат</th><th>Одиниця</th></tr></thead><tbody>${entries.map(([k,v,u])=>{const gkey=LABEL_GLOSSARY[k];return `<tr><td>${glossaryCell(gkey,k)}</td><td>${format(v)}</td><td>${u}</td></tr>${glossaryDetailRow(gkey,0,3)}`;}).join('')}</tbody></table>`;}
 function renderLearning(kind,q){let entries=[],html=`<p><strong>${escapeHTML(q.model)}</strong></p>`;
  if(kind==='gases'){entries=[['T',q.T,'K'],['P',q.p,'МПа'],['M',q.M,'кг/кмоль'],['h',q.h,'кДж/кг'],['s',q.s,'кДж/(кг·K)'],['u',q.u,'кДж/кг'],['ρ',q.rho,'кг/м³'],['v',q.v,'м³/кг'],['Cp',q.cp,'кДж/(кг·K)'],['Cv',q.cv,'кДж/(кг·K)'],['w',q.w,'м/с'],['Cp/Cv',q.gamma,'–'],['Z',q.Z,'–'],['В’язкість',q.mu,'Па·с'],['Теплопровідність',q.lambda,'Вт/(м·K)'],['Сухість',q.quality??null,'–']];html+=`<p>Діапазон температур: ${q.limits.min}…${q.limits.max} K. Z = ${format(q.Z)}. ${q.limits.pmax?`P≤${format(q.limits.pmax)} МПа.`:``} Молярний склад: ${Object.entries(q.composition).map(([k,v])=>k+'='+format(v)).join('; ')}.</p>`;html+=notes(q.notes||[]);if(q.validation)html+=`<p><strong>Перевірка:</strong> ${escapeHTML(q.validation.status)} ${escapeHTML(q.validation.transport)} <a href="${escapeHTML(q.validation.source)}" target="_blank" rel="noopener">Джерела моделі</a></p>`;}
  if(kind==='humid'){entries=[['Тиск',q.p,'МПа'],['Температура',q.T-273.15,'°C'],['Відносна вологість',q.rh*100,'%'],['Вологовміст W',q.W,'кг пари/кг сухого повітря'],['Парціальний Pᵥ',q.pv,'МПа'],['Ентальпія',q.h,'кДж/кг сухого повітря'],['Cp',q.cp,'кДж/(кг сухого повітря·K)'],['Питомий об’єм',q.v,'м³/кг сухого повітря'],['Густина суміші',q.rho,'кг/м³'],['Точка роси',q.dew==null?null:q.dew-273.15,'°C'],['Мокрий термометр',q.wet==null?null:q.wet-273.15,'°C']];html+=notes(q.notes);}
