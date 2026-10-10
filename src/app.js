@@ -10,28 +10,30 @@ const TU=[['C','°C'],['K','K']], HU=[['kJkg','кДж/кг'],['Jkg','Дж/кг']
 const definitions=[['h','Ентальпія','h','кДж/кг'],['s','Ентропія','s','кДж/(кг·K)'],['rho','Густина','ρ','кг/м³'],['v','Питомий об’єм','v','м³/кг'],['cp','Ізобарна теплоємність','Cₚ','кДж/(кг·K)'],['cv','Ізохорна теплоємність','Cᵥ','кДж/(кг·K)'],['w','Швидкість звуку','w','м/с'],['u','Внутрішня енергія','u','кДж/кг'],['mu','Динамічна в’язкість','μ','Па·с'],['lambda','Теплопровідність','λ','Вт/(м·K)']];
 function options(id,list) {$(id).replaceChildren(...list.map(([v,l])=>{const o=document.createElement('option');o.value=v;o.textContent=l;return o;}));$(id).dataset.previous=$(id).value;}
 function resetMode() {
-  const m=$('mode').value,t=m==='satt';
-  $('field-b').hidden=m.startsWith('sat');$('input-b').disabled=m.startsWith('sat');
-  $('label-a').textContent=t?'1. Температура насичення:':'1. Тиск (абсолютний):';options('unit-a',t?TU:PU);
-  $('label-b').textContent=m==='ph'?'2. Ентальпія:':m==='ps'?'2. Ентропія:':'2. Температура:';options('unit-b',m==='ph'?HU:m==='ps'?SU:TU);
-  $('input-a').value=t?'100':'3';$('input-b').value=m==='ph'?'500':m==='ps'?'1':'26.85';
-  $('mode-help').textContent=m==='pt'?'Тиск абсолютний. На лінії насичення P–T не визначає частку пари.':m.startsWith('sat')?'Показує обидві фази: насичену рідину та насичену пару.':'У двофазній області ступінь сухості визначається з ентальпії або ентропії.';
-  invalidate();
+ const m=$('mode').value,t=m==='satt'||m==='tx',h=m==='hs',quality=m==='px'||m==='tx',sat=m==='satp'||m==='satt';
+ $('field-b').hidden=sat;$('input-b').disabled=sat;
+ $('label-a').textContent=t?'1. Температура:':h?'1. Ентальпія:':'1. Тиск (абсолютний):';options('unit-a',t?TU:h?HU:PU);
+ $('label-b').textContent=quality?'2. Ступінь сухості:':m==='ph'?'2. Ентальпія:':m==='ps'||h?'2. Ентропія:':'2. Температура:';
+ options('unit-b',quality?[['fraction','0…1'],['percent','%']]:m==='ph'?HU:m==='ps'||h?SU:TU);
+ $('input-a').value=t?'100':h?'2631.49474':'3';$('input-b').value=quality?'0.5':h?'5.17540298':m==='ph'?'500':m==='ps'?'1':'26.85';
+ $('mode-help').textContent=quality?'x — масова частка пари: 0 рідина, 1 пара. У критичній точці x не визначений.':h?'Введіть питому ентальпію й ентропію. Тиск і температура визначаються чисельно за IF97.':m==='pt'?'На лінії насичення P–T не визначає частку пари.':sat?'Показує обидві фази на лінії насичення.':'Сухість визначається з ентальпії або ентропії.';
+ for(const name of ['general','saturation','help'])$('tab-'+name).setAttribute('aria-selected',String(name===((sat||quality)?'saturation':'general')));
+ invalidate();
 }
 function invalidate() {
   last=null;$('export-csv').disabled=true;$('result-status').textContent='Параметри змінено — розрахуйте знову';$('error').hidden=true;
-  $('results').innerHTML=propertyTable(null);$('state-summary').textContent='Задайте стан води або пари';
+  $('results').innerHTML=propertyTable(null);$('state-summary').textContent=$('mode-help').textContent;
 }
 function format(n) {if(n===null||n===undefined||!Number.isFinite(n))return '—';return new Intl.NumberFormat('uk-UA',{maximumSignificantDigits:8,notation:Math.abs(n)>0&&Math.abs(n)<1e-4?'scientific':'standard'}).format(n);}
-function display(key,value,unit) {if(['h','s','cp','cv','u'].includes(key)&&$('output-energy').value==='J')return [value===null?null:value*1000,unit.replace('кДж','Дж')];return [value,unit];}
-const rows=[['p','Тиск (абсолютний)','p','МПа'],['T','Температура','t','°C'],['rho','Густина','ρ','кг/м³'],['v','Питомий об’єм','v','м³/кг'],['h','Питома ентальпія','h','кДж/кг'],['s','Питома ентропія','s','кДж/(кг·K)'],['u','Питома внутрішня енергія','u','кДж/кг'],['cp','Питома ізобарна теплоємність','cp','кДж/(кг·K)'],['cv','Питома ізохорна теплоємність','cv','кДж/(кг·K)'],['w','Швидкість звуку','w','м/с'],['x','Ступінь сухості (масова частка пари)','x','–'],['region','Область IF97','region','–'],['mu','Динамічна в’язкість','μ','Па·с'],['lambda','Теплопровідність','λ','Вт/(м·K)']];
+function display(key,value,unit) {if(['h','s','cp','cv','u','A','G','ijt'].includes(key)&&$('output-energy').value==='J')return [value===null?null:value*1000,unit.replace('кДж','Дж')];return [value,unit];}
+const rows=[['p','Тиск (абсолютний)','p','МПа'],['T','Температура','t','°C'],['rho','Густина','ρ','кг/м³'],['v','Питомий об’єм','v','м³/кг'],['h','Питома ентальпія','h','кДж/кг'],['s','Питома ентропія','s','кДж/(кг·K)'],['u','Питома внутрішня енергія','u','кДж/кг'],['cp','Питома ізобарна теплоємність','cp','кДж/(кг·K)'],['cv','Питома ізохорна теплоємність','cv','кДж/(кг·K)'],['w','Швидкість звуку','w','м/с'],['x','Ступінь сухості (масова частка пари)','x','–'],['region','Область IF97','region','–'],['isentropic','Ізентропний показник','κs','–'],['A','Питома енергія Гельмгольца','a','кДж/кг'],['G','Питома енергія Гіббса','g','кДж/кг'],['Z','Коефіцієнт стисливості','Z','–'],['alpha','Ізобарне об’ємне розширення','α','1/K'],['kappa','Ізотермічна стисливість','κT','1/МПа'],['dvdt','Похідна (∂v/∂T)p','vT','м³/(кг·K)'],['dvdp','Похідна (∂v/∂p)T','vp','м³/(кг·МПа)'],['dpdt','Похідна (∂p/∂T)v','pT','МПа/K'],['dpdv','Похідна (∂p/∂v)T','pv','МПа·кг/м³'],['ijt','Ізотермічний коефіцієнт Джоуля–Томсона','δT','кДж/(кг·МПа)'],['jt','Коефіцієнт Джоуля–Томсона','μJT','K/МПа'],['mu','Динамічна в’язкість','μ','Па·с'],['nu','Кінематична в’язкість','ν','м²/с'],['lambda','Теплопровідність','λ','Вт/(м·K)'],['diffusivity','Температуропровідність','aT','м²/с'],['Pr','Число Прандтля','Pr','–'],['sigma','Поверхневий натяг рідина–пара','σ','Н/м']];
 const constants=['Газова стала R = 0,461526 кДж/(кг·K)','Молярна газова стала Rm = 8,31451 Дж/(моль·K)','Молярна маса M = 18,015257 г/моль','Критична температура Tc = 647,096 K','Критичний тиск pc = 22,064 МПа','Критична густина ρc = 322 кг/м³','Потрійна точка Tt = 273,16 K','Потрійна точка pt = 611,657 Па'];
 function propertyTable(state) {
  return `<table class="property-table"><thead><tr><th>№</th><th>Назва властивості</th><th>Символ</th><th>⧉</th><th>Результат</th><th>Одиниці (SI)</th><th>Константи IF97</th></tr></thead><tbody>${rows.map(([key,name,symbol,unit],i)=>{
  const value=state?(key==='T'?state.T-273.15:state[key]):null;
  const [v,u]=display(key,value,unit);
- const groupId=i<10?'main':i<12?'state':'transport';
- const groupName=i===0?'1. Термодинамічні властивості — основні':i===10?'2. Термодинамічні властивості — стан':i===12?'3. Транспортні властивості':null;
+ const groupId=i<10?'main':i<24?'state':'transport';
+ const groupName=i===0?'1. Термодинамічні властивості — основні':i===10?'2. Термодинамічні властивості — стан':i===24?'3. Транспортні властивості':null;
  const collapsed=collapsedGroups.has(groupId);
  const group=groupName?`<tr class="group"><td colspan="7"><button data-group="${groupId}" aria-expanded="${!collapsed}">${collapsed?'⊞':'⊟'} ${groupName}</button></td></tr>`:'';
  return `${group}<tr data-group-row="${groupId}" ${collapsed?'hidden':''} data-property="${key}"><td>${i+1}</td><td>${name}</td><td>${symbol}</td><td><button class="copy" data-copy="${key}" aria-label="Копіювати: ${name}" ${v==null?'disabled':''}>⧉</button></td><td>${state?format(v):''}</td><td>${u}</td><td class="constant">${constants[i]||''}</td></tr>`;
@@ -45,12 +47,12 @@ function renderHistory() {
 function selectView(view) {
  $('calculator-view').hidden=view==='help';$('help-view').hidden=view!=='help';
  for(const name of ['general','saturation','help'])$('tab-'+name).setAttribute('aria-selected',String(name===view));
- if(view==='saturation'&&!$('mode').value.startsWith('sat')){$('mode').value='satp';resetMode();}
- if(view==='general'&&$('mode').value.startsWith('sat')){$('mode').value='pt';resetMode();}
+ if(view==='saturation'&&!['satp','satt','px','tx'].includes($('mode').value)){$('mode').value='satp';resetMode();}
+ if(view==='general'&&['satp','satt','px','tx'].includes($('mode').value)){$('mode').value='pt';resetMode();}
 }
 function notes(list) {return list.length?`<div class="notes">${[...new Set(list)].map(n=>`<p>${n}</p>`).join('')}</div>`:'';}
 function table(sat) {
- return `<div class="sat-scroll"><table class="sat-table"><thead><tr><th>Властивість</th><th>Насичена рідина</th><th>Насичена пара</th></tr></thead><tbody>${definitions.map(([k,name,symbol,unit])=>{
+ return `<div class="sat-scroll"><table class="sat-table"><thead><tr><th>Властивість</th><th>Насичена рідина</th><th>Насичена пара</th></tr></thead><tbody>${rows.filter(r=>!['p','T','region','x'].includes(r[0])).map(([k,name,symbol,unit])=>{
   const [a,u]=display(k,sat.liquid[k],unit),[b]=display(k,sat.vapor[k],unit);
   return `<tr><td>${name} <span class="symbol">${symbol}</span><small>${u}</small></td><td>${format(a)}</td><td>${format(b)}</td></tr>`;}).join('')}</tbody></table></div>`;
 }
@@ -82,13 +84,13 @@ function run(event) {
    const result=calculate(m,a,b);last=result;revision++;if(result.state)historyStates.unshift(result.state);else if(result.saturation)historyStates.unshift(result.saturation.vapor,result.saturation.liquid);renderHistory();render();
  }catch(e) {invalidate();$('error').textContent=e.message;$('error').hidden=false;$('result-status').textContent='Перевірте вхідні дані';}
 }
-$('mode').addEventListener('change',()=>{resetMode();for(const name of ['general','saturation'])$('tab-'+name).setAttribute('aria-selected',String(name===($('mode').value.startsWith('sat')?'saturation':'general')));});
+$('mode').addEventListener('change',resetMode);
 for(const letter of ['a','b']) {
  $('input-'+letter).addEventListener('input',invalidate);
  $('unit-'+letter).addEventListener('change',()=>{const select=$('unit-'+letter);try{const n=parseNumber($('input-'+letter).value);$('input-'+letter).value=String(Number(fromCanonical(toCanonical(n,select.dataset.previous),select.value).toPrecision(12)));}catch{}select.dataset.previous=select.value;invalidate();});
 }
 $('calculator').addEventListener('submit',run);
-$('output-energy').addEventListener('change',render);
+$('output-energy').addEventListener('change',()=>{if(last)render();else $('results').innerHTML=propertyTable(null);});
 for(const button of document.querySelectorAll('[data-p]')) button.addEventListener('click',()=>{$('mode').value='pt';resetMode();$('input-a').value=button.dataset.p;$('unit-b').value='K';$('unit-b').dataset.previous='K';$('input-b').value=button.dataset.t;run();});
 $('export-csv').addEventListener('click',()=>{
  if(!last)return;

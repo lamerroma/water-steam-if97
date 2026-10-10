@@ -27,3 +27,9 @@ export function conductivity(state) {
   }
   return (l0*l1+l2)*1e-3;
 }
+
+// IAPWS R1-76(2014): N/m, equilibrium interface only; no supercooled extrapolation.
+export function surfaceTension(T) {
+ if(!Number.isFinite(T)||T<273.16-1e-10||T>647.096)return null;
+ const tau=1-Math.max(T,273.16)/647.096;return 0.2358*tau**1.256*(1-0.625*tau);
+}

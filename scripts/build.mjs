@@ -12,7 +12,7 @@ for(const file of files) {
  if(file==='vendor/seuif97.js')code+='const init=__wbg_init;\n';
 }
 code+='})();\n';
-const licenses='<!--\n'+await read('LICENSE')+'\nSEUIF97 / RustSEUIF97:\n'+await read('vendor/SEUIF97-LICENSE')+'\nFormulations and verification tables: International Association for the Properties of Water and Steam (IAPWS), R7-97(2012), R12-08, R15-11.\n-->\n';
+const licenses='<!--\n'+await read('LICENSE')+'\nSEUIF97 / RustSEUIF97:\n'+await read('vendor/SEUIF97-LICENSE')+'\nFormulations and verification tables: International Association for the Properties of Water and Steam (IAPWS), R7-97(2012), R12-08, R15-11, R1-76(2014).\n-->\n';
 const html=licenses+(await read('src/template.html')).replace('/* STYLES */',await read('src/styles.css')).replace('/* APPLICATION */',()=>code.replace(/<\/script/gi,'<\\/script'));
 await mkdir(new URL('dist/',root),{recursive:true});
 await writeFile(new URL('index.html',root),html);await writeFile(new URL('dist/index.html',root),html);

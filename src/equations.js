@@ -31,14 +31,14 @@ export function gibbs(p,T,region) {
   const cv=cp+R*(d.x-tau*d.xy)**2/d.xx;
   const w=Math.sqrt(1000*R*T*d.x*d.x/((d.x-tau*d.xy)**2/(tau*tau*d.yy)-d.xx));
   const rho=1/v;
-  return {p,T,v,rho,h:R*T*tau*d.y,u:R*T*(tau*d.y-pi*d.x),s:R*(tau*d.y-d.g),cp,cv,w,drhodp:-rho*d.xx/(pstar*d.x),region};
+  return {p,T,v,rho,h:R*T*tau*d.y,u:R*T*(tau*d.y-pi*d.x),s:R*(tau*d.y-d.g),cp,cv,w,drhodp:-rho*d.xx/(pstar*d.x),alpha:(1-tau*d.xy/d.x)/T,region};
 }
 export function helmholtz(T,rho) {
   const delta=rho/RHOC,tau=TC/T,d=polynomial(delta,tau,R3),n=1.0658070028513;
   d.g+=n*Math.log(delta);d.x+=n/delta;d.xx-=n/delta**2;
   const a=delta*d.x-delta*tau*d.xy, b=2*delta*d.x+delta*delta*d.xx;
   return {T,rho,v:1/rho,p:rho*R*T*delta*d.x/1000,h:R*T*(tau*d.y+delta*d.x),u:R*T*tau*d.y,s:R*(tau*d.y-d.g),
-    cp:R*(-tau*tau*d.yy+a*a/b),cv:-R*tau*tau*d.yy,w:Math.sqrt(1000*R*T*(b-a*a/(tau*tau*d.yy))),drhodp:1000/(R*T*b),region:3};
+    cp:R*(-tau*tau*d.yy+a*a/b),cv:-R*tau*tau*d.yy,w:Math.sqrt(1000*R*T*(b-a*a/(tau*tau*d.yy))),drhodp:1000/(R*T*b),alpha:a/(T*b),region:3};
 }
 const N=[1167.0521452767,-724213.16703206,-17.073846940092,12020.82470247,-3232555.0322333,14.91510861353,-4823.2657361591,405113.40542057,-0.23855557567849,650.17534844798];
 export function saturationPressure(T) {

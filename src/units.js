@@ -9,6 +9,7 @@ export function toCanonical(value,unit) {
   if(unit==='C')return value+273.15;
   if(unit==='K'||unit==='kJkg'||unit==='kJkgK')return value;
   if(unit==='Jkg'||unit==='JkgK')return value/1000;
+  if(unit==='fraction')return value;if(unit==='percent')return value/100;
   throw Error('Невідома одиниця.');
 }
 export function fromCanonical(value,unit) {
@@ -16,5 +17,6 @@ export function fromCanonical(value,unit) {
   if(unit==='C')return value-273.15;
   if(unit==='K'||unit==='kJkg'||unit==='kJkgK')return value;
   if(unit==='Jkg'||unit==='JkgK')return value*1000;
+  if(unit==='fraction')return value;if(unit==='percent')return value*100;
   throw Error('Невідома одиниця.');
 }

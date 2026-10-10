@@ -1,6 +1,6 @@
-import init, {initSync,pt,px} from '../vendor/seuif97.js';
+import init, {initSync,pt,px,hs} from '../vendor/seuif97.js';
 import {gibbs,helmholtz,TC,PC,RHOC,PMIN_SAT,saturationPressure,saturationTemperature,boundary23Pressure,boundary23Temperature} from './equations.js';
-import {viscosity,conductivity} from './transport.js';
+import {viscosity,conductivity,surfaceTension} from './transport.js';
 export {TC,PC,PMIN_SAT,saturationPressure,saturationTemperature,boundary23Pressure};
 export async function initialize(bytes) { if(bytes)initSync({module:bytes});else await init(); }
 function finite(n,name) {if(!Number.isFinite(n))throw Error(`${name}: введіть скінченне число.`);}
@@ -52,7 +52,13 @@ function finish(state,phase,x=null) {
   else if(state.critical)mu=viscosity(state.T,state.rho);
   else notes.push('В’язкість і теплопровідність не наведено: T > 1173,15 K, поза реалізованим діапазоном транспортних формуляцій.');
   if(state.T<273.16 && state.p<0.000611657)notes.push('Діапазон 273,15–273,16 K: рівняння IF97 може описувати метастабільну рідину/пару відносно льоду; лід не моделюється.');
-  return {...state,phase,x,mu,lambda,notes};
+  const kappa=state.drhodp==null?null:state.drhodp/state.rho;
+  const derivatives=state.critical?{alpha:null,kappa:null,dvdt:null,dvdp:null,dpdt:null,dpdv:null,jt:null,ijt:null}: {
+    alpha:state.alpha,kappa,dvdt:state.v*state.alpha,dvdp:-state.v*kappa,dpdt:state.alpha/kappa,dpdv:-1/(state.v*kappa),
+    jt:1000*state.v*(state.T*state.alpha-1)/state.cp,ijt:1000*state.v*(1-state.T*state.alpha)};
+  return {...state,...derivatives,phase,x,mu,lambda,notes,A:state.u-state.T*state.s,G:state.h-state.T*state.s,Z:1000*state.p*state.v/0.461526/state.T,
+    isentropic:state.w**2*state.rho/(state.p*1e6),nu:mu==null?null:mu/state.rho,diffusivity:lambda==null?null:lambda/(state.rho*state.cp*1000),Pr:mu==null||lambda==null?null:mu*state.cp*1000/lambda,
+    sigma:x===0||x===1||state.critical?surfaceTension(state.T):null};
 }
 export function saturation(p) {
   const T=saturationTemperature(p);
@@ -67,6 +73,7 @@ function mix(sat,x) {
   const blend=k=>a[k]+x*(b[k]-a[k]);
   const v=blend('v');
   return {p:sat.p,T:sat.T,region:4,phase:'Двофазна суміш',x,v,rho:1/v,h:blend('h'),s:blend('s'),u:blend('u'),cp:null,cv:null,w:null,mu:null,lambda:null,
+    A:blend('u')-sat.T*blend('s'),G:blend('h')-sat.T*blend('s'),Z:1000*sat.p*v/0.461526/sat.T,sigma:surfaceTension(sat.T),alpha:null,kappa:null,dvdt:null,dvdp:null,dpdt:null,dpdv:null,jt:null,ijt:null,isentropic:null,nu:null,diffusivity:null,Pr:null,
     notes:['Cp, Cv, швидкість звуку, в’язкість і теплопровідність суміші не визначаються однозначно цим станом; значення фаз наведено окремо.']};
 }
 export function solvePT(p,T) {
@@ -80,7 +87,7 @@ export function solvePT(p,T) {
   const phase=s.region===1?'Стиснена рідина':s.region===2||s.region===5?'Перегріта пара':T>=TC&&p>=PC?'Надкритичний флюїд':T<TC&&p>saturationPressure(T)?'Густа рідина':'Густий флюїд / пара';
   return {state:finish(s,phase)};
 }
-export function solveInverse(p,target,key) {
+export function solveInverse(p,target,key,tolerance) {
   pressure(p);finite(target,key==='h'?'Ентальпія':'Ентропія');
   if(!['h','s'].includes(key))throw Error('Невідомий режим інверсії.');
   let sat;
@@ -112,7 +119,7 @@ export function solveInverse(p,target,key) {
     else if(Math.abs(target-b[key])<1e-9)answer=b;
     else for(let k=0;k<90;k++) {
       const mid=(lo+hi)/2,m=evaluate(mid);
-      if(Math.abs(m[key]-target)<(key==='h'?2e-8:2e-11)){answer=m;break;}
+      if(Math.abs(m[key]-target)<(tolerance??(key==='h'?2e-8:2e-11))){answer=m;break;}
       if(m[key]<target)lo=mid;else hi=mid;
     }
     if(!answer)throw Error('Інверсія не збіглася поблизу межі областей.');
@@ -127,11 +134,63 @@ export function solveInverse(p,target,key) {
   const min=basePT(p,273.15)[key],max=basePT(p,maxT)[key];
   throw Error(`Значення поза допустимим діапазоном або в малому розриві на межі рівнянь IF97. Для цього тиску: ${min.toPrecision(8)}…${max.toPrecision(8)} ${key==='h'?'кДж/кг':'кДж/(кг·K)'}.`);
 }
+export function solveQuality(p,x) {
+ finite(x,'Сухість');if(x<0||x>1)throw Error('Ступінь сухості x має бути від 0 до 1 (0…100 %).');
+ const sat=saturation(p);
+ if(sat.critical)throw Error('У критичній точці ступінь сухості не визначений. Використайте P–T або насичення без x.');
+ return {state:mix(sat,x),saturation:sat};
+}
+// At fixed h, ds/dp = -1000*v/T (MPa, kJ/kg). The vendored backward
+// equation supplies a seed only; all accepted states satisfy fundamental IF97.
+export function solveHS(h,s) {
+ finite(h,'Ентальпія');finite(s,'Ентропія');
+ const evaluate=p=>solveInverse(p,h,'h',1e-10);
+ const valid=r=>Math.abs(r.state.h-h)<1e-6&&Math.abs(r.state.s-s)<2e-11;
+ const finalize=result=>{const state=result.state;if(state.x===null&&state.p>=PMIN_SAT&&state.p<PC){const sat=saturation(state.p);for(const endpoint of [sat.liquid,sat.vapor])if(Math.abs(endpoint.h-h)<1e-6&&Math.abs(endpoint.s-s)<2e-9)return {state:mix(sat,endpoint.x),saturation:sat};}return result;};
+ let seed;try{seed=hs(h,s,0);}catch{}
+ if(Number.isFinite(seed)&&seed>0&&seed<=100){
+  let p=seed;
+  for(let k=0;k<25;k++){
+   let result;try{result=evaluate(p);}catch{break;}
+   if(valid(result))return finalize(result);
+   const state=result.state,err=state.s-s;
+   const step=Math.max(-2,Math.min(2,err/(-1000*p*state.v/state.T)));
+   let accepted=false;
+   for(let d=1;d>=1/256;d/=2){const next=p*Math.exp(-step*d);if(next<=0||next>100)continue;
+    try{const nr=evaluate(next);if(Math.abs(nr.state.s-s)<Math.abs(err)){p=next;accepted=true;break;}}catch{}
+   }
+   if(!accepted)break;
+  }
+ }
+ // A bounded pressure scan also covers region 5, absent from many hs backward equations.
+ const pressures=[PMIN_SAT,PC,50,100];
+ for(let k=0;k<=180;k++)pressures.push(10**(-12+k*14/180));
+ if(Number.isFinite(seed)&&seed>0&&seed<=100)pressures.push(seed);
+ pressures.sort((a,b)=>a-b);let previous=null;
+ for(const p of pressures){
+  let result;try{result=evaluate(p);}catch{previous=null;continue;}
+  if(valid(result))return finalize(result);
+  const error=result.state.s-s;
+  if(previous&&previous.error*error<0){
+   let lo=previous.p,hi=p,elo=previous.error;
+   for(let j=0;j<85;j++){
+    const mid=Math.sqrt(lo*hi);let r;try{r=evaluate(mid);}catch{break;}
+    if(valid(r))return finalize(r);
+    const e=r.state.s-s;if(e*elo>0){lo=mid;elo=e;}else hi=mid;
+   }
+  }
+  previous={p,error};
+ }
+ throw Error('Не знайдено узгоджений стан h–s у межах IF97. Перевірте одиниці та значення; біля меж областей можливий малий розрив рівнянь. Для дуже низьких тисків використайте P–h/P–s.');
+}
 export function calculate(mode,a,b) {
   switch(mode) {
     case 'pt':return solvePT(a,b);
     case 'ph':return solveInverse(a,b,'h');
     case 'ps':return solveInverse(a,b,'s');
+    case 'px':return solveQuality(a,b);
+    case 'tx':return solveQuality(saturationPressure(a),b);
+    case 'hs':return solveHS(a,b);
     case 'satp':return {saturation:saturation(a)};
     case 'satt':return {saturation:saturation(saturationPressure(a))};
     default:throw Error('Невідомий режим розрахунку.');
