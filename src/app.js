@@ -1,3 +1,4 @@
+import {turbine,flash,diagramData} from './processes.js';
 import {exportCSV} from './export.js';
 import {initialize,calculate,PMIN_SAT,TC,PC} from './engine.js';
 import {parseNumber,toCanonical,fromCanonical} from './units.js';
@@ -45,7 +46,7 @@ function renderHistory() {
  $('history-count').textContent=`Станів: ${historyStates.length}`;
 }
 function selectView(view) {
- $('calculator-view').hidden=view==='help';$('help-view').hidden=view!=='help';
+ for(const b of document.querySelectorAll('[role="tab"]'))b.setAttribute('aria-selected','false');$('process-view').hidden=true;$('calculator-view').hidden=view==='help';$('help-view').hidden=view!=='help';
  for(const name of ['general','saturation','help'])$('tab-'+name).setAttribute('aria-selected',String(name===view));
  if(view==='saturation'&&!['satp','satt','px','tx'].includes($('mode').value)){$('mode').value='satp';resetMode();}
  if(view==='general'&&['satp','satt','px','tx'].includes($('mode').value)){$('mode').value='pt';resetMode();}
@@ -106,6 +107,7 @@ document.addEventListener('click',event=>{
  if(action==='fullscreen'){if(document.fullscreenElement)document.exitFullscreen?.();else document.documentElement.requestFullscreen?.().catch(()=>{$('result-status').textContent='Повний екран недоступний';});}
  if(action==='export-history')exportHistory();
  if(['general','saturation','help'].includes(action))selectView(action);
+ if(['turbine','flash','ts','hsdiagram'].includes(action))showProcess(action);
  if(action==='clear'){historyStates.length=0;revision=0;renderHistory();invalidate();$('result-status').textContent='Результати очищено';}
  if(action==='export')$('export-csv').click();
  if(action==='print')window.print();
@@ -132,3 +134,31 @@ resetMode();renderHistory();
  try {const bytes=Uint8Array.from(atob(WASM_BASE64),c=>c.charCodeAt(0));await initialize(bytes);$('calculate').disabled=false;$('calculate').innerHTML='Розрахувати';$('result-status').textContent='Готово до розрахунку';}
  catch(e){$('error').textContent='Не вдалося ініціалізувати WebAssembly. Використайте сучасний браузер. '+e.message;$('error').hidden=false;$('calculate').textContent='Помилка завантаження';}
 })();
+
+let diagramCache=null;
+function showProcess(kind){
+ $('calculator-view').hidden=true;$('help-view').hidden=true;$('process-view').hidden=false;
+ for(const b of document.querySelectorAll('[role="tab"]'))b.setAttribute('aria-selected',String(b.dataset.action===kind));
+ if(kind==='ts'||kind==='hsdiagram'){showDiagram(kind);return;}
+ const tur=kind==='turbine';
+ $('process-view').innerHTML=`<h2>${tur?'Парова турбіна':'Дроселювання та випаровування'}</h2><p>${tur?'Адіабатичне розширення з ізоентропним ККД. Потужність потоку без механічних і генераторних втрат.':'Адіабатичне дроселювання: h₂ = h₁. Поділ потоків наведено лише для рівноважного двофазного стану.'} Змінами кінетичної й потенціальної енергій знехтувано.</p><form id="process-form"><fieldset><legend>Вхідні дані · абсолютний тиск</legend>${[['p1','Вхідний тиск, МПа','3'],['t1','Вхідна температура, °C',tur?'400':'200'],['p2','Вихідний тиск, МПа','0.1'],...(tur?[['eta','Ізоентропний ККД, %','85']]:[]),['flow','Масова витрата, кг/с','1']].map(([id,label,value])=>`<label>${label}<input id="process-${id}" value="${value}" inputmode="decimal" required></label>`).join('')}</fieldset><button type="submit">Розрахувати</button></form><p id="process-error" role="alert"></p><div id="process-result"></div>`;
+ for(const input of $('process-form').querySelectorAll('input'))input.addEventListener('input',()=>{$('process-result').innerHTML='';$('process-error').textContent='';$('result-status').textContent='Параметри процесу змінено — розрахуйте знову';});
+ $('process-form').addEventListener('submit',event=>{event.preventDefault();$('process-result').innerHTML='';$('process-error').textContent='';try{
+ const n=id=>parseNumber($('process-'+id).value);
+ const r=tur?turbine(n('p1'),n('t1')+273.15,n('p2'),n('eta')/100,n('flow')):flash(n('p1'),n('t1')+273.15,n('p2'),n('flow'));
+ const metrics=tur?[['Питома робота',r.work,'кДж/кг'],['Потужність потоку',r.power,'кВт']]:[['Витрата пари',r.vaporFlow,'кг/с'],['Витрата рідини',r.liquidFlow,'кг/с']];
+ $('process-result').innerHTML=`<p>${metrics.map(([l,v,u])=>`${l}: <strong>${format(v)} ${u}</strong>`).join(' · ')}</p>${!tur&&r.outlet.x==null?'<p>Вихід однофазний; баланс сепарації на рідину й пару не застосовується.</p>':''}<table><thead><tr><th>Стан</th><th>p, МПа</th><th>t, °C</th><th>h, кДж/кг</th><th>s, кДж/(кг·K)</th><th>x</th><th>Фаза</th></tr></thead><tbody>${[['Вхід',r.inlet],...(tur?[['Ізоентропний вихід',r.ideal]]:[]),['Вихід',r.outlet]].map(([l,q])=>`<tr><td>${l}</td>${[q.p,q.T-273.15,q.h,q.s,q.x].map(v=>`<td>${format(v)}</td>`).join('')}<td>${q.phase}</td></tr>`).join('')}</tbody></table><button id="process-transfer">Показати вихід у загальних властивостях</button>`;
+ $('process-transfer').addEventListener('click',()=>{selectView('general');$('mode').value='ph';resetMode();$('input-a').value=String(r.outlet.p);$('input-b').value=String(r.outlet.h);run();});
+ $('result-status').textContent='Розрахунок процесу виконано';
+ }catch(e){$('process-error').textContent=e.message;$('result-status').textContent='Перевірте вхідні дані';}});
+}
+function showDiagram(kind){
+ if(!diagramCache)diagramCache=diagramData();
+ const isTS=kind==='ts',ykey=isTS?'T':'h',ymax=isTS?800:4500,xmax=11;
+ const X=s=>60+s/ xmax*820,Y=q=>450-(isTS?q.T-273.15:q.h)/ymax*400;
+ const path=points=>{let pen=false;return points.map(q=>{if(!q||!Number.isFinite(q.s)||!Number.isFinite(q[ykey])||q.s<0||q.s>xmax){pen=false;return '';}const str=`${pen?'L':'M'}${X(q.s).toFixed(2)},${Y(q).toFixed(2)}`;pen=true;return str;}).join(' ');};
+ const colors=['#a75b00','#3977a6','#8b4599','#27825a','#b84242','#706c25','#555'];
+ $('process-view').innerHTML=`<h2>${isTS?'T–s':'h–s'} діаграма</h2><p>Лінія насичення, ізобари та точки журналу. Наведіть на точку для параметрів. Межі графіка: s = 0…11 кДж/(кг·K), ${isTS?'t = 0…800 °C':'h = 0…4500 кДж/кг'}. Лінії з’єднують дискретні стани IF97; графік не замінює точного розрахунку.</p><button id="diagram-refresh">Оновити точки журналу</button><button id="diagram-save">Зберегти SVG</button><svg id="steam-diagram" role="img" aria-label="${isTS?'T–s':'h–s'} діаграма води й пари" viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="plot-clip"><rect x="60" y="50" width="820" height="400"/></clipPath></defs><rect width="960" height="520" fill="white"/>${Array.from({length:6},(_,i)=>`<path d="M60 ${450-i*80}H880 M${60+i*164} 50V450" stroke="#dde3eb"/><text x="50" y="${454-i*80}" text-anchor="end">${format(ymax*i/5)}</text><text x="${60+i*164}" y="470" text-anchor="middle">${format(xmax*i/5)}</text>`).join('')}<path d="M60 50V450H880" fill="none" stroke="#333"/><text x="470" y="505" text-anchor="middle">s, кДж/(кг·K)</text><text x="65" y="25">${isTS?'t, °C':'h, кДж/кг'}</text><g clip-path="url(#plot-clip)">${diagramCache.isobars.map(({p,points},i)=>`<path d="${path(points)}" fill="none" stroke="${colors[i]}" stroke-width="1.2"><title>${p} МПа</title></path>`).join('')}${diagramCache.dome.map(points=>`<path d="${path(points)}" fill="none" stroke="#12477c" stroke-width="3"/>`).join('')}${historyStates.map((q,i)=>`<circle cx="${X(q.s)}" cy="${Y(q)}" r="4" fill="#c62828"><title>№ ${historyStates.length-i}: p=${q.p} МПа; t=${q.T-273.15} °C; h=${q.h}; s=${q.s}</title></circle>`).join('')}</g></svg><p>${diagramCache.isobars.map(({p},i)=>`<span style="color:${colors[i]}">━ ${p} МПа</span>`).join(' · ')} · <strong>Синя товста лінія: насичення</strong> · Червоні точки: журнал.</p>`;
+ $('diagram-refresh').addEventListener('click',()=>showDiagram(kind));
+ $('diagram-save').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([$ ('steam-diagram').outerHTML],{type:'image/svg+xml;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=kind+'.svg';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+}

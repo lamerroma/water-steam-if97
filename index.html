@@ -54,6 +54,8 @@ Formulations and verification tables: International Association for the Properti
 @media(max-width:1100px) and (min-width:701px){.product-info{display:none}.input-area{gap:20px}.form-buttons{min-width:145px}.property-table th:nth-child(2){width:290px}.property-table{min-width:1040px}}
 @media(max-width:700px){html{font-size:11px}.input-area{height:auto;min-height:155px;display:block}.input-area fieldset{height:102px}#calculator{width:100%}.form-buttons{margin:7px 0;flex-direction:row;align-items:center;gap:8px}.form-buttons span{display:none}.product-info{display:none}.menu-right{display:none!important}.menubar{gap:0;overflow-x:auto;white-space:nowrap}.menubar>button,summary{padding:4px 6px}.center-pane{min-height:550px}.desktop{display:flex}.output-pane{height:218px}.output-collapsed .output-pane{height:24px}.property-table{min-width:1040px}#output-resize{display:none}.setup-collapsed .setup-pane{display:none}.results-scroll{height:340px}}
 @media print{.form-buttons,.output-tabs,#output-resize{display:none}.property-table th{position:static}.results-scroll{overflow:visible}.property-table{min-width:0;font-size:8px;table-layout:auto}.property-table th{width:auto!important}.property-table th:last-child,.property-table td:last-child{display:none}}
+
+#process-view{overflow:auto;flex:1;padding:14px;color:#294967}#process-view h2{font-size:16px}#process-form fieldset{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px}#process-form label{display:flex;flex-direction:column;gap:4px}#process-form input{width:145px;padding:5px;border:1px solid #a7b7cc}#process-view button{padding:5px 10px;margin-right:8px}#process-view table{border-collapse:collapse;width:100%;min-width:620px;background:white}#process-view td,#process-view th{padding:8px;border:1px solid #c3d1e1;text-align:right}#process-error{color:#a22}#steam-diagram{width:100%;min-width:580px;height:auto;font:12px Arial}#process-result{overflow:auto}
 </style></head>
 <body>
 <nav class="site-nav"><button data-action="general">Калькулятор</button><button data-action="help">Довідка калькулятора</button><button data-action="export">Експорт CSV</button><button data-action="help">Джерела та ліцензії</button><span>Таблиці води та пари · автономна версія</span></nav>
@@ -61,8 +63,8 @@ Formulations and verification tables: International Association for the Properti
 <div class="toolbar"><button title="Очистити результати" aria-label="Очистити результати" data-action="clear">▤</button><button title="Зберегти CSV" aria-label="Зберегти CSV" data-action="export">▣</button><button title="Друк" aria-label="Друк" data-action="print">▧</button><i></i><button title="Загальні властивості" aria-label="Загальні властивості" data-action="general">⚗</button><button title="Насичення" aria-label="Насичення" data-action="saturation">≈</button><i></i><button title="Довідка" aria-label="Довідка" data-action="help">ⓘ</button><span>IF97 · вода та водяна пара</span><b>🇺🇦</b></div>
 <main class="desktop">
 <section class="center-pane">
-<div class="tabs" role="tablist" aria-label="Розділи калькулятора"><button id="tab-general" role="tab" aria-selected="true" data-action="general">▣ 1. Загальні властивості</button><button id="tab-saturation" role="tab" aria-selected="false" data-action="saturation">▤ 2. Властивості насичення</button><button disabled title="Ще не реалізовано">3. Парова турбіна</button><button disabled title="Ще не реалізовано">4. Випаровування</button><button disabled title="Ще не реалізовано">5. T–s діаграма</button><button disabled title="Ще не реалізовано">6. h–s діаграма</button><button id="tab-help" role="tab" aria-selected="false" data-action="help">ⓘ Довідка</button></div>
-<div id="calculator-view" class="calculator-view">
+<div class="tabs" role="tablist" aria-label="Розділи калькулятора"><button id="tab-general" role="tab" aria-selected="true" data-action="general">▣ 1. Загальні властивості</button><button id="tab-saturation" role="tab" aria-selected="false" data-action="saturation">▤ 2. Властивості насичення</button><button role="tab" aria-selected="false" data-action="turbine">3. Парова турбіна</button><button role="tab" aria-selected="false" data-action="flash">4. Випаровування</button><button role="tab" aria-selected="false" data-action="ts">5. T–s діаграма</button><button role="tab" aria-selected="false" data-action="hsdiagram">6. h–s діаграма</button><button id="tab-help" role="tab" aria-selected="false" data-action="help">ⓘ Довідка</button></div>
+<div id="process-view" hidden></div><div id="calculator-view" class="calculator-view">
 <div class="input-area"><form id="calculator" novalidate><fieldset><legend>Вхідні дані</legend><div class="form-row"><label for="mode">Оберіть функцію:</label><select id="mode"><option value="pt">1. функція (p, t)</option><option value="ph">2. функція (p, h)</option><option value="ps">3. функція (p, s)</option><option value="satp">4. насичення за p</option><option value="satt">5. насичення за t</option><option value="px">6. функція (p, x)</option><option value="tx">7. функція (t, x)</option><option value="hs">8. функція (h, s)</option></select></div><div class="form-row"><label id="label-a" for="input-a">1. Тиск (абсолютний):</label><input id="input-a" inputmode="decimal" value="3" autocomplete="off"><select id="unit-a" aria-label="Одиниця першого параметра"></select></div><div class="form-row" id="field-b"><label id="label-b" for="input-b">2. Температура:</label><input id="input-b" inputmode="decimal" value="26.85" autocomplete="off"><select id="unit-b" aria-label="Одиниця другого параметра"></select></div></fieldset><p id="error" role="alert" hidden></p></form><div class="form-buttons"><button type="submit" form="calculator" id="calculate" disabled>Завантаження…</button><button type="button" data-action="clear">Очистити результати</button><span id="state-summary">Задайте стан води або пари</span></div><div class="product-info"><strong>Таблиці води та пари</strong><b>IAPWS-IF97</b><p id="mode-help">Абсолютний тиск · автономний розрахунок</p><div class="presets"><button data-p="3" data-t="300">Рідина</button><button data-p="30" data-t="700">Пара</button><button data-p="25.5837018" data-t="650">Область 3</button></div></div></div>
 <div class="results-scroll"><div id="results" aria-live="polite"></div></div>
 </div><div id="help-view" hidden><section class="method"><div class="section-title"><span class="step">i</span><h2>Модель і межі застосування</h2></div><div class="method-grid"><div><h3>П’ять областей IF97</h3><p>Області 1, 2, 3 і 5 — однофазні стани. Область 4 — рівновага рідина–пара. Насичення: 273,15–647,096 K, до 22,064 МПа. Метастабільна пара й лід не моделюються.</p></div><div><h3>Транспортні властивості</h3><p>В’язкість: IAPWS 2008, промисловий варіант. Теплопровідність: IAPWS 2011, промисловий варіант з критичним доданком. Наведено лише до 1173,15 K.</p></div><div><h3>Прозорі обчислення</h3><p>Основні рівняння IF97; область 3 уточнюється до кореня рівняння тиску. P–h, P–s та h–s розв’язуються чисельно з контролем фаз і меж. У двофазній суміші похідні не підміняються усередненими числами.</p></div></div><details><summary>Джерела, ліцензії та числова точність</summary><p>Формуляції належать International Association for the Properties of Water and Steam (IAPWS). Реалізація використовує локальну SEUIF97 2.3.8 (MIT, © 2023 Cheng Maohua); початкові наближення області 3 і h–s; повний текст ліцензії та атрибуція включені в репозиторій. Цей калькулятор не сертифікований IAPWS.</p><p>Результати показано з 8 значущими цифрами; це формат відображення, а не гарантія фізичної точності. Невеликі розриви між рівняннями на межах IF97 не інтерполюються. Надзвичайно близько до критичної точки можливе повідомлення про незбіжність.</p><p><a href="https://iapws.org/technical-guidance/release/IF97-Rev" target="_blank" rel="noopener">IAPWS R7-97(2012)</a> · <a href="https://iapws.org/technical-guidance/release/viscosity" target="_blank" rel="noopener">R12-08</a> · <a href="https://iapws.org/technical-guidance/release/ThCond" target="_blank" rel="noopener">R15-11</a> · <a href="https://iapws.org/technical-guidance/release/Surf-H2O" target="_blank" rel="noopener">R1-76(2014)</a> · <a href="https://github.com/thermalogic/RustSEUIF97" target="_blank" rel="noopener">SEUIF97 / MIT</a></p></details></section>
@@ -1172,6 +1174,43 @@ function exportCSV(result,energy='kJ') {
 }
 
 
+// src/processes.js
+function processInput(p1,T1,p2,flow){
+ if(![p1,T1,p2,flow].every(Number.isFinite)||flow<0)throw Error('Введіть скінченні числа; витрата не може бути від’ємною.');
+ if(p2<=0||p2>=p1)throw Error('Вихідний абсолютний тиск має бути додатним і нижчим за вхідний.');
+ const inlet=calculate('pt',p1,T1).state;
+ if(!inlet)throw Error('На вході потрібен однозначний однофазний стан; P–T на насиченні недостатньо.');
+ return inlet;
+}
+function turbine(p1,T1,p2,eta,flow=1){
+ if(!Number.isFinite(eta)||eta<=0||eta>1)throw Error('Ізоентропний ККД має бути в межах 0 < η ≤ 1.');
+ const inlet=processInput(p1,T1,p2,flow),ideal=calculate('ps',p2,inlet.s).state;
+ if(inlet.phase.includes('рідина')||inlet.h<=ideal.h)throw Error('Для парової турбіни задайте паровий стан на вході з додатним перепадом ентальпії.');
+ const work=eta*(inlet.h-ideal.h),outlet=calculate('ph',p2,inlet.h-work).state;
+ return {inlet,ideal,outlet,work,power:flow*work,eta,flow};
+}
+function flash(p1,T1,p2,flow=1){
+ const inlet=processInput(p1,T1,p2,flow),result=calculate('ph',p2,inlet.h),outlet=result.state;
+ const x=outlet.x;
+ return {inlet,outlet,flow,vaporFlow:x==null?null:flow*x,liquidFlow:x==null?null:flow*(1-x),saturation:result.saturation};
+}
+// Each plotted point is evaluated from IF97. Straight SVG segments only interpolate the drawing.
+function diagramData(){
+ const dome=[[],[]],isobars=[];
+ for(let i=0;i<=90;i++){
+  const T=273.15+(TC-273.15)*i/90;
+  try{const q=calculate('satt',T).saturation;dome[0].push(q.liquid);dome[1].push(q.vapor);}catch{dome[0].push(null);dome[1].push(null);}
+ }
+ for(const p of [.01,.1,1,10,22.064,50,100]){
+  const points=[];
+  for(let i=0;i<=100;i++){const T=273.15+(1073.15-273.15)*i/100;try{points.push(calculate('pt',p,T).state||null);}catch{points.push(null);}}
+  if(p<PC){const q=calculate('satp',p).saturation;for(let i=0;i<=10;i++)points.push(calculate('px',p,i/10).state);points.sort((a,b)=>(a?.T||0)-(b?.T||0)||(a?.s||0)-(b?.s||0));}
+  isobars.push({p,points});
+ }
+ return {dome,isobars};
+}
+
+
 // src/app.js
 const $=id=>document.getElementById(id);
 let last=null, revision=0;
@@ -1217,7 +1256,7 @@ function renderHistory() {
  $('history-count').textContent=`Станів: ${historyStates.length}`;
 }
 function selectView(view) {
- $('calculator-view').hidden=view==='help';$('help-view').hidden=view!=='help';
+ for(const b of document.querySelectorAll('[role="tab"]'))b.setAttribute('aria-selected','false');$('process-view').hidden=true;$('calculator-view').hidden=view==='help';$('help-view').hidden=view!=='help';
  for(const name of ['general','saturation','help'])$('tab-'+name).setAttribute('aria-selected',String(name===view));
  if(view==='saturation'&&!['satp','satt','px','tx'].includes($('mode').value)){$('mode').value='satp';resetMode();}
  if(view==='general'&&['satp','satt','px','tx'].includes($('mode').value)){$('mode').value='pt';resetMode();}
@@ -1278,6 +1317,7 @@ document.addEventListener('click',event=>{
  if(action==='fullscreen'){if(document.fullscreenElement)document.exitFullscreen?.();else document.documentElement.requestFullscreen?.().catch(()=>{$('result-status').textContent='Повний екран недоступний';});}
  if(action==='export-history')exportHistory();
  if(['general','saturation','help'].includes(action))selectView(action);
+ if(['turbine','flash','ts','hsdiagram'].includes(action))showProcess(action);
  if(action==='clear'){historyStates.length=0;revision=0;renderHistory();invalidate();$('result-status').textContent='Результати очищено';}
  if(action==='export')$('export-csv').click();
  if(action==='print')window.print();
@@ -1304,6 +1344,34 @@ resetMode();renderHistory();
  try {const bytes=Uint8Array.from(atob(WASM_BASE64),c=>c.charCodeAt(0));await initialize(bytes);$('calculate').disabled=false;$('calculate').innerHTML='Розрахувати';$('result-status').textContent='Готово до розрахунку';}
  catch(e){$('error').textContent='Не вдалося ініціалізувати WebAssembly. Використайте сучасний браузер. '+e.message;$('error').hidden=false;$('calculate').textContent='Помилка завантаження';}
 })();
+
+let diagramCache=null;
+function showProcess(kind){
+ $('calculator-view').hidden=true;$('help-view').hidden=true;$('process-view').hidden=false;
+ for(const b of document.querySelectorAll('[role="tab"]'))b.setAttribute('aria-selected',String(b.dataset.action===kind));
+ if(kind==='ts'||kind==='hsdiagram'){showDiagram(kind);return;}
+ const tur=kind==='turbine';
+ $('process-view').innerHTML=`<h2>${tur?'Парова турбіна':'Дроселювання та випаровування'}</h2><p>${tur?'Адіабатичне розширення з ізоентропним ККД. Потужність потоку без механічних і генераторних втрат.':'Адіабатичне дроселювання: h₂ = h₁. Поділ потоків наведено лише для рівноважного двофазного стану.'} Змінами кінетичної й потенціальної енергій знехтувано.</p><form id="process-form"><fieldset><legend>Вхідні дані · абсолютний тиск</legend>${[['p1','Вхідний тиск, МПа','3'],['t1','Вхідна температура, °C',tur?'400':'200'],['p2','Вихідний тиск, МПа','0.1'],...(tur?[['eta','Ізоентропний ККД, %','85']]:[]),['flow','Масова витрата, кг/с','1']].map(([id,label,value])=>`<label>${label}<input id="process-${id}" value="${value}" inputmode="decimal" required></label>`).join('')}</fieldset><button type="submit">Розрахувати</button></form><p id="process-error" role="alert"></p><div id="process-result"></div>`;
+ for(const input of $('process-form').querySelectorAll('input'))input.addEventListener('input',()=>{$('process-result').innerHTML='';$('process-error').textContent='';$('result-status').textContent='Параметри процесу змінено — розрахуйте знову';});
+ $('process-form').addEventListener('submit',event=>{event.preventDefault();$('process-result').innerHTML='';$('process-error').textContent='';try{
+ const n=id=>parseNumber($('process-'+id).value);
+ const r=tur?turbine(n('p1'),n('t1')+273.15,n('p2'),n('eta')/100,n('flow')):flash(n('p1'),n('t1')+273.15,n('p2'),n('flow'));
+ const metrics=tur?[['Питома робота',r.work,'кДж/кг'],['Потужність потоку',r.power,'кВт']]:[['Витрата пари',r.vaporFlow,'кг/с'],['Витрата рідини',r.liquidFlow,'кг/с']];
+ $('process-result').innerHTML=`<p>${metrics.map(([l,v,u])=>`${l}: <strong>${format(v)} ${u}</strong>`).join(' · ')}</p>${!tur&&r.outlet.x==null?'<p>Вихід однофазний; баланс сепарації на рідину й пару не застосовується.</p>':''}<table><thead><tr><th>Стан</th><th>p, МПа</th><th>t, °C</th><th>h, кДж/кг</th><th>s, кДж/(кг·K)</th><th>x</th><th>Фаза</th></tr></thead><tbody>${[['Вхід',r.inlet],...(tur?[['Ізоентропний вихід',r.ideal]]:[]),['Вихід',r.outlet]].map(([l,q])=>`<tr><td>${l}</td>${[q.p,q.T-273.15,q.h,q.s,q.x].map(v=>`<td>${format(v)}</td>`).join('')}<td>${q.phase}</td></tr>`).join('')}</tbody></table><button id="process-transfer">Показати вихід у загальних властивостях</button>`;
+ $('process-transfer').addEventListener('click',()=>{selectView('general');$('mode').value='ph';resetMode();$('input-a').value=String(r.outlet.p);$('input-b').value=String(r.outlet.h);run();});
+ $('result-status').textContent='Розрахунок процесу виконано';
+ }catch(e){$('process-error').textContent=e.message;$('result-status').textContent='Перевірте вхідні дані';}});
+}
+function showDiagram(kind){
+ if(!diagramCache)diagramCache=diagramData();
+ const isTS=kind==='ts',ykey=isTS?'T':'h',ymax=isTS?800:4500,xmax=11;
+ const X=s=>60+s/ xmax*820,Y=q=>450-(isTS?q.T-273.15:q.h)/ymax*400;
+ const path=points=>{let pen=false;return points.map(q=>{if(!q||!Number.isFinite(q.s)||!Number.isFinite(q[ykey])||q.s<0||q.s>xmax){pen=false;return '';}const str=`${pen?'L':'M'}${X(q.s).toFixed(2)},${Y(q).toFixed(2)}`;pen=true;return str;}).join(' ');};
+ const colors=['#a75b00','#3977a6','#8b4599','#27825a','#b84242','#706c25','#555'];
+ $('process-view').innerHTML=`<h2>${isTS?'T–s':'h–s'} діаграма</h2><p>Лінія насичення, ізобари та точки журналу. Наведіть на точку для параметрів. Межі графіка: s = 0…11 кДж/(кг·K), ${isTS?'t = 0…800 °C':'h = 0…4500 кДж/кг'}. Лінії з’єднують дискретні стани IF97; графік не замінює точного розрахунку.</p><button id="diagram-refresh">Оновити точки журналу</button><button id="diagram-save">Зберегти SVG</button><svg id="steam-diagram" role="img" aria-label="${isTS?'T–s':'h–s'} діаграма води й пари" viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="plot-clip"><rect x="60" y="50" width="820" height="400"/></clipPath></defs><rect width="960" height="520" fill="white"/>${Array.from({length:6},(_,i)=>`<path d="M60 ${450-i*80}H880 M${60+i*164} 50V450" stroke="#dde3eb"/><text x="50" y="${454-i*80}" text-anchor="end">${format(ymax*i/5)}</text><text x="${60+i*164}" y="470" text-anchor="middle">${format(xmax*i/5)}</text>`).join('')}<path d="M60 50V450H880" fill="none" stroke="#333"/><text x="470" y="505" text-anchor="middle">s, кДж/(кг·K)</text><text x="65" y="25">${isTS?'t, °C':'h, кДж/кг'}</text><g clip-path="url(#plot-clip)">${diagramCache.isobars.map(({p,points},i)=>`<path d="${path(points)}" fill="none" stroke="${colors[i]}" stroke-width="1.2"><title>${p} МПа</title></path>`).join('')}${diagramCache.dome.map(points=>`<path d="${path(points)}" fill="none" stroke="#12477c" stroke-width="3"/>`).join('')}${historyStates.map((q,i)=>`<circle cx="${X(q.s)}" cy="${Y(q)}" r="4" fill="#c62828"><title>№ ${historyStates.length-i}: p=${q.p} МПа; t=${q.T-273.15} °C; h=${q.h}; s=${q.s}</title></circle>`).join('')}</g></svg><p>${diagramCache.isobars.map(({p},i)=>`<span style="color:${colors[i]}">━ ${p} МПа</span>`).join(' · ')} · <strong>Синя товста лінія: насичення</strong> · Червоні точки: журнал.</p>`;
+ $('diagram-refresh').addEventListener('click',()=>showDiagram(kind));
+ $('diagram-save').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([$ ('steam-diagram').outerHTML],{type:'image/svg+xml;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=kind+'.svg';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+}
 
 })();
 </script></body></html>
