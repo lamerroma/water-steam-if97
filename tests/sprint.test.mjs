@@ -2,7 +2,7 @@ import test from 'node:test';import assert from 'node:assert/strict';import {rea
 import {initialize,calculate} from '../src/engine.js';import {ph,ps} from '../vendor/seuif97.js';import {helmholtz} from '../src/equations.js';
 import {raw95,T95C} from '../src/iapws95.js';import {viscosityScientific,conductivity} from '../src/transport.js';
 import {gasState,gasInverse,gasComposition,AIR,GAS_DATA} from '../src/gases.js';
-import {humidAir} from '../src/humid-air.js';import {rankine,brayton} from '../src/cycles.js';
+import {humidAir} from '../src/humid-air.js';import {rankine,rankineReheat,rankineRegen,brayton} from '../src/cycles.js';
 await initialize(await readFile(new URL('../vendor/seuif97_bg.wasm',import.meta.url)));
 const close=(a,b,t=1e-8)=>assert.ok(Math.abs(a-b)<=t*Math.max(Math.abs(b),1e-8),`${a} != ${b}`);
 const cp=JSON.parse(await readFile(new URL('fixtures/coolprop.json',import.meta.url),'utf8'));
@@ -20,6 +20,9 @@ test('Gas inputs reject bad composition and extrapolation',()=>{assert.throws(()
 test('Humid air: dry/saturated endpoints and wet bulb ordering',()=>{const sat=humidAir(.101325,300,1);close(sat.dew,300,1e-9);close(sat.wet,300,1e-9);const dry=humidAir(.101325,300,0);assert.equal(dry.W,0);assert.equal(dry.dew,null);const q=humidAir(.101325,303.15,.5);assert.ok(q.dew<q.wet&&q.wet<q.T);assert.ok(q.W>.01&&q.W<.02);assert.throws(()=>humidAir(.101325,270,.5));});
 for(const model of ['IF97','IAPWS-95'])test(`Rankine ${model} energy closure`,()=>{const c=rankine(10,.01,773.15,.85,.8,2,model);close(c.heat-c.rejected,c.net,1e-12);close(c.power,2*c.net,1e-12);assert.ok(c.efficiency>0&&c.efficiency<.5);assert.equal(c.states.length,4);for(const q of c.states)assert.equal(q.model,model);});
 test('Brayton variable Cp: isentropic ideal limits and closure',()=>{const c=brayton(.101325,8,300,1400,1,1,3);close(c.states[0].s,c.states[1].s);close(c.states[2].s,c.states[3].s);close(c.heat-c.rejected,c.net,1e-12);assert.ok(c.efficiency>0&&c.efficiency<1);assert.throws(()=>brayton(.1,1,300,1400));assert.throws(()=>rankine(.01,10,700));});
+for(const model of ['IF97','IAPWS-95'])test(`Rankine reheat ${model}: energy closure and efficiency gain over simple cycle`,()=>{const base=rankine(10,.01,773.15,.85,.8,1,model);const c=rankineReheat(10,2,.01,773.15,773.15,.85,.8,1,model);close(c.heat-c.rejected,c.net,1e-9);assert.equal(c.states.length,6);assert.ok(c.efficiency>base.efficiency);for(const q of c.states)assert.equal(q.model,model);});
+for(const model of ['IF97','IAPWS-95'])test(`Rankine regeneration ${model}: energy closure, mass-balanced FWH and efficiency gain`,()=>{const base=rankine(10,.01,773.15,.85,.8,1,model);const c=rankineRegen(10,1,.01,773.15,.85,.8,1,model);close(c.heat-c.rejected,c.net,1e-8);assert.equal(c.states.length,7);assert.ok(c.efficiency>base.efficiency);for(const q of c.states)assert.equal(q.model,model);});
+test('Rankine reheat/regen reject an intermediate pressure outside (pLow, pHigh)',()=>{assert.throws(()=>rankineReheat(10,11,.01,773.15,773.15));assert.throws(()=>rankineReheat(10,.005,.01,773.15,773.15));assert.throws(()=>rankineRegen(10,11,.01,773.15));assert.throws(()=>rankineRegen(10,.005,.01,773.15));});
 
 // Official R12-08 Table 5 and R15-11 Table 5, scientific critical enhancement.
 const viscTable=[[122,25.520677],[222,31.337589],[272,36.228143],[322,42.961579],[372,45.688204],[422,49.436256]];
