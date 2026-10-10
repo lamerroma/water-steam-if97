@@ -9,7 +9,7 @@ source=Path(sys.argv[1]); raw=source.read_bytes()
 expected='4de6199d65d2d3db782e30573720c723130953707336add59713b02d8667e4db'
 if hashlib.sha256(raw).hexdigest()!=expected: raise ValueError('Unexpected NASA data checksum')
 blocks=yaml.load(raw,Loader=yaml.CBaseLoader)['species'] # NO must not become YAML boolean.
-names=['N2','O2','CO2','CO','H2','H2O','CH4','Ar','He','NO','SO2']; data=[]; fixtures=[]; species=[]
+names=['N2','O2','CO2','CO','H2','H2O','CH4','Ar','He','NO','SO2','Ne']; data=[]; fixtures=[]; species=[]
 for name in names:
  b=next(b for b in blocks if b['name'].upper()==name.upper());t=b['thermo']
  b['composition']={k:float(v) for k,v in b['composition'].items()};t['temperature-ranges']=[float(v) for v in t['temperature-ranges']];t['data']=[[float(v) for v in row] for row in t['data']]

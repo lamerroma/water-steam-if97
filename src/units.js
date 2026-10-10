@@ -29,9 +29,9 @@ export function fromCanonical(value,unit) {
   throw Error('Невідома одиниця.');
 }
 // International pound/foot, standard gravity and International Table Btu (NIST SP811).
-const LB=.45359237,FT=.3048,BTU=1055.05585262,PSI=LB*9.80665/(FT/12)**2;
+const LB=.45359237,FT=.3048,BTU=1055.05585262,PSI=LB*9.80665/(FT/12)**2,HP=.745699872;
 export function englishProperty(key,value,unit=''){
  const e=1000*LB/BTU,v=LB/FT**3,p=1e6/PSI;
- const map={p:[p,'psi'],T:[1.8,'°F'],rho:[FT**3/LB,'lb/ft³'],v:[v,'ft³/lb'],h:[e,'Btu/lb'],u:[e,'Btu/lb'],A:[e,'Btu/lb'],G:[e,'Btu/lb'],ex:[e,'Btu/lb'],s:[e/1.8,'Btu/(lb·°R)'],cp:[e/1.8,'Btu/(lb·°R)'],cv:[e/1.8,'Btu/(lb·°R)'],w:[1/FT,'ft/s'],alpha:[1/1.8,'1/°R'],kappa:[1/p,'1/psi'],dvdt:[v/1.8,'ft³/(lb·°R)'],dvdp:[v/p,'ft³/(lb·psi)'],dpdt:[p/1.8,'psi/°R'],dpdv:[p/v,'psi·lb/ft³'],jt:[1.8/p,'°R/psi'],ijt:[e/p,'Btu/(lb·psi)'],mu:[FT/LB,'lb/(ft·s)'],nu:[1/FT**2,'ft²/s'],diffusivity:[1/FT**2,'ft²/s'],lambda:[3600*FT/(BTU*1.8),'Btu/(h·ft·°R)'],sigma:[FT/(LB*9.80665),'lbf/ft'],flow:[1/LB,'lb/s'],power:[3600000/BTU,'Btu/h'],work:[e,'Btu/lb']};
+ const map={p:[p,'psi'],consumption:[HP/LB,'lb/(hp·h)'],T:[1.8,'°F'],rho:[FT**3/LB,'lb/ft³'],v:[v,'ft³/lb'],h:[e,'Btu/lb'],u:[e,'Btu/lb'],A:[e,'Btu/lb'],G:[e,'Btu/lb'],ex:[e,'Btu/lb'],s:[e/1.8,'Btu/(lb·°R)'],cp:[e/1.8,'Btu/(lb·°R)'],cv:[e/1.8,'Btu/(lb·°R)'],w:[1/FT,'ft/s'],alpha:[1/1.8,'1/°R'],kappa:[1/p,'1/psi'],dvdt:[v/1.8,'ft³/(lb·°R)'],dvdp:[v/p,'ft³/(lb·psi)'],dpdt:[p/1.8,'psi/°R'],dpdv:[p/v,'psi·lb/ft³'],jt:[1.8/p,'°R/psi'],ijt:[e/p,'Btu/(lb·psi)'],mu:[FT/LB,'lb/(ft·s)'],nu:[1/FT**2,'ft²/s'],diffusivity:[1/FT**2,'ft²/s'],lambda:[3600*FT/(BTU*1.8),'Btu/(h·ft·°R)'],sigma:[FT/(LB*9.80665),'lbf/ft'],flow:[1/LB,'lb/s'],power:[3600000/BTU,'Btu/h'],work:[e,'Btu/lb']};
  const spec=map[key];if(!spec)return [value,unit];return [value==null?null:key==='T'?(value-273.15)*1.8+32:value*spec[0],spec[1]];
 }

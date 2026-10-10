@@ -46,7 +46,7 @@ Python iapws 1.5.5 / IAPWS95 використано лише для зовніш
 
 ## NASA7 / Cantera data
 
-11 наборів коефіцієнтів з `data/nasa_gas.yaml` Cantera, commit **e906c2f9341413412ab4d455d1e3977a5d2f3102**:
+12 наборів коефіцієнтів з `data/nasa_gas.yaml` Cantera, commit **e906c2f9341413412ab4d455d1e3977a5d2f3102**:
 https://raw.githubusercontent.com/Cantera/cantera/e906c2f9341413412ab4d455d1e3977a5d2f3102/data/nasa_gas.yaml
 
 SHA-256 джерела: `4de6199d65d2d3db782e30573720c723130953707336add59713b02d8667e4db`. Header посилається на McBride, Gordon, Reno, NASA TM-4513 (1993), https://ntrs.nasa.gov/citations/19940013151. Відібрано лише погоджені 11 компонентів; значення коефіцієнтів збережені. Молярні маси — Cantera 3.2.0. Алгоритм NASA7: https://cantera.org/stable/reference/thermo/species-thermo.html.
