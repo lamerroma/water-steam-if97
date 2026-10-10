@@ -1,8 +1,8 @@
 import {calculate} from './engine.js';
 import {parseNumber,toCanonical,englishProperty} from './units.js';
-export function batchUnits(mode){return {a:['satt','tx','th','ts','trho'].includes(mode)?['C','K','F']:mode==='hs'?['kJkg','Jkg','Btulb']:['MPa','kPa','Pa','bar','atm','psi'],b:['prho','trho'].includes(mode)?['kgm3','lbft3']:['px','tx'].includes(mode)?['fraction','percent']:['ph','th'].includes(mode)?['kJkg','Jkg','Btulb']:['ps','ts','hs'].includes(mode)?['kJkgK','JkgK','BtulbR']:['C','K','F']};}
+export function batchUnits(mode){const energy=['kJkg','Jkg','Btulb'],volume=['m3kg','ft3lb'];return {a:['satt','tx','th','ts','trho','tv','tu'].includes(mode)?['C','K','F']:['hs','hv','us','uv'].includes(mode)?energy:mode==='vs'?volume:['MPa','kPa','Pa','bar','atm','psi'],b:['prho','trho'].includes(mode)?['kgm3','lbft3']:['pv','tv','hv','uv'].includes(mode)?volume:['px','tx'].includes(mode)?['fraction','percent']:['ph','th','pu','tu'].includes(mode)?energy:['ps','ts','hs','us','vs'].includes(mode)?['kJkgK','JkgK','BtulbR']:['C','K','F']};}
 export function batchRange({mode,vary,start,end,count,fixed,ua,ub}){
- if(!['pt','ph','ps','satp','satt','px','tx','hs','th','ts','prho','trho'].includes(mode)||!['a','b'].includes(vary))throw Error('Невірний режим серії.');
+ if(!['pt','ph','ps','satp','satt','px','tx','hs','th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'].includes(mode)||!['a','b'].includes(vary))throw Error('Невірний режим серії.');
  if(![start,end,count].every(Number.isFinite)||!Number.isInteger(count)||count<2||count>500)throw Error('Кількість точок має бути цілим числом 2…500.');
  if(!mode.startsWith('sat')&&!Number.isFinite(fixed))throw Error('Введіть фіксований параметр.');
  if(mode.startsWith('sat')&&vary!=='a')throw Error('Для насичення змінюється лише перший параметр.');
@@ -28,7 +28,7 @@ export function parseBatchCSV(text){
 export function calculateBatch(inputs,model='IF97'){
  if(!Array.isArray(inputs)||inputs.length<1||inputs.length>500)throw Error('Серія має містити 1…500 станів.');
  return inputs.map((input,i)=>{try{
- if(!['pt','ph','ps','satp','satt','px','tx','hs','th','ts','prho','trho'].includes(input.mode))throw Error('Невідомий режим.');
+ if(!['pt','ph','ps','satp','satt','px','tx','hs','th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'].includes(input.mode))throw Error('Невідомий режим.');
  const units=batchUnits(input.mode);if(!units.a.includes(input.ua)||(!input.mode.startsWith('sat')&&!units.b.includes(input.ub)))throw Error('Одиниці не відповідають режиму.');
  const result=calculate(input.mode,toCanonical(parseNumber(input.a),input.ua),input.mode.startsWith('sat')?undefined:toCanonical(parseNumber(input.b),input.ub),model);
  return {input:{...input,name:String(input.name||`Точка ${i+1}`).slice(0,80)},result};

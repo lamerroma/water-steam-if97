@@ -1,3 +1,4 @@
+import {icePhaseStatus} from './phase-boundaries.js';
 // IAPWS R10-06(2009), Revised Release on the Equation of State 2006 for H2O Ice Ih.
 // Gibbs energy g(T,p), Eq. (1); complex constants per Table 2; verified against the
 // official Table 6 check values (triple point, normal-pressure melting point, 100 K/100 MPa).
@@ -31,5 +32,5 @@ export function ice(T,p,s0=ICE_S0_IAPWS95){
  const gTT=(re(cmul(ICE_R1,d2Bracket(T1,tau)))+re(cmul(r2v,d2Bracket(T2,tau))))/TT_ICE;
  const rho=1/gp, s=-gT, cp=-T*gTT, h=g-T*gT, u=g-T*gT-p*gp, f=g-p*gp;
  const alpha=gTp/gp, beta=-gTp/gpp, kappaT=-gpp/gp, kappaS=(gTp*gTp-gpp*gTT)/(gp*gTT);
- return {model:'Лід Ih · IAPWS R10-06(2009)',T,p,g,v:gp,rho,s,cp,h,u,f,alpha,beta,kappaT,kappaS};
+ return {...icePhaseStatus(T,p),model:'Лід Ih · IAPWS R10-06(2009)',T,p,g,v:gp,rho,s,cp,h,u,f,alpha,beta,kappaT,kappaS};
 }

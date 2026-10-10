@@ -93,8 +93,8 @@ export function solvePT(p,T) {
   return {state:finish(s,phase)};
 }
 export function solveInverse(p,target,key,tolerance) {
-  pressure(p);finite(target,key==='h'?'Ентальпія':'Ентропія');
-  if(!['h','s'].includes(key))throw Error('Невідомий режим інверсії.');
+  pressure(p);finite(target,key==='h'?'Ентальпія':key==='u'?'Внутрішня енергія':'Ентропія');
+  if(!['h','s','u'].includes(key))throw Error('Невідомий режим інверсії.');
   let sat;
   if(p>=PMIN_SAT&&p<PC) {
     sat=saturation(p);const a=sat.liquid[key],b=sat.vapor[key];
@@ -122,13 +122,13 @@ export function solveInverse(p,target,key,tolerance) {
     let answer;
     if(Math.abs(target-a[key])<1e-9)answer=a;
     else if(Math.abs(target-b[key])<1e-9)answer=b;
-    else {let seed;try{seed=(key==='h'?ph(p,target,1):ps(p,target,1))+273.15;}catch{}
+    else {let seed;try{seed=key==='u'?NaN:(key==='h'?ph(p,target,1):ps(p,target,1))+273.15;}catch{}
      let mid=Number.isFinite(seed)&&seed>lo&&seed<hi?seed:(lo+hi)/2;
      for(let k=0;k<90;k++) {
       const m=evaluate(mid);
-      if(Math.abs(m[key]-target)<(tolerance??(key==='h'?2e-8:2e-11))){answer=m;break;}
+      if(Math.abs(m[key]-target)<(tolerance??(key==='s'?2e-11:2e-8))){answer=m;break;}
       if(m[key]<target)lo=mid;else hi=mid;
-      const next=mid-(m[key]-target)/(key==='h'?m.cp:m.cp/mid);
+      const next=mid-(m[key]-target)/(key==='h'?m.cp:key==='u'?m.cp-1000*p*m.v*m.alpha:m.cp/mid);
       // Safeguarded Newton: retain the fundamental-region bracket and bisection fallback.
       mid=Number.isFinite(next)&&next>lo&&next<hi?next:(lo+hi)/2;
      }
@@ -143,7 +143,7 @@ export function solveInverse(p,target,key,tolerance) {
     return {state,alternatives:candidates.slice(1)};
   }
   const min=basePT(p,273.15)[key],max=basePT(p,maxT)[key];
-  throw Error(`Значення поза допустимим діапазоном або в малому розриві на межі рівнянь IF97. Для цього тиску: ${min.toPrecision(8)}…${max.toPrecision(8)} ${key==='h'?'кДж/кг':'кДж/(кг·K)'}.`);
+  throw Error(`Значення поза допустимим діапазоном або в малому розриві на межі рівнянь IF97. Для цього тиску: ${min.toPrecision(8)}…${max.toPrecision(8)} ${key==='s'?'кДж/(кг·K)':'кДж/кг'}.`);
 }
 export function solveQuality(p,x) {
  finite(x,'Сухість');if(x<0||x>1)throw Error('Ступінь сухості x має бути від 0 до 1 (0…100 %).');
@@ -196,7 +196,8 @@ export function solveHS(h,s) {
 }
 export function calculate(mode,a,b,model='IF97') {
   if(!['IF97','IAPWS-95'].includes(model))throw Error('Невідома формуляція.');
-  if(['th','ts','prho','trho'].includes(mode))return extraInputs(mode,a,b,model,calculate);
+  if(mode==='pu')return model==='IAPWS-95'?calculate95(mode,a,b):solveInverse(a,b,'u');
+  if(['th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'].includes(mode))return extraInputs(mode,a,b,model,calculate);
   if(model==='IAPWS-95')return calculate95(mode,a,b);
   if(model!=='IF97')throw Error('Невідома формуляція.');
   switch(mode) {

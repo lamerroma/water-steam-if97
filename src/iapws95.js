@@ -67,7 +67,22 @@ export function saturationT95(T){
  }
  throw Error('IAPWS-95: рівновага насичення не збіглася; стан надто близький до критичної точки.');
 }
-export function saturationP95(p){if(!Number.isFinite(p)||p<.000611654771||p>=P95C)throw Error('Насичення IAPWS-95: 0,000611654771 ≤ P < 22,064 МПа.');let lo=273.16,hi=T95C-1e-5;for(let i=0;i<65;i++){const T=(lo+hi)/2,s=saturationT95(T);if(Math.abs(s.p-p)<Math.max(2e-11,p*2e-11))return s;if(s.p>p)hi=T;else lo=T;}throw Error('Не збіглася температура насичення IAPWS-95.');}
+const satPressureCache95=new Map();
+export function saturationP95(p){
+ if(!Number.isFinite(p)||p<.000611654771||p>=P95C)throw Error('Насичення IAPWS-95: 0,000611654771 ≤ P < 22,064 МПа.');
+ if(satPressureCache95.has(p))return satPressureCache95.get(p);
+ let lo=273.16,hi=T95C-1e-5,T=(lo+hi)/2;
+ for(let i=0;i<65;i++){
+ const s=saturationT95(T),e=s.p-p;
+ if(Math.abs(e)<Math.max(2e-11,p*2e-11)){if(satPressureCache95.size>=500)satPressureCache95.clear();satPressureCache95.set(p,s);return s;}
+ if(e>0)hi=T;else lo=T;
+ // Exact Clapeyron slope of the computed coexistence states, safeguarded by a bracket.
+ const slope=(s.vapor.h-s.liquid.h)/(1000*T*(s.vapor.v-s.liquid.v)),next=T-e/slope;
+ T=Number.isFinite(next)&&next>lo&&next<hi?next:(lo+hi)/2;
+ }
+ throw Error('Не збіглася температура насичення IAPWS-95.');
+}
+
 function density95(p,T,side,sat){
  let rho=side==='liquid'?(sat?.liquid.rho||1000):p*1000/(R95*T);
  if(T>=T95C)rho=p>30?700:Math.min(600,rho);
@@ -83,7 +98,7 @@ export function inverse95(p,target,key){if(!Number.isFinite(target))throw Error(
  let lo=lowerT95(p),hi=1273;if(sat){if(target<sat.liquid[key])hi=sat.T-1e-7;else lo=sat.T+1e-7;}
  const L=solvePT95(p,lo).state,H=solvePT95(p,hi).state;if(!L||!H||target<L[key]||target>H[key])throw Error('Значення поза реалізованими межами IAPWS-95.');
  for(let i=0;i<70;i++){const T=(lo+hi)/2,result=solvePT95(p,T),q=result.state;if(!q)throw Error('Інверсія потрапила на неоднозначне насичення.');if(Math.abs(q[key]-target)<(key==='h'?2e-7:2e-9))return result;if(q[key]>target)hi=T;else lo=T;}throw Error('Інверсія IAPWS-95 не збіглася.');}
-export function calculate95(mode,a,b){switch(mode){case 'pt':return solvePT95(a,b);case 'ph':return inverse95(a,b,'h');case 'ps':return inverse95(a,b,'s');case 'satp':return {saturation:saturationP95(a)};case 'satt':return {saturation:saturationT95(a)};case 'px':{const sat=saturationP95(a);return {state:mixture95(sat,b),saturation:sat};}case 'tx':{const sat=saturationT95(a);return {state:mixture95(sat,b),saturation:sat};}case 'hs':return solveHS95(a,b);default:throw Error('Невідомий режим IAPWS-95.');}}
+export function calculate95(mode,a,b){switch(mode){case 'pt':return solvePT95(a,b);case 'pu':return inverse95(a,b,'u');case 'ph':return inverse95(a,b,'h');case 'ps':return inverse95(a,b,'s');case 'satp':return {saturation:saturationP95(a)};case 'satt':return {saturation:saturationT95(a)};case 'px':{const sat=saturationP95(a);return {state:mixture95(sat,b),saturation:sat};}case 'tx':{const sat=saturationT95(a);return {state:mixture95(sat,b),saturation:sat};}case 'hs':return solveHS95(a,b);default:throw Error('Невідомий режим IAPWS-95.');}}
 export function solveHS95(h,s){
  if(!Number.isFinite(h)||!Number.isFinite(s))throw Error('h і s мають бути скінченними.');
  // First search the equilibrium dome, solving h and s with one common quality.

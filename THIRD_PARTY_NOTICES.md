@@ -59,3 +59,7 @@ Cantera: BSD-3-Clause; повний notice `vendor/CANTERA-LICENSE` включе
 CoolProp 8.0.0, MIT (https://github.com/CoolProp/CoolProp/blob/master/LICENSE), використаний лише зовнішнім оракулом. Його код не скопійовано до репозиторію чи HTML. `scripts/reference-coolprop.py` — власна обгортка; `tests/fixtures/coolprop.json` — отримані числові значення. Це другий інструмент водяної перевірки поряд із Python iapws, а не друге runtime-ядро.
 
 Наукові транспортні поправки: власна транскрипція R12-08 Eqs. (14)–(21), R15-11 Eqs. (18)–(23), з опорною похідною IAPWS-95. Офіційні контрольні значення таблиць 5 обох Releases використано з атрибуцією IAPWS.
+
+### Фазові межі
+
+[IAPWS R14-08(2011)](https://iapws.org/technical-guidance/release/MeltSub.download), © 2011 IAPWS: власна транскрипція Eqs. (1)–(6), перевірка Table 3. [R16-17(2018)](https://iapws.org/technical-guidance/release/Heavy.download), © 2018 IAPWS: власна транскрипція допоміжних кореляцій Eqs. (9)–(13), перевірка всіх наведених у §6 контрольних тисків. Криві D₂O не є окремою офіційною рекомендацією IAPWS. [R13-08](https://iapws.org/technical-guidance/release/Seawater.download), © 2008 IAPWS: власне чисельне розв’язання Eq. (30)/(32) на основі наявних рівнянь Гіббса. Дозволене відтворення з атрибуцією зазначене на титульних сторінках цих releases. Python iapws 1.5.5 використаний лише як зовнішній оракул для чисел; його реалізацію не скопійовано й не включено до застосунку.

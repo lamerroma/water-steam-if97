@@ -1,7 +1,9 @@
 // Numerical inversions of the selected fundamental model, with explicit multiple roots.
 export function extraInputs(mode,a,b,model,calc){
  if(!Number.isFinite(a)||!Number.isFinite(b))throw Error('Параметри мають бути скінченними.');
- const fixedT=mode!=='prho',key=mode==='th'?'h':mode==='ts'?'s':'rho';
+ if(['pv','tv'].includes(mode)){if(b<=0)throw Error('Питомий об’єм має бути додатним.');return extraInputs(mode==='pv'?'prho':'trho',a,1/b,model,calc);}
+ if(['us','vs','hv','uv'].includes(mode))return pairInputs(mode,a,b,model,calc);
+ const fixedT=!['prho','pu'].includes(mode),key=['pu','tu'].includes(mode)?'u':mode==='th'?'h':mode==='ts'?'s':'rho';
  if(key==='rho'&&b<=0)throw Error('Густина має бути додатною.');
  const roots=[];let sat;try{sat=calc(fixedT?'satt':'satp',a,undefined,model).saturation;}catch{}
  const keep=r=>{if(r?.state&&!roots.some(z=>Math.abs(z.state.p-r.state.p)<Math.max(1e-7,r.state.p*1e-7)&&Math.abs(z.state.T-r.state.T)<1e-6))roots.push(r);};
@@ -18,4 +20,19 @@ export function extraInputs(mode,a,b,model,calc){
  }
  if(!roots.length)throw Error('Не знайдено стан у межах обраної моделі. Перевірте одиниці та параметри.');
  roots.sort((x,y)=>fixedT?x.state.p-y.state.p:x.state.T-y.state.T);const result=roots[0];if(roots.length>1){result.alternatives=roots.slice(1).map(q=>q.state);result.state={...result.state,notes:[...result.state.notes,`Знайдено ${roots.length} станів. Показано стан із найменшим ${fixedT?'тиском':'значенням температури'}; інші корені наведені окремо.`]};}return result;
+}
+
+// Solve an isentrope or isoenthalp, including equilibrium mixtures, in log pressure.
+function pairInputs(mode,a,b,model,calc){
+ if(['vs','hv','uv'].includes(mode)&&(mode==='vs'?a:b)<=0)throw Error('Питомий об’єм має бути додатним.');
+ const inner=mode==='us'||mode==='vs'?'ps':mode==='hv'?'ph':'pu',target=mode==='us'?'u':'v',wanted=mode==='vs'?a:mode==='us'?a:b,fixed=mode==='us'||mode==='vs'?b:a,roots=[];
+ const evaluate=p=>calc(inner,p,fixed,model),keep=q=>{if(q?.state&&!roots.some(z=>Math.abs(Math.log(z.state.p/q.state.p))<1e-6))roots.push(q);};
+ let prev;const max=model==='IF97'?100:1000,tol=Math.max(1e-10,Math.abs(wanted)*2e-8);
+ for(let i=0;i<=160;i++){
+ const p=10**(-8+(8+Math.log10(max))*i/160);let q;try{q=evaluate(p);}catch{prev=null;continue;}if(!q.state){prev=null;continue;}const e=q.state[target]-wanted;if(Math.abs(e)<tol)keep(q);
+ if(prev&&e*prev.e<0){let lo=prev.p,hi=p,elo=prev.e;for(let j=0;j<60;j++){const mid=Math.sqrt(lo*hi);let z;try{z=evaluate(mid);}catch{break;}if(!z.state)break;const err=z.state[target]-wanted;if(Math.abs(err)<tol){keep(z);break;}if(err*elo>0){lo=mid;elo=err;}else hi=mid;}}
+ prev={p,e};
+ }
+ if(!roots.length)throw Error('Не знайдено узгоджений стан у межах обраної моделі.');
+ roots.sort((x,y)=>x.state.p-y.state.p);const q=roots[0];if(roots.length>1){q.alternatives=roots.slice(1).map(z=>z.state);q.state={...q.state,notes:[...(q.state.notes||[]),`Знайдено ${roots.length} станів; показано найменший тиск, інші корені наведені окремо.`]};}return q;
 }

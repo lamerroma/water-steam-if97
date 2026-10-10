@@ -3,6 +3,7 @@
 // Helmholtz core (src/iapws95.js), gS is the saline-part Gibbs polynomial, Table 2/Eq.(4).
 // Verified against all 3 official Table 8 check points (water/saline/seawater columns).
 import {raw95} from './iapws95.js';
+import {ice} from './ice.js';
 
 export const SW_SN=0.03516504, SW_SSTAR=SW_SN*40/35, SW_TSTAR=40, SW_T0=273.15, SW_PSTAR=1e8, SW_P0=101325;
 
@@ -78,10 +79,49 @@ function waterPart(T,p){
  return {g,gT,gp,gTT,gTp,gpp,s,v,h,u,f,cp,w:q.w};
 }
 
+// R13-08 Eq. 26, 30, 32. Use the same Gibbs reference as IAPWS-95/ice Ih.
+function swChemicalPotential(S,T,p){
+ const W=waterPart(T,p);if(S===0)return W.g;
+ const Sl=salinePart(S,T,p);return W.g+Sl.g-S*Sl.gS;
+}
+function swVaporG(T,p){
+ let rho=p/(461.51805*T);
+ for(let i=0;i<60;i++){const q=raw95(T,rho),err=q.p-p/1e6;
+  if(q.drhodp>0&&Math.abs(err)<Math.max(1e-13,p/1e6*1e-10))return 1000*(q.h-T*q.s);
+  const next=rho-err*q.drhodp;
+  if(!(next>0)||!Number.isFinite(next)||q.drhodp<=0)throw Error('Морська вода: не знайдено стійку парову фазу.');
+  rho=next;
+ }
+ throw Error('Морська вода: парова рівновага не збіглася.');
+}
+export function seawaterFreezingTemperature(S,p){
+ if(!Number.isFinite(S)||S<0||S>.12||!Number.isFinite(p)||p<611.655||p>1e8)throw Error('Замерзання морської води: некоректна солоність або тиск.');
+ let lo=261,hi=273.16;
+ const f=T=>swChemicalPotential(S,T,p)-ice(T,p).g;
+ if(f(lo)*f(hi)>0)throw Error('Замерзання: корінь поза підтримуваними 261…273,16 K.');
+ for(let i=0;i<55;i++){const mid=(lo+hi)/2;if(f(mid)>0)lo=mid;else hi=mid;}
+ return (lo+hi)/2;
+}
+export function seawaterBoilingPressure(S,T){
+ if(!Number.isFinite(S)||S<0||S>.12||!Number.isFinite(T)||T<265||T>353)throw Error('Кипіння морської води: потрібно S=0…0,12 кг/кг і T=265…353 K.');
+ let lo=Math.log(1),hi=lo;
+ const f=p=>swChemicalPotential(S,T,p)-swVaporG(T,p);
+ while(f(Math.exp(hi))>0&&Math.exp(hi)<101325)hi+=Math.log(1.15);
+ if(Math.exp(hi)>101325||f(Math.exp(lo))*f(Math.exp(hi))>0)throw Error('Кипіння: корінь поза підтримуваним діапазоном тиску.');
+ for(let i=0;i<55;i++){const mid=(lo+hi)/2;if(f(Math.exp(mid))>0)lo=mid;else hi=mid;}
+ return Math.exp((lo+hi)/2);
+}
+export function seawaterBoundary(kind,S,value){
+ if(!['freeze','boil'].includes(kind))throw Error('Невідома фазова рівновага морської води.');
+ const T=kind==='freeze'?seawaterFreezingTemperature(S,value):value;
+ const p=kind==='freeze'?value:seawaterBoilingPressure(S,T);
+ return {boundary:true,model:'IAPWS R13-08 · рівновага Eq. '+(kind==='freeze'?'32':'30'),S,T,p,phase:kind==='freeze'?'Морська вода ↔ лід Ih':'Морська вода ↔ пара H₂O',notes:['Чисельна рівновага хімічних потенціалів; без наближеної формули фазової межі.']};
+}
+
 // S: absolute salinity kg/kg, T: K (ITS-90), p: Pa.
 export function seawater(S,T,p){
  if(!Number.isFinite(S)||!Number.isFinite(T)||!Number.isFinite(p)||S<0||S>0.12||T<265||T>353||p<611.655||p>1e8)
-  throw Error('Морська вода (IAPWS R13-08): офіційний діапазон 0 ≤ S ≤ 0,12 кг/кг, точка замерзання…353 K, 611,655 Па ≤ p ≤ 10⁸ Па.');
+  throw Error('Морська вода (IAPWS R13-08): обчислювальні межі 0 ≤ S ≤ 0,12 кг/кг, 265…353 K (фазові межі перевіряються окремо), 611,655 Па ≤ p ≤ 10⁸ Па.');
  const W=waterPart(T,p);
  if(S===0)return decorate(S,T,p,W,{g:0,gT:0,gp:0,gTT:0,gTp:0,gpp:0,gS:0,gSp:0},W);
  const Sl=salinePart(S,T,p);
@@ -92,5 +132,22 @@ function decorate(S,T,p,W,Sl,tot){
  const v=W.v+Sl.gp,s=W.s-Sl.gT,h=W.h+(Sl.g-T*Sl.gT),u=h-p*v,f=u-T*s,cp=-T*tot.gTT;
  const rho=1/v,w2=-v*v*tot.gTT/(tot.gpp*tot.gTT-tot.gTp*tot.gTp),w=w2>0?Math.sqrt(w2):null;
  const muW=tot.g-S*Sl.gS;
- return {model:'IAPWS R13-08',S,T,p,g:tot.g,v,rho,s,h,u,f,cp,w,muW};
+ const warnings=[];
+ let phase='Стійка рідина';
+ const boilingP=seawaterBoilingPressure(S,T);
+ if(p<boilingP*(1-1e-7)){phase='Метастабільна перегріта рідина';warnings.push('Тиск нижче рівноважного тиску кипіння (Eq. 30): задана рідина нестійка щодо випаровування.');}
+ else if(Math.abs(p-boilingP)<boilingP*1e-7)phase='Межа кипіння: рідина ↔ пара';
+ const iceDifference=T<=273.16?muW-ice(T,p).g:null;
+ if(iceDifference!==null&&Math.abs(iceDifference)<=1e-5)phase='Межа замерзання: рідина ↔ лід Ih';
+ if(iceDifference!==null&&iceDifference>1e-5){
+  phase='Метастабільна переохолоджена рідина';
+  warnings.push('Метастабільний стан: хімічний потенціал води перевищує енергію Гіббса льоду Ih (IAPWS R13-08, Eq. 32). Таблиця описує переохолоджену рідину, а не рівноважний стан.');
+ }
+ if(S>0&&!(T<=313&&S<=(p>=SW_P0?0.042:0.05)))warnings.push('Густина, питомий об’єм і швидкість звуку: екстраполяція поза областями A/B IAPWS R13-08; достовірність цих властивостей не гарантована.');
+ const invalidDerivatives=S>0&&T+450*S>362;
+ if(invalidDerivatives)warnings.push('Область F: T/K + 450·S/(кг/кг) > 362. Похідні густини та швидкість звуку можуть бути нефізичними; не використовуйте їх для інженерних розрахунків.');
+ if(w===null)warnings.push('Швидкість звуку недоступна: рівняння дало недодатне значення w², дійсний результат відсутній.');
+ if(S>0&&p!==SW_P0&&(S>0.042||T>313))warnings.push('Екстраполяція термічних властивостей: область C для високої солоності/температури визначена при атмосферному тиску 101325 Па.');
+
+ return {model:'IAPWS R13-08',S,T,p,g:tot.g,v,rho,s,h,u,f,cp,w,muW,boilingP,phase,notes:warnings,invalidDerivatives};
 }
