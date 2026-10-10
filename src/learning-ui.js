@@ -8,10 +8,11 @@ import {ice} from './ice.js';
 import {d2oPT,d2oSaturation} from './d2o.js';
 import {seawater} from './seawater.js';
 // Shared workspace panels; these modules use explicit SI inputs/outputs independent of steam table settings.
-let learningResult=null;
+let learningResult=null,currentPanelKind=null;
 const learnField=(id,title,value)=>`<label>${title}<input id="${id}" value="${value}" inputmode="decimal" required></label>`;
 const learnNumber=id=>parseNumber($(id).value);
 function learningPanel(kind){
+ currentPanelKind=kind;
  selectView('general');$('calculator-view').hidden=true;$('process-view').hidden=false;document.querySelector(`[data-action="${kind}"]`).setAttribute('aria-selected','true');$('tab-general').setAttribute('aria-selected','false');learningResult=null;
  let body='';
  if(kind==='gases')body=`<h2>Гази · CoolProp HEOS / NASA7</h2><p>CoolProp HEOS: чисті реальні речовини, власні межі та фази. NO доступний лише в NASA7. Суміші: дослідний HEOS (P–T, газ) або NASA7. NASA7: ідеальний газ зі сталим складом. Ентальпія включає ентальпії утворення NASA; ентропія — з тиском і змішуванням. У NASA7 конденсація, реакції та неідеальність не моделюються; транспортні коефіцієнти не наведено. У HEOS доступні коефіцієнти виводяться окремо.</p><form id="learn-form"><div class="process-grid"><label>Модель<select id="gas-model"><option value="real">Реальна речовина · CoolProp HEOS</option><option value="mixture">Реальна суміш · HEOS · лише P–T (дослідний)</option><option value="ideal">Ідеальний газ / суміш · NASA7</option></select></label><label>Речовина HEOS<select id="gas-fluid">${Object.keys(REAL_GAS_FLUIDS).map(id=>`<option>${id}</option>`).join('')}</select></label><label>Режим<select id="gas-mode"><option value="pt">P–T</option><option value="ph">P–h</option><option value="ps">P–s</option></select></label>${learnField('gas-p','Абсолютний тиск, МПа',.101325)}<label><span id="gas-b-title">Температура, K</span><input id="gas-b" value="300" inputmode="decimal" required></label><label>Базис складу<select id="gas-basis"><option value="mole">Молярні частки</option><option value="mass">Масові частки</option></select></label><label>Готовий склад<select id="gas-preset"><option value="air">Сухе повітря</option><option value="flue">Приклад димових газів</option>${GAS_DATA.map(d=>`<option>${d.id}</option>`).join('')}<option value="custom">Власна суміш</option></select></label></div><p>Частки 0…1; сума = 1. Зміна базису перераховує введений склад.</p><div class="process-grid">${GAS_DATA.map(d=>learnField('fraction-'+d.id,d.id,AIR[d.id]||0)).join('')}</div><button type="submit">Розрахувати газ</button></form>`;
@@ -22,6 +23,12 @@ function learningPanel(kind){
  if(kind==='seawater')body=`<h2>Морська вода · IAPWS R13-08(2008)</h2><p>Енергія Гіббса морської води g=g<sup>W</sup>+g<sup>S</sup>: прісноводна частина — верифіковане ядро IAPWS-95, сольова частина — поліном Eq. (4) з Table 2. Офіційний діапазон: 0…0,12 кг/кг (0…120 г/кг) абсолютної солоності, від точки замерзання до 353 K, p₀…10⁸ Па. Результат містить попередження про екстраполяцію та область F. Переохолодження визначається за рівновагою з льодом Ih (Eq. 32); кипіння перевіряється за Eq. 30. Фазові межі доступні в окремій вкладці; осмотичний коефіцієнт не реалізований.</p><form id="learn-form"><div class="process-grid">${learnField('sw-s','Абсолютна солоність, г/кг',35.16504)}${learnField('sw-t','Температура, °C',10)}${learnField('sw-p','Абсолютний тиск, МПа',.101325)}</div><button type="submit">Розрахувати морську воду</button></form>`;
  $('process-view').innerHTML=`<section class="method">${body}<p id="learn-error" role="alert" hidden></p><div id="learn-output" aria-live="polite"></div></section>`;
  $('process-view').scrollTop=0;
+ if(kind==='gases'||kind==='humid'){
+  const submitBtn=$('learn-form').querySelector('button[type="submit"]'),originalText=submitBtn.textContent;
+  submitBtn.disabled=true;submitBtn.textContent='Завантаження ядра CoolProp…';
+  ensureCoolProp().then(()=>{if(currentPanelKind!==kind)return;submitBtn.disabled=false;submitBtn.textContent=originalText;})
+   .catch(e=>{if(currentPanelKind!==kind)return;submitBtn.textContent=originalText;$('learn-error').hidden=false;$('learn-error').textContent='Не вдалося завантажити ядро CoolProp: '+e.message;});
+ }
  const ids=[...$('learn-form').querySelectorAll('input,select')];let draft;try{draft=JSON.parse(localStorage.getItem('water-steam-learning-'+kind)||'null');}catch{}if(draft)for(const el of ids)if(draft[el.id]!=null)el.value=draft[el.id];
  const saveDraft=()=>{try{localStorage.setItem('water-steam-learning-'+kind,JSON.stringify(Object.fromEntries(ids.map(el=>[el.id,el.value]))));}catch{}};
  $('learn-form').oninput=()=>{learningResult=null;$('learn-output').replaceChildren();$('learn-error').hidden=true;saveDraft();};

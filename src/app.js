@@ -181,9 +181,24 @@ divider.addEventListener('pointerup',()=>{resizing=false;});divider.addEventList
 divider.addEventListener('keydown',e=>{if(e.key==='ArrowUp'||e.key==='ArrowDown'){e.preventDefault();resizeOutput(Number(divider.getAttribute('aria-valuenow'))+(e.key==='ArrowUp'?20:-20));}});
 resetMode();renderHistory();
 (async()=>{
- try {const bytes=Uint8Array.from(atob(WASM_BASE64),c=>c.charCodeAt(0));await initialize(bytes);await initializeHumidAir(Uint8Array.from(atob(COOLPROP_WASM_BASE64),c=>c.charCodeAt(0)));$('calculate').disabled=false;$('calculate').innerHTML=icon('calc')+'Розрахувати';persistenceReady=true;$('result-status').textContent='Готово до розрахунку';restoreLocal();}
+ try {const bytes=Uint8Array.from(atob(WASM_BASE64),c=>c.charCodeAt(0));await initialize(bytes);$('calculate').disabled=false;$('calculate').innerHTML=icon('calc')+'Розрахувати';persistenceReady=true;$('result-status').textContent='Готово до розрахунку';restoreLocal();}
  catch(e){$('error').textContent='Не вдалося ініціалізувати WebAssembly. Використайте сучасний браузер. '+e.message;$('error').hidden=false;$('calculate').textContent='Помилка завантаження';}
 })();
+// CoolProp WASM (~9 MB) is only needed by the gases/humid-air panels, so it is not
+// loaded at startup. Standalone build embeds it as base64 (no network allowed);
+// the multi-file site fetches assets/coolprop.wasm lazily on first use of either panel.
+let coolPropReady=null;
+function ensureCoolProp(){
+ if(coolPropReady)return coolPropReady;
+ coolPropReady=(async()=>{
+  const bytes=typeof COOLPROP_WASM_BASE64==='string'
+   ?Uint8Array.from(atob(COOLPROP_WASM_BASE64),c=>c.charCodeAt(0))
+   :new Uint8Array(await (await fetch('assets/coolprop.wasm')).arrayBuffer());
+  await initializeHumidAir(bytes);
+ })();
+ coolPropReady.catch(()=>{coolPropReady=null;});
+ return coolPropReady;
+}
 
 let diagramCache=null, plottedProcess=null, diagramRedraw=null;
 function massTo(v,u){return u==='kgh'?v/3600:u==='lbs'?v*.45359237:u==='lbh'?v*.45359237/3600:v;}
