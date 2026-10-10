@@ -94,16 +94,11 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 Більшість контрольних значень надрукована з 9 значущими цифрами; для них відносний допуск 5×10⁻⁹ (для в’язкості 5×10⁻⁸ відповідно до точності таблиці). Фактичний звіт: [docs/VALIDATION.md](docs/VALIDATION.md).
 
-## Підготовка GitHub та GitHub Pages
+## GitHub та GitHub Pages
 
-Код розміщено у публічному репозиторії `lamerroma/water-steam-if97`. Сайт GitHub Pages не опубліковано. Його запуск потребує окремого погодження; для приватного репозиторію доступність Pages залежить від тарифу GitHub.
+Код розміщено у публічному репозиторії `lamerroma/water-steam-if97`. Сайт GitHub Pages опубліковано: **https://lamerroma.github.io/water-steam-if97/**.
 
-1. У репозиторії вже є вихідний код, тести, `.github`, `vendor`, LICENSE та атрибуція. Абсолютних URL для assets немає.
-2. У Settings → Pages → Build and deployment виберіть **GitHub Actions**.
-3. Після окремого рішення про публікацію запустіть Actions → **Publish GitHub Pages (manual)** → Run workflow з потрібної гілки.
-4. Workflow перевірить тести, збере автономний HTML і опублікує `dist/`. URL буде в результаті deploy job.
-
-Pages workflow запускається **лише вручну** (`workflow_dispatch`), не на push. CI перевіряє тести й відтворюваність збірки на push/PR без публікації. GitHub Actions потребує мережі лише під час CI/публікації; готовий калькулятор її не потребує.
+Публікація автоматична: `.github/workflows/pages.yml` запускається на кожен push у `main` (а також вручну з Actions → Run workflow за потреби) — перевіряє тести, збирає сайт і публікує `dist/`. Одноразове налаштування (Settings → Pages → Build and deployment → Source: **GitHub Actions**) уже зроблено, повторювати не потрібно. CI (`ci.yml`) окремо перевіряє тести й відтворюваність збірки на кожен push/PR. GitHub Actions потребує мережі лише під час збірки/публікації; готовий калькулятор — ні.
 
 На статичний хостинг завантажуйте `index.html` разом із каталогом `assets/`; для передачі єдиним файлом використовуйте `standalone.html`. Для GitHub Pages project site підтримується шлях `/repository-name/`, бо посилання на assets відносні.
 

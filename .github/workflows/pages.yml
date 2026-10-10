@@ -1,6 +1,10 @@
-name: Publish GitHub Pages (manual)
-# Intentionally manual: uploading this repository does not deploy the site.
+name: Publish GitHub Pages
+# Auto-deploys on every push to main once Settings -> Pages -> Source is set to
+# "GitHub Actions" (a one-time, separate decision -- see README). Also runnable
+# manually from the Actions tab (workflow_dispatch) to force a redeploy.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
