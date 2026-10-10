@@ -22,3 +22,5 @@ export function humidAirInputs(p,T,input,value){
  if(input==='D'&&(dew==null||Math.abs(dew-value)>1e-6)||input==='B'&&(wet==null||Math.abs(wet-value)>1e-5))throw Error('Зворотний розрахунок не задовольняє задану температуру. Стан може лежати на розриві фазового переходу.');
  return {model:'Вологе повітря · CoolProp 8 / ASHRAE-RP1485',p,T,rh:r,pv:y*p,W,h,dew,wet,v,rho:(1+W)/v,cp,notes:['Неідеальна суміш: віріальні коефіцієнти та поправка насичення.','h, Cp і v — на 1 кг сухого повітря; ρ — для всієї суміші.','Фазу насичення (вода / лід) визначає ядро CoolProp. Невизначені температури не наведено.','Ентальпія використовує систему відліку CoolProp/ASHRAE; вона відрізняється від навчальної моделі NASA7.']};
 }
+
+export function getCoolPropBackend(){if(!humidBackend)throw Error("Ядро CoolProp ще не завантажено.");return humidBackend;}
