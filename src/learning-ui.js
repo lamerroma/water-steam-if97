@@ -13,8 +13,8 @@ let learningResult=null,currentPanelKind=null;
 const learnField=(id,title,value)=>`<label>${title}<input id="${id}" value="${value}" inputmode="decimal" required></label>`;
 const learnNumber=id=>parseNumber($(id).value);
 function learningPanel(kind){
- currentPanelKind=kind;
- selectView('general');$('calculator-view').hidden=true;$('process-view').hidden=false;document.querySelector(`[data-action="${kind}"]`).setAttribute('aria-selected','true');$('tab-general').setAttribute('aria-selected','false');learningResult=null;
+ selectView('panel');activeSection=kind;currentPanelKind=kind;
+ $('calculator-view').hidden=true;$('process-view').hidden=false;document.querySelector(`[data-action="${kind}"]`).setAttribute('aria-selected','true');$('tab-general').setAttribute('aria-selected','false');learningResult=null;
  let body='';
  if(kind==='gases')body=`<h2>Гази · CoolProp HEOS / NASA7</h2><p>CoolProp HEOS: чисті реальні речовини, власні межі та фази. NO доступний лише в NASA7. Суміші: дослідний HEOS (P–T, газ) або NASA7. NASA7: ідеальний газ зі сталим складом. Ентальпія включає ентальпії утворення NASA; ентропія — з тиском і змішуванням. У NASA7 конденсація, реакції та неідеальність не моделюються; транспортні коефіцієнти не наведено. У HEOS доступні коефіцієнти виводяться окремо.</p><form id="learn-form"><div class="process-grid"><label>Модель<select id="gas-model"><option value="real">Реальна речовина · CoolProp HEOS</option><option value="mixture">Реальна суміш · HEOS · лише P–T (дослідний)</option><option value="ideal">Ідеальний газ / суміш · NASA7</option></select></label><label>Речовина HEOS<select id="gas-fluid">${Object.keys(REAL_GAS_FLUIDS).map(id=>`<option>${id}</option>`).join('')}</select></label><label>Режим<select id="gas-mode"><option value="pt">P–T</option><option value="ph">P–h</option><option value="ps">P–s</option></select></label>${learnField('gas-p','Абсолютний тиск, МПа',.101325)}<label><span id="gas-b-title">Температура, K</span><input id="gas-b" value="300" inputmode="decimal" required></label><label>Базис складу<select id="gas-basis"><option value="mole">Молярні частки</option><option value="mass">Масові частки</option></select></label><label>Готовий склад<select id="gas-preset"><option value="air">Сухе повітря</option><option value="flue">Приклад димових газів</option>${GAS_DATA.map(d=>`<option>${d.id}</option>`).join('')}<option value="custom">Власна суміш</option></select></label></div><p>Частки 0…1; сума = 1. Зміна базису перераховує введений склад.</p><div class="process-grid">${GAS_DATA.map(d=>learnField('fraction-'+d.id,d.id,AIR[d.id]||0)).join('')}</div><button type="submit">Розрахувати газ</button></form>`;
  if(kind==='humid')body=`<h2>Вологе повітря · ASHRAE-RP1485</h2><p>Неідеальна віріальна модель CoolProp 8. P = 0,00001…5 МПа; T = 193…473 K. Показники h, Cp і v — на 1 кг сухого повітря; ρ — для всієї суміші. Система відліку ентальпії CoolProp/ASHRAE.</p><form id="learn-form"><div class="process-grid">${learnField('ha-p','Абсолютний тиск, МПа',.101325)}${learnField('ha-t','Температура, °C',30)}<label>Вхід вологості<select id="ha-mode"><option value="R">Відносна вологість, %</option><option value="W">Вологовміст, кг/кг сухого повітря</option><option value="D">Точка роси, °C</option><option value="B">Мокрий термометр, °C</option></select></label>${learnField('ha-rh','Значення вологості (одиниці обрано вище)',50)}</div><button type="submit">Розрахувати вологе повітря</button></form>`;
@@ -24,20 +24,21 @@ function learningPanel(kind){
  if(kind==='seawater')body=`<h2>Морська вода · IAPWS R13-08(2008)</h2><p>Енергія Гіббса морської води g=g<sup>W</sup>+g<sup>S</sup>: прісноводна частина — верифіковане ядро IAPWS-95, сольова частина — поліном Eq. (4) з Table 2. Офіційний діапазон: 0…0,12 кг/кг (0…120 г/кг) абсолютної солоності, від точки замерзання до 353 K, p₀…10⁸ Па. Результат містить попередження про екстраполяцію та область F. Переохолодження визначається за рівновагою з льодом Ih (Eq. 32); кипіння перевіряється за Eq. 30. Фазові межі доступні в окремій вкладці; осмотичний коефіцієнт не реалізований.</p><form id="learn-form"><div class="process-grid">${learnField('sw-s','Абсолютна солоність, г/кг',35.16504)}${learnField('sw-t','Температура, °C',10)}${learnField('sw-p','Абсолютний тиск, МПа',.101325)}</div><button type="submit">Розрахувати морську воду</button></form>`;
  $('process-view').innerHTML=`<section class="method">${body}<p id="learn-error" role="alert" hidden></p><div id="learn-output" aria-live="polite"></div></section>`;
  $('process-view').scrollTop=0;
+ const learnForm=$('learn-form');let backendReady=Promise.resolve();
  if(kind==='gases'||kind==='humid'){
   const submitBtn=$('learn-form').querySelector('button[type="submit"]'),originalText=submitBtn.textContent;
   submitBtn.disabled=true;submitBtn.textContent='Завантаження ядра CoolProp…';
-  ensureCoolProp().then(()=>{if(currentPanelKind!==kind)return;submitBtn.disabled=false;submitBtn.textContent=originalText;})
-   .catch(e=>{if(currentPanelKind!==kind)return;submitBtn.textContent=originalText;$('learn-error').hidden=false;$('learn-error').textContent='Не вдалося завантажити ядро CoolProp: '+e.message;});
+  backendReady=ensureCoolProp();backendReady.then(()=>{if(!learnForm.isConnected)return;submitBtn.disabled=false;submitBtn.textContent=originalText;})
+   .catch(e=>{if(!learnForm.isConnected)return;submitBtn.textContent=originalText;$('learn-error').hidden=false;$('learn-error').textContent='Не вдалося завантажити ядро CoolProp: '+e.message;});
  }
- const ids=[...$('learn-form').querySelectorAll('input,select')];let draft;try{draft=JSON.parse(localStorage.getItem('water-steam-learning-'+kind)||'null');}catch{}if(draft)for(const el of ids)if(draft[el.id]!=null)el.value=draft[el.id];
- const saveDraft=()=>{try{localStorage.setItem('water-steam-learning-'+kind,JSON.stringify(Object.fromEntries(ids.map(el=>[el.id,el.value]))));}catch{}};
- $('learn-form').oninput=()=>{learningResult=null;$('learn-output').replaceChildren();$('learn-error').hidden=true;saveDraft();};
- $('learn-form').onchange=()=>{learningResult=null;$('learn-output').replaceChildren();saveDraft();};
+ const saveDraft=()=>saveProject();
+ $('learn-form').oninput=()=>{panelEdited(learnForm);learningResult=null;$('learn-output').replaceChildren();$('learn-error').hidden=true;saveDraft();};
+ $('learn-form').onchange=()=>{panelEdited(learnForm);learningResult=null;$('learn-output').replaceChildren();saveDraft();};
+ let oldBasisForRestore=null;
  if(kind==='gases'){
-  const gasModelUI=()=>{const real=$('gas-model').value==='real';$('gas-fluid').closest('label').hidden=!real;for(const id of ['gas-basis','gas-preset',...GAS_DATA.map(d=>'fraction-'+d.id)]){$(id).disabled=real;$(id).closest('label').hidden=real;}}; $('gas-model').onchange=gasModelUI;gasModelUI();
+  const gasModelUI=()=>{const real=$('gas-model').value==='real';$('gas-fluid').closest('label').hidden=!real;const mixture=$('gas-model').value==='mixture';for(const o of $('gas-mode').options)o.disabled=mixture&&o.value!=='pt';if(mixture&&$('gas-mode').value!=='pt'){$('gas-mode').value='pt';$('gas-b').value='300';$('gas-b-title').textContent='Температура, K';}for(const id of ['gas-basis','gas-preset',...GAS_DATA.map(d=>'fraction-'+d.id)]){$(id).disabled=real;$(id).closest('label').hidden=real;}}; $('gas-model').onchange=gasModelUI;gasModelUI();
   const gasLabel=()=>{$('gas-b-title').textContent=$('gas-mode').value==='pt'?'Температура, K':$('gas-mode').value==='ph'?'Ентальпія, кДж/кг':'Ентропія, кДж/(кг·K)';};gasLabel();
-  let oldBasis=$('gas-basis').value;
+  let oldBasis=$('gas-basis').value;oldBasisForRestore=()=>{oldBasis=$('gas-basis').value;};
   const setFractions=q=>{for(const d of GAS_DATA)$('fraction-'+d.id).value=String(q[d.id]||0);};
   const fromMole=q=>{if($('gas-basis').value==='mole')return q;const M=GAS_DATA.reduce((s,d)=>s+(q[d.id]||0)*d.M,0);return Object.fromEntries(GAS_DATA.map(d=>[d.id,(q[d.id]||0)*d.M/M]));};
   $('gas-preset').onchange=()=>{const v=$('gas-preset').value;if(v!=='custom')setFractions(fromMole(v==='air'?AIR:v==='flue'?FLUE:{[v]:1}));};
@@ -51,6 +52,11 @@ function learningPanel(kind){
   if(mid)$('cycle-mid').closest('label').firstChild.textContent=reheat?'Тиск проміжного перегріву, МПа':'Тиск витяжки пари (ВПВ), МПа';
   $('cycle-tmid').disabled=!reheat;$('cycle-tmid').closest('label').hidden=!reheat;}
  if(kind==='cycles'){$('cycle-kind').onchange=()=>{const v=$('cycle-kind').value,gas=v==='brayton';$('cycle-low').value=gas?'.101325':'.01';$('cycle-high').value=gas?'8':'10';$('cycle-tmax').value=gas?'1400':'773.15';if(v==='rankine-reheat')$('cycle-tmid').value=$('cycle-tmax').value;cycleMode();};cycleMode();}
+ if(kind==='humid'){
+  let oldHumidityMode=$('ha-mode').value;
+  const humidityLabel=()=>{$('ha-rh').closest('label').firstChild.textContent=({R:'Відносна вологість, %',W:'Вологовміст, кг/кг сухого повітря',D:'Точка роси, °C',B:'Мокрий термометр, °C'})[$('ha-mode').value];};
+  $('ha-mode').onchange=()=>{if(!restoringWorkspace){try{const value=learnNumber('ha-rh'),q=learningResult||humidAirInputs(learnNumber('ha-p'),learnNumber('ha-t')+273.15,oldHumidityMode,oldHumidityMode==='R'?value/100:oldHumidityMode==='W'?value:value+273.15);const next=({R:q.rh*100,W:q.W,D:q.dew==null?null:q.dew-273.15,B:q.wet==null?null:q.wet-273.15})[$('ha-mode').value];$('ha-rh').value=next==null?'':String(next);}catch{$('ha-rh').value='';}}oldHumidityMode=$('ha-mode').value;humidityLabel();};humidityLabel();
+ }
  if(kind==='d2o'){const d2oMode=()=>{const sat=$('d2o-mode').value==='sat';$('d2o-p').disabled=sat;$('d2o-p').closest('label').hidden=sat;};$('d2o-mode').onchange=d2oMode;d2oMode();}
  $('learn-form').onsubmit=e=>{e.preventDefault();$('learn-error').hidden=true;try{
   let q;if(kind==='gases'){const m=$('gas-mode').value;if($('gas-model').value==='mixture'&&m!=='pt')throw Error('Реальні суміші наразі підтримують лише P–T.');q=$('gas-model').value==='mixture'?realGasMixture(learnNumber('gas-p'),learnNumber('gas-b'),readGasFractions(),$('gas-basis').value):$('gas-model').value==='real'?realGasState($('gas-fluid').value,learnNumber('gas-p'),learnNumber('gas-b'),m):m==='pt'?gasState(learnNumber('gas-p'),learnNumber('gas-b'),readGasFractions(),$('gas-basis').value):gasInverse(learnNumber('gas-p'),learnNumber('gas-b'),m==='ph'?'h':'s',readGasFractions(),$('gas-basis').value);}
@@ -58,13 +64,14 @@ function learningPanel(kind){
   if(kind==='ice')q=ice(learnNumber('ice-t')+273.15,learnNumber('ice-p')*1e6);
   if(kind==='d2o')q=$('d2o-mode').value==='sat'?d2oSaturation(learnNumber('d2o-t')):d2oPT(learnNumber('d2o-p'),learnNumber('d2o-t'));
   if(kind==='seawater')q=seawater(learnNumber('sw-s')/1000,learnNumber('sw-t')+273.15,learnNumber('sw-p')*1e6);
-  if(kind==='cycles'){const v=$('cycle-kind').value,a=['cycle-low','cycle-high','cycle-tmin','cycle-tmax','cycle-mid','cycle-tmid','cycle-et','cycle-ec','cycle-flow'].map(learnNumber);
+  if(kind==='cycles'){const v=$('cycle-kind').value,a=['cycle-low','cycle-high','cycle-tmin','cycle-tmax','cycle-mid','cycle-tmid','cycle-et','cycle-ec','cycle-flow'].map(id=>$(id).disabled?null:learnNumber(id));
    q=v==='brayton'?brayton(a[0],a[1],a[2],a[3],a[6],a[7],a[8])
     :v==='rankine-reheat'?rankineReheat(a[1],a[4],a[0],a[3],a[5],a[6],a[7],a[8],modelValue())
     :v==='rankine-regen'?rankineRegen(a[1],a[4],a[0],a[3],a[6],a[7],a[8],modelValue())
     :rankine(a[1],a[0],a[3],a[6],a[7],a[8],modelValue());}
-  learningResult=q;renderLearning(kind,q);$('learn-output').scrollIntoView({block:'start'});saveDraft();
- }catch(err){learningResult=null;$('learn-output').replaceChildren();$('learn-error').hidden=false;$('learn-error').textContent=err.message;}};
+  learningResult=q;renderLearning(kind,q);panelCalculated(learnForm);$('learn-output').scrollIntoView({block:'start'});saveDraft();
+ }catch(err){panelEdited(learnForm);learningResult=null;$('learn-output').replaceChildren();$('learn-error').hidden=false;$('learn-error').textContent=err.message;}};
+ restorePanelInputs(kind,learnForm);oldBasisForRestore?.();restorePanelResult(kind,learnForm,backendReady);
 }
 function readGasFractions(){return Object.fromEntries(GAS_DATA.map(d=>[d.id,learnNumber('fraction-'+d.id)]));}
 function learningRows(entries){return `<table class="sat-table"><thead><tr><th>Показник</th><th>Результат</th><th>Одиниця</th></tr></thead><tbody>${entries.map(([k,v,u])=>{const gkey=LABEL_GLOSSARY[k];return `<tr><td>${glossaryCell(gkey,k)}</td><td>${format(v)}</td><td>${u}</td></tr>${glossaryDetailRow(gkey,0,3)}`;}).join('')}</tbody></table>`;}
@@ -81,6 +88,6 @@ function renderLearning(kind,q){let entries=[],html=`<p><strong>${escapeHTML(q.m
  if(kind==='cycles'){entries=[['Робота турбіни',q.turbine,'кДж/кг'],['Робота насоса / компресора',q.compressor,'кДж/кг'],['Підведене тепло',q.heat,'кДж/кг'],['Відведене тепло',q.rejected,'кДж/кг'],['Корисна робота',q.net,'кДж/кг'],['Термічний ККД',q.efficiency*100,'%'],['Потужність',q.power,'кВт']];html+=notes(q.assumptions)+(q.states.length===4?`<p>qᵢₙ = h₃ − h₂; qₒᵤₜ = h₄ − h₁; wₙₑₜ = (h₃ − h₄) − (h₂ − h₁); η = wₙₑₜ / qᵢₙ.</p>`:`<p>qᵢₙ − qₒᵤₜ = wₙₑₜ; η = wₙₑₜ / qᵢₙ (детальний розподіл по станах — у таблиці нижче).</p>`)+`<table class="sat-table"><thead><tr><th>Стан</th><th>P, МПа</th><th>T, K</th><th>h, кДж/кг</th><th>s, кДж/(кг·K)</th><th>x</th></tr></thead><tbody>${q.states.map((z,i)=>`<tr><td>${i+1}</td>${['p','T','h','s','x'].map(k=>`<td>${format(z[k])}</td>`).join('')}</tr>`).join('')}</tbody></table>`;}
  $('learn-output').innerHTML=html+learningRows(entries)+'<p><button id="learn-csv">CSV розрахунку</button> <button id="learn-json">JSON: входи та результати</button></p>';
  $('learn-csv').onclick=()=>{const inputRows=[...$('learn-form').querySelectorAll('input,select')].map(el=>[el.id,el.value]);downloadFile(learningCSV(q,inputRows,entries),'water-steam-'+kind+'.csv','text/csv;charset=utf-8');};
- $('learn-json').onclick=()=>downloadFile(JSON.stringify({module:kind,inputs:Object.fromEntries([...$('learn-form').querySelectorAll('input,select')].map(el=>[el.id,el.value])),result:q},null,2),'water-steam-'+kind+'.json','application/json');
+ $('learn-json').onclick=()=>downloadFile(JSON.stringify({format:'water-steam-calculation',version:1,module:kind,model:modelValue(),inputs:Object.fromEntries([...$('learn-form').querySelectorAll('input,select')].map(el=>[el.id,el.value])),result:q},null,2),'water-steam-'+kind+'.json','application/json');
 }
 document.addEventListener('click',e=>{const kind=e.target.closest('[data-action]')?.dataset.action;if(['gases','humid','cycles','ice','d2o','seawater'].includes(kind))learningPanel(kind);});

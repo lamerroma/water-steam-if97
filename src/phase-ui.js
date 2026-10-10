@@ -4,7 +4,7 @@ import {compareModels} from './comparison.js';
 import {learningCSV} from './learning-export.js';
 // Standalone panels retain the same offline CSV/JSON exports as learning modules.
 function scientificPanel(kind){
- selectView('general');$('calculator-view').hidden=true;$('process-view').hidden=false;
+ selectView('panel');activeSection=kind;$('calculator-view').hidden=true;$('process-view').hidden=false;
  document.querySelector(`[data-action="${kind}"]`).setAttribute('aria-selected','true');$('tab-general').setAttribute('aria-selected','false');
  const field=(id,label,value)=>`<label for="${id}" id="${id}-label">${label}</label><input id="${id}" value="${value}" required inputmode="decimal">`;
  const body=kind==='boundaries'?`<h2>Фазові межі</h2><p>H₂O: R14-08(2011). D₂O: R16-17(2018), §6. Морська вода: R13-08, рівновага хімічних потенціалів Eq. 30/32.</p><label for="phase-substance">Речовина</label><select id="phase-substance"><option value="H2O">H₂O</option><option value="D2O">D₂O</option><option value="seawater">Морська вода</option></select><label for="phase-kind">Рівновага</label><select id="phase-kind"></select><label for="phase-ice">Модифікація льоду</label><select id="phase-ice"><option>Ih</option><option>III</option><option>V</option><option>VI</option><option>VII</option></select>${field('phase-value','Температура, K',260)}${field('phase-s','Абсолютна солоність, г/кг',35.16504)}<p id="phase-range"></p><button type="submit">Розрахувати фазову межу</button>`:`<h2>Порівняння IF97 / IAPWS-95</h2><p>Однакові входи для обох моделей; межі застосування перевіряються окремо. Δ = IF97 − IAPWS-95.</p><label for="compare-mode">Вхідна пара</label><select id="compare-mode"><option value="pt">P–T</option><option value="ph">P–h</option><option value="ps">P–s</option><option value="px">P–x</option><option value="tx">T–x</option></select>${field('compare-a','Тиск, МПа',3)}${field('compare-b','Температура, K',300)}<button type="submit">Порівняти моделі</button>`;
@@ -25,8 +25,9 @@ function scientificPanel(kind){
  }else{
   $('compare-mode').onchange=()=>{const m=$('compare-mode').value;$('compare-a-label').textContent=m==='tx'?'Температура, K':'Тиск, МПа';$('compare-b-label').textContent=m==='pt'?'Температура, K':m==='ph'?'Ентальпія, кДж/кг':m==='ps'?'Ентропія, кДж/(кг·K)':'Сухість, 0…1';$('compare-a').value=m==='tx'?'450':'3';$('compare-b').value=m==='pt'?'300':m==='ph'?'500':m==='ps'?'2':'0.5';};
  }
- $('scientific-form').oninput=()=>{$('scientific-output').replaceChildren();$('scientific-error').hidden=true;};
- $('scientific-form').onchange=()=>{$('scientific-output').replaceChildren();$('scientific-error').hidden=true;};
+ const scientificForm=$('scientific-form');
+ $('scientific-form').oninput=()=>{panelEdited(scientificForm);$('scientific-output').replaceChildren();$('scientific-error').hidden=true;};
+ $('scientific-form').onchange=()=>{panelEdited(scientificForm);$('scientific-output').replaceChildren();$('scientific-error').hidden=true;};
  $('scientific-form').onsubmit=e=>{e.preventDefault();try{
   const number=id=>parseNumber($(id).value);let q,entries=[],html='';
   if(kind==='boundaries'){
@@ -41,8 +42,9 @@ function scientificPanel(kind){
   $('scientific-error').hidden=true;$('scientific-output').innerHTML=html+'<p><button id="scientific-csv">CSV розрахунку</button> <button id="scientific-json">JSON розрахунку</button></p>';
   const inputs=()=>[...$('scientific-form').querySelectorAll('input,select')].filter(el=>!el.disabled).map(el=>[el.id,el.value]);
   $('scientific-csv').onclick=()=>downloadFile(learningCSV(q,inputs(),entries),'water-steam-'+kind+'.csv','text/csv;charset=utf-8');
-  $('scientific-json').onclick=()=>downloadFile(JSON.stringify({inputs:Object.fromEntries(inputs()),result:q},null,2),'water-steam-'+kind+'.json','application/json');
-  $('scientific-output').scrollIntoView({block:'start'});
- }catch(error){$('scientific-output').replaceChildren();$('scientific-error').textContent=error.message;$('scientific-error').hidden=false;}};
+  $('scientific-json').onclick=()=>downloadFile(JSON.stringify({format:'water-steam-calculation',version:1,module:kind,model:modelValue(),inputs:panelInputs(scientificForm),result:q},null,2),'water-steam-'+kind+'.json','application/json');
+  panelCalculated(scientificForm);$('scientific-output').scrollIntoView({block:'start'});
+ }catch(error){panelEdited(scientificForm);$('scientific-output').replaceChildren();$('scientific-error').textContent=error.message;$('scientific-error').hidden=false;}};
+ restorePanelInputs(kind,scientificForm);restorePanelResult(kind,scientificForm);
 }
 document.addEventListener('click',e=>{const kind=e.target.closest('[data-action]')?.dataset.action;if(['boundaries','comparison'].includes(kind))scientificPanel(kind);});
