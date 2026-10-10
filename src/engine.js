@@ -1,3 +1,4 @@
+import {dielectric} from './dielectric.js';
 import init, {initSync,pt,px,hs} from '../vendor/seuif97.js';
 import {gibbs,helmholtz,TC,PC,RHOC,PMIN_SAT,saturationPressure,saturationTemperature,boundary23Pressure,boundary23Temperature} from './equations.js';
 import {viscosity,conductivity,surfaceTension} from './transport.js';
@@ -45,6 +46,8 @@ function finish(state,phase,x=null) {
   for(const key of ['p','T','rho','v','h','s','u','cv','w'])if(!Number.isFinite(state[key]))throw Error('Стан перевищує числові можливості обчислення; перевірте порядок величин тиску і температури.');
   if(!state.critical && (!Number.isFinite(state.cp)||state.cp<=0))throw Error('Нестабільна похідна поблизу критичної точки; змініть вхідні дані.');
   const notes=[];
+  if(state.T<=873)notes.push('Діелектрична проникність: рівняння R8-97 з густиною IF97. Для P–T R8-97 рекомендує густину IAPWS-95; тут можливе відхилення від цього варіанта.');
+  else notes.push('Діелектрична проникність не наведена: температура перевищує межу R8-97 873 K.');
   let mu=null,lambda=null;
   if(state.critical) notes.push('Критична точка: Cp і теплопровідність мають сингулярність; числові значення не наведено. Ступінь сухості не визначений.');
   if(TC-1e-3<state.T&&state.T<TC+1e-3 && Math.abs(state.p-PC)<0.01&&!state.critical)notes.push('Дуже близько до критичної точки похідні IF97 чисельно чутливі.');
@@ -56,7 +59,7 @@ function finish(state,phase,x=null) {
   const derivatives=state.critical?{alpha:null,kappa:null,dvdt:null,dvdp:null,dpdt:null,dpdv:null,jt:null,ijt:null}: {
     alpha:state.alpha,kappa,dvdt:state.v*state.alpha,dvdp:-state.v*kappa,dpdt:state.alpha/kappa,dpdv:-1/(state.v*kappa),
     jt:1000*state.v*(state.T*state.alpha-1)/state.cp,ijt:1000*state.v*(1-state.T*state.alpha)};
-  return {...state,...derivatives,phase,x,mu,lambda,notes,A:state.u-state.T*state.s,G:state.h-state.T*state.s,Z:1000*state.p*state.v/0.461526/state.T,
+  return {...state,...derivatives,phase,x,mu,lambda,dc:dielectric(state.T,state.rho),notes,A:state.u-state.T*state.s,G:state.h-state.T*state.s,Z:1000*state.p*state.v/0.461526/state.T,
     isentropic:state.w**2*state.rho/(state.p*1e6),nu:mu==null?null:mu/state.rho,diffusivity:lambda==null?null:lambda/(state.rho*state.cp*1000),Pr:mu==null||lambda==null?null:mu*state.cp*1000/lambda,
     sigma:x===0||x===1||state.critical?surfaceTension(state.T):null};
 }
@@ -72,7 +75,7 @@ function mix(sat,x) {
   if(x===0)return {...a,region:4};if(x===1)return {...b,region:4};
   const blend=k=>a[k]+x*(b[k]-a[k]);
   const v=blend('v');
-  return {p:sat.p,T:sat.T,region:4,phase:'Двофазна суміш',x,v,rho:1/v,h:blend('h'),s:blend('s'),u:blend('u'),cp:null,cv:null,w:null,mu:null,lambda:null,
+  return {p:sat.p,T:sat.T,region:4,phase:'Двофазна суміш',x,v,rho:1/v,h:blend('h'),s:blend('s'),u:blend('u'),cp:null,cv:null,w:null,mu:null,lambda:null,dc:null,
     A:blend('u')-sat.T*blend('s'),G:blend('h')-sat.T*blend('s'),Z:1000*sat.p*v/0.461526/sat.T,sigma:surfaceTension(sat.T),alpha:null,kappa:null,dvdt:null,dvdp:null,dpdt:null,dpdv:null,jt:null,ijt:null,isentropic:null,nu:null,diffusivity:null,Pr:null,
     notes:['Cp, Cv, швидкість звуку, в’язкість і теплопровідність суміші не визначаються однозначно цим станом; значення фаз наведено окремо.']};
 }
