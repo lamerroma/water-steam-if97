@@ -3,7 +3,8 @@ import {GLOSSARY,LABEL_GLOSSARY} from '../src/glossary.js';
 
 // Mirrors the keys of the main property table's `rows` array in src/app.js (app.js
 // itself can't be imported here -- it touches `document` at module load time).
-const MAIN_TABLE_KEYS=['p','T','rho','v','h','s','u','cp','cv','w','ex','x','region','isentropic','A','G','Z','alpha','kappa','dvdt','dvdp','dpdt','dpdv','ijt','jt','dc','mu','nu','lambda','diffusivity','Pr','sigma'];
+// pgauge is the pressure row's alternative tooltip when gauge pressure is selected.
+const MAIN_TABLE_KEYS=['p','pgauge','T','rho','v','h','s','u','cp','cv','w','ex','x','region','isentropic','A','G','Z','alpha','kappa','dvdt','dvdp','dpdt','dpdv','ijt','jt','dc','mu','nu','lambda','diffusivity','Pr','sigma'];
 // The other learning panels' descriptive Ukrainian labels (src/learning-ui.js renderLearning
 // entries and src/learning-export.js d2oPropertyRows), copied verbatim for a cross-check.
 const LEARNING_LABELS=['T','P','M','h','s','u','ρ','v','Cp','Cv','w','Cp/Cv','Z','В’язкість','Теплопровідність','Сухість','Тиск','Температура','Відносна вологість','Вологовміст W','Парціальний Pᵥ','Ентальпія','Питомий об’єм','Густина суміші','Точка роси','Мокрий термометр','Густина','Питома ентальпія','Питома внутрішня енергія','Енергія Гельмгольца','Енергія Гіббса','Питома ентропія','Питома теплоємність cp','Кубічний коеф. розширення α','Коефіцієнт тиску β','Ізотермічна стисливість κT','Ізентропна стисливість κs','Ізохорна теплоємність cv','Ізобарна теплоємність cp','Швидкість звуку','Абсолютна солоність','Хімічний потенціал води μW','Робота турбіни','Робота насоса / компресора','Підведене тепло','Відведене тепло','Корисна робота','Термічний ККД','Потужність'];
