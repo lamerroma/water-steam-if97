@@ -63,3 +63,7 @@ CoolProp 8.0.0, MIT (https://github.com/CoolProp/CoolProp/blob/master/LICENSE), 
 ### Фазові межі
 
 [IAPWS R14-08(2011)](https://iapws.org/technical-guidance/release/MeltSub.download), © 2011 IAPWS: власна транскрипція Eqs. (1)–(6), перевірка Table 3. [R16-17(2018)](https://iapws.org/technical-guidance/release/Heavy.download), © 2018 IAPWS: власна транскрипція допоміжних кореляцій Eqs. (9)–(13), перевірка всіх наведених у §6 контрольних тисків. Криві D₂O не є окремою офіційною рекомендацією IAPWS. [R13-08](https://iapws.org/technical-guidance/release/Seawater.download), © 2008 IAPWS: власне чисельне розв’язання Eq. (30)/(32) на основі наявних рівнянь Гіббса. Дозволене відтворення з атрибуцією зазначене на титульних сторінках цих releases. Python iapws 1.5.5 використаний лише як зовнішній оракул для чисел; його реалізацію не скопійовано й не включено до застосунку.
+
+## Новий числовий набір перевірки води
+
+`tests/fixtures/water-conformance.json` згенеровано зовнішніми CoolProp 8.0.0 (MIT) та Python iapws 1.5.5 (GPL-3.0) як числовими оракулами. Код Python iapws не включено й не перенесено до застосунку. Генератор scripts/reference-water-conformance.py потребує цих пакетів тільки під час створення контрольних даних; runtime та звичайні тести залишаються автономними. Метадані та початкові результати CoolProp P–T збережено у наборі.

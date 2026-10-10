@@ -174,7 +174,8 @@ export function solveHS(h,s) {
   }
  }
  // A bounded pressure scan also covers region 5, absent from many hs backward equations.
- const pressures=[PMIN_SAT,PC,50,100];
+ const pressures=[PMIN_SAT,20,21.5,22,PC*(1-1e-5),PC,50,100];
+ for(let k=0;k<=32;k++)pressures.push(PC-10**(-k/8));
  for(let k=0;k<=180;k++)pressures.push(10**(-12+k*14/180));
  if(Number.isFinite(seed)&&seed>0&&seed<=100)pressures.push(seed);
  pressures.sort((a,b)=>a-b);let previous=null;

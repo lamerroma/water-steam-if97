@@ -14,6 +14,16 @@ for(const file of files) {
 code+='})();\n';
 const licenses='<!--\n'+await read('LICENSE')+'\nSEUIF97 / RustSEUIF97:\n'+await read('vendor/SEUIF97-LICENSE')+'\nCantera NASA7 data / BSD-3-Clause:\n'+await read('vendor/CANTERA-LICENSE')+'\nFormulations and verification tables: International Association for the Properties of Water and Steam (IAPWS), R7-97(2012), R12-08, R15-11, R1-76(2014), R8-97, R6-95(2018), R14-08(2011), R10-06(2009), R13-08(2008), R16-17(2018).\n-->\n';
 const html=licenses+(await read('src/template.html')).replace('/* STYLES */',await read('src/styles.css')).replace('/* APPLICATION */',()=>code.replace(/<\/script/gi,'<\\/script'));
-await mkdir(new URL('dist/',root),{recursive:true});
-await writeFile(new URL('index.html',root),html);await writeFile(new URL('dist/index.html',root),html);
-console.log(`Built standalone index.html and dist/index.html (${Buffer.byteLength(html)} bytes).`);
+const page=(await read('src/template.html'))
+ .replace("script-src 'unsafe-inline'", "script-src 'self' 'unsafe-inline'")
+ .replace("style-src 'unsafe-inline'", "style-src 'self' 'unsafe-inline'")
+ .replace('<style>/* STYLES */</style>','<link rel="stylesheet" href="assets/styles.css">')
+ .replace('<script>/* APPLICATION */</script>','<script src="assets/app.js" defer></script>');
+for(const prefix of ['', 'dist/']) {
+ await mkdir(new URL(prefix+'assets/',root),{recursive:true});
+ await writeFile(new URL(prefix+'index.html',root),licenses+page);
+ await writeFile(new URL(prefix+'assets/styles.css',root),await read('src/styles.css'));
+ await writeFile(new URL(prefix+'assets/app.js',root),code);
+ await writeFile(new URL(prefix+'standalone.html',root),html);
+}
+console.log(`Built multi-file site and standalone.html (${Buffer.byteLength(html)} bytes).`);
