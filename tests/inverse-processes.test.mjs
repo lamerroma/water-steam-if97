@@ -1,0 +1,10 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {initialize,calculate} from '../src/engine.js';
+import {turbine,turbineInverse,flash} from '../src/processes.js';
+import {readProject} from '../src/project.js';
+await initialize(fs.readFileSync(new URL('../vendor/seuif97_bg.wasm',import.meta.url)));
+test('turbine inverse flow and efficiency recover forward inputs',()=>{const r=turbine(3,673.15,.1,.85,4);for(const q of [turbineInverse('flow',3,673.15,.1,r.power,.85),turbineInverse('efficiency',3,673.15,.1,r.power,4)]){assert.ok(Math.abs(q.flow-4)<1e-10);assert.ok(Math.abs(q.eta-.85)<1e-10);assert.ok(Math.abs(q.outlet.h-r.outlet.h)<1e-7);}});
+test('inverse turbine rejects impossible efficiency and zero inputs',()=>{assert.throws(()=>turbineInverse('efficiency',3,673.15,.1,1e6,1));assert.throws(()=>turbineInverse('flow',3,673.15,.1,0,.8));assert.throws(()=>turbineInverse('flow',3,673.15,.1,500,0));});
+test('saturated flash balances enthalpy and mass and persists',()=>{const r=flash(3,0,.1,2,1);assert.equal(r.inlet.x,0);assert.ok(Math.abs(r.outlet.h-r.inlet.h)<1e-7);assert.ok(Math.abs(r.vaporFlow+r.liquidFlow-2)<1e-9);const p={format:'water-steam-if97',version:1,history:[],form:{mode:'pt',a:'3',b:'200',ua:'MPa',ub:'C'},process:{type:'flash',args:[3,r.inlet.T,.1,2,1]}};assert.equal(readProject(JSON.stringify(p)).process.result.inlet.x,0);assert.throws(()=>flash(22.064,0,.1,1,1));});

@@ -13,10 +13,19 @@ export function turbine(p1,T1,p2,eta,flow=1){
  const work=eta*(inlet.h-ideal.h),outlet=calculate('ph',p2,inlet.h-work).state;
  return {inlet,ideal,outlet,work,power:flow*work,eta,flow};
 }
-export function flash(p1,T1,p2,flow=1){
- const inlet=processInput(p1,T1,p2,flow),result=calculate('ph',p2,inlet.h),outlet=result.state;
+export function flash(p1,T1,p2,flow=1,saturated=0){
+ if(![0,1].includes(saturated))throw Error('Невірний режим конденсату.');
+ if(saturated&&(!Number.isFinite(flow)||flow<0||p2<=0||p2>=p1))throw Error('Перевірте тиски й витрату.');
+ const inlet=saturated?calculate('px',p1,0).state:processInput(p1,T1,p2,flow);
+ if(saturated&&inlet.critical)throw Error('У критичній точці немає окремої насиченої рідини.');
+ const result=calculate('ph',p2,inlet.h),outlet=result.state;
  const x=outlet.x;
  return {inlet,outlet,flow,vaporFlow:x==null?null:flow*x,liquidFlow:x==null?null:flow*(1-x),saturation:result.saturation};
+}
+export function turbineInverse(mode,p1,T1,p2,power,known){
+ if(!['flow','efficiency'].includes(mode)||!Number.isFinite(power)||power<=0||!Number.isFinite(known)||known<=0)throw Error('Для зворотного розрахунку потужність і відомий параметр мають бути додатними.');
+ if(mode==='flow'){const unit=turbine(p1,T1,p2,known,1);return turbine(p1,T1,p2,known,power/unit.work);}
+ const ideal=turbine(p1,T1,p2,1,known);const eta=power/ideal.power;return turbine(p1,T1,p2,eta,known);
 }
 // Each plotted point is evaluated from IF97. Straight SVG segments only interpolate the drawing.
 export function diagramData(){
