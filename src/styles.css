@@ -8,3 +8,5 @@
 @media print{.form-buttons,.output-tabs,#output-resize{display:none}.property-table th{position:static}.results-scroll{overflow:visible}.property-table{min-width:0;font-size:8px;table-layout:auto}.property-table th{width:auto!important}.property-table th:last-child,.property-table td:last-child{display:none}}
 
 #process-view{overflow:auto;flex:1;padding:14px;color:#294967}#process-view h2{font-size:16px}#process-form fieldset{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px}#process-form label{display:flex;flex-direction:column;gap:4px}#process-form input{width:145px;padding:5px;border:1px solid #a7b7cc}#process-view button{padding:5px 10px;margin-right:8px}#process-view table{border-collapse:collapse;width:100%;min-width:620px;background:white}#process-view td,#process-view th{padding:8px;border:1px solid #c3d1e1;text-align:right}#process-error{color:#a22}#steam-diagram{width:100%;min-width:580px;height:auto;font:12px Arial}#process-result{overflow:auto}
+
+#steam-diagram{touch-action:none;cursor:grab}#steam-diagram circle{cursor:pointer}#diagram-selected{border:1px solid #b7c8dd;padding:8px}#diagram-range{display:inline-block;padding:6px;color:#516681}
