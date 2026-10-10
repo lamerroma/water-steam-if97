@@ -29,6 +29,9 @@ for(const [action,name] of [['clear','trash'],['export','table'],['print','print
 for(const [action,name] of [['clear','trash'],['export','table'],['export-history','table'],['print','printer']]){const el=document.querySelector(`.menubar .menu button[data-action="${action}"]`);if(el)el.innerHTML=icon(name)+el.textContent;}
 {const el=document.querySelector('.menu-right button[data-action="fullscreen"]');if(el)el.innerHTML=icon('expand')+el.textContent.replace(/^▣\s*/,'');}
 {const a=document.getElementById('tab-general'),b=document.getElementById('tab-saturation');if(a)a.innerHTML=icon('flask')+a.textContent.replace(/^▣\s*/,'');if(b)b.innerHTML=icon('droplet')+b.textContent.replace(/^▤\s*/,'');}
+// Native <details> siblings don't close each other; without this, opening "Тема" while "Файл" is
+// still open leaves both dropdowns visible and overlapping.
+for(const d of document.querySelectorAll('.menubar details'))d.addEventListener('toggle',()=>{if(d.open)for(const o of document.querySelectorAll('.menubar details'))if(o!==d)o.open=false;});
 let last=null, revision=0, persistenceReady=false, storedProcess=null;
 const processDrafts={};let ambient={p:.101325,T:298.15},ambientRef=null;
 function ambientResult(result){const model=result.state?.model||result.saturation?.model||'IF97';return withExergy(result,referenceState(ambient.p,ambient.T,model));}
