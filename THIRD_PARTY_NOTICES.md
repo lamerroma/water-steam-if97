@@ -34,3 +34,9 @@ MIT дозволяє використання, модифікацію та ро�
 ## Незалежний інструмент перевірки
 
 Python iapws 1.5.5 (Juan José Gómez Romera, GPL-3.0, https://github.com/jjgomera/iapws) використано лише в окремому тимчасовому Python-середовищі для числової звірки. Його код, SciPy та NumPy не включені до репозиторію або HTML. tests/fixtures/independent-iapws.json містить згенеровані числові результати з метаданими; scripts/reference-iapws.py — власна обгортка. Звичайна збірка та тести не потребують цього інструменту.
+
+## Власне ядро IAPWS-95
+
+[IAPWS R6-95(2018)](https://iapws.org/technical-guidance/release/IAPWS-95), © 2018 IAPWS: власна транскрипція рівнянь (4)–(6) та таблиць 1–3. Дозвіл на публікацію з атрибуцією зазначений на першій сторінці release. Нових runtime-бібліотек немає. [SR1-86(1992)](https://iapws.org/technical-guidance/supplementary-release/SatProp) — початкові наближення густин насичення, не кінцеві результати. [R14-08(2011)](https://iapws.org/technical-guidance/release/MeltSub) — перевірка межі плавлення за рівняннями (3)–(4).
+
+Python iapws 1.5.5 / IAPWS95 використано лише для зовнішньої числової звірки 21 стану; код бібліотеки не скопійовано та не включено.

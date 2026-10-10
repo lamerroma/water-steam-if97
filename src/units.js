@@ -7,10 +7,11 @@ const pressureFactors={MPa:1,kPa:0.001,Pa:1e-6,bar:0.1,atm:0.101325,psi:.4535923
 export function toCanonical(value,unit) {
   if(unit in pressureFactors)return value*pressureFactors[unit];
   if(unit==='F')return (value-32)/1.8+273.15;
+  if(unit==='lbft3')return value*16.01846337396014;
   if(unit==='Btulb')return value*2.326;
   if(unit==='BtulbR')return value*4.1868;
   if(unit==='C')return value+273.15;
-  if(unit==='K'||unit==='kJkg'||unit==='kJkgK')return value;
+  if(unit==='kgm3'||unit==='K'||unit==='kJkg'||unit==='kJkgK')return value;
   if(unit==='Jkg'||unit==='JkgK')return value/1000;
   if(unit==='fraction')return value;if(unit==='percent')return value/100;
   throw Error('Невідома одиниця.');
@@ -18,10 +19,11 @@ export function toCanonical(value,unit) {
 export function fromCanonical(value,unit) {
   if(unit in pressureFactors)return value/pressureFactors[unit];
   if(unit==='F')return (value-273.15)*1.8+32;
+  if(unit==='lbft3')return value/16.01846337396014;
   if(unit==='Btulb')return value/2.326;
   if(unit==='BtulbR')return value/4.1868;
   if(unit==='C')return value-273.15;
-  if(unit==='K'||unit==='kJkg'||unit==='kJkgK')return value;
+  if(unit==='kgm3'||unit==='K'||unit==='kJkg'||unit==='kJkgK')return value;
   if(unit==='Jkg'||unit==='JkgK')return value*1000;
   if(unit==='fraction')return value;if(unit==='percent')return value*100;
   throw Error('Невідома одиниця.');

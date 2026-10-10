@@ -7,7 +7,7 @@ export function exportCSV(result,energy='kJ',ambient=null,system='si') {
   if(result.saturation)states.push(['saturated_liquid',result.saturation.liquid],['saturated_vapor',result.saturation.vapor]);
   if(result.alternatives)result.alternatives.forEach((s,i)=>states.push(['alternative_'+(i+1),s]));
   for(const [name,s] of states) {
-    rows.push([name,'p',...(system==='english'?englishProperty('p',s.p,'MPa'):[s.p,'MPa'])],[name,'T',...(system==='english'?englishProperty('T',s.T,'K'):[s.T,'K'])],[name,'region',s.region,''],[name,'phase',s.phase,''],[name,'x',s.x??'','']);
+    rows.push([name,'p',...(system==='english'?englishProperty('p',s.p,'MPa'):[s.p,'MPa'])],[name,'T',...(system==='english'?englishProperty('T',s.T,'K'):[s.T,'K'])],[name,'model',s.model||'IF97',''],[name,'region',s.region??'',''],[name,'phase',s.phase,''],[name,'x',s.x??'','']);
     for(const [key,unit] of props) {if(system==='english'){const [v,u]=englishProperty(key,s[key],unit);rows.push([name,key,v??'',u]);continue;}const convert=energy==='J'&&['h','s','cp','cv','u','A','G','ijt','ex'].includes(key);rows.push([name,key,s[key]==null?'':s[key]*(convert?1000:1),convert?unit.replace('кДж','Дж'):unit]);}
     for(const note of s.notes||[])rows.push([name,'note',note,'']);
   }

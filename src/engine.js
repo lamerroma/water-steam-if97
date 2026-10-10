@@ -1,3 +1,5 @@
+import {extraInputs} from './extra-inputs.js';
+import {calculate95} from './iapws95.js';
 import {dielectric} from './dielectric.js';
 import init, {initSync,pt,px,hs} from '../vendor/seuif97.js';
 import {gibbs,helmholtz,TC,PC,RHOC,PMIN_SAT,saturationPressure,saturationTemperature,boundary23Pressure,boundary23Temperature} from './equations.js';
@@ -186,7 +188,11 @@ export function solveHS(h,s) {
  }
  throw Error('Не знайдено узгоджений стан h–s у межах IF97. Перевірте одиниці та значення; біля меж областей можливий малий розрив рівнянь. Для дуже низьких тисків використайте P–h/P–s.');
 }
-export function calculate(mode,a,b) {
+export function calculate(mode,a,b,model='IF97') {
+  if(!['IF97','IAPWS-95'].includes(model))throw Error('Невідома формуляція.');
+  if(['th','ts','prho','trho'].includes(mode))return extraInputs(mode,a,b,model,calculate);
+  if(model==='IAPWS-95')return calculate95(mode,a,b);
+  if(model!=='IF97')throw Error('Невідома формуляція.');
   switch(mode) {
     case 'pt':return solvePT(a,b);
     case 'ph':return solveInverse(a,b,'h');

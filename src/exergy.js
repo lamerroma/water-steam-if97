@@ -1,7 +1,7 @@
 import {calculate} from './engine.js';
-export function referenceState(p0=.101325,T0=298.15){
+export function referenceState(p0=.101325,T0=298.15,model='IF97'){
  if(!Number.isFinite(p0)||!Number.isFinite(T0))throw Error('Параметри довкілля мають бути скінченними.');
- const ref=calculate('pt',p0,T0).state;
+ const ref=calculate('pt',p0,T0,model).state;
  if(!ref||ref.critical)throw Error('Довкілля має задавати однозначний однофазний стан P₀–T₀.');
  return ref;
 }
