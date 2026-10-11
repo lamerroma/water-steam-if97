@@ -45,8 +45,8 @@ test('flow and tutorial inputs round-trip; incompatible imported units and forge
  assert.throws(()=>readCalculation(JSON.stringify({module:'flow',inputs:{'flow-kind':'standard','flow-standard':'off'}})));
  assert.equal(readWorkspace({active:'tutorials',panels:{tutorials:{inputs:{'tutorial-id':'pipe'},calculated:true}}}).panels.tutorials.inputs['tutorial-id'],'pipe');
 });
-test('all five tutorial controls match numerical references',()=>{
- assert.equal(TUTORIALS.length,5);const refs={saturation:[179.88563239146663,762.6828443354107],wet:[2508.1011667482085,.8061143558808757],throttle:[2749.216443634458,144.54234324507888],turbine:[611.128813873354,611.128813873354,.9758551008552316],pipe:[1,.5092958178940651,25464.790894703256]};
+test('original five tutorial controls match numerical references',()=>{
+ assert.equal(TUTORIALS.length,9);const refs={saturation:[179.88563239146663,762.6828443354107],wet:[2508.1011667482085,.8061143558808757],throttle:[2749.216443634458,144.54234324507888],turbine:[611.128813873354,611.128813873354,.9758551008552316],pipe:[1,.5092958178940651,25464.790894703256]};
  for(const [id,numbers] of Object.entries(refs)){const rows=solveTutorial(id);numbers.forEach((v,i)=>near(rows[i][1],v,1e-7));}assert.throws(()=>solveTutorial('unknown'));
 });
 test('gauge report records atmospheric reference and converts shown pressures while source remains absolute',()=>{

@@ -64,11 +64,7 @@ function learningPanel(kind){
   if(kind==='ice')q=ice(learnNumber('ice-t')+273.15,learnNumber('ice-p')*1e6);
   if(kind==='d2o')q=$('d2o-mode').value==='sat'?d2oSaturation(learnNumber('d2o-t')):d2oPT(learnNumber('d2o-p'),learnNumber('d2o-t'));
   if(kind==='seawater')q=seawater(learnNumber('sw-s')/1000,learnNumber('sw-t')+273.15,learnNumber('sw-p')*1e6);
-  if(kind==='cycles'){const v=$('cycle-kind').value,a=['cycle-low','cycle-high','cycle-tmin','cycle-tmax','cycle-mid','cycle-tmid','cycle-et','cycle-ec','cycle-flow'].map(id=>$(id).disabled?null:learnNumber(id));
-   q=v==='brayton'?brayton(a[0],a[1],a[2],a[3],a[6],a[7],a[8])
-    :v==='rankine-reheat'?rankineReheat(a[1],a[4],a[0],a[3],a[5],a[6],a[7],a[8],modelValue())
-    :v==='rankine-regen'?rankineRegen(a[1],a[4],a[0],a[3],a[6],a[7],a[8],modelValue())
-    :rankine(a[1],a[0],a[3],a[6],a[7],a[8],modelValue());}
+  if(kind==='cycles')q=solveCycle(cycleFormInput(),modelValue());
   learningResult=q;renderLearning(kind,q);panelCalculated(learnForm);$('learn-output').scrollIntoView({block:'start'});saveDraft();
  }catch(err){panelEdited(learnForm);learningResult=null;$('learn-output').replaceChildren();$('learn-error').hidden=false;$('learn-error').textContent=err.message;}};
  restorePanelInputs(kind,learnForm);oldBasisForRestore?.();restorePanelResult(kind,learnForm,backendReady);
@@ -85,9 +81,10 @@ function renderLearning(kind,q){let entries=[],html=`<p><strong>${escapeHTML(q.m
   else {entries=row(q);html+=`<p>${escapeHTML(q.phase||'Надкритичний флюїд / газ')}</p>`+notes(q.notes||[]);}
  }
  if(kind==='seawater'){entries=[['Абсолютна солоність',q.S*1000,'г/кг'],['Температура',q.T-273.15,'°C'],['Тиск',q.p/1e6,'МПа'],['Густина',q.rho,'кг/м³'],['Питомий об’єм',q.v,'м³/кг'],['Енергія Гіббса',q.g,'Дж/кг'],['Питома ентальпія',q.h,'Дж/кг'],['Питома внутрішня енергія',q.u,'Дж/кг'],['Енергія Гельмгольца',q.f,'Дж/кг'],['Питома ентропія',q.s,'Дж/(кг·K)'],['Ізобарна теплоємність cp',q.cp,'Дж/(кг·K)'],['Швидкість звуку',q.w,'м/с'],['Хімічний потенціал води μW',q.muW,'Дж/кг']];html+=`<p><strong>Фаза:</strong> ${escapeHTML(q.phase)}</p>`+notes(q.notes);}
- if(kind==='cycles'){entries=[['Робота турбіни',q.turbine,'кДж/кг'],['Робота насоса / компресора',q.compressor,'кДж/кг'],['Підведене тепло',q.heat,'кДж/кг'],['Відведене тепло',q.rejected,'кДж/кг'],['Корисна робота',q.net,'кДж/кг'],['Термічний ККД',q.efficiency*100,'%'],['Потужність',q.power,'кВт']];html+=notes(q.assumptions)+(q.states.length===4?`<p>qᵢₙ = h₃ − h₂; qₒᵤₜ = h₄ − h₁; wₙₑₜ = (h₃ − h₄) − (h₂ − h₁); η = wₙₑₜ / qᵢₙ.</p>`:`<p>qᵢₙ − qₒᵤₜ = wₙₑₜ; η = wₙₑₜ / qᵢₙ (детальний розподіл по станах — у таблиці нижче).</p>`)+`<table class="sat-table"><thead><tr><th>Стан</th><th>P, МПа</th><th>T, K</th><th>h, кДж/кг</th><th>s, кДж/(кг·K)</th><th>x</th></tr></thead><tbody>${q.states.map((z,i)=>`<tr><td>${i+1}</td>${['p','T','h','s','x'].map(k=>`<td>${format(z[k])}</td>`).join('')}</tr>`).join('')}</tbody></table>`;}
+ if(kind==='cycles'){entries=[['Робота турбіни',q.turbine,'кДж/кг'],['Робота насоса / компресора',q.compressor,'кДж/кг'],['Підведене тепло',q.heat,'кДж/кг'],['Відведене тепло',q.rejected,'кДж/кг'],['Корисна робота',q.net,'кДж/кг'],['Термічний ККД',q.efficiency*100,'%'],['Потужність',q.power,'кВт']];html+=notes(q.assumptions)+(q.states.length===4?`<p>qᵢₙ = h₃ − h₂; qₒᵤₜ = h₄ − h₁; wₙₑₜ = (h₃ − h₄) − (h₂ − h₁); η = wₙₑₜ / qᵢₙ.</p>`:`<p>qᵢₙ − qₒᵤₜ = wₙₑₜ; η = wₙₑₜ / qᵢₙ (детальний розподіл по станах — у таблиці нижче).</p>`)+`<table class="sat-table"><thead><tr><th>Стан</th><th>P, МПа</th><th>T, K</th><th>h, кДж/кг</th><th>s, кДж/(кг·K)</th><th>x</th></tr></thead><tbody>${q.states.map((z,i)=>`<tr><td>${escapeHTML(z.name||String(i+1))}</td>${['p','T','h','s','x'].map(k=>`<td>${format(z[k])}</td>`).join('')}</tr>`).join('')}</tbody></table>`;}
  $('learn-output').innerHTML=html+learningRows(entries)+'<p><button id="learn-csv">CSV розрахунку</button> <button id="learn-json">JSON: входи та результати</button></p>';
  $('learn-csv').onclick=()=>{const inputRows=[...$('learn-form').querySelectorAll('input,select')].map(el=>[el.id,el.value]);downloadFile(learningCSV(q,inputRows,entries),'water-steam-'+kind+'.csv','text/csv;charset=utf-8');};
+ if(kind==='cycles')renderCycleTools(q);
  $('learn-json').onclick=()=>downloadFile(JSON.stringify({format:'water-steam-calculation',version:1,module:kind,model:modelValue(),inputs:Object.fromEntries([...$('learn-form').querySelectorAll('input,select')].map(el=>[el.id,el.value])),result:q},null,2),'water-steam-'+kind+'.json','application/json');
 }
 document.addEventListener('click',e=>{const kind=e.target.closest('[data-action]')?.dataset.action;if(['gases','humid','cycles','ice','d2o','seawater'].includes(kind))learningPanel(kind);});

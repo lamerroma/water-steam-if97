@@ -1,9 +1,9 @@
 import {batchUnits} from './batch.js';
 
-export const WORKSPACE_PANELS=['turbine','flash','engineering','batch','satgrid','gases','humid','cycles','ice','d2o','seawater','boundaries','comparison','flow','tutorials','npp'];
+export const WORKSPACE_PANELS=['turbine','flash','engineering','batch','satgrid','gases','humid','cycles','ice','d2o','seawater','boundaries','comparison','flow','tutorials','npp','exchanger'];
 const modes=['pt','ph','ps','satp','satt','px','tx','hs','th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'];
 const species=['N2','O2','CO2','CO','H2','H2O','CH4','Ar','He','Ne','NO','SO2'];
-const fields={npp:['npp-thermalMW','npp-primaryP','npp-coldC','npp-hotC','npp-steamP','npp-condenserP','npp-etaT','npp-etaPump'],
+const fields={exchanger:['hx-arrangement','hx-hotIn','hx-hotOut','hx-coldIn','hx-coldOut','hx-heatKW','hx-U'],npp:['npp-mode','npp-pMid','npp-reheatC','npp-etaLP','npp-thermalMW','npp-primaryP','npp-coldC','npp-hotC','npp-steamP','npp-condenserP','npp-etaT','npp-etaPump'],
  satgrid:['satgrid-basis','satgrid-unit','satgrid-start','satgrid-end','satgrid-step'],
  tutorials:['tutorial-id'],
  flow:['flow-hydraulics','flow-length','flow-length-unit','flow-roughness','flow-roughness-unit','flow-local-k','flow-eta','flow-height','flow-pressure-difference','flow-pressure-difference-unit','flow-source','flow-fluid','flow-p','flow-t','flow-rho','flow-rho-unit','flow-viscosity','flow-visc-kind','flow-visc-unit','flow-kind','flow-value','flow-unit','flow-diameter','flow-diameter-unit','flow-standard','flow-std-p','flow-std-t','flow-M','flow-Z','flow-std-Z'],
@@ -17,9 +17,9 @@ const fields={npp:['npp-thermalMW','npp-primaryP','npp-coldC','npp-hotC','npp-st
  ice:['ice-t','ice-p'],d2o:['d2o-mode','d2o-p','d2o-t'],seawater:['sw-s','sw-t','sw-p'],
  boundaries:['phase-substance','phase-kind','phase-ice','phase-value','phase-s'],comparison:['compare-mode','compare-a','compare-b']
 };
-const choices={
+const choices={'npp-mode':['simple','msr'],'hx-arrangement':['counter','parallel'],
  'satgrid-basis':['temperature','pressure'],'satgrid-unit':['C','K','F','MPa','kPa','Pa','bar','atm','psi'],
- 'tutorial-id':['saturation','wet','throttle','turbine','pipe'],
+ 'tutorial-id':['saturation','wet','throttle','turbine','pipe','rankine-study','reheat-study','hydraulic-study','npp-study'],
  'flow-hydraulics':['off','on'],'flow-length-unit':['m','ft'],'flow-roughness-unit':['m','mm','inch'],'flow-pressure-difference-unit':['Pa','kPa','MPa','bar','psi'],'flow-source':['manual','water','real','gas'],'flow-fluid':['N2','O2','CO2','CO','H2','H2O','CH4','Ar','He','SO2','Ne'],'flow-rho-unit':['kgm3','lbft3'],'flow-visc-kind':['dynamic','kinematic'],'flow-visc-unit':['Pas','mPas','cP','m2s','mm2s','cSt'],'flow-kind':['mass','volume','velocity','standard'],'flow-unit':['kgs','kgh','lbs','lbh','m3s','m3h','ls','lmin','ft3min','ms','fts'],'flow-diameter-unit':['m','mm','inch'],'flow-standard':['off','normal','room','custom'],
  'process-pressure':['MPa','bar','kPa','psi'],'process-temperature':['C','K','F'],'process-mass':['kgs','kgh','lbs','lbh'],'process-power-unit':['kW','Btuh'],
  'eng-mode':['pump','compressor','heat-exchanger'],'eng-pressure':['MPa','kPa','Pa','bar','atm','psi'],'eng-temperature':['C','K','F'],'eng-mass':['kgs','kgh','lbs','lbh'],'eng-power-unit':['kW','Btuh'],
@@ -32,7 +32,7 @@ const record=x=>x&&typeof x==='object'&&!Array.isArray(x);
 // when their panel is opened, including modules whose WASM is loaded on demand.
 export function readWorkspace(value){
  if(value==null)return {active:'general',panels:{}};
- if(!record(value)||!record(value.panels)||!['general','saturation','help','ts','hsdiagram','phdiagram','tutorials','study',...WORKSPACE_PANELS].includes(value.active))throw Error('Некоректний робочий простір проєкту.');
+ if(!record(value)||!record(value.panels)||!['general','saturation','help','ts','hsdiagram','phdiagram','tutorials','study','research','projects',...WORKSPACE_PANELS].includes(value.active))throw Error('Некоректний робочий простір проєкту.');
  const panels={};
  for(const [kind,p] of Object.entries(value.panels)){
   if(!WORKSPACE_PANELS.includes(kind)||!record(p)||!record(p.inputs)||typeof p.calculated!=='boolean'||(p.model!=null&&!['IF97','IAPWS-95'].includes(p.model)))throw Error('Некоректна вкладка проєкту.');
