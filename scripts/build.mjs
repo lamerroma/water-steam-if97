@@ -19,7 +19,7 @@ const files=['vendor/coolprop.js','src/humid-air-scientific.js','vendor/seuif97.
 // gases/humid-air panel (see ensureCoolProp() in app.js), so its initial app.js stays
 // a few hundred KB and students who only need plain steam tables never download it.
 async function buildCode(embedCoolProp) {
- let code='"use strict";\n(async()=>{\n';
+ let code='"use strict";\n(async()=>{\n/* BUILD_INFO */\n';
  code+='const LOCALIZATION_CATALOGS = '+JSON.stringify(catalogs)+';\n';
  for(const file of ['src/i18n.js','src/i18n-ui.js'])code+='\n'+(await read(file)).replace(/^import .*?;\r?\n/gm,'').replace(/^export /gm,'')+'\n';
  code+='const WASM_BASE64 = '+JSON.stringify((await readFile(new URL('vendor/seuif97_bg.wasm',root))).toString('base64'))+';\n';
@@ -34,13 +34,23 @@ async function buildCode(embedCoolProp) {
  code+='})();\n';
  return code;
 }
-const codeStandalone=await buildCode(true);
-const codeMultiFile=await buildCode(false);
+let codeStandalone=await buildCode(true);
+let codeMultiFile=await buildCode(false);
 const styles=await read('src/styles.css');
+const template=await read('src/template.html');
+const {version}=JSON.parse(await read('package.json'));
+// Content-derived ID stays identical locally, in CI and in the offline build.
+const buildId=createHash('sha256').update(version).update(codeStandalone).update(styles).update(template).digest('hex').slice(0,12);
+const buildInfo=`const APP_BUILD = ${JSON.stringify({version,id:buildId})};\n`+
+ "document.getElementById('app-version-value').textContent=APP_BUILD.version;\n"+
+ "document.getElementById('app-build-value').textContent=APP_BUILD.id;";
+codeStandalone=codeStandalone.replace('/* BUILD_INFO */',()=>buildInfo);
+codeMultiFile=codeMultiFile.replace('/* BUILD_INFO */',()=>buildInfo);
+const versionedTemplate=template.replaceAll('{{APP_VERSION}}',version).replaceAll('{{APP_BUILD_ID}}',buildId);
 const assetVersion=content=>createHash('sha256').update(content).digest('hex').slice(0,16);
 const licenses='<!--\n'+await read('LICENSE')+'\nSEUIF97 / RustSEUIF97:\n'+await read('vendor/SEUIF97-LICENSE')+'\nCantera NASA7 data / BSD-3-Clause:\n'+await read('vendor/CANTERA-LICENSE')+'\nCoolProp / MIT:\n'+await read('vendor/COOLPROP-LICENSE')+'\nFormulations and verification tables: International Association for the Properties of Water and Steam (IAPWS), R7-97(2012), R12-08, R15-11, R1-76(2014), R8-97, R6-95(2018), R14-08(2011), R10-06(2009), R13-08(2008), R16-17(2018).\n-->\n';
-const html=licenses+(await read('src/template.html')).replace('/* STYLES */',await read('src/styles.css')).replace('/* APPLICATION */',()=>codeStandalone.replace(/<\/script/gi,'<\\/script'));
-const page=(await read('src/template.html'))
+const html=licenses+versionedTemplate.replace('/* STYLES */',styles).replace('/* APPLICATION */',()=>codeStandalone.replace(/<\/script/gi,'<\\/script'));
+const page=versionedTemplate
  .replace("script-src 'unsafe-inline'", "script-src 'self' 'unsafe-inline'")
  .replace("style-src 'unsafe-inline'", "style-src 'self' 'unsafe-inline'")
  .replace("connect-src 'none'", "connect-src 'self'")

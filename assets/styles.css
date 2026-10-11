@@ -122,6 +122,7 @@ legend{font-weight:bold;color:#284e7e;padding:0 .25rem}
 .output-collapsed .desktop{grid-template-rows:minmax(28rem,1fr) auto;min-height:32rem}
 .output-collapsed .history-scroll,.output-collapsed .output-tabs,.output-collapsed #export-csv,.output-collapsed #output-resize{display:none}
 footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;padding:.3rem .5rem;background:linear-gradient(#edf3fb,#ccdbed);border-top:1px solid var(--line);color:#65345f;font-size:.85rem;flex-shrink:0}
+#app-version{font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 #help-view{overflow:auto;flex:1;min-height:0;padding:1.2rem;line-height:1.6}
 .method h2,#process-view h2{font-size:1.25rem;color:#345b89}
 .method h3{font-size:1.1rem}

@@ -33,6 +33,25 @@ test('Multi-file site uses matching local assets and the same application core a
  assert.match(html,/connect-src 'self'/);
  assert.match(read('standalone.html').toString(),/connect-src 'none'/);
 });
+test('Web and offline pages show the same version and the identity of the running bundle',()=>{
+ const code=read('assets/app.js').toString();
+ const initialization=code.match(/const APP_BUILD = ([^\n]+);\n([\s\S]*?)const LOCALIZATION_CATALOGS/);
+ assert.ok(initialization);
+ const metadata=JSON.parse(initialization[1]);
+ assert.equal(metadata.version,JSON.parse(read('package.json')).version);
+ assert.match(metadata.id,/^[a-f0-9]{12}$/);
+ for(const path of ['index.html','dist/index.html','standalone.html','dist/standalone.html']){
+  const html=read(path).toString();
+  assert.ok(html.includes(`id="app-version-value" data-i18n-ignore>${metadata.version}</span>`),path);
+  assert.ok(html.includes(`id="app-build-value" data-i18n-ignore>${metadata.id}</span>`),path);
+  assert.doesNotMatch(html,/\{\{APP_(?:VERSION|BUILD_ID)\}\}/);
+ }
+ // Even if the HTML and JS were cached separately, the label reflects executed JS.
+ const labels={'app-version-value':{textContent:'old version'},'app-build-value':{textContent:'old build'}};
+ vm.runInNewContext('const APP_BUILD = '+initialization[1]+';\n'+initialization[2],{document:{getElementById:id=>labels[id]}});
+ assert.equal(labels['app-version-value'].textContent,metadata.version);
+ assert.equal(labels['app-build-value'].textContent,metadata.id);
+});
 test('CoolProp WASM is embedded exactly in standalone.html and shipped as a matching lazy asset for the multi-file site',()=>{
  const standaloneScript=read('standalone.html').toString().match(/<script>([\s\S]*?)<\/script>/)[1];
  const base64=standaloneScript.match(/const COOLPROP_WASM_BASE64 = "([^"]+)"/)[1];

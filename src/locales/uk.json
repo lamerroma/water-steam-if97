@@ -1,5 +1,7 @@
 {
   "language.name": "Українська",
+  "app.version": "Версія",
+  "app.build": "збірка",
   "language.label": "Мова",
   "language.changed": "Мову змінено",
   "text.17bda9c15f4f": "% маси потоку при p=",
