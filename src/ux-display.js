@@ -1,5 +1,5 @@
 export function readDisplayDigits(value){if(value==null)return 8;if(![4,6,8].includes(value))throw Error('Кількість значущих цифр має бути 4, 6 або 8.');return value;}
-export function formatProperty(value,digits=8){return Number.isFinite(value)?new Intl.NumberFormat('uk-UA',{maximumSignificantDigits:readDisplayDigits(digits),notation:Math.abs(value)>0&&Math.abs(value)<1e-4?'scientific':'standard'}).format(value):'—';}
+export function formatProperty(value,digits=8,locale='uk-UA'){return Number.isFinite(value)?new Intl.NumberFormat(locale,{maximumSignificantDigits:readDisplayDigits(digits),notation:Math.abs(value)>0&&Math.abs(value)<1e-4?'scientific':'standard'}).format(value):'—';}
 export function propertyUnavailableReason(key,state){
  if(!state)return '';
  if(key==='region'&&state.model==='IAPWS-95')return 'IAPWS-95 не поділяється на області IF97.';

@@ -26,7 +26,7 @@ function learningPanel(kind){
  $('process-view').scrollTop=0;
  const learnForm=$('learn-form');let backendReady=Promise.resolve();
  if(kind==='gases'||kind==='humid'){
-  const submitBtn=$('learn-form').querySelector('button[type="submit"]'),originalText=submitBtn.textContent;
+  const submitBtn=$('learn-form').querySelector('button[type="submit"]'),originalText=sourceUIText(submitBtn);
   submitBtn.disabled=true;submitBtn.textContent='Завантаження ядра CoolProp…';
   backendReady=ensureCoolProp();backendReady.then(()=>{if(!learnForm.isConnected)return;submitBtn.disabled=false;submitBtn.textContent=originalText;})
    .catch(e=>{if(!learnForm.isConnected)return;submitBtn.textContent=originalText;$('learn-error').hidden=false;$('learn-error').textContent='Не вдалося завантажити ядро CoolProp: '+e.message;});
