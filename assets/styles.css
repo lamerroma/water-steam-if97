@@ -388,3 +388,15 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 
 .diagram-path-note{margin:.5rem 0;color:#344c65;font-size:.9rem}
 #diagram-detail-status{display:block;min-height:2.5em;font-size:.85rem;color:#53677d;margin:.4rem 0}
+
+#input-fields{display:flex;flex-direction:column}
+.smart-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:.5rem;align-items:end}
+.smart-pair label{display:flex;flex-direction:column;gap:.35rem;font-size:.85rem;min-width:0}
+.smart-pair select{width:100%;min-height:2.4rem}
+.input-method{display:flex;justify-content:flex-end;margin:.3rem 0 .7rem}
+#smart-mode-caption{font-size:.85rem;color:#53677d;margin:.5rem 0}
+.field-error{grid-column:1/-1;color:#a82323;font-size:.85rem;line-height:1.4}
+#calculator input[aria-invalid=true]{border:2px solid #b42323}
+.input-notice{padding:.6rem;border-left:3px solid #3977a6;background:#eef5fc;margin:.5rem 0}
+.input-notice p{margin:0 0 .5rem}
+@media(max-width:480px){.smart-pair{grid-template-columns:minmax(0,1fr) auto}.smart-pair label{grid-column:1}.smart-pair #smart-swap{grid-column:2;grid-row:1/3;min-height:2.75rem}}

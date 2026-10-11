@@ -1,3 +1,4 @@
+import {SMART_PAIRS,SMART_PROPERTIES,smartPartners,resolveSmartPair,validateCalculatorInput} from './smart-input.js';
 import {refineDiagramScene,diagramProcessDescription} from './diagram-refinement.js';
 import {diagramChartSVG} from './diagram-svg.js';
 import {parseDiagramGuideValues,diagramQualityLines,diagramIsotherm,diagramRegionAnnotations,diagramGuideLabel} from './diagram-guides.js';
@@ -49,7 +50,7 @@ for(const [action,name] of [['clear','trash'],['export','table'],['export-histor
 for(const d of document.querySelectorAll('.menubar details'))d.addEventListener('toggle',()=>{if(d.open)for(const o of document.querySelectorAll('.menubar details'))if(o!==d)o.open=false;});
 let last=null, revision=0, persistenceReady=false, storedProcess=null;
 let activeSection='general',restoringWorkspace=false;
-let pressureSettings=readPressure(),displayDigits=8;
+let pressureSettings=readPressure(),displayDigits=8,inputReversed=false,inputStyle='smart';const smartDrafts=new Map();
 const panelRecords={};
 const processDrafts={};let ambient={p:.101325,T:298.15},ambientRef=null;
 function ambientResult(result){const model=result.state?.model||result.saturation?.model||'IF97';return withExergy(result,referenceState(ambient.p,ambient.T,model));}
@@ -62,6 +63,7 @@ const TU=[['C','°C'],['K','K'],['F','°F']], HU=[['kJkg','кДж/кг'],['Jkg',
 const definitions=[['h','Ентальпія','h','кДж/кг'],['s','Ентропія','s','кДж/(кг·K)'],['rho','Густина','ρ','кг/м³'],['v','Питомий об’єм','v','м³/кг'],['cp','Ізобарна теплоємність','Cₚ','кДж/(кг·K)'],['cv','Ізохорна теплоємність','Cᵥ','кДж/(кг·K)'],['w','Швидкість звуку','w','м/с'],['ex','Фізична ексергія потоку','ex','кДж/кг'],['u','Внутрішня енергія','u','кДж/кг'],['dc','Статична відносна діелектрична проникність','εr','–'],['mu','Динамічна в’язкість','μ','Па·с'],['lambda','Теплопровідність','λ','Вт/(м·K)']];
 function options(id,list) {$(id).replaceChildren(...list.map(([v,l])=>{const o=document.createElement('option');o.value=v;o.textContent=l;return o;}));$(id).dataset.previous=$(id).value;}
 function resetMode() {
+ inputReversed=false;
  const m=$('mode').value,t=['satt','tx','th','ts','trho','tv','tu'].includes(m),h=m==='hs',quality=m==='px'||m==='tx',sat=m==='satp'||m==='satt';
  const types={C:'Температура',MPa:'Тиск (абсолютний)',kJkg:['us','uv'].includes(m)?'Внутрішня енергія':'Ентальпія',kJkgK:'Ентропія',kgm3:'Густина',m3kg:'Питомий об’єм',fraction:'Ступінь сухості'};
  const labels={...Object.fromEntries([...PU,...TU,...HU,...SU]),kgm3:'кг/м³',lbft3:'lb/ft³',m3kg:'м³/кг',ft3lb:'ft³/lb',fraction:'0…1',percent:'%'};
@@ -73,9 +75,40 @@ function resetMode() {
  $('mode-help').textContent=modeGuidance(m);
  for(const name of ['general','saturation','help'])$('tab-'+name).setAttribute('aria-selected',String(name===((sat||quality)?'saturation':'general')));
  if(!$('calculator-view').hidden)activeSection=(sat||quality)?'saturation':'general';
- invalidate();
+ syncSmartInput();invalidate();
 }
+function syncSmartInput(){
+ const pair=SMART_PAIRS[$('mode').value],first=inputReversed?pair[1]:pair[0],second=inputReversed?pair[0]:pair[1];
+ const label=key=>uiTranslator.t('input.property.'+key);
+ options('smart-first',SMART_PROPERTIES.map(k=>[k,label(k)]));$('smart-first').value=first;
+ options('smart-second',smartPartners(first).map(k=>[k,label(k)]));$('smart-second').value=second;
+ $('smart-swap').disabled=second==='sat';$('smart-input').hidden=inputStyle==='advanced';$('advanced-input').hidden=inputStyle!=='advanced';
+ $('input-style-toggle').textContent=uiTranslator.t(inputStyle==='advanced'?'input.style.smart':'input.style.advanced');$('input-style-toggle').setAttribute('aria-expanded',String(inputStyle==='advanced'));
+ $('smart-mode-caption').textContent=uiTranslator.text(INPUT_MODE_LABELS[$('mode').value]);
+ const firstField=$('field-'+(inputReversed?'b':'a'));if($('input-fields').firstElementChild!==firstField)$('input-fields').prepend(firstField);
+ for(const letter of ['a','b']){const i=letter==='a'?0:1,ordinal=inputReversed?2-i:i+1,prop=pair[i];$('field-'+letter).style.order=ordinal;$('label-'+letter).setAttribute('data-i18n-ignore','');$('label-'+letter).textContent=ordinal+'. '+label(prop)+(prop==='p'?' ('+uiTranslator.text(pressureBasisLabel())+')':'')+':';$('unit-'+letter).setAttribute('aria-label',uiTranslator.t('input.unitFor',{property:label(prop)}));}
+}
+function clearInputErrors(){for(const letter of ['a','b']){$('input-'+letter).removeAttribute('aria-invalid');$('input-error-'+letter).hidden=true;$('input-error-'+letter).textContent='';}}
+function calculatorValidation(){return validateCalculatorInput({mode:$('mode').value,a:$('input-a').value,b:$('input-b').value,ua:$('unit-a').value,ub:$('unit-b').value,model:modelValue(),pressure:pressureSettings});}
+function showInputErrors(errors,focus=false){
+ clearInputErrors();for(const [letter,error] of Object.entries(errors)){const params={...error.params};for(const key of ['min','max'])if(params[key]!=null)params[key]=new Intl.NumberFormat(uiTranslator.numberLocale,{maximumSignificantDigits:10}).format(params[key]);if(params.unit)params.unit=uiTranslator.text(({MPa:'МПа',kPa:'кПа',Pa:'Па',C:'°C',F:'°F',fraction:'0…1',percent:'%'})[params.unit]||params.unit);$('input-'+letter).setAttribute('aria-invalid','true');$('input-error-'+letter).textContent=uiTranslator.t(error.key,params);$('input-error-'+letter).hidden=false;}
+ if(focus){const order=inputReversed?['b','a']:['a','b'];const first=order.find(k=>errors[k]);if(first)$('input-'+first).focus();}
+}
+function chooseSmartInputs(first,second){
+ const old=SMART_PAIRS[$('mode').value],retained=new Map(old.map((key,i)=>[key,{value:$('input-'+(i?'b':'a')).value,unit:$('unit-'+(i?'b':'a')).value}]));
+ for(const [key,value] of retained)smartDrafts.set(key,value);
+ const next=resolveSmartPair(first,second);$('mode').value=next.mode;resetMode();inputReversed=next.reversed;
+ SMART_PAIRS[next.mode].forEach((key,i)=>{const entry=smartDrafts.get(key),letter=i?'b':'a';if(entry&&[...$('unit-'+letter).options].some(o=>o.value===entry.unit)){$('input-'+letter).value=entry.value;$('unit-'+letter).value=entry.unit;$('unit-'+letter).dataset.previous=entry.unit;}});syncSmartInput();saveProject();
+}
+$('smart-first').onchange=()=>{const first=$('smart-first').value,partners=smartPartners(first),oldSecond=$('smart-second').value;chooseSmartInputs(first,partners.includes(oldSecond)?oldSecond:partners[0]);};
+$('smart-second').onchange=()=>chooseSmartInputs($('smart-first').value,$('smart-second').value);
+$('smart-swap').onclick=()=>{inputReversed=!inputReversed;syncSmartInput();saveProject();};
+$('input-style-toggle').onclick=()=>{inputStyle=inputStyle==='smart'?'advanced':'smart';if(inputStyle==='advanced')inputReversed=false;syncSmartInput();saveProject();};
+for(const letter of ['a','b'])$('input-'+letter).addEventListener('blur',()=>{const errors=calculatorValidation().errors;showInputErrors(Object.fromEntries(['a','b'].filter(k=>errors[k]&&(k===letter||$('input-'+k).hasAttribute('aria-invalid'))).map(k=>[k,errors[k]])));});
+function useSaturationInput(mode){const value=$('input-a').value,unit=$('unit-a').value;$('mode').value=mode;resetMode();$('input-a').value=value;$('unit-a').value=unit;$('unit-a').dataset.previous=unit;syncSmartInput();if(mode==='px')$('input-b').focus();else run();saveProject();}
+$('input-use-quality').onclick=()=>useSaturationInput('px');$('input-use-saturation').onclick=()=>useSaturationInput('satp');
 function invalidate() {
+ clearInputErrors();$('input-notice').hidden=true;
  $('model-status').textContent='Модель води й пари: '+modelValue();
   last=null;$('export-csv').disabled=true;for(const id of ['copy-result-table','copy-result-json'])$(id).disabled=true;$('result-status').textContent='Параметри змінено — розрахуйте знову';$('error').hidden=true;
   $('results').innerHTML=propertyTable(null);$('state-summary').textContent=sourceUIText($('mode-help'));
@@ -138,6 +171,7 @@ function table(sat) {
   return `<tr><td>${name} <span class="symbol">${symbol}</span><small>${u}</small></td><td>${format(a)}</td><td>${format(b)}</td></tr>`;}).join('')}</tbody></table></div>`;
 }
 function render() {
+ $('input-notice').hidden=!($('mode').value==='pt'&&last?.ambiguous);
  if(!last)return;const original=last;last=ambientResult(last);let html='';
  if(last.state) {
   const s=last.state;
@@ -182,9 +216,9 @@ $('copy-result-table').onclick=()=>copyCurrentResult('table');
 $('copy-result-json').onclick=()=>copyCurrentResult('json');
 function run(event) {
  event?.preventDefault();$('error').hidden=true;
+ const checked=calculatorValidation();if(Object.keys(checked.errors).length){invalidate();showInputErrors(checked.errors,true);$('result-status').textContent=uiTranslator.t('input.error.fix');return;}clearInputErrors();
  try {
-   const m=$('mode').value,a=pressureInput(parseNumber($('input-a').value),$('unit-a').value,pressureSettings);
-   const b=m.startsWith('sat')?undefined:pressureInput(parseNumber($('input-b').value),$('unit-b').value,pressureSettings);
+   const m=$('mode').value,a=checked.values.a,b=checked.values.b;
    const result=calculate(m,a,b,modelValue());if(result.state)result.state.source={mode:m,a,b};if(result.saturation)for(const q of [result.saturation.liquid,result.saturation.vapor])q.source=q.critical?{mode:'pt',a:q.p,b:q.T}:{mode:'px',a:q.p,b:q.x};last=result;revision++;if(result.state)historyStates.unshift(result.state);else if(result.saturation)historyStates.unshift(result.saturation.vapor,result.saturation.liquid);historyStates.splice(500);renderHistory();render();saveProject();
  }catch(e) {invalidate();$('error').textContent=e.message;$('error').hidden=false;$('result-status').textContent='Перевірте вхідні дані';}
 }
@@ -194,7 +228,7 @@ for(const option of $('mode').options)option.textContent=INPUT_MODE_LABELS[optio
 for(const el of document.querySelectorAll('input[name=formulation]'))el.onchange=()=>{diagramCache=null;plottedProcess=null;selectView('general');invalidate();saveProject();};
 for(const letter of ['a','b']) {
  $('input-'+letter).addEventListener('input',invalidate);
- $('unit-'+letter).addEventListener('change',()=>{const select=$('unit-'+letter);try{const n=parseNumber($('input-'+letter).value);$('input-'+letter).value=String(Number(fromCanonical(toCanonical(n,select.dataset.previous),select.value).toPrecision(12)));}catch{}select.dataset.previous=select.value;invalidate();});
+ $('unit-'+letter).addEventListener('change',()=>{const select=$('unit-'+letter);try{const n=parseNumber($('input-'+letter).value);$('input-'+letter).value=String(Number(fromCanonical(toCanonical(n,select.dataset.previous),select.value).toPrecision(12)));}catch{}select.dataset.previous=select.value;invalidate();const errors=calculatorValidation().errors;showInputErrors(errors[letter]?{[letter]:errors[letter]}:{});});
 }
 let calculationPending=false;
  $('calculator').addEventListener('submit',event=>{event.preventDefault();if(calculationPending)return;calculationPending=true;$('calculate').disabled=true;$('calculate').textContent='Обчислення…';$('calculator').setAttribute('aria-busy','true');$('result-status').textContent='Обчислення стану…';requestAnimationFrame(()=>requestAnimationFrame(()=>{try{run();}finally{calculationPending=false;$('calculate').disabled=false;$('calculate').innerHTML=icon('calc')+'Розрахувати';$('calculator').removeAttribute('aria-busy');}}));});
@@ -486,9 +520,9 @@ function restorePanelResult(kind,form,ready=Promise.resolve()){
 }
 function openSection(kind){if(['general','saturation','help'].includes(kind))selectView(kind);else if(['ts','hsdiagram','phdiagram','turbine','flash'].includes(kind))showProcess(kind);else if(kind==='batch')showBatch();else if(kind==='satgrid')showSaturationGrid();else if(kind==='engineering')showEngineering();else if(kind==='flow')showFlow();else if(kind==='tutorials')showTutorials();else if(['boundaries','comparison'].includes(kind))scientificPanel(kind);else learningPanel(kind);}
 const STORAGE_KEY='water-steam-if97-project-v1';
-function projectSnapshot(){capturePanel();return {format:'water-steam-if97',version:1,digits:displayDigits,diagram:diagramWorkspaceSnapshot(diagramPlan,historyStates),pressure:pressureSettings,title:$('project-title').value,history:historyStates.map(q=>({p:q.p,h:q.h,model:q.model||'IF97',name:q.name||'',...(q.source?{source:q.source}:{})})),workspace:{active:activeSection,panels:panelRecords},process:storedProcess,form:{calculated:!!last,model:modelValue(),mode:$('mode').value,a:$('input-a').value,b:$('input-b').value,ua:$('unit-a').value,ub:$('unit-b').value},drafts:processDrafts,ambient,system:$('output-system').value,energy:$('output-energy').value,gray:document.body.classList.contains('gray'),scale:$('ui-scale').value,hints:hintsEnabled};}
+function projectSnapshot(){capturePanel();return {format:'water-steam-if97',version:1,digits:displayDigits,diagram:diagramWorkspaceSnapshot(diagramPlan,historyStates),pressure:pressureSettings,title:$('project-title').value,history:historyStates.map(q=>({p:q.p,h:q.h,model:q.model||'IF97',name:q.name||'',...(q.source?{source:q.source}:{})})),workspace:{active:activeSection,panels:panelRecords},process:storedProcess,form:{calculated:!!last,inputStyle,inputOrder:inputReversed?'reverse':'canonical',model:modelValue(),mode:$('mode').value,a:$('input-a').value,b:$('input-b').value,ua:$('unit-a').value,ub:$('unit-b').value},drafts:processDrafts,ambient,system:$('output-system').value,energy:$('output-energy').value,gray:document.body.classList.contains('gray'),scale:$('ui-scale').value,hints:hintsEnabled};}
 function saveProject(){if(!persistenceReady||restoringWorkspace)return;try{localStorage.setItem(STORAGE_KEY,JSON.stringify(projectSnapshot()));unsavedProject=false;$('project-save-status').textContent='Збережено локально · JSON для резервної копії';}catch{unsavedProject=true;$('project-save-status').textContent='Є незбережені зміни — експортуйте JSON';$('result-status').textContent='Локальне збереження недоступне — експортуйте проєкт у файл';}}
-function applyProject(p){restoringWorkspace=true;try{capturePanel();for(const key of Object.keys(panelRecords))delete panelRecords[key];Object.assign(panelRecords,p.workspace.panels);displayDigits=p.digits;$('display-digits').value=String(displayDigits);diagramPlan=p.diagram;diagramRanges.clear();pressureSettings=p.pressure;syncPressureControls();diagramCache=null;selectModel(p.form.model||'IF97');$('project-title').value=p.title;historyUndo=null;historyStates.splice(0,historyStates.length,...p.states);revision=p.states.length;ambient=p.ambient;ambientRef=referenceState(ambient.p,ambient.T);$('ambient-p').value=String(ambient.p);$('ambient-t').value=String(ambient.T-273.15);selectView('general');$('mode').value=p.form.mode;resetMode();for(const [id,v] of [['input-a',p.form.a],['input-b',p.form.b],['unit-a',p.form.ua],['unit-b',p.form.ub]])$(id).value=v;for(const id of ['unit-a','unit-b']){if(!$(id).value)throw Error('Одиниці не відповідають режиму.');$(id).dataset.previous=$(id).value;}Object.keys(processDrafts).forEach(k=>delete processDrafts[k]);Object.assign(processDrafts,p.drafts);storedProcess=p.process?{type:p.process.type,args:p.process.args,model:p.process.model||'IF97'}:null;plottedProcess=p.process?{kind:processLabel(p.process.type),result:p.process.result}:null;$('output-system').value=p.system;$('output-energy').value=p.energy;document.body.classList.toggle('gray',p.gray);hintsEnabled=p.hints!==false;$('hints-toggle').setAttribute('aria-pressed',String(hintsEnabled));if(!hintsEnabled)openGlossary.clear();$('ui-scale').value=p.scale;document.documentElement.style.setProperty('--ui-scale',p.scale);renderHistory();invalidate();if(p.result){last=p.result;render();$('result-status').textContent='Відновлено результат проєкту';}const active=p.workspace.active;if(active!=='general'&&active!=='saturation')openSection(active);else if(active==='saturation'){activeSection='saturation';$('tab-general').setAttribute('aria-selected','false');$('tab-saturation').setAttribute('aria-selected','true');}}finally{restoringWorkspace=false;}}
+function applyProject(p){restoringWorkspace=true;try{smartDrafts.clear();capturePanel();for(const key of Object.keys(panelRecords))delete panelRecords[key];Object.assign(panelRecords,p.workspace.panels);displayDigits=p.digits;$('display-digits').value=String(displayDigits);diagramPlan=p.diagram;diagramRanges.clear();pressureSettings=p.pressure;syncPressureControls();diagramCache=null;selectModel(p.form.model||'IF97');$('project-title').value=p.title;historyUndo=null;historyStates.splice(0,historyStates.length,...p.states);revision=p.states.length;ambient=p.ambient;ambientRef=referenceState(ambient.p,ambient.T);$('ambient-p').value=String(ambient.p);$('ambient-t').value=String(ambient.T-273.15);selectView('general');$('mode').value=p.form.mode;resetMode();for(const [id,v] of [['input-a',p.form.a],['input-b',p.form.b],['unit-a',p.form.ua],['unit-b',p.form.ub]])$(id).value=v;for(const id of ['unit-a','unit-b']){if(!$(id).value)throw Error('Одиниці не відповідають режиму.');$(id).dataset.previous=$(id).value;}inputStyle=p.form.inputStyle||'smart';inputReversed=p.form.inputOrder==='reverse'&&!p.form.mode.startsWith('sat')&&inputStyle==='smart';syncSmartInput();Object.keys(processDrafts).forEach(k=>delete processDrafts[k]);Object.assign(processDrafts,p.drafts);storedProcess=p.process?{type:p.process.type,args:p.process.args,model:p.process.model||'IF97'}:null;plottedProcess=p.process?{kind:processLabel(p.process.type),result:p.process.result}:null;$('output-system').value=p.system;$('output-energy').value=p.energy;document.body.classList.toggle('gray',p.gray);hintsEnabled=p.hints!==false;$('hints-toggle').setAttribute('aria-pressed',String(hintsEnabled));if(!hintsEnabled)openGlossary.clear();$('ui-scale').value=p.scale;document.documentElement.style.setProperty('--ui-scale',p.scale);renderHistory();invalidate();if(p.result){last=p.result;render();$('result-status').textContent='Відновлено результат проєкту';}const active=p.workspace.active;if(active!=='general'&&active!=='saturation')openSection(active);else if(active==='saturation'){activeSection='saturation';$('tab-general').setAttribute('aria-selected','false');$('tab-saturation').setAttribute('aria-selected','true');}}finally{restoringWorkspace=false;}}
 function restoreLocal(){try{const text=localStorage.getItem(STORAGE_KEY);if(text){const raw=JSON.parse(text);if(!raw.workspace){const panels={};for(const kind of ['gases','humid','cycles','ice','d2o','seawater']){try{const inputs=JSON.parse(localStorage.getItem('water-steam-learning-'+kind)||'null');if(inputs)Object.assign(panels,readWorkspace({active:kind,panels:{[kind]:{inputs,calculated:false,model:raw.form?.model||'IF97'}}}).panels);}catch{}}raw.workspace={active:'general',panels};}applyProject(readProject(JSON.stringify(raw)));}}catch{$('result-status').textContent='Збережений проєкт не відновлено; можна імпортувати файл';}}
 function downloadFile(content,name,type){if(type.startsWith('text/html'))content=localizedDocument(content);else if(type.startsWith('image/svg+xml'))content=localizedDocument(content,'image/svg+xml');const url=URL.createObjectURL(new Blob([content],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 const fileMenu=document.querySelector('.menubar .menu');
@@ -571,8 +605,8 @@ $('pressure-apply').onclick=()=>{
   capturePanel();const records=JSON.parse(JSON.stringify(panelRecords)),drafts=JSON.parse(JSON.stringify(processDrafts));
   for(const kind of ['turbine','flash','engineering']){const prefix=kind==='engineering'?'eng-':'process-';if(records[kind])convertPressureFields(records[kind].inputs,prefix,old,next);if(drafts[kind]){const values=Object.fromEntries(Object.entries(drafts[kind]).map(([k,v])=>[prefix+k,v]));convertPressureFields(values,prefix,old,next);drafts[kind]=Object.fromEntries(Object.entries(values).map(([k,v])=>[k.slice(prefix.length),v]));}}
   let a=$('input-a').value;if(PRESSURE_UNITS.includes($('unit-a').value)&&a.trim())a=String(Number(pressureOutput(pressureInput(parseNumber(a),$('unit-a').value,old),$('unit-a').value,next).toPrecision(12)));
-  pressureSettings=next;Object.assign(panelRecords,records);Object.assign(processDrafts,drafts);$('input-a').value=a;
-  if(PRESSURE_UNITS.includes($('unit-a').value))$('label-a').textContent='1. Тиск ('+pressureBasisLabel()+'):';
+  pressureSettings=next;syncSmartInput();Object.assign(panelRecords,records);Object.assign(processDrafts,drafts);$('input-a').value=a;
+
   if(['turbine','flash','engineering'].includes(activeSection)){const form=panelForm(),rec=records[activeSection];if(rec)for(const [id,v] of Object.entries(rec.inputs))if($(id))$(id).value=v;const legend=form?.querySelector('fieldset legend');if(legend)legend.textContent='Вхідні дані · '+pressureBasisLabel()+' тиск';form?.dispatchEvent(new Event('input',{bubbles:true}));if(rec?.calculated)form.requestSubmit();}
   renderHistory();if(last)render();else $('results').innerHTML=propertyTable(null);syncPressureControls();
   $('pressure-status').textContent='Застосовано '+pressureBasisLabel()+' тиск; Pатм = '+format(next.atmosphere*1000)+' кПа. Абсолютний стан збережено. Інші вкладки й CSV — абсолютний тиск.';saveProject();
@@ -582,6 +616,7 @@ $('pressure-apply').onclick=()=>{
 for(const id of ['pressure-basis','pressure-atmosphere'])$(id).addEventListener('input',()=>{$('pressure-status').textContent='Зміни ще не застосовано — натисніть «Застосувати тиск». Абсолютний стан буде збережено.';});
 
 document.addEventListener('languagechange',()=>{
+ const invalid=['a','b'].filter(k=>$('input-'+k).getAttribute('aria-invalid')==='true');syncSmartInput();if(invalid.length){const errors=calculatorValidation().errors;showInputErrors(Object.fromEntries(invalid.filter(k=>errors[k]).map(k=>[k,errors[k]])));}
  renderHistory();if(last)render();else $('results').innerHTML=propertyTable(null);
  if(currentPanelKind&&learningResult)renderLearning(currentPanelKind,learningResult);
  if($('process-form')?.dataset.calculated==='true'&&storedProcess?.type===activeSection&&plottedProcess)renderProcessOutput(activeSection,plottedProcess.result);
