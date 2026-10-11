@@ -2,6 +2,8 @@
   "language.name": "English",
   "app.version": "Version",
   "app.build": "build",
+  "app.tagline": "Thermophysical properties and engineering calculations",
+  "app.waterModel": "Water and steam model:",
   "language.label": "Language",
   "language.changed": "Language changed",
   "text.17bda9c15f4f": "% mass flow at p=",

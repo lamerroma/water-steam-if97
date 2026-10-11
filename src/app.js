@@ -68,7 +68,7 @@ function resetMode() {
  invalidate();
 }
 function invalidate() {
- $('model-status').textContent='Таблиці води та пари → '+modelValue();
+ $('model-status').textContent='Модель води й пари: '+modelValue();
   last=null;$('export-csv').disabled=true;$('result-status').textContent='Параметри змінено — розрахуйте знову';$('error').hidden=true;
   $('results').innerHTML=propertyTable(null);$('state-summary').textContent=sourceUIText($('mode-help'));
 }

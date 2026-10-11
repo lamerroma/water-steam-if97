@@ -2,6 +2,8 @@
   "language.name": "Українська",
   "app.version": "Версія",
   "app.build": "збірка",
+  "app.tagline": "Властивості речовин та інженерні розрахунки",
+  "app.waterModel": "Модель води й пари:",
   "language.label": "Мова",
   "language.changed": "Мову змінено",
   "text.17bda9c15f4f": "% маси потоку при p=",

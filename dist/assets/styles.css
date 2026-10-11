@@ -52,7 +52,7 @@ legend{font-weight:bold;color:#284e7e;padding:0 .25rem}
 #state-summary{color:var(--muted);font-size:.9rem;line-height:1.45;overflow-wrap:anywhere}
 .product-info{margin-left:auto;padding:.75rem .25rem;max-width:19rem}
 .product-info>strong{display:block;color:#316799;font-size:1.2rem;margin-bottom:.4rem}
-.product-info>b{font-size:1rem}
+.product-info>b{display:block;font-size:1rem;line-height:1.4}
 .product-info p,.presets{display:none}
 #error,#learn-error,#scientific-error{background:#fff0f0;color:#a22020;border:1px solid #d49292;padding:.65rem;margin:.6rem 0;overflow-wrap:anywhere}
 .results-scroll{overflow:auto;flex:1;min-height:0;padding:.4rem}
