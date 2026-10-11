@@ -326,3 +326,36 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 .diagram-state-table th:nth-child(2),.diagram-state-table td:nth-child(2){min-width:10rem;text-align:left}
 .diagram-state-table td:nth-child(n+3):nth-child(-n+7){white-space:nowrap;font-variant-numeric:tabular-nums}
 .diagram-stage{min-height:22rem;flex:1 0 22rem}
+
+/* Diagram workspace: only the controls needed for the graph stay in view. */
+.diagram-active .setup-pane{display:none}
+.diagram-active .desktop{grid-template-columns:1fr}
+.diagram-history-empty .output-pane,.diagram-history-empty #output-resize{display:none}
+.diagram-active.diagram-history-empty .desktop{grid-template-rows:minmax(42rem,1fr);min-height:42rem}
+.diagram-heading{position:sticky;top:0;z-index:3;background:var(--panel,#f7f9fc);padding:.3rem 0}
+.diagram-units,.diagram-exports{display:flex;flex-wrap:wrap;gap:.4rem;flex-shrink:0}
+.diagram-units label{display:flex;align-items:center;gap:.4rem}
+#process-view .diagram-exports button{margin:0}
+#steam-diagram{touch-action:pan-y}
+.diagram-hover{position:absolute;left:6rem;right:1rem;top:.5rem;z-index:2;pointer-events:none;border:1px solid #b7c8dd;background:#fffffff2;padding:.4rem;font-size:.9rem}
+#diagram-nearby{border:1px solid #e5b45c;background:#fff8e9;padding:.5rem;flex-shrink:0}
+#diagram-nearby strong{display:block}
+.diagram-state-item{display:flex;align-items:center;gap:.4rem;border-bottom:1px solid #d9e1eb;padding:.3rem}
+.diagram-state-item>button{flex:1;text-align:left;min-width:0;overflow-wrap:anywhere}
+.diagram-state-item input{width:auto}
+.diagram-state-item button[aria-pressed=true]{background:#fff3d8;border-color:#cf931f}
+.process-point-tag{font-size:.85rem;color:var(--muted)}
+#diagram-state-list{max-height:18rem;overflow:auto}
+.unavailable-reason{display:block;white-space:normal;max-width:17rem;font-size:.85rem;color:var(--muted);line-height:1.35;margin-top:.3rem}
+.quick-modes{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.6rem}
+@media(max-width:600px){
+ .diagram-active.diagram-history-empty .desktop{min-height:0;display:block}
+ #process-view .diagram-controls button,#process-view .diagram-heading button,#process-view .diagram-exports button,#process-view .diagram-state-item button,#process-view #diagram-nearby button{min-height:44px;min-width:44px}
+ .diagram-units{gap:.4rem .7rem}.diagram-units select{min-height:44px}
+ .diagram-hover{left:.5rem;right:.5rem}
+ .diagram-state-item>span:last-child{display:flex}
+}
+.diagram-settings{flex-shrink:0}.diagram-settings summary{cursor:pointer;color:#345b89}
+.diagram-settings[open]>div{margin-top:.4rem}
+#diagram-nearby{position:absolute;left:.5rem;right:.5rem;top:.5rem;z-index:4;max-height:60%;overflow:auto}
+@media(max-width:600px){#diagram-pan{font-size:0}#diagram-pan::after{content:'↔';font-size:20px}}

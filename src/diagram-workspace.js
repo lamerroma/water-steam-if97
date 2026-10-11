@@ -4,7 +4,16 @@ export function readDiagramWorkspace(data,states){
  if(typeof d!=='object'||Array.isArray(d))throw Error('Некоректні налаштування діаграми.');
  for(const k of ['connectHistory','numbers'])if(d[k]!=null&&typeof d[k]!=='boolean')throw Error('Некоректний перемикач діаграми.');
  const indexes=k=>{const a=d[k]??[];if(!Array.isArray(a)||a.length>500||new Set(a).size!==a.length||a.some(i=>!Number.isInteger(i)||i<0||i>=states.length))throw Error('Некоректна послідовність станів діаграми.');return a.map(i=>states[i]);};
- return {connectHistory:d.connectHistory===true,numbers:d.numbers!==false,order:indexes('order'),excluded:indexes('excluded')};
+ const views={};if(d.views!=null&&(typeof d.views!=='object'||Array.isArray(d.views)))throw Error('Некоректний вигляд діаграми.');
+ for(const [key,v] of Object.entries(d.views||{})){
+  if(!['IF97:ts','IF97:hsdiagram','IAPWS-95:ts','IAPWS-95:hsdiagram'].includes(key)||!v||typeof v!=='object')throw Error('Невідомий вигляд діаграми.');
+  const r=v.range;if(!r||!['xmin','xmax','ymin','ymax'].every(k=>Number.isFinite(r[k])&&Math.abs(r[k])<1e7)||r.xmax-r.xmin<.049||r.xmax-r.xmin>44.01||r.ymax<=r.ymin)throw Error('Некоректний масштаб діаграми.');
+  if(v.historyIndex!=null&&(!Number.isInteger(v.historyIndex)||!states[v.historyIndex]))throw Error('Некоректна вибрана точка.');
+  if(v.processIndex!=null&&(!Number.isInteger(v.processIndex)||v.processIndex<0||v.processIndex>4))throw Error('Некоректна точка процесу.');
+  if(v.historyIndex!=null&&v.processIndex!=null)throw Error('Неоднозначна вибрана точка.');
+  views[key]={range:{...r},point:v.historyIndex!=null?states[v.historyIndex]:null,processIndex:v.processIndex??null};
+ }
+ return {views,connectHistory:d.connectHistory===true,numbers:d.numbers!==false,order:indexes('order'),excluded:indexes('excluded')};
 }
 export function syncDiagramWorkspace(plan,states){
  plan.order=plan.order.filter(q=>states.includes(q));
@@ -14,13 +23,14 @@ export function syncDiagramWorkspace(plan,states){
 }
 export function diagramWorkspaceSnapshot(plan,states){
  syncDiagramWorkspace(plan,states);
- return {connectHistory:plan.connectHistory,numbers:plan.numbers,order:plan.order.map(q=>states.indexOf(q)),excluded:plan.excluded.map(q=>states.indexOf(q))};
+ const views=Object.fromEntries(Object.entries(plan.views||{}).map(([k,v])=>[k,{range:{...v.range},...(states.includes(v.point)?{historyIndex:states.indexOf(v.point)}:v.processIndex!=null?{processIndex:v.processIndex}:{})}]));
+ return {views,connectHistory:plan.connectHistory,numbers:plan.numbers,order:plan.order.map(q=>states.indexOf(q)),excluded:plan.excluded.map(q=>states.indexOf(q))};
 }
 const diagramEscape=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-export function diagramTable(entries,system='si',energy='kJ',interactive=false,excluded=[]){
+export function diagramTable(entries,system='si',energy='kJ',interactive=false,excluded=[],digits=10){
  const fields=['p','T','h','s','x'];
  const val=(k,q)=>k==='x'?[q.x,'–']:diagramQuantity(k,k==='T'?q.T-273.15:q[k],system,energy);
- const text=v=>Number.isFinite(v)?String(Number(v.toPrecision(10))):'—';
+ const text=v=>Number.isFinite(v)?String(Number(v.toPrecision(digits))):'—';
  return `<table class="sat-table diagram-state-table"><thead><tr><th>№</th><th>Стан</th>${fields.map(k=>`<th>${k} [${diagramEscape(val(k,{})[1])}${k==='p'?' (абс.)':''}]</th>`).join('')}<th>Фаза</th>${interactive?'<th>Послідовність журналу</th>':''}</tr></thead><tbody>${entries.map(([q,label,source],i)=>`<tr><td>${interactive?`<button type="button" data-diagram-select="${i}" aria-label="Вибрати точку ${i+1}">${i+1}</button>`:i+1}</td><td>${diagramEscape(label)}</td>${fields.map(k=>`<td>${text(val(k,q)[0])}</td>`).join('')}<td>${diagramEscape(q.phase)}</td>${interactive?`<td>${source==='history'?`<label><input type="checkbox" data-diagram-include="${i}" ${excluded.includes(q)?'':'checked'}> Додати</label><button type="button" data-diagram-move="${i}" data-direction="-1" aria-label="Точку ${i+1} раніше">↑</button><button type="button" data-diagram-move="${i}" data-direction="1" aria-label="Точку ${i+1} пізніше">↓</button>`:'Процес'}</td>`:''}</tr>`).join('')}</tbody></table>`;
 }
 export function diagramCSV(entries,system='si',energy='kJ',plan={connectHistory:false,excluded:[]}){
