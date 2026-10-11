@@ -295,7 +295,7 @@ function ensureCoolProp(){
  coolPropReady=(async()=>{
   const bytes=typeof COOLPROP_WASM_BASE64==='string'
    ?Uint8Array.from(atob(COOLPROP_WASM_BASE64),c=>c.charCodeAt(0))
-   :new Uint8Array(await (await fetch('assets/coolprop.wasm')).arrayBuffer());
+   :new Uint8Array(await (await fetch('assets/coolprop.wasm?v='+APP_BUILD.id)).arrayBuffer());
   await initializeHumidAir(bytes);
  })();
  coolPropReady.catch(()=>{coolPropReady=null;});

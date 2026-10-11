@@ -12,7 +12,7 @@ for(const file of (await readdir(new URL('src/locales/',root))).filter(file=>/^[
 }
 if(!catalogs.uk||!catalogs.en)throw Error('Ukrainian and English catalogs are required.');
 for(const [language,catalog] of Object.entries(catalogs))for(const key of Object.keys(catalog))if(!(key in catalogs.uk))throw Error('Unknown translation key: '+language+'/'+key);
-const files=['vendor/coolprop.js','src/humid-air-scientific.js','vendor/seuif97.js','src/coefficients.js','src/equations.js','src/transport.js','src/dielectric.js','src/extra-inputs.js','src/iapws95.js','src/engine.js','src/units.js','src/ux-display.js','src/pressure.js','src/smart-input.js','src/flow.js','src/diagram-units.js','src/diagram-coordinates.js','src/diagram-guides.js','src/diagram-chart-data.js','src/diagram-render-geometry.js','src/diagram-chart.js','src/diagram-svg.js','src/diagram-refinement.js','src/saturation-grid.js','src/diagram-workspace.js','src/print-report.js','src/export.js','src/result-copy.js','src/batch.js','src/processes.js','src/exergy.js','src/engineering.js','src/workspace.js','src/project.js','src/gas-data.js','src/gases.js','src/real-gases.js','src/humid-air.js','src/cycles.js','src/phase-boundaries.js','src/comparison.js','src/ice.js','src/d2o.js','src/seawater.js','src/glossary.js','src/input-guidance.js','src/app.js','src/learning-export.js','src/learning-ui.js','src/saturation-grid-ui.js','src/phase-ui.js','src/flow-ui.js','src/tutorials.js'];
+const files=['vendor/coolprop.js','src/humid-air-scientific.js','vendor/seuif97.js','src/coefficients.js','src/equations.js','src/transport.js','src/dielectric.js','src/extra-inputs.js','src/iapws95.js','src/engine.js','src/units.js','src/ux-display.js','src/pressure.js','src/smart-input.js','src/flow.js','src/diagram-units.js','src/diagram-coordinates.js','src/diagram-guides.js','src/diagram-chart-data.js','src/diagram-render-geometry.js','src/diagram-chart.js','src/diagram-svg.js','src/diagram-refinement.js','src/saturation-grid.js','src/diagram-workspace.js','src/print-report.js','src/export.js','src/result-copy.js','src/batch.js','src/processes.js','src/exergy.js','src/engineering.js','src/workspace.js','src/project.js','src/gas-data.js','src/gases.js','src/real-gases.js','src/humid-air.js','src/cycles.js','src/phase-boundaries.js','src/comparison.js','src/ice.js','src/d2o.js','src/seawater.js','src/glossary.js','src/input-guidance.js','src/app.js','src/pwa.js','src/learning-export.js','src/learning-ui.js','src/saturation-grid-ui.js','src/phase-ui.js','src/flow-ui.js','src/tutorials.js'];
 // The CoolProp WASM binary (~9 MB) is the dominant cost of the bundle. The standalone
 // single-file build must embed it (no network allowed, file:// only). The multi-file
 // site build instead ships it as a separate asset fetched lazily on first use of a
@@ -41,7 +41,7 @@ const styles=await read('src/styles.css');
 const template=await read('src/template.html');
 const {version}=JSON.parse(await read('package.json'));
 // Content-derived ID stays identical locally, in CI and in the offline build.
-const buildId=createHash('sha256').update(version).update(codeStandalone).update(styles).update(template).digest('hex').slice(0,12);
+const buildId=createHash('sha256').update(version).update(codeStandalone).update(styles).update(template).update(await read('src/service-worker.js')).update(await read('scripts/build.mjs')).update(await readFile(new URL('src/icons/icon-192.png',root))).update(await readFile(new URL('src/icons/icon-512.png',root))).digest('hex').slice(0,12);
 const buildInfo=`const APP_BUILD = ${JSON.stringify({version,id:buildId})};\n`+
  "document.getElementById('app-version-value').textContent=APP_BUILD.version;\n"+
  "document.getElementById('app-build-value').textContent=APP_BUILD.id;";
@@ -51,13 +51,19 @@ const versionedTemplate=template.replaceAll('{{APP_VERSION}}',version).replaceAl
 const assetVersion=content=>createHash('sha256').update(content).digest('hex').slice(0,16);
 const licenses='<!--\n'+await read('LICENSE')+'\nSEUIF97 / RustSEUIF97:\n'+await read('vendor/SEUIF97-LICENSE')+'\nCantera NASA7 data / BSD-3-Clause:\n'+await read('vendor/CANTERA-LICENSE')+'\nChart.js 4.5.1 / MIT:\n'+await read('vendor/CHARTJS-LICENSE')+'\nCoolProp / MIT:\n'+await read('vendor/COOLPROP-LICENSE')+'\nFormulations and verification tables: International Association for the Properties of Water and Steam (IAPWS), R7-97(2012), R12-08, R15-11, R1-76(2014), R8-97, R6-95(2018), R14-08(2011), R10-06(2009), R13-08(2008), R16-17(2018).\n-->\n';
 const html=licenses+versionedTemplate.replace('/* STYLES */',styles).replace('/* APPLICATION */',()=>codeStandalone.replace(/<\/script/gi,'<\\/script'));
-const page=versionedTemplate
+const page=versionedTemplate.replace('</head>', '<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#125a88"><link rel="apple-touch-icon" href="assets/icon-192.png"></head>')
  .replace("script-src 'unsafe-inline'", "script-src 'self' 'unsafe-inline'")
  .replace("style-src 'unsafe-inline'", "style-src 'self' 'unsafe-inline'")
- .replace("connect-src 'none'", "connect-src 'self'")
+ .replace("connect-src 'none'", "connect-src 'self'; worker-src 'self'; manifest-src 'self'").replace("img-src data: blob:", "img-src 'self' data: blob:")
  .replace('<style>/* STYLES */</style>',`<link rel="stylesheet" href="assets/styles.css?v=${assetVersion(styles)}">`)
  .replace('<script>/* APPLICATION */</script>',`<script src="assets/app.js?v=${assetVersion(codeMultiFile)}" defer></script>`);
+const resources=['index.html',`assets/app.js?v=${assetVersion(codeMultiFile)}`,`assets/styles.css?v=${assetVersion(styles)}`,`assets/coolprop.wasm?v=${buildId}`,'manifest.webmanifest','assets/icon-192.png','assets/icon-512.png'];
+const manifest=JSON.stringify({id:'./',name:'Навчальний теплофізичний калькулятор',short_name:'ThermoCalc',lang:'uk',start_url:'./',scope:'./',display:'standalone',background_color:'#eef4f8',theme_color:'#125a88',icons:[192,512].map(size=>({src:`assets/icon-${size}.png`,sizes:`${size}x${size}`,type:'image/png',purpose:'any'}))},null,2);
 const coolpropWasm=await readFile(new URL('vendor/coolprop.wasm',root));
+const resourceData={'index.html':licenses+page,[resources[1]]:codeMultiFile,[resources[2]]:styles,[resources[3]]:coolpropWasm,'manifest.webmanifest':manifest};
+for(const size of [192,512])resourceData[`assets/icon-${size}.png`]=await readFile(new URL(`src/icons/icon-${size}.png`,root));
+const digests=Object.fromEntries(Object.entries(resourceData).map(([path,content])=>[path,createHash('sha256').update(content).digest('hex')]));
+const worker=(await read('src/service-worker.js')).replace('/* PWA_CONFIG */',`const BUILD=${JSON.stringify({version,id:buildId})};const RESOURCES=${JSON.stringify(resources)};const DIGESTS=${JSON.stringify(digests)};`);
 for(const prefix of ['', 'dist/']) {
  await mkdir(new URL(prefix+'assets/',root),{recursive:true});
  await writeFile(new URL(prefix+'index.html',root),licenses+page);
@@ -65,5 +71,8 @@ for(const prefix of ['', 'dist/']) {
  await writeFile(new URL(prefix+'assets/app.js',root),codeMultiFile);
  await writeFile(new URL(prefix+'assets/coolprop.wasm',root),coolpropWasm);
  await writeFile(new URL(prefix+'standalone.html',root),html);
+ await writeFile(new URL(prefix+'service-worker.js',root),worker);
+ await writeFile(new URL(prefix+'manifest.webmanifest',root),manifest);
+ for(const size of [192,512])await writeFile(new URL(prefix+`assets/icon-${size}.png`,root),await readFile(new URL(`src/icons/icon-${size}.png`,root)));
 }
 console.log(`Built multi-file site (${Buffer.byteLength(codeMultiFile)} bytes app.js + lazy coolprop.wasm) and standalone.html (${Buffer.byteLength(html)} bytes).`);

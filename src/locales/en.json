@@ -1253,5 +1253,19 @@
   "input.saturation.notice": "Pressure and temperature are dependent on the saturation line. The mixture composition is unspecified; both phase properties are shown.",
   "input.saturation.quality": "Specify vapor quality",
   "input.saturation.show": "Show saturation at this pressure",
-  "input.invalidStyle": "Invalid input method."
+  "input.invalidStyle": "Invalid input method.",
+  "pwa.title": "Installation and offline",
+  "pwa.install": "Install application",
+  "pwa.retry": "Retry download",
+  "pwa.update": "Update application",
+  "pwa.help": "After preparation the entire calculator works offline. Chrome / Edge: install from the browser menu. On iPhone / iPad: Safari → Share → Add to Home Screen. Keep JSON backups of projects: the browser can clear local data.",
+  "pwa.preparing": "Preparing the full offline version…",
+  "pwa.progress": "Offline download: {done} / {total} resources",
+  "pwa.ready": "Full version {version} is ready offline",
+  "pwa.failed": "The full download failed. Connect to the internet and retry.",
+  "pwa.missing": "Offline resources are incomplete. Connect and retry the download.",
+  "pwa.unsupported": "Offline installation is unavailable in this browser. Use the standalone HTML file.",
+  "pwa.standalone": "Standalone HTML: the full version is already available offline.",
+  "pwa.saveFailed": "The project could not be saved. Export JSON before updating.",
+  "pwa.available": "Update available"
 }

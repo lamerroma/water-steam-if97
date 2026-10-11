@@ -61,5 +61,5 @@ test('CoolProp WASM is embedded exactly in standalone.html and shipped as a matc
  assert.doesNotMatch(code,/const COOLPROP_WASM_BASE64 = "/);assert.ok(code.includes("typeof COOLPROP_WASM_BASE64==='string'"));assert.ok(code.includes('coolpropStaticFunction'));
  assert.deepEqual(read('assets/coolprop.wasm'),read('vendor/coolprop.wasm'));
  assert.deepEqual(read('assets/coolprop.wasm'),read('dist/assets/coolprop.wasm'));
- assert.ok(code.includes("fetch('assets/coolprop.wasm')"));
+ assert.ok(code.includes("fetch('assets/coolprop.wasm?v='+APP_BUILD.id)"));
 });
