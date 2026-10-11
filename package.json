@@ -1,6 +1,6 @@
 {
   "name": "water-steam-if97-uk",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,7 +12,8 @@
     "verify:water": "node scripts/water-conformance.mjs",
     "verify:transport": "node scripts/transport-conformance.mjs",
     "test:diagrams": "node scripts/check-diagram-browser.cjs",
-    "test:diagram-guides": "node scripts/check-diagram-guides-browser.cjs"
+    "test:diagram-guides": "node scripts/check-diagram-guides-browser.cjs",
+    "test:diagram-quality": "node scripts/check-diagram-quality-browser.cjs"
   },
   "engines": {
     "node": ">=20"

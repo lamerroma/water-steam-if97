@@ -1,0 +1,40 @@
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright');
+const assert=require('node:assert/strict');const fs=require('node:fs/promises');const path=require('node:path');const {pathToFileURL}=require('node:url');
+(async()=>{
+ const browser=await chromium.launch({...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{}),args:['--no-sandbox']});
+ const ctx=await browser.newContext({viewport:{width:1440,height:1000}});const p=await ctx.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
+ await p.goto(process.env.DIAGRAM_URL||'http://localhost:8080/');await p.waitForFunction(()=>!document.querySelector('#calculate').disabled);
+ const tab=async k=>{if(await p.locator('#section-select').isVisible())await p.selectOption('#section-select',k);else await p.locator(`[role=tab][data-action=${k}]`).click();};
+ const ready=()=>p.waitForFunction(()=>!document.querySelector('#diagram-save').disabled,{},{timeout:60000});
+ const chart=()=>p.evaluate(()=>{const c=Chart.getChart('steam-diagram');return {area:c.chartArea,width:c.width,height:c.height,stats:c.$detailStats,axes:Object.fromEntries(Object.entries(c.scales).map(([id,s])=>[id,{ticks:s.ticks.map(t=>t.value),labels:s.getLabelItems().map(l=>l.label),title:s.options.title.text}])),datasets:c.data.datasets.map((d,i)=>({role:d.role,hidden:!c.isDatasetVisible(i),data:d.data,dash:d.borderDash,width:d.borderWidth,color:d.borderColor,points:c.getDatasetMeta(i).data.map(p=>({x:p.x,y:p.y,skip:p.skip,r:p.options.radius}))}))};});
+ const download=async id=>{const [d]=await Promise.all([p.waitForEvent('download'),p.click('#'+id)]);return fs.readFile(await d.path());};
+ await p.fill('#input-a','22.064');await p.fill('#input-b','376.85');await p.click('#calculate');await tab('ts');await ready();await p.click('.diagram-settings summary');await p.check('#diagram-isobars');await ready();
+ let c=await chart();const coarse=c.datasets.filter(d=>d.role==='isobar')[4].data.length;await p.click('#diagram-fit');await p.evaluate(()=>{for(let i=0;i<7;i++)document.querySelector('#diagram-in').click();});await ready();c=await chart();assert.ok(c.datasets.filter(d=>d.role==='isobar')[4].data.length>coarse);assert.ok(c.stats.evaluations<=3600);console.log('Visible critical isobar gains detail on close zoom PASS');
+ // Rapid changes must cancel old jobs; the final scene follows the final viewport.
+ await p.evaluate(()=>{for(let i=0;i<6;i++)document.querySelector('#diagram-in').click();document.querySelector('#diagram-reset').click();});await ready();c=await chart();assert.ok(c.stats);assert.equal(await p.locator('#diagram-save').isEnabled(),true);console.log('Refinement cancellation and export readiness PASS');
+ await p.check('#diagram-isotherms');await p.check('#diagram-qualities');await p.check('#diagram-isobars');await p.locator('[data-isobar="0"]').click();await ready();
+ await p.selectOption('#language-select','en');await p.selectOption('#diagram-system','english');await ready();await p.selectOption('#diagram-point','0');await ready();
+ for(const kind of ['hsdiagram','ts','phdiagram']){
+  await tab(kind);await ready();
+  const svg=(await download('diagram-save')).toString();c=await chart();
+  const parsed=await p.evaluate(svg=>{const d=new DOMParser().parseFromString(svg,'image/svg+xml');return {error:!!d.querySelector('parsererror'),clip:Object.fromEntries(['x','y','width','height'].map(k=>[k,Number(d.querySelector('clipPath rect').getAttribute(k))])),ticks:Object.fromEntries(['x','y'].map(id=>[id,[...d.querySelectorAll(`[data-axis="${id}"]`)].map(n=>Number(n.getAttribute('data-tick')))])),paths:[...d.querySelectorAll('[data-role]')].map(n=>({role:n.dataset.role,path:n.getAttribute('d'),width:Number(n.getAttribute('stroke-width')),color:n.getAttribute('stroke'),dash:n.getAttribute('stroke-dasharray')})),points:[...d.querySelectorAll('[data-point]')].map(n=>({index:Number(n.dataset.point),transform:n.getAttribute('transform'),r:Number(n.querySelector('circle').getAttribute('r'))}))};},svg);
+  assert.equal(parsed.error,false);assert.ok(!/NaN|Infinity|undefined/.test(svg));
+  assert.ok(Math.abs(parsed.clip.x-c.area.left)<.001);assert.ok(Math.abs(parsed.clip.y-c.area.top)<.001);
+  assert.ok(Math.abs(parsed.clip.width-(c.area.right-c.area.left))<.001);
+  for(const id of ['x','y']){assert.deepEqual(parsed.ticks[id],c.axes[id].ticks);assert.ok(svg.includes(c.axes[id].title));for(const l of c.axes[id].labels)assert.ok(svg.includes(String(l)));}
+  const visible=c.datasets.filter(d=>!d.hidden&&d.role!=='states');assert.equal(parsed.paths.length,visible.length);
+  for(const d of visible){const q=parsed.paths.find(q=>q.role===d.role&&q.color===d.color);assert.ok(q);assert.equal(q.width,d.width);}
+  for(const point of parsed.points){const q=c.datasets.at(-1).points[point.index],numbers=point.transform.match(/[-\d.]+/g).map(Number);assert.ok(Math.abs(numbers[0]-q.x)<.001);assert.ok(Math.abs(numbers[1]-q.y)<.001);assert.equal(point.r,q.r);}
+  await fs.writeFile(path.join(require('node:os').tmpdir(),'quality-'+kind+'.svg'),svg);
+  console.log(kind,'SVG matches Canvas ticks, clip, styles and points PASS');
+ }
+ const svgPage=await ctx.newPage();await svgPage.goto(pathToFileURL(path.join(require('node:os').tmpdir(),'quality-phdiagram.svg')).href);await svgPage.screenshot({path:path.join(require('node:os').tmpdir(),'quality-export.png')});await svgPage.close();
+ const report=(await download('diagram-report')).toString();assert.ok(report.includes('<svg'));assert.ok(report.includes('psi'));assert.ok(report.includes('Btu/lb'));console.log('HTML uses the same exported geometry PASS');
+ await tab('turbine');await p.locator('#process-form').evaluate(f=>f.requestSubmit());await p.click('#process-plot-ph');await ready();c=await chart();assert.equal(c.datasets.find(d=>d.role==='process').data.length,2);assert.ok(c.datasets.find(d=>d.role==='process').dash);assert.ok(c.datasets.find(d=>d.role==='ideal').data.length>2);assert.ok((await p.locator('#diagram-path-note').textContent()).includes('Efficiency determines'));console.log('Turbine endpoint connection and computed isentrope PASS');
+ await tab('tutorials');await p.selectOption('#tutorial-id','throttle');await p.click('#tutorial-ph');await ready();c=await chart();const throttlePath=c.datasets.find(d=>d.role==='process');assert.ok(throttlePath.data.length>2);assert.deepEqual(throttlePath.dash,[]);assert.ok(throttlePath.data.filter(q=>Number.isFinite(q.x)).every(q=>Math.abs(q.x-throttlePath.data[0].x)<1e-5));assert.ok((await p.locator('#diagram-path-note').textContent()).includes('h = const'));console.log('Throttling computed constant enthalpy path PASS');
+ await p.setViewportSize({width:390,height:844});const cd=await ctx.newCDPSession(p);await cd.send('Emulation.setCPUThrottlingRate',{rate:4});await ready();assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth),390);await p.click('#diagram-in');await ready();await p.screenshot({path:path.join(require('node:os').tmpdir(),'quality-mobile.png')});console.log('Mobile layout and 4× CPU slowdown PASS');
+ await tab('general');await p.locator('input[name=formulation][value="IAPWS-95"]').check();await tab('phdiagram');await ready();assert.ok((await chart()).stats);console.log('IAPWS-95 refinement PASS');
+ await tab('general');assert.equal(await p.evaluate(()=>Object.keys(Chart.instances).length),0);
+ const offline=await ctx.newPage();offline.on('pageerror',e=>errors.push(e.message));await ctx.setOffline(true);await offline.goto(pathToFileURL(path.resolve(__dirname,'../standalone.html')).href);await offline.waitForFunction(()=>!document.querySelector('#calculate').disabled);await offline.locator('[role=tab][data-action=hsdiagram]').click();await offline.waitForFunction(()=>!document.querySelector('#diagram-save').disabled);assert.ok(await offline.evaluate(()=>Chart.getChart('steam-diagram').$detailStats));console.log('Offline refinement and chart lifecycle PASS');
+ assert.deepEqual(errors,[]);await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

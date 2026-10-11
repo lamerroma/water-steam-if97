@@ -1219,5 +1219,13 @@
   "guides.invalid": "Invalid diagram guide lines.",
   "guides.invalidToggle": "Invalid guide-line switch.",
   "guides.invalidUnit": "Invalid isotherm unit.",
-  "guides.invalidValues": "Invalid guide-line values."
+  "guides.invalidValues": "Invalid guide-line values.",
+  "diagram.detail.pending": "Refining curves for the current zoom…",
+  "diagram.detail.ready": "Curves refined for the current zoom.",
+  "diagram.detail.limited": "Detail limit reached. Lines remain approximations between calculated samples.",
+  "diagram.detail.fallback": "Refinement unavailable; showing the last calculated curves.",
+  "diagram.process.endpoints": "Green dashes connect inlet and outlet, rather than describing a trajectory. The dotted line is the calculated isentrope s = const. Efficiency determines the final state, but not the intermediate path.",
+  "diagram.process.throttle": "Green is the calculated equilibrium line h = const. This models adiabatic throttling, rather than the spatial path of the flow.",
+  "diagram.process.streams": "Colored dashes connect the final states of the streams. The intermediate heat exchange path is not determined by the end states.",
+  "guides.wetSteam": "Wet steam"
 }
