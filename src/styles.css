@@ -372,3 +372,16 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 .diagram-stage{border-radius:8px;overflow:hidden}
 #steam-diagram:focus-visible{outline:3px solid #5389bc;outline-offset:-3px}
 .diagram-legend button[aria-pressed="false"]{opacity:.45}
+
+.diagram-guides{margin:.65rem 0;border:1px solid #c3d1e1;border-radius:6px}
+.diagram-guide-inputs{display:flex;flex-wrap:wrap;align-items:end;gap:.5rem}
+.diagram-guide-inputs label{display:flex;flex-direction:column;gap:.3rem;flex:1;min-width:10rem}
+.diagram-guide-inputs input,.diagram-guide-inputs select{width:100%;min-width:0}
+#diagram-guides-error{color:#a22}
+#diagram-cursor{display:block;color:#345b89;font-size:.9rem;min-height:1.2em;flex-shrink:0}
+#diagram-guide-legend{font-size:.85rem;color:#64748b}
+@media(max-width:600px){.diagram-guide-inputs label{min-width:0;flex-basis:100%}}
+
+/* Reserve readout space so hovering cannot resize the canvas beneath the cursor. */
+#diagram-cursor{line-height:1.3;height:2.6em;overflow:hidden}
+@media(max-width:600px){#diagram-cursor{height:3.9em}}

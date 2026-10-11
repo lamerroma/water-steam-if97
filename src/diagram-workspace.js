@@ -1,3 +1,4 @@
+import {readDiagramTools} from './diagram-guides.js';
 import {diagramAxes} from './diagram-coordinates.js';
 import {diagramQuantity} from './diagram-units.js';
 export function readDiagramWorkspace(data,states){
@@ -14,7 +15,7 @@ export function readDiagramWorkspace(data,states){
   if(v.historyIndex!=null&&v.processIndex!=null)throw Error('Неоднозначна вибрана точка.');
   views[key]={range:{...r},point:v.historyIndex!=null?states[v.historyIndex]:null,processIndex:v.processIndex??null};
  }
- return {views,connectHistory:d.connectHistory===true,numbers:d.numbers!==false,order:indexes('order'),excluded:indexes('excluded')};
+ return {tools:readDiagramTools(d.tools),views,connectHistory:d.connectHistory===true,numbers:d.numbers!==false,order:indexes('order'),excluded:indexes('excluded')};
 }
 export function syncDiagramWorkspace(plan,states){
  plan.order=plan.order.filter(q=>states.includes(q));
@@ -25,7 +26,7 @@ export function syncDiagramWorkspace(plan,states){
 export function diagramWorkspaceSnapshot(plan,states){
  syncDiagramWorkspace(plan,states);
  const views=Object.fromEntries(Object.entries(plan.views||{}).map(([k,v])=>[k,{range:{...v.range},...(states.includes(v.point)?{historyIndex:states.indexOf(v.point)}:v.processIndex!=null?{processIndex:v.processIndex}:{})}]));
- return {views,connectHistory:plan.connectHistory,numbers:plan.numbers,order:plan.order.map(q=>states.indexOf(q)),excluded:plan.excluded.map(q=>states.indexOf(q))};
+ return {tools:readDiagramTools(plan.tools),views,connectHistory:plan.connectHistory,numbers:plan.numbers,order:plan.order.map(q=>states.indexOf(q)),excluded:plan.excluded.map(q=>states.indexOf(q))};
 }
 const diagramEscape=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function diagramTable(entries,system='si',energy='kJ',interactive=false,excluded=[],digits=10){

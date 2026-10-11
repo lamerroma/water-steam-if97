@@ -12,9 +12,11 @@ export function diagramPhaseColor(state){
  if(state.critical||state.T>=647.096&&state.p>=22.064)return '#d97706';
  return state.x===0||/рідина|liquid/i.test(state.phase||'')?'#1685a6':'#d04444';
 }
-export function chartDiagramDatasets(kind,cache,choices,plan,process,hidden,colors,selected){
+export function chartDiagramDatasets(kind,cache,choices,plan,process,hidden,colors,selected,guides={}){
  const line=(states,color,width,extra={})=>({data:states.map(q=>chartDiagramPoint(kind,q)),showLine:true,pointRadius:0,pointHitRadius:0,borderColor:color,borderWidth:width,tension:0,spanGaps:false,fill:false,...extra});
  const datasets=cache.isobars.map(({points},i)=>line(points,colors[i],1.25,{hidden:hidden.has(i),role:'isobar'}));
+ if(guides.isotherms)datasets.push(...guides.isotherms.map(g=>line(g.points,'#b06824',1.3,{borderDash:[7,4],role:'isotherm'})));
+ if(guides.qualities)datasets.push(...guides.qualities.map(g=>line(g.points,'#8a69a8',1.1,{borderDash:[3,4],role:'quality'})));
  datasets.push(...cache.dome.map(points=>line(points,'#12477c',2.5,{role:'dome'})));
  if(plan.connectHistory)datasets.push(line(choices.filter(([q,_,source])=>source==='history'&&!plan.excluded.includes(q)).map(([q])=>q),'#8b4599',2.3,{arrows:true,role:'history'}));
  if(process){const r=process.result;datasets.push(line([r.inlet,r.outlet],'#12804a',2.8,{arrows:true,role:'process'}));
