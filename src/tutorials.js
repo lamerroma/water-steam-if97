@@ -1,5 +1,5 @@
 import {calculate} from './engine.js';
-import {turbine} from './processes.js';
+import {turbine,throttle} from './processes.js';
 import {pipeFlow} from './flow.js';
 export const TUTORIALS=[
  {id:'saturation',title:'1. Насичення: кипляча вода при 10 бар',given:'Абсолютний тиск 10 бар. Знайти температуру кипіння й ентальпію насиченої рідини.',steps:['Оберіть насичення за тиском: температура й тиск на цій лінії залежні.','Переведіть 10 бар у 1 МПа абсолютного тиску.','Розрахуйте обидві фази. Для киплячої води використайте колонку насиченої рідини, а не пари.'],control:'IF97: tₛ ≈ 179,8856 °C; h′ ≈ 762,6828 кДж/кг.',target:'main',mode:'satp',a:1,b:0},
@@ -16,13 +16,28 @@ export function solveTutorial(id){
  if(id==='pipe'){const q=pipeFlow({kind:'volume',value:.001,diameter:.05,rho:1000,viscosity:.001});return [['Масова витрата',q.mass,'кг/с'],['Швидкість',q.velocity,'м/с'],['Re',q.Re,'–']];}
  throw Error('Невідомий навчальний приклад.');
 }
+export function tutorialDiagram(id){
+ if(id==='pipe')throw Error('Задача про Reynolds не визначає термодинамічний процес.');
+ if(id==='turbine')return {states:[],process:{type:'turbine',args:[3,673.15,.1,.85,1],model:'IF97',result:turbine(3,673.15,.1,.85,1,'IF97')}};
+ if(id==='throttle')return {states:[],process:{type:'throttle',args:[4.101325,.97,.301325],model:'IF97',result:throttle(4.101325,.97,.301325,'IF97')}};
+ if(id==='wet')return {states:[{...calculate('px',.2,.91,'IF97').state,name:'Приклад: волога пара',source:{mode:'px',a:.2,b:.91}}],process:null};
+ if(id==='saturation'){const r=calculate('satp',1,undefined,'IF97').saturation;return {states:[[r.liquid,0,'рідина'],[r.vapor,1,'пара']].map(([q,x,label])=>({...q,name:'Приклад: насичена '+label,source:{mode:'px',a:1,b:x}})),process:null};}
+ throw Error('Невідомий навчальний приклад.');
+}
+function openTutorialDiagram(id,kind){
+ capturePanel();const r=tutorialDiagram(id);selectModel('IF97');diagramCache=null;
+ if(r.process){const {type,args,model,result}=r.process;storedProcess={type,args,model};plottedProcess={kind:type==='turbine'?'Навчальна турбіна':'Навчальне дроселювання',result};}
+ else{plottedProcess=null;storedProcess=null;for(const q of r.states)if(!historyStates.some(s=>s.name===q.name&&s.p===q.p&&Math.abs(s.h-q.h)<1e-8))historyStates.unshift(q);historyStates.splice(500);renderHistory();}
+ showProcess(kind);if(r.process)$('diagram-fit-process').click();else $('diagram-fit').click();saveProject();
+}
 function showTutorials(){
  selectView('panel');activeSection='tutorials';$('calculator-view').hidden=true;$('process-view').hidden=false;document.querySelector('[role=tab][data-action=tutorials]').setAttribute('aria-selected','true');
- $('process-view').innerHTML=`<section class="method"><h2>Навчальні приклади</h2><p>Задані умови, послідовність дій і контроль. Приклади води виконуються за IF97; завантаження даних обирає цю формуляцію. Поточний проєкт і журнал зберігаються.</p><form id="tutorial-form"><label>Задача<select id="tutorial-id">${TUTORIALS.map(t=>`<option value="${t.id}">${t.title}</option>`).join('')}</select></label><div id="tutorial-task"></div><button type="button" id="tutorial-load">Завантажити дані в калькулятор</button><button type="submit">Перевірити контрольні результати</button></form><div id="tutorial-results" aria-live="polite"></div></section>`;
+ $('process-view').innerHTML=`<section class="method"><h2>Навчальні приклади</h2><p>Задані умови, послідовність дій і контроль. Приклади води виконуються за IF97; завантаження даних обирає цю формуляцію. Поточний проєкт і журнал зберігаються.</p><form id="tutorial-form"><label>Задача<select id="tutorial-id">${TUTORIALS.map(t=>`<option value="${t.id}">${t.title}</option>`).join('')}</select></label><div id="tutorial-task"></div><button type="button" id="tutorial-load">Завантажити дані в калькулятор</button><button type="submit">Перевірити контрольні результати</button></form><div class="tutorial-diagrams"><button type="button" id="tutorial-ts">Показати на T–s</button><button type="button" id="tutorial-hs">Показати на h–s</button><p id="tutorial-diagram-note"></p></div><div id="tutorial-results" aria-live="polite"></div></section>`;
  const form=$('tutorial-form');
- const show=()=>{const t=TUTORIALS.find(q=>q.id===$('tutorial-id').value);$('tutorial-task').innerHTML=`<h3>${t.title}</h3><p>${t.given}</p><ol>${t.steps.map(s=>`<li>${escapeHTML(s)}</li>`).join('')}</ol><p><strong>Контроль:</strong> ${escapeHTML(t.control)}</p>${t.source?`<p>${escapeHTML(t.source)}</p>`:''}`;$('tutorial-results').replaceChildren();panelEdited(form);};
+ const show=()=>{const t=TUTORIALS.find(q=>q.id===$('tutorial-id').value);$('tutorial-task').innerHTML=`<h3>${t.title}</h3><p>${t.given}</p><ol>${t.steps.map(s=>`<li>${escapeHTML(s)}</li>`).join('')}</ol><p><strong>Контроль:</strong> ${escapeHTML(t.control)}</p>${t.source?`<p>${escapeHTML(t.source)}</p>`:''}`;$('tutorial-results').replaceChildren();for(const k of ['tutorial-ts','tutorial-hs'])$(k).disabled=t.id==='pipe';$('tutorial-diagram-note').textContent=t.id==='pipe'?'Задача про Reynolds не задає термодинамічний стан для T–s / h–s.':'Кнопка розрахує стани за IF97 і відкриє діаграму. Лінія між кінцевими станами схематична.';panelEdited(form);};
  $('tutorial-id').onchange=()=>{show();saveProject();};show();
  form.onsubmit=e=>{e.preventDefault();const t=TUTORIALS.find(q=>q.id===$('tutorial-id').value),rows=solveTutorial(t.id);$('tutorial-results').innerHTML=`<h3>${t.title} · перевірка</h3><p>${escapeHTML(t.given)}</p><ol>${t.steps.map(s=>`<li>${escapeHTML(s)}</li>`).join('')}</ol><div class="sat-scroll"><table class="sat-table"><thead><tr><th>Величина</th><th>Значення</th><th>Одиниця</th></tr></thead><tbody>${rows.map(([n,v,u])=>`<tr><td>${n}</td><td>${format(v)}</td><td>${u}</td></tr>`).join('')}</tbody></table></div><p>Контроль: ${escapeHTML(t.control)}</p>`;panelCalculated(form);};
+ $('tutorial-ts').onclick=()=>openTutorialDiagram($('tutorial-id').value,'ts');$('tutorial-hs').onclick=()=>openTutorialDiagram($('tutorial-id').value,'hsdiagram');
  $('tutorial-load').onclick=()=>loadTutorial($('tutorial-id').value);
  restorePanelInputs('tutorials',form);show();restorePanelResult('tutorials',form);
 }

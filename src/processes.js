@@ -42,3 +42,9 @@ export function diagramData(model='IF97'){
  }
  return {dome,isobars};
 }
+
+export function throttle(p1,x,p2,model='IF97'){
+ if(!Number.isFinite(p1)||!Number.isFinite(p2)||!Number.isFinite(x)||p2<=0||p2>=p1||x<0||x>1)throw Error('Потрібні 0 < P₂ < P₁ і сухість 0…1.');
+ const inlet=calculate('px',p1,x,model).state,outlet=calculate('ph',p2,inlet.h,model).state;
+ return {inlet,outlet};
+}

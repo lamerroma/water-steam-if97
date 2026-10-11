@@ -310,3 +310,19 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 #flow-source-note{max-width:80ch}
 #flow-form>button,#tutorial-form>button{margin:.3rem .35rem .3rem 0}
 #pressure-atmosphere{display:block;width:100%;min-width:0;margin-top:.2rem}
+
+.diagram-options{display:flex;flex-wrap:wrap;gap:.4rem 1rem;flex-shrink:0;font-size:.9rem}
+.diagram-options label,.diagram-state-table label{display:inline-flex;align-items:center;gap:.3rem}
+.diagram-options input,.diagram-state-table input{width:auto;margin:0}
+#diagram-process-note{flex-basis:100%;color:var(--muted)}
+.diagram-states{flex-shrink:0}.diagram-states .sat-scroll{max-height:18rem;overflow:auto}
+#process-view .diagram-state-table button{margin:.1rem;padding:.2rem .5rem}
+.diagram-state-table td:last-child{white-space:nowrap}
+#steam-diagram{touch-action:none}
+.tutorial-diagrams{margin:1rem 0}
+@media(max-width:600px){.diagram-controls label{min-width:0;flex-basis:100%}.diagram-options label{flex-basis:100%}.diagram-stage{height:23rem}}
+#process-view .diagram-state-table{table-layout:auto;min-width:48rem}
+#process-view .diagram-state-table th:first-child,#process-view .diagram-state-table td:first-child{width:2.5rem;white-space:nowrap}
+.diagram-state-table th:nth-child(2),.diagram-state-table td:nth-child(2){min-width:10rem;text-align:left}
+.diagram-state-table td:nth-child(n+3):nth-child(-n+7){white-space:nowrap;font-variant-numeric:tabular-nums}
+.diagram-stage{min-height:22rem;flex:1 0 22rem}

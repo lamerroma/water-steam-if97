@@ -3,9 +3,10 @@ import {compression,heatExchanger} from './engineering.js';
 import {englishProperty} from './units.js';
 import {referenceState} from './exergy.js';
 import {calculate} from './engine.js';
-import {turbine,flash} from './processes.js';
+import {turbine,flash,throttle} from './processes.js';
 import {parseNumber,toCanonical} from './units.js';
 import {readPressure,pressureInput} from './pressure.js';
+import {readDiagramWorkspace} from './diagram-workspace.js';
 import {readWorkspace} from './workspace.js';
 export const PROJECT_VERSION=1;
 export function readProject(text){
@@ -29,7 +30,7 @@ export function readProject(text){
   return {...state,name:q.name||'',...(source?{source}:{})};
  });
  let process=null;
- if(p.process){const q=p.process;if(!['turbine','flash','compressor','pump','heat-exchanger'].includes(q.type)||!Array.isArray(q.args)||!(q.type==='heat-exchanger'?[9]:q.type==='flash'?[4,5]:[5]).includes(q.args.length)||!q.args.every(Number.isFinite))throw Error('Некоректний процес.');process={type:q.type,args:q.args,model:q.model||'IF97',result:q.type==='turbine'?turbine(...q.args,q.model||'IF97'):q.type==='flash'?flash(...q.args,...(q.args.length===4?[0]:[]),q.model||'IF97'):q.type==='heat-exchanger'?heatExchanger(...q.args,q.model||'IF97'):compression(q.type,...q.args,q.model||'IF97')};}
+ if(p.process){const q=p.process;if(!['turbine','flash','throttle','compressor','pump','heat-exchanger'].includes(q.type)||!Array.isArray(q.args)||!(q.type==='throttle'?[3]:q.type==='heat-exchanger'?[9]:q.type==='flash'?[4,5]:[5]).includes(q.args.length)||!q.args.every(Number.isFinite))throw Error('Некоректний процес.');process={type:q.type,args:q.args,model:q.model||'IF97',result:q.type==='throttle'?throttle(...q.args,q.model||'IF97'):q.type==='turbine'?turbine(...q.args,q.model||'IF97'):q.type==='flash'?flash(...q.args,...(q.args.length===4?[0]:[]),q.model||'IF97'):q.type==='heat-exchanger'?heatExchanger(...q.args,q.model||'IF97'):compression(q.type,...q.args,q.model||'IF97')};}
  const f=p.form;if(f?.model!=null&&!['IF97','IAPWS-95'].includes(f.model))throw Error('Невідома формуляція проєкту.');if(!f||!['pt','ph','ps','satp','satt','px','tx','hs','th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'].includes(f.mode)||!['MPa','kPa','Pa','bar','atm','C','K','kJkg','Jkg'].concat(['psi','F','Btulb','m3kg','ft3lb']).includes(f.ua)||!['MPa','kPa','Pa','bar','atm','C','K','kJkg','Jkg','kJkgK','JkgK','fraction','percent'].concat(['F','Btulb','BtulbR','kgm3','lbft3','m3kg','ft3lb']).includes(f.ub)||typeof f.a!=='string'||typeof f.b!=='string'||f.a.length>80||f.b.length>80)throw Error('Некоректні параметри введення.');
  const {a:allowedA,b:allowedB}=batchUnits(f.mode);if(!allowedA.includes(f.ua)||!allowedB.includes(f.ub))throw Error('Одиниці не відповідають режиму.');
  if(f.calculated!=null&&typeof f.calculated!=='boolean')throw Error('Некоректний статус розрахунку.');
@@ -37,7 +38,7 @@ export function readProject(text){
  const drafts={};for(const type of ['turbine','flash','engineering']){const d=p.drafts?.[type];if(!d)continue;const v={};for(const k of ['p1','t1','p2','eta','flow','power','mode','pressure','temperature','mass','power-unit','pc1','tc1','pc2','coldflow'])if(typeof d[k]==='string'&&d[k].length<80)v[k]=d[k];drafts[type]=v;}
  const ambient=p.ambient||{p:.101325,T:298.15};referenceState(ambient.p,ambient.T);
  if(p.title!=null&&(typeof p.title!=='string'||p.title.length>80))throw Error('Назва проєкту має бути до 80 символів.');
- return {pressure,title:p.title||'Вода та пара',system:p.system==='english'?'english':'si',ambient,states,process,form:f,drafts,workspace,result,energy:p.energy==='J'?'J':'kJ',gray:p.gray===true,scale:['1','1.15','1.3'].includes(p.scale)?p.scale:'1',hints:p.hints!==false};
+ return {diagram:readDiagramWorkspace(p.diagram,states),pressure,title:p.title||'Вода та пара',system:p.system==='english'?'english':'si',ambient,states,process,form:f,drafts,workspace,result,energy:p.energy==='J'?'J':'kJ',gray:p.gray===true,scale:['1','1.15','1.3'].includes(p.scale)?p.scale:'1',hints:p.hints!==false};
 }
 export function processCSV(type,r,system='si'){
  const convert=(k,v,u='')=>system==='english'?englishProperty(k,v,u):[v,u];
