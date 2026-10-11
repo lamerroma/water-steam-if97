@@ -27,11 +27,11 @@ export function turbineInverse(mode,p1,T1,p2,power,known,model='IF97'){
  if(mode==='flow'){const unit=turbine(p1,T1,p2,known,1,model);return turbine(p1,T1,p2,known,power/unit.work,model);}
  const ideal=turbine(p1,T1,p2,1,known,model);const eta=power/ideal.power;return turbine(p1,T1,p2,eta,known,model);
 }
-// Each plotted point is evaluated from IF97. Straight SVG segments only interpolate the drawing.
+// Every sample is evaluated by the selected model. Renderers join samples without spline overshoot.
 export function diagramData(model='IF97'){
  const dome=[[],[]],isobars=[];
- for(let i=0;i<=90;i++){
-  const T=(model==='IF97'?273.15:273.16)+((model==='IF97'?TC:TC-.0001)-(model==='IF97'?273.15:273.16))*i/90;
+ for(let i=0;i<=180;i++){
+  const T=(model==='IF97'?273.15:273.16)+((model==='IF97'?TC:TC-.0001)-(model==='IF97'?273.15:273.16))*Math.sin(i/180*Math.PI/2);
   try{const q=calculate('satt',T,undefined,model).saturation;dome[0].push(q.liquid);dome[1].push(q.vapor);}catch{dome[0].push(null);dome[1].push(null);}
  }
  for(const p of [.01,.1,1,10,22.064,50,100]){

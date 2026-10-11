@@ -1,0 +1,26 @@
+let saturationRows=[],saturationModel='IF97',saturationAdded=false;
+function showSaturationGrid(){
+ selectView('panel');activeSection='satgrid';saturationRows=[];saturationAdded=false;
+ $('calculator-view').hidden=true;$('process-view').hidden=false;
+ document.querySelector('[data-action="satgrid"]').setAttribute('aria-selected','true');
+ $('process-view').innerHTML=`<h2>Таблиці насичення</h2><p>Властивості насиченої рідини (′) та пари (″); r — теплота пароутворення. Тиски абсолютні. До 500 рядків; кінець включається лише коли потрапляє на заданий крок.</p><p>Журнал зберігає останні 500 станів.</p><form id="satgrid-form" novalidate><fieldset><legend>Діапазон насичення</legend><label>Таблиця за<select id="satgrid-basis"><option value="temperature">Температурою</option><option value="pressure">Тиском</option></select></label><label>Одиниця діапазону<select id="satgrid-unit"></select></label>${[['start','Початок','50'],['end','Кінець','200'],['step','Крок','10']].map(([id,label,value])=>`<label>${label}<input id="satgrid-${id}" value="${value}" inputmode="decimal" required></label>`).join('')}</fieldset><p id="satgrid-limits"></p><button type="submit">Створити таблицю</button></form><p id="satgrid-error" role="alert"></p><div id="satgrid-results" aria-live="polite"></div>`;
+ const form=$('satgrid-form');
+ const limits=()=>{$('satgrid-limits').textContent=modelValue()==='IF97'?'IF97: 0…373,946 °C; 0,000611213…22,064 МПа.':'IAPWS-95: 0,01…373,946 °C; верхня критична межа виключена.';};limits();
+ function clear(){panelEdited(form);saturationRows=[];saturationAdded=false;$('satgrid-results').replaceChildren();$('satgrid-error').textContent='';}
+ function basisChanged(){const t=$('satgrid-basis').value==='temperature';options('satgrid-unit',(t?TU:PU));for(const [id,v] of Object.entries(t?{start:50,end:200,step:10}:{start:.1,end:1,step:.1}))$('satgrid-'+id).value=String(v);clear();}
+ $('satgrid-basis').onchange=basisChanged;basisChanged();
+ $('satgrid-unit').onchange=()=>{const unit=$('satgrid-unit'),old=unit.dataset.previous;try{const start=parseNumber($('satgrid-start').value),end=parseNumber($('satgrid-end').value),step=parseNumber($('satgrid-step').value);const a=fromCanonical(toCanonical(start,old),unit.value),b=fromCanonical(toCanonical(end,old),unit.value),d=fromCanonical(toCanonical(start+step,old),unit.value)-a;for(const [id,v] of [['start',a],['end',b],['step',d]])$('satgrid-'+id).value=String(Number(v.toPrecision(12)));}catch{}unit.dataset.previous=unit.value;clear();};
+ form.addEventListener('input',clear);form.addEventListener('change',clear);
+ form.onsubmit=e=>{e.preventDefault();clear();try{saturationModel=modelValue();saturationRows=saturationGrid({basis:$('satgrid-basis').value,unit:$('satgrid-unit').value,...Object.fromEntries(['start','end','step'].map(k=>[k,parseNumber($('satgrid-'+k).value)]))},saturationModel);renderSaturationGrid();panelCalculated(form);}catch(e){$('satgrid-error').textContent=e.message;}};
+ restorePanelInputs('satgrid',form);restorePanelResult('satgrid',form);
+}
+function renderSaturationGrid(){
+ if(!$('satgrid-results')||!saturationRows.length)return;
+ const cell=(k,sat)=>saturationCell(k,sat,$('output-system').value,$('output-energy').value);
+ $('satgrid-results').innerHTML=`<p>${saturationModel} · Рядків: ${saturationRows.length}; помилок: ${saturationRows.filter(r=>r.error).length}.</p><div class="grid-actions"><button id="satgrid-csv">CSV таблиці</button><button id="satgrid-history" ${saturationAdded?'disabled':''}>Додати фази до журналу</button><button id="satgrid-ph">Показати на P–h</button></div><div class="sat-scroll"><table class="sat-table saturation-grid-table"><thead><tr><th>№</th>${SATURATION_COLUMNS.map(([k,label])=>`<th>${label} [${cell(k,null)[1]}]</th>`).join('')}<th>Стан / помилка</th></tr></thead><tbody>${saturationRows.map((r,i)=>r.error?`<tr><td>${i+1}</td><td colspan="10">${escapeHTML(r.error)}</td></tr>`:`<tr><td>${i+1}</td>${SATURATION_COLUMNS.map(([k])=>`<td>${format(cell(k,r.saturation)[0])}</td>`).join('')}<td><button type="button" data-satgrid-open="${i}">Відкрити фази</button>${r.saturation.critical?' · Критична точка':''}</td></tr>`).join('')}</tbody></table></div>`;
+ $('satgrid-csv').onclick=()=>downloadFile(saturationCSV(saturationRows,$('output-system').value,$('output-energy').value,saturationModel),'saturation-table.csv','text/csv;charset=utf-8');
+ function addPhases(){if(saturationAdded)return;const states=saturationRows.filter(r=>!r.error).flatMap(r=>r.saturation.critical?[r.saturation.liquid]:[r.saturation.liquid,r.saturation.vapor]);for(const q of states)historyStates.unshift({...q,source:q.critical?{mode:'pt',a:q.p,b:q.T}:{mode:'px',a:q.p,b:q.x}});historyStates.splice(500);renderHistory();saveProject();saturationAdded=true;$('satgrid-history').disabled=true;}
+ $('satgrid-history').onclick=addPhases;
+ $('satgrid-ph').onclick=()=>{addPhases();showProcess('phdiagram');$('diagram-fit').click();};
+ $('satgrid-results').onclick=e=>{const b=e.target.closest('[data-satgrid-open]');if(!b)return;const q=saturationRows[Number(b.dataset.satgridOpen)].saturation;selectView('saturation');$('mode').value='satt';resetMode();$('unit-a').value='K';$('unit-a').dataset.previous='K';$('input-a').value=String(q.T);run();};
+}

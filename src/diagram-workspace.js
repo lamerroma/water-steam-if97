@@ -1,3 +1,4 @@
+import {diagramAxes} from './diagram-coordinates.js';
 import {diagramQuantity} from './diagram-units.js';
 export function readDiagramWorkspace(data,states){
  const d=data??{};
@@ -6,8 +7,8 @@ export function readDiagramWorkspace(data,states){
  const indexes=k=>{const a=d[k]??[];if(!Array.isArray(a)||a.length>500||new Set(a).size!==a.length||a.some(i=>!Number.isInteger(i)||i<0||i>=states.length))throw Error('Некоректна послідовність станів діаграми.');return a.map(i=>states[i]);};
  const views={};if(d.views!=null&&(typeof d.views!=='object'||Array.isArray(d.views)))throw Error('Некоректний вигляд діаграми.');
  for(const [key,v] of Object.entries(d.views||{})){
-  if(!['IF97:ts','IF97:hsdiagram','IAPWS-95:ts','IAPWS-95:hsdiagram'].includes(key)||!v||typeof v!=='object')throw Error('Невідомий вигляд діаграми.');
-  const r=v.range;if(!r||!['xmin','xmax','ymin','ymax'].every(k=>Number.isFinite(r[k])&&Math.abs(r[k])<1e7)||r.xmax-r.xmin<.049||r.xmax-r.xmin>44.01||r.ymax<=r.ymin)throw Error('Некоректний масштаб діаграми.');
+  if(!['IF97:ts','IF97:hsdiagram','IF97:phdiagram','IAPWS-95:ts','IAPWS-95:hsdiagram','IAPWS-95:phdiagram'].includes(key)||!v||typeof v!=='object')throw Error('Невідомий вигляд діаграми.');
+  const axes=diagramAxes(key.split(':')[1]);const r=v.range;if(!r||!['xmin','xmax','ymin','ymax'].every(k=>Number.isFinite(r[k])&&Math.abs(r[k])<1e7)||r.xmax-r.xmin<axes.minWidth*.98||r.xmax-r.xmin>axes.maxWidth*1.001||r.ymax<=r.ymin)throw Error('Некоректний масштаб діаграми.');
   if(v.historyIndex!=null&&(!Number.isInteger(v.historyIndex)||!states[v.historyIndex]))throw Error('Некоректна вибрана точка.');
   if(v.processIndex!=null&&(!Number.isInteger(v.processIndex)||v.processIndex<0||v.processIndex>4))throw Error('Некоректна точка процесу.');
   if(v.historyIndex!=null&&v.processIndex!=null)throw Error('Неоднозначна вибрана точка.');

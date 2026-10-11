@@ -132,10 +132,10 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 .gray{filter:grayscale(1)}
 #process-view{overflow:auto;flex:1;min-height:0;padding:1rem;color:#294967;line-height:1.5}
 #process-view button{padding:.4rem .65rem;margin:.25rem .4rem .25rem 0}
-#process-form fieldset,#batch-form fieldset,#engineering-form fieldset{display:flex;flex-wrap:wrap;gap:.8rem;margin:.75rem 0}
-#process-form label,#batch-form label,#engineering-form label{display:flex;flex-direction:column;gap:.3rem;min-width:0;flex:1 1 12rem;max-width:22rem}
+#process-form fieldset,#batch-form fieldset,#engineering-form fieldset,#satgrid-form fieldset{display:flex;flex-wrap:wrap;gap:.8rem;margin:.75rem 0}
+#process-form label,#batch-form label,#engineering-form label,#satgrid-form label{display:flex;flex-direction:column;gap:.3rem;min-width:0;flex:1 1 12rem;max-width:22rem}
 #process-view input,#process-view select{padding:.4rem;max-width:100%}
-#process-form input{width:100%}
+#process-form input,#satgrid-form input,#satgrid-form select{width:100%}
 #process-view table{border-collapse:collapse;width:100%;min-width:36rem;background:white}
 #process-view td,#process-view th{padding:.6rem;border:1px solid #c3d1e1;text-align:right}
 #process-view td:first-child,#process-view th:first-child{text-align:left}
@@ -288,7 +288,7 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 @media print{
  html{font-size:10px}
  html,body,.desktop,.center-pane,.calculator-view{height:auto!important;min-height:0!important;display:block!important;overflow:visible!important}
- .site-nav,.menubar,.toolbar,.tabs,.section-picker,.setup-pane,.input-area,button,#engineering-form,#batch-form,#process-form,#learn-form,#scientific-form,footer,#output-resize,.output-tabs{display:none!important}
+ .site-nav,.menubar,.toolbar,.tabs,.section-picker,.setup-pane,.input-area,button,#engineering-form,#batch-form,#process-form,#learn-form,#scientific-form,#satgrid-form,footer,#output-resize,.output-tabs{display:none!important}
  .output-pane,.results-scroll,.history-scroll,#process-view,#help-view{height:auto!important;max-height:none!important;overflow:visible!important}
  .output-pane{break-before:page}
  .property-table,.property-table tbody{display:table}
@@ -360,3 +360,15 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 .diagram-settings[open]>div{margin-top:.4rem}
 #diagram-nearby{position:absolute;left:.5rem;right:.5rem;top:.5rem;z-index:4;max-height:60%;overflow:auto}
 @media(max-width:600px){#diagram-pan{font-size:0}#diagram-pan::after{content:'↔';font-size:20px}}
+
+.saturation-grid-table{table-layout:auto;min-width:75rem}
+.saturation-grid-table td,.saturation-grid-table th{white-space:nowrap}
+.grid-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin:.75rem 0}
+#copy-result-dialog{width:min(44rem,90vw);border:1px solid var(--line);border-radius:.4rem}
+#copy-result-dialog textarea{display:block;width:100%;height:45vh;margin:1rem 0}
+#copy-result-dialog::backdrop{background:#0006}
+
+/* Chart.js owns the canvas backing-store size, including device pixel ratio. */
+.diagram-stage{border-radius:8px;overflow:hidden}
+#steam-diagram:focus-visible{outline:3px solid #5389bc;outline-offset:-3px}
+.diagram-legend button[aria-pressed="false"]{opacity:.45}

@@ -1,0 +1,11 @@
+// Canvas-specific decoration. The same canonical states feed the SVG exporter.
+export function createDiagramChart(canvas,{tooltipTitle,tooltipLines}){
+ const decorations={id:'steamDecorations',beforeDraw(chart){const {ctx,width,height}=chart;ctx.save();ctx.fillStyle='#fff';ctx.fillRect(0,0,width,height);ctx.restore();},afterDatasetsDraw(chart){
+  const {ctx,chartArea:a}=chart;ctx.save();ctx.beginPath();ctx.rect(a.left,a.top,a.right-a.left,a.bottom-a.top);ctx.clip();
+  chart.data.datasets.forEach((dataset,index)=>{if(!chart.isDatasetVisible(index))return;const points=chart.getDatasetMeta(index).data;
+   if(dataset.arrows)for(let i=1;i<points.length;i++){const p=points[i-1],q=points[i];if(![p.x,p.y,q.x,q.y].every(Number.isFinite)||Math.hypot(q.x-p.x,q.y-p.y)<8)continue;const angle=Math.atan2(q.y-p.y,q.x-p.x);ctx.save();ctx.translate(q.x,q.y);ctx.rotate(angle);ctx.fillStyle=dataset.borderColor;ctx.beginPath();ctx.moveTo(-8,-4);ctx.lineTo(0,0);ctx.lineTo(-8,4);ctx.closePath();ctx.fill();ctx.restore();}
+   if(dataset.role==='states'&&chart.$numbers){ctx.font='bold 12px Arial';ctx.textAlign='left';ctx.lineWidth=3;for(let i=0;i<points.length;i++){const p=points[i];if(!Number.isFinite(p.x)||!Number.isFinite(p.y))continue;ctx.strokeStyle='#fff';ctx.strokeText(String(i+1),p.x+10,p.y-10);ctx.fillStyle='#182b40';ctx.fillText(String(i+1),p.x+10,p.y-10);}}
+  });ctx.restore();
+ }};
+ return new globalThis.Chart(canvas,{type:'scatter',data:{datasets:[]},plugins:[decorations],options:{responsive:false,maintainAspectRatio:false,animation:{duration:matchMedia('(prefers-reduced-motion: reduce)').matches?0:240},transitions:{active:{animation:{duration:matchMedia('(prefers-reduced-motion: reduce)').matches?0:100}}},layout:{padding:12},interaction:{mode:'nearest',intersect:true},plugins:{legend:{display:false},tooltip:{filter:item=>item.dataset.role==='states',displayColors:false,backgroundColor:'#18334e',padding:11,callbacks:{title:items=>items.length?tooltipTitle(items[0].raw.choiceIndex):'',label:item=>tooltipLines(item.raw.choiceIndex)}}},scales:{x:{type:'linear',grid:{color:'#eaf0f6'},border:{color:'#b6c5d6'},ticks:{color:'#53677d',maxTicksLimit:6},title:{display:true,color:'#344c65'}},y:{type:'linear',grid:{color:'#eaf0f6'},border:{color:'#b6c5d6'},ticks:{color:'#53677d',maxTicksLimit:7},title:{display:true,color:'#344c65'}}}}});
+}
