@@ -1,9 +1,9 @@
 import {batchUnits} from './batch.js';
 
-export const WORKSPACE_PANELS=['turbine','flash','engineering','batch','satgrid','gases','humid','cycles','ice','d2o','seawater','boundaries','comparison','flow','tutorials'];
+export const WORKSPACE_PANELS=['turbine','flash','engineering','batch','satgrid','gases','humid','cycles','ice','d2o','seawater','boundaries','comparison','flow','tutorials','npp'];
 const modes=['pt','ph','ps','satp','satt','px','tx','hs','th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'];
 const species=['N2','O2','CO2','CO','H2','H2O','CH4','Ar','He','Ne','NO','SO2'];
-const fields={
+const fields={npp:['npp-thermalMW','npp-primaryP','npp-coldC','npp-hotC','npp-steamP','npp-condenserP','npp-etaT','npp-etaPump'],
  satgrid:['satgrid-basis','satgrid-unit','satgrid-start','satgrid-end','satgrid-step'],
  tutorials:['tutorial-id'],
  flow:['flow-hydraulics','flow-length','flow-length-unit','flow-roughness','flow-roughness-unit','flow-local-k','flow-eta','flow-height','flow-pressure-difference','flow-pressure-difference-unit','flow-source','flow-fluid','flow-p','flow-t','flow-rho','flow-rho-unit','flow-viscosity','flow-visc-kind','flow-visc-unit','flow-kind','flow-value','flow-unit','flow-diameter','flow-diameter-unit','flow-standard','flow-std-p','flow-std-t','flow-M','flow-Z','flow-std-Z'],
@@ -32,7 +32,7 @@ const record=x=>x&&typeof x==='object'&&!Array.isArray(x);
 // when their panel is opened, including modules whose WASM is loaded on demand.
 export function readWorkspace(value){
  if(value==null)return {active:'general',panels:{}};
- if(!record(value)||!record(value.panels)||!['general','saturation','help','ts','hsdiagram','phdiagram','tutorials',...WORKSPACE_PANELS].includes(value.active))throw Error('Некоректний робочий простір проєкту.');
+ if(!record(value)||!record(value.panels)||!['general','saturation','help','ts','hsdiagram','phdiagram','tutorials','study',...WORKSPACE_PANELS].includes(value.active))throw Error('Некоректний робочий простір проєкту.');
  const panels={};
  for(const [kind,p] of Object.entries(value.panels)){
   if(!WORKSPACE_PANELS.includes(kind)||!record(p)||!record(p.inputs)||typeof p.calculated!=='boolean'||(p.model!=null&&!['IF97','IAPWS-95'].includes(p.model)))throw Error('Некоректна вкладка проєкту.');
