@@ -1,6 +1,6 @@
 {
   "name": "water-steam-if97-uk",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -18,7 +18,8 @@
     "test:pwa": "node scripts/check-pwa-browser.cjs",
     "test:hydraulics": "node scripts/check-hydraulics-browser.cjs",
     "test:study": "node scripts/check-study-browser.cjs",
-    "test:sprint": "node scripts/check-full-sprint-browser.cjs"
+    "test:sprint": "node scripts/check-full-sprint-browser.cjs",
+    "test:navigation": "node scripts/check-navigation-browser.cjs"
   },
   "engines": {
     "node": ">=20"

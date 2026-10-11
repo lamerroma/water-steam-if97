@@ -409,3 +409,26 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 @media(max-width:700px){.study-chart{height:300px}#exchanger-form input,#research-form input,#library-title,#variant-title{min-height:44px;width:100%;box-sizing:border-box}.feature-actions button,#library-list button,#variant-list button{min-height:44px}}
 
 .npp-scheme{max-width:100%;overflow-x:auto;min-width:0}@media(max-width:700px){.npp-scheme svg{min-width:760px}#npp-form input,#npp-form select,#learn-form input,#learn-form select{min-height:44px}}
+
+/* Grouped tool navigation and linked study diagrams. */
+.tool-navigation{padding:.5rem;background:#e5edf9;border-bottom:1px solid var(--line);flex-shrink:0}
+.tool-group-bar,.tool-search,.recent-tools{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+.tool-group-bar button[aria-pressed=true]{background:#fff;border-color:#356caf;font-weight:bold}
+.tool-search{margin-top:.4rem}.tool-search input{flex:1;max-width:28rem;min-width:8rem}
+.recent-tools{margin-top:.4rem}.recent-tools button{font-size:.85rem;padding:.2rem .4rem}
+#tool-search-status{margin:.4rem 0}.study-state-buttons{display:flex;flex-wrap:wrap;gap:.4rem}
+.study-state-buttons button[aria-pressed=true]{background:#fff0d6;border-color:#d17613}
+.study-selected>td{background:#fff0d6!important}.npp-scheme rect[role=button]{cursor:pointer}
+.npp-scheme rect.study-selected{fill:#fff0d6;stroke:#d17613;stroke-width:3}
+.npp-scheme rect:focus-visible{outline:none;stroke:#111;stroke-width:4}.npp-scheme svg text{pointer-events:none}
+.study-viewer{min-width:0;margin:.7rem 0;border:1px solid var(--line);border-radius:4px;padding:.5rem;background:var(--panel)}
+.study-viewer .feature-actions{display:flex;align-items:center;flex-wrap:wrap;gap:.4rem;margin-bottom:.5rem}
+.study-viewer .npp-scheme{max-height:50vh;overflow:auto}.study-viewer .npp-scheme svg{display:block;width:100%;min-width:0!important;max-width:none;height:auto}
+.study-viewer .study-chart{margin:0}.study-expanded{position:fixed;inset:1rem;z-index:1000;box-shadow:0 0 0 2rem #18364ea6;display:flex;flex-direction:column}
+.study-expanded .npp-scheme{flex:1;min-height:0;max-height:none;display:flex;align-items:flex-start}.study-expanded .npp-scheme:not(.scheme-zoomed) svg{height:100%;object-fit:contain}
+.study-expanded .study-chart{flex:1;min-height:0;height:auto}
+@media(max-width:700px){.tool-group-bar button{flex:1;min-height:40px}.tool-search input{max-width:none}.recent-tools{display:none}.study-expanded{inset:.3rem}.study-state-buttons button,.study-viewer button{min-height:44px}.study-inspector .sat-table{min-width:35rem}}
+@media print{.tool-navigation,.study-viewer .feature-actions,.study-state-buttons,.study-inspector{display:none!important}.study-expanded{position:static;box-shadow:none}.study-viewer .npp-scheme{max-height:none}}
+
+.study-viewer .npp-scheme:not(.scheme-zoomed) svg{max-height:48vh}.study-expanded .npp-scheme:not(.scheme-zoomed) svg{max-height:none}
+.study-viewer-state{margin:.3rem 0 .6rem;max-height:25vh;overflow:auto;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}

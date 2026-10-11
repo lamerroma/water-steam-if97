@@ -1477,5 +1477,16 @@
   "sprint.text.101": "Study limit: 8 variants.",
   "sprint.text.102": "Library limit: 8 MB.",
   "sprint.text.104": "S3: steam.",
-  "sprint.text.105": "S4: turbine outlet."
+  "sprint.text.105": "S4: turbine outlet.",
+  "nav.properties": "Properties",
+  "nav.processes": "Processes and cycles",
+  "nav.heat": "Heat transfer and hydraulics",
+  "nav.learning": "Learning",
+  "nav.projects": "Projects and reports",
+  "nav.tools": "Calculator tools",
+  "nav.search": "Find a tool",
+  "nav.placeholder": "Name, number or T–s…",
+  "nav.recent": "Recent:",
+  "nav.found": "Found: {count}",
+  "nav.empty": "No tools found. Change your search."
 }

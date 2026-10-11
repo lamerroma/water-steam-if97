@@ -20,6 +20,7 @@ function renderCycleTools(q,npp=false){
  const point=s=>({x:s.s,y:s[key]});const sets=edges.map(([a,b],i)=>({label:(npp?(i<2?featureText('Перший контур','Primary loop'):featureText('Другий контур','Secondary loop')):featureText('Цикл','Cycle')),endpointNames:[q.states[a].name,q.states[b].name],data:[point(q.states[a]),point(q.states[b])],showLine:true,borderDash:[6,3],pointRadius:0,borderColor:npp&&i<2?'#d04738':'#176baa'}));
  sets.push({label:featureText('Стани','States'),data:q.states.map(point),pointNames:q.states.map(s=>s.name),pointRadius:5,showLine:false,borderColor:'#18364e',backgroundColor:'#18364e'});studyChartDraw($('cycle-chart'),sets,'s [kJ/(kg K)]',key==='T'?'T [K]':'h [kJ/kg]',true);};draw();$('cycle-chart-kind').onchange=draw;
  $('cycle-picture').onclick=()=>appendStudyEntry({kind:'diagram',title:featureText('Діаграма циклу','Cycle diagram')+' '+$('cycle-chart-kind').value,image:$('cycle-chart').toDataURL('image/png'),caption:featureText('Стрілки: напрямки; відрізки — схематичні.','Arrows indicate directions; segments are schematic.')});
+ attachStudyInteraction(q,npp,container);
  $('cycle-report').onclick=captureStudyCalculation;$('cycle-research').onclick=()=>showResearch({module:npp?'npp':'cycles',model:npp?q.model:modelValue(),input:q.input});translateUI(container);
 }
 function showExchanger(){
