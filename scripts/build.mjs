@@ -1,6 +1,7 @@
 import {staticCoolProp} from './coolprop-static-bindings.mjs';
 // Dependency-free deterministic bundling. HTML opens via file:// without fetch or imports.
 import {readFile,readdir,mkdir,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
 const root=new URL('../',import.meta.url);
 const read=path=>readFile(new URL(path,root),'utf8');
 const catalogs={};
@@ -35,19 +36,21 @@ async function buildCode(embedCoolProp) {
 }
 const codeStandalone=await buildCode(true);
 const codeMultiFile=await buildCode(false);
+const styles=await read('src/styles.css');
+const assetVersion=content=>createHash('sha256').update(content).digest('hex').slice(0,16);
 const licenses='<!--\n'+await read('LICENSE')+'\nSEUIF97 / RustSEUIF97:\n'+await read('vendor/SEUIF97-LICENSE')+'\nCantera NASA7 data / BSD-3-Clause:\n'+await read('vendor/CANTERA-LICENSE')+'\nCoolProp / MIT:\n'+await read('vendor/COOLPROP-LICENSE')+'\nFormulations and verification tables: International Association for the Properties of Water and Steam (IAPWS), R7-97(2012), R12-08, R15-11, R1-76(2014), R8-97, R6-95(2018), R14-08(2011), R10-06(2009), R13-08(2008), R16-17(2018).\n-->\n';
 const html=licenses+(await read('src/template.html')).replace('/* STYLES */',await read('src/styles.css')).replace('/* APPLICATION */',()=>codeStandalone.replace(/<\/script/gi,'<\\/script'));
 const page=(await read('src/template.html'))
  .replace("script-src 'unsafe-inline'", "script-src 'self' 'unsafe-inline'")
  .replace("style-src 'unsafe-inline'", "style-src 'self' 'unsafe-inline'")
  .replace("connect-src 'none'", "connect-src 'self'")
- .replace('<style>/* STYLES */</style>','<link rel="stylesheet" href="assets/styles.css">')
- .replace('<script>/* APPLICATION */</script>','<script src="assets/app.js" defer></script>');
+ .replace('<style>/* STYLES */</style>',`<link rel="stylesheet" href="assets/styles.css?v=${assetVersion(styles)}">`)
+ .replace('<script>/* APPLICATION */</script>',`<script src="assets/app.js?v=${assetVersion(codeMultiFile)}" defer></script>`);
 const coolpropWasm=await readFile(new URL('vendor/coolprop.wasm',root));
 for(const prefix of ['', 'dist/']) {
  await mkdir(new URL(prefix+'assets/',root),{recursive:true});
  await writeFile(new URL(prefix+'index.html',root),licenses+page);
- await writeFile(new URL(prefix+'assets/styles.css',root),await read('src/styles.css'));
+ await writeFile(new URL(prefix+'assets/styles.css',root),styles);
  await writeFile(new URL(prefix+'assets/app.js',root),codeMultiFile);
  await writeFile(new URL(prefix+'assets/coolprop.wasm',root),coolpropWasm);
  await writeFile(new URL(prefix+'standalone.html',root),html);

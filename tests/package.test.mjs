@@ -17,7 +17,9 @@ test('standalone page has embedded script, styles and WASM with no remote runtim
 
 test('Multi-file site uses matching local assets and the same application core as standalone',()=>{
  const html=read('index.html').toString();assert.equal(html,read('dist/index.html').toString());
- assert.match(html,/href="assets\/styles.css"/);assert.match(html,/src="assets\/app.js" defer/);
+ const version=p=>crypto.createHash('sha256').update(read(p)).digest('hex').slice(0,16);
+ assert.ok(html.includes(`href="assets/styles.css?v=${version('assets/styles.css')}"`));
+ assert.ok(html.includes(`src="assets/app.js?v=${version('assets/app.js')}" defer`));
  assert.doesNotMatch(html,/<(?:script|link|img)[^>]+(?:src|href)="https?:/i);
  const code=read('assets/app.js').toString();new vm.Script(code);
  assert.equal(code,read('dist/assets/app.js').toString());assert.deepEqual(read('assets/styles.css'),read('src/styles.css'));

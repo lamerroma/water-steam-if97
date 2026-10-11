@@ -71,7 +71,13 @@ function localizedDocument(content,mime='text/html'){
 }
 const languageSelect=document.getElementById('language-select');
 languageSelect.replaceChildren(...uiTranslator.languages.map(language=>new Option(LOCALIZATION_CATALOGS[language]['language.name']||language,language)));
-languageSelect.onchange=()=>setUILanguage(languageSelect.value);
+// Embedded browsers may apply a select choice through input before change.
+// Avoid rendering twice when a browser emits both events for the same choice.
+const applyLanguageSelection=()=>{
+ if(languageSelect.value!==uiTranslator.language)setUILanguage(languageSelect.value);
+};
+languageSelect.addEventListener('input',applyLanguageSelection);
+languageSelect.addEventListener('change',applyLanguageSelection);
 document.documentElement.lang=uiTranslator.language;
 languageSelect.value=uiTranslator.language;
 queueMicrotask(()=>translateUI());observeLocalization();

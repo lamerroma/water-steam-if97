@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
+import vm from 'node:vm';
 import {createTranslator} from '../src/i18n.js';
 import {formatProperty} from '../src/ux-display.js';
 const catalogs={};
@@ -36,4 +37,27 @@ test('number locale changes presentation without changing numeric values',()=>{
  assert.equal(formatProperty(1234.5,6,'en'),'1,234.5');
  assert.match(formatProperty(1234.5,6,'uk-UA'),/1.*234,5/);
  assert.equal(formatProperty(null,6,'en'),'—');
+});
+
+test('language selector applies input immediately and handles input plus change only once',async()=>{
+ // A small DOM fixture exercises the actual UI adapter without a browser dependency.
+ const element={nodeType:1,tagName:'HTML',matches:()=>false,closest:()=>null,
+  hasAttribute:()=>false,getAttribute:()=>null,querySelectorAll:()=>[]};
+ const text={nodeType:3,parentElement:element,nodeValue:'Розрахувати'};
+ const select=new EventTarget();select.replaceChildren=()=>{};
+ const document=new EventTarget();document.documentElement=element;
+ document.getElementById=()=>select;
+ document.createTreeWalker=()=>{let visited=false;return {currentNode:text,nextNode(){if(visited)return false;visited=true;return true;}};};
+ const saved=new Map();let updates=0;document.addEventListener('languagechange',()=>updates++);
+ const source=(await readFile(new URL('../src/i18n-ui.js',import.meta.url),'utf8')).replace(/^import .*;\n/,'');
+ vm.runInNewContext(source,{createTranslator,LOCALIZATION_CATALOGS:catalogs,document,
+  localStorage:{getItem:key=>saved.get(key),setItem:(key,value)=>saved.set(key,value)},
+  MutationObserver:class{observe(){}disconnect(){}},NodeFilter:{SHOW_TEXT:4},
+  Option:class{},CustomEvent,queueMicrotask:callback=>callback()});
+ select.value='en';select.dispatchEvent(new Event('input'));
+ assert.equal(element.lang,'en');assert.equal(text.nodeValue,'Calculate');
+ assert.equal(saved.get('water-steam-language'),'en');assert.equal(updates,1);
+ select.dispatchEvent(new Event('change'));assert.equal(updates,1);
+ select.value='uk';select.dispatchEvent(new Event('change'));
+ assert.equal(element.lang,'uk');assert.equal(text.nodeValue,'Розрахувати');assert.equal(updates,2);
 });
