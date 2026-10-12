@@ -2,7 +2,7 @@ export const TOOL_GROUPS=[
  {id:'properties',key:'nav.properties',actions:['general','saturation','satgrid','gases','humid','ice','d2o','seawater','boundaries','comparison']},
  {id:'processes',key:'nav.processes',actions:['turbine','flash','engineering','cycles','ts','hsdiagram','phdiagram']},
  {id:'heat',key:'nav.heat',actions:['flow','exchanger']},
- {id:'learning',key:'nav.learning',actions:['tutorials','npp','research','help']},
+ {id:'learning',key:'nav.learning',actions:['tutorials','laboratory','coursework','npp','research','help']},
  {id:'projects',key:'nav.projects',actions:['projects','study','batch']}
 ];
 export function toolSearchMatch(query,label,action){return (label+' '+action).normalize('NFKC').toLocaleLowerCase().includes(query.trim().normalize('NFKC').toLocaleLowerCase());}

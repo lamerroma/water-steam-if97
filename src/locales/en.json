@@ -1488,5 +1488,7 @@
   "nav.placeholder": "Name, number or T–s…",
   "nav.recent": "Recent:",
   "nav.found": "Found: {count}",
-  "nav.empty": "No tools found. Change your search."
+  "nav.empty": "No tools found. Change your search.",
+  "lab.tab": "26. Laboratory work",
+  "coursework.tab": "27. Coursework"
 }

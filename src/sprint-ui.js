@@ -66,6 +66,8 @@ function showProjectLibrary(){selectView('panel');activeSection='projects';$('ca
 }
 document.addEventListener('languagechange',()=>{if(activeSection==='research')showResearch();else if(activeSection==='projects')showProjectLibrary();else if(activeSection==='exchanger'&&exchangerResult)renderExchanger();});
 function openReportCalculation(entry){
+ if(entry.kind==='coursework'){openCourseworkEntry(entry);return;}
+ if(entry.kind==='laboratory'){openLaboratoryEntry(entry);return;}
  if(['cycle','npp','exchanger'].includes(entry.kind)){openStudySource({module:entry.kind==='cycle'?'cycles':entry.kind,input:entry.input,model:entry.model});return;}
  if(entry.kind==='research'){researchState.sweep=entry.input;showResearch({module:entry.input.module,input:entry.input.base,model:entry.model});return;}
  selectModel(entry.model);const a=entry.input;

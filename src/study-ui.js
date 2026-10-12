@@ -4,6 +4,8 @@ let studyReport=readStudyReport(null),nuclearResult=null,flowReportInput=null;
 const studyMessage=message=>{if($('study-status'))$('study-status').textContent=message;else $('result-status').textContent=message;};
 function appendStudyEntry(entry){if(entry.kind==='flow'&&activeSection==='flow'&&panelForm()?.dataset.calculated==='true')entry={...entry,origin:{inputs:panelInputs(panelForm()),calculated:true,model:modelValue()}};try{studyReport=readStudyReport({...studyReport,entries:[...studyReport.entries,{title:'',comment:'',model:modelValue(),...entry}]});saveProject();studyMessage('Додано до навчального звіту');}catch(e){studyMessage(e.message);}}
 function captureStudyCalculation(){
+ if(activeSection==='coursework'&&courseworkResult){$('cw-report').click();return;}
+ if(activeSection==='laboratory'&&labResult?.valid){$('lab-report').click();return;}
  if($('steam-diagram')&&!$('process-view').hidden){const canvas=$('steam-diagram');if($('diagram-png')?.disabled){studyMessage('Дочекайтеся завершення побудови діаграми');return;}appendStudyEntry({kind:'diagram',title:document.querySelector('.diagram-heading h2')?.textContent||activeSection,image:canvas.toDataURL('image/png'),caption:document.querySelector('.diagram-path-note')?.textContent||'Схематичне з’єднання станів; координати осей і одиниці показано на діаграмі.'});return;}
  if(activeSection==='npp'&&nuclearResult){appendStudyEntry({kind:'npp',title:'Навчальна схема двоконтурної АЕС',input:nuclearResult.input,model:nuclearResult.model});return;}
  if(activeSection==='cycles'&&learningResult&&panelForm()?.dataset.calculated==='true'){appendStudyEntry({kind:'cycle',title:'Навчальний цикл '+learningResult.input.type,input:learningResult.input});return;}

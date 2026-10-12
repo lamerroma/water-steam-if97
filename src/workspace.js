@@ -1,9 +1,10 @@
+import {COURSE_FIELDS} from './coursework.js';
 import {batchUnits} from './batch.js';
 
-export const WORKSPACE_PANELS=['turbine','flash','engineering','batch','satgrid','gases','humid','cycles','ice','d2o','seawater','boundaries','comparison','flow','tutorials','npp','exchanger'];
+export const WORKSPACE_PANELS=['turbine','flash','engineering','batch','satgrid','gases','humid','cycles','ice','d2o','seawater','boundaries','comparison','flow','tutorials','npp','exchanger','laboratory','coursework'];
 const modes=['pt','ph','ps','satp','satt','px','tx','hs','th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'];
 const species=['N2','O2','CO2','CO','H2','H2O','CH4','Ar','He','Ne','NO','SO2'];
-const fields={exchanger:['hx-arrangement','hx-hotIn','hx-hotOut','hx-coldIn','hx-coldOut','hx-heatKW','hx-U'],npp:['npp-mode','npp-pMid','npp-reheatC','npp-etaLP','npp-thermalMW','npp-primaryP','npp-coldC','npp-hotC','npp-steamP','npp-condenserP','npp-etaT','npp-etaPump'],
+const fields={coursework:['cw-kind','cw-pumpMethod','cw-areaMethod','cw-cladMethod',...new Set(Object.values(COURSE_FIELDS).flatMap(list=>list.map(([k])=>'cw-'+k)))],laboratory:['lab-kind','lab-pressure','lab-temperature','lab-flow-unit','lab-power-unit','lab-eta-unit','lab-basis','lab-atmosphere','lab-quantity','lab-eta-m','lab-eta-g','lab-source','lab-condition','lab-conclusion','lab-data'],exchanger:['hx-arrangement','hx-hotIn','hx-hotOut','hx-coldIn','hx-coldOut','hx-heatKW','hx-U'],npp:['npp-mode','npp-pMid','npp-reheatC','npp-etaLP','npp-thermalMW','npp-primaryP','npp-coldC','npp-hotC','npp-steamP','npp-condenserP','npp-etaT','npp-etaPump'],
  satgrid:['satgrid-basis','satgrid-unit','satgrid-start','satgrid-end','satgrid-step'],
  tutorials:['tutorial-id'],
  flow:['flow-hydraulics','flow-length','flow-length-unit','flow-roughness','flow-roughness-unit','flow-local-k','flow-eta','flow-height','flow-pressure-difference','flow-pressure-difference-unit','flow-source','flow-fluid','flow-p','flow-t','flow-rho','flow-rho-unit','flow-viscosity','flow-visc-kind','flow-visc-unit','flow-kind','flow-value','flow-unit','flow-diameter','flow-diameter-unit','flow-standard','flow-std-p','flow-std-t','flow-M','flow-Z','flow-std-Z'],
@@ -17,7 +18,7 @@ const fields={exchanger:['hx-arrangement','hx-hotIn','hx-hotOut','hx-coldIn','hx
  ice:['ice-t','ice-p'],d2o:['d2o-mode','d2o-p','d2o-t'],seawater:['sw-s','sw-t','sw-p'],
  boundaries:['phase-substance','phase-kind','phase-ice','phase-value','phase-s'],comparison:['compare-mode','compare-a','compare-b']
 };
-const choices={'npp-mode':['simple','msr'],'hx-arrangement':['counter','parallel'],
+const choices={'cw-kind':['rankine','stage','core'],'cw-pumpMethod':['volume','isentropic'],'cw-areaMethod':['duct','course'],'cw-cladMethod':['polynomial','constant'],'lab-kind':['saturation','turbine'],'lab-pressure':['MPa','kPa','bar','Pa','atm','psi'],'lab-temperature':['C','K','F'],'lab-flow-unit':['kgs','kgh'],'lab-power-unit':['kW','MW','W'],'lab-eta-unit':['fraction','percent'],'lab-basis':['absolute','gauge','vacuum'],'lab-quantity':['internal','electrical'],'npp-mode':['simple','msr'],'hx-arrangement':['counter','parallel'],
  'satgrid-basis':['temperature','pressure'],'satgrid-unit':['C','K','F','MPa','kPa','Pa','bar','atm','psi'],
  'tutorial-id':['saturation','wet','throttle','turbine','pipe','rankine-study','reheat-study','hydraulic-study','npp-study'],
  'flow-hydraulics':['off','on'],'flow-length-unit':['m','ft'],'flow-roughness-unit':['m','mm','inch'],'flow-pressure-difference-unit':['Pa','kPa','MPa','bar','psi'],'flow-source':['manual','water','real','gas'],'flow-fluid':['N2','O2','CO2','CO','H2','H2O','CH4','Ar','He','SO2','Ne'],'flow-rho-unit':['kgm3','lbft3'],'flow-visc-kind':['dynamic','kinematic'],'flow-visc-unit':['Pas','mPas','cP','m2s','mm2s','cSt'],'flow-kind':['mass','volume','velocity','standard'],'flow-unit':['kgs','kgh','lbs','lbh','m3s','m3h','ls','lmin','ft3min','ms','fts'],'flow-diameter-unit':['m','mm','inch'],'flow-standard':['off','normal','room','custom'],
@@ -38,7 +39,7 @@ export function readWorkspace(value){
   if(!WORKSPACE_PANELS.includes(kind)||!record(p)||!record(p.inputs)||typeof p.calculated!=='boolean'||(p.model!=null&&!['IF97','IAPWS-95'].includes(p.model)))throw Error('Некоректна вкладка проєкту.');
   const inputs={};
   for(const [id,v] of Object.entries(p.inputs)){
-   if(!fields[kind].includes(id)||typeof v!=='string'||v.length>(id==='batch-text'?1000000:80))throw Error('Некоректні дані вкладки '+kind+'.');
+   if(!fields[kind].includes(id)||typeof v!=='string'||v.length>(id==='batch-text'?1000000:id==='lab-data'?100000:['lab-condition','lab-conclusion'].includes(id)?3000:id==='lab-source'?500:80))throw Error('Некоректні дані вкладки '+kind+'.');
    const allowed=id==='process-mode'?(kind==='turbine'?['power','flow','efficiency']:['subcooled','saturated']):choices[id];
    if(allowed&&!allowed.includes(v))throw Error('Невідомий режим або одиниця вкладки '+kind+'.');
    inputs[id]=v;
