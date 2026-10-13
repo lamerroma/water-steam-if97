@@ -1611,5 +1611,11 @@
   "catalog.tip": "Name or task: pump, quality, coursework…",
   "catalog.status.mixed": "Depends on mode",
   "catalog.mixedNote": "This tool combines methods with different maturity. Select a mode to see its status and limits.",
-  "flow.intro": "Single-phase flow in a circular pipe. Mass flow ṁ = ρQ, velocity w = Q/A, Re = ρwD/μ. Operating and standard pressures are absolute; the difference P₂ − P₁ is specified separately. D is the inner diameter."
+  "flow.intro": "Single-phase flow in a circular pipe. Mass flow ṁ = ρQ, velocity w = Q/A, Re = ρwD/μ. Operating and standard pressures are absolute; the difference P₂ − P₁ is specified separately. D is the inner diameter.",
+  "catalog.reactorLimits": "Instructor-guide coursework: thermal calculation and experimental neutronics. CHF, U-238 resonance integral and rod layout need clarification; the report labels limitations. Two external IAEA benchmarks show +10.59–11.41% in k; the neutron model is not validated for accurate predictions.",
+  "project.recoveryDownload": "Download original for recovery",
+  "project.recoveryStatus": "Project was not restored; the original is retained for recovery",
+  "project.recoveryHint": "Saved project was not restored; download the original from the File menu",
+  "project.importChanged": "Project changed while reading the file; retry the import",
+  "project.exportFailed": "Could not prepare JSON:"
 }

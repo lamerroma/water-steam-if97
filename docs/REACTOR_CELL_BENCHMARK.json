@@ -1,0 +1,222 @@
+{
+  "appVersion": "1.16.4",
+  "methodVersion": "reactor-course-3",
+  "source": {
+    "report": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1264_web.pdf",
+    "description": "https://www-nds.iaea.org/wimsd/wwer.htm",
+    "input": "https://www-nds.iaea.org/wimsd/bnchmrk/wlup69/wwercrb.win",
+    "locations": "Appendix IV.3, printed pp. 170–172; Table 14.9, printed p. 82; WWERCRB CASE 2 and CASE 3",
+    "retrieved": "2026-10-12"
+  },
+  "model": "Course two-region neutron cell with supplied atom densities and measured buckling; no reactor power or fitted parameters.",
+  "status": "physical-screening-failed",
+  "policy": {
+    "numericalRootTolerance": 1e-12,
+    "kScreeningAbsoluteTolerance": 0.01,
+    "meaning": "A predeclared 1% screening goal, not experimental uncertainty or a certified accuracy claim; also compare against the reported buckling interval and EXPerror independently."
+  },
+  "omitted": [
+    "U234",
+    "Nb93",
+    "Hf178",
+    "evaluated multigroup nuclear data",
+    "bound-water scattering law"
+  ],
+  "geometry": {
+    "fuelAreaCM2": 0.4536459791783661,
+    "gasAreaCM2": 0.01808379271222632,
+    "metalAreaCM2": 0.17153095888600267,
+    "waterAreaCM2": 0.7535528527866836,
+    "totalAreaCM2": 1.3968135835632787,
+    "waterFuelRatio": 1.661103343518006,
+    "totalFuelRatio": 3.079082914155125,
+    "publishedSummaryRatioLabel": "Vm/Vf",
+    "publishedSummaryRatio": 3.079,
+    "ratioWarning": "The published summary ratio matches total/fuel, not water/fuel. Areas are taken from the explicit input radii."
+  },
+  "sourceSHA256": {
+    "tests/fixtures/iaea-zr6-cell.json": "94b9ae93a86efe03547df28ae913900d125100926a8602778b979943247f024d",
+    "src/reactor-neutronics.js": "71029d70baf355a04406961b9e3e634e7ea9b532bffdece64702ecb5f14658de",
+    "src/reactor-methods.js": "8c43627682036ddab967f91801f683bbeb17d3737980149d54fbd5d1f2051880",
+    "src/reactor-nuclear-data.js": "50a903caccd5e43b4568960f561ae0100456df484d70b5201c7cdd35e3318b79",
+    "scripts/reactor-cell-benchmark.mjs": "5963b756df45c1b5991f5b8041327c97b9d65646057cdaf7b934313439827dce",
+    "scripts/reactor-cell-input.mjs": "db607da4aa8321ac974ed6644fc7d8ab3528f5096878fc26c43c9399b0a994c9",
+    "docs/REACTOR_CELL_BASELINE_1_16_3.json": "6704317925476a9d79b74ed93ac144afc4a764666993d8f50c5c33ab56996908"
+  },
+  "cases": [
+    {
+      "code": "p2w2b0t2",
+      "parameters": "1.27/3.6/0.0/80",
+      "sourceDeckCase": 2,
+      "measuredBucklingM2": 96.55,
+      "reportedBucklingDeviationM2": 1.29,
+      "experimentalK": 1,
+      "reportedKError": 0.006,
+      "publishedWimsIAEA69K": 0.99656,
+      "publishedWimsIAEA172K": 0.99474,
+      "calculatedK": 1.1140612291731384,
+      "deltaK": 0.11406122917313843,
+      "deltaKPcm": 11406.122917313844,
+      "withinReportedKError": false,
+      "withinScreeningGoal": false,
+      "calculatedCriticalBucklingM2": 144.66022392287312,
+      "deltaBucklingM2": 48.11022392287312,
+      "withinReportedBucklingInterval": false,
+      "waterDensityGCM3": 0.9718062093918909,
+      "baselineK": 1.1147283460947617,
+      "changeFromBaseline": -0.0006671169216232453,
+      "illustrativeSensitivity": {
+        "meaning": "Illustrative ±10% perturbations, not physical uncertainty bounds or parameter fitting.",
+        "resonanceIntegral": [
+          {
+            "factor": 0.9,
+            "k": 1.139169756947777
+          },
+          {
+            "factor": 1,
+            "k": 1.1140612291731384
+          },
+          {
+            "factor": 1.1,
+            "k": 1.0895061203803198
+          }
+        ],
+        "age": [
+          {
+            "factor": 0.9,
+            "k": 1.136459658309788
+          },
+          {
+            "factor": 1,
+            "k": 1.1140612291731384
+          },
+          {
+            "factor": 1.1,
+            "k": 1.0921042496067583
+          }
+        ],
+        "diffusionArea": [
+          {
+            "factor": 0.9,
+            "k": 1.116046093301293
+          },
+          {
+            "factor": 1,
+            "k": 1.1140612291731384
+          },
+          {
+            "factor": 1.1,
+            "k": 1.112083412587954
+          }
+        ]
+      },
+      "diagnostics": {
+        "kinf": 1.38405082323248,
+        "kinfThermal": 1.1984519259920225,
+        "kinfResonance": 0.18559889724045736,
+        "Lwater2": 9.384329676049521,
+        "phi5": 0.8569051410379712,
+        "phi8": 0.8002139868307105,
+        "phiZr": 0.9785627675004825,
+        "qAbs": 0.07359272667397425,
+        "Tng": 471.1308579888085,
+        "theta": 0.9314519138910647,
+        "phi": 0.6710078085864786,
+        "mu": 1.0352292925361426,
+        "baseI8": 22.326633833417613,
+        "KT": 1.0118417119241843,
+        "Lsq": 1.8753818844029384,
+        "age": 20.617052208035286,
+        "nonLeak": 0.8049279769735803,
+        "boundaryGamma": 0.9540310624221797
+      }
+    },
+    {
+      "code": "p2w2b0t3",
+      "parameters": "1.27/3.6/0.0/130",
+      "sourceDeckCase": 3,
+      "measuredBucklingM2": 90.27,
+      "reportedBucklingDeviationM2": 0.91,
+      "experimentalK": 1,
+      "reportedKError": 0.006,
+      "publishedWimsIAEA69K": 0.99506,
+      "publishedWimsIAEA172K": 0.99335,
+      "calculatedK": 1.1058897222459458,
+      "deltaK": 0.10588972224594584,
+      "deltaKPcm": 10588.972224594583,
+      "withinReportedKError": false,
+      "withinScreeningGoal": false,
+      "calculatedCriticalBucklingM2": 132.6659902539743,
+      "deltaBucklingM2": 42.39599025397429,
+      "withinReportedBucklingInterval": false,
+      "waterDensityGCM3": 0.9345170668511575,
+      "baselineK": 1.1096605181532306,
+      "changeFromBaseline": -0.0037707959072847963,
+      "illustrativeSensitivity": {
+        "meaning": "Illustrative ±10% perturbations, not physical uncertainty bounds or parameter fitting.",
+        "resonanceIntegral": [
+          {
+            "factor": 0.9,
+            "k": 1.1319162433075072
+          },
+          {
+            "factor": 1,
+            "k": 1.1058897222459458
+          },
+          {
+            "factor": 1.1,
+            "k": 1.0804616375108997
+          }
+        ],
+        "age": [
+          {
+            "factor": 0.9,
+            "k": 1.1277066178506223
+          },
+          {
+            "factor": 1,
+            "k": 1.1058897222459458
+          },
+          {
+            "factor": 1.1,
+            "k": 1.0844949017858954
+          }
+        ],
+        "diffusionArea": [
+          {
+            "factor": 0.9,
+            "k": 1.1079984238443958
+          },
+          {
+            "factor": 1,
+            "k": 1.1058897222459458
+          },
+          {
+            "factor": 1.1,
+            "k": 1.1037890318066519
+          }
+        ]
+      },
+      "diagnostics": {
+        "kinf": 1.370565795449254,
+        "kinfThermal": 1.17997252711175,
+        "kinfResonance": 0.190593268337504,
+        "Lwater2": 11.535137293403881,
+        "phi5": 0.8516466618983972,
+        "phi8": 0.7924562534721411,
+        "phiZr": 0.9777178696921115,
+        "qAbs": 0.07105047284215553,
+        "Tng": 532.874501727976,
+        "theta": 0.9336628154846757,
+        "phi": 0.6598546753729946,
+        "mu": 1.0363379506670238,
+        "baseI8": 22.182403312850667,
+        "KT": 1.0221911775881194,
+        "Lsq": 2.1492034932924415,
+        "age": 21.64156330782353,
+        "nonLeak": 0.8068855402038172,
+        "boundaryGamma": 0.965428810629686
+      }
+    }
+  ]
+}

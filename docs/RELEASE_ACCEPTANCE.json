@@ -1,0 +1,214 @@
+{
+  "started": "2026-10-13T16:53:23.721Z",
+  "mode": "full",
+  "version": "1.16.7",
+  "build": {
+    "version": "1.16.7",
+    "id": "cd52efde2a10"
+  },
+  "status": "passed",
+  "checks": [
+    {
+      "name": "build",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 10539,
+      "log": ".release/2026-10-13T16-53-23-718Z/build.log"
+    },
+    {
+      "name": "unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 61645,
+      "log": ".release/2026-10-13T16-53-23-718Z/unit.log"
+    },
+    {
+      "name": "water",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 103786,
+      "log": ".release/2026-10-13T16-53-23-718Z/water.log"
+    },
+    {
+      "name": "transport",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 637,
+      "log": ".release/2026-10-13T16-53-23-718Z/transport.log"
+    },
+    {
+      "name": "reactor",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4201,
+      "log": ".release/2026-10-13T16-53-23-718Z/reactor.log"
+    },
+    {
+      "name": "reactor-cell-audit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 333,
+      "log": ".release/2026-10-13T16-53-23-718Z/reactor-cell-audit.log"
+    },
+    {
+      "name": "browser-navigation",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 10285,
+      "log": ".release/2026-10-13T16-53-23-718Z/browser-navigation.log"
+    },
+    {
+      "name": "browser-smart-input",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 7532,
+      "log": ".release/2026-10-13T16-53-23-718Z/browser-smart-input.log"
+    },
+    {
+      "name": "browser-diagram",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 17080,
+      "log": ".release/2026-10-13T16-53-23-718Z/browser-diagram.log"
+    },
+    {
+      "name": "browser-diagram-guides",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 9291,
+      "log": ".release/2026-10-13T16-53-23-718Z/browser-diagram-guides.log"
+    },
+    {
+      "name": "browser-diagram-quality",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 21737,
+      "log": ".release/2026-10-13T16-53-23-718Z/browser-diagram-quality.log"
+    },
+    {
+      "name": "browser-hydraulics",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5014,
+      "log": ".release/2026-10-13T16-53-23-718Z/browser-hydraulics.log"
+    },
+    {
+      "name": "browser-study",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 15663,
+      "log": ".release/2026-10-13T16-53-23-718Z/browser-study.log"
+    },
+    {
+      "name": "browser-full-sprint",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 7862,
+      "log": ".release/2026-10-13T16-53-23-718Z/browser-full-sprint.log"
+    },
+    {
+      "name": "browser-laboratory",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5246,
+      "log": ".release/2026-10-13T16-53-23-718Z/browser-laboratory.log"
+    },
+    {
+      "name": "browser-coursework",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5058,
+      "log": ".release/2026-10-13T16-53-23-718Z/browser-coursework.log"
+    },
+    {
+      "name": "browser-usability",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4826,
+      "log": ".release/2026-10-13T16-53-23-718Z/browser-usability.log"
+    },
+    {
+      "name": "browser-reactor-course",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5336,
+      "log": ".release/2026-10-13T16-53-23-718Z/browser-reactor-course.log"
+    },
+    {
+      "name": "browser-provenance",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 2752,
+      "log": ".release/2026-10-13T16-53-23-718Z/browser-provenance.log"
+    },
+    {
+      "name": "browser-project-safety",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4508,
+      "log": ".release/2026-10-13T16-53-23-718Z/browser-project-safety.log"
+    },
+    {
+      "name": "browser-pwa",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 18373,
+      "log": ".release/2026-10-13T16-53-23-718Z/browser-pwa.log"
+    },
+    {
+      "name": "rebuild",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 9482,
+      "log": ".release/2026-10-13T16-53-23-718Z/rebuild.log"
+    },
+    {
+      "name": "deterministic-build",
+      "status": "passed"
+    },
+    {
+      "name": "package",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 2730,
+      "log": ".release/2026-10-13T16-53-23-718Z/package.log"
+    },
+    {
+      "name": "package-integrity",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 572,
+      "log": ".release/2026-10-13T16-53-23-718Z/package-integrity.log"
+    },
+    {
+      "name": "repackage",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 2780,
+      "log": ".release/2026-10-13T16-53-23-718Z/repackage.log"
+    },
+    {
+      "name": "deterministic-package",
+      "status": "passed"
+    }
+  ],
+  "artifacts": {
+    "index.html": "69c1ea5f57bb79d6a38e78505e118e432ca498b71196f0e3fb06e71ccf00e70f",
+    "standalone.html": "e24b27a2b748150b4db9a101a8718f5d51468353ec66a6a5e868db5cad503e81",
+    "assets/app.js": "4b82e362e49ec81fc6e30bc9ed6f4691c8c765b73f3cab06a6cc3006826f945a",
+    "assets/styles.css": "92fb7292f72d1bbf9ac0550759aa23494009d2480e507630f9abbdb5090c8b39",
+    "assets/coolprop.wasm": "28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307",
+    "service-worker.js": "5b6d4812a23b539cbc89bc8def84775878ea1430b8a5103b45f6a0467d4df876",
+    "manifest.webmanifest": "63130e8f1083e12602ca499f9de40ad3d97d64b457c005ce570215966f783056",
+    "dist/water-steam-calculator.zip": {
+      "sha256": "ede80196c46c7928ed9f20be84b6227c62ece62b78e88e0ec8842bdd042ad5e9",
+      "bytes": 5868957
+    }
+  },
+  "scope": "Software acceptance only; passing does not validate every physical model or device.",
+  "physicalValidation": {
+    "reactorCell": "physical-screening-failed",
+    "scope": "Independent cell screening; failure blocks claims of neutron-model physical validation, separately from software acceptance."
+  },
+  "completed": "2026-10-13T16:59:01.832Z"
+}

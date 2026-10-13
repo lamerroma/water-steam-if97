@@ -1,10 +1,11 @@
+const {openTool}=require('./browser-tools.cjs');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright');
 const assert=require('node:assert/strict');const fs=require('node:fs/promises');const path=require('node:path');const {pathToFileURL}=require('node:url');
 (async()=>{
  const browser=await chromium.launch({...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{}),args:['--no-sandbox']});
  const ctx=await browser.newContext({viewport:{width:1440,height:1000}});const p=await ctx.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
  await p.goto(process.env.DIAGRAM_URL||'http://localhost:8080/');await p.waitForFunction(()=>!document.querySelector('#calculate').disabled);
- const tab=async k=>{if(await p.locator('#section-select').isVisible())await p.selectOption('#section-select',k);else await p.locator(`[role=tab][data-action=${k}]`).click();};
+ const tab=k=>openTool(p,k);
  const ready=()=>p.waitForFunction(()=>!document.querySelector('#diagram-save').disabled,{},{timeout:60000});
  const chart=()=>p.evaluate(()=>{const c=Chart.getChart('steam-diagram');return {area:c.chartArea,width:c.width,height:c.height,stats:c.$detailStats,axes:Object.fromEntries(Object.entries(c.scales).map(([id,s])=>[id,{ticks:s.ticks.map(t=>t.value),labels:s.getLabelItems().map(l=>l.label),title:s.options.title.text}])),datasets:c.data.datasets.map((d,i)=>({role:d.role,hidden:!c.isDatasetVisible(i),data:d.data,dash:d.borderDash,width:d.borderWidth,color:d.borderColor,points:c.getDatasetMeta(i).data.map(p=>({x:p.x,y:p.y,skip:p.skip,r:p.options.radius}))}))};});
  const download=async id=>{const [d]=await Promise.all([p.waitForEvent('download'),p.click('#'+id)]);return fs.readFile(await d.path());};
@@ -35,6 +36,6 @@ const assert=require('node:assert/strict');const fs=require('node:fs/promises');
  await p.setViewportSize({width:390,height:844});const cd=await ctx.newCDPSession(p);await cd.send('Emulation.setCPUThrottlingRate',{rate:4});await ready();assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth),390);await p.click('#diagram-in');await ready();await p.screenshot({path:path.join(require('node:os').tmpdir(),'quality-mobile.png')});console.log('Mobile layout and 4× CPU slowdown PASS');
  await tab('general');await p.locator('input[name=formulation][value="IAPWS-95"]').check();await tab('phdiagram');await ready();assert.ok((await chart()).stats);console.log('IAPWS-95 refinement PASS');
  await tab('general');assert.equal(await p.evaluate(()=>Object.keys(Chart.instances).length),0);
- const offline=await ctx.newPage();offline.on('pageerror',e=>errors.push(e.message));await ctx.setOffline(true);await offline.goto(pathToFileURL(path.resolve(__dirname,'../standalone.html')).href);await offline.waitForFunction(()=>!document.querySelector('#calculate').disabled);await offline.locator('[role=tab][data-action=hsdiagram]').click();await offline.waitForFunction(()=>!document.querySelector('#diagram-save').disabled);assert.ok(await offline.evaluate(()=>Chart.getChart('steam-diagram').$detailStats));console.log('Offline refinement and chart lifecycle PASS');
+ const offline=await ctx.newPage();offline.on('pageerror',e=>errors.push(e.message));await ctx.setOffline(true);await offline.goto(pathToFileURL(path.resolve(__dirname,'../standalone.html')).href);await offline.waitForFunction(()=>!document.querySelector('#calculate').disabled);await openTool(offline,'hsdiagram');await offline.waitForFunction(()=>!document.querySelector('#diagram-save').disabled);assert.ok(await offline.evaluate(()=>Chart.getChart('steam-diagram').$detailStats));console.log('Offline refinement and chart lifecycle PASS');
  assert.deepEqual(errors,[]);await browser.close();
 })().catch(e=>{console.error(e);process.exit(1)});

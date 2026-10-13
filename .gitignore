@@ -1,5 +1,6 @@
 .DS_Store
 node_modules/
+.release/
 *.log
 dist/release-stage/
 dist/water-steam-calculator.zip

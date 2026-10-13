@@ -1,0 +1,322 @@
+{
+  "status": "PASS",
+  "kind": "Independent implementation arithmetic audit; not a physical benchmark",
+  "sharedBoundaryData": [
+    "Water equation of state and transport properties",
+    "Mean coolant and fuel temperatures",
+    "Source constants and tabulated g/F corrections",
+    "Supplied lattice boundary factor for square variants"
+  ],
+  "checks": 4077,
+  "cases": 51,
+  "tolerance": 2e-8,
+  "sourceFingerprint": "df03f21fcf9f988e4019c461e6219ef83a7c27fffdaa788949f71e22fccd5dc3",
+  "summaries": [
+    {
+      "case": "variant-1",
+      "checks": 80,
+      "maxRelativeError": 1.7674530223359382e-15,
+      "worstQuantity": "controls.boron"
+    },
+    {
+      "case": "variant-2",
+      "checks": 80,
+      "maxRelativeError": 8.102900143365968e-16,
+      "worstQuantity": "controls.boron"
+    },
+    {
+      "case": "variant-3",
+      "checks": 80,
+      "maxRelativeError": 2.0934986916433444e-15,
+      "worstQuantity": "nodes.2.chf"
+    },
+    {
+      "case": "variant-4",
+      "checks": 80,
+      "maxRelativeError": 2.324586895214495e-15,
+      "worstQuantity": "nodes.0.chf"
+    },
+    {
+      "case": "variant-5",
+      "checks": 80,
+      "maxRelativeError": 1.003110780000596e-15,
+      "worstQuantity": "controls.boron"
+    },
+    {
+      "case": "variant-6",
+      "checks": 80,
+      "maxRelativeError": 6.966886080844431e-16,
+      "worstQuantity": "metrics.frictionDrop"
+    },
+    {
+      "case": "variant-7",
+      "checks": 80,
+      "maxRelativeError": 2.31195652036842e-15,
+      "worstQuantity": "nodes.0.chf"
+    },
+    {
+      "case": "variant-8",
+      "checks": 80,
+      "maxRelativeError": 2.452787212620348e-15,
+      "worstQuantity": "nodes.2.chf"
+    },
+    {
+      "case": "variant-9",
+      "checks": 80,
+      "maxRelativeError": 2.251652680548582e-15,
+      "worstQuantity": "nodes.0.chf"
+    },
+    {
+      "case": "variant-10",
+      "checks": 80,
+      "maxRelativeError": 1.8060773613005926e-15,
+      "worstQuantity": "controls.boron"
+    },
+    {
+      "case": "variant-11",
+      "checks": 80,
+      "maxRelativeError": 1.9281713915386808e-15,
+      "worstQuantity": "controls.boron"
+    },
+    {
+      "case": "variant-12",
+      "checks": 80,
+      "maxRelativeError": 4.930027063131124e-16,
+      "worstQuantity": "controls.centralWorth"
+    },
+    {
+      "case": "variant-13",
+      "checks": 80,
+      "maxRelativeError": 9.847815248499093e-16,
+      "worstQuantity": "controls.boricAcid"
+    },
+    {
+      "case": "variant-14",
+      "checks": 80,
+      "maxRelativeError": 5.431638705863835e-15,
+      "worstQuantity": "nodes.0.chf"
+    },
+    {
+      "case": "variant-15",
+      "checks": 80,
+      "maxRelativeError": 2.1218170935706183e-15,
+      "worstQuantity": "nodes.0.chf"
+    },
+    {
+      "case": "variant-16",
+      "checks": 80,
+      "maxRelativeError": 1.031725687815755e-15,
+      "worstQuantity": "metrics.frictionDrop"
+    },
+    {
+      "case": "variant-17",
+      "checks": 80,
+      "maxRelativeError": 1.6001148760348845e-15,
+      "worstQuantity": "controls.boricAcid"
+    },
+    {
+      "case": "variant-18",
+      "checks": 80,
+      "maxRelativeError": 4.1672128542676996e-16,
+      "worstQuantity": "campaign.2"
+    },
+    {
+      "case": "variant-19",
+      "checks": 80,
+      "maxRelativeError": 2.101132061717991e-15,
+      "worstQuantity": "nodes.0.chf"
+    },
+    {
+      "case": "variant-20",
+      "checks": 80,
+      "maxRelativeError": 5.7310014192269526e-15,
+      "worstQuantity": "nodes.2.chf"
+    },
+    {
+      "case": "variant-21",
+      "checks": 80,
+      "maxRelativeError": 9.2195119150747e-16,
+      "worstQuantity": "metrics.frictionDrop"
+    },
+    {
+      "case": "variant-22",
+      "checks": 80,
+      "maxRelativeError": 1.6497853469076591e-15,
+      "worstQuantity": "controls.boron"
+    },
+    {
+      "case": "variant-23",
+      "checks": 80,
+      "maxRelativeError": 2.3821499241106712e-15,
+      "worstQuantity": "controls.boricAcid"
+    },
+    {
+      "case": "variant-24",
+      "checks": 80,
+      "maxRelativeError": 1.148858666051431e-15,
+      "worstQuantity": "controls.boricAcid"
+    },
+    {
+      "case": "variant-25",
+      "checks": 80,
+      "maxRelativeError": 8.401162233320341e-16,
+      "worstQuantity": "controls.boricAcid"
+    },
+    {
+      "case": "variant-26",
+      "checks": 80,
+      "maxRelativeError": 1.0576998699928815e-15,
+      "worstQuantity": "controls.totalWorth"
+    },
+    {
+      "case": "variant-27",
+      "checks": 80,
+      "maxRelativeError": 3.9584387824150867e-16,
+      "worstQuantity": "controls.boricAcid"
+    },
+    {
+      "case": "variant-28",
+      "checks": 80,
+      "maxRelativeError": 2.67472022001841e-15,
+      "worstQuantity": "nodes.2.chf"
+    },
+    {
+      "case": "variant-29",
+      "checks": 80,
+      "maxRelativeError": 2.390858754957881e-15,
+      "worstQuantity": "nodes.0.chf"
+    },
+    {
+      "case": "variant-30",
+      "checks": 80,
+      "maxRelativeError": 7.349187951943072e-16,
+      "worstQuantity": "controls.boron"
+    },
+    {
+      "case": "variant-31",
+      "checks": 80,
+      "maxRelativeError": 6.592916821386104e-16,
+      "worstQuantity": "nodes.1.fuelCenter"
+    },
+    {
+      "case": "variant-32",
+      "checks": 80,
+      "maxRelativeError": 2.4716660593359106e-15,
+      "worstQuantity": "nodes.0.chf"
+    },
+    {
+      "case": "variant-33",
+      "checks": 80,
+      "maxRelativeError": 2.402929108403789e-15,
+      "worstQuantity": "nodes.0.chf"
+    },
+    {
+      "case": "variant-34",
+      "checks": 80,
+      "maxRelativeError": 2.4131414955290907e-15,
+      "worstQuantity": "nodes.2.chf"
+    },
+    {
+      "case": "variant-35",
+      "checks": 80,
+      "maxRelativeError": 8.100683185018305e-16,
+      "worstQuantity": "controls.boricAcid"
+    },
+    {
+      "case": "variant-36",
+      "checks": 80,
+      "maxRelativeError": 7.429399674725122e-16,
+      "worstQuantity": "controls.boron"
+    },
+    {
+      "case": "variant-37",
+      "checks": 80,
+      "maxRelativeError": 7.159236619842513e-16,
+      "worstQuantity": "nodes.1.fuelCenter"
+    },
+    {
+      "case": "variant-38",
+      "checks": 80,
+      "maxRelativeError": 1.4049377696556832e-15,
+      "worstQuantity": "controls.boricAcid"
+    },
+    {
+      "case": "variant-39",
+      "checks": 80,
+      "maxRelativeError": 5.235433521983593e-15,
+      "worstQuantity": "nodes.0.chf"
+    },
+    {
+      "case": "variant-40",
+      "checks": 80,
+      "maxRelativeError": 2.425149496043798e-15,
+      "worstQuantity": "nodes.2.chf"
+    },
+    {
+      "case": "variant-41",
+      "checks": 80,
+      "maxRelativeError": 3.8383651447126887e-16,
+      "worstQuantity": "nodes.1.chf"
+    },
+    {
+      "case": "variant-42",
+      "checks": 80,
+      "maxRelativeError": 9.891691283107437e-16,
+      "worstQuantity": "nodes.1.alpha"
+    },
+    {
+      "case": "variant-43",
+      "checks": 80,
+      "maxRelativeError": 8.75004462337407e-16,
+      "worstQuantity": "nodes.1.fuelCenter"
+    },
+    {
+      "case": "variant-44",
+      "checks": 80,
+      "maxRelativeError": 2.1335552540043617e-15,
+      "worstQuantity": "nodes.0.chf"
+    },
+    {
+      "case": "variant-45",
+      "checks": 80,
+      "maxRelativeError": 6.025050355228277e-15,
+      "worstQuantity": "nodes.0.chf"
+    },
+    {
+      "case": "custom-annular-duct",
+      "checks": 80,
+      "maxRelativeError": 1.3561727988425306e-15,
+      "worstQuantity": "metrics.frictionDrop"
+    },
+    {
+      "case": "given-integral-and-rod",
+      "checks": 77,
+      "maxRelativeError": 1.3401916189048202e-15,
+      "worstQuantity": "controls.boricAcid"
+    },
+    {
+      "case": "constant-conductivity",
+      "checks": 80,
+      "maxRelativeError": 1.003110780000596e-15,
+      "worstQuantity": "controls.boron"
+    },
+    {
+      "case": "coordinate-layout",
+      "checks": 80,
+      "maxRelativeError": 1.0288625487280894e-15,
+      "worstQuantity": "controls.boron"
+    },
+    {
+      "case": "rings-layout",
+      "checks": 80,
+      "maxRelativeError": 1.6767854306743296e-15,
+      "worstQuantity": "controls.boricAcid"
+    },
+    {
+      "case": "IAPWS-95-default",
+      "checks": 80,
+      "maxRelativeError": 1.4043573130944494e-15,
+      "worstQuantity": "controls.boron"
+    }
+  ]
+}

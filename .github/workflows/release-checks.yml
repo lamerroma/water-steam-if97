@@ -1,0 +1,48 @@
+name: Release acceptance
+on:
+  workflow_call:
+permissions:
+  contents: read
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install browser test runtime
+        run: npm install --no-save --package-lock=false playwright@1.62.1
+      - run: npx playwright install --with-deps chromium
+      - run: npm run verify:release
+      - name: Summarize acceptance and model limits
+        if: always()
+        run: |
+          python - <<'PYTHON'
+          import json, os
+          from pathlib import Path
+          reports = sorted(Path('.release').glob('*/report.json'))
+          if reports:
+              report = json.loads(reports[-1].read_text())
+              build = report.get('build') or {}
+              lines = [f"## Software acceptance: {report['status']}", f"Version: {report['version']} · build: {build.get('id', 'unknown')}"]
+              lines += [f"- {check['name']}: {check['status']}" for check in report['checks']]
+              physical = report.get('physicalValidation', {}).get('reactorCell', 'not evaluated')
+              lines += ['', f"**Reactor cell physical validation: {physical}.**", 'Passing software checks does not validate the neutron model. It remains experimental until external benchmarks agree.']
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
+                  summary.write('\n'.join(lines) + '\n')
+          PYTHON
+      - name: Check committed build is current
+        run: git diff --exit-code -- index.html standalone.html assets dist service-worker.js manifest.webmanifest
+      - name: Preserve acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-acceptance
+          path: .release/
+          include-hidden-files: true
+          retention-days: 14

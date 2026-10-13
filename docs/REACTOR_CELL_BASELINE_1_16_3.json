@@ -1,0 +1,113 @@
+{
+  "source": {
+    "report": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1264_web.pdf",
+    "description": "https://www-nds.iaea.org/wimsd/wwer.htm",
+    "input": "https://www-nds.iaea.org/wimsd/bnchmrk/wlup69/wwercrb.win",
+    "locations": "Appendix IV.3, printed pp. 170–172; Table 14.9, printed p. 82; WWERCRB CASE 2 and CASE 3",
+    "retrieved": "2026-10-12"
+  },
+  "model": "Course two-region neutron cell with supplied atom densities and measured buckling; no reactor power or fitted parameters.",
+  "status": "physical-screening-failed",
+  "policy": {
+    "numericalRootTolerance": 1e-12,
+    "kScreeningAbsoluteTolerance": 0.01,
+    "meaning": "A predeclared 1% screening goal, not experimental uncertainty or a certified accuracy claim; also compare against the reported buckling interval and EXPerror independently."
+  },
+  "omitted": [
+    "U234",
+    "Nb93",
+    "Hf178",
+    "evaluated multigroup nuclear data",
+    "bound-water scattering law"
+  ],
+  "geometry": {
+    "fuelAreaCM2": 0.4536459791783661,
+    "gasAreaCM2": 0.01808379271222632,
+    "metalAreaCM2": 0.17153095888600267,
+    "waterAreaCM2": 0.7535528527866836,
+    "totalAreaCM2": 1.3968135835632787,
+    "waterFuelRatio": 1.661103343518006,
+    "totalFuelRatio": 3.079082914155125,
+    "publishedSummaryRatioLabel": "Vm/Vf",
+    "publishedSummaryRatio": 3.079,
+    "ratioWarning": "The published summary ratio matches total/fuel, not water/fuel. Areas are taken from the explicit input radii."
+  },
+  "sourceSHA256": {
+    "tests/fixtures/iaea-zr6-cell.json": "94b9ae93a86efe03547df28ae913900d125100926a8602778b979943247f024d",
+    "src/reactor-neutronics.js": "242fcf08b9933a53e583a61f334ca67905072f6bf147f9005f86e48c11151534",
+    "src/reactor-methods.js": "8f0dc119978b897b9e777970bca4e0e0656ccc396145d69cf0dd8ed57355343e",
+    "src/reactor-nuclear-data.js": "50a903caccd5e43b4568960f561ae0100456df484d70b5201c7cdd35e3318b79",
+    "scripts/reactor-cell-benchmark.mjs": "1739ba1d29ffe42182821d59cf234ccddf1ce114225c3e2daea969e822dd080b",
+    "scripts/reactor-cell-input.mjs": "db607da4aa8321ac974ed6644fc7d8ab3528f5096878fc26c43c9399b0a994c9"
+  },
+  "cases": [
+    {
+      "code": "p2w2b0t2",
+      "parameters": "1.27/3.6/0.0/80",
+      "sourceDeckCase": 2,
+      "measuredBucklingM2": 96.55,
+      "reportedBucklingDeviationM2": 1.29,
+      "experimentalK": 1,
+      "reportedKError": 0.006,
+      "publishedWimsIAEA69K": 0.99656,
+      "publishedWimsIAEA172K": 0.99474,
+      "calculatedK": 1.1147283460947617,
+      "deltaK": 0.11472834609476168,
+      "deltaKPcm": 11472.834609476167,
+      "withinReportedKError": false,
+      "withinScreeningGoal": false,
+      "calculatedCriticalBucklingM2": 142.5395848338808,
+      "deltaBucklingM2": 45.98958483388081,
+      "withinReportedBucklingInterval": false,
+      "waterDensityGCM3": 0.9718062093918909,
+      "diagnostics": {
+        "kinf": 1.40110482391841,
+        "Tng": 471.1308579888085,
+        "theta": 0.9424582456146952,
+        "phi": 0.6723960331066041,
+        "mu": 1.0352292925361426,
+        "baseI8": 22.326633833417613,
+        "KT": 1.0118417119241843,
+        "Lsq": 3.1108153620885437,
+        "age": 20.617052208035286,
+        "nonLeak": 0.7956066720099132,
+        "boundaryGamma": 1.048126393176387
+      }
+    },
+    {
+      "code": "p2w2b0t3",
+      "parameters": "1.27/3.6/0.0/130",
+      "sourceDeckCase": 3,
+      "measuredBucklingM2": 90.27,
+      "reportedBucklingDeviationM2": 0.91,
+      "experimentalK": 1,
+      "reportedKError": 0.006,
+      "publishedWimsIAEA69K": 0.99506,
+      "publishedWimsIAEA172K": 0.99335,
+      "calculatedK": 1.1096605181532306,
+      "deltaK": 0.10966051815323064,
+      "deltaKPcm": 10966.051815323064,
+      "withinReportedKError": false,
+      "withinScreeningGoal": false,
+      "calculatedCriticalBucklingM2": 132.42557631174677,
+      "deltaBucklingM2": 42.15557631174677,
+      "withinReportedBucklingInterval": false,
+      "waterDensityGCM3": 0.9345170668511575,
+      "diagnostics": {
+        "kinf": 1.387407171036326,
+        "Tng": 532.874501727976,
+        "theta": 0.9446319395100543,
+        "phi": 0.6612742989320095,
+        "mu": 1.0363379506670238,
+        "baseI8": 22.182403312850667,
+        "KT": 1.0221911775881194,
+        "Lsq": 3.148389254549439,
+        "age": 21.64156330782353,
+        "nonLeak": 0.7998088386153921,
+        "boundaryGamma": 1.0415718666788398
+      }
+    }
+  ],
+  "appVersion": "1.16.3",
+  "scope": "Historical baseline before the 1.16.4 equation corrections; no re-evaluation."
+}

@@ -30,7 +30,7 @@ function initializeToolNavigation(){
  }
  function context(){
   const action=activeSection;if(!TOOL_CATALOG[action])return;const host=['general','saturation'].includes(action)?$('calculator-view'):action==='help'?$('help-view'):$('process-view');if(guide.parentElement!==host)host.prepend(guide);if(guide.dataset.route!==action){host.scrollTop=0;guide.dataset.route=action;}const form=['general','saturation','help'].includes(action)?null:panelForm(),kind=$('cw-kind')?.value,mode=$('gas-model')?.value,status=toolStatus(action,{kind,model:mode});
-  const limitsKey=action==='coursework'&&kind==='core'?'catalog.coreLimits':action==='gases'&&mode==='mixture'?'catalog.mixturesLimits':action==='gases'&&mode==='ideal'?'catalog.idealLimits':'tool.'+action+'.limits';
+  const limitsKey=action==='coursework'&&kind==='reactor'?'catalog.reactorLimits':action==='coursework'&&kind==='core'?'catalog.coreLimits':action==='gases'&&mode==='mixture'?'catalog.mixturesLimits':action==='gases'&&mode==='ideal'?'catalog.idealLimits':'tool.'+action+'.limits';
   const signature=[action,status,uiTranslator.language,form?.dataset.calculated,form?.dataset.model,kind,mode].join('|');if(guide.dataset.context===signature)return;guide.dataset.context=signature;guide.dataset.status=status;guide.replaceChildren();
   const badge=document.createElement('span');badge.className='method-badge '+status;badge.textContent=uiTranslator.t('catalog.status.'+status);const summary=document.createElement('p');summary.className='tool-context-summary';summary.append(badge,document.createTextNode(' '+uiTranslator.t('tool.'+action+'.description')));guide.append(summary);
   // Unconfirmed correlations are visible before calculation, not buried in results.

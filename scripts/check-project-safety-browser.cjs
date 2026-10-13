@@ -1,0 +1,52 @@
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright');
+const assert=require('node:assert/strict'),fs=require('node:fs/promises');
+const setTitle=async(page,value)=>{const menu=page.locator('.menubar details').first();if(!await page.locator('#project-title').isVisible())await menu.locator('summary').click();await page.fill('#project-title',value);await menu.locator('summary').click();};
+const KEY='water-steam-if97-project-v1',URL=process.env.CALCULATOR_URL||'http://localhost:8080/';
+(async()=>{
+ const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_PATH});
+ try{
+  const page=await browser.newPage({acceptDownloads:true}),errors=[];
+  page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(URL);await page.waitForFunction(()=>!document.querySelector('#calculate').disabled);
+  await setTitle(page,'Робота для збереження');await page.click('#calculate');
+  await page.waitForFunction(()=>JSON.parse(localStorage.getItem('water-steam-if97-project-v1'))?.history.length===1);
+  const stored=()=>page.evaluate(key=>localStorage.getItem(key),KEY);
+  const initial=await stored(),project=JSON.parse(initial),input=page.locator('input[type=file][accept=".json,application/json"]');
+  const upload=async buffer=>{await input.setInputFiles({name:'project.json',mimeType:'application/json',buffer:Buffer.from(buffer)});await page.waitForFunction(()=>document.querySelector('input[type=file][accept=".json,application/json"]').value==='');};
+  const invalid=[ '{bad json',JSON.stringify({...project,version:99}),JSON.stringify({...project,history:[{p:-1,h:500}]}),JSON.stringify({...project,study:{entries:[{kind:'unknown'}]}}),'x'.repeat(2000001) ];
+  for(const text of invalid){await upload(text);assert.equal(await stored(),initial);assert.equal(await page.locator('#project-title').inputValue(),project.title);assert.ok((await page.locator('#error').textContent()).includes('Імпорт:'));}
+  console.log('Malformed, unsupported, invalid-state/report and oversized imports preserve current project PASS');
+  await page.evaluate(()=>{const original=File.prototype.text;File.prototype.text=async function(){const text=await original.call(this);await new Promise(resolve=>{window.finishProjectRead=resolve;});return text;};});
+  await input.setInputFiles({name:'slow.json',mimeType:'application/json',buffer:Buffer.from(initial)});
+  await page.waitForFunction(()=>!!window.finishProjectRead);await setTitle(page,'Нові зміни');await page.evaluate(()=>window.finishProjectRead());
+  await page.waitForFunction(()=>document.querySelector('#error').textContent.includes('Проєкт змінено'));
+  assert.equal(JSON.parse(await stored()).title,'Нові зміни');
+  console.log('Changes made during asynchronous import are preserved PASS');
+  await page.evaluate(()=>{window.storageSet=Storage.prototype.setItem;Storage.prototype.setItem=function(key,value){if(key==='water-steam-if97-project-v1')throw new DOMException('Full','QuotaExceededError');return window.storageSet.call(this,key,value);};});
+  const beforeQuota=await stored();await setTitle(page,'Робота без сховища');
+  assert.equal(await stored(),beforeQuota);assert.ok((await page.locator('#project-save-status').textContent()).includes('незбережені'));
+  const download=async selector=>{const [file]=await Promise.all([page.waitForEvent('download'),selector.evaluate(el=>el.click())]);return fs.readFile(await file.path(),'utf8');};
+  const exported=JSON.parse(await download(page.getByRole('button',{name:'Експорт проєкту JSON',exact:true,includeHidden:true})));
+  assert.equal(exported.title,'Робота без сховища');assert.equal(exported.history.length,1);
+  await page.evaluate(()=>{Storage.prototype.setItem=window.storageSet;});await setTitle(page,'Сховище відновилося');
+  assert.equal(JSON.parse(await stored()).title,'Сховище відновилося');
+  console.log('Storage quota failure retains memory and original data; JSON export and subsequent save work PASS');
+  const corrupt='{original damaged project';
+  const context=await browser.newContext({acceptDownloads:true});
+  await context.addInitScript(({key,corrupt})=>{if(localStorage.getItem(key)===null)localStorage.setItem(key,corrupt);window.storageSet=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k===key+'-recovery')throw new DOMException('Full','QuotaExceededError');return window.storageSet.call(this,k,v);};},{key:KEY,corrupt});
+  const recovery=await context.newPage();recovery.on('pageerror',e=>errors.push(e.message));await recovery.goto(URL);
+  await recovery.waitForFunction(()=>!document.querySelector('#calculate').disabled);
+  assert.equal(await recovery.locator('#file-recovery').isEnabled(),true);
+  await setTitle(recovery,'Нова робота');await recovery.click('#calculate');
+  assert.equal(await recovery.evaluate(key=>localStorage.getItem(key),KEY),corrupt);
+  const [raw]=await Promise.all([recovery.waitForEvent('download'),recovery.locator('#file-recovery').evaluate(el=>el.click())]);
+  assert.equal(await fs.readFile(await raw.path(),'utf8'),corrupt);
+  await recovery.evaluate(()=>{Storage.prototype.setItem=window.storageSet;});await setTitle(recovery,'Нова робота після відновлення сховища');
+  assert.equal(await recovery.evaluate(key=>localStorage.getItem(key+'-recovery'),KEY),corrupt);
+  assert.equal(JSON.parse(await recovery.evaluate(key=>localStorage.getItem(key),KEY)).history.length,1);
+  await recovery.reload();await recovery.waitForFunction(()=>!document.querySelector('#calculate').disabled);
+  assert.equal(await recovery.locator('#file-recovery').isEnabled(),true);assert.equal(await recovery.evaluate(key=>localStorage.getItem(key+'-recovery'),KEY),corrupt);
+  console.log('Corrupt startup record survives failed backup; exact recovery download, backup and reload PASS');
+  assert.deepEqual(errors,[]);
+ }finally{await browser.close();}
+})().catch(e=>{console.error(e);process.exitCode=1;});

@@ -1,0 +1,72 @@
+{
+  "format": "iaea-zr6-cell-reference",
+  "version": 1,
+  "sources": {
+    "report": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1264_web.pdf",
+    "description": "https://www-nds.iaea.org/wimsd/wwer.htm",
+    "input": "https://www-nds.iaea.org/wimsd/bnchmrk/wlup69/wwercrb.win",
+    "locations": "Appendix IV.3, printed pp. 170–172; Table 14.9, printed p. 82; WWERCRB CASE 2 and CASE 3",
+    "retrieved": "2026-10-12"
+  },
+  "identification": "P/E/B/T and code are authoritative; summary and detailed tables reuse short names for different cases.",
+  "geometry": {
+    "lattice": "hex",
+    "pitchCM": 1.27,
+    "fuelRadiusCM": 0.38,
+    "cladInnerRadiusCM": 0.3875,
+    "cladOuterRadiusCM": 0.4525,
+    "cellRadiusCM": 0.666798,
+    "gapMaterial": "void",
+    "fuelDensityGCM3": 10.28,
+    "cladDensityGCM3": 6.55,
+    "enrichmentAtomPercent": 3.6
+  },
+  "atomDensitiesPerCM3": {
+    "fuel": {"U234": 8.04966e18, "U235": 8.25606e20, "U238": 2.20998e22, "O16": 4.58670e22},
+    "clad": {"Zr": 4.27937e22, "Nb93": 4.24561e20, "Hf178": 6.62969e18}
+  },
+  "modelOmissions": ["U234", "Nb93", "Hf178", "evaluated multigroup nuclear data", "bound-water scattering law"],
+  "policy": {
+    "numericalRootTolerance": 1e-12,
+    "kScreeningAbsoluteTolerance": 0.01,
+    "meaning": "A predeclared 1% screening goal, not experimental uncertainty or a certified accuracy claim; also compare against the reported buckling interval and EXPerror independently."
+  },
+  "cases": [
+    {
+      "code": "p2w2b0t2",
+      "parameters": "1.27/3.6/0.0/80",
+      "deckCase": 2,
+      "detailedTableName": "wwer_cra02",
+      "summaryTableName": "wwer_cra05",
+      "temperatureK": 353.15,
+      "boricAcidGL": 0,
+      "waterAtomDensitiesPerCM3": {"H1": 6.49709e22, "O16": 3.24855e22, "B11": 0},
+      "radialBucklingCM2": 0.008118,
+      "axialBucklingCM2": 0.001537,
+      "measuredBucklingM2": 96.55,
+      "reportedBucklingDeviationM2": 1.29,
+      "experimentalK": 1,
+      "reportedKError": 0.006,
+      "publishedWimsIAEA69K": 0.99656,
+      "publishedWimsIAEA172K": 0.99474
+    },
+    {
+      "code": "p2w2b0t3",
+      "parameters": "1.27/3.6/0.0/130",
+      "deckCase": 3,
+      "detailedTableName": "wwer_cra03",
+      "summaryTableName": "wwer_cra06",
+      "temperatureK": 403.15,
+      "boricAcidGL": 0,
+      "waterAtomDensitiesPerCM3": {"H1": 6.24779e22, "O16": 3.12390e22, "B11": 0},
+      "radialBucklingCM2": 0.007827,
+      "axialBucklingCM2": 0.001200,
+      "measuredBucklingM2": 90.27,
+      "reportedBucklingDeviationM2": 0.91,
+      "experimentalK": 1,
+      "reportedKError": 0.006,
+      "publishedWimsIAEA69K": 0.99506,
+      "publishedWimsIAEA172K": 0.99335
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-name: Verify IF97
+name: Verify calculator
 on:
   push:
   pull_request:
@@ -7,12 +7,4 @@ permissions:
   contents: read
 jobs:
   verify:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - run: npm test
-      - run: npm run build
-      - run: git diff --exit-code -- index.html standalone.html assets dist
+    uses: ./.github/workflows/release-checks.yml

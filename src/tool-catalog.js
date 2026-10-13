@@ -142,6 +142,7 @@ export const TOOL_CATALOG={
 };
 
 export function toolStatus(action,inputs={}){
+ if(action==='coursework'&&inputs.kind==='reactor')return 'experimental';
  if(action==='coursework'&&inputs.kind==='core')return 'provisional';
  if(action==='coursework'&&['rankine','stage'].includes(inputs.kind))return 'educational';
  if(action==='gases'&&inputs.model==='real')return 'reference';
