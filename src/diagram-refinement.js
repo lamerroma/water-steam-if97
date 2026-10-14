@@ -14,7 +14,7 @@ export async function refineDiagramSamples(samples,{parameter,evaluate,project,r
   if(memo.has(t))return {q:memo.get(t)};
   if(evaluations>=budget){limited=true;return {exhausted:true};}
   evaluations++;if(evaluations%12===0)await yieldFrame();
-  let q=null;try{q=evaluate(t);}catch{}memo.set(t,q);return {q};
+  let q=null;try{q=await evaluate(t);}catch(error){if(error?.name==='AbortError')throw error;}memo.set(t,q);return {q};
  }
  async function segment(a,b,depth){
   const pa=pixel(a),pb=pixel(b),ta=parameter(a),tb=parameter(b);

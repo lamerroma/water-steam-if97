@@ -1,3 +1,4 @@
+import {analyzeProfileConvergence,profileConvergenceCSV} from './profile-convergence.js';
 import {REACTOR_CHOICES} from './reactor-course.js';
 import {reactorFieldsUI,reactorRenderExtra} from './reactor-course-ui.js';
 import {COURSE_FIELDS,COURSE_DEFAULTS,COURSE_NAMES,coursework,courseworkTables,courseworkCSV,courseworkNodeSteps,courseworkTrianglesSVG} from './coursework.js';
@@ -45,6 +46,7 @@ function courseRender(){
  const tables=courseworkTables(q,en);detail('cw-steps-detail','catalog.steps').append(courseTableDOM(tables[0]));
  if(q.profile){detail('cw-profile-detail','catalog.profile').append(courseTableDOM(tables[2]));
   const node=detail('cw-node-detail','catalog.node'),label=document.createElement('label');label.textContent=t('Покрокова тепловіддача у точці','Step-by-step heat transfer at node');const select=document.createElement('select');select.id='cw-node';q.profile.forEach((r,i)=>{const opt=document.createElement('option');opt.value=String(i);opt.textContent='z = '+Number(r.z.toPrecision(5))+' m';select.append(opt);});select.value=String(Math.floor(q.profile.length/2));label.append(select);const box=document.createElement('div');box.id='cw-node-steps';node.append(label,box);const render=()=>{box.replaceChildren(courseTableDOM({headers:tables[0].headers,rows:courseworkNodeSteps(q,Number(select.value)).map(s=>[s.label[en?1:0],s.formula,s.substitution,s.value,s.unit])}));};select.onchange=render;render();}
+ if(q.profile)courseConvergenceUI(q,root);
  if(q.input.kind==='reactor')reactorRenderExtra(q,root,actions,tables);
  const notes=document.createElement('details');notes.open=false;const caption=document.createElement('summary');caption.textContent=t('Методика, формули та припущення','Method, formulas and assumptions');notes.append(caption);for(const note of q.notes){const p=document.createElement('p');p.textContent=note[en?1:0];notes.append(p);}root.append(notes);
 }
@@ -62,3 +64,21 @@ document.addEventListener('languagechange',()=>{if(activeSection==='coursework')
 let coursePrintDetails=[];
 window.addEventListener('beforeprint',()=>{coursePrintDetails=[...document.querySelectorAll('#cw-results details')].map(d=>[d,d.open]);for(const [d] of coursePrintDetails)d.open=true;});
 window.addEventListener('afterprint',()=>{for(const [d,open] of coursePrintDetails)if(d.isConnected)d.open=open;coursePrintDetails=[];});
+
+function courseConvergenceUI(q,root){
+ const t=cwText,box=document.createElement('details');box.className='course-detail';box.id='cw-convergence';box.dataset.i18nIgnore='';
+ box.innerHTML='<summary>'+t('Перевірка згущення сітки','Grid refinement check')+'</summary><p>'+t('Порівнюються вкладені сітки. Різниця температур оцінюється в точках густішої сітки відносно лінійної інтерполяції грубішої. Це числова перевірка, а не підтвердження фізичної моделі.','Nested grids are compared. Temperature differences are evaluated at the finer grid points against linear interpolation of the coarser grid. This is a numerical check, not physical model validation.')+'</p><label>ΔT '+t('для порівняння сіток [K]','for grid comparison [K]')+'<input id="cw-mesh-tolerance" value="0.5" inputmode="decimal"></label><button type="button" id="cw-check-convergence">'+t('Порівняти сітки','Compare grids')+'</button><output id="cw-convergence-status" role="status"></output><div id="cw-convergence-result" class="sat-scroll"></div>';
+ root.append(box);const button=$('cw-check-convergence'),tolerance=$('cw-mesh-tolerance'),status=$('cw-convergence-status'),result=$('cw-convergence-result');let generation=0;
+ tolerance.oninput=()=>{generation++;result.replaceChildren();status.textContent='';button.disabled=false;};
+ button.onclick=async()=>{
+  const job=++generation;result.replaceChildren();button.disabled=true;status.textContent=t('Порівняння сіток…','Comparing grids…');
+  const current=()=>box.isConnected&&q===courseworkResult&&job===generation;
+  try{const value=parseNumber(tolerance.value);if(!(value>0))throw Error(t('Введіть додатне ΔT.','Enter a positive ΔT.'));const r=await analyzeProfileConvergence(q,coursework,{tolerance:value,yieldFrame:async()=>{await new Promise(resolve=>setTimeout(resolve,0));if(!current())throw Error('cancelled');}});if(!current())return;
+   status.textContent=(r.meetsTolerance?t('Остання пара сіток відповідає заданому ΔT.','The last grid pair meets the specified ΔT.'):t('На межі 201 точки заданого ΔT не досягнуто.','The specified ΔT was not reached at the 201-point limit.'))+' '+t('Поточний результат залишається на ','The current result still uses ')+q.profile.length+t(' точках.',' points.');
+   const columns=[['temperatureChange','ΔT max [K]'],['fuelCenter',t('Δt палива [K]','Δt fuel [K]')],['cladOuter',t('Δt оболонки [K]','Δt cladding [K]')]];
+   result.innerHTML='<table><thead><tr><th>'+t('Сітки','Grids')+'</th>'+columns.map(c=>'<th>'+c[1]+'</th>').join('')+'<th>Δ min(CHF/q)</th></tr></thead><tbody>'+r.rows.map(row=>'<tr><td>'+row.coarsePoints+' → '+row.finePoints+'</td>'+columns.map(([key])=>'<td>'+format(key==='temperatureChange'?row.temperatureChange:row.differences[key]??null)+'</td>').join('')+'<td>'+format(row.chfMinimumChange)+'</td></tr>').join('')+'</tbody></table>';
+   const csv=document.createElement('button');csv.type='button';csv.id='cw-convergence-csv';csv.textContent=t('CSV порівняння','Comparison CSV');csv.onclick=()=>downloadFile(profileConvergenceCSV(r),'profile-grid-comparison.csv','text/csv;charset=utf-8');result.append(csv);
+   if(r.finestPoints!==q.profile.length){const apply=document.createElement('button');apply.type='button';apply.id='cw-apply-mesh';apply.textContent=t('Перерахувати результат: ','Recalculate result: ')+r.finestPoints+t(' точок',' points');apply.onclick=()=>{const kind=$('cw-chart-kind').value;uiSetValue('cw-points',r.finestPoints);$('cw-form').dispatchEvent(new Event('input',{bubbles:true}));$('cw-form').requestSubmit();if($('cw-chart-kind')){$('cw-chart-kind').value=kind;courseDrawChart();}};result.append(apply);}
+  }catch(error){if(current())status.textContent=error.message;}finally{if(current())button.disabled=false;}
+ };
+}

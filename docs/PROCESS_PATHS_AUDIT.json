@@ -1,0 +1,167 @@
+{
+  "build": {
+    "version": "1.18.0",
+    "id": "bd9724de844d"
+  },
+  "status": "passed",
+  "acceptance": "RELEASE_ACCEPTANCE.json",
+  "acceptanceMode": "full-with-targeted-retries",
+  "checks": 32,
+  "unitTests": 711,
+  "browserScenarios": 19,
+  "galleryCharts": 47,
+  "processCurveScenes": [
+    {
+      "name": "rankine",
+      "kind": "ts",
+      "checked": 735,
+      "maxPixelError": 0.47829966304384747,
+      "stats": {
+        "evaluations": 416,
+        "budget": 6000,
+        "limited": false,
+        "gaps": 0
+      }
+    },
+    {
+      "name": "rankine",
+      "kind": "hs",
+      "checked": 693,
+      "maxPixelError": 0.42751048056385116,
+      "stats": {
+        "evaluations": 392,
+        "budget": 6000,
+        "limited": false,
+        "gaps": 0
+      }
+    },
+    {
+      "name": "rankine-reheat",
+      "kind": "ts",
+      "checked": 1071,
+      "maxPixelError": 0.4441461669929029,
+      "stats": {
+        "evaluations": 607,
+        "budget": 6000,
+        "limited": false,
+        "gaps": 0
+      }
+    },
+    {
+      "name": "rankine-reheat",
+      "kind": "hs",
+      "checked": 1022,
+      "maxPixelError": 0.4828608959778346,
+      "stats": {
+        "evaluations": 579,
+        "budget": 6000,
+        "limited": false,
+        "gaps": 0
+      }
+    },
+    {
+      "name": "rankine-regen",
+      "kind": "ts",
+      "checked": 1162,
+      "maxPixelError": 0.46353573705566287,
+      "stats": {
+        "evaluations": 658,
+        "budget": 6000,
+        "limited": false,
+        "gaps": 0
+      }
+    },
+    {
+      "name": "rankine-regen",
+      "kind": "hs",
+      "checked": 1134,
+      "maxPixelError": 0.17528924651354952,
+      "stats": {
+        "evaluations": 642,
+        "budget": 6000,
+        "limited": false,
+        "gaps": 0
+      }
+    },
+    {
+      "name": "brayton",
+      "kind": "ts",
+      "checked": 672,
+      "maxPixelError": 0.2887472112074618,
+      "stats": {
+        "evaluations": 380,
+        "budget": 6000,
+        "limited": false,
+        "gaps": 0
+      }
+    },
+    {
+      "name": "brayton",
+      "kind": "hs",
+      "checked": 672,
+      "maxPixelError": 0.2703663168809288,
+      "stats": {
+        "evaluations": 380,
+        "budget": 6000,
+        "limited": false,
+        "gaps": 0
+      }
+    },
+    {
+      "name": "supercritical",
+      "kind": "ts",
+      "checked": 735,
+      "maxPixelError": 0.49169978712128637,
+      "stats": {
+        "evaluations": 417,
+        "budget": 6000,
+        "limited": false,
+        "gaps": 0
+      }
+    },
+    {
+      "name": "supercritical",
+      "kind": "hs",
+      "checked": 679,
+      "maxPixelError": 0.4351243955173941,
+      "stats": {
+        "evaluations": 385,
+        "budget": 6000,
+        "limited": false,
+        "gaps": 0
+      }
+    },
+    {
+      "name": "npp-msr",
+      "kind": "ts",
+      "checked": 1813,
+      "maxPixelError": 0.3859361541103072,
+      "stats": {
+        "evaluations": 1030,
+        "budget": 6000,
+        "limited": false,
+        "gaps": 0
+      }
+    },
+    {
+      "name": "npp-msr",
+      "kind": "hs",
+      "checked": 1799,
+      "maxPixelError": 0.4043503849065152,
+      "stats": {
+        "evaluations": 1022,
+        "budget": 6000,
+        "limited": false,
+        "gaps": 0
+      }
+    }
+  ],
+  "maximumSampledProcessCurveErrorPx": 0.49169978712128637,
+  "waterForward": 781,
+  "waterInverse": 684,
+  "physicalValidation": {
+    "reactorCell": "physical-screening-failed",
+    "scope": "Independent cell screening; failure blocks claims of neutron-model physical validation, separately from software acceptance."
+  },
+  "scope": "Sampled geometric and software acceptance; no physical validation of every process or reactor correlation."
+}
