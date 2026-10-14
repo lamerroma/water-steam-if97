@@ -1,0 +1,414 @@
+{
+  "version": "1.23.0",
+  "viewport": {
+    "width": 1366,
+    "height": 768
+  },
+  "method": "Browser walkthrough of all catalog sections before the task-layout changes; default form states.",
+  "sections": 28,
+  "ordinarySectionsWithInternalClipping": 16,
+  "details": [
+    {
+      "action": "general",
+      "forms": [
+        {
+          "id": "calculator",
+          "inputs": 7
+        }
+      ],
+      "clipped": [
+        {
+          "id": "calculator-view",
+          "height": 437,
+          "total": 534
+        },
+        {
+          "id": "results-scroll",
+          "height": 156,
+          "total": 1313
+        }
+      ],
+      "buttons": 0
+    },
+    {
+      "action": "saturation",
+      "forms": [
+        {
+          "id": "calculator",
+          "inputs": 7
+        }
+      ],
+      "clipped": [
+        {
+          "id": "calculator-view",
+          "height": 437,
+          "total": 479
+        },
+        {
+          "id": "results-scroll",
+          "height": 156,
+          "total": 1313
+        }
+      ],
+      "buttons": 0
+    },
+    {
+      "action": "turbine",
+      "forms": [
+        {
+          "id": "process-form",
+          "inputs": 13
+        }
+      ],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 437,
+          "total": 531
+        }
+      ],
+      "buttons": 4
+    },
+    {
+      "action": "flash",
+      "forms": [
+        {
+          "id": "process-form",
+          "inputs": 9
+        }
+      ],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 437,
+          "total": 531
+        }
+      ],
+      "buttons": 4
+    },
+    {
+      "action": "ts",
+      "forms": [],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 451,
+          "total": 648
+        }
+      ],
+      "buttons": 20
+    },
+    {
+      "action": "hsdiagram",
+      "forms": [],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 451,
+          "total": 648
+        }
+      ],
+      "buttons": 20
+    },
+    {
+      "action": "batch",
+      "forms": [
+        {
+          "id": "batch-form",
+          "inputs": 8
+        }
+      ],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 437,
+          "total": 558
+        }
+      ],
+      "buttons": 3
+    },
+    {
+      "action": "engineering",
+      "forms": [
+        {
+          "id": "engineering-form",
+          "inputs": 21
+        }
+      ],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 437,
+          "total": 551
+        }
+      ],
+      "buttons": 4
+    },
+    {
+      "action": "gases",
+      "forms": [
+        {
+          "id": "learn-form",
+          "inputs": 21
+        }
+      ],
+      "clipped": [],
+      "buttons": 1
+    },
+    {
+      "action": "humid",
+      "forms": [
+        {
+          "id": "learn-form",
+          "inputs": 7
+        }
+      ],
+      "clipped": [],
+      "buttons": 1
+    },
+    {
+      "action": "cycles",
+      "forms": [
+        {
+          "id": "learn-form",
+          "inputs": 19
+        }
+      ],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 437,
+          "total": 496
+        }
+      ],
+      "buttons": 4
+    },
+    {
+      "action": "ice",
+      "forms": [
+        {
+          "id": "learn-form",
+          "inputs": 4
+        }
+      ],
+      "clipped": [],
+      "buttons": 1
+    },
+    {
+      "action": "d2o",
+      "forms": [
+        {
+          "id": "learn-form",
+          "inputs": 5
+        }
+      ],
+      "clipped": [],
+      "buttons": 1
+    },
+    {
+      "action": "seawater",
+      "forms": [
+        {
+          "id": "learn-form",
+          "inputs": 5
+        }
+      ],
+      "clipped": [],
+      "buttons": 1
+    },
+    {
+      "action": "boundaries",
+      "forms": [
+        {
+          "id": "scientific-form",
+          "inputs": 6
+        }
+      ],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 437,
+          "total": 500
+        }
+      ],
+      "buttons": 1
+    },
+    {
+      "action": "comparison",
+      "forms": [
+        {
+          "id": "scientific-form",
+          "inputs": 5
+        }
+      ],
+      "clipped": [],
+      "buttons": 1
+    },
+    {
+      "action": "flow",
+      "forms": [
+        {
+          "id": "flow-form",
+          "inputs": 36
+        }
+      ],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 437,
+          "total": 614
+        }
+      ],
+      "buttons": 4
+    },
+    {
+      "action": "tutorials",
+      "forms": [
+        {
+          "id": "tutorial-form",
+          "inputs": 1
+        }
+      ],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 437,
+          "total": 582
+        }
+      ],
+      "buttons": 5
+    },
+    {
+      "action": "satgrid",
+      "forms": [
+        {
+          "id": "satgrid-form",
+          "inputs": 5
+        }
+      ],
+      "clipped": [],
+      "buttons": 1
+    },
+    {
+      "action": "phdiagram",
+      "forms": [],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 451,
+          "total": 648
+        }
+      ],
+      "buttons": 20
+    },
+    {
+      "action": "npp",
+      "forms": [
+        {
+          "id": "npp-form",
+          "inputs": 23
+        }
+      ],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 437,
+          "total": 587
+        }
+      ],
+      "buttons": 5
+    },
+    {
+      "action": "study",
+      "forms": [],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 437,
+          "total": 887
+        }
+      ],
+      "buttons": 6
+    },
+    {
+      "action": "research",
+      "forms": [
+        {
+          "id": "research-form",
+          "inputs": 5
+        }
+      ],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 437,
+          "total": 567
+        }
+      ],
+      "buttons": 5
+    },
+    {
+      "action": "exchanger",
+      "forms": [
+        {
+          "id": "exchanger-form",
+          "inputs": 12
+        }
+      ],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 437,
+          "total": 468
+        }
+      ],
+      "buttons": 5
+    },
+    {
+      "action": "projects",
+      "forms": [],
+      "clipped": [],
+      "buttons": 3
+    },
+    {
+      "action": "laboratory",
+      "forms": [
+        {
+          "id": "lab-form",
+          "inputs": 15
+        }
+      ],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 437,
+          "total": 882
+        }
+      ],
+      "buttons": 7
+    },
+    {
+      "action": "coursework",
+      "forms": [
+        {
+          "id": "cw-form",
+          "inputs": 13
+        }
+      ],
+      "clipped": [
+        {
+          "id": "process-view",
+          "height": 437,
+          "total": 505
+        }
+      ],
+      "buttons": 5
+    },
+    {
+      "action": "help",
+      "forms": [],
+      "clipped": [],
+      "buttons": 0
+    }
+  ]
+}

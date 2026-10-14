@@ -1,0 +1,61 @@
+{
+  "version": "1.24.0",
+  "build": "b64920990af7",
+  "status": "passed",
+  "completed": "2026-10-14T14:45:08.929Z",
+  "releaseRun": ".release/2026-10-14T14-35-51-546Z",
+  "acceptanceChecks": 40,
+  "unitTests": 730,
+  "browserScenarios": 26,
+  "baseline": {
+    "sections": 28,
+    "heightConstrainedOrdinaryPanels": 16,
+    "viewport": [
+      1366,
+      768
+    ],
+    "evidence": "UI_TASK_BASELINE.json"
+  },
+  "taskLayout": {
+    "browsers": [
+      "Chromium",
+      "Firefox"
+    ],
+    "sectionsPerBrowser": 28,
+    "widths": [
+      1366,
+      390,
+      320
+    ],
+    "layoutsPerBrowser": 84,
+    "computedScenarios": [
+      "cycles",
+      "nuclear",
+      "exchanger",
+      "laboratory",
+      "coursework"
+    ],
+    "checks": [
+      "keyboard navigation and Enter",
+      "invalid input on first Calculate click",
+      "units drawer and Escape focus",
+      "original actions without duplicate controls",
+      "repeated calculation and locale CSV handlers",
+      "method notes printing",
+      "mobile document overflow",
+      "ordinary form natural scrolling",
+      "standalone offline"
+    ]
+  },
+  "extraFirefox": {
+    "status": "passed",
+    "log": "/tmp/task-ui-firefox-final.log"
+  },
+  "screenshots": [
+    ".release/ui-124/chromium/turbine-desktop.png",
+    ".release/ui-124/chromium/turbine-mobile.png",
+    ".release/ui-124/firefox/turbine-desktop.png",
+    ".release/ui-124/firefox/turbine-mobile.png"
+  ],
+  "scope": "Software acceptance only; passing does not validate every physical model or device."
+}

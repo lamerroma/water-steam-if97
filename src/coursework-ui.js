@@ -28,7 +28,7 @@ function showCoursework(){
  restorePanelInputs('coursework',form);restorePanelResult('coursework',form);
 }
 function courseTableDOM(table){const wrap=document.createElement('div');wrap.className='sat-scroll';const el=document.createElement('table');el.className='results-table';if(['thermal-evidence','reactor-verification'].includes(table.className))el.classList.add(table.className);const head=document.createElement('thead'),tr=document.createElement('tr');for(const h of table.headers){const th=document.createElement('th');th.textContent=h;tr.append(th);}head.append(tr);const body=document.createElement('tbody');for(const row of table.rows){const r=document.createElement('tr');for(const v of row){const td=document.createElement('td');td.textContent=typeof v==='number'?Number(v.toPrecision(displayDigits)).toString():String(v??'—');r.append(td);}body.append(r);}el.append(head,body);wrap.append(el);return wrap;}
-function courseRender(){
+function courseRender(){uiBeforeResultRender();
  const q=courseworkResult,t=cwText,en=uiTranslator.language==='en',root=$('cw-results');root.replaceChildren();
  for(const note of q.warnings){const p=document.createElement('p');p.className='course-warning';p.setAttribute('role','status');p.textContent=note[en?1:0];root.append(p);}
  const summary=document.createElement('div');summary.className='cw-summary';const keys=q.input.kind==='reactor'?['thermalMW','flow','maxFuelCenter',...(q.neutronics?['meanEnrichment','keff','boron']:[])]:q.input.kind==='rankine'?['efficiency','power']:q.input.kind==='stage'?['efficiency','power','work']:['flow','height','bundles','maxCladOuter','maxFuelSurface'];

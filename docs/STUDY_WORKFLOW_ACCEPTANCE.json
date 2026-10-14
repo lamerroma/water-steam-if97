@@ -1,0 +1,23 @@
+{
+  "build": {
+    "version": "1.23.0",
+    "id": "3f492e831621"
+  },
+  "fullAcceptance": {
+    "status": "passed",
+    "checks": 39,
+    "unitTests": 730,
+    "browserScenarios": 25,
+    "report": "RELEASE_ACCEPTANCE.json"
+  },
+  "additionalFirefoxWorkflow": {
+    "status": "passed",
+    "command": "BROWSER_NAME=firefox node scripts/check-study-workflow-browser.cjs",
+    "scope": "HTML/report workflow, focus, mobile layout and full offline journey. Automated PDF generation is tested only in Chromium.",
+    "output": [
+      "Empty report reminders and nonblocking HTML export PASS",
+      "State → comparison → process → diagram → report/PDF, stale guards, outline, UK/EN, reload and mobile PASS",
+      "Complete standalone workflow offline PASS"
+    ]
+  }
+}

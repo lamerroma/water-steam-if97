@@ -589,3 +589,64 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 #history [data-history-select]{width:20px;height:20px;vertical-align:middle;margin:0 .3rem}
 @media(max-width:700px){#state-comparison-dialog{padding:.65rem}#state-comparison-dialog button,#comparison-reference{min-height:44px}#history [data-history-select]{width:28px;height:28px;margin:8px}#state-comparison-dialog .comparison-scroll{max-height:48dvh}}
 #state-comparison-table tbody th{position:sticky;left:0;z-index:1}#state-comparison-table thead th:first-child{left:0;z-index:2}
+/* Consistent next steps and report editing without modal approval gates. */
+.ui-result-actions{margin:.8rem 0;padding:.7rem;border:1px solid var(--line);background:#edf4fb}.ui-result-actions>p{margin:0 0 .5rem;font-weight:600}.ui-result-actions[data-ready=false]{border-left:4px solid #a55b16}
+#workflow-calculator-status{margin:.4rem 0;padding:.4rem;color:#6e4518}#workflow-calculator-status[data-ready=true]{color:#225238}
+#study-review,#study-outline{border:1px solid var(--line);padding:.7rem;margin:.8rem 0;min-width:0;overflow-wrap:anywhere}#study-review{background:#fff6e5}#study-review h3,#study-outline h3{margin:.2rem 0 .6rem}#study-review li{margin:.4rem 0}#study-review button,#study-outline button{white-space:normal;text-align:left;max-width:100%}#study-outline{display:flex;flex-direction:column;gap:.4rem}#study-outline button{overflow-wrap:anywhere}#study-list fieldset{scroll-margin-top:1rem}
+@media(max-width:700px){.ui-result-actions button,#study-review button,#study-outline button{min-height:44px}.ui-result-actions .feature-actions{flex-wrap:wrap}}
+@media print{#study-review,#study-outline,.ui-result-actions,#workflow-calculator-status{display:none!important}}
+#study-review[data-ready=true]{background:#eef8f0;border-color:#9cb8a3}
+@media(max-width:700px){#study-author,#study-assignment,#study-export,#study-preview,#study-print{min-height:44px}}
+/* Task workspace: one document scroll, with inputs and results taking priority. */
+body.ui-task-layout{height:auto;min-height:100dvh}
+.ui-task-layout:not(.diagram-active) .desktop{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;min-height:0;flex:none;align-items:start}
+.ui-task-layout:not(.diagram-active) .center-pane{min-height:0;overflow:visible}
+.ui-task-layout:not(.diagram-active) .calculator-view,.ui-task-layout:not(.diagram-active) #process-view,.ui-task-layout:not(.diagram-active) #help-view{max-height:none;min-height:0;overflow:visible;flex:none}
+.ui-task-layout:not(.diagram-active) .results-scroll{max-height:none;min-height:0;overflow:visible;flex:none}
+.ui-task-layout:not(.diagram-active) #output-resize{display:none}
+.ui-task-layout:not(.diagram-active) .output-pane{height:auto;min-height:0;grid-column:1/-1}
+.ui-task-layout:not(.diagram-active) .history-scroll{max-height:18rem}
+.ui-task-layout:not(.diagram-active):not(.setup-collapsed) .setup-pane{display:flex;flex-direction:column;position:fixed;right:.6rem;top:4rem;bottom:1rem;width:min(24rem,94vw);height:auto;z-index:30;box-shadow:0 5px 25px #17375355;max-height:calc(100dvh - 5rem)}
+.ui-task-layout:not(.diagram-active) .setup-content{overflow:auto;display:block;min-height:0}
+.ui-task-layout:not(.diagram-active) .setup-pane h2{justify-content:space-between}.ui-task-layout .setup-pane h2 button{min-width:36px;min-height:36px}
+.ui-task-layout .tool-navigation .recent-tools{display:none}
+@media(min-width:901px){
+ .ui-task-layout .tool-navigation{display:flex;align-items:center;flex-wrap:wrap;gap:.4rem .8rem;padding:.5rem}
+ .ui-task-layout .tool-group-bar{flex:0 1 auto;margin:0}.ui-task-layout .tool-finder{flex:1 1 24rem;margin:0;min-width:0}
+ .ui-task-layout .tool-search{min-width:0;flex:1}.ui-task-layout .tool-search>span{font-size:0}.ui-task-layout .tool-search input{width:100%;min-width:0}
+ .ui-task-layout.diagram-active{height:100dvh}
+}
+.ui-task-layout .tool-context{padding:.5rem!important;display:flex;align-items:baseline;flex-wrap:wrap;gap:.25rem 1rem}.ui-task-layout .tool-context details{margin:0}.ui-task-layout .tool-context details[open]{flex-basis:100%}
+.ui-task-layout .input-area{display:block;padding:.8rem}.ui-task-layout #calculator{max-width:none}
+.ui-task-layout .product-info{display:none}.ui-task-layout .form-buttons{flex-direction:row;align-items:center;flex-wrap:wrap;padding:0;margin-top:.65rem}
+.ui-task-layout #input-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem 1.5rem}
+.ui-task-layout .ui-input-options{display:flex;justify-content:flex-end;align-items:center;gap:.5rem;margin:.3rem 0}
+.ui-task-layout #smart-input .smart-pair:empty,.ui-task-layout #smart-mode-caption{display:none}
+.ui-task-layout .form-buttons #state-summary{flex:1 1 16rem}
+.ui-task-layout .ui-primary-action,.ui-task-layout #calculate{font-weight:600;background:#2865a2;color:#fff;border-color:#20558a;min-height:38px;padding:.55rem 1.2rem}
+.ui-task-layout .ui-method-notes{margin:.5rem 0;padding:.5rem .65rem;border:1px solid var(--line);background:#f0f5fb}.ui-task-layout .ui-method-notes summary{color:#315477;font-weight:600}.ui-task-layout .ui-method-notes p{line-height:1.5}
+.ui-task-layout .ui-result-actions{display:block}.ui-task-layout .ui-result-actions .feature-actions{display:flex;flex-wrap:wrap;gap:.45rem}
+.ui-task-layout #calculator-result-tools{padding:.65rem;gap:.5rem}.ui-task-layout #calculator-result-tools label{flex:1 1 15rem}
+@media(max-width:700px){
+ .ui-task-layout:not(.diagram-active) .desktop{display:flex}.ui-task-layout #input-fields{grid-template-columns:1fr;gap:.6rem}
+ .ui-task-layout .input-area{padding:.65rem}.ui-task-layout button,.ui-task-layout select,.ui-task-layout input:not([type=checkbox]):not([type=radio]){min-height:44px}
+ .ui-task-layout .ui-input-options button{min-height:40px}.ui-task-layout .ui-method-notes summary{min-height:36px;line-height:36px}
+ .ui-task-layout .form-buttons #calculate{flex:1}.ui-task-layout #calculator-result-tools{align-items:stretch}.ui-task-layout #calculator-result-tools label{flex-basis:100%}
+}
+@media print{body.ui-task-layout:not(.diagram-active) .setup-pane{display:none!important}.ui-method-notes{display:none!important}}
+.ui-task-layout .ui-table-scroll{max-width:100%;overflow:auto;min-width:0;margin:.6rem 0;scrollbar-width:thin}
+.ui-task-layout:not(.diagram-active) #process-view{width:100%}.ui-task-layout .method,.ui-task-layout form,.ui-task-layout .process-grid>label{min-width:0}
+.ui-task-layout:not(.diagram-active) .history-scroll{overflow:auto;width:100%}
+@media print{.ui-task-layout .ui-table-scroll{overflow:visible;max-width:none}}
+.ui-task-layout .ui-input-heading{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.4rem;margin-bottom:.5rem}.ui-task-layout .ui-input-heading .quick-modes,.ui-task-layout .ui-input-heading .ui-input-options{margin:0}
+.ui-task-layout .input-method:empty{display:none}
+@media(max-width:900px){.ui-task-layout:not(.diagram-active) .desktop{align-items:stretch}.ui-task-layout:not(.diagram-active) .desktop>.center-pane,.ui-task-layout:not(.diagram-active) .desktop>.output-pane{width:100%;max-width:100%}}
+@media(max-width:700px){.ui-task-layout .toolbar>button:not(#study-add-current):not(#ui-units-toggle):not([data-action=help]),.ui-task-layout .toolbar>i{display:none}}
+@media print{.ui-task-layout .ui-method-notes{display:block!important}.ui-task-layout .ui-method-notes>summary{display:none}}
+.ui-task-layout #ui-copy-status:empty{display:none}.ui-task-layout #ui-copy-status{flex-basis:100%;color:#225238;font-weight:600}
+@media(max-width:700px){.ui-task-layout .ui-input-options button,.ui-task-layout .setup-pane h2 button{min-width:44px;min-height:44px}.ui-task-layout .ui-method-notes summary{min-height:44px;line-height:44px}}
+@media(max-width:700px){.ui-task-layout #calculate{min-height:44px}}
+#ui-back-to-tools{position:fixed;right:.8rem;bottom:.8rem;z-index:12;background:#fff;border:1px solid #6a8cb1;box-shadow:0 2px 8px #18364e33;min-height:44px;padding:.5rem .85rem}
+@media print{#ui-back-to-tools{display:none!important}}
+/* Keep a rendered chart inside its task while Chart.js processes a viewport resize. */
+.ui-task-layout:not(.diagram-active) canvas{max-width:100%}

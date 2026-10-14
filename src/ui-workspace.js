@@ -71,7 +71,7 @@ function uiArrangeForm(){
  for(const [input,select] of [['process-p1','process-pressure'],['process-t1','process-temperature'],['process-flow','process-mass'],['process-power','process-power-unit'],['eng-p1','eng-pressure'],['eng-t1','eng-temperature'],['eng-flow','eng-mass'],['eng-power','eng-power-unit'],['flow-rho','flow-rho-unit'],['flow-viscosity','flow-visc-unit'],['flow-value','flow-unit'],['flow-diameter','flow-diameter-unit'],['flow-length','flow-length-unit'],['flow-roughness','flow-roughness-unit'],['flow-pressure-difference','flow-pressure-difference-unit']])uiPairExisting(input,select);
  for(const el of form.querySelectorAll('input[inputmode=decimal]')){const spec=uiSpecFor(el);if(spec)uiAttachInput(el,spec);else{const old=uiInputUnits.get(el);if(old){el.value=uiStoredValue(el);old.select.remove();el.parentElement.replaceWith(el);uiInputUnits.delete(el);}}}
  for(const meta of [...form.querySelectorAll('fieldset')])if(!meta.querySelector('input,select,textarea'))meta.hidden=true;
- uiRangeUnits();uiDependentFields();uiResultActions();
+ uiRangeUnits();uiDependentFields();uiResultActions();uiTaskLayout();
 }
 function uiRangeUnits(){
  if($('batch-start')){
@@ -83,13 +83,8 @@ function uiRangeUnits(){
  if($('satgrid-start')){uiPairExisting('satgrid-start','satgrid-unit');uiRangeBadge('satgrid-end',$('satgrid-unit').value);uiRangeBadge('satgrid-step',$('satgrid-unit').value);}
 }
 function uiRangeBadge(id,unit){const input=$(id);let badge=$('ui-range-'+id);if(!badge){badge=document.createElement('span');badge.id='ui-range-'+id;badge.className='ui-fixed-unit';badge.dataset.i18nIgnore='';let row=input.parentElement;if(!row.classList.contains('quantity-input')){row=document.createElement('span');row.className='quantity-input';input.before(row);row.append(input);}row.append(badge);}badge.textContent=unit;}
-function uiResultActions(){
- const form=panelForm(),eligible=['turbine','flash','engineering','flow','cycles','exchanger','npp','coursework','laboratory'].includes(activeSection)&&form?.dataset.calculated==='true';
- if(!eligible){$('ui-result-actions')?.remove();return;}if($('ui-result-actions'))return;
- const en=uiTranslator.language==='en',bar=document.createElement('div');bar.id='ui-result-actions';bar.className='ui-result-actions';bar.dataset.i18nIgnore='';
- if(!document.querySelector('#cw-report,#lab-report,#npp-add-report,#hx-report,#cycle-report')){const add=document.createElement('button');add.type='button';add.textContent=en?'Add to report':'Додати до звіту';add.onclick=captureStudyCalculation;bar.append(add);}
- const open=document.createElement('button');open.type='button';open.textContent=en?'Open learning report':'Відкрити навчальний звіт';open.onclick=()=>document.querySelector('[role=tab][data-action=study]').click();const status=document.createElement('span');status.id='ui-report-status';status.setAttribute('role','status');bar.append(open,status);form.parentElement.append(bar);
-}
+function uiResultActions(force=false){workflowResultActions(force);}
+
 function uiDependentFields(){
  if($('cw-kind')?.value!=='reactor')return;
  const settings=[['cw-cladConductivity',$('cw-cladMethod')?.value==='constant'],['cw-gapConductivity',$('cw-gapMethod')?.value==='constant'],['cw-contactConductance',$('cw-gapMethod')?.value==='contact'],['cw-fuelConductivity',$('cw-fuelMethod')?.value==='constant'],['cw-controlLayout',['rings','coordinates'].includes($('cw-rodLayout')?.value)]];

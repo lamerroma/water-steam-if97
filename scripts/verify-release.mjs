@@ -65,7 +65,7 @@ try{
  }
  if(mode!=='core'){
   const env=await serve();
-  for(const name of ['navigation','smart-input','calculator-workspace','state-comparison','diagram','diagram-guides','diagram-quality','process-paths','chart-layout','study-workspace','hydraulics','study','full-sprint','laboratory','coursework','usability','reactor-course','reactor-validation','provenance','project-safety','pwa','ui-workspace'])await check('browser-'+name,[`scripts/check-${name}-browser.cjs`],env);
+  for(const name of ['navigation','smart-input','calculator-workspace','state-comparison','study-workflow','task-ui','diagram','diagram-guides','diagram-quality','process-paths','chart-layout','study-workspace','hydraulics','study','full-sprint','laboratory','coursework','usability','reactor-course','reactor-validation','provenance','project-safety','pwa','ui-workspace'])await check('browser-'+name,[`scripts/check-${name}-browser.cjs`],env);
   await check('browser-cross-browser',['scripts/check-cross-browser.cjs'],{...env,UI_EVIDENCE_DIR:path.join(dir,'ui')});
   await check('browser-pwa-firefox',['scripts/check-pwa-browser.cjs'],{...env,BROWSER_NAME:'firefox'});
  }

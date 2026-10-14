@@ -1,6 +1,6 @@
 {
   "name": "water-steam-if97-uk",
-  "version": "1.22.0",
+  "version": "1.24.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -44,7 +44,9 @@
     "test:calculator-workspace": "node scripts/check-calculator-workspace-browser.cjs",
     "test:reactor-validation": "node scripts/check-reactor-validation-browser.cjs",
     "audit:process-paths": "node scripts/audit-cycle-process-paths.mjs",
-    "test:state-comparison": "node scripts/check-state-comparison-browser.cjs"
+    "test:state-comparison": "node scripts/check-state-comparison-browser.cjs",
+    "test:study-workflow": "node scripts/check-study-workflow-browser.cjs",
+    "test:task-ui": "node scripts/check-task-ui-browser.cjs"
   },
   "engines": {
     "node": ">=20"
