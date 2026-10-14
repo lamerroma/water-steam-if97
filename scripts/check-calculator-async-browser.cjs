@@ -26,7 +26,10 @@ const KEY='water-steam-if97-project-v1';
   await page.evaluate(()=>{document.querySelector('#calculator').requestSubmit();const model=document.querySelector('input[name=formulation][value=IF97]');model.checked=true;model.dispatchEvent(new Event('change',{bubbles:true}));});await finish();assert.equal(await count(),before);
   console.log('Cancellation, duplicate submit, input edits and model changes preserve current data PASS');
   const file=page.locator('input[type=file][accept=".json,application/json"]');
+  // Race import against the measured slow case, not the inputs left by model-change checks.
+  await chooseModel(page,'IAPWS-95');await page.fill('#input-a','3231.6862979808975');
   await page.evaluate(()=>document.querySelector('#calculator').requestSubmit());
+  assert.equal(await page.locator('#calculate').isDisabled(),true);
   await file.setInputFiles({name:'project.json',mimeType:'application/json',buffer:Buffer.from(original)});await page.waitForFunction(()=>document.querySelector('input[type=file][accept=".json,application/json"]').value==='');await finish();
   assert.equal(await count(),1);assert.equal(await page.locator('#input-b').inputValue(),'400');assert.equal(await page.locator('#calculator-result-summary button').count(),6);
   await page.reload();await page.waitForFunction(()=>!document.querySelector('#calculate').disabled&&document.querySelectorAll('#calculator-result-summary button').length===6);assert.equal(await count(),1);assert.equal(await page.locator('#input-b').inputValue(),'400');
