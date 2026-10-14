@@ -562,7 +562,7 @@
   "text.1970e3d02f4c": "Educational turbine",
   "text.90f9753cdaef": "Educational throttling",
   "text.7f84b9b34159": "Educational thermophysical calculator · offline version",
-  "text.4135362e2195": "Educational thermophysical calculator for students and teachers: 25 sections covering water and steam, ice, heavy water and seawater, ideal and real gases, humid air, engineering processes, cycles and diagrams.",
+  "text.4135362e2195": "Educational thermophysical calculator for students and teachers: 28 sections covering water and steam, ice, heavy water and seawater, ideal and real gases, humid air, engineering processes, cycles and diagrams.",
   "text.2dbb9fa1ad09": "Educational energy cycles",
   "text.af82f6e6ed0f": "Educational examples",
   "text.fa9d26739e83": "Supercritical fluid",
@@ -1617,5 +1617,6 @@
   "project.recoveryStatus": "Project was not restored; the original is retained for recovery",
   "project.recoveryHint": "Saved project was not restored; download the original from the File menu",
   "project.importChanged": "Project changed while reading the file; retry the import",
-  "project.exportFailed": "Could not prepare JSON:"
+  "project.exportFailed": "Could not prepare JSON:",
+  "npp.primary.assumptions": "Water in the two circuits does not mix. The primary circulation pump is idealized: its work and pressure losses are not included."
 }

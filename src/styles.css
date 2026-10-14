@@ -443,3 +443,45 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 @media(max-width:700px){.tool-navigation .tool-group-bar{display:none}.tool-group-picker{display:flex;align-items:center;gap:8px;margin-bottom:8px}.tool-group-picker select{flex:1;min-width:0;min-height:44px}.tool-finder{align-items:stretch}.tool-finder .tool-search{flex-basis:100%}.tool-finder button{min-height:44px;width:100%}.tool-card-grid{grid-template-columns:1fr}.tool-context,.tool-catalog{padding:10px}.method-badge{font-size:.78rem}.tool-context-summary{font-size:.9rem}.tool-card{min-height:100px}}
 @media print{.tool-context,.tool-catalog{display:none!important}.course-detail{border:0}.course-detail::details-content{display:block}}
 .tool-catalog{flex-shrink:0;max-height:45vh;overflow:auto}.tool-context{flex-shrink:0}#process-view>.tool-context{margin-top:0}.calculator-view>.tool-context{margin:8px}.tool-context details p{white-space:normal}
+
+/* Keep state values readable on phones; scroll only the inspector table. */
+@media(max-width:700px){
+ #process-view .study-inspector .sat-table{min-width:35rem;table-layout:auto}
+ #process-view .study-inspector .sat-table th,#process-view .study-inspector .sat-table td{white-space:nowrap;overflow-wrap:normal}
+ .menubar>button,.menubar summary,.menu-right button{min-height:44px}
+ .menu-right select,.form-row input,.form-row select,.form-buttons button{min-height:44px}
+ #process-view form button,#process-view form select,#process-view form input:not([type=radio]):not([type=checkbox]){min-height:44px}
+}
+
+#process-view .coursework-panel .thermal-evidence{min-width:48rem;table-layout:fixed}
+#process-view .coursework-panel .thermal-evidence th,#process-view .coursework-panel .thermal-evidence td{min-width:0;white-space:normal;overflow-wrap:anywhere}
+/* Consistent work area and quantity fields. */
+.quantity-field{min-width:0}.quantity-input{display:flex;gap:.4rem;align-items:center;min-width:0;width:100%}.quantity-input input{flex:1;min-width:0!important;width:0!important}.quantity-input select{flex:0 0 6.5rem;width:6.5rem!important;min-width:0!important}.quantity-field>.field-error{display:block}
+#process-view .process-grid,#process-form fieldset,#engineering-form fieldset{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:.85rem 1.2rem;align-items:start}
+#process-view label{min-width:0}#process-view table td{font-variant-numeric:tabular-nums}#process-view .lab-results-table{width:max-content;min-width:100%;table-layout:auto}#process-view .lab-results-table td{white-space:nowrap;overflow-wrap:normal;word-break:normal}#process-view .lab-results-table td:first-child{min-width:2rem;width:auto}
+.ui-independent-panel:not(.diagram-active) .desktop{grid-template-columns:1fr}.ui-independent-panel .setup-pane{display:none}.ui-independent-panel .desktop,.ui-empty-history .desktop{grid-template-rows:minmax(28rem,1fr) auto}.ui-independent-panel .output-pane,.ui-empty-history .output-pane{display:none}.ui-independent-panel #output-resize,.ui-empty-history #output-resize{display:none}
+/* Explicit user actions can bring the otherwise contextual panels back. */
+.ui-show-setup .setup-pane{display:block}.ui-show-setup:not(.diagram-active) .desktop{grid-template-columns:minmax(0,1fr) 18rem}.ui-show-history .output-pane{display:block}.ui-show-history .desktop{grid-template-rows:minmax(28rem,1fr) var(--output-height)}
+.mobile-app-menu>summary{display:none}.mobile-app-menu{display:contents}#ui-search-toggle{display:none}.tool-context{padding:.6rem!important;margin:.6rem!important}.tool-context .tool-workflow{display:none}.tool-context-summary{margin:0}.tool-context details{margin-top:.3rem}.method>h2{margin-top:.6rem}.method>p{line-height:1.5}
+.result-metrics{display:flex;flex-wrap:wrap;gap:.75rem}.result-metrics>span{background:#eaf2f8;border:1px solid var(--line);border-radius:6px;padding:.65rem;flex:1;min-width:10rem}.result-metrics strong{display:block;font-size:1.15em;margin-top:.25rem}.ui-result-actions{display:flex;flex-wrap:wrap;gap:.4rem;margin:.7rem 0}.ui-empty-state{padding:1rem;border:1px dashed var(--line);border-radius:6px}
+@media(max-width:900px){.ui-show-setup .desktop{display:flex}.ui-independent-panel .desktop,.ui-empty-history .desktop{min-height:0}.ui-show-history .desktop{display:flex}.ui-show-history .output-pane{min-height:12rem}}
+@media(max-width:700px){
+ .mobile-app-menu{display:block;border-bottom:1px solid var(--line);padding:.3rem .7rem}.mobile-app-menu>summary{display:list-item;cursor:pointer;min-height:36px;line-height:36px}.mobile-app-menu:not([open])>.menubar{display:none}.mobile-app-menu[open]>.menubar{display:flex}
+ .toolbar{min-height:44px}.toolbar>span,.toolbar>b{display:none}.pwa-panel{margin:.25rem .5rem;padding:.25rem .5rem}.tool-navigation{position:relative}.tool-navigation .recent-tools{display:none}.tool-navigation .tool-finder{display:none}.ui-search-open .tool-navigation .tool-finder{display:flex}#ui-search-toggle{display:block;position:absolute;right:.5rem;top:.4rem;font-size:20px;min-width:44px;min-height:44px}.tool-group-picker{padding-right:3.5rem}.tool-navigation{padding:.4rem!important}.section-picker{margin:.4rem!important}.tool-context{margin:.35rem!important;padding:.45rem!important}.tool-context .method-limit{font-size:.85rem;line-height:1.35;margin:.4rem 0}
+ #process-view .process-grid,#process-form fieldset,#engineering-form fieldset{grid-template-columns:1fr}.quantity-input select{flex-basis:7rem;width:7rem!important}.quantity-input input,.quantity-input select{min-height:44px}#process-view .method{padding:.5rem}.method>p{font-size:.87rem;margin:.5rem 0}.method>h2{font-size:1.2rem}.quantity-field{font-size:.95rem}
+}
+@media(min-width:701px){.mobile-app-menu{display:flex;background:linear-gradient(#e9f1fb,#bacde5)}.mobile-app-menu>summary{display:flex;align-items:center;gap:.5rem;padding:0 .5rem;font-size:0;list-style:none;order:2}.mobile-app-menu>summary label{font-size:12px}.mobile-app-menu>.menubar{flex:1;min-width:0}.mobile-app-menu>summary::-webkit-details-marker{display:none}}
+@media(max-width:700px){.mobile-app-menu>summary{display:flex;align-items:center;gap:.5rem}.mobile-app-menu>summary label{display:flex;align-items:center;gap:.3rem;font-size:0}.mobile-app-menu>summary select{font-size:13px;min-height:40px;padding:.3rem}.mobile-app-menu>summary .language-picker{margin-left:auto}}
+#process-view .coursework-panel .process-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr))}
+#input-fields .form-row:has(#smart-first),#input-fields .form-row:has(#smart-second){grid-template-columns:minmax(10rem,1.3fr) minmax(5rem,1fr) 5rem;align-items:end}#input-fields .form-row>label:has(select){display:flex;flex-direction:column;gap:.3rem;width:auto;font-size:12px}#smart-input .smart-pair{justify-content:flex-end}#smart-input .smart-pair>button{min-height:30px}
+#process-form fieldset,#engineering-form fieldset,#process-view .process-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:1100px){#process-form fieldset,#engineering-form fieldset,#process-view .process-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){#process-form fieldset,#engineering-form fieldset,#process-view .process-grid{grid-template-columns:1fr}#input-fields .form-row:has(#smart-first),#input-fields .form-row:has(#smart-second){grid-template-columns:minmax(0,1fr) 6rem}#input-fields .form-row>label:has(select){grid-column:1/-1}#input-fields .form-row input{width:100%}.input-area .product-info{display:none}}
+
+.ui-fixed-unit{padding:.4rem .6rem;background:#edf3f8;border:1px solid var(--line);border-radius:4px;white-space:nowrap;font-size:.9rem}
+
+@media(max-width:700px){body:not(.ui-show-setup) .setup-pane{display:none}}
+
+.toolbar #ui-units-toggle{width:auto;padding:0 .5rem;min-height:40px;border:1px solid var(--line);border-radius:4px}
+
+@media(min-width:901px){.calculator-view{overflow:auto}.calculator-view .results-scroll{flex:1 0 12rem}}

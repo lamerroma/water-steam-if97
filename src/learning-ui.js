@@ -11,7 +11,7 @@ import {LABEL_GLOSSARY} from './glossary.js';
 // Shared workspace panels; these modules use explicit SI inputs/outputs independent of steam table settings.
 let learningResult=null,currentPanelKind=null;
 const learnField=(id,title,value)=>`<label>${title}<input id="${id}" value="${value}" inputmode="decimal" required></label>`;
-const learnNumber=id=>parseNumber($(id).value);
+const learnNumber=id=>uiNumber(id);
 function learningPanel(kind){
  selectView('panel');activeSection=kind;currentPanelKind=kind;
  $('calculator-view').hidden=true;$('process-view').hidden=false;document.querySelector(`[data-action="${kind}"]`).setAttribute('aria-selected','true');$('tab-general').setAttribute('aria-selected','false');learningResult=null;
@@ -39,7 +39,7 @@ function learningPanel(kind){
   const gasModelUI=()=>{const real=$('gas-model').value==='real';$('gas-fluid').closest('label').hidden=!real;const mixture=$('gas-model').value==='mixture';for(const o of $('gas-mode').options)o.disabled=mixture&&o.value!=='pt';if(mixture&&$('gas-mode').value!=='pt'){$('gas-mode').value='pt';$('gas-b').value='300';$('gas-b-title').textContent='Температура, K';}for(const id of ['gas-basis','gas-preset',...GAS_DATA.map(d=>'fraction-'+d.id)]){$(id).disabled=real;$(id).closest('label').hidden=real;}}; $('gas-model').onchange=gasModelUI;gasModelUI();
   const gasLabel=()=>{$('gas-b-title').textContent=$('gas-mode').value==='pt'?'Температура, K':$('gas-mode').value==='ph'?'Ентальпія, кДж/кг':'Ентропія, кДж/(кг·K)';};gasLabel();
   let oldBasis=$('gas-basis').value;oldBasisForRestore=()=>{oldBasis=$('gas-basis').value;};
-  const setFractions=q=>{for(const d of GAS_DATA)$('fraction-'+d.id).value=String(q[d.id]||0);};
+  const setFractions=q=>{for(const d of GAS_DATA)uiSetValue($('fraction-'+d.id),String(q[d.id]||0));};
   const fromMole=q=>{if($('gas-basis').value==='mole')return q;const M=GAS_DATA.reduce((s,d)=>s+(q[d.id]||0)*d.M,0);return Object.fromEntries(GAS_DATA.map(d=>[d.id,(q[d.id]||0)*d.M/M]));};
   $('gas-preset').onchange=()=>{const v=$('gas-preset').value;if(v!=='custom')setFractions(fromMole(v==='air'?AIR:v==='flue'?FLUE:{[v]:1}));};
   $('gas-basis').onchange=()=>{try{const q=gasState(.1,Math.max(300,...GAS_DATA.filter(d=>learnNumber('fraction-'+d.id)>0).map(d=>d.range[0])),readGasFractions(),oldBasis);setFractions(fromMole(q.composition));oldBasis=$('gas-basis').value;}catch(e){$('gas-basis').value=oldBasis;$('learn-error').textContent=e.message;$('learn-error').hidden=false;}};
@@ -85,6 +85,6 @@ function renderLearning(kind,q){let entries=[],html=`<p><strong>${escapeHTML(q.m
  $('learn-output').innerHTML=html+learningRows(entries)+'<p><button id="learn-csv">CSV розрахунку</button> <button id="learn-json">JSON: входи та результати</button></p>';
  $('learn-csv').onclick=()=>{const inputRows=[...$('learn-form').querySelectorAll('input,select')].map(el=>[el.id,el.value]);downloadFile(learningCSV(q,inputRows,entries),'water-steam-'+kind+'.csv','text/csv;charset=utf-8');};
  if(kind==='cycles')renderCycleTools(q);
- $('learn-json').onclick=()=>downloadFile(JSON.stringify({format:'water-steam-calculation',version:1,module:kind,model:modelValue(),inputs:Object.fromEntries([...$('learn-form').querySelectorAll('input,select')].map(el=>[el.id,el.value])),result:q},null,2),'water-steam-'+kind+'.json','application/json');
+ $('learn-json').onclick=()=>downloadFile(JSON.stringify({format:'water-steam-calculation',version:1,module:kind,model:modelValue(),inputs:panelInputs($('learn-form')),result:q},null,2),'water-steam-'+kind+'.json','application/json');
 }
 document.addEventListener('click',e=>{const kind=e.target.closest('[data-action]')?.dataset.action;if(['gases','humid','cycles','ice','d2o','seawater'].includes(kind))learningPanel(kind);});

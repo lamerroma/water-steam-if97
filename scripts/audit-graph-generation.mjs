@@ -1,0 +1,21 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';import {pathToFileURL} from 'node:url';
+const root=process.cwd();fs.mkdirSync(root+'/.release/graph-audit',{recursive:true});const mod=p=>import(pathToFileURL(root+'/src/'+p));
+const {initialize,calculate,TC}=await mod('engine.js'),{diagramData}=await mod('processes.js'),{diagramIsotherm}=await mod('diagram-guides.js'),{diagramPoint}=await mod('diagram-coordinates.js'),{refineDiagramScene,refineDiagramSamples}=await mod('diagram-refinement.js');await initialize(fs.readFileSync(root+'/vendor/seuif97_bg.wasm'));
+const distance=(m,a,b)=>{const dx=b.x-a.x,dy=b.y-a.y,n=dx*dx+dy*dy,t=n?Math.max(0,Math.min(1,((m.x-a.x)*dx+(m.y-a.y)*dy)/n)):0;return Math.hypot(m.x-a.x-t*dx,m.y-a.y-t*dy);};
+const report={created:new Date().toISOString(),scenes:[],manufactured:[]};
+for(const [name,evaluate,range] of [['inflection',x=>({x,y:x*x*x}),{xmin:-1,xmax:1,ymin:-1,ymax:1}],['offscreen-return',x=>({x,y:2-3*(1-x*x)}),{xmin:-1,xmax:1,ymin:-1,ymax:1}]]){const r=await refineDiagramSamples([evaluate(-1),evaluate(1)],{parameter:q=>q.x,evaluate,project:q=>q,range,width:1000,height:600});const pixel=q=>({x:(q.x-range.xmin)/(range.xmax-range.xmin)*1000,y:(q.y-range.ymin)/(range.ymax-range.ymin)*600});let max=0;for(let i=0;i<=2000;i++){const q=evaluate(-1+i/1000),m=pixel(q);if(m.y<0||m.y>600)continue;max=Math.max(max,Math.min(...r.points.slice(1).map((b,j)=>distance(m,pixel(r.points[j]),pixel(b)))));}report.manufactured.push({name,points:r.points.length,evaluations:r.evaluations,limited:r.limited,maxPixelError:max});}
+for(const model of ['IF97','IAPWS-95']){
+ const cache=diagramData(model),lines=[];for(const T of [373.15,573.15,647.086,647.106,673.15,1073.15])lines.push(await diagramIsotherm(T,model));
+ for(const kind of ['ts','hsdiagram','phdiagram'])for(const view of ['wide','critical']){
+ const c=calculate('satt',model==='IF97'?TC:TC-.0001,undefined,model).saturation.liquid;
+ const at=diagramPoint(kind,c),range=view==='critical'?{xmin:at.x-(kind==='phdiagram'?70:.25),xmax:at.x+(kind==='phdiagram'?70:.25),ymin:at.y-(kind==='phdiagram'?.03:kind==='ts'?.2:70),ymax:at.y+(kind==='phdiagram'?.03:kind==='ts'?.2:70)}:kind==='phdiagram'?{xmin:0,xmax:4500,ymin:Math.log10(.0006),ymax:2}:{xmin:0,xmax:11,ymin:0,ymax:kind==='ts'?800:4500};
+ const scene=await refineDiagramScene(cache,lines,null,kind,range,{width:1000,height:600},model,new Set(),[.01,.1,.3,.5,.7,.9,.99],()=>Promise.resolve());
+ const pixel=q=>{const p=diagramPoint(kind,q);return{x:(p.x-range.xmin)/(range.xmax-range.xmin)*1000,y:(p.y-range.ymin)/(range.ymax-range.ymin)*600}};
+ const curves=[...scene.cache.dome.map((points,i)=>({name:'dome-'+i,points,parameter:q=>q.T,evaluate:T=>calculate('satt',T,undefined,model).saturation[i?'vapor':'liquid']})),...scene.cache.isobars.map(l=>({name:'isobar-'+l.p,points:l.points,parameter:q=>q.T,evaluate:T=>calculate('pt',l.p,T,model).state})),...scene.isotherms.map(l=>({name:'isotherm-'+l.T,points:l.points,parameter:q=>Math.log(q.p),evaluate:p=>calculate('pt',Math.exp(p),l.T,model).state}))];
+ const checks=[];for(const curve of curves){let max=0,checked=0,gaps=0;for(let i=1;i<curve.points.length;i++){const a=curve.points[i-1],b=curve.points[i];if(!a||!b){gaps++;continue;}const ta=curve.parameter(a),tb=curve.parameter(b);if(Math.abs(tb-ta)<1e-10)continue;const A=pixel(a),B=pixel(b);for(const f of [.125,.25,.375,.5,.625,.75,.875]){let q;try{q=curve.evaluate(ta+(tb-ta)*f)}catch{continue}if(!q)continue;const M=pixel(q);if(M.x<0||M.x>1000||M.y<0||M.y>600)continue;checked++;max=Math.max(max,distance(M,A,B));}}checks.push({name:curve.name,points:curve.points.length,checked,gaps,maxPixelError:max});}
+ report.scenes.push({model,kind,view,range,stats:scene.stats,curves:checks,maxPixelError:Math.max(...checks.map(r=>r.maxPixelError))});console.log(model,kind,view,scene.stats,'max',report.scenes.at(-1).maxPixelError.toFixed(3));
+ }
+}
+fs.writeFileSync(root+'/.release/graph-audit/'+(process.argv[2]||'numeric-current')+'.json',JSON.stringify(report,null,2));console.log(report.manufactured);
+
+for(const s of report.scenes){assert.equal(s.stats.limited,false);assert.ok(s.maxPixelError<.75,`${s.model} ${s.kind} ${s.view}: ${s.maxPixelError} px`);}for(const s of report.manufactured)assert.ok(s.maxPixelError<.75);

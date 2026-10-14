@@ -1,3 +1,4 @@
+import {UI_UNIT_GROUPS} from './ui-quantities.js';
 import {REACTOR_CHOICES} from './reactor-course.js';
 import {COURSE_FIELDS} from './coursework.js';
 import {batchUnits} from './batch.js';
@@ -40,7 +41,9 @@ export function readWorkspace(value){
   if(!WORKSPACE_PANELS.includes(kind)||!record(p)||!record(p.inputs)||typeof p.calculated!=='boolean'||(p.model!=null&&!['IF97','IAPWS-95'].includes(p.model)))throw Error('Некоректна вкладка проєкту.');
   const inputs={};
   for(const [id,v] of Object.entries(p.inputs)){
-   if(!fields[kind].includes(id)||typeof v!=='string'||v.length>(id==='batch-text'?1000000:id==='lab-data'?100000:id==='cw-controlLayout'?20000:['lab-condition','lab-conclusion'].includes(id)?3000:id==='lab-source'?500:80))throw Error('Некоректні дані вкладки '+kind+'.');
+   const unitField=id.startsWith('ui-unit-')&&fields[kind].includes(id.slice(8));
+   if(unitField&&!Object.values(UI_UNIT_GROUPS).some(g=>Object.hasOwn(g,v)))throw Error('Невідома локальна одиниця. / Unknown local unit.');
+   if(!unitField&&!fields[kind].includes(id)||typeof v!=='string'||v.length>(id==='batch-text'?1000000:id==='lab-data'?100000:id==='cw-controlLayout'?20000:['lab-condition','lab-conclusion'].includes(id)?3000:id==='lab-source'?500:80))throw Error('Некоректні дані вкладки '+kind+'.');
    const allowed=id==='process-mode'?(kind==='turbine'?['power','flow','efficiency']:['subcooled','saturated']):choices[id];
    if(allowed&&!allowed.includes(v))throw Error('Невідомий режим або одиниця вкладки '+kind+'.');
    inputs[id]=v;

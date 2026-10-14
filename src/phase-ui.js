@@ -29,7 +29,7 @@ function scientificPanel(kind){
  $('scientific-form').oninput=()=>{panelEdited(scientificForm);$('scientific-output').replaceChildren();$('scientific-error').hidden=true;};
  $('scientific-form').onchange=()=>{panelEdited(scientificForm);$('scientific-output').replaceChildren();$('scientific-error').hidden=true;};
  $('scientific-form').onsubmit=e=>{e.preventDefault();try{
-  const number=id=>parseNumber($(id).value);let q,entries=[],html='';
+  const number=id=>uiNumber(id);let q,entries=[],html='';
   if(kind==='boundaries'){
    const sub=$('phase-substance').value,m=$('phase-kind').value,value=number('phase-value');
    q=sub==='seawater'?seawaterBoundary(m,number('phase-s')/1000,m==='freeze'?value*1e6:value):boundaryCalculation(sub,m,value,$('phase-ice').value);

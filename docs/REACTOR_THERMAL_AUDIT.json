@@ -1,0 +1,1327 @@
+{
+  "status": "PASS",
+  "scope": "Analytical / component arithmetic verification; not experimental physical validation",
+  "cases": 51,
+  "checks": 103,
+  "maxRelativeError": 3.4878679162643615e-14,
+  "sourceSHA256": {
+    "src/reactor-course.js": "2c683feb64efe11e308a23055c0bb68ce24e1707d5287f4bc0ba9bec2e4b828a",
+    "src/reactor-methods.js": "e1662f6eaa3fac0f7f3722a8cb5b37e94db4dfc9fe1ffa354fbbe449e1149a0b",
+    "scripts/verify-reactor-thermal.mjs": "4912d63a97d13e6dcae5401f2111007e818eb167c97979b1b4b35b5260fb4c08",
+    "scripts/reference/reactor_thermal_reference.py": "5c9116bee63a132f914f07922a6b4d632f217e338e1a0426354e3f19d3beb011"
+  },
+  "results": [
+    {
+      "input": {
+        "kind": "annulus",
+        "inner": 0,
+        "outer": 1
+      },
+      "comparisons": [
+        {
+          "quantity": "factor",
+          "value": 1,
+          "reference": 1,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "annulus",
+        "inner": 0.1,
+        "outer": 1
+      },
+      "comparisons": [
+        {
+          "quantity": "factor",
+          "value": 0.9534831294344637,
+          "reference": 0.9534831294344637,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "annulus",
+        "inner": 0.5,
+        "outer": 1
+      },
+      "comparisons": [
+        {
+          "quantity": "factor",
+          "value": 0.5379018796267032,
+          "reference": 0.5379018796267031,
+          "relativeError": 2.0639879998107402e-16,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "annulus",
+        "inner": 0.9,
+        "outer": 1
+      },
+      "comparisons": [
+        {
+          "quantity": "factor",
+          "value": 0.10166297175958627,
+          "reference": 0.10166297175958625,
+          "relativeError": 2.7301558409354405e-16,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "annulus",
+        "inner": 0.999,
+        "outer": 1
+      },
+      "comparisons": [
+        {
+          "quantity": "factor",
+          "value": 0.0010001666666333011,
+          "reference": 0.001000166666633301,
+          "relativeError": 2.1680430045425903e-16,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "annulus",
+        "inner": 0.999999,
+        "outer": 1
+      },
+      "comparisons": [
+        {
+          "quantity": "factor",
+          "value": 0.0000010000001666954222,
+          "reference": 0.0000010000001666954224,
+          "relativeError": 2.1175820151445222e-16,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "annulus",
+        "inner": 0.999999999,
+        "outer": 1
+      },
+      "comparisons": [
+        {
+          "quantity": "factor",
+          "value": 9.99999971884735e-10,
+          "reference": 9.999999718847353e-10,
+          "relativeError": 2.0679515895235755e-16,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "annulus",
+        "inner": 0.999999999999,
+        "outer": 1
+      },
+      "comparisons": [
+        {
+          "quantity": "factor",
+          "value": 9.999778782800451e-13,
+          "reference": 9.999778782800451e-13,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "annulus",
+        "inner": 0.999999999999999,
+        "outer": 1
+      },
+      "comparisons": [
+        {
+          "quantity": "factor",
+          "value": 9.99200722162641e-16,
+          "reference": 9.99200722162641e-16,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "radial",
+        "inner": 0,
+        "outer": 0.004,
+        "linear": 30000,
+        "conductivity": 3
+      },
+      "comparisons": [
+        {
+          "quantity": "rise",
+          "value": 795.7747154594767,
+          "reference": 795.7747154594769,
+          "relativeError": 1.4286309367843353e-16,
+          "tolerance": 2e-9
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "radial",
+        "inner": 0.0004,
+        "outer": 0.004,
+        "linear": 30000,
+        "conductivity": 3
+      },
+      "comparisons": [
+        {
+          "quantity": "rise",
+          "value": 758.7577660211217,
+          "reference": 758.7577660211093,
+          "relativeError": 1.6331780532064292e-14,
+          "tolerance": 2e-9
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "radial",
+        "inner": 0.002,
+        "outer": 0.004,
+        "linear": 30000,
+        "conductivity": 3
+      },
+      "comparisons": [
+        {
+          "quantity": "rise",
+          "value": 428.0487152050575,
+          "reference": 428.04871520505736,
+          "relativeError": 2.655932226479273e-16,
+          "tolerance": 2e-9
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "radial",
+        "inner": 0.0036000000000000003,
+        "outer": 0.004,
+        "linear": 30000,
+        "conductivity": 3
+      },
+      "comparisons": [
+        {
+          "quantity": "rise",
+          "value": 80.90082242474949,
+          "reference": 80.90082242474953,
+          "relativeError": 5.269731860298576e-16,
+          "tolerance": 2e-9
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "radial",
+        "inner": 0.003999996,
+        "outer": 0.004,
+        "linear": 30000,
+        "conductivity": 3
+      },
+      "comparisons": [
+        {
+          "quantity": "rise",
+          "value": 0.0007957748481874036,
+          "reference": 0.0007957748481873759,
+          "relativeError": 3.4878679162643615e-14,
+          "tolerance": 2e-9
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "shell",
+        "inner": 0.004,
+        "outer": 0.00457,
+        "linear": 30000,
+        "conductivity": 20
+      },
+      "comparisons": [
+        {
+          "quantity": "rise",
+          "value": 31.803656252346578,
+          "reference": 31.803656252346563,
+          "relativeError": 4.468308487063807e-16,
+          "tolerance": 2e-9
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "shell",
+        "inner": 0.00392,
+        "outer": 0.004,
+        "linear": 30000,
+        "conductivity": 0.323
+      },
+      "comparisons": [
+        {
+          "quantity": "rise",
+          "value": 298.64031579771165,
+          "reference": 298.64031579771216,
+          "relativeError": 1.7130666647627198e-15,
+          "tolerance": 2e-9
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "contact",
+        "linear": 30000,
+        "radius": 0.004,
+        "conductance": 1000
+      },
+      "comparisons": [
+        {
+          "quantity": "rise",
+          "value": 1193.662073189215,
+          "reference": 1193.662073189215,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "contact",
+        "linear": 30000,
+        "radius": 0.004,
+        "conductance": 10000
+      },
+      "comparisons": [
+        {
+          "quantity": "rise",
+          "value": 119.3662073189215,
+          "reference": 119.3662073189215,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "contact",
+        "linear": 30000,
+        "radius": 0.004,
+        "conductance": 100000
+      },
+      "comparisons": [
+        {
+          "quantity": "rise",
+          "value": 11.93662073189215,
+          "reference": 11.93662073189215,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "published-pin",
+        "source": "https://tmap8.inl.gov/docs/PRs/451/site/verification_and_validation/ver-1m.html",
+        "fuelRadius": 0.005,
+        "gap": 0.0001,
+        "cladThickness": 0.001,
+        "fuelLambda": 17.6,
+        "cladLambda": 16.5,
+        "gapConductance": 7381,
+        "coolantAlpha": 18000,
+        "coolant": 290,
+        "linear": 15000
+      },
+      "comparisons": [
+        {
+          "quantity": "cladOuter",
+          "value": 311.7424785644666,
+          "reference": 311.7424785644666,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "cladInner",
+          "value": 337.64830682534637,
+          "reference": 337.64830682534637,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "fuelSurface",
+          "value": 402.3366728022717,
+          "reference": 402.3366728022717,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "fuelCentre",
+          "value": 470.15838150620436,
+          "reference": 470.15838150620436,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "published-pin",
+        "source": "https://tmap8.inl.gov/docs/PRs/451/site/verification_and_validation/ver-1m.html",
+        "fuelRadius": 0.005,
+        "gap": 0.0001,
+        "cladThickness": 0.001,
+        "fuelLambda": 17.6,
+        "cladLambda": 16.5,
+        "gapConductance": 7381,
+        "coolantAlpha": 18000,
+        "coolant": 290,
+        "linear": 20000
+      },
+      "comparisons": [
+        {
+          "quantity": "cladOuter",
+          "value": 318.9899714192888,
+          "reference": 318.9899714192888,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "cladInner",
+          "value": 353.5310757671285,
+          "reference": 353.5310757671285,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "fuelSurface",
+          "value": 439.78223040302896,
+          "reference": 439.78223040302896,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "fuelCentre",
+          "value": 530.2111753416059,
+          "reference": 530.2111753416059,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "published-pin",
+        "source": "https://tmap8.inl.gov/docs/PRs/451/site/verification_and_validation/ver-1m.html",
+        "fuelRadius": 0.005,
+        "gap": 0.0001,
+        "cladThickness": 0.001,
+        "fuelLambda": 17.6,
+        "cladLambda": 16.5,
+        "gapConductance": 7381,
+        "coolantAlpha": 18000,
+        "coolant": 290,
+        "linear": 25000
+      },
+      "comparisons": [
+        {
+          "quantity": "cladOuter",
+          "value": 326.23746427411095,
+          "reference": 326.23746427411095,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "cladInner",
+          "value": 369.41384470891063,
+          "reference": 369.41384470891063,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "fuelSurface",
+          "value": 477.2277880037862,
+          "reference": 477.2277880037862,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "fuelCentre",
+          "value": 590.2639691770073,
+          "reference": 590.2639691770073,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "published-pin",
+        "source": "https://tmap8.inl.gov/docs/PRs/451/site/verification_and_validation/ver-1m.html",
+        "fuelRadius": 0.005,
+        "gap": 0.0001,
+        "cladThickness": 0.001,
+        "fuelLambda": 17.6,
+        "cladLambda": 16.5,
+        "gapConductance": 7381,
+        "coolantAlpha": 18000,
+        "coolant": 290,
+        "linear": 30000
+      },
+      "comparisons": [
+        {
+          "quantity": "cladOuter",
+          "value": 333.48495712893316,
+          "reference": 333.48495712893316,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "cladInner",
+          "value": 385.2966136506928,
+          "reference": 385.2966136506928,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "fuelSurface",
+          "value": 514.6733456045436,
+          "reference": 514.6733456045436,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "fuelCentre",
+          "value": 650.316763012409,
+          "reference": 650.3167630124088,
+          "relativeError": 1.7481763378663937e-16,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "polynomial",
+        "material": "clad",
+        "outer": 342.1,
+        "target": 986.9512946557434
+      },
+      "comparisons": [
+        {
+          "quantity": "rise",
+          "value": 48.19801619923027,
+          "reference": 48.19801619923026,
+          "relativeError": 1.4742157287615664e-16,
+          "tolerance": 2e-11
+        }
+      ],
+      "integralComparison": {
+        "rise": 48.20481304310841,
+        "differenceK": -0.006796843878149161,
+        "status": "Different model; informational, not a pass criterion"
+      }
+    },
+    {
+      "input": {
+        "kind": "polynomial",
+        "material": "gap",
+        "outer": 390.33,
+        "target": 146.47515309505235
+      },
+      "comparisons": [
+        {
+          "quantity": "rise",
+          "value": 446.3275256613538,
+          "reference": 446.3275256613538,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ],
+      "integralComparison": {
+        "rise": 448.7770108872654,
+        "differenceK": -2.449485225911644,
+        "status": "Different model; informational, not a pass criterion"
+      }
+    },
+    {
+      "input": {
+        "kind": "polynomial",
+        "material": "fuel",
+        "outer": 819.48,
+        "target": 3695.57777859381
+      },
+      "comparisons": [
+        {
+          "quantity": "rise",
+          "value": 1552.3450682448643,
+          "reference": 1552.3450682448647,
+          "relativeError": 2.9294218159923507e-16,
+          "tolerance": 2e-11
+        }
+      ],
+      "integralComparison": {
+        "rise": 1405.2138926766145,
+        "differenceK": 147.13117556825023,
+        "status": "Different model; informational, not a pass criterion"
+      }
+    },
+    {
+      "input": {
+        "kind": "chf",
+        "pressure": 15.55,
+        "massFlux": 4358.55,
+        "quality": -0.01389
+      },
+      "comparisons": [
+        {
+          "quantity": "critical",
+          "value": 2.7873503913244444,
+          "reference": 2.787350391324444,
+          "relativeError": 1.5932306581629594e-16,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "chf",
+        "pressure": 15.55,
+        "massFlux": 4358.55,
+        "quality": -0.13885138643680553
+      },
+      "comparisons": [
+        {
+          "quantity": "critical",
+          "value": 4.403563024242923,
+          "reference": 4.403563024242924,
+          "relativeError": 2.0169540320200684e-16,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "chf",
+        "pressure": 10,
+        "massFlux": 1000,
+        "quality": -0.2
+      },
+      "comparisons": [
+        {
+          "quantity": "critical",
+          "value": 3.923506918186554,
+          "reference": 3.9235069181865545,
+          "relativeError": 1.131868043335376e-16,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "chf",
+        "pressure": 16,
+        "massFlux": 4000,
+        "quality": 0
+      },
+      "comparisons": [
+        {
+          "quantity": "critical",
+          "value": 2.5746537180020925,
+          "reference": 2.5746537180020925,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "chf",
+        "pressure": 20,
+        "massFlux": 5000,
+        "quality": 0.1
+      },
+      "comparisons": [
+        {
+          "quantity": "critical",
+          "value": 1.5562100185209908,
+          "reference": 1.5562100185209906,
+          "relativeError": 1.4268292986319463e-16,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 7.99,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 400000
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 340,
+          "reference": 340,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0,
+          "reference": 0,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 7.99,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 500000
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 350,
+          "reference": 350,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0,
+          "reference": 0,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 7.99,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 500000.001
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 350.0000001,
+          "reference": 350.0000001,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0,
+          "reference": 0,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 7.99,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 1000000
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 400,
+          "reference": 400,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0,
+          "reference": 0,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 8,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 400000
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 340,
+          "reference": 340,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0,
+          "reference": 0,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 8,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 500000
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 350,
+          "reference": 350,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0,
+          "reference": 0,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 8,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 500000.001
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 350.0000001,
+          "reference": 350.0000001,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0.09172198475079768,
+          "reference": 0.09172198475079768,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 8,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 1000000
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 358.526577028492,
+          "reference": 358.526577028492,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 57781.2300753993,
+          "reference": 57781.23007539929,
+          "relativeError": 1.259225115957026e-16,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 15.5,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 400000
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 340,
+          "reference": 340,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0,
+          "reference": 0,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 15.5,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 500000
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 350,
+          "reference": 350,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0,
+          "reference": 0,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 15.5,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 500000.001
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 350.0000001,
+          "reference": 350.0000001,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0.22105732972094866,
+          "reference": 0.2210573297209487,
+          "relativeError": 1.255582687561915e-16,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 15.5,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 1000000
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 353.5812519927458,
+          "reference": 353.5812519927458,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 139257.39246880455,
+          "reference": 139257.39246880455,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 20,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 400000
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 340,
+          "reference": 340,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0,
+          "reference": 0,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 20,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 500000
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 350,
+          "reference": 350,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0,
+          "reference": 0,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 20,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 500000.001
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 350.0000001,
+          "reference": 350.0000001,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0.3102656203328687,
+          "reference": 0.3102656203328687,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 20,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 1000000
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 352.5547908035977,
+          "reference": 352.5547908035977,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 195455.09445361258,
+          "reference": 195455.09445361255,
+          "relativeError": 1.4890290037255044e-16,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 20.01,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 400000
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 340,
+          "reference": 340,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0,
+          "reference": 0,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 20.01,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 500000
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 350,
+          "reference": 350,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0,
+          "reference": 0,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 20.01,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 500000.001
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 350.0000001,
+          "reference": 350.0000001,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0,
+          "reference": 0,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    },
+    {
+      "input": {
+        "kind": "boiling",
+        "pressure": 20.01,
+        "coolant": 300,
+        "saturation": 350,
+        "alpha": 10000,
+        "flux": 1000000
+      },
+      "comparisons": [
+        {
+          "quantity": "wall",
+          "value": 400,
+          "reference": 400,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "alphaBoiling",
+          "value": 0,
+          "reference": 0,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        },
+        {
+          "quantity": "onset",
+          "value": 500000,
+          "reference": 500000,
+          "relativeError": 0,
+          "tolerance": 2e-11
+        }
+      ]
+    }
+  ]
+}

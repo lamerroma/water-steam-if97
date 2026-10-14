@@ -10,7 +10,7 @@
   "checks": 4077,
   "cases": 51,
   "tolerance": 2e-8,
-  "sourceFingerprint": "df03f21fcf9f988e4019c461e6219ef83a7c27fffdaa788949f71e22fccd5dc3",
+  "sourceFingerprint": "38c2fbb6678632eb785f51a7277229f874a0090a28cd5c53cd7e69b9439cd8cc",
   "summaries": [
     {
       "case": "variant-1",

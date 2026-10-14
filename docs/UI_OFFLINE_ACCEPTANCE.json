@@ -1,0 +1,160 @@
+{
+  "started": "2026-10-13T17:31:09.480Z",
+  "mode": "browser",
+  "version": "1.16.8",
+  "build": {
+    "version": "1.16.8",
+    "id": "69ef7f8ea45c"
+  },
+  "status": "passed",
+  "checks": [
+    {
+      "name": "build",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 9833,
+      "log": ".release/2026-10-13T17-31-09-476Z/build.log"
+    },
+    {
+      "name": "browser-navigation",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5592,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-navigation.log"
+    },
+    {
+      "name": "browser-smart-input",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 7520,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-smart-input.log"
+    },
+    {
+      "name": "browser-diagram",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 17637,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-diagram.log"
+    },
+    {
+      "name": "browser-diagram-guides",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 9468,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-diagram-guides.log"
+    },
+    {
+      "name": "browser-diagram-quality",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 19274,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-diagram-quality.log"
+    },
+    {
+      "name": "browser-hydraulics",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4873,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-hydraulics.log"
+    },
+    {
+      "name": "browser-study",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 15655,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-study.log"
+    },
+    {
+      "name": "browser-full-sprint",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 7786,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-full-sprint.log"
+    },
+    {
+      "name": "browser-laboratory",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5298,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-laboratory.log"
+    },
+    {
+      "name": "browser-coursework",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5050,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-coursework.log"
+    },
+    {
+      "name": "browser-usability",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4815,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-usability.log"
+    },
+    {
+      "name": "browser-reactor-course",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5416,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-reactor-course.log"
+    },
+    {
+      "name": "browser-provenance",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 2876,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-provenance.log"
+    },
+    {
+      "name": "browser-project-safety",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4054,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-project-safety.log"
+    },
+    {
+      "name": "browser-pwa",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 23742,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-pwa.log"
+    },
+    {
+      "name": "browser-cross-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 16681,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-cross-browser.log"
+    },
+    {
+      "name": "browser-pwa-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 33385,
+      "log": ".release/2026-10-13T17-31-09-476Z/browser-pwa-firefox.log"
+    },
+    {
+      "name": "rebuild",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 9511,
+      "log": ".release/2026-10-13T17-31-09-476Z/rebuild.log"
+    },
+    {
+      "name": "deterministic-build",
+      "status": "passed"
+    }
+  ],
+  "artifacts": {
+    "index.html": "89d75b866d527d21cb53cefcbee680235db670c2a7c0c13128ab6c36fffa5398",
+    "standalone.html": "14e280dad04d9abd76e1390543e633f510cc67c77cc3a3f859d75f0062ff8699",
+    "assets/app.js": "ff4d40ede73bd4ed0fc64e1130eb2e8d1d5389020cf036276f7a1f7061f5696f",
+    "assets/styles.css": "2a3a10899890b72490e89e8f370c71bb731653858389d35a56551b1227295793",
+    "assets/coolprop.wasm": "28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307",
+    "service-worker.js": "215845e8f97b691323b8b193affa13818144757bef9fc7b429e619ea13e510d6",
+    "manifest.webmanifest": "63130e8f1083e12602ca499f9de40ad3d97d64b457c005ce570215966f783056"
+  },
+  "scope": "Software acceptance only; passing does not validate every physical model or device.",
+  "completed": "2026-10-13T17:34:38.541Z"
+}

@@ -1,4 +1,4 @@
-import {reactorCoverage,reactorCoverageLabel} from './reactor-coverage.js';
+import {reactorCoverage,reactorCoverageLabel,reactorThermalEvidence} from './reactor-coverage.js';
 import {reactorStep} from './reactor-course.js';
 export function reactorNodeSteps(q,index){const r=q.profile[index];if(!r)throw Error('Unknown reactor node');const a=q.input,g=q.geometry;
  const f=(key,uk,en,formula,value,unit,sub)=>reactorStep(key,uk,en,formula,value,unit,sub),N=x=>Number(x.toPrecision(8)).toString();
@@ -12,7 +12,8 @@ export function reactorCourseTables(q,en=false){const headers=en?['Quantity','Fo
  if(q.neutronics)tables.push({title:en?'6. Rod layout and individual contributions':'6. Картограма стрижнів та окремі внески',headers:['r [m]','assemblies','rods','2.405 r/R_eff','J₀²','Δk before interference'],rows:q.neutronics.controls.rings.map(r=>[r.radius,r.assemblies,r.rods,r.argument,r.weight,r.rods*r.weight*q.neutronics.controls.centralWorth])});
  if(q.neutronics)tables.push({title:en?'6–7. Rod count search within the specified layout (inner radii first)':'6–7. Пошук кількості касет у заданій схемі (від центра)',headers:['assemblies','Δk rods','g B/kg H₂O','g H₃BO₃/kg H₂O'],rows:q.neutronics.controlStudy.rows.map(r=>[r.assemblies,r.rodWorth,r.boron,r.boricAcid])});
  tables.push({title:en?'3.3 Subcooled boiling calculation':'3.3 Розрахунок поверхневого кипіння',headers:['z [m]','α conv [W/(m² K)]','Kα q [MW/m²]','q onset [MW/m²]','q excess [MW/m²]','α boil [W/(m² K)]','α total [W/(m² K)]','wall conv [°C]','wall used [°C]','correction active'],rows:q.controlProfile.map(r=>[r.z,r.alphaConv,r.designFlux,r.onsetFlux,r.excessFlux,r.alphaBoiling,r.alpha,r.convectiveWall,r.cladOuter,r.boiling?1:0])});
- tables.push({title:en?'Guide section coverage':'Охоплення розділів методички',headers:en?['Section','Task','Status']:['Розділ','Задача','Статус'],rows:reactorCoverage(q).map(([code,uk,eng,status])=>[code,en?eng:uk,reactorCoverageLabel(status,en)])});return tables;
+ tables.push({title:en?'Guide section coverage':'Охоплення розділів методички',headers:en?['Section','Task','Status']:['Розділ','Задача','Статус'],rows:reactorCoverage(q).map(([code,uk,eng,status])=>[code,en?eng:uk,reactorCoverageLabel(status,en)])});
+ tables.push({className:"thermal-evidence",title:en?"Thermal assumptions and source evidence":"Теплові припущення та підтвердження джерелами",headers:en?["Topic","Method","Calculated / specified","Evidence and limits","Source"]:["Розділ","Метод","Розраховано / задано","Підтвердження й межі","Джерело"],rows:reactorThermalEvidence(q,en)});return tables;
 }
 
 export function reactorCampaignSVG(q,en=false){

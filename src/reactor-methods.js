@@ -16,15 +16,17 @@ export function reactorResonanceIntegral({V0,V1,V2,Nwater,NZr,N5,N8,NO,diameterC
 }
 export function reactorBoiling({pMPa,coolantC,saturationC,alphaConv,designFlux,method='off'}){
  rmRequire([pMPa,coolantC,saturationC,alphaConv,designFlux].every(Number.isFinite)&&pMPa>0&&alphaConv>0&&designFlux>=0&&saturationC>coolantC,'Недопустимий стан поверхневого кипіння. / Invalid wall boiling state.');
+ rmRequire(['off','guide'].includes(method),'Невідомий метод кипіння. / Unknown boiling method.');
  const onsetFlux=alphaConv*(saturationC-coolantC),excessFlux=Math.max(0,designFlux-onsetFlux),convectiveWall=coolantC+designFlux/alphaConv;
  // Positive excess only; never enhance heat transfer below the onset. Pressure
  // in the Rassokhin term is bar, NOT MPa. 2/3 is the guide's cube-root square.
  const active=method==='guide'&&excessFlux>0,withinPressure=pMPa>=8&&pMPa<=20;
  const alphaBoiling=active&&withinPressure?.027*(10*pMPa)**1.33*excessFlux**(2/3):0,alpha=alphaBoiling>0?Math.hypot(alphaConv,alphaBoiling):alphaConv,wall=alphaBoiling>0?saturationC+excessFlux/alpha:convectiveWall;
- return {onsetFlux,excessFlux,convectiveWall,alphaConv,alphaBoiling,alpha,wall,active:alphaBoiling>0,outside:active&&!withinPressure};
+ return {onsetFlux,excessFlux,convectiveWall,alphaConv,alphaBoiling,alpha,wall,active:alphaBoiling>0,outside:method==='guide'&&!withinPressure};
 }
 export function reactorCHF(pMPa,massFlux,x,method='gidropress'){
  rmRequire([pMPa,massFlux,x].every(Number.isFinite)&&pMPa>0&&pMPa<22.064&&massFlux>0&&x<1,'Недопустимі дані CHF. / Invalid CHF input.');
+ rmRequire(['candidate','gidropress'].includes(method),'Невідомий метод CHF. / Unknown CHF method.');
  const m=method==='candidate'?.311*(1-x)**(-.127):.311*(1-x)-.127,n=.105*pMPa-.5,qCritical=.795*massFlux**m*(1-x)**n*(1-.0185*pMPa);
  rmRequire(Number.isFinite(qCritical)&&qCritical>0,'Недопустимий результат CHF. / Invalid CHF result.');return {m,n,qCritical};
 }

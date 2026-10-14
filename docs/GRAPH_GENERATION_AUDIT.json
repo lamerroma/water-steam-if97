@@ -1,0 +1,736 @@
+{
+  "date": "2026-10-13T19:58:44.993Z",
+  "build": {
+    "version": "1.17.0",
+    "id": "abc0b810df50"
+  },
+  "status": "passed",
+  "unitTests": 694,
+  "browserScenarios": 47,
+  "totalPlottedPoints": 14807,
+  "maximumPixelCoordinateError": 5.684341886080802e-14,
+  "maximumRelativeInverseCoordinateError": 4.3709480479492413e-13,
+  "thermodynamicScenes": 12,
+  "maximumDenseProbeError": 0.493399282717036,
+  "beforeManufactured": [
+    {
+      "name": "inflection",
+      "points": 2,
+      "evaluations": 1,
+      "limited": false,
+      "maxPixelError": 99.01469964284756
+    },
+    {
+      "name": "offscreen-return",
+      "points": 2,
+      "evaluations": 0,
+      "limited": false,
+      "maxPixelError": 900
+    }
+  ],
+  "afterManufactured": [
+    {
+      "name": "inflection",
+      "points": 31,
+      "evaluations": 119,
+      "limited": false,
+      "maxPixelError": 0.4625020565230537
+    },
+    {
+      "name": "offscreen-return",
+      "points": 43,
+      "evaluations": 167,
+      "limited": false,
+      "maxPixelError": 0.49605014928918734
+    }
+  ],
+  "beforeCriticalScenes": [
+    {
+      "model": "IF97",
+      "kind": "ts",
+      "maxPixelError": 7.145724519593174
+    },
+    {
+      "model": "IF97",
+      "kind": "hsdiagram",
+      "maxPixelError": 0.3066064918521806
+    },
+    {
+      "model": "IF97",
+      "kind": "phdiagram",
+      "maxPixelError": 0.7868751541773581
+    },
+    {
+      "model": "IAPWS-95",
+      "kind": "ts",
+      "maxPixelError": 10.162686523623558
+    },
+    {
+      "model": "IAPWS-95",
+      "kind": "hsdiagram",
+      "maxPixelError": 0.40251427814859536
+    },
+    {
+      "model": "IAPWS-95",
+      "kind": "phdiagram",
+      "maxPixelError": 0.7728314407430854
+    }
+  ],
+  "afterScenes": [
+    {
+      "model": "IF97",
+      "kind": "ts",
+      "view": "wide",
+      "maxPixelError": 0.3241647632663901,
+      "limited": false,
+      "evaluations": 4124
+    },
+    {
+      "model": "IF97",
+      "kind": "ts",
+      "view": "critical",
+      "maxPixelError": 0.4832613460065498,
+      "limited": false,
+      "evaluations": 4379
+    },
+    {
+      "model": "IF97",
+      "kind": "hsdiagram",
+      "view": "wide",
+      "maxPixelError": 0.40978189703496404,
+      "limited": false,
+      "evaluations": 4112
+    },
+    {
+      "model": "IF97",
+      "kind": "hsdiagram",
+      "view": "critical",
+      "maxPixelError": 0.3066064918521806,
+      "limited": false,
+      "evaluations": 4173
+    },
+    {
+      "model": "IF97",
+      "kind": "phdiagram",
+      "view": "wide",
+      "maxPixelError": 0.4877635279203162,
+      "limited": false,
+      "evaluations": 4154
+    },
+    {
+      "model": "IF97",
+      "kind": "phdiagram",
+      "view": "critical",
+      "maxPixelError": 0.46464214315684005,
+      "limited": false,
+      "evaluations": 4208
+    },
+    {
+      "model": "IAPWS-95",
+      "kind": "ts",
+      "view": "wide",
+      "maxPixelError": 0.4623305941381293,
+      "limited": false,
+      "evaluations": 4118
+    },
+    {
+      "model": "IAPWS-95",
+      "kind": "ts",
+      "view": "critical",
+      "maxPixelError": 0.493399282717036,
+      "limited": false,
+      "evaluations": 4342
+    },
+    {
+      "model": "IAPWS-95",
+      "kind": "hsdiagram",
+      "view": "wide",
+      "maxPixelError": 0.3759567821005408,
+      "limited": false,
+      "evaluations": 4109
+    },
+    {
+      "model": "IAPWS-95",
+      "kind": "hsdiagram",
+      "view": "critical",
+      "maxPixelError": 0.40251427814859536,
+      "limited": false,
+      "evaluations": 4183
+    },
+    {
+      "model": "IAPWS-95",
+      "kind": "phdiagram",
+      "view": "wide",
+      "maxPixelError": 0.4511145915013238,
+      "limited": false,
+      "evaluations": 4168
+    },
+    {
+      "model": "IAPWS-95",
+      "kind": "phdiagram",
+      "view": "critical",
+      "maxPixelError": 0.3666084320793745,
+      "limited": false,
+      "evaluations": 4215
+    }
+  ],
+  "reactorResolution": [
+    {
+      "variant": 5,
+      "points": 7,
+      "errors": {
+        "t": 0.8586611716052062,
+        "qLinear": 0.7784848855579369,
+        "cladOuter": 0.9200558991234402,
+        "fuelSurface": 11.609108428281957,
+        "fuelCenter": 65.05998886537327
+      },
+      "fuelPeakDifference": 0.24462024365129764,
+      "cladPeakDifference": 0.21724627854467826
+    },
+    {
+      "variant": 5,
+      "points": 25,
+      "errors": {
+        "t": 0.0572126776956452,
+        "qLinear": 0.05030235519559412,
+        "cladOuter": 0.06265399148799133,
+        "fuelSurface": 0.7302195960659219,
+        "fuelCenter": 4.375276809265188
+      },
+      "fuelPeakDifference": 0.24462024365129764,
+      "cladPeakDifference": 0.0006240704293531962
+    },
+    {
+      "variant": 5,
+      "points": 101,
+      "errors": {
+        "t": 0.003326120963606627,
+        "qLinear": 0.002908074234305502,
+        "cladOuter": 0.003918012499184442,
+        "fuelSurface": 0.042133755849022236,
+        "fuelCenter": 0.2533211800077879
+      },
+      "fuelPeakDifference": 0.24462024365129764,
+      "cladPeakDifference": 0
+    },
+    {
+      "variant": 28,
+      "points": 7,
+      "errors": {
+        "t": 0.849729568209284,
+        "qLinear": 0.8553451031687516,
+        "cladOuter": 1.7213267005597572,
+        "fuelSurface": 8.154333554859136,
+        "fuelCenter": 53.16329191330465
+      },
+      "fuelPeakDifference": 0.6006377185726706,
+      "cladPeakDifference": 0.06698628039600862
+    },
+    {
+      "variant": 28,
+      "points": 25,
+      "errors": {
+        "t": 0.05668479655099645,
+        "qLinear": 0.055252681845406215,
+        "cladOuter": 0.18943496899686352,
+        "fuelSurface": 0.5598863595895409,
+        "fuelCenter": 3.803969151297906
+      },
+      "fuelPeakDifference": 0.6006377185726706,
+      "cladPeakDifference": 0.00010588584217430252
+    },
+    {
+      "variant": 28,
+      "points": 101,
+      "errors": {
+        "t": 0.00329659265258897,
+        "qLinear": 0.0031942047645294736,
+        "cladOuter": 0.019252915064953413,
+        "fuelSurface": 0.043366602108449115,
+        "fuelCenter": 0.24325580540948977
+      },
+      "fuelPeakDifference": 0,
+      "cladPeakDifference": 0
+    },
+    {
+      "variant": 45,
+      "points": 7,
+      "errors": {
+        "t": 0.8211150327045971,
+        "qLinear": 0.8209977194799407,
+        "cladOuter": 2.6788932645436603,
+        "fuelSurface": 16.488661061200446,
+        "fuelCenter": 75.54209787005539
+      },
+      "fuelPeakDifference": 0,
+      "cladPeakDifference": 2.8931121960340533e-05
+    },
+    {
+      "variant": 45,
+      "points": 25,
+      "errors": {
+        "t": 0.0549850821300879,
+        "qLinear": 0.05298435623505071,
+        "cladOuter": 0.3387182923264618,
+        "fuelSurface": 1.2478768003597906,
+        "fuelCenter": 4.808959242732271
+      },
+      "fuelPeakDifference": 0,
+      "cladPeakDifference": 2.8931121960340533e-05
+    },
+    {
+      "variant": 45,
+      "points": 101,
+      "errors": {
+        "t": 0.003201351805159902,
+        "qLinear": 0.003062894178057718,
+        "cladOuter": 0.03772850345876577,
+        "fuelSurface": 0.0822031190671737,
+        "fuelCenter": 0.29769425123595283
+      },
+      "fuelPeakDifference": 0,
+      "cladPeakDifference": 0.00044026074573366714
+    }
+  ],
+  "browserChecks": [
+    {
+      "name": "steam-complex-ts",
+      "id": "steam-diagram",
+      "checked": 2867,
+      "skipped": 7,
+      "pixelError": 2.842170943040401e-14,
+      "reverseError": 6.260042779688811e-15,
+      "modelCompared": false,
+      "stats": {
+        "evaluations": 4108,
+        "limited": false,
+        "budget": 6000
+      }
+    },
+    {
+      "name": "steam-complex-hsdiagram",
+      "id": "steam-diagram",
+      "checked": 2866,
+      "skipped": 7,
+      "pixelError": 2.842170943040401e-14,
+      "reverseError": 4.3709480479492413e-13,
+      "modelCompared": false,
+      "stats": {
+        "evaluations": 1989,
+        "limited": false,
+        "budget": 6000
+      }
+    },
+    {
+      "name": "steam-complex-phdiagram",
+      "id": "steam-diagram",
+      "checked": 2871,
+      "skipped": 7,
+      "pixelError": 2.842170943040401e-14,
+      "reverseError": 1.9435841824844147e-14,
+      "modelCompared": false,
+      "stats": {
+        "evaluations": 2009,
+        "limited": false,
+        "budget": 6000
+      }
+    },
+    {
+      "name": "reactor-5-temperature",
+      "id": "cw-chart",
+      "checked": 150,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 1.1058668055517074e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-5-heat",
+      "id": "cw-chart",
+      "checked": 25,
+      "skipped": 0,
+      "pixelError": 2.842170943040401e-14,
+      "reverseError": 1.4806980357614637e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-5-chf",
+      "id": "cw-chart",
+      "checked": 27,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 3.3742348532626466e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-5-campaign",
+      "id": "cw-chart",
+      "checked": 63,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 2.842170943040401e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-28-temperature",
+      "id": "cw-chart",
+      "checked": 150,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 9.679074038937707e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-28-heat",
+      "id": "cw-chart",
+      "checked": 25,
+      "skipped": 0,
+      "pixelError": 2.842170943040401e-14,
+      "reverseError": 7.069346240588376e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-28-chf",
+      "id": "cw-chart",
+      "checked": 27,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 7.697546304067751e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-28-campaign",
+      "id": "cw-chart",
+      "checked": 63,
+      "skipped": 0,
+      "pixelError": 2.842170943040401e-14,
+      "reverseError": 2.842170943040401e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-45-temperature",
+      "id": "cw-chart",
+      "checked": 150,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 1.5038168484856184e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-45-heat",
+      "id": "cw-chart",
+      "checked": 25,
+      "skipped": 0,
+      "pixelError": 2.842170943040401e-14,
+      "reverseError": 2.722163954739671e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-45-chf",
+      "id": "cw-chart",
+      "checked": 27,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 5.625129991434126e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-45-campaign",
+      "id": "cw-chart",
+      "checked": 63,
+      "skipped": 0,
+      "pixelError": 2.842170943040401e-14,
+      "reverseError": 2.842170943040401e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-5-dense-temperature",
+      "id": "cw-chart",
+      "checked": 1206,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 1.337969610409747e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-5-dense-heat",
+      "id": "cw-chart",
+      "checked": 201,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 2.320228443630631e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-5-dense-chf",
+      "id": "cw-chart",
+      "checked": 203,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 5.361559515018421e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-5-dense-campaign",
+      "id": "cw-chart",
+      "checked": 63,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 2.842170943040401e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-28-dense-temperature",
+      "id": "cw-chart",
+      "checked": 1206,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 1.1817971634355026e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-28-dense-heat",
+      "id": "cw-chart",
+      "checked": 201,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 1.3588234617367382e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-28-dense-chf",
+      "id": "cw-chart",
+      "checked": 203,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 7.697546304067751e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-28-dense-campaign",
+      "id": "cw-chart",
+      "checked": 63,
+      "skipped": 0,
+      "pixelError": 2.842170943040401e-14,
+      "reverseError": 2.842170943040401e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-45-dense-temperature",
+      "id": "cw-chart",
+      "checked": 1206,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 1.978948020722733e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-45-dense-heat",
+      "id": "cw-chart",
+      "checked": 201,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 1.3984398803731451e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-45-dense-chf",
+      "id": "cw-chart",
+      "checked": 203,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 5.625129991434126e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "reactor-45-dense-campaign",
+      "id": "cw-chart",
+      "checked": 63,
+      "skipped": 0,
+      "pixelError": 2.842170943040401e-14,
+      "reverseError": 2.842170943040401e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "course-rankine-ts",
+      "id": "cw-chart",
+      "checked": 5,
+      "skipped": 0,
+      "pixelError": 0,
+      "reverseError": 6.032595524533751e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "course-rankine-hs",
+      "id": "cw-chart",
+      "checked": 5,
+      "skipped": 0,
+      "pixelError": 0,
+      "reverseError": 2.3537553126236522e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "course-stage-ts",
+      "id": "cw-chart",
+      "checked": 4,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 0,
+      "modelCompared": true
+    },
+    {
+      "name": "course-stage-hs",
+      "id": "cw-chart",
+      "checked": 4,
+      "skipped": 0,
+      "pixelError": 0,
+      "reverseError": 0,
+      "modelCompared": true
+    },
+    {
+      "name": "course-core-temperature",
+      "id": "cw-chart",
+      "checked": 125,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 4.440892098500626e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "course-core-heat",
+      "id": "cw-chart",
+      "checked": 25,
+      "skipped": 0,
+      "pixelError": 2.842170943040401e-14,
+      "reverseError": 4.440892098500626e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "laboratory-saturation-comparison",
+      "id": "lab-chart",
+      "checked": 10,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 1.9949319973733282e-17,
+      "modelCompared": true
+    },
+    {
+      "name": "laboratory-saturation-deviation",
+      "id": "lab-chart",
+      "checked": 5,
+      "skipped": 0,
+      "pixelError": 0,
+      "reverseError": 3.3881317890172014e-21,
+      "modelCompared": true
+    },
+    {
+      "name": "laboratory-turbine-comparison",
+      "id": "lab-chart",
+      "checked": 6,
+      "skipped": 0,
+      "pixelError": 2.842170943040401e-14,
+      "reverseError": 1.860276183037927e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "laboratory-turbine-deviation",
+      "id": "lab-chart",
+      "checked": 3,
+      "skipped": 0,
+      "pixelError": 2.1316282072803006e-14,
+      "reverseError": 2.2204460496088977e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "laboratory-turbine-hs",
+      "id": "lab-chart",
+      "checked": 4,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 0,
+      "modelCompared": true
+    },
+    {
+      "name": "cycle-rankine-reheat-ts",
+      "id": "cycle-chart",
+      "checked": 18,
+      "skipped": 0,
+      "pixelError": 2.842170943040401e-14,
+      "reverseError": 1.1102230246251565e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "cycle-rankine-reheat-hs",
+      "id": "cycle-chart",
+      "checked": 18,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 2.667142735719878e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "cycle-rankine-regen-ts",
+      "id": "cycle-chart",
+      "checked": 23,
+      "skipped": 0,
+      "pixelError": 2.842170943040401e-14,
+      "reverseError": 1.1102230246251565e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "cycle-rankine-regen-hs",
+      "id": "cycle-chart",
+      "checked": 23,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 2.667142735719878e-15,
+      "modelCompared": true
+    },
+    {
+      "name": "cycle-brayton-ts",
+      "id": "cycle-chart",
+      "checked": 12,
+      "skipped": 0,
+      "pixelError": 2.842170943040401e-14,
+      "reverseError": 1.9009157192932092e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "cycle-brayton-hs",
+      "id": "cycle-chart",
+      "checked": 12,
+      "skipped": 0,
+      "pixelError": 7.105427357601002e-15,
+      "reverseError": 5.067976625877247e-14,
+      "modelCompared": true
+    },
+    {
+      "name": "npp-msr",
+      "id": "cycle-chart",
+      "checked": 43,
+      "skipped": 0,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 1.8542610806726408e-16,
+      "modelCompared": true
+    },
+    {
+      "name": "exchanger-counterflow",
+      "id": "hx-chart",
+      "checked": 4,
+      "skipped": 0,
+      "pixelError": 0,
+      "reverseError": 0,
+      "modelCompared": false
+    },
+    {
+      "name": "research-invalid-and-valid",
+      "id": "research-canvas",
+      "checked": 40,
+      "skipped": 1,
+      "pixelError": 5.684341886080802e-14,
+      "reverseError": 2.465963544666135e-16,
+      "modelCompared": false
+    }
+  ]
+}

@@ -35,9 +35,17 @@ export function diagramData(model='IF97'){
   try{const q=calculate('satt',T,undefined,model).saturation;dome[0].push(q.liquid);dome[1].push(q.vapor);}catch{dome[0].push(null);dome[1].push(null);}
  }
  for(const p of [.01,.1,1,10,22.064,50,100]){
-  const points=[];
-  for(let i=0;i<=100;i++){const T=(model==='IF97'?273.15:273.16)+(1073.15-(model==='IF97'?273.15:273.16))*i/100;try{points.push(calculate('pt',p,T,model).state||null);}catch{points.push(null);}}
-  if(p<PC){const q=calculate('satp',p,undefined,model).saturation;for(let i=0;i<=10;i++)points.push(calculate('px',p,i/10,model).state);points.sort((a,b)=>(a?.T||0)-(b?.T||0)||(a?.s||0)-(b?.s||0));}
+  // Sort parameter records, not states: failed evaluations must retain their
+  // temperature position and break the line instead of being moved to its start.
+  const samples=[];
+  for(let i=0;i<=100;i++){const T=(model==='IF97'?273.15:273.16)+(1073.15-(model==='IF97'?273.15:273.16))*i/100;let q=null;try{q=calculate('pt',p,T,model).state||null;}catch{}samples.push({T,q});}
+  if(p<PC){const sat=calculate('satp',p,undefined,model).saturation;for(let i=0;i<=10;i++)samples.push({T:sat.T,order:i,q:calculate('px',p,i/10,model).state});}
+  // IF97 supplies an exact critical state. Without this anchor the adaptive
+  // sampler hits its depth limit and draws a chord past the critical marker.
+  // IAPWS-95 intentionally does not evaluate the singular critical state.
+  if(p===PC&&model==='IF97')samples.push({T:TC,q:calculate('pt',PC,TC,model).state});
+  samples.sort((a,b)=>a.T-b.T||(a.order??0)-(b.order??0));
+  const points=samples.map(sample=>sample.q);
   isobars.push({p,points});
  }
  return {dome,isobars};
