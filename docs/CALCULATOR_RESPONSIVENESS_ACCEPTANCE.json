@@ -1,0 +1,455 @@
+{
+  "version": "1.25.0",
+  "build": "411cc4eb8831",
+  "status": "targeted-acceptance-passed",
+  "fullReleaseAcceptance": "incomplete",
+  "scope": "Main water/steam calculator, cancellation, request freshness, background project validation and Chromium web/PWA workflows.",
+  "core": {
+    "status": "passed",
+    "checks": 14,
+    "tests": 736,
+    "passed": 736,
+    "failed": 0,
+    "skipped": 0,
+    "report": ".release/2026-10-14T17-27-12-844Z/report.json"
+  },
+  "backgroundKernel": {
+    "modeComparisons": 40,
+    "models": [
+      "IF97",
+      "IAPWS-95"
+    ],
+    "additionalChecks": [
+      "critical states",
+      "region boundary",
+      "PH alternative roots",
+      "project validation",
+      "invalid inputs"
+    ]
+  },
+  "responsiveness": {
+    "mode": "hv",
+    "model": "IAPWS-95",
+    "a": 3231.6862979808975,
+    "b": 0.09937913680874447,
+    "ticks": 52,
+    "ms": 1074.3999999999069,
+    "meaning": "Browser timer continues during actual numerical work; this is not a numerical speedup claim."
+  },
+  "browser": [
+    {
+      "name": "calculator-async",
+      "status": "passed",
+      "exitCode": 0,
+      "build": {
+        "version": "1.25.0",
+        "id": "411cc4eb8831"
+      },
+      "log": ".release/2026-10-14T17-27-12-844Z/browser-calculator-async.log"
+    },
+    {
+      "name": "pwa",
+      "status": "passed",
+      "exitCode": 0,
+      "build": {
+        "version": "1.25.0",
+        "id": "411cc4eb8831"
+      },
+      "log": ".release/2026-10-14T17-27-12-844Z/browser-pwa.log"
+    },
+    {
+      "name": "project-safety",
+      "status": "passed",
+      "exitCode": 0,
+      "build": {
+        "version": "1.25.0",
+        "id": "411cc4eb8831"
+      },
+      "log": ".release/2026-10-14T17-27-12-844Z/browser-project-safety.log"
+    },
+    {
+      "name": "ui-workspace",
+      "status": "passed",
+      "exitCode": 0,
+      "build": {
+        "version": "1.25.0",
+        "id": "411cc4eb8831"
+      },
+      "log": ".release/2026-10-14T17-27-12-844Z/browser-ui-workspace.log"
+    },
+    {
+      "name": "chart-layout",
+      "status": "passed",
+      "exitCode": 0,
+      "build": {
+        "version": "1.25.0",
+        "id": "411cc4eb8831"
+      },
+      "log": ".release/2026-10-14T17-27-12-844Z/browser-chart-layout.log"
+    }
+  ],
+  "partiallyExecutedEarlierBrowserChecks": [
+    {
+      "name": "calculator-workspace",
+      "status": "blocked",
+      "exitCode": 1,
+      "testedBuild": {
+        "version": "1.25.0",
+        "id": "a338782c614e"
+      },
+      "passedBeforeBlock": [
+        "Validation links, live correction, summary, localized copy and denied-clipboard fallback PASS",
+        "History source restoration, direct report, preview, separate clearing, undo and reload PASS",
+        "Distinct saturation phase values, mobile overflow and touch targets PASS"
+      ],
+      "blocker": "System Chromium policy rejects file:// navigation; standalone step did not execute.",
+      "log": ".release/2026-10-14T17-27-12-844Z/earlier-browser-calculator-workspace.log",
+      "followUp": {
+        "browser": "firefox",
+        "status": "passed",
+        "build": {
+          "version": "1.25.0",
+          "id": "411cc4eb8831"
+        },
+        "evidence": ".release/firefox-responsiveness/report.json"
+      }
+    },
+    {
+      "name": "smart-input",
+      "status": "blocked",
+      "exitCode": 1,
+      "testedBuild": {
+        "version": "1.25.0",
+        "id": "a338782c614e"
+      },
+      "passedBeforeBlock": [
+        "Reversed inputs, retained pressure units and calculation PASS",
+        "All twenty advanced modes synchronize property selectors PASS",
+        "Advanced modes and wet steam in percent PASS",
+        "Inline validation, focus, translation and decimal comma PASS",
+        "Both field errors and temperature conversion PASS",
+        "P–T saturation explanation and quality action PASS",
+        "Project export and auto restore preserve reversed order PASS",
+        "New and legacy JSON import PASS",
+        "Reversed gauge pressure preserves physical input and label order PASS",
+        "IAPWS-95 bounds PASS",
+        "Mobile layout PASS"
+      ],
+      "blocker": "System Chromium policy rejects file:// navigation; standalone step did not execute.",
+      "log": ".release/2026-10-14T17-27-12-844Z/earlier-browser-smart-input.log",
+      "followUp": {
+        "browser": "firefox",
+        "status": "passed",
+        "build": {
+          "version": "1.25.0",
+          "id": "411cc4eb8831"
+        },
+        "evidence": ".release/firefox-responsiveness/report.json"
+      }
+    },
+    {
+      "name": "comparison",
+      "status": "blocked",
+      "exitCode": 1,
+      "testedBuild": {
+        "version": "1.25.0",
+        "id": "a338782c614e"
+      },
+      "passedBeforeBlock": [
+        "Named copy retains original; selected states, affine deltas, reference, CSV and frozen report PASS",
+        "Report JSON round trip, mixed models, 5-state limit, mobile scroll, A4 report/PDF, clearing and undo PASS"
+      ],
+      "blocker": "System Chromium policy rejects file:// navigation; standalone step did not execute.",
+      "log": ".release/2026-10-14T17-27-12-844Z/earlier-browser-comparison.log",
+      "followUp": {
+        "browser": "firefox",
+        "status": "passed",
+        "build": {
+          "version": "1.25.0",
+          "id": "411cc4eb8831"
+        },
+        "evidence": ".release/firefox-responsiveness/report.json"
+      }
+    },
+    {
+      "name": "study",
+      "status": "blocked",
+      "exitCode": 1,
+      "testedBuild": {
+        "version": "1.25.0",
+        "id": "a338782c614e"
+      },
+      "passedBeforeBlock": [
+        "Empty report reminders and nonblocking HTML export PASS",
+        "State → comparison → process → diagram → report/PDF, stale guards, outline, UK/EN, reload and mobile PASS"
+      ],
+      "blocker": "System Chromium policy rejects file:// navigation; standalone step did not execute.",
+      "log": ".release/2026-10-14T17-27-12-844Z/earlier-browser-study.log",
+      "followUp": {
+        "browser": "firefox",
+        "status": "passed",
+        "build": {
+          "version": "1.25.0",
+          "id": "411cc4eb8831"
+        },
+        "evidence": ".release/firefox-responsiveness/report.json"
+      }
+    }
+  ],
+  "remaining": [
+    {
+      "check": "Native standalone file:// launch in system Chromium",
+      "status": "blocked",
+      "reason": "System Chromium policy rejects file:// navigation; Firefox native file:// workflows passed."
+    },
+    {
+      "check": "Full release acceptance run",
+      "status": "incomplete",
+      "reason": "Targeted browser completion passed on the unchanged build; the full release suite was not rerun."
+    },
+    {
+      "check": "Safari and physical mobile devices",
+      "status": "unrun"
+    }
+  ],
+  "publication": "not performed",
+  "workerSha256": "068067b7870a4dfdecc3d0346585642b5f557c4f63789f5ba46fde2e31f77284",
+  "browserCompletion": {
+    "completed": "2026-10-14T18:11:31.918834+00:00",
+    "status": "passed",
+    "report": ".release/firefox-responsiveness/report.json",
+    "playwright": "1.62.1",
+    "engines": {
+      "firefox": "153.0",
+      "chromium": "154.0.8037.57"
+    },
+    "checks": [
+      {
+        "browser": "firefox",
+        "name": "calculator-async",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 8378,
+        "log": ".release/firefox-responsiveness/firefox-calculator-async.log",
+        "build": {
+          "version": "1.25.0",
+          "id": "411cc4eb8831"
+        },
+        "summary": [
+          "Real IAPWS-95 h-v search keeps the event loop responsive PASS {\"ticks\":38,\"ms\":784}",
+          "Cancellation, duplicate submit, input edits and model changes preserve current data PASS",
+          "Import during computation and reload restore the saved state without stale history PASS",
+          "English, mobile layout and embedded offline worker in standalone HTML PASS",
+          "Worker startup failure is reported and retry succeeds PASS"
+        ]
+      },
+      {
+        "browser": "firefox",
+        "name": "calculator-workspace",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 6797,
+        "log": ".release/firefox-responsiveness/firefox-calculator-workspace.log",
+        "build": {
+          "version": "1.25.0",
+          "id": "411cc4eb8831"
+        },
+        "summary": [
+          "Validation links, live correction, summary, localized copy and denied-clipboard fallback PASS",
+          "History source restoration, direct report, preview, separate clearing, undo and reload PASS",
+          "Distinct saturation phase values, mobile overflow and touch targets PASS",
+          "Standalone calculation → report offline PASS"
+        ]
+      },
+      {
+        "browser": "firefox",
+        "name": "smart-input",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 8365,
+        "log": ".release/firefox-responsiveness/firefox-smart-input.log",
+        "build": {
+          "version": "1.25.0",
+          "id": "411cc4eb8831"
+        },
+        "summary": [
+          "Reversed inputs, retained pressure units and calculation PASS",
+          "All twenty advanced modes synchronize property selectors PASS",
+          "Advanced modes and wet steam in percent PASS",
+          "Inline validation, focus, translation and decimal comma PASS",
+          "Both field errors and temperature conversion PASS",
+          "P–T saturation explanation and quality action PASS",
+          "Project export and auto restore preserve reversed order PASS",
+          "New and legacy JSON import PASS",
+          "Reversed gauge pressure preserves physical input and label order PASS",
+          "IAPWS-95 bounds PASS",
+          "Mobile layout PASS",
+          "Offline reversed input PASS"
+        ]
+      },
+      {
+        "browser": "firefox",
+        "name": "state-comparison",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 8868,
+        "log": ".release/firefox-responsiveness/firefox-state-comparison.log",
+        "build": {
+          "version": "1.25.0",
+          "id": "411cc4eb8831"
+        },
+        "summary": [
+          "Named copy retains original; selected states, affine deltas, reference, CSV and frozen report PASS",
+          "Report JSON round trip, mixed models, 5-state limit, mobile scroll, A4 report, clearing and undo PASS",
+          "Offline standalone calculation → comparison → study report PASS"
+        ]
+      },
+      {
+        "browser": "firefox",
+        "name": "study-workflow",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 9676,
+        "log": ".release/firefox-responsiveness/firefox-study-workflow.log",
+        "build": {
+          "version": "1.25.0",
+          "id": "411cc4eb8831"
+        },
+        "summary": [
+          "Empty report reminders and nonblocking HTML export PASS",
+          "State → comparison → process → diagram → report/PDF, stale guards, outline, UK/EN, reload and mobile PASS",
+          "Complete standalone workflow offline PASS"
+        ]
+      },
+      {
+        "browser": "firefox",
+        "name": "pwa",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 30393,
+        "log": ".release/firefox-responsiveness/firefox-pwa.log",
+        "build": {
+          "version": "1.25.0",
+          "id": "411cc4eb8831"
+        },
+        "summary": [
+          "Full cache, scope, mobile and English PASS",
+          "Browser restart, project, IAPWS-95, WASM, diagram and exports offline PASS",
+          "Blocked unsaved update and controlled release update preserve project and language PASS",
+          "Older open tab retains release assets PASS",
+          "Interrupted installation, atomic cache and retry PASS",
+          "Corrupt resource is rejected PASS",
+          "Evicted cache recovery retries without a connection, preserves project and language, and restores offline calculations PASS"
+        ]
+      },
+      {
+        "browser": "chromium",
+        "name": "calculator-async",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 7127,
+        "log": ".release/firefox-responsiveness/chromium-calculator-async.log",
+        "build": {
+          "version": "1.25.0",
+          "id": "411cc4eb8831"
+        },
+        "summary": [
+          "Real IAPWS-95 h-v search keeps the event loop responsive PASS {\"ticks\":46,\"ms\":933.2999999999302}",
+          "Cancellation, duplicate submit, input edits and model changes preserve current data PASS",
+          "Import during computation and reload restore the saved state without stale history PASS",
+          "English, mobile layout and embedded offline worker in standalone HTML PASS",
+          "Worker startup failure is reported and retry succeeds PASS"
+        ]
+      },
+      {
+        "browser": "chromium",
+        "name": "pwa",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 26807,
+        "log": ".release/firefox-responsiveness/chromium-pwa.log",
+        "build": {
+          "version": "1.25.0",
+          "id": "411cc4eb8831"
+        },
+        "summary": [
+          "Full cache, scope, mobile and English PASS",
+          "Browser restart, project, IAPWS-95, WASM, diagram and exports offline PASS",
+          "Blocked unsaved update and controlled release update preserve project and language PASS",
+          "Older open tab retains release assets PASS",
+          "Interrupted installation, atomic cache and retry PASS",
+          "Corrupt resource is rejected PASS",
+          "Evicted cache recovery retries without a connection, preserves project and language, and restores offline calculations PASS"
+        ]
+      },
+      {
+        "browser": "both",
+        "name": "cross-browser",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 17150,
+        "log": ".release/firefox-responsiveness/both-cross-browser.log",
+        "build": {
+          "version": "1.25.0",
+          "id": "411cc4eb8831"
+        },
+        "summary": [
+          "chromium 154.0.8037.57: calculation, errors, UK/EN, HTML/JSON, restore, all 28 sections at 320/390/768px, NPP, diagrams and laboratory PASS",
+          "firefox 153.0: calculation, errors, UK/EN, HTML/JSON, restore, all 28 sections at 320/390/768px, NPP, diagrams and laboratory PASS"
+        ]
+      }
+    ],
+    "testHarnessChanges": [
+      "Wait for restored state after asynchronous reload instead of checking only button readiness.",
+      "Support BROWSER_NAME=firefox in calculator-workspace and smart-input.",
+      "Disconnect the PWA test server during failed recovery; Firefox service-worker fetches may remain online under context.setOffline()."
+    ],
+    "initialAttempts": [
+      {
+        "browser": "firefox",
+        "checks": [
+          "calculator-async",
+          "calculator-workspace",
+          "smart-input"
+        ],
+        "status": "failed",
+        "reason": "Assertions ran before asynchronous project restoration completed; corrected waits passed."
+      },
+      {
+        "browser": "firefox",
+        "check": "pwa",
+        "status": "failed",
+        "reason": "setOffline did not prevent service-worker recovery requests; explicit server disconnection passed."
+      }
+    ]
+  },
+  "responsivenessFirefox": {
+    "mode": "hv",
+    "model": "IAPWS-95",
+    "a": 3231.6862979808975,
+    "b": 0.09937913680874447,
+    "meaning": "Browser timer continues during actual numerical work; this is not a numerical speedup claim.",
+    "ticks": 38,
+    "ms": 784
+  },
+  "completedAdditionalChecks": [
+    {
+      "check": "Firefox",
+      "status": "passed",
+      "checks": 6,
+      "runtimeAllowedDomainsApplied": true
+    },
+    {
+      "check": "Native standalone file:// launch",
+      "browser": "firefox",
+      "status": "passed",
+      "workflows": [
+        "calculator-workspace",
+        "smart-input",
+        "state-comparison",
+        "study-workflow"
+      ],
+      "network": "offline"
+    }
+  ]
+}

@@ -1679,5 +1679,9 @@
   "ux.methodNotes": "Method and assumptions",
   "ux.closeSettings": "Close settings",
   "ux.tableScroll": "Result table — scroll with arrow keys",
-  "ux.backToTools": "↑ Back to tools"
+  "ux.backToTools": "↑ Back to tools",
+  "calculator.cancel": "Cancel calculation",
+  "calculator.cancelled": "Calculation cancelled. Input values were kept.",
+  "calculator.timeout": "Calculation exceeded the 60-second limit. Check the inputs or retry.",
+  "calculator.workerFailed": "Background calculation could not start. Retry or reload the page."
 }

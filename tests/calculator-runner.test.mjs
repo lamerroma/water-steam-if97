@@ -1,0 +1,31 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {createCalculationRunner} from '../src/calculator-runner.js';
+function harness(timeout=1000){
+ const workers=[];
+ const runner=createCalculationRunner(()=>{const w={terminated:false,postMessage(message){this.request=message;},terminate(){this.terminated=true;}};workers.push(w);return w;},timeout);
+ return {runner,workers,answer:(w,result)=>w.onmessage({data:{id:w.request.id,result}})};
+}
+test('Cancellation terminates the search, ignores late replies, and permits another calculation',async()=>{
+ const {runner,workers,answer}=harness();const first=runner.calculate('hv',3000,.1,'IAPWS-95'),cancelled=assert.rejects(first,{code:'cancelled'});
+ assert.equal(runner.cancel(),true);await cancelled;assert.equal(workers[0].terminated,true);assert.equal(runner.busy,false);
+ const second=runner.calculate('pt',3,400,'IF97');answer(workers[0],{state:'stale'});assert.equal(runner.busy,true);
+ answer(workers[1],{state:'current'});assert.deepEqual(await second,{state:'current'});assert.equal(runner.cancel(),false);
+});
+test('Only the matching request completes; repeated submissions do not create a second operation',async()=>{
+ const {runner,workers,answer}=harness();const result=runner.calculate('pt',3,400,'IF97');
+ await assert.rejects(runner.calculate('pt',4,500,'IF97'),{code:'busy'});assert.equal(workers.length,1);
+ workers[0].onmessage({data:{id:99,result:'wrong'}});assert.equal(runner.busy,true);answer(workers[0],42);assert.equal(await result,42);
+ const next=runner.readProject('project');assert.equal(workers[0].request.type,'project');assert.equal(workers[0].request.payload.text,'project');answer(workers[0],43);assert.equal(await next,43);
+});
+test('Timeout and worker failure terminate the operation and allow a fresh executor',async()=>{
+ const {runner,workers,answer}=harness(10);await assert.rejects(runner.calculate('hv',1,1,'IF97'),{code:'timeout'});assert.equal(workers[0].terminated,true);
+ const failed=runner.calculate('pt',1,1,'IF97'),rejected=assert.rejects(failed,{code:'unavailable'});workers[1].onerror({preventDefault(){}});await rejected;assert.equal(workers[1].terminated,true);
+ const retry=runner.calculate('pt',1,1,'IF97');answer(workers[2],'ready');assert.equal(await retry,'ready');
+});
+test('A numerical error preserves the warm worker; a startup exception remains retryable',async()=>{
+ const {runner,workers,answer}=harness();const result=runner.calculate('pt',-1,0,'IF97'),rejected=assert.rejects(result,{code:'calculation',message:'Invalid pressure'});
+ workers[0].onmessage({data:{id:workers[0].request.id,error:'Invalid pressure'}});await rejected;
+ const next=runner.calculate('pt',1,300,'IF97');assert.equal(workers.length,1);answer(workers[0],'valid');assert.equal(await next,'valid');
+ let attempts=0;const startup=createCalculationRunner(()=>{attempts++;throw Error('Blocked');});for(let i=0;i<2;i++)await assert.rejects(startup.calculate('pt',1,300,'IF97'),{code:'unavailable'});assert.equal(attempts,2);
+});

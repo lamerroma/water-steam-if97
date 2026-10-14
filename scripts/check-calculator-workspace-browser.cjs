@@ -1,8 +1,10 @@
-const {chromium}=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright');
+const playwright=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright');
+const browserName=process.env.BROWSER_NAME||'chromium';
+if(!['chromium','firefox'].includes(browserName))throw Error('Unsupported browser: '+browserName);
 const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path');
 const {openTool}=require('./browser-tools.cjs');
 (async()=>{
- const browser=await chromium.launch({...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{}),args:['--no-sandbox']});
+ const browser=await playwright[browserName].launch(browserName==='chromium'?{...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{}),args:['--no-sandbox']}:{});
  try{
   const ctx=await browser.newContext({serviceWorkers:'block',viewport:{width:1440,height:1000}}),p=await ctx.newPage(),errors=[];
   p.on('pageerror',e=>errors.push(e.message));
@@ -29,7 +31,7 @@ const {openTool}=require('./browser-tools.cjs');
   await openTool(p,'general');await p.click('[data-history-open="1"]');assert.equal(await p.locator('#mode').inputValue(),'pt');assert.equal(await p.locator('#input-a').inputValue(),'3');assert.equal(await p.locator('#input-b').inputValue(),'100.5');assert.equal(await p.locator('[data-history-open]').count(),2);
   await p.locator('.form-buttons [data-action=clear]').click();assert.equal(await p.locator('#calculator-result-tools').isHidden(),true);assert.equal(await p.locator('[data-history-open]').count(),2);
   await p.click('[data-history-open="1"]');await p.click('#history-clear');assert.equal(await p.locator('[data-history-open]').count(),0);assert.equal(await p.locator('#calculator-result-summary button').count(),6);assert.equal(await p.locator('#history-undo').isVisible(),true);await p.click('#history-undo');assert.equal(await p.locator('[data-history-open]').count(),2);
-  await p.reload();await p.waitForFunction(()=>!document.querySelector('#calculate').disabled);assert.equal(await p.locator('#mode').inputValue(),'pt');assert.equal(await p.locator('#input-b').inputValue(),'100.5');
+  await p.reload();await p.waitForFunction(()=>!document.querySelector('#calculate').disabled&&document.querySelector('#input-b').value==='100.5');assert.equal(await p.locator('#mode').inputValue(),'pt');assert.equal(await p.locator('#input-b').inputValue(),'100.5');
   console.log('History source restoration, direct report, preview, separate clearing, undo and reload PASS');
   await p.click('[data-quick-mode=satp]');await p.fill('#input-a','0.1');await calculate();
   await p.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>{window.copiedValue=text;}}}));

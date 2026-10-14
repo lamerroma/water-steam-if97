@@ -17,7 +17,7 @@ await mkdir(dir,{recursive:true});
 const report={started:new Date().toISOString(),mode,version:JSON.parse(await readFile(path.join(root,'package.json'),'utf8')).version,build:null,status:'running',checks:[],artifacts:{},scope:'Software acceptance only; passing does not validate every physical model or device.'};
 let server;
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
-const snapshot=async()=>Object.fromEntries(await Promise.all(['index.html','standalone.html','assets/app.js','assets/styles.css','assets/coolprop.wasm','service-worker.js','manifest.webmanifest'].map(async p=>[p,hash(await readFile(path.join(root,p)))])));
+const snapshot=async()=>Object.fromEntries(await Promise.all(['index.html','standalone.html','assets/app.js','assets/calculator-worker.js','assets/styles.css','assets/coolprop.wasm','service-worker.js','manifest.webmanifest'].map(async p=>[p,hash(await readFile(path.join(root,p)))])));
 async function check(name,args,env={},executable=process.execPath){
  const start=Date.now();console.log(`Starting ${name}`);
  const log=path.join(dir,name+'.log');let output='';
@@ -65,9 +65,9 @@ try{
  }
  if(mode!=='core'){
   const env=await serve();
-  for(const name of ['navigation','smart-input','calculator-workspace','state-comparison','study-workflow','task-ui','diagram','diagram-guides','diagram-quality','process-paths','chart-layout','study-workspace','hydraulics','study','full-sprint','laboratory','coursework','usability','reactor-course','reactor-validation','provenance','project-safety','pwa','ui-workspace'])await check('browser-'+name,[`scripts/check-${name}-browser.cjs`],env);
+  for(const name of ['calculator-async','navigation','smart-input','calculator-workspace','state-comparison','study-workflow','task-ui','diagram','diagram-guides','diagram-quality','process-paths','chart-layout','study-workspace','hydraulics','study','full-sprint','laboratory','coursework','usability','reactor-course','reactor-validation','provenance','project-safety','pwa','ui-workspace'])await check('browser-'+name,[`scripts/check-${name}-browser.cjs`],env);
   await check('browser-cross-browser',['scripts/check-cross-browser.cjs'],{...env,UI_EVIDENCE_DIR:path.join(dir,'ui')});
-  await check('browser-pwa-firefox',['scripts/check-pwa-browser.cjs'],{...env,BROWSER_NAME:'firefox'});
+  for(const name of ['calculator-async','calculator-workspace','smart-input','state-comparison','study-workflow','pwa'])await check('browser-'+name+'-firefox',[`scripts/check-${name}-browser.cjs`],{...env,BROWSER_NAME:'firefox'});
  }
  if(await check('rebuild',['scripts/build.mjs'])){
   const repeated=await snapshot();const same=JSON.stringify(initial)===JSON.stringify(repeated);

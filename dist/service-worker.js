@@ -1,4 +1,4 @@
-const BUILD={"version":"1.24.0","id":"b64920990af7"};const RESOURCES=["index.html","assets/app.js?v=07a0824a6f2d8a76","assets/styles.css?v=423c3ddf90a49bfa","assets/coolprop.wasm?v=b64920990af7","manifest.webmanifest","assets/icon-192.png","assets/icon-512.png"];const DIGESTS={"index.html":"5c3a53b7d9384f3d7ff1c9d08660a7cba44e4660cd7a3e9cd96b805506370275","assets/app.js?v=07a0824a6f2d8a76":"07a0824a6f2d8a7665df7472d35648bcfc08d9e7777e2d11d47a4c5f22e34405","assets/styles.css?v=423c3ddf90a49bfa":"423c3ddf90a49bfa84526e9661f4ce8d1f7526242914943ea2ddac6466388a67","assets/coolprop.wasm?v=b64920990af7":"28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307","manifest.webmanifest":"63130e8f1083e12602ca499f9de40ad3d97d64b457c005ce570215966f783056","assets/icon-192.png":"50dd8b5abc44230597dddc0391c9bc50237ac356a824b7a52139e0b4364b0689","assets/icon-512.png":"8f42bcec7ab744311e58bac643f0473846582e36193fc162f328e3640204a88a"};
+const BUILD={"version":"1.25.0","id":"411cc4eb8831"};const RESOURCES=["index.html","assets/app.js?v=40a2b82a2bdca102","assets/styles.css?v=423c3ddf90a49bfa","assets/coolprop.wasm?v=411cc4eb8831","manifest.webmanifest","assets/icon-192.png","assets/icon-512.png","assets/calculator-worker.js?v=068067b7870a4dfd"];const DIGESTS={"index.html":"135ff3f0cb3f830b79e7bb4eee46be7eb2567efb0957e85fe2e72773f8d2098a","assets/app.js?v=40a2b82a2bdca102":"40a2b82a2bdca102d1551de7eb953ad087b7ee40a43e8a4c4875c4cfb6dbce2e","assets/styles.css?v=423c3ddf90a49bfa":"423c3ddf90a49bfa84526e9661f4ce8d1f7526242914943ea2ddac6466388a67","assets/coolprop.wasm?v=411cc4eb8831":"28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307","manifest.webmanifest":"63130e8f1083e12602ca499f9de40ad3d97d64b457c005ce570215966f783056","assets/calculator-worker.js?v=068067b7870a4dfd":"068067b7870a4dfdecc3d0346585642b5f557c4f63789f5ba46fde2e31f77284","assets/icon-192.png":"50dd8b5abc44230597dddc0391c9bc50237ac356a824b7a52139e0b4364b0689","assets/icon-512.png":"8f42bcec7ab744311e58bac643f0473846582e36193fc162f328e3640204a88a"};
 const cachePrefix='water-steam:'+new URL(self.registration.scope).pathname+'|';
 const cacheName=cachePrefix+BUILD.id+new URL(self.location.href).search;
 const url=path=>new URL(path,self.registration.scope).href;
@@ -39,12 +39,36 @@ self.addEventListener('fetch',event=>{
  const request=event.request,u=new URL(request.url),scope=new URL(self.registration.scope);
  if(request.method!=='GET'||u.origin!==scope.origin||!u.pathname.startsWith(scope.pathname))return;
  const navigation=request.mode==='navigate'&&(u.pathname===scope.pathname||u.pathname===scope.pathname+'index.html');
- if(!navigation&&!RESOURCES.some(path=>url(path)===u.href)&&!['assets/app.js','assets/styles.css','assets/coolprop.wasm'].some(path=>u.pathname===scope.pathname+path))return;
+ if(!navigation&&!RESOURCES.some(path=>url(path)===u.href)&&!['assets/app.js','assets/styles.css','assets/coolprop.wasm','assets/calculator-worker.js'].some(path=>u.pathname===scope.pathname+path))return;
  event.respondWith((async()=>{
   const cache=await caches.open(cacheName);let response=await cache.match(navigation?url('index.html'):request);
   if(!response&&!navigation)for(const key of await caches.keys()){if(key.startsWith(cachePrefix)){response=await (await caches.open(key)).match(request);if(response)break;}}
   // Never mix release assets after eviction. An explicit retry prepares a full set.
-  if(!response&&navigation)return new Response(`<!doctype html><html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Offline recovery</title><h1>Офлайн-файли недоступні / Offline files unavailable</h1><p>Підключіться до інтернету та відновіть програму. JSON-проєкти й локальні дані не видаляються.</p><p>Connect to the internet and restore the application. Project data will be kept.</p><button onclick="navigator.serviceWorker.getRegistration().then(r=>r.unregister()).then(()=>location.reload())">Відновити / Restore</button></html>`,{status:503,headers:{'Content-Type':'text/html; charset=utf-8'}});
+  if(!response&&navigation)return new Response(`<!doctype html><html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Offline recovery</title><h1>Офлайн-файли недоступні / Offline files unavailable</h1><p>Підключіться до інтернету та відновіть програму. JSON-проєкти й локальні дані не видаляються.</p><p>Connect to the internet and restore the application. Project data will be kept.</p><button id="restore-offline">Відновити / Restore</button><p id="restore-status" role="status"></p>
+<script>
+document.getElementById('restore-offline').onclick=async function(){
+ const button=this,status=document.getElementById('restore-status');
+ button.disabled=true;status.textContent='Завантаження… / Downloading…';
+ try{
+  // Re-registering identical worker bytes can reuse an evicted cache without
+  // running install. A fresh URL forces a complete, checksum-verified download.
+  const registration=await navigator.serviceWorker.register('service-worker.js?repair='+Date.now(),{updateViaCache:'none'});
+  const worker=registration.installing||registration.waiting;
+  if(!worker)throw Error('No repair worker');
+  await new Promise((resolve,reject)=>{
+   const check=()=>{
+    if(worker.state==='installed')worker.postMessage({type:'PWA_ACTIVATE'});
+    if(worker.state==='activated'){worker.removeEventListener('statechange',check);resolve();}
+    if(worker.state==='redundant'){worker.removeEventListener('statechange',check);reject(Error('Download failed'));}
+   };
+   worker.addEventListener('statechange',check);check();
+  });
+  location.reload();
+ }catch{
+  button.disabled=false;status.textContent='Не вдалося відновити. Перевірте підключення та повторіть. / Restore failed. Check your connection and retry.';
+ }
+};
+</script></html>`,{status:503,headers:{'Content-Type':'text/html; charset=utf-8'}});
   return response||new Response('Offline resources are missing. Reconnect and prepare offline again.',{status:503,headers:{'Content-Type':'text/plain; charset=utf-8'}});
  })());
 });

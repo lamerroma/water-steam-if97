@@ -21,7 +21,14 @@
  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(updating)location.reload();else check();});
  async function register(){
   retry.hidden=true;set('preparing');
-  try{registration=await navigator.serviceWorker.register('service-worker.js',{updateViaCache:'none'});registration.addEventListener('updatefound',()=>watch(registration.installing));watch(registration.installing);check();}
+  try{
+   // Keep a repaired worker's URL on subsequent launches. Switching straight
+   // back to the base URL starts another install that can fail when offline.
+   const script=new URL('service-worker.js',location.href),existing=await navigator.serviceWorker.getRegistration();
+   const active=existing?.active&&new URL(existing.active.scriptURL);
+   if(active?.origin===script.origin&&active.pathname===script.pathname&&active.searchParams.has('repair'))script.search=active.search;
+   registration=await navigator.serviceWorker.register(script.href,{updateViaCache:'none'});registration.addEventListener('updatefound',()=>watch(registration.installing));watch(registration.installing);check();
+  }
   catch{set('failed');retry.hidden=false;progress.hidden=true;}
  }
  retry.onclick=async()=>{

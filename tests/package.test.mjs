@@ -27,11 +27,22 @@ test('Multi-file site uses matching local assets and the same application core a
  // see below) and is otherwise the same bundle as the one inlined into standalone.html.
  const embedded=read('standalone.html').toString().match(/<script>([\s\S]*?)<\/script>/)[1];
  const withoutCoolProp=embedded.replace(/const COOLPROP_WASM_BASE64 = "[^"]+";\n/,'');
- assert.equal(withoutCoolProp,code.replace(/<\/script/gi,'<\\/script'));
+ const withoutWorker=withoutCoolProp.replace(/const CALCULATOR_WORKER_SOURCE = "(?:[^"\\]|\\.)*";\n/,'const CALCULATOR_WORKER_SOURCE = null;\n');
+ assert.equal(withoutWorker,code.replace(/<\/script/gi,'<\\/script'));
  assert.match(html,/script-src 'self'/);assert.match(html,/style-src 'self'/);
  // Unlike standalone.html, the multi-file site fetches its own assets/coolprop.wasm, so it needs connect-src 'self'.
  assert.match(html,/connect-src 'self'/);
  assert.match(read('standalone.html').toString(),/connect-src 'none'/);
+});
+test('Background kernel is embedded offline and versioned identically in the web release',()=>{
+ const source=read('assets/calculator-worker.js').toString();new vm.Script(source);
+ assert.equal(source,read('dist/assets/calculator-worker.js').toString());
+ const embedded=read('standalone.html').toString().match(/const CALCULATOR_WORKER_SOURCE = ("(?:[^"\\]|\\.)*");/)[1];
+ assert.equal(JSON.parse(embedded),source);
+ const url='assets/calculator-worker.js?v='+crypto.createHash('sha256').update(source).digest('hex').slice(0,16);
+ assert.ok(read('assets/app.js').toString().includes(JSON.stringify(url)));
+ assert.match(read('standalone.html').toString(),/worker-src blob:/);
+ assert.match(read('index.html').toString(),/worker-src 'self'/);
 });
 test('Web and offline pages show the same version and the identity of the running bundle',()=>{
  const code=read('assets/app.js').toString();

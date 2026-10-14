@@ -39,12 +39,36 @@ self.addEventListener('fetch',event=>{
  const request=event.request,u=new URL(request.url),scope=new URL(self.registration.scope);
  if(request.method!=='GET'||u.origin!==scope.origin||!u.pathname.startsWith(scope.pathname))return;
  const navigation=request.mode==='navigate'&&(u.pathname===scope.pathname||u.pathname===scope.pathname+'index.html');
- if(!navigation&&!RESOURCES.some(path=>url(path)===u.href)&&!['assets/app.js','assets/styles.css','assets/coolprop.wasm'].some(path=>u.pathname===scope.pathname+path))return;
+ if(!navigation&&!RESOURCES.some(path=>url(path)===u.href)&&!['assets/app.js','assets/styles.css','assets/coolprop.wasm','assets/calculator-worker.js'].some(path=>u.pathname===scope.pathname+path))return;
  event.respondWith((async()=>{
   const cache=await caches.open(cacheName);let response=await cache.match(navigation?url('index.html'):request);
   if(!response&&!navigation)for(const key of await caches.keys()){if(key.startsWith(cachePrefix)){response=await (await caches.open(key)).match(request);if(response)break;}}
   // Never mix release assets after eviction. An explicit retry prepares a full set.
-  if(!response&&navigation)return new Response(`<!doctype html><html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Offline recovery</title><h1>Офлайн-файли недоступні / Offline files unavailable</h1><p>Підключіться до інтернету та відновіть програму. JSON-проєкти й локальні дані не видаляються.</p><p>Connect to the internet and restore the application. Project data will be kept.</p><button onclick="navigator.serviceWorker.getRegistration().then(r=>r.unregister()).then(()=>location.reload())">Відновити / Restore</button></html>`,{status:503,headers:{'Content-Type':'text/html; charset=utf-8'}});
+  if(!response&&navigation)return new Response(`<!doctype html><html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Offline recovery</title><h1>Офлайн-файли недоступні / Offline files unavailable</h1><p>Підключіться до інтернету та відновіть програму. JSON-проєкти й локальні дані не видаляються.</p><p>Connect to the internet and restore the application. Project data will be kept.</p><button id="restore-offline">Відновити / Restore</button><p id="restore-status" role="status"></p>
+<script>
+document.getElementById('restore-offline').onclick=async function(){
+ const button=this,status=document.getElementById('restore-status');
+ button.disabled=true;status.textContent='Завантаження… / Downloading…';
+ try{
+  // Re-registering identical worker bytes can reuse an evicted cache without
+  // running install. A fresh URL forces a complete, checksum-verified download.
+  const registration=await navigator.serviceWorker.register('service-worker.js?repair='+Date.now(),{updateViaCache:'none'});
+  const worker=registration.installing||registration.waiting;
+  if(!worker)throw Error('No repair worker');
+  await new Promise((resolve,reject)=>{
+   const check=()=>{
+    if(worker.state==='installed')worker.postMessage({type:'PWA_ACTIVATE'});
+    if(worker.state==='activated'){worker.removeEventListener('statechange',check);resolve();}
+    if(worker.state==='redundant'){worker.removeEventListener('statechange',check);reject(Error('Download failed'));}
+   };
+   worker.addEventListener('statechange',check);check();
+  });
+  location.reload();
+ }catch{
+  button.disabled=false;status.textContent='Не вдалося відновити. Перевірте підключення та повторіть. / Restore failed. Check your connection and retry.';
+ }
+};
+</script></html>`,{status:503,headers:{'Content-Type':'text/html; charset=utf-8'}});
   return response||new Response('Offline resources are missing. Reconnect and prepare offline again.',{status:503,headers:{'Content-Type':'text/plain; charset=utf-8'}});
  })());
 });
