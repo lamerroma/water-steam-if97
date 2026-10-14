@@ -1,6 +1,6 @@
 {
   "name": "water-steam-if97-uk",
-  "version": "1.17.0",
+  "version": "1.17.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -36,7 +36,8 @@
     "verify:reactor:thermal": "node scripts/verify-reactor-thermal.mjs",
     "audit:graph-generation": "node scripts/audit-graph-generation.mjs",
     "audit:reactor-graphs": "node scripts/audit-reactor-graph-resolution.mjs",
-    "test:graph-generation": "node scripts/check-graph-generation-browser.mjs"
+    "test:graph-generation": "node scripts/check-graph-generation-browser.mjs",
+    "test:chart-layout": "node scripts/check-chart-layout-browser.cjs"
   },
   "engines": {
     "node": ">=20"
