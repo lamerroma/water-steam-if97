@@ -17,7 +17,7 @@ export function studyProcessEdges(q,npp=false){
  return [spec(0,1,'compression',a.etaC),spec(1,2,'isobaric'),spec(2,3,'expansion',a.etaT),spec(3,0,'isobaric')];
 }
 export function studyPathPoint(q,kind='ts'){return q?{x:q.s,y:kind==='ts'?q.T:q.h}:{x:NaN,y:NaN};}
-export async function buildStudyProcessPaths(q,{npp=false,kind='ts',equipment='endpoints',ideal=true,width=900,height=550,yieldFrame=()=>Promise.resolve(),budget=6000}={}){
+export async function buildStudyProcessPaths(q,{npp=false,kind='ts',equipment='endpoints',ideal=true,width=900,height=550,yieldFrame=()=>Promise.resolve(),budget=6000,viewport=null}={}){
  if(!['ts','hs'].includes(kind)||!['endpoints','efficiency'].includes(equipment))throw Error('Unknown path display option.');
  const gas=q.input.type==='brayton',model=q.model,edges=studyProcessEdges(q,npp),stats={evaluations:0,budget,limited:false,gaps:0};
  const ph=(p,h)=>gas?gasInverse(p,h,'h',AIR):calculate('ph',p,h,model).state;
@@ -55,7 +55,7 @@ export async function buildStudyProcessPaths(q,{npp=false,kind='ts',equipment='e
  for(const d of prepared){
   let samples=d.seeds;
   if(d.mode!=='schematic'){
-   const refined=await refineDiagramSamples(d.seeds,{parameter:s=>s?.t,evaluate:d.at,project:s=>s&&studyPathPoint(s.state,kind),range,width,height,budget:Math.min(1200,Math.max(0,budget-stats.evaluations)),yieldFrame});
+   const refined=await refineDiagramSamples(d.seeds,{parameter:s=>s?.t,evaluate:d.at,project:s=>s&&studyPathPoint(s.state,kind),range:viewport||range,width,height,budget:Math.min(1200,Math.max(0,budget-stats.evaluations)),yieldFrame});
    samples=refined.points;stats.limited||=refined.limited;
   }
   const points=samples.map(s=>s?.state||null);stats.gaps+=points.filter(s=>!s).length;

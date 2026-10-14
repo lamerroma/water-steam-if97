@@ -44,3 +44,8 @@ test('IAPWS-95 low-pressure compressed-liquid inverse brackets are valid at satu
   for(const [mode,key] of [['ps','s'],['ph','h'],['pu','u']]){const inverse=calculate(mode,p,forward[key],'IAPWS-95').state;close(inverse.T,forward.T,1e-6);close(inverse[key],forward[key],1e-7);}
  }
 });
+test('viewport refinement preserves the physical endpoints and full scene bounds',async()=>{
+ const q=solveCycle(CYCLE_DEFAULT),full=await buildStudyProcessPaths(q),zoom={xmin:5,xmax:7,ymin:500,ymax:650};
+ const scene=await buildStudyProcessPaths(q,{viewport:zoom});assert.deepEqual(scene.range,full.range);assert.equal(scene.stats.gaps,0);
+ for(const p of scene.paths.filter(p=>!p.reference)){assert.equal(p.points[0],q.states[p.from]);assert.equal(p.points.at(-1),q.states[p.to]);}
+});

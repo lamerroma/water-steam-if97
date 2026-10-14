@@ -522,3 +522,36 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
  .diagram-active .recent-tools{display:none}
  .diagram-active:not(.diagram-expanded) .diagram-stage{max-width:min(70rem,calc(max(20rem,100dvh - 36rem)*1.6))}
 }
+/* Cycle workspace: plot and state table share a column; settings stay alongside. */
+.study-chart-workspace{display:grid;grid-template-columns:minmax(0,1fr) 17rem;gap:1rem;max-width:92rem;margin-inline:auto;align-items:start;min-width:0}
+.study-chart-main,.study-chart-sidebar{min-width:0}
+.study-chart-sidebar{display:flex;flex-direction:column;gap:.8rem;padding:.8rem;border:1px solid var(--line);border-radius:8px;background:#f0f5fb;overflow-wrap:anywhere}
+.study-chart-sidebar .process-grid{display:flex;flex-direction:column;gap:.8rem;margin:0}
+.study-chart-sidebar label{display:block}.study-chart-sidebar select{display:block;width:100%;min-width:0;box-sizing:border-box}
+.study-chart-sidebar p,.study-chart-sidebar details{margin:0;font-size:.9rem;line-height:1.5}
+.study-chart-sidebar .sat-scroll{max-width:100%;overflow:auto}
+.study-chart-sidebar .feature-actions{flex-direction:column;align-items:stretch}
+.study-chart-workspace .study-viewer{margin-top:0}
+.study-chart-workspace .study-viewer-state{font-size:.9rem;max-height:4.5rem}
+.study-chart-workspace .study-inspector{margin-top:1rem;padding:.6rem;border:1px solid var(--line);border-radius:6px;min-width:0}
+.study-chart-workspace .study-inspector h3{margin:.25rem 0 .5rem}
+.study-workspace-states{margin:1rem 0}.study-workspace-states summary{font-weight:600;cursor:pointer;margin-bottom:.6rem}
+.study-viewport-help{font-size:.85rem;line-height:1.4;margin:.5rem 0 0}
+.study-line-key{display:flex;flex-wrap:wrap;gap:.45rem 1rem;font-size:.85rem;margin:.4rem 0}
+.study-line-key span{display:inline-flex;align-items:center;gap:.4rem}
+.study-line-key span:before{content:'';display:inline-block;width:1.8rem;border-top:2px solid #176baa}
+.study-line-key .line-schematic:before{border-top-style:dashed}.study-line-key .line-ideal:before{border-top:2px dotted #71717a}.study-line-key .line-efficiency:before{border:0;height:2px;background:repeating-linear-gradient(to right,#176baa 0 10px,transparent 10px 13px,#176baa 13px 15px,transparent 15px 18px)}
+.study-viewport-controls button{min-height:40px}.study-chart-workspace [aria-pressed=true]{outline:2px solid #b66b12;outline-offset:1px}
+#cycle-path-status{display:block;margin:.4rem 0;line-height:1.4;overflow-wrap:anywhere}
+#cycle-path-status[data-warning=true]{border-left:4px solid #b45309;background:#fff3dd;padding:.5rem;color:#713f12}
+@media(max-width:1100px){.study-chart-workspace{grid-template-columns:minmax(0,1fr)}.study-chart-sidebar{grid-row:1}.study-chart-sidebar .process-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}.study-chart-sidebar .feature-actions{flex-direction:row}}
+@media(max-width:700px){.study-chart-sidebar .process-grid{grid-template-columns:1fr}.study-chart-sidebar{padding:.6rem}.study-chart-workspace .study-chart{min-height:20rem}.study-chart-workspace .study-viewer-state{max-height:4rem}.study-viewport-controls button{min-height:44px}.study-chart-sidebar .feature-actions button{flex:1 1 8rem}.study-chart-workspace .study-expanded .study-chart{min-height:0}}
+@media print{.study-chart-workspace{display:block}.study-chart-sidebar,.study-viewport-controls,.study-viewport-help{display:none!important}}
+/* Override the general three-column form grid inside the narrow settings panel. */
+#process-view .study-chart-sidebar .process-grid{display:flex;grid-template-columns:none}
+@media(min-width:1101px){
+ .study-chart-workspace{max-width:min(92rem,calc(max(22rem,100dvh - 38rem)*1.6 + 20rem))}
+ .study-chart-workspace .study-chart{max-width:min(70rem,calc(max(22rem,100dvh - 38rem)*1.6))}
+ .study-chart-workspace .study-expanded .study-chart{max-width:none}
+}
+@media(min-width:701px) and (max-width:1100px){#process-view .study-chart-sidebar .process-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}}

@@ -1,10 +1,10 @@
 {
-  "started": "2026-10-14T06:50:24.091Z",
-  "mode": "full-with-targeted-retries",
-  "version": "1.18.0",
+  "started": "2026-10-14T07:24:27.084Z",
+  "mode": "full",
+  "version": "1.19.0",
   "build": {
-    "version": "1.18.0",
-    "id": "bd9724de844d"
+    "version": "1.19.0",
+    "id": "7fd7cf72b38a"
   },
   "status": "passed",
   "checks": [
@@ -12,220 +12,204 @@
       "name": "build",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 14027,
-      "log": ".release/2026-10-14T06-50-24-088Z/build.log"
+      "durationMs": 11272,
+      "log": ".release/2026-10-14T07-24-27-080Z/build.log"
     },
     {
       "name": "unit",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 115949,
-      "log": ".release/2026-10-14T06-50-24-088Z/unit.log"
+      "durationMs": 80433,
+      "log": ".release/2026-10-14T07-24-27-080Z/unit.log"
     },
     {
       "name": "water",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 158701,
-      "log": ".release/2026-10-14T06-50-24-088Z/water.log"
+      "durationMs": 124936,
+      "log": ".release/2026-10-14T07-24-27-080Z/water.log"
     },
     {
       "name": "transport",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 817,
-      "log": ".release/2026-10-14T06-50-24-088Z/transport.log"
+      "durationMs": 638,
+      "log": ".release/2026-10-14T07-24-27-080Z/transport.log"
     },
     {
       "name": "reactor",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 5284,
-      "log": ".release/2026-10-14T06-50-24-088Z/reactor.log"
+      "durationMs": 4537,
+      "log": ".release/2026-10-14T07-24-27-080Z/reactor.log"
     },
     {
       "name": "reactor-thermal",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 465,
-      "log": ".release/2026-10-14T06-50-24-088Z/reactor-thermal.log"
+      "durationMs": 427,
+      "log": ".release/2026-10-14T07-24-27-080Z/reactor-thermal.log"
     },
     {
       "name": "reactor-cell-audit",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 427,
-      "log": ".release/2026-10-14T06-50-24-088Z/reactor-cell-audit.log"
+      "durationMs": 336,
+      "log": ".release/2026-10-14T07-24-27-080Z/reactor-cell-audit.log"
     },
     {
       "name": "browser-navigation",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 6668,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-navigation.log"
+      "durationMs": 7842,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-navigation.log"
     },
     {
       "name": "browser-smart-input",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 8844,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-smart-input.log"
+      "durationMs": 8598,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-smart-input.log"
     },
     {
       "name": "browser-diagram",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 21845,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-diagram.log"
+      "durationMs": 19593,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-diagram.log"
     },
     {
       "name": "browser-diagram-guides",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": null,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-diagram-guides-retry.log",
-      "previousAttempts": [
-        {
-          "name": "browser-diagram-guides",
-          "status": "failed",
-          "exitCode": 1,
-          "durationMs": 33720,
-          "log": ".release/2026-10-14T06-50-24-088Z/browser-diagram-guides.log"
-        }
-      ],
-      "retryReason": "The 1.17.1 expanded view hides the settings column. The test now returns to normal view before editing settings. Application build unchanged."
+      "durationMs": 10679,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-diagram-guides.log"
     },
     {
       "name": "browser-diagram-quality",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 28218,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-diagram-quality.log"
+      "durationMs": 27149,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-diagram-quality.log"
     },
     {
       "name": "browser-process-paths",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 11350,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-process-paths.log"
+      "durationMs": 11601,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-process-paths.log"
+    },
+    {
+      "name": "browser-chart-layout",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5568,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-chart-layout.log"
+    },
+    {
+      "name": "browser-study-workspace",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 48522,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-study-workspace.log"
     },
     {
       "name": "browser-hydraulics",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 6805,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-hydraulics.log"
+      "durationMs": 5721,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-hydraulics.log"
     },
     {
       "name": "browser-study",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 14530,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-study.log"
+      "durationMs": 16632,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-study.log"
     },
     {
       "name": "browser-full-sprint",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 10300,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-full-sprint.log"
+      "durationMs": 10064,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-full-sprint.log"
     },
     {
       "name": "browser-laboratory",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 6039,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-laboratory.log"
+      "durationMs": 5951,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-laboratory.log"
     },
     {
       "name": "browser-coursework",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 5754,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-coursework.log"
+      "durationMs": 6287,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-coursework.log"
     },
     {
       "name": "browser-usability",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 5634,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-usability.log"
+      "durationMs": 5904,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-usability.log"
     },
     {
       "name": "browser-reactor-course",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 7268,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-reactor-course.log"
+      "durationMs": 7925,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-reactor-course.log"
     },
     {
       "name": "browser-provenance",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 3295,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-provenance.log"
+      "durationMs": 3333,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-provenance.log"
     },
     {
       "name": "browser-project-safety",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 5332,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-project-safety.log"
+      "durationMs": 5052,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-project-safety.log"
     },
     {
       "name": "browser-pwa",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 26347,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-pwa.log"
+      "durationMs": 27110,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-pwa.log"
     },
     {
       "name": "browser-ui-workspace",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 5300,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-ui-workspace.log"
+      "durationMs": 5717,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-ui-workspace.log"
     },
     {
       "name": "browser-cross-browser",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": null,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-cross-browser-retry.log",
-      "previousAttempts": [
-        {
-          "name": "browser-cross-browser",
-          "status": "failed",
-          "exitCode": 1,
-          "durationMs": 8748,
-          "log": ".release/2026-10-14T06-50-24-088Z/browser-cross-browser.log"
-        }
-      ],
-      "retryReason": "Initial Firefox launch failed because host GTK/NSS dependencies were unavailable. Local test dependencies restored; Chromium and Firefox checks then passed. Application build unchanged."
+      "durationMs": 20140,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-cross-browser.log"
     },
     {
       "name": "browser-pwa-firefox",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": null,
-      "log": ".release/2026-10-14T06-50-24-088Z/browser-pwa-firefox-retry.log",
-      "previousAttempts": [
-        {
-          "name": "browser-pwa-firefox",
-          "status": "failed",
-          "exitCode": 1,
-          "durationMs": 1574,
-          "log": ".release/2026-10-14T06-50-24-088Z/browser-pwa-firefox.log"
-        }
-      ],
-      "retryReason": "Initial Firefox launch failed because host GTK/NSS dependencies were unavailable. Local test dependencies restored; offline/update scenarios then passed. Application build unchanged."
+      "durationMs": 39630,
+      "log": ".release/2026-10-14T07-24-27-080Z/browser-pwa-firefox.log"
     },
     {
       "name": "rebuild",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 12445,
-      "log": ".release/2026-10-14T06-50-24-088Z/rebuild.log"
+      "durationMs": 12329,
+      "log": ".release/2026-10-14T07-24-27-080Z/rebuild.log"
     },
     {
       "name": "deterministic-build",
@@ -235,22 +219,22 @@
       "name": "package",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 3059,
-      "log": ".release/2026-10-14T06-50-24-088Z/package.log"
+      "durationMs": 3288,
+      "log": ".release/2026-10-14T07-24-27-080Z/package.log"
     },
     {
       "name": "package-integrity",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 646,
-      "log": ".release/2026-10-14T06-50-24-088Z/package-integrity.log"
+      "durationMs": 641,
+      "log": ".release/2026-10-14T07-24-27-080Z/package-integrity.log"
     },
     {
       "name": "repackage",
       "status": "passed",
       "exitCode": 0,
-      "durationMs": 3259,
-      "log": ".release/2026-10-14T06-50-24-088Z/repackage.log"
+      "durationMs": 3106,
+      "log": ".release/2026-10-14T07-24-27-080Z/repackage.log"
     },
     {
       "name": "deterministic-package",
@@ -258,16 +242,16 @@
     }
   ],
   "artifacts": {
-    "index.html": "dc3289c2846e5be200eaf2652d58eb0dc79ced3179250e70fe285c05ef64fab9",
-    "standalone.html": "fd900221a0dd2dae6709080d9d23db2ed8a78e18c3b92cd503d3b9e09ff77472",
-    "assets/app.js": "1f724df50929d6e9ecb195c78bf1b624c57b9f4e267c077fbefaea0f6c371f9d",
-    "assets/styles.css": "6148c9a07bfba0bc2742fa55aa2719c6f6563fd4c31aab067910debcfcf6bb9c",
+    "index.html": "6e7d2d5bd0bd31170847013dd7e48a48a0f156bb8ac1dfd146cb86c4d0cd1ba5",
+    "standalone.html": "a256db243838412fd9e025b89e666caf74cb4be78ad5de07e1943230b0c11443",
+    "assets/app.js": "240dc423a4fa7d0cea3da1ce908ba13ba571b949982e6b9fe939c801f8a951a7",
+    "assets/styles.css": "78046733d979bf4a3d41bf5cbf5b04f391247f7ea13b2650511d220f221d7f00",
     "assets/coolprop.wasm": "28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307",
-    "service-worker.js": "15138d20e9247ba929911110ccf995fa9d46da194f0730664da733edd95bf1a6",
+    "service-worker.js": "812fb59221aa259a2e0fced0acb90af3fa3d4fde049b9dc41c55733ee0c08a3b",
     "manifest.webmanifest": "63130e8f1083e12602ca499f9de40ad3d97d64b457c005ce570215966f783056",
     "dist/water-steam-calculator.zip": {
-      "sha256": "c562f8ff4b5a4cf95548e54b4e3bb0321a5cd0a2b1b1e42e42abf7aca64c6aba",
-      "bytes": 5892578
+      "sha256": "e6563f9703d7898fc0a87cddac8c8e4c5a7815778acdd4d6b358581e74def687",
+      "bytes": 5897807
     }
   },
   "scope": "Software acceptance only; passing does not validate every physical model or device.",
@@ -275,11 +259,5 @@
     "reactorCell": "physical-screening-failed",
     "scope": "Independent cell screening; failure blocks claims of neutron-model physical validation, separately from software acceptance."
   },
-  "completed": "2026-10-14T07:03:42.972613+00:00",
-  "sourceReport": ".release/2026-10-14T06-50-24-088Z/report.json",
-  "retryNotes": {
-    "browser-diagram-guides": "The 1.17.1 expanded view hides the settings column. The test now returns to normal view before editing settings. Application build unchanged.",
-    "browser-cross-browser": "Initial Firefox launch failed because host GTK/NSS dependencies were unavailable. Local test dependencies restored; Chromium and Firefox checks then passed. Application build unchanged.",
-    "browser-pwa-firefox": "Initial Firefox launch failed because host GTK/NSS dependencies were unavailable. Local test dependencies restored; offline/update scenarios then passed. Application build unchanged."
-  }
+  "completed": "2026-10-14T07:33:28.956Z"
 }

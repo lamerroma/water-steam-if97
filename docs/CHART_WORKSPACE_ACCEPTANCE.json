@@ -1,0 +1,68 @@
+{
+  "build": {
+    "version": "1.19.0",
+    "id": "7fd7cf72b38a"
+  },
+  "status": "passed",
+  "releaseReport": ".release/2026-10-14T07-24-27-080Z/report.json",
+  "releaseChecks": 34,
+  "unitTests": 716,
+  "browserScenarios": 21,
+  "workspace": {
+    "version": "1.19.0",
+    "build": "7fd7cf72b38a",
+    "records": [
+      {
+        "type": "rankine",
+        "desktop": true,
+        "mobile": true,
+        "selection": true,
+        "axes": true,
+        "zoom": true,
+        "pan": true,
+        "export": true
+      },
+      {
+        "type": "rankine-reheat",
+        "desktop": true,
+        "mobile": true,
+        "selection": true,
+        "axes": true,
+        "zoom": true,
+        "pan": true,
+        "export": true
+      },
+      {
+        "type": "rankine-regen",
+        "desktop": true,
+        "mobile": true,
+        "selection": true,
+        "axes": true,
+        "zoom": true,
+        "pan": true,
+        "export": true
+      },
+      {
+        "type": "npp",
+        "desktop": true,
+        "mobile": true,
+        "selection": true,
+        "axes": true,
+        "zoom": true,
+        "pan": true,
+        "export": true
+      }
+    ],
+    "english": true,
+    "offline": true,
+    "pageErrors": []
+  },
+  "graphAudit": {
+    "scenarios": 47,
+    "maxPixelError": 1.1368683772161603e-13,
+    "maxRelativeInverseAxisError": 3.619882171790323e-13,
+    "pageErrors": [],
+    "source": ".release/graph-audit/browser.json"
+  },
+  "scope": "Software and UI acceptance. Existing physical validation limits of reactor/neutronics/CHF models remain unchanged."
+}
