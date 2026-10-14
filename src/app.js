@@ -6,6 +6,7 @@ import {diagramChartSVG} from './diagram-svg.js';
 import {parseDiagramGuideValues,diagramQualityLines,diagramIsotherm,diagramRegionAnnotations,diagramGuideLabel} from './diagram-guides.js';
 import {chartDiagramPoint,chartDiagramDatasets,diagramPhaseColor} from './diagram-chart-data.js';
 import {createDiagramChart} from './diagram-chart.js';
+import {calculatorCopyValue,calculatorHistoryInput} from './calculator-result-tools.js';
 import {resultJSON,resultMarkdown} from './result-copy.js';
 import {saturationGrid,saturationCell,saturationCSV,SATURATION_COLUMNS} from './saturation-grid.js';
 import {diagramAxes,diagramPoint} from './diagram-coordinates.js';
@@ -94,10 +95,11 @@ function syncSmartInput(){
  for(const letter of ['a','b']){const i=letter==='a'?0:1,ordinal=inputReversed?2-i:i+1,prop=pair[i];$('field-'+letter).style.order=ordinal;$('label-'+letter).setAttribute('data-i18n-ignore','');$('label-'+letter).textContent=ordinal+'. '+label(prop)+(prop==='p'?' ('+uiTranslator.text(pressureBasisLabel())+')':'')+':';$('unit-'+letter).setAttribute('aria-label',uiTranslator.t('input.unitFor',{property:label(prop)}));}
  uiLayoutGeneral();
 }
-function clearInputErrors(){for(const letter of ['a','b']){$('input-'+letter).removeAttribute('aria-invalid');$('input-error-'+letter).hidden=true;$('input-error-'+letter).textContent='';}}
+function clearInputErrors(sync=true){for(const letter of ['a','b']){$('input-'+letter).removeAttribute('aria-invalid');$('input-error-'+letter).hidden=true;$('input-error-'+letter).textContent='';}if(sync)calculatorErrorSummary();}
 function calculatorValidation(){return validateCalculatorInput({mode:$('mode').value,a:$('input-a').value,b:$('input-b').value,ua:$('unit-a').value,ub:$('unit-b').value,model:modelValue(),pressure:pressureSettings});}
 function showInputErrors(errors,focus=false){
- clearInputErrors();for(const [letter,error] of Object.entries(errors)){const params={...error.params};for(const key of ['min','max'])if(params[key]!=null)params[key]=new Intl.NumberFormat(uiTranslator.numberLocale,{maximumSignificantDigits:10}).format(params[key]);if(params.unit)params.unit=uiTranslator.text(({MPa:'МПа',kPa:'кПа',Pa:'Па',C:'°C',F:'°F',fraction:'0…1',percent:'%'})[params.unit]||params.unit);$('input-'+letter).setAttribute('aria-invalid','true');$('input-error-'+letter).textContent=uiTranslator.t(error.key,params);$('input-error-'+letter).hidden=false;}
+ clearInputErrors(false);for(const [letter,error] of Object.entries(errors)){const params={...error.params};for(const key of ['min','max'])if(params[key]!=null)params[key]=new Intl.NumberFormat(uiTranslator.numberLocale,{maximumSignificantDigits:10}).format(params[key]);if(params.unit)params.unit=uiTranslator.text(({MPa:'МПа',kPa:'кПа',Pa:'Па',C:'°C',F:'°F',fraction:'0…1',percent:'%'})[params.unit]||params.unit);$('input-'+letter).setAttribute('aria-invalid','true');$('input-error-'+letter).textContent=uiTranslator.t(error.key,params);$('input-error-'+letter).hidden=false;}
+ calculatorErrorSummary();
  if(focus){const order=inputReversed?['b','a']:['a','b'];const first=order.find(k=>errors[k]);if(first)$('input-'+first).focus();}
 }
 function chooseSmartInputs(first,second){
@@ -113,11 +115,12 @@ $('input-style-toggle').onclick=()=>{inputStyle=inputStyle==='smart'?'advanced':
 for(const letter of ['a','b'])$('input-'+letter).addEventListener('blur',()=>{const errors=calculatorValidation().errors;showInputErrors(Object.fromEntries(['a','b'].filter(k=>errors[k]&&(k===letter||$('input-'+k).hasAttribute('aria-invalid'))).map(k=>[k,errors[k]])));});
 function useSaturationInput(mode){const value=$('input-a').value,unit=$('unit-a').value;$('mode').value=mode;resetMode();$('input-a').value=value;$('unit-a').value=unit;$('unit-a').dataset.previous=unit;syncSmartInput();if(mode==='px')$('input-b').focus();else run();saveProject();}
 $('input-use-quality').onclick=()=>useSaturationInput('px');$('input-use-saturation').onclick=()=>useSaturationInput('satp');
-function invalidate() {
- clearInputErrors();$('input-notice').hidden=true;
+function invalidate(event) {
+ const touched=event?.type==='input'?['a','b'].filter(k=>$('input-'+k).hasAttribute('aria-invalid')):[];
+ clearInputErrors();if(touched.length){const errors=calculatorValidation().errors;showInputErrors(Object.fromEntries(touched.filter(k=>errors[k]).map(k=>[k,errors[k]])));}$('input-notice').hidden=true;
  $('model-status').textContent='Модель води й пари: '+modelValue();
   last=null;$('export-csv').disabled=true;for(const id of ['copy-result-table','copy-result-json'])$(id).disabled=true;$('result-status').textContent='Параметри змінено — розрахуйте знову';$('error').hidden=true;
-  $('results').innerHTML=propertyTable(null);$('state-summary').textContent=sourceUIText($('mode-help'));
+  $('results').innerHTML=propertyTable(null);syncCalculatorResultTools();$('state-summary').textContent=sourceUIText($('mode-help'));
 }
 function format(n){return formatProperty(n,displayDigits,uiTranslator.numberLocale);}
 function display(key,value,unit) {const custom={p:"MPa",T:"C",h:"kJkg",u:"kJkg",A:"kJkg",G:"kJkg",ex:"kJkg",work:"kJkg",s:"kJkgK",cp:"kJkgK",cv:"kJkgK",flow:"kgs",power:"kW"}[key];if(custom){const base={MPa:"MPa",C:"°C",kJkg:"kJ/kg",kJkgK:"kJ/(kg K)",kgs:"kg/s",kW:"kW"}[custom];if(key==="p"&&value!=null&&pressureSettings.basis==="gauge")value-=pressureSettings.atmosphere;const out=uiDisplayQuantity(value,base,uiUnitPreferences);return [out[0],out[1]+(key==="p"&&pressureSettings.basis==="gauge"?" (ман.)":"")];}if(key==='p'){if(value!=null&&pressureSettings.basis==='gauge')value-=pressureSettings.atmosphere;const out=$('output-system').value==='english'?englishProperty(key,value,unit):[value,unit];return [out[0],out[1]+(pressureSettings.basis==='gauge'?' (ман.)':'')];}if($('output-system').value==='english')return englishProperty(key,key==='T'&&value!=null?value+273.15:value,unit);if(['h','s','cp','cv','u','A','G','ijt','ex'].includes(key)&&$('output-energy').value==='J')return [value===null?null:value*1000,unit.replace('кДж','Дж')];return [value,unit];}
@@ -145,20 +148,20 @@ function propertyTable(state,alternativeIndex=null) {
  const groupId=i<11?'main':i<26?'state':'transport';
  const groupName=i===0?'1. Термодинамічні властивості — основні':i===11?'2. Термодинамічні властивості — стан':i===26?'3. Транспортні властивості':null;
  const collapsed=collapsedGroups.has(groupId);
- const group=groupName?`<tr class="group"><td colspan="7"><button data-group="${groupId}" aria-expanded="${!collapsed}">${collapsed?'⊞':'⊟'} ${groupName}</button></td></tr>`:'';
+ const group=groupName?`<tr class="group"><td colspan="6"><button data-group="${groupId}" aria-expanded="${!collapsed}">${collapsed?'⊞':'⊟'} ${groupName}</button></td></tr>`:'';
  const nameCell=glossaryCell(key==='p'&&pressureSettings.basis==='gauge'?'pgauge':key,key==='p'?'Тиск ('+pressureBasisLabel()+')':name,false);
  return `${group}<tr data-group-row="${groupId}" ${collapsed?'hidden':''} data-property="${key}"><td>${i+1}</td><td>${nameCell}</td><td>${symbol}</td><td><button class="copy" data-copy="${key}" ${alternativeIndex===null?'':`data-alternative="${alternativeIndex}"`} aria-label="Копіювати: ${name}" ${v==null?'disabled':''}>${icon('copy',13)}</button></td><td>${state?format(v):''}${state&&v==null?`<small class="unavailable-reason">${escapeHTML(propertyUnavailableReason(key,state))}</small>`:''}</td><td>${u}</td><td class="constant">${modelConstants[i]||''}</td></tr>`;
  }).join('')}</tbody></table><details class="compact-constants"><summary>Константи ${modelValue()}</summary><ul>${modelConstants.filter(Boolean).map(text=>`<li>${escapeHTML(text)}</li>`).join('')}</ul></details>`;
 }
 let historyUndo=null,unsavedProject=false;
-function renderHistory() {document.body.classList.toggle('ui-empty-history',historyStates.length===0);
+function renderHistory() {document.body.classList.toggle('ui-empty-history',historyStates.length===0);document.body.classList.toggle('ui-history-undo',!!historyUndo);
  const keys=['p','T','v','h','s','u','cp','cv','w','x','region','mu','lambda'];
- $('history-body').innerHTML=historyStates.map((s,i)=>`<tr><td>${historyStates.length-i}</td><td><input class="state-name" data-history-name="${i}" aria-label="Назва стану ${historyStates.length-i}" maxlength="80" value="${escapeHTML(s.name||'')}"></td><td><button data-history-open="${i}" aria-label="Відкрити стан ${historyStates.length-i}">↗</button><button data-history-delete="${i}" aria-label="Видалити стан ${historyStates.length-i}">×</button></td>${keys.map(k=>`<td>${format(display(k,k==='T'?s.T-273.15:s[k],rows.find(r=>r[0]===k)?.[3]||'')[0])}</td>`).join('')}<td>${escapeHTML(s.model||'IF97')}</td></tr>`).join('')+Array.from({length:Math.max(0,6-historyStates.length)},(_,i)=>`<tr><td>${historyStates.length+i+1}</td>${'<td></td>'.repeat(16)}</tr>`).join('');
+ $('history-body').innerHTML=historyStates.map((s,i)=>`<tr><td>${historyStates.length-i}</td><td><input class="state-name" data-history-name="${i}" aria-label="Назва стану ${historyStates.length-i}" maxlength="80" value="${escapeHTML(s.name||'')}"></td><td><button data-history-open="${i}" aria-label="Відкрити стан ${historyStates.length-i}">↗</button><button data-history-report="${i}" aria-label="${escapeHTML(uiTranslator.t('calculator.historyAdd',{number:historyStates.length-i}))}">＋</button><button data-history-delete="${i}" aria-label="Видалити стан ${historyStates.length-i}">×</button></td>${keys.map(k=>`<td>${format(display(k,k==='T'?s.T-273.15:s[k],rows.find(r=>r[0]===k)?.[3]||'')[0])}</td>`).join('')}<td>${escapeHTML(s.model||'IF97')}</td></tr>`).join('')+Array.from({length:Math.max(0,6-historyStates.length)},(_,i)=>`<tr><td>${historyStates.length+i+1}</td>${'<td></td>'.repeat(16)}</tr>`).join('');
  document.querySelector('#history thead tr').innerHTML='<th>№</th><th>Назва</th><th>Дії</th>'+keys.map(k=>`<th>${k} [${display(k,null,rows.find(r=>r[0]===k)?.[3]||'–')[1]}]</th>`).join('')+'<th>Модель</th>';
- $('history-count').textContent=`Станів: ${historyStates.length}`;$('history-undo').disabled=!historyUndo;
+ $('history-count').textContent=`Станів: ${historyStates.length}`;$('history-undo').disabled=!historyUndo;$('history-clear').disabled=!historyStates.length;
 }
 $('history-body').addEventListener('input',e=>{if(e.target.dataset.historyName!=null){historyStates[Number(e.target.dataset.historyName)].name=e.target.value;saveProject();}});
-$('history-body').addEventListener('click',e=>{const button=e.target.closest('button');if(!button)return;const open=button.dataset.historyOpen,del=button.dataset.historyDelete;if(del!=null){historyUndo=[...historyStates];historyStates.splice(Number(del),1);renderHistory();saveProject();}if(open!=null){const q=historyStates[Number(open)];selectModel(q.model||'IF97');selectView('general');$('mode').value='ph';resetMode();uiSetValue($('input-a'),String(pressureOutput(q.p,'MPa',pressureSettings)));uiSetValue($('input-b'),String(q.h));last={state:q};render();$('result-status').textContent='Відкрито стан журналу';saveProject();}});
+$('history-body').addEventListener('click',e=>{const button=e.target.closest('button');if(!button)return;const open=button.dataset.historyOpen,del=button.dataset.historyDelete;if(del!=null){historyUndo=[...historyStates];historyStates.splice(Number(del),1);renderHistory();saveProject();}if(button.dataset.historyReport!=null)addCalculatorHistoryToReport(Number(button.dataset.historyReport));if(open!=null)openCalculatorHistoryState(Number(open));});
 $('history-undo').onclick=()=>{if(!historyUndo)return;historyStates.splice(0,historyStates.length,...historyUndo);historyUndo=null;renderHistory();saveProject();};
 window.addEventListener('beforeunload',e=>{if(unsavedProject){e.preventDefault();e.returnValue='';}});
 
@@ -174,7 +177,7 @@ function notes(list) {return list.length?`<div class="notes">${[...new Set(list)
 function table(sat) {
  return `<div class="sat-scroll"><table class="sat-table"><thead><tr><th>Властивість</th><th>Насичена рідина</th><th>Насичена пара</th></tr></thead><tbody>${rows.filter(r=>!['p','T','region','x'].includes(r[0])).map(([k,name,symbol,unit])=>{
   const [a,u]=display(k,sat.liquid[k],unit),[b]=display(k,sat.vapor[k],unit);
-  return `<tr><td>${name} <span class="symbol">${symbol}</span><small>${u}</small></td><td>${format(a)}</td><td>${format(b)}</td></tr>`;}).join('')}</tbody></table></div>`;
+  return `<tr><td>${name} <span class="symbol">${symbol}</span><small>${u}</small></td><td>${format(a)} <button class="copy" data-copy="${k}" data-copy-phase="liquid" ${a==null?'disabled':''} aria-label="${escapeHTML(uiTranslator.t('calculator.copyLiquid',{property:uiTranslator.text(name)}))}">${icon('copy',13)}</button></td><td>${format(b)} <button class="copy" data-copy="${k}" data-copy-phase="vapor" ${b==null?'disabled':''} aria-label="${escapeHTML(uiTranslator.t('calculator.copyVapor',{property:uiTranslator.text(name)}))}">${icon('copy',13)}</button></td></tr>`;}).join('')}</tbody></table></div>`;
 }
 function render() {
  $('input-notice').hidden=!($('mode').value==='pt'&&last?.ambiguous);
@@ -182,7 +185,7 @@ function render() {
  if(last.state) {
   const s=last.state;
   $('state-summary').textContent=`${s.phase} · ${s.model||'IF97'}${s.region!=null?' · Область '+s.region:''}`;
-  html=propertyTable(s)+notes(s.notes);if(last.alternatives?.length)html+='<h3>Інші знайдені стани</h3>'+last.alternatives.map((q,i)=>`<p>P = ${format(q.p)} МПа (абс.) · T = ${format(q.T)} K · ${q.phase}</p>`+`<button data-use-alternative="${i}">Вибрати цей стан</button>`+propertyTable(q,i)).join('');
+  html=calculatorResultSummary(last)+propertyTable(s)+notes(s.notes);if(last.alternatives?.length)html+='<h3>Інші знайдені стани</h3>'+last.alternatives.map((q,i)=>`<p>P = ${format(q.p)} МПа (абс.) · T = ${format(q.T)} K · ${q.phase}</p>`+`<button data-use-alternative="${i}">Вибрати цей стан</button>`+propertyTable(q,i)).join('');
  }
  if(last.saturation) {
   const sat=last.saturation;
@@ -196,7 +199,7 @@ function render() {
   html+=`<p class="state-meta">Теплота пароутворення: ${format(latent)} ${unit}</p>${notes([...sat.liquid.notes,...sat.vapor.notes])}`;
  }
  last=original;$('results').innerHTML=html;$('export-csv').disabled=false;for(const id of ['copy-result-table','copy-result-json'])$(id).disabled=false;
- $('result-status').textContent=`Розрахунок № ${revision} · ${displayDigits} значущих цифр`;
+ syncCalculatorResultTools();$('result-status').textContent=`Розрахунок № ${revision} · ${displayDigits} значущих цифр`;
 }
 async function copyCurrentResult(kind){
  if(!last)return;
@@ -213,9 +216,7 @@ async function copyCurrentResult(kind){
   }else if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(content);else throw Error('clipboard unavailable');
   $('result-status').textContent='Результат скопійовано';
  }catch{
-  document.getElementById('copy-result-dialog')?.remove();const dialog=document.createElement('dialog');dialog.id='copy-result-dialog';
-  const title=document.createElement('h2');title.textContent='Скопіюйте результат вручну';const area=document.createElement('textarea');area.setAttribute('data-i18n-ignore','');area.setAttribute('aria-label',uiTranslator.text('Результат для копіювання'));area.readOnly=true;area.value=content;
-  const close=document.createElement('button');close.textContent='Закрити';close.onclick=()=>{dialog.close();dialog.remove();};dialog.append(title,area,close);document.body.append(dialog);dialog.showModal();area.focus();area.select();
+  calculatorManualCopy(content);
  }
 }
 $('copy-result-table').onclick=()=>copyCurrentResult('table');
@@ -237,7 +238,7 @@ for(const letter of ['a','b']) {
  $('unit-'+letter).addEventListener('change',()=>{const select=$('unit-'+letter);try{const n=uiNumber('input-'+letter);uiSetValue($('input-'+letter),String(Number(fromCanonical(toCanonical(n,select.dataset.previous),select.value).toPrecision(12))));}catch{}select.dataset.previous=select.value;invalidate();const errors=calculatorValidation().errors;showInputErrors(errors[letter]?{[letter]:errors[letter]}:{});});
 }
 let calculationPending=false;
- $('calculator').addEventListener('submit',event=>{event.preventDefault();if(calculationPending)return;calculationPending=true;$('calculate').disabled=true;$('calculate').textContent='Обчислення…';$('calculator').setAttribute('aria-busy','true');$('result-status').textContent='Обчислення стану…';requestAnimationFrame(()=>requestAnimationFrame(()=>{try{run();}finally{calculationPending=false;$('calculate').disabled=false;$('calculate').innerHTML=icon('calc')+'Розрахувати';$('calculator').removeAttribute('aria-busy');}}));});
+ $('calculator').addEventListener('submit',event=>{event.preventDefault();if(calculationPending)return;calculationPending=true;$('calculate').disabled=true;$('calculate').textContent='Обчислення…';$('calculator').setAttribute('aria-busy','true');$('result-status').textContent='Обчислення стану…';requestAnimationFrame(()=>requestAnimationFrame(()=>{try{run();if(last){const mobile=matchMedia('(max-width:700px)').matches;(mobile?$('calculator-result-tools'):$('calculator-result-summary')||$('calculator-result-tools')).scrollIntoView({block:mobile?'start':'nearest'});}}finally{calculationPending=false;$('calculate').disabled=false;$('calculate').innerHTML=icon('calc')+'Розрахувати';$('calculator').removeAttribute('aria-busy');}}));});
  $('display-digits').onchange=()=>{displayDigits=readDisplayDigits(Number($('display-digits').value));renderHistory();if(last)render();if($('steam-diagram')&&!$('process-view').hidden)diagramRedraw?.();const form=panelForm();if(form?.dataset.calculated==='true')form.requestSubmit();saveProject();};
 $('output-energy').addEventListener('change',()=>{uiUnitPreferences={...uiUnitPreferences,energy:$('output-energy').value==='J'?'Jkg':'kJkg'};uiSyncPreferences();renderHistory();if(last)render();else $('results').innerHTML=propertyTable(null);if($('steam-diagram')&&!$('process-view').hidden)diagramRedraw?.();if($('batch-results'))renderBatch();if($('satgrid-results'))renderSaturationGrid();if($('eng-result'))renderEngineering();});
 for(const button of document.querySelectorAll('[data-p]')) button.addEventListener('click',()=>{$('mode').value='pt';resetMode();uiSetValue($('input-a'),String(pressureOutput(Number(button.dataset.p),'MPa',pressureSettings)));$('unit-b').value='K';$('unit-b').dataset.previous='K';$('input-b').value=button.dataset.t;run();});
@@ -263,13 +264,13 @@ document.addEventListener('click',event=>{
  if(action==='engineering')showEngineering();
  if(action==='flow')showFlow();
  if(action==='coursework')showCoursework();if(action==='laboratory')showLaboratory();if(action==='tutorials')showTutorials();if(action==='npp')showNuclear();if(action==='study')showStudyReport();if(action==='research')showResearch();if(action==='exchanger')showExchanger();if(action==='projects')showProjectLibrary();
- if(action==='clear'){historyUndo=historyStates.length?[...historyStates]:historyUndo;historyStates.length=0;revision=0;renderHistory();invalidate();$('result-status').textContent='Результати очищено';}
+ if(action==='clear'){invalidate();$('result-status').textContent=uiTranslator.t('calculator.resultCleared');saveProject();}
  if(action==='export')$('export-csv').click();
  if(action==='print')window.print();
  if(action==='blue'||action==='gray')document.body.classList.toggle('gray',action==='gray');
  if(action==='hints'){hintsEnabled=!hintsEnabled;$('hints-toggle').setAttribute('aria-pressed',String(hintsEnabled));if(!hintsEnabled)openGlossary.clear();if(last)render();else $('results').innerHTML=propertyTable(null);if(currentPanelKind&&learningResult)renderLearning(currentPanelKind,learningResult);}
  if(target.dataset.useAlternative!=null&&last?.alternatives){const q=last.alternatives[Number(target.dataset.useAlternative)];if(q){selectView('panel');$('calculator-view').hidden=false;const mixed=q.x!=null&&!q.critical;$('mode').value=mixed?'px':'pt';resetMode();uiSetValue($('input-a'),String(pressureOutput(q.p,'MPa',pressureSettings)));if(!mixed){$('unit-b').value='K';$('unit-b').dataset.previous='K';}uiSetValue($('input-b'),String(mixed?q.x:q.T));run();}}
- if(target.dataset.copy&&last?.state){const source=target.dataset.alternative==null?ambientResult(last).state:ambientResult({state:last.alternatives[Number(target.dataset.alternative)]}).state;const k=target.dataset.copy;const row=rows.find(r=>r[0]===k);const raw=k==='T'?source.T-273.15:source[k];const [value]=display(k,raw,row[3]);if(navigator.clipboard?.writeText)navigator.clipboard.writeText(String(value)).then(()=>{$('result-status').textContent='Значення скопійовано';}).catch(()=>{$('result-status').textContent='Копіювання недоступне в цьому браузері';});else $('result-status').textContent='Копіювання недоступне в цьому браузері';}
+ if(target.dataset.copy)calculatorCopyProperty(target);
  if(action)for(const d of document.querySelectorAll('.menubar details'))d.open=false;
 });
 function exportHistory(){

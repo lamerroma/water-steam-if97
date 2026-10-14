@@ -557,3 +557,26 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 @media(min-width:701px) and (max-width:1100px){#process-view .study-chart-sidebar .process-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}}
 
 #process-view .reactor-verification{table-layout:auto;min-width:60rem;font-size:.82rem}#process-view .reactor-verification td,#process-view .reactor-verification th{white-space:normal;overflow-wrap:anywhere;text-align:left}#cw-verification-checks h4{margin:.8rem 0}.reactor-verification td:nth-child(3),.reactor-verification td:nth-child(4),.reactor-verification td:nth-child(5),.reactor-verification td:nth-child(6){font-variant-numeric:tabular-nums}
+/* Primary calculator: readable results and actions close to the values. */
+#calculator-result-tools{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;padding:.6rem;background:var(--panel);border-bottom:1px solid var(--line)}
+#calculator-result-tools[hidden],#calculator-error-summary[hidden]{display:none}
+#calculator-result-tools label{display:flex;gap:.4rem;align-items:center}
+#calculator-result-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.5rem;margin:.7rem 0}
+#calculator-result-summary button{display:flex;flex-direction:column;align-items:flex-start;gap:.25rem;text-align:left;padding:.65rem;white-space:normal;min-width:0;background:#f1f6fb}
+#calculator-result-summary strong{font-size:1.2rem;color:#18364e;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+#calculator-result-summary small{color:var(--muted)}
+#calculator-error-summary{padding:.6rem;border:1px solid #b45309;background:#fff3dd;margin:.6rem 0;min-width:0}
+#calculator-error-summary p{margin:0 0 .4rem}#calculator-error-summary button{display:block;white-space:normal;text-align:left;margin:.4rem 0;max-width:100%;color:#713f12}
+#history td:nth-child(3){white-space:nowrap}#history td:nth-child(3) button{min-width:28px;min-height:28px;margin:2px}
+.ui-empty-history.ui-history-undo:not(.ui-independent-panel) .output-pane{display:flex}
+@media screen{.property-table th:nth-child(7),.property-table td.constant{display:none}.compact-constants{display:block}}
+@media(max-width:700px){
+ #calculator-result-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #calculator-result-summary button,#calculator-result-tools button,#calculator-error-summary button{min-height:44px}
+ .property-table tr[data-property]{grid-template-columns:minmax(0,1fr) minmax(3rem,auto) 44px}
+ .property-table .copy{min-width:44px;min-height:44px}.sat-table .copy{min-width:44px;min-height:44px}
+ #history td:nth-child(3) button{min-width:44px;min-height:44px}
+ #history .state-name{min-width:0;width:7rem}
+ #copy-result-dialog{box-sizing:border-box;max-width:94vw}#copy-result-dialog textarea{box-sizing:border-box}
+}
+@media print{#calculator-result-tools,#calculator-result-summary,#calculator-error-summary{display:none!important}}
