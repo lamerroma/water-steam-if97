@@ -580,3 +580,12 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
  #copy-result-dialog{box-sizing:border-box;max-width:94vw}#copy-result-dialog textarea{box-sizing:border-box}
 }
 @media print{#calculator-result-tools,#calculator-result-summary,#calculator-error-summary{display:none!important}}
+/* History comparison keeps wide engineering tables inside a keyboard-scrollable dialog. */
+#state-comparison-dialog{box-sizing:border-box;width:min(96vw,88rem);max-width:96vw;max-height:90dvh;padding:1rem;color:var(--text);background:var(--panel)}
+#state-comparison-dialog::backdrop{background:#10243d88}#state-comparison-dialog h2{margin-top:0}
+#state-comparison-dialog>label{display:flex;align-items:center;flex-wrap:wrap;gap:.6rem}#comparison-reference{max-width:100%}
+#state-comparison-dialog .comparison-scroll{overflow:auto;max-height:55dvh;border:1px solid var(--line);margin-top:.6rem}
+#state-comparison-table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}#state-comparison-table td,#state-comparison-table th{padding:.5rem;border:1px solid var(--line);white-space:nowrap;text-align:right}#state-comparison-table th{background:#e2edf8}#state-comparison-table thead th{position:sticky;top:0;z-index:1;white-space:normal;min-width:7rem}#state-comparison-table tbody th{text-align:left}#state-comparison-table td:nth-child(3n+3){font-weight:600;background:#f4f8fc}
+#history [data-history-select]{width:20px;height:20px;vertical-align:middle;margin:0 .3rem}
+@media(max-width:700px){#state-comparison-dialog{padding:.65rem}#state-comparison-dialog button,#comparison-reference{min-height:44px}#history [data-history-select]{width:28px;height:28px;margin:8px}#state-comparison-dialog .comparison-scroll{max-height:48dvh}}
+#state-comparison-table tbody th{position:sticky;left:0;z-index:1}#state-comparison-table thead th:first-child{left:0;z-index:2}

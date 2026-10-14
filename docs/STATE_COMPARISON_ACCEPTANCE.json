@@ -1,0 +1,23 @@
+{
+  "build": {
+    "version": "1.22.0",
+    "id": "bc2b7a252d5c"
+  },
+  "fullAcceptance": {
+    "status": "passed",
+    "checks": 38,
+    "unitTests": 728,
+    "browserScenarios": 24,
+    "report": "RELEASE_ACCEPTANCE.json"
+  },
+  "additionalFirefoxComparison": {
+    "status": "passed",
+    "command": "BROWSER_NAME=firefox node scripts/check-state-comparison-browser.cjs",
+    "scope": "Same new comparison workflow, desktop/mobile, CSV, report, JSON, offline file; PDF export is tested in Chromium only.",
+    "output": [
+      "Named copy retains original; selected states, affine deltas, reference, CSV and frozen report PASS",
+      "Report JSON round trip, mixed models, 5-state limit, mobile scroll, A4 report, clearing and undo PASS",
+      "Offline standalone calculation → comparison → study report PASS"
+    ]
+  }
+}
