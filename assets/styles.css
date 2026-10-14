@@ -561,25 +561,20 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 #calculator-result-tools{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;padding:.6rem;background:var(--panel);border-bottom:1px solid var(--line)}
 #calculator-result-tools[hidden],#calculator-error-summary[hidden]{display:none}
 #calculator-result-tools label{display:flex;gap:.4rem;align-items:center}
-#calculator-result-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.5rem;margin:.7rem 0}
-#calculator-result-summary button{display:flex;flex-direction:column;align-items:flex-start;gap:.25rem;text-align:left;padding:.65rem;white-space:normal;min-width:0;background:#f1f6fb}
-#calculator-result-summary strong{font-size:1.2rem;color:#18364e;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
-#calculator-result-summary small{color:var(--muted)}
 #calculator-error-summary{padding:.6rem;border:1px solid #b45309;background:#fff3dd;margin:.6rem 0;min-width:0}
 #calculator-error-summary p{margin:0 0 .4rem}#calculator-error-summary button{display:block;white-space:normal;text-align:left;margin:.4rem 0;max-width:100%;color:#713f12}
 #history td:nth-child(3){white-space:nowrap}#history td:nth-child(3) button{min-width:28px;min-height:28px;margin:2px}
 .ui-empty-history.ui-history-undo:not(.ui-independent-panel) .output-pane{display:flex}
 @media screen{.property-table th:nth-child(7),.property-table td.constant{display:none}.compact-constants{display:block}}
 @media(max-width:700px){
- #calculator-result-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
- #calculator-result-summary button,#calculator-result-tools button,#calculator-error-summary button{min-height:44px}
+ #calculator-result-tools button,#calculator-error-summary button{min-height:44px}
  .property-table tr[data-property]{grid-template-columns:minmax(0,1fr) minmax(3rem,auto) 44px}
  .property-table .copy{min-width:44px;min-height:44px}.sat-table .copy{min-width:44px;min-height:44px}
  #history td:nth-child(3) button{min-width:44px;min-height:44px}
  #history .state-name{min-width:0;width:7rem}
  #copy-result-dialog{box-sizing:border-box;max-width:94vw}#copy-result-dialog textarea{box-sizing:border-box}
 }
-@media print{#calculator-result-tools,#calculator-result-summary,#calculator-error-summary{display:none!important}}
+@media print{#calculator-result-tools,#calculator-error-summary{display:none!important}}
 /* History comparison keeps wide engineering tables inside a keyboard-scrollable dialog. */
 #state-comparison-dialog{box-sizing:border-box;width:min(96vw,88rem);max-width:96vw;max-height:90dvh;padding:1rem;color:var(--text);background:var(--panel)}
 #state-comparison-dialog::backdrop{background:#10243d88}#state-comparison-dialog h2{margin-top:0}
@@ -606,7 +601,7 @@ body.ui-task-layout{height:auto;min-height:100dvh}
 .ui-task-layout:not(.diagram-active) #output-resize{display:none}
 .ui-task-layout:not(.diagram-active) .output-pane{height:auto;min-height:0;grid-column:1/-1}
 .ui-task-layout:not(.diagram-active) .history-scroll{max-height:18rem}
-.ui-task-layout:not(.diagram-active):not(.setup-collapsed) .setup-pane{display:flex;flex-direction:column;position:fixed;right:.6rem;top:4rem;bottom:1rem;width:min(24rem,94vw);height:auto;z-index:30;box-shadow:0 5px 25px #17375355;max-height:calc(100dvh - 5rem)}
+.ui-task-layout:not(.diagram-active):not(.setup-collapsed) .setup-pane{display:flex;flex-direction:column;position:static;width:auto;height:auto;max-height:none;box-shadow:none;z-index:auto;grid-column:2;grid-row:1}
 .ui-task-layout:not(.diagram-active) .setup-content{overflow:auto;display:block;min-height:0}
 .ui-task-layout:not(.diagram-active) .setup-pane h2{justify-content:space-between}.ui-task-layout .setup-pane h2 button{min-width:36px;min-height:36px}
 .ui-task-layout .tool-navigation .recent-tools{display:none}
@@ -650,3 +645,39 @@ body.ui-task-layout{height:auto;min-height:100dvh}
 @media print{#ui-back-to-tools{display:none!important}}
 /* Keep a rendered chart inside its task while Chart.js processes a viewport resize. */
 .ui-task-layout:not(.diagram-active) canvas{max-width:100%}
+
+/* Compact calculator: panels occupy their own space rather than covering controls. */
+.ui-task-layout .site-nav{display:none}
+.ui-task-layout:not(.diagram-active) .center-pane{grid-column:1;grid-row:1}
+.ui-task-layout:not(.diagram-active) .output-pane{grid-row:2}
+.ui-task-layout:not(.diagram-active).output-collapsed .desktop{min-height:0;grid-template-rows:auto auto}
+.ui-task-layout:not(.diagram-active).output-collapsed .history-scroll,
+.ui-task-layout:not(.diagram-active).output-collapsed .output-tabs{display:none}
+.ui-task-layout .input-area{padding:.5rem .65rem}
+.ui-task-layout .input-area fieldset{margin:0;padding:.4rem .55rem}
+.ui-task-layout .ui-input-heading{align-items:center;gap:.4rem;flex-wrap:wrap}
+.ui-task-layout .form-buttons{margin-top:.4rem;gap:.35rem}
+.ui-task-layout #calculator-result-tools{padding:.35rem .5rem;gap:.35rem}
+.ui-task-layout #workflow-calculator-status{margin:.2rem 0;padding:.25rem .5rem}
+@media(min-width:901px){
+ .ui-task-layout:not(.diagram-active):not(.setup-collapsed) .desktop{grid-template-columns:minmax(0,1fr) 18rem}
+ .ui-task-layout:not(.diagram-active) .input-area{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.5rem;align-items:end}
+ .ui-task-layout:not(.diagram-active) .form-buttons{max-width:14rem;margin:0;align-self:center}
+ .ui-task-layout:not(.diagram-active) .form-buttons #calculate{flex:1 1 100%}
+ .ui-task-layout:not(.diagram-active) .form-buttons #state-summary{flex-basis:100%;font-size:.8rem}
+}
+@media(max-width:900px){
+ .ui-task-layout:not(.diagram-active) .desktop{display:flex;flex-direction:column;min-height:0}
+ .ui-task-layout:not(.diagram-active) .center-pane{order:0;width:100%}
+ .ui-task-layout:not(.diagram-active):not(.setup-collapsed) .setup-pane{order:1;width:100%;position:static}
+ .ui-task-layout:not(.diagram-active) .output-pane{order:2;width:100%}
+}
+
+.ui-task-layout .output-pane h2 .ui-history-title{display:inline;font-weight:600;font-size:.95rem;color:#254b7d}
+
+@media(min-width:901px){
+ .ui-task-layout:not(.diagram-active):not(.setup-collapsed) .setup-pane{max-height:calc(100dvh - 8rem)}
+ .ui-task-layout:not(.diagram-active) .setup-content{overflow:auto}
+}
+.ui-task-layout .calculator-view>.setup-pane{margin:.5rem;width:auto!important}
+.ui-task-layout:not(.diagram-active) .calculator-view>.setup-pane{order:0}

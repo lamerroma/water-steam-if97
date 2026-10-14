@@ -12,10 +12,6 @@ async function calculatorCopyProperty(button){
  try{if(!navigator.clipboard?.writeText)throw Error('clipboard unavailable');await navigator.clipboard.writeText(content);$('result-status').textContent=uiTranslator.t('calculator.copied',{value:content});}
  catch{calculatorManualCopy(content,uiTranslator.t('calculator.manualProperty',{property:uiTranslator.text(row[1])}));}
 }
-function calculatorResultSummary(result){
- if(!result.state)return '';const s=result.state,keys=['p','T','h','s','rho',Number.isFinite(s.x)?'x':'v'];
- return '<section id="calculator-result-summary" aria-label="'+escapeHTML(uiTranslator.t('calculator.keyResults'))+'">'+keys.map(key=>{const row=rows.find(r=>r[0]===key),name=key==='p'?'Тиск ('+pressureBasisLabel()+')':row[1],[value,unit]=display(key,key==='T'?s.T-273.15:s[key],row[3]);return '<button type="button" data-copy="'+key+'" aria-label="'+escapeHTML(uiTranslator.t('calculator.copyProperty',{property:uiTranslator.text(name)}))+'"><span>'+escapeHTML(uiTranslator.text(name))+'</span><strong>'+escapeHTML(format(value))+'</strong><small>'+escapeHTML(uiTranslator.text(unit))+'</small></button>';}).join('')+'</section>';
-}
 function calculatorErrorSummary(){
  const summary=$('calculator-error-summary');if(!summary)return;const fields=[...$('input-fields').children].map(row=>row.querySelector('input')).filter(input=>input?.getAttribute('aria-invalid')==='true');const signature=JSON.stringify([uiTranslator.language,...fields.map(input=>[input.id,$('label-'+input.id.at(-1)).textContent,$('input-error-'+input.id.at(-1)).textContent])]);if(summary.dataset.errors===signature)return;summary.dataset.errors=signature;summary.replaceChildren();summary.hidden=!fields.length;if(!fields.length)return;
  const intro=document.createElement('p');intro.textContent=uiTranslator.t('calculator.errorSummary',{count:fields.length});summary.append(intro);

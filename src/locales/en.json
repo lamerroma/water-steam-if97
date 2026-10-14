@@ -442,7 +442,7 @@
   "text.a20ed36b45a0": "HTML printable report",
   "text.26387271e0bf": "Report with diagram",
   "text.93aa2d5f2003": "Collapse the settings panel",
-  "text.53aa783dccd4": "Collapse the results panel",
+  "text.53aa783dccd4": "Collapse calculation history",
   "text.20f5378d76a4": "Zoom out",
   "text.f9d8ceb30d40": "Changes in kinetic and potential energies are neglected.",
   "text.68176ec64b40": "Changes not yet applied - click Apply Pressure. The absolute state will be saved.",
@@ -717,7 +717,7 @@
   "text.3c559386ee80": "Pa·s",
   "text.b3ab1f891656": "Batch calculations",
   "text.8decd211de36": "Settings panel",
-  "text.a9871e82b4e0": "Results panel",
+  "text.a9871e82b4e0": "Calculation history",
   "text.695ef2deb70a": "Vapor",
   "text.8a8e46c45dcc": "View options: lines, units, numbers",
   "text.0699f82ff4b5": "The parameters of the environment must be finite.",
@@ -1683,5 +1683,6 @@
   "calculator.cancel": "Cancel calculation",
   "calculator.cancelled": "Calculation cancelled. Input values were kept.",
   "calculator.timeout": "Calculation exceeded the 60-second limit. Check the inputs or retry.",
-  "calculator.workerFailed": "Background calculation could not start. Retry or reload the page."
+  "calculator.workerFailed": "Background calculation could not start. Retry or reload the page.",
+  "workspace.history": "Calculation history"
 }

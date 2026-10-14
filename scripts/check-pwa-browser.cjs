@@ -57,7 +57,7 @@ const assert=require('node:assert/strict'),http=require('node:http'),fs=require(
  assert.equal(await p.getByRole('button',{name:'Відновити / Restore'}).isEnabled(),true);assert.equal(await p.evaluate(()=>localStorage.getItem('water-steam-if97-project-v1')),savedProject);
  disconnected=false;await ctx.setOffline(false);await p.getByRole('button',{name:'Відновити / Restore'}).click();await ready();await p.waitForFunction(()=>navigator.serviceWorker.controller&&!document.querySelector('#calculate').disabled);
  assert.equal(await p.locator('#project-title').inputValue(),'Unsaved update project');assert.equal(await p.locator('#language-select').inputValue(),'en');
- await ctx.setOffline(true);await p.reload();await ready();await p.waitForFunction(()=>!document.querySelector('#calculate').disabled);await require('./browser-tools.cjs').openTool(p,'general');await p.click('#calculate');await p.waitForFunction(()=>document.querySelectorAll('#calculator-result-summary button').length===6);assert.equal(await p.locator('#error').isHidden(),true);
+ await ctx.setOffline(true);await p.reload();await ready();await p.waitForFunction(()=>!document.querySelector('#calculate').disabled);await require('./browser-tools.cjs').openTool(p,'general');await p.click('#calculate');await p.waitForFunction(()=>document.querySelector('#copy-result-json')?.disabled===false);assert.equal(await p.locator('#error').isHidden(),true);
  console.log('Evicted cache recovery retries without a connection, preserves project and language, and restores offline calculations PASS');
  assert.deepEqual(errors,[]);
  }finally{await ctx?.close();await new Promise(r=>server.close(r));await fs.rm(dir,{recursive:true,force:true});}
