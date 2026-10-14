@@ -57,6 +57,7 @@ try{
   await check('transport',['scripts/transport-conformance.mjs',path.join(dir,'transport.json')]);
   await check('reactor',['scripts/verify-reactor-reference.mjs']);
   await check('reactor-thermal',['scripts/verify-reactor-thermal.mjs']);
+  await check('reactor-validation',['scripts/audit-reactor-validation.mjs']);
   if(await check('reactor-cell-audit',['scripts/reactor-cell-benchmark.mjs'])){
    const cell=JSON.parse(await readFile(path.join(dir,'reactor-cell-audit.log'),'utf8'));
    report.physicalValidation={reactorCell:cell.status,scope:'Independent cell screening; failure blocks claims of neutron-model physical validation, separately from software acceptance.'};
@@ -64,7 +65,7 @@ try{
  }
  if(mode!=='core'){
   const env=await serve();
-  for(const name of ['navigation','smart-input','diagram','diagram-guides','diagram-quality','process-paths','chart-layout','study-workspace','hydraulics','study','full-sprint','laboratory','coursework','usability','reactor-course','provenance','project-safety','pwa','ui-workspace'])await check('browser-'+name,[`scripts/check-${name}-browser.cjs`],env);
+  for(const name of ['navigation','smart-input','diagram','diagram-guides','diagram-quality','process-paths','chart-layout','study-workspace','hydraulics','study','full-sprint','laboratory','coursework','usability','reactor-course','reactor-validation','provenance','project-safety','pwa','ui-workspace'])await check('browser-'+name,[`scripts/check-${name}-browser.cjs`],env);
   await check('browser-cross-browser',['scripts/check-cross-browser.cjs'],{...env,UI_EVIDENCE_DIR:path.join(dir,'ui')});
   await check('browser-pwa-firefox',['scripts/check-pwa-browser.cjs'],{...env,BROWSER_NAME:'firefox'});
  }

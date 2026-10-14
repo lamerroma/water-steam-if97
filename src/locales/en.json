@@ -1618,5 +1618,6 @@
   "project.recoveryHint": "Saved project was not restored; download the original from the File menu",
   "project.importChanged": "Project changed while reading the file; retry the import",
   "project.exportFailed": "Could not prepare JSON:",
-  "npp.primary.assumptions": "Water in the two circuits does not mix. The primary circulation pump is idealized: its work and pressure losses are not included."
+  "npp.primary.assumptions": "Water in the two circuits does not mix. The primary circulation pump is idealized: its work and pressure losses are not included.",
+  "catalog.status.inDevelopment": "In development"
 }
