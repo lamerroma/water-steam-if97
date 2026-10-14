@@ -8,6 +8,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 concurrency:
@@ -15,9 +16,33 @@ concurrency:
   cancel-in-progress: false
 jobs:
   verify:
-    uses: ./.github/workflows/release-checks.yml
-    permissions:
-      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Require successful full CI for this commit
+        uses: actions/github-script@v7
+        with:
+          script: |
+            for (let attempt = 0; attempt < 90; attempt++) {
+              const response = await github.rest.actions.listWorkflowRuns({
+                ...context.repo, workflow_id: 'ci.yml', branch: 'main',
+                event: 'push', head_sha: context.sha, per_page: 20
+              });
+              const runs = response.data.workflow_runs.filter(run =>
+                run.head_sha === context.sha && run.head_branch === 'main' && run.event === 'push'
+              );
+              const accepted = runs.find(run => run.status === 'completed' && run.conclusion === 'success');
+              if (accepted) {
+                await core.summary.addHeading('Full release acceptance passed')
+                  .addLink('CI evidence for the deployed commit', accepted.html_url).write();
+                return;
+              }
+              if (runs.length && runs.every(run => run.status === 'completed')) {
+                throw new Error('Full CI did not pass for this commit; deployment is blocked.');
+              }
+              await new Promise(resolve => setTimeout(resolve, 10000));
+            }
+            throw new Error('Timed out waiting for full CI; deployment is blocked.');
   build:
     needs: verify
     runs-on: ubuntu-latest
