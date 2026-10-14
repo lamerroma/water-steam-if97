@@ -25,9 +25,16 @@ jobs:
           python - <<'PYTHON'
           import json, os
           from pathlib import Path
-          reports = sorted(Path('.release').glob('*/report.json'))
+          reports = []
+          for path in Path('.release').glob('*/report.json'):
+              try:
+                  candidate = json.loads(path.read_text())
+              except (OSError, json.JSONDecodeError):
+                  continue
+              if isinstance(candidate, dict) and all(key in candidate for key in ('started', 'mode', 'status', 'version', 'checks')) and candidate['mode'] in ('core', 'browser', 'full'):
+                  reports.append(candidate)
           if reports:
-              report = json.loads(reports[-1].read_text())
+              report = max(reports, key=lambda item: item['started'])
               build = report.get('build') or {}
               lines = [f"## Software acceptance: {report['status']}", f"Version: {report['version']} · build: {build.get('id', 'unknown')}"]
               lines += [f"- {check['name']}: {check['status']}" for check in report['checks']]
