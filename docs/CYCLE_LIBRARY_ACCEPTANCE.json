@@ -1,0 +1,100 @@
+{
+  "version": "1.31.0",
+  "build": "814b0cb33e3b",
+  "status": "passed_local",
+  "scope": "Ideal gas Carnot/Otto/Diesel/Brayton within the custom-cycle editor; 30 tool routes retained.",
+  "features": {
+    "templates": [
+      "carnot",
+      "otto",
+      "diesel",
+      "brayton"
+    ],
+    "fluids": [
+      "air",
+      "N2",
+      "O2",
+      "CO2",
+      "He",
+      "Ar"
+    ],
+    "models": [
+      "IDEAL-CP",
+      "IDEAL-NASA7"
+    ],
+    "heat_conditions": [
+      "maximum temperature",
+      "heat input (u difference for Otto, h difference for Diesel/Brayton)"
+    ],
+    "carnot": [
+      "hot temperature",
+      "cold temperature",
+      "isothermal volume ratio"
+    ],
+    "personal_templates": {
+      "maximum": 8,
+      "closed_verified_cycle_required_in_ui": true,
+      "storage": "shared JSON project cc-data.library",
+      "duplicate_names": "rejected",
+      "canonical_inputs_only": true
+    },
+    "comparison": {
+      "slots": [
+        "A",
+        "B"
+      ],
+      "frozen_canonical_inputs": true,
+      "same_fluid_required": true,
+      "different_models_allowed": true,
+      "delta": "B minus A; efficiency delta in percentage points",
+      "coordinates": [
+        "ts",
+        "hs",
+        "pv",
+        "pt",
+        "ps",
+        "tv"
+      ],
+      "style": "A blue solid, B orange dashed",
+      "exports": [
+        "SVG",
+        "study report",
+        "source reopening",
+        "project restore"
+      ]
+    },
+    "background": [
+      "build",
+      "load personal template",
+      "compare"
+    ],
+    "cancellation": "worker termination and revision guards; stale results ignored; input errors retain current result"
+  },
+  "checks": {
+    "numerical": "9 library scenarios, including independent textbook heat/work/eta and NASA7 entropy integral; worker protocol comparisons",
+    "chromium": "passed final library scenario, including navigation during build",
+    "firefox": "passed final library scenario plus offline standalone on Firefox 157",
+    "cross_browser": "all 30 tools, UK/EN, HTML/JSON and 320/390/768 px passed in Chromium 154 and Firefox 157",
+    "release_core": "all 14 checks passed: 777 tests, water/transport/reactor checks, deterministic build/package and ZIP integrity",
+    "calculator_async": "passed in Chromium and Firefox 157: responsive real h-v solve, termination/cancellation, import during compute, restore, offline worker and startup retry"
+  },
+  "limitations": [
+    "No Rankine library recipes in this sprint",
+    "No real-gas recipes or irreversible machinery efficiencies",
+    "Personal templates move through the shared project; external cycle formats not supported",
+    "No physical device touch testing or Safari validation"
+  ],
+  "evidence": {
+    "chromium": "/tmp/131-library-chromium-accepted.log",
+    "firefox": "/tmp/131-library-firefox-accepted.log",
+    "cross_browser": "/tmp/131-cross.log",
+    "boundary_and_processes": "/tmp/131-boundary-unit.log",
+    "calculator_async": [
+      "/tmp/131-async-chromium.log",
+      "/tmp/131-async-firefox.log"
+    ],
+    "custom_cycle_regression": "/tmp/131-custom-regression.log",
+    "release_core": "/workspace/water-steam-if97/.release/2026-10-15T13-20-14-564Z/report.json"
+  },
+  "publication": "not published; full GitHub CI and Pages deployment are a separate step"
+}

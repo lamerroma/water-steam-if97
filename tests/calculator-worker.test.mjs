@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {Worker} from 'node:worker_threads';
 import {initialize,calculate} from '../src/engine.js';
+import {buildLibraryCycle,compareLibraryCycles} from '../src/cycle-library.js';
 import {readProject} from '../src/project.js';
 await initialize(await readFile(new URL('../vendor/seuif97_bg.wasm',import.meta.url)));
 const source=await readFile(new URL('../assets/calculator-worker.js',import.meta.url),'utf8');
@@ -22,6 +23,9 @@ test('Built background kernel preserves all 20 modes for both water models',asyn
   }
   assert.equal(count,40);
   for(const model of ['IF97','IAPWS-95'])for(const [a,b] of [[22.064,647.096],[100,623.16]])assert.deepEqual(await execute('calculate',{mode:'pt',a,b,model}),structuredClone(calculate('pt',a,b,model)));
+
+  const config={kind:'otto',fluid:'air',model:'IDEAL-NASA7',p1:.1,T1:300,mass:1,ratio:8,heatMode:'heat',heat:600},cycle=await execute('library-cycle',{input:config});assert.deepEqual(cycle,structuredClone(buildLibraryCycle(config)));
+  const comparison={kind:'pv',slots:[{name:'A',model:cycle.model,input:cycle.input},{name:'B',model:cycle.model,input:cycle.input}]};assert.deepEqual(await execute('cycle-comparison',{input:comparison}),structuredClone(compareLibraryCycles(comparison)));
   const anchor=calculate('pt',100,623.16).state;
   assert.deepEqual(await execute('calculate',{mode:'ph',a:100,b:anchor.h,model:'IF97'}),structuredClone(calculate('ph',100,anchor.h)));
   const project={format:'water-steam-if97',version:1,history:[{p:anchor.p,h:anchor.h,source:{mode:'pt',a:100,b:623.16}}],form:{mode:'satp',a:'10',b:'unused',ua:'bar',ub:'C',calculated:true}};

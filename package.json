@@ -1,6 +1,6 @@
 {
   "name": "water-steam-if97-uk",
-  "version": "1.30.0",
+  "version": "1.31.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -50,6 +50,7 @@
     "test:calculator-async": "node scripts/check-calculator-async-browser.cjs",
     "test:water-process": "node scripts/check-water-process-browser.cjs",
     "test:processes-extended": "node scripts/check-processes-extended-browser.cjs",
+    "test:cycle-library": "node scripts/check-cycle-library-browser.cjs",
     "test:custom-cycle": "node scripts/check-custom-cycle-browser.cjs"
   },
   "engines": {

@@ -7,6 +7,8 @@ export function processGas(fluid,model){
  const composition=fluid==='air'?AIR:{[fluid]:1},reference=gasState(GAS_P0,300,composition),limits=gasLimits(composition),variable=model==='IDEAL-NASA7';
  function state(p,T){
   if(variable)return {...gasState(p,T,composition),model,x:null};
+  const roundoff=64*Number.EPSILON*Math.max(1,Math.abs(T));
+  if(Number.isFinite(T)){if(T<limits.min&&T>=limits.min-roundoff)T=limits.min;else if(T>limits.max&&T<=limits.max+roundoff)T=limits.max;}
   if(!Number.isFinite(p)||p<=0||!Number.isFinite(T)||T<limits.min||T>limits.max)throw Error(`Ідеальний газ: T = ${limits.min}…${limits.max} K, p > 0. / Ideal gas bounds exceeded.`);
   const {cp,cv,R}=reference,h=reference.h+cp*(T-300),s=reference.s+cp*Math.log(T/300)-R*Math.log(p/GAS_P0),v=R*T/(1000*p);
   return {model,p,T,v,rho:1/v,h,u:h-R*T,s,cp,cv,R,gamma:cp/cv,x:null,composition,limits};
