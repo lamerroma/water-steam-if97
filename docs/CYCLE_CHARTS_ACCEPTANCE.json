@@ -78,5 +78,23 @@
       "/tmp/cycle-chart-firefox-mobile.png"
     ],
     "release_core": "/workspace/water-steam-if97/.release/2026-10-15T11-59-25-910Z/report.json"
+  },
+  "publication_runtime": {
+    "previous": "Playwright 1.62.1 / Firefox 153",
+    "failure": "Native Firefox SIGSEGV at import during calculation; same failure in CI attempts 1/2 and local reproduction",
+    "ci_run": 38731853196,
+    "updated": "Playwright 1.64.1 / Firefox 157",
+    "application_build_unchanged": true,
+    "gate_unchanged": true,
+    "checks": [
+      "Unmodified calculator async scenario repeated",
+      "Custom cycle editor and standalone offline passed in Firefox 157",
+      "All 30 sections and 320/390/768 px cross-browser regression passed in Chromium 154 and Firefox 157"
+    ],
+    "logs": [
+      "/tmp/130-ff157-1.log through /tmp/130-ff157-10.log",
+      "/tmp/130-ff157-cycle.log",
+      "/tmp/130-pw164-cross.log"
+    ]
   }
 }
