@@ -26,6 +26,7 @@ test('Built background kernel preserves all 20 modes for both water models',asyn
 
   const config={kind:'otto',fluid:'air',model:'IDEAL-NASA7',p1:.1,T1:300,mass:1,ratio:8,heatMode:'heat',heat:600},cycle=await execute('library-cycle',{input:config});assert.deepEqual(cycle,structuredClone(buildLibraryCycle(config)));
   const comparison={kind:'pv',slots:[{name:'A',model:cycle.model,input:cycle.input},{name:'B',model:cycle.model,input:cycle.input}]};assert.deepEqual(await execute('cycle-comparison',{input:comparison}),structuredClone(compareLibraryCycles(comparison)));
+  for(const kind of ['rankine','rankine-reheat']){const input={kind,fluid:'water',model:'IF97',mass:1,pLow:.01,pHigh:10,pReheat:2,Tsteam:773.15,Treheat:773.15,steamMode:'superheated'};assert.deepEqual(await execute('library-cycle',{input}),structuredClone(buildLibraryCycle(input)));}
   const anchor=calculate('pt',100,623.16).state;
   assert.deepEqual(await execute('calculate',{mode:'ph',a:100,b:anchor.h,model:'IF97'}),structuredClone(calculate('ph',100,anchor.h)));
   const project={format:'water-steam-if97',version:1,history:[{p:anchor.p,h:anchor.h,source:{mode:'pt',a:100,b:623.16}}],form:{mode:'satp',a:'10',b:'unused',ua:'bar',ub:'C',calculated:true}};

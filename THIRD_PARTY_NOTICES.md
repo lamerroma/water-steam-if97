@@ -71,3 +71,7 @@ CoolProp 8.0.0, MIT (https://github.com/CoolProp/CoolProp/blob/master/LICENSE), 
 ## CoolProp runtime для вологого повітря
 
 Офіційні файли CoolProp 8.0.0: https://sourceforge.net/projects/coolprop/files/CoolProp/8.0.0/Javascript/ . MIT, повний текст у vendor/COOLPROP-LICENSE. JS і WASM закріплені SHA256. scripts/coolprop-static-bindings.mjs перетворює фабрики bindings на статичні функції під час збірки; математичний WASM не змінюється. WASM вбудовано в обидва формати, без runtime мережевих завантажень. Розробники CoolProp зберігають авторство власного коду.
+
+## Еталони Ренкіна
+
+Python iapws 1.5.5 (GPL-3.0, Juan José Gómez Romera) використано лише для генерації числових еталонів `tests/fixtures/rankine-library-reference.json` власною обгорткою `scripts/generate-rankine-reference.py`. Код iapws, NumPy і SciPy не входить до застосунку; звичайні тести використовують збережені числа.

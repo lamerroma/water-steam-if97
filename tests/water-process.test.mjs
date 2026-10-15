@@ -51,6 +51,7 @@ test('Alternative end conditions resolve the same constrained states',()=>{
  const s=solveWaterProcess({...input,kind:'isentropic',end:'p',value:1}),s2=solveWaterProcess({...input,kind:'isentropic',end:'T',value:s.states[1].T});balanced(s2);close(s2.states[1].p,1,1e-6);
 });
 test('Refinement limit is reported honestly when the tolerance is not achieved',()=>{
- const q=solveWaterProcess({...input,kind:'isentropic',end:'p',value:.001});assert.equal(q.converged,false);assert.ok(q.refinement>q.tolerance);assert.ok(q.segments>=1024);
- const html=studyReportHTML('Limit',readStudyReport({entries:[{kind:'water-process',model:'IF97',input:q.input}]}),{language:'en'});assert.ok(html.includes('WARNING: tolerance not achieved'));
+ balanced(solveWaterProcess({...input,kind:'isentropic',end:'p',value:.001}));
+ const q=solveWaterProcess({fluid:'air',kind:'isothermal',mode:'pt',a:1e90,b:600,end:'p',value:1e-90},'IDEAL-CP');assert.equal(q.converged,false);assert.ok(q.refinement>q.tolerance);assert.ok(q.segments>=4096);
+ const html=studyReportHTML('Limit',readStudyReport({entries:[{kind:'water-process',model:q.model,input:q.input}]}),{language:'en'});assert.ok(html.includes('WARNING: tolerance not achieved'));
 });

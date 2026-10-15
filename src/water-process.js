@@ -50,7 +50,7 @@ export function solveWaterProcess(value,model='IF97'){
  }
  const workReference=input.kind==='polytropic'?1000*q1.p*q1.v*(input.n===1?Math.log(q2.v/q1.v):Math.expm1((1-input.n)*Math.log(q2.v/q1.v))/(1-input.n)):null;
  anchors.sort((a,b)=>a-b);let previous=null,result;
- for(let n=16;n<=1024;n*=2){
+ for(let n=16;n<=4096;n*=2){
   const times=[...new Set([...anchors,...Array.from({length:n+1},(_,i)=>i/n)])].sort((a,b)=>a-b);
   const path=times.map(t=>{if(!cache.has(t))cache.set(t,at(t));return cache.get(t);});
   let boundaryWork=0,technicalWork=0,heat=0;

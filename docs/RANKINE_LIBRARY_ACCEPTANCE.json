@@ -1,0 +1,99 @@
+{
+  "version": "1.32.0",
+  "build": "6055ac39d780",
+  "status": "passed_local",
+  "scope": "Ideal subcritical water Rankine and single-reheat recipes in the existing custom-cycle editor; 30 tool routes retained.",
+  "features": {
+    "templates": [
+      "rankine",
+      "rankine-reheat"
+    ],
+    "models": [
+      "IF97",
+      "IAPWS-95"
+    ],
+    "fluid": "water",
+    "inlets": [
+      "superheated",
+      "dry saturated x=1"
+    ],
+    "pressure_order": "0 < condenser < boiler < 22.064 MPa; reheat pressure strictly between condenser and boiler",
+    "pump": "exact isentropic ps inverse, no v*dp replacement",
+    "turbines": "ideal isentropic",
+    "heat_exchangers": "isobaric without pressure losses",
+    "components": [
+      "pump",
+      "boiler",
+      "turbine / HP + LP",
+      "reheater",
+      "condenser"
+    ],
+    "checks": "enthalpy heat/work plus discrepancies against independent path integrals; algebraic total residual explicitly distinguished",
+    "quality": "x and 1-x only when defined; superheated exits and their comparison deltas remain null",
+    "comparison": "frozen A/B, six common-range overlays, pump/turbine/reheat/exit-quality rows",
+    "storage": [
+      "input-only personal templates",
+      "JSON project",
+      "inactive unfinished builder fields",
+      "old gas draft migration"
+    ],
+    "exports": [
+      "CSV",
+      "SVG",
+      "UK/EN study reports with A/B component tables",
+      "source reopening"
+    ],
+    "background": "existing Worker, hard cancellation, edit/navigation revision guards; invalid inputs retain last verified cycle"
+  },
+  "numerical": {
+    "independent_package": "Python iapws 1.5.5, GPL-3.0, reference generation only",
+    "fixture": "tests/fixtures/rankine-library-reference.json",
+    "records": 8,
+    "cases": [
+      "simple superheated",
+      "single reheat",
+      "dry saturated inlet",
+      "superheated exit"
+    ],
+    "reference_inverse": "saturation lever rule or scipy brentq on independent s(T,P), with entropy residual check; no application results used",
+    "tests_added": 13,
+    "full_unit_count": 790,
+    "integration": "grid cap increased 1024 to 4096; unchanged tolerances and refinement/residual criteria; no algebraic integral correction"
+  },
+  "checks": {
+    "chromium": "passed final Rankine scenario, including component rows with no accidental state-selection buttons",
+    "firefox": "passed final Rankine scenario and offline standalone reheat",
+    "gas_library_regression": "passed Chromium and Firefox, including offline standalone",
+    "custom_cycle_regression": "passed Chromium on final selector",
+    "cross_browser": "all 30 tools, UK/EN, HTML/JSON, restore and 320/390/768 px passed in Chromium 154 and Firefox 157 before selector-only UI fix",
+    "calculator_async": "passed Chromium and Firefox on final build, including real IAPWS95 search, cancellation/import/restore/offline/retry",
+    "release_core": "all 14 checks passed on final build: 790 unit tests, water/transport/reactor software checks, deterministic build and package, ZIP integrity",
+    "water_process_regression": "passed Chromium and Firefox, including both water models, cancellation and offline standalone"
+  },
+  "runtime": {
+    "playwright": "1.64.1",
+    "chromium": "154.0.8037.57 system browser",
+    "firefox": "157.0"
+  },
+  "evidence": {
+    "rankine_chromium": "/tmp/132-rankine-chromium-final.log",
+    "rankine_firefox": "/tmp/132-rankine-firefox-final.log",
+    "gas_chromium": "/tmp/132-gas-chromium.log",
+    "gas_firefox": "/tmp/132-gas-firefox.log",
+    "custom_cycle": "/tmp/132-custom-chromium.log",
+    "cross_browser": "/tmp/132-cross.log",
+    "async_chromium": "/tmp/132-async-chromium.log",
+    "async_firefox": "/tmp/132-async-firefox.log",
+    "release_core": ".release/2026-10-15T15-56-21-915Z/report.json",
+    "water_chromium": "/tmp/132-water-chromium.log",
+    "water_firefox": "/tmp/132-water-firefox.log"
+  },
+  "limitations": [
+    "No regeneration, supercritical recipes, irreversible component efficiencies, pressure losses or optimization",
+    "IF97 consistency-overlap ambiguities are rejected, including the tested 1073.15 K region-boundary recipe",
+    "Moisture is not a turbine suitability criterion",
+    "No Safari or physical device touch validation",
+    "Existing reactor-cell physical screening remains failed; this water-cycle sprint makes no new neutron-model validation claim"
+  ],
+  "publication": "not published; full GitHub CI and Pages deployment are a separate step"
+}
