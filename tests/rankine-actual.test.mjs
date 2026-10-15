@@ -13,7 +13,11 @@ for(const r of refs.records)test(`Independent adiabatic reference ${r.model}: ${
  const q=buildLibraryCycle(r.input).result,d=rankineCycleDetails(q);assert.ok(q.converged&&d.actual);assert.equal(q.basis,'steady-flow');
  for(let i=0;i<q.states.length;i++)for(const [k,t]of Object.entries({p:1e-7,T:.0001,h:.0005,s:2e-6,v:2e-6})){close(q.states[i][k],r.states[i][k],t);}for(const [k,v]of Object.entries(r.metrics))close(d[k],v,k==='efficiency'?2e-7:.002);
  close(q.efficiency,r.metrics.efficiency,2e-5);close(q.netWork,r.metrics.net,q.tolerance);assert.ok(Math.abs(q.flowResidual)<=q.tolerance);assert.ok(q.efficiency>0&&q.efficiency<1);
- for(const e of q.edges.filter(e=>e.kind==='adiabatic')){const a=q.states[e.from],b=q.states[e.to],z=e.result;assert.equal(z.heat,0);assert.equal(e.heatIn,0);assert.equal(e.heatOut,0);assert.equal(z.boundaryWork,null);assert.equal(z.path.length,2);assert.ok(z.entropyGeneration>=-2e-7);close(z.technicalWork,a.h-b.h,1e-7);close(z.compression?(z.ideal.h-a.h)/(b.h-a.h):(a.h-b.h)/(a.h-z.ideal.h),z.eta,1e-7);}
+ for(const e of q.edges.filter(e=>e.kind==='adiabatic')){const a=q.states[e.from],b=q.states[e.to],z=e.result;assert.equal(z.heat,0);assert.equal(e.heatIn,0);assert.equal(e.heatOut,0);assert.equal(z.boundaryWork,null);assert.equal(z.path.length,2);assert.ok(z.entropyGeneration>=-2e-7);close(z.technicalWork,z.states[0].h-z.states[1].h,1e-12);
+ // A mixture reports the solved saturation pressure (inverse tolerance 2e-11 MPa).
+ // Re-solving at that pressure can shift enthalpy by a few 1e-7 kJ/kg across V8 versions.
+ // Keep the exact component identity above, and bound canonical endpoint agreement separately.
+ close(z.states[1].h,b.h,1e-6);close(z.technicalWork,a.h-b.h,1e-6);close(z.compression?(z.ideal.h-a.h)/(b.h-a.h):(a.h-b.h)/(a.h-z.ideal.h),z.eta,1e-7);}
  assert.equal(q.states.at(-1).x===null,r.states.at(-1).x===null);if(r.states.at(-1).x!==null)close(q.states.at(-1).x,r.states.at(-1).x,2e-6);
 });
 test('Unity efficiencies reproduce ideal endpoints and total cycle; no fake reversible heat or p-v work',()=>{

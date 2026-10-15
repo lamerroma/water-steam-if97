@@ -87,7 +87,10 @@
     "async_firefox": "/tmp/133-async-firefox.log",
     "gas_chromium": "/tmp/133-gas-chromium.log",
     "gas_firefox": "/tmp/133-gas-firefox.log",
-    "release_core": ".release/2026-10-15T17-17-30-528Z/report.json"
+    "release_core": ".release/2026-10-15T17-17-30-528Z/report.json",
+    "node22_precision_before": "/tmp/133-node22-before.log",
+    "node22_precision_fixed": "/tmp/133-node22-fixed.log",
+    "node24_precision_fixed": "/tmp/133-node24-fixed.log"
   },
   "limitations": [
     "No pressure losses, regeneration, supercritical recipes, real-gas machinery or optimization",
@@ -95,5 +98,12 @@
     "No Safari or physical touchscreen verification",
     "Existing reactor-cell physical screening remains failed; this sprint makes no neutron-model validation claim"
   ],
-  "publication": "not published; full GitHub CI and Pages deployment remain separate"
+  "publication": "not published; full GitHub CI and Pages deployment remain separate",
+  "ci_precision_fix": {
+    "initial_ci": "38784388161: all browser checks passed; three endpoint-repeat assertions failed under Node.js 22",
+    "reproduced_node22": "v22.23.3; 8/11 before fix, 11/11 after",
+    "checks": "exact own-state work identity 1e-12 kJ/kg; separately repeated canonical endpoint and work agreement 1e-6 kJ/kg, accounting for saturation P inverse 2e-11 MPa",
+    "solver_and_external_reference_tolerances": "unchanged",
+    "runtime_build": "unchanged 53f9f8c7256f"
+  }
 }
