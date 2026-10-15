@@ -681,3 +681,5 @@ body.ui-task-layout{height:auto;min-height:100dvh}
 }
 .ui-task-layout .calculator-view>.setup-pane{margin:.5rem;width:auto!important}
 .ui-task-layout:not(.diagram-active) .calculator-view>.setup-pane{order:0}
+
+.wp-plots{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:12px}.wp-plots svg{width:100%;height:auto}.water-process-panel .process-grid{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}.water-process-panel li{margin-block:8px}.wp-actions{display:flex;flex-wrap:wrap;gap:6px}

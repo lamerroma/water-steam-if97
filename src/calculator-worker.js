@@ -1,4 +1,5 @@
 import {initialize,calculate} from './engine.js';
+import {solveWaterProcess} from './water-process.js';
 import {readProject} from './project.js';
 
 // build.mjs bundles the pure module dependencies and embeds the pinned WASM.
@@ -7,7 +8,7 @@ self.onmessage=async({data})=>{
  const {id,type,payload}=data;
  try{
   await calculatorWorkerReady;
-  const result=type==='calculate'?calculate(payload.mode,payload.a,payload.b,payload.model):type==='project'?readProject(payload.text):null;
+  const result=type==='calculate'?calculate(payload.mode,payload.a,payload.b,payload.model):type==='project'?readProject(payload.text):type==='water-process'?solveWaterProcess(payload.input,payload.model):null;
   if(!result)throw Error('Unknown background operation.');
   self.postMessage({id,result});
  }catch(error){self.postMessage({id,error:error.message});}

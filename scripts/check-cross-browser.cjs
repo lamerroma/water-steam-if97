@@ -21,7 +21,7 @@ const {openTool}=require('./browser-tools.cjs');
    await page.selectOption('#language-select','uk');await page.selectOption('#language-select','en');assert.equal(await page.locator('#project-title').inputValue(),'Мій розрахунок / my project');
    const project=JSON.parse(await download(()=>page.getByRole('button',{name:'Export a JSON project',exact:true,includeHidden:true}).evaluate(e=>e.click())));assert.deepEqual(project.history,original.history);
    await page.fill('#input-a','4');await page.locator('input[type=file][accept=".json,application/json"]').setInputFiles({name:'project.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(project))});await page.waitForFunction(()=>document.querySelector('#input-a').value==='3,0');await page.reload();await page.waitForFunction(()=>!document.querySelector('#calculate').disabled);assert.equal(await page.locator('#project-title').inputValue(),'Мій розрахунок / my project');assert.equal(await page.locator('#language-select').inputValue(),'en');
-   // All 28 sections at three widths. Local scrolling is allowed for wide tables.
+   // All sections at three widths. Local scrolling is allowed for wide tables.
    const actions=await page.locator('#section-select option').evaluateAll(a=>a.map(e=>e.value));
    for(const width of [320,390,768]){
     await page.setViewportSize({width,height:844});

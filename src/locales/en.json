@@ -1684,5 +1684,8 @@
   "calculator.cancelled": "Calculation cancelled. Input values were kept.",
   "calculator.timeout": "Calculation exceeded the 60-second limit. Check the inputs or retry.",
   "calculator.workerFailed": "Background calculation could not start. Retry or reload the page.",
-  "workspace.history": "Calculation history"
+  "workspace.history": "Calculation history",
+  "tool.water-process.name": "Simple processes",
+  "tool.water-process.description": "Isobaric, isochoric, isothermal and isentropic paths: heat, work and balances.",
+  "tool.water-process.limits": "Reversible equilibrium pure-water processes; MPa absolute, K, kJ/kg. Integration accuracy is checked separately."
 }
