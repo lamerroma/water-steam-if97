@@ -1,6 +1,6 @@
 {
   "name": "water-steam-if97-uk",
-  "version": "1.32.0",
+  "version": "1.33.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -52,7 +52,8 @@
     "test:processes-extended": "node scripts/check-processes-extended-browser.cjs",
     "test:rankine-library": "node scripts/check-rankine-library-browser.cjs",
     "test:cycle-library": "node scripts/check-cycle-library-browser.cjs",
-    "test:custom-cycle": "node scripts/check-custom-cycle-browser.cjs"
+    "test:custom-cycle": "node scripts/check-custom-cycle-browser.cjs",
+    "test:rankine-efficiency": "node scripts/check-rankine-efficiency-browser.cjs"
   },
   "engines": {
     "node": ">=20"

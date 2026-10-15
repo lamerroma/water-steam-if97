@@ -1,0 +1,99 @@
+{
+  "version": "1.33.0",
+  "build": "53f9f8c7256f",
+  "status": "passed_local",
+  "scope": "Subcritical water Rankine and single-reheat with specified adiabatic machinery efficiencies; 30 tools retained.",
+  "features": {
+    "equipment": [
+      "ideal",
+      "actual"
+    ],
+    "efficiencies": [
+      "etaPump",
+      "etaHP",
+      "etaLP for reheat only"
+    ],
+    "bounds": "finite 0 < eta_s <= 1",
+    "models": [
+      "IF97",
+      "IAPWS-95"
+    ],
+    "pump": "h2=h1+(h2s-h1)/etaPump; compressed-liquid outlet required",
+    "turbine": "hout=hin-etaT*(hin-houts); each reference uses its own inlet entropy",
+    "machinery_balance": "q=0; wt=hin-hout; boundaryWork=null; sgen=sout-sin >= -2e-7 kJ/(kg K)",
+    "cycle_basis": "steady-flow for any adiabatic machinery; reversible-only cycles retain previous integration basis",
+    "diagrams": "six projections; adiabatic equipment uses dashed two-endpoint schematic connections, no claimed internal path or p-v area work",
+    "integral_checks": "unchanged for reversible edges; machine delta-integral cells null, not algebraic zero masquerading as independent verification",
+    "ideal_comparison": "regenerated from verified current Rankine states; frozen A ideal / B current",
+    "storage": [
+      "canonical adiabatic law + numeric eta",
+      "input-only personal templates",
+      "JSON project with inactive unfinished efficiencies",
+      "old drafts default ideal"
+    ],
+    "exports": [
+      "CSV eta_s",
+      "SVG with schematic descriptions",
+      "UK/EN reports, ideal/current component tables",
+      "report source reopening"
+    ],
+    "editing": "eta and outlet consistency verified; entropy decrease rejected independently of endpoint energy tolerance; next-state generator disabled for machinery",
+    "background": "existing Worker, cancellation and revision guards"
+  },
+  "numerical": {
+    "independent_package": "Python iapws 1.5.5, GPL-3.0; numerical reference generation only",
+    "fixture": "tests/fixtures/rankine-actual-reference.json",
+    "records": 8,
+    "cases": [
+      "simple",
+      "single reheat",
+      "dry saturated inlet",
+      "superheated exit"
+    ],
+    "reference_inverse": "s/h saturation lever rules or scipy brentq on independent EOS; no application outputs used",
+    "tests_added": 11,
+    "checks": [
+      "all states and component metrics vs independent references",
+      "eta=1 reproduces ideal endpoints for both models",
+      "positive entropy generation and q=0 machinery",
+      "absence of invented boundary work and path integrals",
+      "invalid efficiency/model/phase/endpoint and entropy-decrease rejection",
+      "report/project/CSV/schematic projections and ideal reconstruction"
+    ],
+    "full_unit_count": 801
+  },
+  "checks": {
+    "chromium": "passed final efficiency scenario, both water models, saturated/simple/reheat, ideal comparison, six overlays, CSV/SVG/report/source/templates/project/reload, invalid eta/outlet edits, cancellation and mobile",
+    "firefox": "passed same final scenario plus actual reheat standalone offline",
+    "custom_cycle_regression": "passed Chromium before entropy-guard-only change",
+    "ideal_rankine_regression": "passed Chromium before entropy-guard-only change; pure independent ideal tests included in core",
+    "cross_browser": "all 30 tools, UK/EN, HTML/JSON, restore, 320/390/768 px passed Chromium 154 and Firefox 157 before entropy-guard-only change",
+    "calculator_async": "passed final build in Chromium and Firefox: real IAPWS95 search, cancellation/duplicate/edit/model/import/reload/offline/retry",
+    "gas_library_regression": "passed Chromium and Firefox, including frozen A/B, project/report/unused drafts/cancellation/mobile and offline standalone",
+    "release_core": "all 14 checks passed: 801 tests, water/transport/reactor software checks, deterministic build/package and ZIP integrity"
+  },
+  "runtime": {
+    "playwright": "1.64.1",
+    "chromium": "154.0.8037.57 system",
+    "firefox": "157.0"
+  },
+  "evidence": {
+    "chromium": "/tmp/133-browser-chromium-final.log",
+    "firefox": "/tmp/133-browser-firefox-final.log",
+    "custom_cycle": "/tmp/133-custom-chromium.log",
+    "ideal_rankine": "/tmp/133-ideal-chromium.log",
+    "cross_browser": "/tmp/133-cross.log",
+    "async_chromium": "/tmp/133-async-chromium.log",
+    "async_firefox": "/tmp/133-async-firefox.log",
+    "gas_chromium": "/tmp/133-gas-chromium.log",
+    "gas_firefox": "/tmp/133-gas-firefox.log",
+    "release_core": ".release/2026-10-15T17-17-30-528Z/report.json"
+  },
+  "limitations": [
+    "No pressure losses, regeneration, supercritical recipes, real-gas machinery or optimization",
+    "Internal machinery path is not determined by isentropic efficiency; connections are schematic",
+    "No Safari or physical touchscreen verification",
+    "Existing reactor-cell physical screening remains failed; this sprint makes no neutron-model validation claim"
+  ],
+  "publication": "not published; full GitHub CI and Pages deployment remain separate"
+}
