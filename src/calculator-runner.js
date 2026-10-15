@@ -27,6 +27,8 @@ export function createCalculationRunner(createWorker,timeoutMs=60000){
  return {
   calculate:(mode,a,b,model)=>execute('calculate',{mode,a,b,model}),
   readProject:text=>execute('project',{text}),
+  customCycle:(input,model)=>execute('custom-cycle',{input,model}),
+  cyclePreset:(name,model)=>execute('cycle-preset',{name,model}),
   waterProcess:(input,model)=>execute('water-process',{input,model}),
   cancel(){if(!pending)return false;stop();finish(error('cancelled','Calculation cancelled.'));return true;},
   get busy(){return pending!==null;}

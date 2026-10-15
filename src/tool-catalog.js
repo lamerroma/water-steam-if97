@@ -1,4 +1,5 @@
 export const TOOL_CATALOG={
+  'custom-cycle':{status:'educational',aliases:'довільний цикл редактор замикання баланс ККД Карно точки процеси custom cycle editor closure balance efficiency Carnot'},
   'water-process':{status:'educational',aliases:'ізобарний ізохорний ізотермічний ізоентропний ізоентальпійний політропний газ повітря NASA7 тепло робота isenthalpic polytropic ideal gas water process heat work isobaric isochoric isothermal isentropic'},
   "general": {
     "status": "reference",

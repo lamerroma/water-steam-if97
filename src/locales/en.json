@@ -1687,5 +1687,8 @@
   "workspace.history": "Calculation history",
   "tool.water-process.name": "Simple processes",
   "tool.water-process.description": "Six simple water, steam and ideal-gas processes: heat, work and balances.",
-  "tool.water-process.limits": "Reversible equilibrium paths; IF97 / IAPWS-95 or ideal gas with constant cp, cv at 300 K / NASA7 cp(T). Polytrope pvⁿ = const; h = const is not a throttle model. MPa absolute, K, kJ/kg; integration checks are not physical uncertainty."
+  "tool.water-process.limits": "Reversible equilibrium paths; IF97 / IAPWS-95 or ideal gas with constant cp, cv at 300 K / NASA7 cp(T). Polytrope pvⁿ = const; h = const is not a throttle model. MPa absolute, K, kJ/kg; integration checks are not physical uncertainty.",
+  "tool.custom-cycle.name": "Cycle editor",
+  "tool.custom-cycle.description": "Named states, process paths, closure, heat, work and efficiency of a custom cycle.",
+  "tool.custom-cycle.limits": "Reversible equilibrium water or ideal-gas paths; 2–12 states, closed cycles from 3. Incompatible endpoints are rejected; efficiency only for a verified closed heat engine."
 }
