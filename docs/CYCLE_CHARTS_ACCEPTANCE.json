@@ -1,0 +1,82 @@
+{
+  "version": "1.30.0",
+  "build": "aa01b2635836",
+  "status": "passed_local",
+  "scope": "Cycle editor process trajectories; main steam diagrams and single-process viewer remain separate.",
+  "features": {
+    "coordinates": [
+      "ts",
+      "hs",
+      "pv",
+      "pt",
+      "ps",
+      "tv"
+    ],
+    "display": "One SVG with coordinate switch",
+    "navigation": [
+      "zoom buttons",
+      "mouse drag",
+      "horizontal touch gesture",
+      "pan buttons",
+      "arrow keys",
+      "plus/minus",
+      "Home fit",
+      "Ctrl+wheel"
+    ],
+    "state_selection": [
+      "chart marker",
+      "result table name",
+      "editor row focus",
+      "generator start state"
+    ],
+    "guides": {
+      "families": [
+        "p=const",
+        "T=const"
+      ],
+      "levels_per_family": 3,
+      "samples_per_line": 49,
+      "same_model_as_cycle": true,
+      "worker": true,
+      "phase_changes": "split segments; no interpolated two-phase bridge",
+      "extent": "cycle p/T bounds, not extended by viewport panning"
+    },
+    "persistence": [
+      "coordinates",
+      "per-coordinate ranges",
+      "guide toggle",
+      "selected state"
+    ],
+    "exports": [
+      "current SVG view",
+      "study report view",
+      "source reopening"
+    ],
+    "legacy": "Old report entries without view keep three projections; drafts without chart default to ts."
+  },
+  "checks": {
+    "numeric": "tests/cycle-chart.test.mjs: 5 scenarios passed with Node/WASM",
+    "chromium": "passed final editor scenario: six views, zoom/pan/fit, keyboard, per-view persistence, inserted-state selection, SVG/report/project/source reopening, UK/EN/mobile, both water models, cancel/import safety",
+    "firefox": "passed same final editor scenario plus offline standalone HTML",
+    "cross_browser": "Chromium 154 and Firefox 153: all 30 tools at 320/390/768 px, UK/EN and exports passed",
+    "release_core": "all 14 checks passed; 768 unit tests, water/transport/reactor checks, deterministic build/package and ZIP integrity"
+  },
+  "limitations": [
+    "No logarithmic axes or saturation dome in this viewer",
+    "Guide families stop at invalid states and phase changes; not complete two-phase isolines",
+    "No new guide samples outside the cycle bounds while panning",
+    "No real touch-device or Safari validation",
+    "No publication in implementation sprint"
+  ],
+  "evidence": {
+    "chromium": "/tmp/130-chromium-accepted.log",
+    "firefox": "/tmp/130-firefox-accepted.log",
+    "cross_browser": "/tmp/130-cross.log",
+    "numeric": "/tmp/130-guide-final.log",
+    "screenshots": [
+      "/tmp/cycle-chart-chromium-mobile.png",
+      "/tmp/cycle-chart-firefox-mobile.png"
+    ],
+    "release_core": "/workspace/water-steam-if97/.release/2026-10-15T11-59-25-910Z/report.json"
+  }
+}
