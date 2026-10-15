@@ -4,7 +4,7 @@ function workflowStates(){
  if(['general','saturation'].includes(activeSection))return last?.state?[last.state]:last?.saturation?[last.saturation.liquid,last.saturation.vapor]:[];
  if(panelForm()?.dataset.calculated!=='true')return [];
  if(['turbine','flash'].includes(activeSection)){const r=plottedProcess?.result;return [r?.inlet,r?.outlet].filter(Boolean);}
- if(activeSection==='water-process')return waterProcessResult?.states||[];
+ if(activeSection==='water-process')return waterProcessResult?.input.fluid==='water'?waterProcessResult.states:[];
  if(activeSection==='engineering')return engineeringResult?engineeringStates(engineeringResult).map(([,q])=>q):[];
  if(activeSection==='cycles')return learningResult?.input?.type==='brayton'?[]:learningResult?.states||[];
  if(activeSection==='npp')return nuclearResult?.states||[];

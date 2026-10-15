@@ -1686,6 +1686,6 @@
   "calculator.workerFailed": "Background calculation could not start. Retry or reload the page.",
   "workspace.history": "Calculation history",
   "tool.water-process.name": "Simple processes",
-  "tool.water-process.description": "Isobaric, isochoric, isothermal and isentropic paths: heat, work and balances.",
-  "tool.water-process.limits": "Reversible equilibrium pure-water processes; MPa absolute, K, kJ/kg. Integration accuracy is checked separately."
+  "tool.water-process.description": "Six simple water, steam and ideal-gas processes: heat, work and balances.",
+  "tool.water-process.limits": "Reversible equilibrium paths; IF97 / IAPWS-95 or ideal gas with constant cp, cv at 300 K / NASA7 cp(T). Polytrope pvⁿ = const; h = const is not a throttle model. MPa absolute, K, kJ/kg; integration checks are not physical uncertainty."
 }

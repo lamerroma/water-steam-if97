@@ -1,5 +1,5 @@
 export const TOOL_CATALOG={
-  'water-process':{status:'educational',aliases:'ізобарний ізохорний ізотермічний ізоентропний тепло робота water process heat work isobaric isochoric isothermal isentropic'},
+  'water-process':{status:'educational',aliases:'ізобарний ізохорний ізотермічний ізоентропний ізоентальпійний політропний газ повітря NASA7 тепло робота isenthalpic polytropic ideal gas water process heat work isobaric isochoric isothermal isentropic'},
   "general": {
     "status": "reference",
     "aliases": "температура тиск ентальпія густина теплоємність волога пара pressure temperature density enthalpy",

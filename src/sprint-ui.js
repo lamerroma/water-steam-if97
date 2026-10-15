@@ -96,7 +96,7 @@ function showProjectLibrary(){selectView('panel');activeSection='projects';$('ca
 }
 document.addEventListener('languagechange',()=>{if(activeSection==='research')showResearch();else if(activeSection==='projects')showProjectLibrary();else if(activeSection==='exchanger'&&exchangerResult)renderExchanger();});
 function openReportCalculation(entry){
- if(entry.kind==='water-process'){selectModel(entry.model);showWaterProcess(entry.input);$('wp-form').requestSubmit();return;}
+ if(entry.kind==='water-process'){if((entry.input.fluid||'water')==='water')selectModel(entry.model);showWaterProcess(entry.input,entry.model);$('wp-form').requestSubmit();return;}
  if(entry.kind==='comparison'){showStateComparison(entry.input);return;}
  if(entry.kind==='coursework'){openCourseworkEntry(entry);return;}
  if(entry.kind==='laboratory'){openLaboratoryEntry(entry);return;}

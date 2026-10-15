@@ -1,6 +1,6 @@
 {
   "name": "water-steam-if97-uk",
-  "version": "1.27.0",
+  "version": "1.28.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -48,7 +48,8 @@
     "test:study-workflow": "node scripts/check-study-workflow-browser.cjs",
     "test:task-ui": "node scripts/check-task-ui-browser.cjs",
     "test:calculator-async": "node scripts/check-calculator-async-browser.cjs",
-    "test:water-process": "node scripts/check-water-process-browser.cjs"
+    "test:water-process": "node scripts/check-water-process-browser.cjs",
+    "test:processes-extended": "node scripts/check-processes-extended-browser.cjs"
   },
   "engines": {
     "node": ">=20"

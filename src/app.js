@@ -552,7 +552,7 @@ function panelForm(){return document.querySelector('#wp-form,#process-form,#engi
 function panelInputs(form){const fields=form.id==='batch-form'?$('process-view').querySelectorAll('input,select,textarea'):form.querySelectorAll('input,select,textarea');return Object.fromEntries([...fields].filter(el=>el.id&&el.type!=='file').map(el=>[el.id,uiStoredValue(el)]));}
 function capturePanel(){if(restoringWorkspace)return;const form=panelForm();if(!form||!WORKSPACE_PANELS.includes(activeSection))return;panelRecords[activeSection]={inputs:panelInputs(form),calculated:form.dataset.calculated==='true',model:form.dataset.model||modelValue(),...(form.dataset.source?{source:form.dataset.source}:{})};}
 function panelEdited(form){form.dataset.calculated='false';form.dataset.workflowTouched='true';uiResultActions(true);}
-function panelCalculated(form,source){form.dataset.calculated='true';form.dataset.model=modelValue();uiResultActions(true);if(source)form.dataset.source=source;capturePanel();saveProject();}
+function panelCalculated(form,source,model=modelValue()){form.dataset.calculated='true';form.dataset.model=model;uiResultActions(true);if(source)form.dataset.source=source;capturePanel();saveProject();}
 function restorePanelInputs(kind,form){
  const record=panelRecords[kind];if(!record)return false;
  const previous=restoringWorkspace;restoringWorkspace=true;

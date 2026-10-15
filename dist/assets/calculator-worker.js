@@ -1354,16 +1354,84 @@ function calculate(mode,a,b,model='IF97') {
 }
 
 
+// src/gas-data.js
+// NASA TM-4513 (1993), NASA7 coefficients via Cantera. BSD-3-Clause, see vendor/CANTERA-LICENSE.
+const GAS_DATA=[{"id":"N2","M":28.013999999999996,"range":[200.0,1000.0,6000.0],"coeff":[[3.53100528,-0.000123660987,-5.02999437e-07,2.43530612e-09,-1.40881235e-12,-1046.97628,2.96747468],[2.95257626,0.00139690057,-4.92631691e-07,7.86010367e-11,-4.60755321e-15,-923.948645,5.87189252]],"sourceName":"N2"},{"id":"O2","M":31.998,"range":[200.0,1000.0,6000.0],"coeff":[[3.78245636,-0.00299673415,9.847302e-06,-9.68129508e-09,3.24372836e-12,-1063.94356,3.65767573],[3.66096083,0.000656365523,-1.41149485e-07,2.05797658e-11,-1.29913248e-15,-1215.97725,3.41536184]],"sourceName":"O2"},{"id":"CO2","M":44.009,"range":[200.0,1000.0,6000.0],"coeff":[[2.35677352,0.00898459677,-7.12356269e-06,2.45919022e-09,-1.43699548e-13,-48371.9697,9.90105222],[4.63659493,0.00274131991,-9.95828531e-07,1.60373011e-10,-9.16103468e-15,-49024.9341,-1.93534855]],"sourceName":"CO2"},{"id":"CO","M":28.009999999999998,"range":[200.0,1000.0,6000.0],"coeff":[[3.57953347,-0.00061035368,1.01681433e-06,9.07005884e-10,-9.04424499e-13,-14344.086,3.50840928],[3.04848583,0.00135172818,-4.85794075e-07,7.88536486e-11,-4.69807489e-15,-14266.1171,6.0170979]],"sourceName":"CO"},{"id":"H2","M":2.016,"range":[200.0,1000.0,6000.0],"coeff":[[2.34433112,0.00798052075,-1.9478151e-05,2.01572094e-08,-7.37611761e-12,-917.935173,0.683010238],[2.93286579,0.000826607967,-1.46402335e-07,1.54100359e-11,-6.88804432e-16,-813.065597,-1.02432887]],"sourceName":"H2"},{"id":"H2O","M":18.015,"range":[200.0,1000.0,6000.0],"coeff":[[4.19864056,-0.0020364341,6.52040211e-06,-5.48797062e-09,1.77197817e-12,-30293.7267,-0.849032208],[2.67703787,0.00297318329,-7.7376969e-07,9.44336689e-11,-4.26900959e-15,-29885.8938,6.88255571]],"sourceName":"H2O"},{"id":"CH4","M":16.043,"range":[200.0,1000.0,6000.0],"coeff":[[5.14987613,-0.0136709788,4.91800599e-05,-4.84743026e-08,1.66693956e-11,-10246.6476,-4.64130376],[1.63552643,0.0100842795,-3.36916254e-06,5.34958667e-10,-3.15518833e-14,-10005.6455,9.99313326]],"sourceName":"CH4"},{"id":"Ar","M":39.95,"range":[200.0,6000.0],"coeff":[[2.5,0.0,0.0,0.0,0.0,-745.375,4.37967491]],"sourceName":"Ar"},{"id":"He","M":4.002602,"range":[200.0,6000.0],"coeff":[[2.5,0.0,0.0,0.0,0.0,-745.375,0.928724724]],"sourceName":"He"},{"id":"NO","M":30.006000000000004,"range":[200.0,1000.0,6000.0],"coeff":[[4.21859896,-0.00463988124,1.10443049e-05,-9.34055507e-09,2.80554874e-12,9845.09964,2.28061001],[3.26071234,0.00119101135,-4.29122646e-07,6.94481463e-11,-4.03295681e-15,9921.43132,6.36900518]],"sourceName":"NO"},{"id":"SO2","M":64.058,"range":[300.0,1000.0,5000.0],"coeff":[[3.2665338,0.0053237902,6.8437552e-07,-5.2810047e-09,2.5590454e-12,-36908.148,9.66465108],[5.2451364,0.0019704204,-8.0375769e-07,1.5149969e-10,-1.0558004e-14,-37558.227,-1.07404892]],"sourceName":"SO2"},{"id":"Ne","M":20.1797,"range":[200.0,6000.0],"coeff":[[2.5,0.0,0.0,0.0,0.0,-745.375,3.35532272]],"sourceName":"Ne"}];
+
+
+// src/gases.js
+// Frozen ideal-gas thermodynamics: NASA7 / NASA TM-4513. MPa, K, kg, kJ.
+const GAS_R=8.31446261815324, GAS_P0=.101325;
+const AIR={N2:.78084,O2:.20946,Ar:.00934,CO2:.00036};
+const FLUE={N2:.73,CO2:.10,H2O:.12,O2:.05};
+function gasComposition(fractions,basis='mole'){
+ if(!['mole','mass'].includes(basis))throw Error('Базис складу: молярний або масовий.');
+ if(!fractions||typeof fractions!=='object'||Array.isArray(fractions))throw Error('Задайте склад суміші.');
+ const entries=Object.entries(fractions).map(([id,x])=>{const d=GAS_DATA.find(s=>s.id===id);if(!d||!Number.isFinite(x)||x<0)throw Error('Невідома речовина або некоректна частка: '+id);return {d,x};});
+ const total=entries.reduce((a,b)=>a+b.x,0);if(Math.abs(total-1)>1e-8)throw Error('Сума часток має дорівнювати 1 (100 %).');
+ const positive=entries.filter(s=>s.x>0);if(!positive.length)throw Error('Суміш порожня.');
+ const divisor=basis==='mass'?positive.reduce((a,b)=>a+b.x/b.d.M,0):1;
+ return positive.map(({d,x})=>({d,x:basis==='mass'?x/d.M/divisor:x}));
+}
+function gasLimits(fractions,basis='mole') {const c=gasComposition(fractions,basis);return {min:Math.max(...c.map(q=>q.d.range[0])),max:Math.min(...c.map(q=>q.d.range.at(-1)))};}
+function speciesNASA(d,T){const a=d.coeff[T<=d.range[1]?0:1];return {cp:GAS_R*(a[0]+a[1]*T+a[2]*T**2+a[3]*T**3+a[4]*T**4),h:GAS_R*T*(a[0]+a[1]*T/2+a[2]*T**2/3+a[3]*T**3/4+a[4]*T**4/5+a[5]/T),s:GAS_R*(a[0]*Math.log(T)+a[1]*T+a[2]*T**2/2+a[3]*T**3/3+a[4]*T**4/4+a[6])};}
+function gasState(p,T,fractions=AIR,basis='mole'){
+ if(!Number.isFinite(p)||p<=0||!Number.isFinite(T))throw Error('Газ: потрібні скінченні T та додатний абсолютний P.');
+ const comp=gasComposition(fractions,basis),lim=gasLimits(fractions,basis);
+ if(T<lim.min||T>lim.max)throw Error(`NASA7: для цього складу T = ${lim.min}…${lim.max} K; екстраполяція заборонена.`);
+ let M=0,cp=0,h=0,s=0;for(const q of comp){const z=speciesNASA(q.d,T);M+=q.x*q.d.M;cp+=q.x*z.cp;h+=q.x*z.h;s+=q.x*(z.s-GAS_R*Math.log(q.x*p/GAS_P0));}
+ const R=GAS_R/M;cp/=M;h/=M;s/=M;const cv=cp-R,rho=1000*p/(R*T),v=1/rho;
+ if(!(cv>0&&cp>cv))throw Error('NASA7: нефізична теплоємність.');
+ return {model:'NASA7 · ідеальний газ',p,T,M,R,cp,cv,h,s,rho,v,u:h-R*T,w:Math.sqrt(cp/cv*R*T*1000),gamma:cp/cv,Z:1,composition:Object.fromEntries(comp.map(q=>[q.d.id,q.x])),basis:'mole',limits:lim,mu:null,lambda:null};
+}
+function gasInverse(p,target,key,fractions=AIR,basis='mole'){
+ if(!['h','s'].includes(key)||!Number.isFinite(target))throw Error('Газова інверсія: скінченні h або s.');
+ const lim=gasLimits(fractions,basis);let lo=lim.min,hi=lim.max;
+ if(target<gasState(p,lo,fractions,basis)[key]-1e-10||target>gasState(p,hi,fractions,basis)[key]+1e-10)throw Error('Задана величина поза діапазоном NASA7.');
+ let T=(lo+hi)/2;for(let k=0;k<90;k++){const q=gasState(p,T,fractions,basis),error=q[key]-target;if(Math.abs(error)<1e-9)return q;if(error<0)lo=T;else hi=T;const n=T-error/(key==='h'?q.cp:q.cp/T);T=n>lo&&n<hi?n:(lo+hi)/2;}
+ throw Error('Газова інверсія не збіглася.');
+}
+
+
+// src/process-gas.js
+
+const PROCESS_GASES=['air','N2','O2','CO2','He','Ar'];
+const PROCESS_MODELS=['IF97','IAPWS-95','IDEAL-CP','IDEAL-NASA7'];
+function processGas(fluid,model){
+ if(!PROCESS_GASES.includes(fluid)||!['IDEAL-CP','IDEAL-NASA7'].includes(model))throw Error('Несумісна речовина й модель процесу. / Incompatible fluid and process model.');
+ const composition=fluid==='air'?AIR:{[fluid]:1},reference=gasState(GAS_P0,300,composition),limits=gasLimits(composition),variable=model==='IDEAL-NASA7';
+ function state(p,T){
+  if(variable)return {...gasState(p,T,composition),model,x:null};
+  if(!Number.isFinite(p)||p<=0||!Number.isFinite(T)||T<limits.min||T>limits.max)throw Error(`Ідеальний газ: T = ${limits.min}…${limits.max} K, p > 0. / Ideal gas bounds exceeded.`);
+  const {cp,cv,R}=reference,h=reference.h+cp*(T-300),s=reference.s+cp*Math.log(T/300)-R*Math.log(p/GAS_P0),v=R*T/(1000*p);
+  return {model,p,T,v,rho:1/v,h,u:h-R*T,s,cp,cv,R,gamma:cp/cv,x:null,composition,limits};
+ }
+ function evaluate(mode,a,b){
+  if(mode==='pt')return state(a,b);
+  if(mode==='ph'||mode==='ps')return variable?{...gasInverse(a,b,mode==='ph'?'h':'s',composition),model,x:null}:state(a,mode==='ph'?300+(b-reference.h)/reference.cp:300*Math.exp((b-reference.s+reference.R*Math.log(a/GAS_P0))/reference.cp));
+  if(mode==='pv')return state(a,1000*a*b/reference.R);
+  if(mode==='tv')return state(reference.R*a/(1000*b),a);
+  if(mode==='th'){const q=state(GAS_P0,a);if(Math.abs(q.h-b)>1e-6)throw Error('T та h несумісні. / Incompatible T and h.');throw Error('T та h не визначають тиск ідеального газу. / T and h do not determine ideal-gas pressure.');}
+  if(mode==='ts'){const base=state(GAS_P0,a);return state(GAS_P0*Math.exp((base.s-b)/reference.R),a);}
+  throw Error('Недоступна пара ідеального газу. / Unsupported ideal-gas pair.');
+ }
+ const get=(mode,a,b)=>{const q=evaluate(mode,a,b);if(!['p','T','v','rho','h','u','s'].every(k=>Number.isFinite(q[k]))||q.p<=0||q.v<=0||q.rho<=0)throw Error('Газовий стан виходить за числові межі. / Gas state exceeds numerical bounds.');return q;};
+ return {get,reference,limits,composition};
+}
+
+
 // src/water-process.js
 
 const waterProcessResults=new Map();
 // Only local solver/Worker output enters this cache; project imports contain inputs.
 function rememberWaterProcessResult(q){const key=JSON.stringify([q.model,readWaterProcessInput(q.input)]);if(waterProcessResults.size>=4)waterProcessResults.delete(waterProcessResults.keys().next().value);waterProcessResults.set(key,q);return q;}
 
-const WATER_PROCESS_ENDS={isobaric:['T','h','x','v'],isochoric:['T','p'],isothermal:['v','p','x'],isentropic:['p','T']};
+const WATER_PROCESS_ENDS={isobaric:['T','h','x','v'],isochoric:['T','p'],isothermal:['v','p','x'],isentropic:['p','T'],isenthalpic:['p'],polytropic:['p','v']};
 function readWaterProcessInput(value){
  const a=value;if(!a||!Object.hasOwn(WATER_PROCESS_ENDS,a.kind)||!['pt','ph','ps','px'].includes(a.mode)||!WATER_PROCESS_ENDS[a.kind].includes(a.end))throw Error('Некоректний вид процесу або гранична умова. / Invalid process or boundary condition.');
- const out={kind:a.kind,mode:a.mode,a:a.a,b:a.b,end:a.end,value:a.value,mass:a.mass??1};
+ const out={fluid:a.fluid??'water',kind:a.kind,mode:a.mode,a:a.a,b:a.b,end:a.end,value:a.value,mass:a.mass??1};
+ if(!['water',...PROCESS_GASES].includes(out.fluid)||out.fluid!=='water'&&(out.mode==='px'||out.end==='x'))throw Error('Сухість визначена лише для води. / Quality applies only to water.');
+ if(out.kind==='polytropic'){out.n=a.n;if(!Number.isFinite(out.n)||Math.abs(out.n)>20||out.n===0&&out.end==='p')throw Error('Політропа: −20 ≤ n ≤ 20; при n = 0 задайте кінцевий об’єм. / Polytrope: −20 ≤ n ≤ 20; for n = 0 specify final volume.');}
  if(![out.a,out.b,out.value,out.mass].every(Number.isFinite)||out.mass<=0)throw Error('Введіть скінченні числа та додатну масу. / Enter finite numbers and positive mass.');
  return out;
 }
@@ -1375,21 +1443,33 @@ function waterProcessState(mode,a,b,model){
 // Reversible equilibrium paths; MPa*m³/kg becomes kJ/kg with factor 1000.
 // Independent integrals are retained: no algebraic correction hides their residual.
 function solveWaterProcess(value,model='IF97'){
- if(!['IF97','IAPWS-95'].includes(model))throw Error('Unknown water model.');
+ if(!PROCESS_MODELS.includes(model))throw Error('Unknown process model.');
  const input=readWaterProcessInput(value),cacheKey=JSON.stringify([model,input]);
  if(waterProcessResults.has(cacheKey))return waterProcessResults.get(cacheKey);
- const q1=waterProcessState(input.mode,input.a,input.b,model),get=(m,a,b)=>waterProcessState(m,a,b,model);
- const q2=input.kind==='isobaric'?get('p'+input.end.toLowerCase(),q1.p,input.value):input.kind==='isochoric'?get(input.end==='T'?'tv':'pv',input.value,q1.v):input.kind==='isothermal'?(input.end==='p'?get('pt',input.value,q1.T):get(input.end==='x'?'tx':'tv',q1.T,input.value)):get(input.end==='T'?'ts':'ps',input.value,q1.s);
+ const gas=input.fluid!=='water'?processGas(input.fluid,model):null;
+ if(!gas&&!['IF97','IAPWS-95'].includes(model))throw Error('Для води оберіть IF97 або IAPWS-95. / Select a water model.');
+ const get=gas?gas.get:(m,a,b)=>waterProcessState(m,a,b,model),q1=get(input.mode,input.a,input.b);
+ let q2;
+ if(input.kind==='polytropic'){
+  const ratio=input.end==='v'?input.value/q1.v:Math.exp(Math.log(q1.p/input.value)/input.n),v=q1.v*ratio,p=q1.p*Math.exp(-input.n*Math.log(ratio));
+  if(!Number.isFinite(v)||!Number.isFinite(p)||v<=0||p<=0)throw Error('Політропа виходить за числові межі. / Polytrope exceeds numerical bounds.');
+  q2=get('pv',p,v);
+ }else q2=input.kind==='isobaric'?get('p'+input.end.toLowerCase(),q1.p,input.value):input.kind==='isochoric'?get(input.end==='T'?'tv':'pv',input.value,q1.v):input.kind==='isothermal'?(input.end==='p'?get('pt',input.value,q1.T):get(input.end==='x'?'tx':'tv',q1.T,input.value)):get(input.kind==='isenthalpic'?'ph':input.end==='T'?'ts':'ps',input.value,input.kind==='isenthalpic'?q1.h:q1.s);
  const dh=q2.h-q1.h,du=q2.u-q1.u,ds=q2.s-q1.s;
- const key={isobaric:'h',isochoric:'T',isothermal:'v',isentropic:'p'}[input.kind],log=['v','p'].includes(key),start=q1[key],finish=q2[key];
+ const key={isobaric:'h',isochoric:'T',isothermal:'v',isentropic:'p',isenthalpic:'p',polytropic:'v'}[input.kind],log=['v','p'].includes(key),start=q1[key],finish=q2[key];
  const coordinate=t=>log?start*Math.exp(t*Math.log(finish/start)):start+t*(finish-start);
- const at=t=>t===0?q1:t===1?q2:input.kind==='isobaric'?get('ph',q1.p,coordinate(t)):input.kind==='isochoric'?get('tv',coordinate(t),q1.v):input.kind==='isothermal'?get('tv',q1.T,coordinate(t)):get('ps',coordinate(t),q1.s);
+ const at=t=>t===0?q1:t===1?q2:input.kind==='isobaric'?get('ph',q1.p,coordinate(t)):input.kind==='isochoric'?get('tv',coordinate(t),q1.v):input.kind==='isothermal'?get('tv',q1.T,coordinate(t)):input.kind==='isenthalpic'?get('ph',coordinate(t),q1.h):input.kind==='polytropic'?get('pv',q1.p*Math.exp(-input.n*Math.log(coordinate(t)/q1.v)),coordinate(t)):get('ps',coordinate(t),q1.s);
  const anchors=[0,1],cache=new Map([[0,q1],[1,q2]]);
  // Explicit saturated endpoints preserve latent heat plateaus and their corners.
- if(finish!==start&&['isobaric','isothermal'].includes(input.kind)){
+ if(!gas&&finish!==start&&['isobaric','isothermal'].includes(input.kind)){
   let sat;try{sat=calculate(input.kind==='isobaric'?'satp':'satt',input.kind==='isobaric'?q1.p:q1.T,undefined,model).saturation;}catch{}
   if(sat)for(const q of [sat.liquid,sat.vapor]){const t=log?Math.log(q[key]/start)/Math.log(finish/start):(q[key]-start)/(finish-start);if(t>0&&t<1){anchors.push(t);cache.set(t,q);}}
  }
+ // NASA7 piece boundaries are explicit anchors; they are not skipped by a coarse grid.
+ if(gas&&model==='IDEAL-NASA7'&&finish!==start){
+  for(const T of [1000])if((q1.T-T)*(q2.T-T)<0){let lo=0,hi=1;for(let i=0;i<45;i++){const mid=(lo+hi)/2,q=at(mid);if((q.T<T)===(q1.T<T))lo=mid;else hi=mid;}anchors.push((lo+hi)/2);}
+ }
+ const workReference=input.kind==='polytropic'?1000*q1.p*q1.v*(input.n===1?Math.log(q2.v/q1.v):Math.expm1((1-input.n)*Math.log(q2.v/q1.v))/(1-input.n)):null;
  anchors.sort((a,b)=>a-b);let previous=null,result;
  for(let n=16;n<=1024;n*=2){
   const times=[...new Set([...anchors,...Array.from({length:n+1},(_,i)=>i/n)])].sort((a,b)=>a-b);
@@ -1399,28 +1479,32 @@ function solveWaterProcess(value,model='IF97'){
   const residual=heat-du-boundaryWork,flowResidual=heat-dh-technicalWork;
   const tolerance=.005+1e-5*Math.max(Math.abs(heat),Math.abs(boundaryWork),Math.abs(technicalWork),Math.abs(du),Math.abs(dh));
   const refinement=previous?Math.max(...['heat','boundaryWork','technicalWork'].map(k=>Math.abs(previous[k]-({heat,boundaryWork,technicalWork})[k]))):Infinity;
-  const referenceHeat=input.kind==='isobaric'?dh:input.kind==='isochoric'?du:input.kind==='isothermal'?q1.T*ds:0;
-  const heatError=heat-referenceHeat;
-  const converged=refinement<=tolerance&&Math.max(Math.abs(residual),Math.abs(flowResidual),Math.abs(heatError))<=tolerance;
-  result={input,model,states:[{...q1,name:'1'},{...q2,name:'2'}],path,dh,du,ds,heat,boundaryWork,technicalWork,residual,flowResidual,referenceHeat,heatError,tolerance,refinement,converged,segments:path.length-1};
+  const referenceHeat=input.kind==='isobaric'?dh:input.kind==='isochoric'?du:input.kind==='isothermal'||input.kind==='isenthalpic'&&gas?q1.T*ds:input.kind==='polytropic'?du+workReference:input.kind==='isenthalpic'?null:0;
+  const heatError=referenceHeat===null?null:heat-referenceHeat;
+  const workError=workReference===null?null:boundaryWork-workReference;
+  const converged=refinement<=tolerance&&Math.max(Math.abs(residual),Math.abs(flowResidual),Math.abs(heatError??0),Math.abs(workError??0))<=tolerance;
+  result={input,model,workReference,workError,states:[{...q1,name:'1'},{...q2,name:'2'}],path,dh,du,ds,heat,boundaryWork,technicalWork,residual,flowResidual,referenceHeat,heatError,tolerance,refinement,converged,segments:path.length-1};
   if(converged)break;previous={heat,boundaryWork,technicalWork};
  }
- result.total={heat:input.mass*result.heat,boundaryWork:input.mass*result.boundaryWork,technicalWork:input.mass*result.technicalWork,dh:input.mass*dh,du:input.mass*du,ds:input.mass*ds};return rememberWaterProcessResult(result);
+ result.total={heat:input.mass*result.heat,boundaryWork:input.mass*result.boundaryWork,technicalWork:input.mass*result.technicalWork,dh:input.mass*dh,du:input.mass*du,ds:input.mass*ds};if(!Object.values(result.total).every(Number.isFinite))throw Error('Повні енергії виходять за числові межі. / Total energies exceed numerical bounds.');return rememberWaterProcessResult(result);
 }
 function waterProcessSteps(q,english=false){
  const t=(uk,en)=>english?en:uk,n=x=>Number(x.toPrecision(8));
  return [t('1. Початковий стан 1 визначено за заданою парою; кінцевий стан 2 — за незмінною величиною процесу та граничною умовою.','1. State 1 is calculated from the input pair; state 2 from the process invariant and end condition.'),
  t('2. Зміни властивостей','2. Property changes')+`: Δh = ${n(q.dh)} kJ/kg; Δu = ${n(q.du)} kJ/kg; Δs = ${n(q.ds)} kJ/(kg K).`,
- t('3. Оборотний рівноважний процес: тепло q = ∫T ds; робота розширення w = 1000∫p dv; технічна робота wₜ = −1000∫v dp. Тепло до води й робота від води — додатні.','3. Reversible equilibrium process: heat q = ∫T ds; boundary work w = 1000∫p dv; technical work wₜ = −1000∫v dp. Heat into water and work out of water are positive.'),
+ t('3. Оборотний рівноважний процес: тепло q = ∫T ds; робота розширення w = 1000∫p dv; технічна робота wₜ = −1000∫v dp. Підведене тепло й виконана речовиною робота — додатні.','3. Reversible equilibrium process: heat q = ∫T ds; boundary work w = 1000∫p dv; technical work wₜ = −1000∫v dp. Heat input and work output are positive.'),
  t('4. Закрита система: q = Δu + w. Усталений потік: q = Δh + wₜ; зміни кінетичної та потенціальної енергії не враховано.','4. Closed system: q = Δu + w. Steady flow: q = Δh + wₜ; kinetic and potential energy changes are neglected.'),
- ({isobaric:'p = const: q = Δh; w = 1000p(v₂−v₁); wₜ = 0.',isochoric:'v = const: q = Δu; w = 0.',isothermal:'T = const: q = T(s₂−s₁).',isentropic:'s = const: q = 0; w = −Δu; wₜ = −Δh.'})[q.input.kind],
+ ({isobaric:'p = const: q = Δh; w = 1000p(v₂−v₁); wₜ = 0.',isochoric:'v = const: q = Δu; w = 0.',isothermal:'T = const: q = T(s₂−s₁).',isentropic:'s = const: q = 0; w = −Δu; wₜ = −Δh.',isenthalpic:'h = const: Δh = 0; q = wₜ = −1000∫v dp (reversible).',polytropic:`pvⁿ = const; n = ${q.input.n}; w = 1000p₁v₁ · expm1[(1−n)ln(v₂/v₁)]/(1−n); n = 1: w = 1000p₁v₁ln(v₂/v₁).` })[q.input.kind],
  t('5. Інтегрування методом трапецій із подвоєнням сітки. Нев’язки та зміна інтегралів мають бути менші за допуск.','5. Trapezoidal integration with grid doubling. Residuals and changes in the integrals must be smaller than the tolerance.')+` ${q.segments}; ε = ${n(q.tolerance)} kJ/kg.`,
  t('6. Повні енергії: Q = mq; W = mw. Для усталеного потоку потужність дорівнює питомій енергії, помноженій на масову витрату; введена тут маса не є витратою.','6. Total energies: Q = mq; W = mw. Steady-flow rates equal specific energies times mass flow; the mass entered here is not a flow rate.'),
+ `q − Δu − w = ${n(q.heat)} − (${n(q.du)}) − (${n(q.boundaryWork)}) = ${n(q.residual)} kJ/kg; q − Δh − wₜ = ${n(q.flowResidual)} kJ/kg.`,
+ ...(q.input.kind==='isenthalpic'?[t('Це оборотний рівноважний шлях h = const. Дросель — окрема необоротна адіабатна модель: q = 0, wₜ = 0, h₂ = h₁; ∫T ds не є теплом дроселя.','This is a reversible equilibrium h = const path. A throttle is a separate irreversible adiabatic model: q = 0, wₜ = 0, h₂ = h₁; ∫T ds is not throttle heat.')]:[]),
+ ...(q.input.fluid!=='water'?[t('Ідеальний газ фіксованого складу; хімічні реакції та конденсація не моделюються. Стала теплоємність береться при 300 K; NASA7 використовує cp(T). Абсолютні h та s мають базис NASA7 при 300 K і 0,101325 MPa.','Fixed-composition ideal gas; no reactions or condensation. Constant heat capacity is evaluated at 300 K; NASA7 uses cp(T). Absolute h and s use the NASA7 basis at 300 K and 0.101325 MPa.')+` ${q.input.fluid}; ${q.model}; R = ${n(q.states[0].R)} kJ/(kg K).`]:[]),
  t('Ізоентропний шлях тут оборотний і адіабатний. Для необоротної адіабати ентропія може зростати; цей модуль її не моделює.','The isentropic path here is reversible and adiabatic. Irreversible adiabatic processes can increase entropy and are outside this model.')];
 }
 function waterProcessRows(q,english=false){
  const t=(uk,en)=>english?en:uk;
- return [['Δh',q.dh,'kJ/kg'],['Δu',q.du,'kJ/kg'],['Δs',q.ds,'kJ/(kg K)'],[t('Питоме тепло q','Specific heat q'),q.heat,'kJ/kg'],[t('Робота розширення w','Boundary work w'),q.boundaryWork,'kJ/kg'],[t('Технічна робота wₜ','Technical work wₜ'),q.technicalWork,'kJ/kg'],['Q',q.total.heat,'kJ'],['W',q.total.boundaryWork,'kJ'],['Wₜ',q.total.technicalWork,'kJ'],[t('Нев’язка закритої системи','Closed-system residual'),q.residual,'kJ/kg'],[t('Нев’язка потоку','Flow residual'),q.flowResidual,'kJ/kg'],[t('Похибка відносно точної формули тепла','Heat identity error'),q.heatError,'kJ/kg'],[t('Зміна при згущенні','Refinement change'),q.refinement,'kJ/kg'],[t('Допуск','Tolerance'),q.tolerance,'kJ/kg']];
+ return [['Δh',q.dh,'kJ/kg'],['Δu',q.du,'kJ/kg'],['Δs',q.ds,'kJ/(kg K)'],[t('Питоме тепло q','Specific heat q'),q.heat,'kJ/kg'],[t('Робота розширення w','Boundary work w'),q.boundaryWork,'kJ/kg'],[t('Технічна робота wₜ','Technical work wₜ'),q.technicalWork,'kJ/kg'],['Q',q.total.heat,'kJ'],['W',q.total.boundaryWork,'kJ'],['Wₜ',q.total.technicalWork,'kJ'],[t('Нев’язка закритої системи','Closed-system residual'),q.residual,'kJ/kg'],[t('Нев’язка потоку','Flow residual'),q.flowResidual,'kJ/kg'],[t('Похибка відносно точної формули тепла','Heat identity error'),q.heatError,'kJ/kg'],[t('Зміна при згущенні','Refinement change'),q.refinement,'kJ/kg'],[t('Похибка аналітичної роботи','Analytical work error'),q.workError,'kJ/kg'],[t('Допуск','Tolerance'),q.tolerance,'kJ/kg']];
 }
 function waterProcessSVG(q,kind='ts',english=false){
  if(!['ts','hs'].includes(kind))throw Error('Unknown chart.');const ykey=kind==='ts'?'T':'h',xs=q.path.map(s=>s.s),ys=q.path.map(s=>s[ykey]);
@@ -2576,7 +2660,7 @@ function readStudyReport(value){
  if(!value||typeof value!=='object'||!Array.isArray(value.entries)||value.entries.length>20||JSON.stringify(value).length>1000000)throw Error('Звіт: максимум 20 блоків і 1 МБ.');
  const out={author:boundedText(value.author??'',120),assignment:boundedText(value.assignment??'',200),intro:boundedText(value.intro??'',3000),entries:[]};
  for(const e of value.entries){
-  if(!e||!['water-process','comparison','state','process','flow','npp','diagram','cycle','exchanger','research','laboratory','coursework'].includes(e.kind)||!['IF97','IAPWS-95'].includes(e.model||'IF97'))throw Error('Некоректний блок звіту.');
+  if(!e||!['water-process','comparison','state','process','flow','npp','diagram','cycle','exchanger','research','laboratory','coursework'].includes(e.kind)||!(e.kind==='water-process'?PROCESS_MODELS:['IF97','IAPWS-95']).includes(e.model||'IF97'))throw Error('Некоректний блок звіту.');
   const entry={kind:e.kind,model:e.model||'IF97',title:boundedText(e.title??'',120),comment:boundedText(e.comment??'',3000)};
   if(e.kind==='diagram'){
    const image=boundedText(e.image,300000);if(!/^data:image\/png;base64,[A-Za-z0-9+/]+={0,2}$/.test(image))throw Error('Діаграма має бути PNG.');
@@ -2632,11 +2716,11 @@ function studyReportHTML(title,report,{language='uk',version='',build=''}={}){
 }
 
 const REPORT_METRICS={primaryFlow:['Витрата першого контуру','Primary flow'],secondaryFlow:['Витрата другого контуру','Secondary flow'],heatKW:['Теплова потужність реактора','Reactor thermal power'],turbineKW:['Потужність турбіни','Turbine power'],pumpKW:['Потужність живильного насоса','Feedwater pump power'],rejectedKW:['Теплова потужність конденсатора','Condenser heat rejection'],netKW:['Потужність циклу (без генератора)','Net cycle power (without generator)'],efficiency:['ККД циклу / насоса','Cycle / pump efficiency'],steamGeneratorResidual:['Нев’язка парогенератора','Steam generator residual'],cycleResidual:['Нев’язка циклу','Cycle residual'],mass:['Масова витрата','Mass flow'],volume:['Об’ємна витрата','Volume flow'],velocity:['Швидкість','Velocity'],rho:['Густина','Density'],mu:['Динамічна в’язкість','Dynamic viscosity'],nu:['Кінематична в’язкість','Kinematic viscosity'],diameter:['Діаметр','Diameter'],length:['Довжина','Length'],roughness:['Шорсткість','Roughness'],localK:['Сума місцевих опор','Local loss coefficients'],factor:['Коефіцієнт Darcy','Darcy friction factor'],fanningFactor:['Коефіцієнт Fanning','Fanning friction factor'],frictionPressure:['Втрати тиску на тертя','Friction pressure loss'],localPressure:['Місцеві втрати тиску','Local pressure loss'],lossPressure:['Сумарні втрати тиску','Total pressure loss'],lossHead:['Втрати напору','Head loss'],requiredHead:['Баланс напору','Head balance'],pumpHead:['Напір насоса','Pump head'],hydraulicPower:['Гідравлічна потужність','Hydraulic power'],shaftPower:['Потужність на валу','Shaft power'],power:['Потужність','Power'],work:['Питома робота','Specific work'],heat:['Теплова потужність','Heat rate'],eta:['ККД','Efficiency'],flow:['Масова витрата','Mass flow'],heightDifference:['Різниця висот','Elevation difference'],pressureDifference:['Різниця тисків на межах','Boundary pressure difference'],standardVolume:['Стандартна об’ємна витрата','Standard volume flow'],area:['Площа перерізу','Area'],relativeRoughness:['Відносна шорсткість','Relative roughness'],dynamicPressure:['Динамічний тиск','Dynamic pressure']};
-function reportKindLabel(kind,language='uk'){return {'water-process':['Прості процеси води та пари','Simple water and steam processes'],comparison:['Порівняння станів','State comparison'],state:['Стан','State'],process:['Процес','Process'],flow:['Потік і гідравліка','Flow and hydraulics'],npp:['Схема АЕС','NPP scheme'],diagram:['Діаграма','Diagram'],cycle:['Цикл','Cycle'],exchanger:['Теплообмінник','Heat exchanger'],laboratory:['Лабораторна робота','Laboratory work'],coursework:['Контрольна / курсова','Coursework'],research:['Дослідження','Parameter study']}[kind]?.[language==='en'?1:0]||kind;}
+function reportKindLabel(kind,language='uk'){return {'water-process':['Прості термодинамічні процеси','Simple thermodynamic processes'],comparison:['Порівняння станів','State comparison'],state:['Стан','State'],process:['Процес','Process'],flow:['Потік і гідравліка','Flow and hydraulics'],npp:['Схема АЕС','NPP scheme'],diagram:['Діаграма','Diagram'],cycle:['Цикл','Cycle'],exchanger:['Теплообмінник','Heat exchanger'],laboratory:['Лабораторна робота','Laboratory work'],coursework:['Контрольна / курсова','Coursework'],research:['Дослідження','Parameter study']}[kind]?.[language==='en'?1:0]||kind;}
 function reportMetricLabel(key,language='uk'){return ({valid:['Коректні досліди','Valid runs'],invalid:['Неприпустимі досліди','Invalid runs'],compared:['Порівняні досліди','Compared runs'],meanDeviation:['Середнє знакове відхилення','Mean signed deviation'],heatInSpecific:['Підведене питоме тепло','Specific heat input'],hpFlow:['Витрата ЦВТ','HP flow'],lpFlow:['Витрата ЦНТ','LP flow'],separatorDrainFlow:['Дренаж сепаратора','Separator drain flow'],heatingFlow:['Гріюча пара','Heating steam flow'],hpKW:['Потужність ЦВТ','HP power'],lpKW:['Потужність ЦНТ','LP power'],reheatKW:['Тепло перегріву','Reheat duty'],beta:['Частка гріючої пари','Heating steam fraction'],massResidual:['Нев’язка маси','Mass residual'],separatorResidual:['Нев’язка сепаратора','Separator residual'],reheatResidual:['Нев’язка перегрівача','Reheater residual'],lmtd:['Середній логарифмічний напір','Log mean temperature difference'],heatTransferArea:['Площа теплообміну','Heat transfer area'],delta1:['ΔT₁','ΔT₁'],delta2:['ΔT₂','ΔT₂'],turbine:['Питома робота турбіни','Specific turbine work'],compressor:['Питома робота насоса / компресора','Specific pump / compressor work'],net:['Корисна питома робота','Net specific work'],rejected:['Відведене питоме тепло','Specific heat rejection'],balanceResidual:['Нев’язка балансу','Balance residual'],extractionFraction:['Частка витяжки','Extraction fraction']}[key]||REPORT_METRICS[key])?.[language==='en'?1:0]||key;}
 function reportInputRows(entry,english){
  const t=(uk,en)=>english?en:uk,a=entry.input;
- if(entry.kind==='water-process')return [['process',a.kind,'–'],['mode',a.mode,'–'],['a',a.a,'MPa abs'],['b',a.b,{pt:'K',ph:'kJ/kg',ps:'kJ/(kg K)',px:'fraction'}[a.mode]],['end',a.end,'–'],['value',a.value,{T:'K',h:'kJ/kg',x:'fraction',v:'m³/kg',p:'MPa abs'}[a.end]],['mass',a.mass,'kg']];
+ if(entry.kind==='water-process')return [['fluid',a.fluid||'water','–'],...(a.kind==='polytropic'?[['n',a.n,'–']]:[]),['process',a.kind,'–'],['mode',a.mode,'–'],['a',a.a,'MPa abs'],['b',a.b,{pt:'K',ph:'kJ/kg',ps:'kJ/(kg K)',px:'fraction'}[a.mode]],['end',a.end,'–'],['value',a.value,{T:'K',h:'kJ/kg',x:'fraction',v:'m³/kg',p:'MPa abs'}[a.end]],['mass',a.mass,'kg']];
  if(entry.kind==='coursework')return [...(a.kind==='reactor'?[[t('Картограма кластерів','Cluster layout'),a.controlLayout,'m; count / x; y']]:[]),...COURSE_FIELDS[a.kind].map(([k,,u,uk,en])=>[t(uk,en),a[k],u]),...[...new Set(['pumpMethod','areaMethod','cladMethod',...(a.kind==='reactor'?Object.keys(REACTOR_CHOICES):[])])].filter(k=>a[k]).map(k=>[k,a[k],'–'])];
  if(entry.kind==='laboratory')return [['scenario',a.kind,'–'],[t('Джерело даних','Data source'),a.source,'–'],[t('Умова та мета','Conditions and objective'),a.condition,'–'],[t('Висновок','Conclusion'),a.conclusion,'–'],['power quantity',a.quantity,'–'],['ηm',a.etaM,'–'],['ηg',a.etaG,'–']];
  if(entry.kind==='research')return [['module',a.module,'-'],['parameter',a.parameter,researchUnit(a.parameter)],['start',a.start,researchUnit(a.parameter)],['end',a.end,researchUnit(a.parameter)],['count',a.count,'-'],...Object.entries(a.base).map(([k,v])=>[k,v,researchUnit(k)])];
@@ -2964,7 +3048,7 @@ function engineeringCSV(kind,result,system='si'){
 const WORKSPACE_PANELS=['water-process','turbine','flash','engineering','batch','satgrid','gases','humid','cycles','ice','d2o','seawater','boundaries','comparison','flow','tutorials','npp','exchanger','laboratory','coursework'];
 const modes=['pt','ph','ps','satp','satt','px','tx','hs','th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'];
 const species=['N2','O2','CO2','CO','H2','H2O','CH4','Ar','He','Ne','NO','SO2'];
-const fields={'water-process':['wp-model','wp-kind','wp-mode','wp-a','wp-b','wp-end','wp-value','wp-mass'],coursework:['cw-controlLayout','cw-kind','cw-pumpMethod','cw-areaMethod','cw-cladMethod',...Object.keys(REACTOR_CHOICES).map(k=>'cw-'+k),...new Set(Object.values(COURSE_FIELDS).flatMap(list=>list.map(([k])=>'cw-'+k)))],laboratory:['lab-kind','lab-pressure','lab-temperature','lab-flow-unit','lab-power-unit','lab-eta-unit','lab-basis','lab-atmosphere','lab-quantity','lab-eta-m','lab-eta-g','lab-source','lab-condition','lab-conclusion','lab-data'],exchanger:['hx-arrangement','hx-hotIn','hx-hotOut','hx-coldIn','hx-coldOut','hx-heatKW','hx-U'],npp:['npp-mode','npp-pMid','npp-reheatC','npp-etaLP','npp-thermalMW','npp-primaryP','npp-coldC','npp-hotC','npp-steamP','npp-condenserP','npp-etaT','npp-etaPump'],
+const fields={'water-process':['wp-fluid','wp-n','wp-model','wp-kind','wp-mode','wp-a','wp-b','wp-end','wp-value','wp-mass'],coursework:['cw-controlLayout','cw-kind','cw-pumpMethod','cw-areaMethod','cw-cladMethod',...Object.keys(REACTOR_CHOICES).map(k=>'cw-'+k),...new Set(Object.values(COURSE_FIELDS).flatMap(list=>list.map(([k])=>'cw-'+k)))],laboratory:['lab-kind','lab-pressure','lab-temperature','lab-flow-unit','lab-power-unit','lab-eta-unit','lab-basis','lab-atmosphere','lab-quantity','lab-eta-m','lab-eta-g','lab-source','lab-condition','lab-conclusion','lab-data'],exchanger:['hx-arrangement','hx-hotIn','hx-hotOut','hx-coldIn','hx-coldOut','hx-heatKW','hx-U'],npp:['npp-mode','npp-pMid','npp-reheatC','npp-etaLP','npp-thermalMW','npp-primaryP','npp-coldC','npp-hotC','npp-steamP','npp-condenserP','npp-etaT','npp-etaPump'],
  satgrid:['satgrid-basis','satgrid-unit','satgrid-start','satgrid-end','satgrid-step'],
  tutorials:['tutorial-id'],
  flow:['flow-hydraulics','flow-length','flow-length-unit','flow-roughness','flow-roughness-unit','flow-local-k','flow-eta','flow-height','flow-pressure-difference','flow-pressure-difference-unit','flow-source','flow-fluid','flow-p','flow-t','flow-rho','flow-rho-unit','flow-viscosity','flow-visc-kind','flow-visc-unit','flow-kind','flow-value','flow-unit','flow-diameter','flow-diameter-unit','flow-standard','flow-std-p','flow-std-t','flow-M','flow-Z','flow-std-Z'],
@@ -2978,7 +3062,7 @@ const fields={'water-process':['wp-model','wp-kind','wp-mode','wp-a','wp-b','wp-
  ice:['ice-t','ice-p'],d2o:['d2o-mode','d2o-p','d2o-t'],seawater:['sw-s','sw-t','sw-p'],
  boundaries:['phase-substance','phase-kind','phase-ice','phase-value','phase-s'],comparison:['compare-mode','compare-a','compare-b']
 };
-const choices={'wp-model':['IF97','IAPWS-95'],'wp-kind':['isobaric','isochoric','isothermal','isentropic'],'wp-mode':['pt','px','ph','ps'],'wp-end':['T','h','x','v','p'],...Object.fromEntries(Object.entries(REACTOR_CHOICES).map(([k,v])=>['cw-'+k,v])),'cw-kind':['rankine','stage','core','reactor'],'cw-pumpMethod':['volume','isentropic'],'cw-areaMethod':['duct','course'],'cw-cladMethod':['polynomial','constant','guide'],'lab-kind':['saturation','turbine'],'lab-pressure':['MPa','kPa','bar','Pa','atm','psi'],'lab-temperature':['C','K','F'],'lab-flow-unit':['kgs','kgh'],'lab-power-unit':['kW','MW','W'],'lab-eta-unit':['fraction','percent'],'lab-basis':['absolute','gauge','vacuum'],'lab-quantity':['internal','electrical'],'npp-mode':['simple','msr'],'hx-arrangement':['counter','parallel'],
+const choices={'wp-fluid':['water',...PROCESS_GASES],'wp-model':PROCESS_MODELS,'wp-kind':Object.keys(WATER_PROCESS_ENDS),'wp-mode':['pt','px','ph','ps'],'wp-end':['T','h','x','v','p'],...Object.fromEntries(Object.entries(REACTOR_CHOICES).map(([k,v])=>['cw-'+k,v])),'cw-kind':['rankine','stage','core','reactor'],'cw-pumpMethod':['volume','isentropic'],'cw-areaMethod':['duct','course'],'cw-cladMethod':['polynomial','constant','guide'],'lab-kind':['saturation','turbine'],'lab-pressure':['MPa','kPa','bar','Pa','atm','psi'],'lab-temperature':['C','K','F'],'lab-flow-unit':['kgs','kgh'],'lab-power-unit':['kW','MW','W'],'lab-eta-unit':['fraction','percent'],'lab-basis':['absolute','gauge','vacuum'],'lab-quantity':['internal','electrical'],'npp-mode':['simple','msr'],'hx-arrangement':['counter','parallel'],
  'satgrid-basis':['temperature','pressure'],'satgrid-unit':['C','K','F','MPa','kPa','Pa','bar','atm','psi'],
  'tutorial-id':['saturation','wet','throttle','turbine','pipe','rankine-study','reheat-study','hydraulic-study','npp-study'],
  'flow-hydraulics':['off','on'],'flow-length-unit':['m','ft'],'flow-roughness-unit':['m','mm','inch'],'flow-pressure-difference-unit':['Pa','kPa','MPa','bar','psi'],'flow-source':['manual','water','real','gas'],'flow-fluid':['N2','O2','CO2','CO','H2','H2O','CH4','Ar','He','SO2','Ne'],'flow-rho-unit':['kgm3','lbft3'],'flow-visc-kind':['dynamic','kinematic'],'flow-visc-unit':['Pas','mPas','cP','m2s','mm2s','cSt'],'flow-kind':['mass','volume','velocity','standard'],'flow-unit':['kgs','kgh','lbs','lbh','m3s','m3h','ls','lmin','ft3min','ms','fts'],'flow-diameter-unit':['m','mm','inch'],'flow-standard':['off','normal','room','custom'],
@@ -2996,7 +3080,7 @@ function readWorkspace(value){
  if(!record(value)||!record(value.panels)||!['general','saturation','help','ts','hsdiagram','phdiagram','tutorials','study','research','projects',...WORKSPACE_PANELS].includes(value.active))throw Error('Некоректний робочий простір проєкту.');
  const panels={};
  for(const [kind,p] of Object.entries(value.panels)){
-  if(!WORKSPACE_PANELS.includes(kind)||!record(p)||!record(p.inputs)||typeof p.calculated!=='boolean'||(p.model!=null&&!['IF97','IAPWS-95'].includes(p.model)))throw Error('Некоректна вкладка проєкту.');
+  if(!WORKSPACE_PANELS.includes(kind)||!record(p)||!record(p.inputs)||typeof p.calculated!=='boolean'||(p.model!=null&&!(kind==='water-process'?PROCESS_MODELS:['IF97','IAPWS-95']).includes(p.model)))throw Error('Некоректна вкладка проєкту.');
   const inputs={};
   for(const [id,v] of Object.entries(p.inputs)){
    const unitField=id.startsWith('ui-unit-')&&fields[kind].includes(id.slice(8));
@@ -3007,6 +3091,7 @@ function readWorkspace(value){
    inputs[id]=v;
   }
   if(kind==='water-process'&&inputs['wp-kind']&&inputs['wp-end']&&!(WATER_PROCESS_ENDS[inputs['wp-kind']].includes(inputs['wp-end'])))throw Error('Несумісна гранична умова процесу.');
+  if(kind==='water-process'){const fluid=inputs['wp-fluid']||'water',model=inputs['wp-model']||p.model||'IF97';if((fluid==='water')!==['IF97','IAPWS-95'].includes(model)||fluid!=='water'&&(inputs['wp-mode']==='px'||inputs['wp-end']==='x'))throw Error('Несумісні речовина, модель або сухість процесу.');}
   if(kind==='coursework'&&inputs['cw-kind']==='reactor'){for(const [key,fallback] of Object.entries({resonanceMethod:'given',boilingMethod:'off',rodLayout:'effective'}))if(inputs['cw-'+key]===undefined)inputs['cw-'+key]=fallback;}
   if(kind==='flow'){if(inputs['flow-kind']==='standard'&&(!inputs['flow-standard']||inputs['flow-standard']==='off')||inputs['flow-source']==='water'&&inputs['flow-standard']&&inputs['flow-standard']!=='off')throw Error('Стандартні умови не відповідають джерелу або виду витрати.');const allowed={mass:['kgs','kgh','lbs','lbh'],volume:['m3s','m3h','ls','lmin','ft3min'],standard:['m3s','m3h','ls','lmin','ft3min'],velocity:['ms','fts']};if(inputs['flow-kind']&&inputs['flow-unit']&&!allowed[inputs['flow-kind']].includes(inputs['flow-unit']))throw Error('Одиниця не відповідає виду витрати.');if(inputs['flow-visc-kind']&&inputs['flow-visc-unit']&&!(inputs['flow-visc-kind']==='dynamic'?['Pas','mPas','cP']:['m2s','mm2s','cSt']).includes(inputs['flow-visc-unit']))throw Error('Одиниця не відповідає виду в’язкості.');}
   if(kind==='satgrid'&&inputs['satgrid-basis']&&inputs['satgrid-unit']&&!(inputs['satgrid-basis']==='temperature'?['C','K','F']:['MPa','kPa','Pa','bar','atm','psi']).includes(inputs['satgrid-unit']))throw Error('Одиниці не відповідають параметру таблиці насичення.');
@@ -3068,45 +3153,6 @@ function processCSV(type,r,system='si'){
  const convert=(k,v,u='')=>system==='english'?englishProperty(k,v,u):[v,u];
  const states=[['inlet',r.inlet],...(r.ideal?[['isentropic_outlet',r.ideal]]:[]),['outlet',r.outlet]];
  return '\ufeff'+[['process','state',`p [${convert('p',0,'MPa')[1]}]`,`T [${convert('T',273.15,'K')[1]}]`,`h [${convert('h',0,'kJ/kg')[1]}]`,`s [${convert('s',0,'kJ/(kg K)')[1]}]`,'x [-]'].join(';'),...states.map(([name,q])=>[type,name,convert('p',q.p)[0],convert('T',q.T)[0],convert('h',q.h)[0],convert('s',q.s)[0],q.x??''].join(';')),'',`model;${r.inlet.model||'IF97'}`,'pressure_basis;absolute','quantity;value;unit',...Object.entries(type==='turbine'?{work:r.work,power:r.power,efficiency:r.eta,flow:r.flow}:{flow:r.flow,vaporFlow:r.vaporFlow,liquidFlow:r.liquidFlow}).map(([k,v])=>(()=>{const [value,unit]=convert(k.includes('Flow')?'flow':k,v,k==='work'?'kJ/kg':k==='power'?'kW':k==='efficiency'?'-':'kg/s');return `${k};${value??''};${unit}`;})())].join('\r\n');
-}
-
-
-// src/gas-data.js
-// NASA TM-4513 (1993), NASA7 coefficients via Cantera. BSD-3-Clause, see vendor/CANTERA-LICENSE.
-const GAS_DATA=[{"id":"N2","M":28.013999999999996,"range":[200.0,1000.0,6000.0],"coeff":[[3.53100528,-0.000123660987,-5.02999437e-07,2.43530612e-09,-1.40881235e-12,-1046.97628,2.96747468],[2.95257626,0.00139690057,-4.92631691e-07,7.86010367e-11,-4.60755321e-15,-923.948645,5.87189252]],"sourceName":"N2"},{"id":"O2","M":31.998,"range":[200.0,1000.0,6000.0],"coeff":[[3.78245636,-0.00299673415,9.847302e-06,-9.68129508e-09,3.24372836e-12,-1063.94356,3.65767573],[3.66096083,0.000656365523,-1.41149485e-07,2.05797658e-11,-1.29913248e-15,-1215.97725,3.41536184]],"sourceName":"O2"},{"id":"CO2","M":44.009,"range":[200.0,1000.0,6000.0],"coeff":[[2.35677352,0.00898459677,-7.12356269e-06,2.45919022e-09,-1.43699548e-13,-48371.9697,9.90105222],[4.63659493,0.00274131991,-9.95828531e-07,1.60373011e-10,-9.16103468e-15,-49024.9341,-1.93534855]],"sourceName":"CO2"},{"id":"CO","M":28.009999999999998,"range":[200.0,1000.0,6000.0],"coeff":[[3.57953347,-0.00061035368,1.01681433e-06,9.07005884e-10,-9.04424499e-13,-14344.086,3.50840928],[3.04848583,0.00135172818,-4.85794075e-07,7.88536486e-11,-4.69807489e-15,-14266.1171,6.0170979]],"sourceName":"CO"},{"id":"H2","M":2.016,"range":[200.0,1000.0,6000.0],"coeff":[[2.34433112,0.00798052075,-1.9478151e-05,2.01572094e-08,-7.37611761e-12,-917.935173,0.683010238],[2.93286579,0.000826607967,-1.46402335e-07,1.54100359e-11,-6.88804432e-16,-813.065597,-1.02432887]],"sourceName":"H2"},{"id":"H2O","M":18.015,"range":[200.0,1000.0,6000.0],"coeff":[[4.19864056,-0.0020364341,6.52040211e-06,-5.48797062e-09,1.77197817e-12,-30293.7267,-0.849032208],[2.67703787,0.00297318329,-7.7376969e-07,9.44336689e-11,-4.26900959e-15,-29885.8938,6.88255571]],"sourceName":"H2O"},{"id":"CH4","M":16.043,"range":[200.0,1000.0,6000.0],"coeff":[[5.14987613,-0.0136709788,4.91800599e-05,-4.84743026e-08,1.66693956e-11,-10246.6476,-4.64130376],[1.63552643,0.0100842795,-3.36916254e-06,5.34958667e-10,-3.15518833e-14,-10005.6455,9.99313326]],"sourceName":"CH4"},{"id":"Ar","M":39.95,"range":[200.0,6000.0],"coeff":[[2.5,0.0,0.0,0.0,0.0,-745.375,4.37967491]],"sourceName":"Ar"},{"id":"He","M":4.002602,"range":[200.0,6000.0],"coeff":[[2.5,0.0,0.0,0.0,0.0,-745.375,0.928724724]],"sourceName":"He"},{"id":"NO","M":30.006000000000004,"range":[200.0,1000.0,6000.0],"coeff":[[4.21859896,-0.00463988124,1.10443049e-05,-9.34055507e-09,2.80554874e-12,9845.09964,2.28061001],[3.26071234,0.00119101135,-4.29122646e-07,6.94481463e-11,-4.03295681e-15,9921.43132,6.36900518]],"sourceName":"NO"},{"id":"SO2","M":64.058,"range":[300.0,1000.0,5000.0],"coeff":[[3.2665338,0.0053237902,6.8437552e-07,-5.2810047e-09,2.5590454e-12,-36908.148,9.66465108],[5.2451364,0.0019704204,-8.0375769e-07,1.5149969e-10,-1.0558004e-14,-37558.227,-1.07404892]],"sourceName":"SO2"},{"id":"Ne","M":20.1797,"range":[200.0,6000.0],"coeff":[[2.5,0.0,0.0,0.0,0.0,-745.375,3.35532272]],"sourceName":"Ne"}];
-
-
-// src/gases.js
-// Frozen ideal-gas thermodynamics: NASA7 / NASA TM-4513. MPa, K, kg, kJ.
-const GAS_R=8.31446261815324, GAS_P0=.101325;
-const AIR={N2:.78084,O2:.20946,Ar:.00934,CO2:.00036};
-const FLUE={N2:.73,CO2:.10,H2O:.12,O2:.05};
-function gasComposition(fractions,basis='mole'){
- if(!['mole','mass'].includes(basis))throw Error('Базис складу: молярний або масовий.');
- if(!fractions||typeof fractions!=='object'||Array.isArray(fractions))throw Error('Задайте склад суміші.');
- const entries=Object.entries(fractions).map(([id,x])=>{const d=GAS_DATA.find(s=>s.id===id);if(!d||!Number.isFinite(x)||x<0)throw Error('Невідома речовина або некоректна частка: '+id);return {d,x};});
- const total=entries.reduce((a,b)=>a+b.x,0);if(Math.abs(total-1)>1e-8)throw Error('Сума часток має дорівнювати 1 (100 %).');
- const positive=entries.filter(s=>s.x>0);if(!positive.length)throw Error('Суміш порожня.');
- const divisor=basis==='mass'?positive.reduce((a,b)=>a+b.x/b.d.M,0):1;
- return positive.map(({d,x})=>({d,x:basis==='mass'?x/d.M/divisor:x}));
-}
-function gasLimits(fractions,basis='mole') {const c=gasComposition(fractions,basis);return {min:Math.max(...c.map(q=>q.d.range[0])),max:Math.min(...c.map(q=>q.d.range.at(-1)))};}
-function speciesNASA(d,T){const a=d.coeff[T<=d.range[1]?0:1];return {cp:GAS_R*(a[0]+a[1]*T+a[2]*T**2+a[3]*T**3+a[4]*T**4),h:GAS_R*T*(a[0]+a[1]*T/2+a[2]*T**2/3+a[3]*T**3/4+a[4]*T**4/5+a[5]/T),s:GAS_R*(a[0]*Math.log(T)+a[1]*T+a[2]*T**2/2+a[3]*T**3/3+a[4]*T**4/4+a[6])};}
-function gasState(p,T,fractions=AIR,basis='mole'){
- if(!Number.isFinite(p)||p<=0||!Number.isFinite(T))throw Error('Газ: потрібні скінченні T та додатний абсолютний P.');
- const comp=gasComposition(fractions,basis),lim=gasLimits(fractions,basis);
- if(T<lim.min||T>lim.max)throw Error(`NASA7: для цього складу T = ${lim.min}…${lim.max} K; екстраполяція заборонена.`);
- let M=0,cp=0,h=0,s=0;for(const q of comp){const z=speciesNASA(q.d,T);M+=q.x*q.d.M;cp+=q.x*z.cp;h+=q.x*z.h;s+=q.x*(z.s-GAS_R*Math.log(q.x*p/GAS_P0));}
- const R=GAS_R/M;cp/=M;h/=M;s/=M;const cv=cp-R,rho=1000*p/(R*T),v=1/rho;
- if(!(cv>0&&cp>cv))throw Error('NASA7: нефізична теплоємність.');
- return {model:'NASA7 · ідеальний газ',p,T,M,R,cp,cv,h,s,rho,v,u:h-R*T,w:Math.sqrt(cp/cv*R*T*1000),gamma:cp/cv,Z:1,composition:Object.fromEntries(comp.map(q=>[q.d.id,q.x])),basis:'mole',limits:lim,mu:null,lambda:null};
-}
-function gasInverse(p,target,key,fractions=AIR,basis='mole'){
- if(!['h','s'].includes(key)||!Number.isFinite(target))throw Error('Газова інверсія: скінченні h або s.');
- const lim=gasLimits(fractions,basis);let lo=lim.min,hi=lim.max;
- if(target<gasState(p,lo,fractions,basis)[key]-1e-10||target>gasState(p,hi,fractions,basis)[key]+1e-10)throw Error('Задана величина поза діапазоном NASA7.');
- let T=(lo+hi)/2;for(let k=0;k<90;k++){const q=gasState(p,T,fractions,basis),error=q[key]-target;if(Math.abs(error)<1e-9)return q;if(error<0)lo=T;else hi=T;const n=T-error/(key==='h'?q.cp:q.cp/T);T=n>lo&&n<hi?n:(lo+hi)/2;}
- throw Error('Газова інверсія не збіглася.');
 }
 
 
