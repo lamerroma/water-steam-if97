@@ -77,3 +77,5 @@ CoolProp 8.0.0, MIT (https://github.com/CoolProp/CoolProp/blob/master/LICENSE), 
 Python iapws 1.5.5 (GPL-3.0, Juan José Gómez Romera) використано лише для генерації числових еталонів `tests/fixtures/rankine-library-reference.json` власною обгорткою `scripts/generate-rankine-reference.py`. Код iapws, NumPy і SciPy не входить до застосунку; звичайні тести використовують збережені числа.
 
 Числові еталони реальних циклів `tests/fixtures/rankine-actual-reference.json` отримано тим самим зовнішнім Python iapws 1.5.5 (GPL-3.0), через власний генератор з аргументом `--actual`. Код iapws, SciPy і NumPy до runtime не включено.
+
+Еталони регенерації `tests/fixtures/rankine-regeneration-reference.json` згенеровані власною обгорткою `scripts/generate-regeneration-reference.py` через зовнішній Python iapws 1.5.5 (GPL-3.0). Код iapws, SciPy і NumPy не включений до застосунку.
