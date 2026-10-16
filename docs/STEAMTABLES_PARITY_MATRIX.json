@@ -1,0 +1,1588 @@
+{
+  "version": 1,
+  "updated": "2026-10-16",
+  "baseline_version": "1.35.0",
+  "baseline_commit": "2c3bfe83d6b3f772018334074bdfa6df0abaa215",
+  "goal": "All calculations available in the referenced Steam97Web calculator must be covered before further capability expansion.",
+  "status": "initial_inventory_not_complete",
+  "scope": {
+    "target": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
+    "include": "All calculator tabs and available model/phase/input/units/domain variants, including features marked as requiring registration. Workflow parity tracked separately.",
+    "external_applications": "Linked spreadsheets, desktop/DLL/add-ins and other standalone sites are separate scope candidates; do not infer inclusion solely from an outbound link.",
+    "pixel_identity_required": false
+  },
+  "evidence": {
+    "sources": [
+      "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
+      "https://www.steamtablesonline.com/help.aspx",
+      "https://www.steamtablesonline.com/ru/help_ru.aspx",
+      "https://www.steamtablesonline.com/ru/default_ru.aspx"
+    ],
+    "method": "Official help and indexed public interface retrieved with web tools, plus current repository inspection.",
+    "interactive_reference": "Blocked by executor proxy policy (CONNECT 403); no new live numerical cases or authenticated controls tested.",
+    "historical_comparison": "docs/COMPARISON.md records one historical steam state; this is not a new full-site verification.",
+    "reference_inventory_complete": false,
+    "coverage_percentage": null
+  },
+  "statuses": {
+    "implementation": [
+      "present",
+      "partial",
+      "missing"
+    ],
+    "parity": [
+      "requires_reference_cases",
+      "known_gap",
+      "verified"
+    ],
+    "verified_rule": "Exact input/model/phase/units/domain and required outputs enumerated; case results and tolerances with independent checks retained; user operation tested. Existing local tests alone do not close reference parity."
+  },
+  "reference_input_pairs": {
+    "IF97": [
+      "pt",
+      "ph",
+      "ps",
+      "pv",
+      "pu",
+      "th",
+      "ts",
+      "tv",
+      "tu",
+      "hs",
+      "us",
+      "vs",
+      "hv",
+      "uv",
+      "px",
+      "tx"
+    ],
+    "IAPWS-95": [
+      "pt",
+      "ph",
+      "ps",
+      "pv",
+      "pu",
+      "th",
+      "ts",
+      "tv",
+      "tu",
+      "px",
+      "tx"
+    ]
+  },
+  "reference_gas_components": [
+    "Ar",
+    "CO",
+    "CO2",
+    "H2O",
+    "N2",
+    "Ne",
+    "O2",
+    "SO2"
+  ],
+  "rows": [
+    {
+      "id": "input-if97-pt",
+      "group": "water-inputs",
+      "feature": "IF97: PT",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-if97-ph",
+      "group": "water-inputs",
+      "feature": "IF97: PH",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-if97-ps",
+      "group": "water-inputs",
+      "feature": "IF97: PS",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-if97-pv",
+      "group": "water-inputs",
+      "feature": "IF97: PV",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-if97-pu",
+      "group": "water-inputs",
+      "feature": "IF97: PU",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-if97-th",
+      "group": "water-inputs",
+      "feature": "IF97: TH",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-if97-ts",
+      "group": "water-inputs",
+      "feature": "IF97: TS",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-if97-tv",
+      "group": "water-inputs",
+      "feature": "IF97: TV",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-if97-tu",
+      "group": "water-inputs",
+      "feature": "IF97: TU",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-if97-hs",
+      "group": "water-inputs",
+      "feature": "IF97: HS",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-if97-us",
+      "group": "water-inputs",
+      "feature": "IF97: US",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-if97-vs",
+      "group": "water-inputs",
+      "feature": "IF97: VS",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-if97-hv",
+      "group": "water-inputs",
+      "feature": "IF97: HV",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-if97-uv",
+      "group": "water-inputs",
+      "feature": "IF97: UV",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-if97-px",
+      "group": "water-inputs",
+      "feature": "IF97: PX",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-if97-tx",
+      "group": "water-inputs",
+      "feature": "IF97: TX",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-iapws-95-pt",
+      "group": "water-inputs",
+      "feature": "IAPWS-95: PT",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-iapws-95-ph",
+      "group": "water-inputs",
+      "feature": "IAPWS-95: PH",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-iapws-95-ps",
+      "group": "water-inputs",
+      "feature": "IAPWS-95: PS",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-iapws-95-pv",
+      "group": "water-inputs",
+      "feature": "IAPWS-95: PV",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-iapws-95-pu",
+      "group": "water-inputs",
+      "feature": "IAPWS-95: PU",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-iapws-95-th",
+      "group": "water-inputs",
+      "feature": "IAPWS-95: TH",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-iapws-95-ts",
+      "group": "water-inputs",
+      "feature": "IAPWS-95: TS",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-iapws-95-tv",
+      "group": "water-inputs",
+      "feature": "IAPWS-95: TV",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-iapws-95-tu",
+      "group": "water-inputs",
+      "feature": "IAPWS-95: TU",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-iapws-95-px",
+      "group": "water-inputs",
+      "feature": "IAPWS-95: PX",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "input-iapws-95-tx",
+      "group": "water-inputs",
+      "feature": "IAPWS-95: TX",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/calculator-worker.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website."
+    },
+    {
+      "id": "property-p",
+      "group": "water-properties",
+      "feature": "p (p)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-T",
+      "group": "water-properties",
+      "feature": "T (T)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-density",
+      "group": "water-properties",
+      "feature": "density (rho)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-volume",
+      "group": "water-properties",
+      "feature": "volume (v)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-enthalpy",
+      "group": "water-properties",
+      "feature": "enthalpy (h)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-entropy",
+      "group": "water-properties",
+      "feature": "entropy (s)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-exergy",
+      "group": "water-properties",
+      "feature": "exergy (ex)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js",
+        "src/exergy.js"
+      ],
+      "existing_checks": [
+        "tests/exergy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain. Match ambient/reference convention before comparing values."
+    },
+    {
+      "id": "property-internal-energy",
+      "group": "water-properties",
+      "feature": "internal-energy (u)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-cp",
+      "group": "water-properties",
+      "feature": "cp (cp)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-cv",
+      "group": "water-properties",
+      "feature": "cv (cv)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-sound",
+      "group": "water-properties",
+      "feature": "sound (w)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-isentropic-exponent",
+      "group": "water-properties",
+      "feature": "isentropic-exponent (isentropic)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-helmholtz",
+      "group": "water-properties",
+      "feature": "helmholtz (A)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-gibbs",
+      "group": "water-properties",
+      "feature": "gibbs (G)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-compressibility-factor",
+      "group": "water-properties",
+      "feature": "compressibility-factor (Z)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-quality",
+      "group": "water-properties",
+      "feature": "quality (x)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-region",
+      "group": "water-properties",
+      "feature": "region (region)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain. Region labels apply to IF97."
+    },
+    {
+      "id": "property-expansion",
+      "group": "water-properties",
+      "feature": "expansion (alpha)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-compressibility",
+      "group": "water-properties",
+      "feature": "compressibility (kappa)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-dv-dT-p",
+      "group": "water-properties",
+      "feature": "dv-dT-p (dvdt)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-dv-dp-T",
+      "group": "water-properties",
+      "feature": "dv-dp-T (dvdp)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-dp-dT-v",
+      "group": "water-properties",
+      "feature": "dp-dT-v (dpdt)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-dp-dv-T",
+      "group": "water-properties",
+      "feature": "dp-dv-T (dpdv)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-isothermal-jt",
+      "group": "water-properties",
+      "feature": "isothermal-jt (ijt)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-jt",
+      "group": "water-properties",
+      "feature": "jt (jt)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-dielectric",
+      "group": "water-properties",
+      "feature": "dielectric (dc)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/dielectric.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain. Reference help assigns this property to IAPWS-95; our IF97-density variant must not stand in for that comparison."
+    },
+    {
+      "id": "property-viscosity",
+      "group": "water-properties",
+      "feature": "viscosity (mu)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-kinematic-viscosity",
+      "group": "water-properties",
+      "feature": "kinematic-viscosity (nu)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-conductivity",
+      "group": "water-properties",
+      "feature": "conductivity (lambda)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-diffusivity",
+      "group": "water-properties",
+      "feature": "diffusivity (diffusivity)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-prandtl",
+      "group": "water-properties",
+      "feature": "prandtl (Pr)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "property-surface-tension",
+      "group": "water-properties",
+      "feature": "surface-tension (sigma)",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/iapws95.js",
+        "src/export.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/water-accuracy.test.mjs"
+      ],
+      "notes": "Compare definition, reference state, units, phase availability and validity domain."
+    },
+    {
+      "id": "saturation-selector",
+      "group": "saturation",
+      "feature": "Complete set of saturation input functions",
+      "scope": "calculation",
+      "implementation": "partial",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/saturation-grid.js"
+      ],
+      "existing_checks": [
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Help mentions 15 saturation selector functions but does not enumerate them consistently; full selector inventory remains open. Having satp/satt/px/tx does not prove coverage."
+    },
+    {
+      "id": "domain-if97",
+      "group": "domains",
+      "feature": "IF97 full reference domain and inverse support",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/equations.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/official.test.mjs",
+        "tests/all-modes.test.mjs"
+      ],
+      "notes": "Need domain-by-property comparison and numerical cases at boundaries; nominal formulation range alone is insufficient."
+    },
+    {
+      "id": "domain-iapws95",
+      "group": "domains",
+      "feature": "IAPWS-95 reference domain",
+      "scope": "calculation",
+      "implementation": "partial",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/iapws95.js",
+        "src/extra-inputs.js"
+      ],
+      "existing_checks": [
+        "tests/iapws95.test.mjs"
+      ],
+      "notes": "Website help claims a wider calculation domain than our implemented bounds. Verify actual website points, phase/melting restrictions and any extrapolation separately from authoritative validity."
+    },
+    {
+      "id": "domain-transport",
+      "group": "domains",
+      "feature": "Transport-property domains",
+      "scope": "calculation",
+      "implementation": "partial",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/transport.js",
+        "src/iapws95.js"
+      ],
+      "existing_checks": [
+        "tests/transport-domain.test.mjs"
+      ],
+      "notes": "Compare formulation versions and low/high-temperature/high-pressure availability for each property, including valid phase outputs."
+    },
+    {
+      "id": "turbine-power",
+      "group": "turbine",
+      "feature": "Steam turbine: power",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/processes.js",
+        "src/app.js"
+      ],
+      "existing_checks": [
+        "tests/processes.test.mjs",
+        "tests/english-units.test.mjs"
+      ],
+      "notes": "Match all inputs and outputs, steam specific consumption, inlet/exhaust states and unit choices; complete reference field inventory is still required."
+    },
+    {
+      "id": "turbine-flow",
+      "group": "turbine",
+      "feature": "Steam turbine: flow",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/processes.js",
+        "src/app.js"
+      ],
+      "existing_checks": [
+        "tests/processes.test.mjs",
+        "tests/english-units.test.mjs"
+      ],
+      "notes": "Match all inputs and outputs, steam specific consumption, inlet/exhaust states and unit choices; complete reference field inventory is still required."
+    },
+    {
+      "id": "turbine-efficiency",
+      "group": "turbine",
+      "feature": "Steam turbine: efficiency",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/processes.js",
+        "src/app.js"
+      ],
+      "existing_checks": [
+        "tests/processes.test.mjs",
+        "tests/english-units.test.mjs"
+      ],
+      "notes": "Match all inputs and outputs, steam specific consumption, inlet/exhaust states and unit choices; complete reference field inventory is still required."
+    },
+    {
+      "id": "flash-saturated",
+      "group": "flash",
+      "feature": "Flash condensate: saturated",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/processes.js",
+        "src/app.js"
+      ],
+      "existing_checks": [
+        "tests/processes.test.mjs"
+      ],
+      "notes": "Compare steam percentage, vapor/liquid flows, inlet/outlet states and both water models where supported by the reference."
+    },
+    {
+      "id": "flash-subcooled",
+      "group": "flash",
+      "feature": "Flash condensate: subcooled",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/processes.js",
+        "src/app.js"
+      ],
+      "existing_checks": [
+        "tests/processes.test.mjs"
+      ],
+      "notes": "Compare steam percentage, vapor/liquid flows, inlet/outlet states and both water models where supported by the reference."
+    },
+    {
+      "id": "diagram-ts",
+      "group": "diagrams",
+      "feature": "ts",
+      "scope": "workflow",
+      "implementation": "partial",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/diagram-chart.js",
+        "src/diagram-workspace.js",
+        "src/diagram-units.js"
+      ],
+      "existing_checks": [
+        "tests/diagram-units.test.mjs",
+        "scripts/check-diagram-browser.cjs"
+      ],
+      "notes": "Check corresponding view, domain, background families, displayed units and usable point/series operations. A general h-s view does not yet prove the dedicated vapor view is equivalent."
+    },
+    {
+      "id": "diagram-hs",
+      "group": "diagrams",
+      "feature": "hs",
+      "scope": "workflow",
+      "implementation": "partial",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/diagram-chart.js",
+        "src/diagram-workspace.js",
+        "src/diagram-units.js"
+      ],
+      "existing_checks": [
+        "tests/diagram-units.test.mjs",
+        "scripts/check-diagram-browser.cjs"
+      ],
+      "notes": "Check corresponding view, domain, background families, displayed units and usable point/series operations. A general h-s view does not yet prove the dedicated vapor view is equivalent."
+    },
+    {
+      "id": "diagram-hs-vapor",
+      "group": "diagrams",
+      "feature": "hs-vapor",
+      "scope": "workflow",
+      "implementation": "partial",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/diagram-chart.js",
+        "src/diagram-workspace.js",
+        "src/diagram-units.js"
+      ],
+      "existing_checks": [
+        "tests/diagram-units.test.mjs",
+        "scripts/check-diagram-browser.cjs"
+      ],
+      "notes": "Check corresponding view, domain, background families, displayed units and usable point/series operations. A general h-s view does not yet prove the dedicated vapor view is equivalent."
+    },
+    {
+      "id": "diagram-points-series",
+      "group": "diagrams",
+      "feature": "Point labels/style, named lines/curves and editing",
+      "scope": "workflow",
+      "implementation": "partial",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/diagram-workspace.js",
+        "src/workspace.js"
+      ],
+      "existing_checks": [
+        "tests/diagram-workspace.test.mjs"
+      ],
+      "notes": "Compare actual reference series controls and interpolation behavior; distinguish drawing interpolation from a thermodynamic process."
+    },
+    {
+      "id": "diagram-export-print",
+      "group": "diagrams",
+      "feature": "Save and print diagrams",
+      "scope": "workflow",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/diagram-svg.js",
+        "src/study-report.js"
+      ],
+      "existing_checks": [
+        "scripts/check-diagram-browser.cjs"
+      ],
+      "notes": "Verify practical equivalent result and units; pixel identity is not a completion criterion."
+    },
+    {
+      "id": "units",
+      "group": "units",
+      "feature": "SI and English inputs, outputs and charts",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/units.js",
+        "src/ui-quantities.js",
+        "src/diagram-units.js"
+      ],
+      "existing_checks": [
+        "tests/english-units.test.mjs",
+        "tests/diagram-units.test.mjs"
+      ],
+      "notes": "Inventory every reference unit and conversion, not only the system switch."
+    },
+    {
+      "id": "formulation-ambient",
+      "group": "water-settings",
+      "feature": "Model selection and ambient exergy settings",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/engine.js",
+        "src/exergy.js",
+        "src/app.js"
+      ],
+      "existing_checks": [
+        "tests/exergy.test.mjs"
+      ],
+      "notes": "Use the same ambient and energy/entropy reference convention for comparison."
+    },
+    {
+      "id": "gas-fixed-mixture",
+      "group": "gas-tables",
+      "feature": "Eight-component frozen-mixture caloric calculations",
+      "scope": "calculation",
+      "implementation": "partial",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/gases.js",
+        "src/gas-data.js"
+      ],
+      "existing_checks": [
+        "tests/gas-primary-controls.test.mjs"
+      ],
+      "notes": "Reference components: Ar, CO, CO2, H2O, N2, Ne, O2, SO2. Our NASA7 model differs from the reference Buecker/Span/Wagner model; reference h/s basis, temperature limits and composition basis must be verified."
+    },
+    {
+      "id": "gas-dissociation",
+      "group": "gas-tables",
+      "feature": "Combustion-gas dissociation",
+      "scope": "calculation",
+      "implementation": "missing",
+      "parity": "known_gap",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/gases.js",
+        "docs/COMPARISON.md"
+      ],
+      "existing_checks": [],
+      "notes": "Previously excluded. Now mandatory for parity; requires documented model, equilibrium/composition constraints, caloric properties and independent numerical references."
+    },
+    {
+      "id": "export-csv",
+      "group": "export",
+      "feature": "CSV and Unicode CSV",
+      "scope": "workflow",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/export.js",
+        "src/learning-export.js"
+      ],
+      "existing_checks": [
+        "tests/english-units.test.mjs"
+      ],
+      "notes": "Compare units, numeric values, Unicode and exported sets of results."
+    },
+    {
+      "id": "export-xls",
+      "group": "export",
+      "feature": "XLS export",
+      "scope": "workflow",
+      "implementation": "missing",
+      "parity": "known_gap",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/export.js",
+        "src/learning-export.js"
+      ],
+      "existing_checks": [],
+      "notes": "Listed in official calculator help; no dedicated implementation found in current source. CSV is not the same file format."
+    },
+    {
+      "id": "export-xlsx",
+      "group": "export",
+      "feature": "XLSX export",
+      "scope": "workflow",
+      "implementation": "missing",
+      "parity": "known_gap",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/export.js",
+        "src/learning-export.js"
+      ],
+      "existing_checks": [],
+      "notes": "Listed in official calculator help; no dedicated implementation found in current source. CSV is not the same file format."
+    },
+    {
+      "id": "export-ods",
+      "group": "export",
+      "feature": "ODS export",
+      "scope": "workflow",
+      "implementation": "missing",
+      "parity": "known_gap",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/export.js",
+        "src/learning-export.js"
+      ],
+      "existing_checks": [],
+      "notes": "Listed in official calculator help; no dedicated implementation found in current source. CSV is not the same file format."
+    },
+    {
+      "id": "clear-results",
+      "group": "workspace",
+      "feature": "New/clear and calculation history",
+      "scope": "workflow",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/app.js",
+        "src/project.js"
+      ],
+      "existing_checks": [
+        "scripts/check-cross-browser.cjs"
+      ],
+      "notes": "Verify corresponding user operations and retained units/formulation settings."
+    }
+  ],
+  "open_inventory_questions": [
+    "Complete saturation selector list; help text is inconsistent and currently not enough to enumerate every option.",
+    "All controls and conditions for the three turbine calculators, including any wet/saturated input option.",
+    "Dedicated vapor h-s view and all point/line/curve/background controls.",
+    "Actual numerical results and constraints for registered/premium features.",
+    "Gas percentage basis, enthalpy/entropy reference convention, model/domain and dissociation controls.",
+    "Verify which of the wider domain claims are operational, model-valid or explicit extrapolation."
+  ],
+  "next_steps": [
+    "Finish reference inventory with permitted interactive access and retain cases.",
+    "Prioritize mandatory calculation gaps; do not reclassify missing reference features as optional expansion.",
+    "Implement missing calculations with independent validation and matched UI scenarios.",
+    "Close remaining units/diagrams/export workflow differences, run regression, then approve the full-parity milestone."
+  ]
+}
