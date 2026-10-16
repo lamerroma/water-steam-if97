@@ -1,6 +1,6 @@
 {
   "name": "water-steam-if97-uk",
-  "version": "1.35.0",
+  "version": "1.35.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -55,6 +55,7 @@
     "test:custom-cycle": "node scripts/check-custom-cycle-browser.cjs",
     "test:rankine-efficiency": "node scripts/check-rankine-efficiency-browser.cjs",
     "test:rankine-regeneration": "node scripts/check-rankine-regeneration-browser.cjs",
+    "test:inverse-boundaries": "node scripts/check-inverse-boundaries-browser.cjs",
     "test:rankine-sweep": "node scripts/check-rankine-sweep-browser.cjs"
   },
   "engines": {

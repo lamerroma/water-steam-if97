@@ -24,7 +24,11 @@ test('Built background kernel preserves all 20 modes for both water models',asyn
    }
   }
   assert.equal(count,40);
-  for(const model of ['IF97','IAPWS-95'])for(const [a,b] of [[22.064,647.096],[100,623.16]])assert.deepEqual(await execute('calculate',{mode:'pt',a,b,model}),structuredClone(calculate('pt',a,b,model)));
+  for(const model of ['IF97','IAPWS-95'])for(const [a,b] of (model==='IF97'?[[22.064,647.096],[100,623.16]]:[[100,623.16]]))assert.deepEqual(await execute('calculate',{mode:'pt',a,b,model}),structuredClone(calculate('pt',a,b,model)));
+
+  await assert.rejects(execute('calculate',{mode:'pt',a:22.064,b:647.096,model:'IAPWS-95'}),/критична точка/);
+  const edge=JSON.parse(await readFile(new URL('fixtures/inverse-boundary-reference.json',import.meta.url),'utf8')).records;
+  for(const [name,mode,key] of [['critical-label','th','h'],['B23','pv','v'],['region5-maxP','th','h'],['region25','hs','s']]){const q=edge.find(q=>q.name===name).expected,a=mode==='pv'?q.P:mode==='hs'?q.h:q.T;assert.deepEqual(await execute('calculate',{mode,a,b:q[key],model:'IF97'}),structuredClone(calculate(mode,a,q[key])));}
 
   const config={kind:'otto',fluid:'air',model:'IDEAL-NASA7',p1:.1,T1:300,mass:1,ratio:8,heatMode:'heat',heat:600},cycle=await execute('library-cycle',{input:config});assert.deepEqual(cycle,structuredClone(buildLibraryCycle(config)));
   const comparison={kind:'pv',slots:[{name:'A',model:cycle.model,input:cycle.input},{name:'B',model:cycle.model,input:cycle.input}]};assert.deepEqual(await execute('cycle-comparison',{input:comparison}),structuredClone(compareLibraryCycles(comparison)));

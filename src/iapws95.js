@@ -86,13 +86,13 @@ export function saturationP95(p){
 function density95(p,T,side,sat){
  let rho=side==='liquid'?(sat?.liquid.rho||1000):p*1000/(R95*T);
  if(T>=T95C)rho=p>30?700:Math.min(600,rho);
- for(let i=0;i<90;i++){const q=raw95(T,rho),err=q.p-p;if(q.drhodp>0&&Math.abs(err)<Math.max(2e-10,p*2e-11))return q;const step=err*q.drhodp;let ok=false;for(let f=1;f>2**-25;f/=2){const r=rho-f*step;if(!(r>0&&r<1800)||(side==='liquid'&&sat&&r<sat.liquid.rho*(1-1e-7))||(side==='vapor'&&sat&&r>sat.vapor.rho*(1+1e-7)))continue;const n=raw95(T,r);if(n.drhodp>0&&Math.abs(n.p-p)<Math.abs(err)){rho=r;ok=true;break;}}if(!ok)break;}
+ for(let i=0;i<90;i++){const q=raw95(T,rho),err=q.p-p;if(q.drhodp>0&&Math.abs(err)<Math.max(2e-10,p*2e-13))return q;const step=err*q.drhodp;let ok=false;for(let f=1;f>2**-25;f/=2){const r=rho-f*step;if(!(r>0&&r<1800)||(side==='liquid'&&sat&&r<sat.liquid.rho*(1-1e-7))||(side==='vapor'&&sat&&r>sat.vapor.rho*(1+1e-7)))continue;const n=raw95(T,r);if(n.drhodp>0&&Math.abs(n.p-p)<Math.abs(err)){rho=r;ok=true;break;}}if(!ok)break;}
  // Stable phase-specific bracket; never select an unstable intermediate root.
  let lo=side==='liquid'?sat?.liquid.rho||D95C:1e-12,hi=side==='vapor'?sat?.vapor.rho||D95C:1800;
- for(let i=0;i<100;i++){const mid=(lo+hi)/2,q=raw95(T,mid);if(Math.abs(q.p-p)<Math.max(2e-10,p*2e-11)&&q.drhodp>0)return q;if(q.p>p)hi=mid;else lo=mid;}
+ for(let i=0;i<100;i++){const mid=(lo+hi)/2,q=raw95(T,mid);if(Math.abs(q.p-p)<Math.max(2e-10,p*2e-13)&&q.drhodp>0)return q;if(q.p>p)hi=mid;else lo=mid;}
  throw Error('IAPWS-95: не знайдено стабільний корінь густини.');
 }
-export function solvePT95(p,T){bounds95(p,T);let sat,side;if(T<T95C){sat=saturationT95(T);if(Math.abs(p-sat.p)<Math.max(3e-10,sat.p*1e-9))return {saturation:sat,ambiguous:true};side=p>sat.p?'liquid':'vapor';}const q=density95(p,T,side,sat);return {state:decorate95({...q,p},side==='liquid'?'Стиснена рідина':side==='vapor'?'Перегріта пара':p>=P95C?'Надкритичний флюїд':'Газ / перегріта пара')};}
+export function solvePT95(p,T){bounds95(p,T);if(p===P95C&&T===T95C)throw Error('Точна критична точка IAPWS-95: сингулярні похідні; використайте стан поза нею.');let sat,side;if(T<T95C){sat=saturationT95(T);if(Math.abs(p-sat.p)<Math.max(3e-10,sat.p*1e-9))return {saturation:sat,ambiguous:true};side=p>sat.p?'liquid':'vapor';}const q=density95(p,T,side,sat);return {state:decorate95({...q,p},side==='liquid'?'Стиснена рідина':side==='vapor'?'Перегріта пара':p>=P95C?'Надкритичний флюїд':'Газ / перегріта пара')};}
 function mixture95(sat,x){if(!Number.isFinite(x)||x<0||x>1)throw Error('Ступінь сухості має бути 0…1.');if(x===0)return {...sat.liquid};if(x===1)return {...sat.vapor};const blend=k=>sat.liquid[k]+x*(sat.vapor[k]-sat.liquid[k]),v=blend('v'),q={...sat.liquid,x,phase:'Двофазна суміш',v,rho:1/v,h:blend('h'),s:blend('s'),u:blend('u'),sigma:surfaceTension(sat.T)};for(const k of ['cp','cv','w','mu','nu','lambda','diffusivity','Pr','dc','alpha','kappa','dvdt','dvdp','dpdt','dpdv','jt','ijt','isentropic','drhodp'])q[k]=null;return {...q,A:q.u-q.T*q.s,G:q.h-q.T*q.s,Z:1000*q.p*q.v/R95/q.T,notes:['Двофазна суміш IAPWS-95: h,s,u,v — масовий баланс фаз; похідні та транспортні властивості суміші не визначаються усередненням.']};}
 export function inverse95(p,target,key){if(!Number.isFinite(target))throw Error('Введіть скінченне значення.');bounds95(p,Math.max(715,273.16));let sat;if(p>=.000611654771&&p<P95C){sat=saturationP95(p);const tolerance=key==='s'?2e-12:2e-9;if(Math.abs(target-sat.liquid[key])<=tolerance)return {state:{...sat.liquid},saturation:sat};if(Math.abs(target-sat.vapor[key])<=tolerance)return {state:{...sat.vapor},saturation:sat};if(target>=sat.liquid[key]&&target<=sat.vapor[key])return {state:mixture95(sat,(target-sat.liquid[key])/(sat.vapor[key]-sat.liquid[key])),saturation:sat};}
  // Use the already calculated phase endpoints as inverse brackets. A fixed
@@ -103,7 +103,13 @@ export function inverse95(p,target,key){if(!Number.isFinite(target))throw Error(
  // A P-T ambiguity band must not erase that extra information near an endpoint.
  const side=sat?(target<sat.liquid[key]?'liquid':'vapor'):null;
  const at=T=>{const result=solvePT95(p,T);if(result.state||!side)return result;return {state:decorate95({...density95(p,T,side,result.saturation),p},side==='liquid'?'Стиснена рідина':'Перегріта пара')};};
- L??=at(lo).state;H??=at(hi).state;if(!L||!H||target<L[key]||target>H[key])throw Error('Значення поза реалізованими межами IAPWS-95.');
+ L??=at(lo).state;H??=at(hi).state;const tolerance=key==='s'?2e-12:2e-9;
+ // Accept closed domain endpoints before iteration, using the solver residual tolerance.
+ for(const q of [L,H])if(q&&Math.abs(q[key]-target)<=tolerance)return {state:q};
+ if(!L||!H||target<L[key]||target>H[key])throw Error('Значення поза реалізованими межами IAPWS-95.');
+ // Split the bracket at Tc itself. A remote single-phase root at this T must
+ // not force a coexistence calculation at an indistinguishably close T<Tc.
+ if(lo<T95C&&hi>T95C&&p!==P95C){const C=at(T95C).state;if(Math.abs(C[key]-target)<=tolerance)return {state:C};if(target<C[key]){hi=T95C;H=C;}else{lo=T95C;L=C;}}
  for(let i=0;i<70;i++){const T=(lo+hi)/2,result=at(T),q=result.state;if(!q)throw Error('Інверсія потрапила на неоднозначне насичення.');if(Math.abs(q[key]-target)<(key==='s'?2e-12:2e-9))return result;if(q[key]>target)hi=T;else lo=T;}throw Error('Інверсія IAPWS-95 не збіглася.');}
 export function calculate95(mode,a,b){switch(mode){case 'pt':return solvePT95(a,b);case 'pu':return inverse95(a,b,'u');case 'ph':return inverse95(a,b,'h');case 'ps':return inverse95(a,b,'s');case 'satp':return {saturation:saturationP95(a)};case 'satt':return {saturation:saturationT95(a)};case 'px':{const sat=saturationP95(a);return {state:mixture95(sat,b),saturation:sat};}case 'tx':{const sat=saturationT95(a);return {state:mixture95(sat,b),saturation:sat};}case 'hs':return solveHS95(a,b);default:throw Error('Невідомий режим IAPWS-95.');}}
 export function solveHS95(h,s){
@@ -112,9 +118,11 @@ export function solveHS95(h,s){
  const domeTemperatures=Array.from({length:71},(_,i)=>273.16+(T95C-.0001-273.16)*i/70);
  for(let k=-8;k<=32;k++)domeTemperatures.push(T95C-10**(-k/8));domeTemperatures.sort((a,b)=>a-b);
  let prev=null;for(const T of domeTemperatures){let sat;try{sat=saturationT95(T);}catch{prev=null;continue;}const x=(h-sat.liquid.h)/sat.latentHeat;if(x<0||x>1){prev=null;continue;}const e=sat.liquid.s+x*(sat.vapor.s-sat.liquid.s)-s;if(Math.abs(e)<1e-9)return {state:mixture95(sat,x),saturation:sat};if(prev&&e*prev.e<0){let lo=prev.T,hi=T,elo=prev.e;for(let k=0;k<65;k++){const t=(lo+hi)/2,a=saturationT95(t),q=(h-a.liquid.h)/a.latentHeat,err=a.liquid.s+q*(a.vapor.s-a.liquid.s)-s;if(Math.abs(err)<1e-9&&q>=0&&q<=1)return {state:mixture95(a,q),saturation:a};if(err*elo>0){lo=t;elo=err;}else hi=t;}}prev={T,e};}
+ // At the closed 1000 MPa boundary, tolerate only final pressure roundoff
+ // (1e-9 MPa); recheck both forward residuals after snapping to the boundary.
  // Two-variable analytic Newton: log density and log temperature. Each solution
  // is checked against the stable P-T phase, so metastable/spurious roots are rejected.
- for(const [T0,r0] of [[300,1000],[450,900],[600,700],[650,350],[750,500],[900,800],[400,.01],[500,1],[700,10],[900,50],[1200,1]]){let T=T0,rho=r0;for(let k=0;k<70;k++){const q=raw95(T,rho),eh=q.h-h,es=q.s-s;if(Math.abs(eh)<2e-6&&Math.abs(es)<2e-8){try{const stable=solvePT95(q.p,T).state;if(stable&&Math.abs(stable.rho-rho)<rho*1e-7)return {state:stable};}catch{}break;}
+ for(const [T0,r0] of [[300,1000],[450,900],[600,700],[650,350],[750,500],[900,800],[400,.01],[500,1],[700,10],[900,50],[1200,1]]){let T=T0,rho=r0;for(let k=0;k<70;k++){const q=raw95(T,rho),eh=q.h-h,es=q.s-s;if(Math.abs(eh)<2e-6&&Math.abs(es)<2e-8&&(q.p<=1000||(Math.abs(eh)<2e-9&&Math.abs(es)<2e-12))){try{const p=q.p>1000&&q.p-1000<=1e-9?1000:q.p,stable=solvePT95(p,T).state;if(stable&&Math.abs(stable.rho-rho)<rho*1e-7&&Math.abs(stable.h-h)<(q.p>1000?2e-9:2e-6)&&Math.abs(stable.s-s)<(q.p>1000?2e-12:2e-8))return {state:stable};}catch{}break;}
  const dpdt=q.alpha*q.rho/q.drhodp,dpdr=1/q.drhodp,a=1000*(dpdr-T*dpdt/rho),b=T*q.cv+1000*T*dpdt/rho,c=-1000*dpdt/rho,d=q.cv,det=a*d-b*c;
  const dr=(-eh*d+b*es)/det,dt=(-a*es+c*eh)/det;let ok=false;for(let f=1;f>2**-20;f/=2){const rn=rho*Math.exp(f*dr),tn=T*Math.exp(f*dt);if(!(rn>1e-12&&rn<1800&&tn>=273.16&&tn<=1273))continue;const n=raw95(tn,rn);if(Math.hypot((n.h-h)/1000,n.s-s)<Math.hypot(eh/1000,es)){rho=rn;T=tn;ok=true;break;}}if(!ok)break;}}
  throw Error('IAPWS-95: не знайдено стабільний стан h–s у реалізованих межах.');

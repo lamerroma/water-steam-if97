@@ -1,0 +1,167 @@
+{
+  "reviewedVersion": "1.35.0",
+  "reviewedCommit": "2c3bfe83d6b3f772018334074bdfa6df0abaa215",
+  "candidateVersion": "1.35.1",
+  "originalReportSha256": "674079a6e7d5e77874c92fac979bdef003dc2cfccdcefba62435abb0da6356bd",
+  "reference": {
+    "library": "Python iapws 1.5.5",
+    "fixture": "tests/fixtures/inverse-boundary-reference.json",
+    "sha256": "9a8b9c46cf06d14f34b8cba572e58c6322a595515f5badd6304748e3fb941850",
+    "states": 26,
+    "inverseCases": 184
+  },
+  "baseline": {
+    "refusals": 57,
+    "referenceBranchMissing": 3
+  },
+  "scope": "Confirmed numerical defects and existing software regressions; not an independent repetition of every count or physical claim in the uploaded report.",
+  "status": "passed",
+  "coreReport": ".release/2026-10-16T10-36-05-419Z/report.json",
+  "browsers": [
+    {
+      "engine": "chromium",
+      "status": "passed",
+      "scenarios": [
+        "inverse-boundaries",
+        "calculator-async",
+        "water-process"
+      ],
+      "log": ".release/report-review-135/browser-chromium.log",
+      "sha256": "59b2d0899cb817410af25d52b21110595ddc24351b3f00887d402f9eebb2f8f6",
+      "offline": {
+        "embeddedWorker": true,
+        "fileScheme": false
+      }
+    },
+    {
+      "engine": "firefox",
+      "status": "passed",
+      "scenarios": [
+        "inverse-boundaries",
+        "calculator-async",
+        "water-process"
+      ],
+      "log": ".release/report-review-135/browser-firefox.log",
+      "sha256": "c61a14aef3353d341b3463cc2bea64dce8330947e1025321c3afa9c2586ce21c",
+      "offline": {
+        "embeddedWorker": true,
+        "fileScheme": true
+      }
+    }
+  ],
+  "published": false,
+  "completed": "2026-10-16T10:42:21.323366+00:00",
+  "build": {
+    "version": "1.35.1",
+    "id": "8a1d54979807"
+  },
+  "core": {
+    "status": "passed",
+    "checksPassed": 14,
+    "checksTotal": 14,
+    "unitTestsPassed": 848,
+    "unitTestsTotal": 848,
+    "report": ".release/2026-10-16T10-36-05-419Z/report.json",
+    "reportSha256": "6120ce328cfde83b83d2029df809b651b3855e1849e3569c03db36e1f9b9931c",
+    "checks": [
+      {
+        "name": "build",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 5852,
+        "log": ".release/2026-10-16T10-36-05-419Z/build.log"
+      },
+      {
+        "name": "unit",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 257489,
+        "log": ".release/2026-10-16T10-36-05-419Z/unit.log"
+      },
+      {
+        "name": "water",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 72245,
+        "log": ".release/2026-10-16T10-36-05-419Z/water.log"
+      },
+      {
+        "name": "transport",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 226,
+        "log": ".release/2026-10-16T10-36-05-419Z/transport.log"
+      },
+      {
+        "name": "reactor",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 2276,
+        "log": ".release/2026-10-16T10-36-05-419Z/reactor.log"
+      },
+      {
+        "name": "reactor-thermal",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 98,
+        "log": ".release/2026-10-16T10-36-05-419Z/reactor-thermal.log"
+      },
+      {
+        "name": "reactor-validation",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 829,
+        "log": ".release/2026-10-16T10-36-05-419Z/reactor-validation.log"
+      },
+      {
+        "name": "reactor-cell-audit",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 49,
+        "log": ".release/2026-10-16T10-36-05-419Z/reactor-cell-audit.log"
+      },
+      {
+        "name": "rebuild",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 5765,
+        "log": ".release/2026-10-16T10-36-05-419Z/rebuild.log"
+      },
+      {
+        "name": "deterministic-build",
+        "status": "passed"
+      },
+      {
+        "name": "package",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 1322,
+        "log": ".release/2026-10-16T10-36-05-419Z/package.log"
+      },
+      {
+        "name": "package-integrity",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 241,
+        "log": ".release/2026-10-16T10-36-05-419Z/package-integrity.log"
+      },
+      {
+        "name": "repackage",
+        "status": "passed",
+        "exitCode": 0,
+        "durationMs": 1274,
+        "log": ".release/2026-10-16T10-36-05-419Z/repackage.log"
+      },
+      {
+        "name": "deterministic-package",
+        "status": "passed"
+      }
+    ]
+  },
+  "physicalValidation": {
+    "reactorCell": "physical-screening-failed",
+    "scope": "Independent cell screening; failure blocks claims of neutron-model physical validation, separately from software acceptance."
+  },
+  "browserScope": "Three targeted scenarios in each engine; not a rerun of every browser scenario for every tool.",
+  "windowsScope": "Git core.autocrlf=true checkout simulated on Linux; no native Windows run."
+}

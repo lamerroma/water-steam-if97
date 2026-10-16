@@ -1,4 +1,4 @@
-import {extraInputs} from './extra-inputs.js';
+import {extraInputs,boundaryInputRoots} from './extra-inputs.js';
 import {calculate95} from './iapws95.js';
 import {dielectric} from './dielectric.js';
 import init, {initSync,pt,px,hs,ph,ps} from '../vendor/seuif97.js';
@@ -66,10 +66,11 @@ function finish(state,phase,x=null) {
     sigma:x===0||x===1||state.critical?surfaceTension(state.T):null};
 }
 export function saturation(p) {
-  const T=saturationTemperature(p);
+  // Select the 1/2–3 cutoff by pressure; inverse Eq. 31 rounds above 623.15 K.
+  const cutoff=saturationPressure(623.15),lowRegions=p<=cutoff,T=p===cutoff?623.15:saturationTemperature(p);
   if(p===PC) {const c=finish({...helmholtz(TC,RHOC),p:PC,cp:null,drhodp:null,critical:true},'Критична точка');return {p,T,liquid:c,vapor:{...c},latentHeat:0,critical:true};}
-  const liquid=T<=623.15?gibbs(p,T,1):densityState(p,T,px(p,0,2),'liquid');
-  const vapor=T<=623.15?gibbs(p,T,2):densityState(p,T,px(p,1,2),'vapor');
+  const liquid=lowRegions?gibbs(p,T,1):densityState(p,T,px(p,0,2),'liquid');
+  const vapor=lowRegions?gibbs(p,T,2):densityState(p,T,px(p,1,2),'vapor');
   return {p,T,liquid:finish(liquid,'Насичена рідина',0),vapor:finish(vapor,'Насичена пара',1),latentHeat:vapor.h-liquid.h};
 }
 function mix(sat,x) {
@@ -193,6 +194,7 @@ export function solveHS(h,s) {
   }
   previous={p,error};
  }
+ for(const r of boundaryInputRoots(['h','s'],[h,s],'IF97',calculate))if(valid(r))return finalize(r);
  throw Error('Не знайдено узгоджений стан h–s у межах IF97. Перевірте одиниці та значення; біля меж областей можливий малий розрив рівнянь. Для дуже низьких тисків використайте P–h/P–s.');
 }
 export function calculate(mode,a,b,model='IF97') {

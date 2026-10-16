@@ -949,20 +949,59 @@ function extraInputs(mode,a,b,model,calc){
  if(key==='rho'&&b<=0)throw Error('Густина має бути додатною.');
  const roots=[];let sat;try{sat=calc(fixedT?'satt':'satp',a,undefined,model).saturation;}catch{}
  const keep=r=>{if(!r?.state)return;r=refineInputs(r,fixedT?['T',key]:['p',key],[a,b],model,calc);if(!roots.some(z=>Math.abs(z.state.p-r.state.p)<Math.max(1e-12,r.state.p*1e-8)&&Math.abs(z.state.T-r.state.T)<1e-6))roots.push(r);};
- if(sat){const l=sat.liquid,v=sat.vapor,x=key==='rho'?(1/b-l.v)/(v.v-l.v):(b-l[key])/(v[key]-l[key]);if(x>=0&&x<=1)keep(calc('px',sat.p,x,model));}
+ if(sat){const l=sat.liquid,v=sat.vapor;let x=key==='rho'?(1/b-l.v)/(v.v-l.v):(b-l[key])/(v[key]-l[key]);
+ // Snap only roundoff and the propagated region-3 density-solver residual.
+ // Derivative propagation matters near criticality; a quality-wide tolerance
+ // would erase real wet states in the rest of the dome.
+ const endpointTolerance=q=>{
+  const roundoff=64*Number.EPSILON*Math.max(Math.abs(q[key]),Math.abs(b));
+  if(model!=='IF97'||q.region!==3)return roundoff;
+  const [dp,dT]=inputGradient(q,key);
+  return Math.max(roundoff,Math.abs(dp)*Math.max(2e-12,q.p*2e-13)+Math.abs(dT)*64*Number.EPSILON*q.T);
+ };
+ if(Math.abs(b-l[key])<=endpointTolerance(l))x=0;else if(Math.abs(b-v[key])<=endpointTolerance(v))x=1;
+ if(x>=0&&x<=1)keep(calc('px',sat.p,x,model));}
  const values=fixedT?Array.from({length:193},(_,i)=>10**(-9+(Math.log10(model==='IF97'?100:1000)+9)*i/192)):Array.from({length:257},(_,i)=>(model==='IF97'?273.15:273.16)+((model==='IF97'?(a<=50?2273.15:1073.15):1273)-(model==='IF97'?273.15:273.16))*i/256);
- if(!fixedT)values.push(274,275,276,277,277.13,277.5,278,279,280,623.15,647.096,1073.15);
+ if(fixedT)values.push(model==='IF97'?100:1000,50,22.064);
+ else values.push(model==='IF97'?273.15:273.16,model==='IF97'?(a<=50?2273.15:1073.15):1273,274,275,276,277,277.13,277.5,278,279,280,623.15,647.096,1073.15);
+ const addCut=z=>values.push(z,z*(1-64*Number.EPSILON),z*(1+64*Number.EPSILON));
+ if(!fixedT&&model==='IF97'){addCut(623.15);if(a>boundary23Pressure(623.15)&&a<=100)addCut(boundary23Temperature(a));}
  // Put samples on both sides of changes in the phase/region labels. Otherwise
  // a valid narrow interval can be skipped by a coarse grid plus phase filtering.
  if(fixedT&&model==='IF97'&&a>623.15&&a<=863.15){const p=boundary23Pressure(a);values.push(p*(1-2e-8),p*(1+2e-8));}
  if(!fixedT)values.push(647.096-1e-6,647.096+1e-6);
- if(sat){const q=fixedT?sat.p:sat.T;values.push(q*(1-2e-8),q*(1+2e-8));}
+ if(sat){const q=fixedT?sat.p:sat.T;values.push(q,q*(1-2e-8),q*(1+2e-8));}
  values.sort((x,y)=>x-y);let prev=null;
  const evaluate=z=>calc('pt',fixedT?z:a,fixedT?a:z,model);
- for(const z of values){let r;try{r=evaluate(z);}catch{prev=null;continue;}if(!r.state){prev=null;continue;}const e=r.state[key]-b,tol=Math.max(1e-9,Math.abs(b)*2e-9);
- if(Math.abs(e)<tol)keep(r);
- if(prev&&prev.e*e<0&&prev.phase===r.state.phase){let lo=prev.z,hi=z,elo=prev.e;for(let i=0;i<70;i++){const mid=fixedT?Math.sqrt(lo*hi):(lo+hi)/2;let q;try{q=evaluate(mid);}catch{break;}if(!q.state)break;const err=q.state[key]-b;if(Math.abs(err)<tol){keep(q);break;}if(err*elo>0){lo=mid;elo=err;}else hi=mid;}}
- prev={z,e,phase:r.state.phase};
+ // A label such as “supercritical” is not a physical discontinuity. Keep the
+ // fundamental IF97 regions separate and reset at actual coexistence instead.
+ const sameBranch=(q,r)=>q.region===r.region;
+ const tol=Math.max(1e-9,Math.abs(b)*2e-9);
+ const sample=(z,r)=>({z,r,e:r.state[key]-b,d:inputGradient(r.state,key)[fixedT?0:1]});
+ const bracket=(left,right)=>{
+  if(Math.abs(left.e)<tol)keep(left.r);if(Math.abs(right.e)<tol)keep(right.r);
+  if(left.e*right.e>=0)return;
+  let lo=left.z,hi=right.z,elo=left.e;
+  for(let i=0;i<70;i++){const mid=fixedT?Math.sqrt(lo*hi):(lo+hi)/2;let q;try{q=evaluate(mid);}catch{break;}
+   if(!q.state||!sameBranch(left.r.state,q.state))break;
+   const err=q.state[key]-b;if(Math.abs(err)<tol){keep(q);break;}if(err*elo>0){lo=mid;elo=err;}else hi=mid;
+  }
+ };
+ for(const z of values){let r;try{r=evaluate(z);}catch{prev=null;continue;}if(!r.state){prev=null;continue;}const now=sample(z,r);
+  if(Math.abs(now.e)<tol)keep(r);
+  if(prev&&sameBranch(prev.r.state,r.state)){
+   if(prev.d*now.d<0){
+    // Locate an extremum analytically. Two roots (or a tangent root) can be
+    // hidden in a single grid cell even though both endpoint errors agree.
+    let lo=prev.z,hi=z,turn;
+    for(let i=0;i<60;i++){const mid=fixedT?Math.sqrt(lo*hi):(lo+hi)/2;let q;try{q=evaluate(mid);}catch{break;}
+     if(!q.state||!sameBranch(prev.r.state,q.state))break;turn=sample(mid,q);
+     if(turn.d*prev.d>0)lo=mid;else hi=mid;
+    }
+    if(turn){bracket(prev,turn);bracket(turn,now);}else bracket(prev,now);
+   }else bracket(prev,now);
+  }
+  prev=now;
  }
  if(!roots.length)throw Error('Не знайдено стан у межах обраної моделі. Перевірте одиниці та параметри.');
  roots.sort((x,y)=>fixedT?x.state.p-y.state.p:x.state.T-y.state.T);const result=roots[0];if(roots.length>1){result.alternatives=roots.slice(1).map(q=>q.state);result.state={...result.state,notes:[...result.state.notes,`Знайдено ${roots.length} станів. Показано стан із найменшим ${fixedT?'тиском':'значенням температури'}; інші корені наведені окремо.`]};}return result;
@@ -976,12 +1015,13 @@ function pairInputs(mode,a,b,model,calc){
  const evaluate=p=>calc(inner,p,fixed,model),keep=q=>{if(!q?.state)return;q=refineInputs(q,keys,[a,b],model,calc);const index=roots.findIndex(z=>Math.abs(Math.log(z.state.p/q.state.p))<1e-6&&Math.abs(z.state.T-q.state.T)<1e-5&&z.state.phase===q.state.phase);if(index<0)roots.push(q);else {const error=z=>Math.hypot(...keys.map((k,i)=>(z.state[k]-[a,b][i])/Math.max(Math.abs([a,b][i]),1e-12)));if(error(q)<error(roots[index]))roots[index]=q;}};
  let prev;const max=model==='IF97'?100:1000,tol=Math.max(target==='u'?1e-7:1e-12,Math.abs(wanted)*2e-10);
  const pressures=Array.from({length:161},(_,i)=>10**(-8+(8+Math.log10(max))*i/160));
- pressures.push(20,21.5,22,22.064*(1-1e-5),22.064,22.1,23);pressures.sort((a,b)=>a-b);
+ pressures.push(model==='IF97'?PMIN_SAT:.000611654771,max,50,20,21.5,22,22.064*(1-1e-5),22.064,22.1,23);pressures.sort((a,b)=>a-b);
  for(const p of pressures){
  let q;try{q=evaluate(p);}catch{prev=null;continue;}if(!q.state){prev=null;continue;}const e=q.state[target]-wanted;if(Math.abs(e)<(q.state.cp==null?tol:Math.max(1e-10,Math.abs(wanted)*2e-8)))keep(q);
  if(prev&&e*prev.e<0){let lo=prev.p,hi=p,elo=prev.e,best=null,bestError=Infinity;for(let j=0;j<60;j++){const mid=Math.sqrt(lo*hi);let z;try{z=evaluate(mid);}catch{break;}if(!z.state)break;const err=z.state[target]-wanted;if(Math.abs(err)<bestError){best=z;bestError=Math.abs(err);}if(j===59&&best?.state.cp==null&&bestError<Math.max(target==='u'?1e-6:1e-10,Math.abs(wanted)*2e-8)){keep(best);break;}if(Math.abs(err)<(z.state.cp==null?tol:Math.max(1e-10,Math.abs(wanted)*2e-8))){keep(z);break;}if(err*elo>0){lo=mid;elo=err;}else hi=mid;}}
  prev={p,e};
  }
+ if(!roots.length||roots.some(r=>[273.15,623.15,1073.15,2273.15].some(T=>Math.abs(r.state.T-T)<.1)))for(const r of boundaryInputRoots(keys,[a,b],model,calc))keep(r);
  if(!roots.length)throw Error('Не знайдено узгоджений стан у межах обраної моделі.');
  roots.sort((x,y)=>x.state.p-y.state.p);const q=roots[0];if(roots.length>1){q.alternatives=roots.slice(1).map(z=>z.state);q.state={...q.state,notes:[...(q.state.notes||[]),`Знайдено ${roots.length} станів; показано найменший тиск, інші корені наведені окремо.`]};}return q;
 }
@@ -1009,15 +1049,33 @@ function refineInputs(result,keys,targets,model,calc){
  if(!Number.isFinite(det)||det===0)break;
  const e=q[keys[0]]-targets[0],f=q[keys[1]]-targets[1],dp=(-d*e+b*f)/det,dT=(c*e-a*f)/det;
  if(!Number.isFinite(dp)||!Number.isFinite(dT))break;
- if(Math.abs(dp)<=Math.max(1e-12,q.p*1e-10)&&Math.abs(dT)<=1e-8)break;
+ if(Math.abs(dp)<=Math.max(1e-15,q.p*1e-12)&&Math.abs(dT)<=1e-10)break;
  let accepted=false;
  for(let step=1;step>=1/1024;step/=2){
- try{const z=calc('pt',keys.includes('p')?targets[keys.indexOf('p')]:q.p+step*dp,keys.includes('T')?targets[keys.indexOf('T')]:q.T+step*dT,model);
- if(z.state&&z.state.phase===q.phase&&z.state.region===q.region&&norm(z.state)<norm(q)){best=z;accepted=true;break;}}catch{}
+ try{const z=calc('pt',keys.includes('p')?targets[keys.indexOf('p')]:q.p+step*dp,keys.includes('T')?targets[keys.indexOf('T')]:Math.abs(step*dT)<=64*Number.EPSILON*q.T?q.T:q.T+step*dT,model);
+ if(z.state&&z.state.region===q.region&&norm(z.state)<norm(q)){best=z;accepted=true;break;}}catch{}
  }
  if(!accepted)break;
  }
  return best;
+}
+
+// A closed temperature/pressure boundary can terminate an outer inverse bracket.
+// Seed each adjacent fundamental region there, then solve both residuals. This
+// also recovers the second branch in the small IF97 consistency overlaps.
+function boundaryInputRoots(keys,targets,model,calc){
+ if(model!=='IF97')return [];
+ const roots=[],keep=r=>{
+  r=refineInputs(r,keys,targets,model,calc);
+  const tolerances={h:2e-7,u:2e-7,s:2e-10,v:2e-12};
+  if(keys.every((key,i)=>Math.abs(r.state[key]-targets[i])<=tolerances[key]))roots.push(r);
+ };
+ const mode={h:'th',s:'ts',u:'tu',v:'tv'}[keys[0]];
+ const temperatures=[273.15,623.15,623.15*(1+64*Number.EPSILON),1073.15,1073.15*(1+64*Number.EPSILON),2273.15];
+ for(const T of temperatures){try{const q=extraInputs(mode,T,targets[0],model,calc);for(const state of [q.state,...(q.alternatives||[])])keep({state});}catch{}}
+ const pressureMode={h:'ph',s:'ps',u:'pu',v:'pv'}[keys[0]];
+ for(const p of [50,100]){try{const q=calc(pressureMode,p,targets[0],model);for(const state of [q.state,...(q.alternatives||[])])keep({state});}catch{}}
+ return roots;
 }
 
 
@@ -1108,13 +1166,13 @@ function saturationP95(p){
 function density95(p,T,side,sat){
  let rho=side==='liquid'?(sat?.liquid.rho||1000):p*1000/(R95*T);
  if(T>=T95C)rho=p>30?700:Math.min(600,rho);
- for(let i=0;i<90;i++){const q=raw95(T,rho),err=q.p-p;if(q.drhodp>0&&Math.abs(err)<Math.max(2e-10,p*2e-11))return q;const step=err*q.drhodp;let ok=false;for(let f=1;f>2**-25;f/=2){const r=rho-f*step;if(!(r>0&&r<1800)||(side==='liquid'&&sat&&r<sat.liquid.rho*(1-1e-7))||(side==='vapor'&&sat&&r>sat.vapor.rho*(1+1e-7)))continue;const n=raw95(T,r);if(n.drhodp>0&&Math.abs(n.p-p)<Math.abs(err)){rho=r;ok=true;break;}}if(!ok)break;}
+ for(let i=0;i<90;i++){const q=raw95(T,rho),err=q.p-p;if(q.drhodp>0&&Math.abs(err)<Math.max(2e-10,p*2e-13))return q;const step=err*q.drhodp;let ok=false;for(let f=1;f>2**-25;f/=2){const r=rho-f*step;if(!(r>0&&r<1800)||(side==='liquid'&&sat&&r<sat.liquid.rho*(1-1e-7))||(side==='vapor'&&sat&&r>sat.vapor.rho*(1+1e-7)))continue;const n=raw95(T,r);if(n.drhodp>0&&Math.abs(n.p-p)<Math.abs(err)){rho=r;ok=true;break;}}if(!ok)break;}
  // Stable phase-specific bracket; never select an unstable intermediate root.
  let lo=side==='liquid'?sat?.liquid.rho||D95C:1e-12,hi=side==='vapor'?sat?.vapor.rho||D95C:1800;
- for(let i=0;i<100;i++){const mid=(lo+hi)/2,q=raw95(T,mid);if(Math.abs(q.p-p)<Math.max(2e-10,p*2e-11)&&q.drhodp>0)return q;if(q.p>p)hi=mid;else lo=mid;}
+ for(let i=0;i<100;i++){const mid=(lo+hi)/2,q=raw95(T,mid);if(Math.abs(q.p-p)<Math.max(2e-10,p*2e-13)&&q.drhodp>0)return q;if(q.p>p)hi=mid;else lo=mid;}
  throw Error('IAPWS-95: не знайдено стабільний корінь густини.');
 }
-function solvePT95(p,T){bounds95(p,T);let sat,side;if(T<T95C){sat=saturationT95(T);if(Math.abs(p-sat.p)<Math.max(3e-10,sat.p*1e-9))return {saturation:sat,ambiguous:true};side=p>sat.p?'liquid':'vapor';}const q=density95(p,T,side,sat);return {state:decorate95({...q,p},side==='liquid'?'Стиснена рідина':side==='vapor'?'Перегріта пара':p>=P95C?'Надкритичний флюїд':'Газ / перегріта пара')};}
+function solvePT95(p,T){bounds95(p,T);if(p===P95C&&T===T95C)throw Error('Точна критична точка IAPWS-95: сингулярні похідні; використайте стан поза нею.');let sat,side;if(T<T95C){sat=saturationT95(T);if(Math.abs(p-sat.p)<Math.max(3e-10,sat.p*1e-9))return {saturation:sat,ambiguous:true};side=p>sat.p?'liquid':'vapor';}const q=density95(p,T,side,sat);return {state:decorate95({...q,p},side==='liquid'?'Стиснена рідина':side==='vapor'?'Перегріта пара':p>=P95C?'Надкритичний флюїд':'Газ / перегріта пара')};}
 function mixture95(sat,x){if(!Number.isFinite(x)||x<0||x>1)throw Error('Ступінь сухості має бути 0…1.');if(x===0)return {...sat.liquid};if(x===1)return {...sat.vapor};const blend=k=>sat.liquid[k]+x*(sat.vapor[k]-sat.liquid[k]),v=blend('v'),q={...sat.liquid,x,phase:'Двофазна суміш',v,rho:1/v,h:blend('h'),s:blend('s'),u:blend('u'),sigma:surfaceTension(sat.T)};for(const k of ['cp','cv','w','mu','nu','lambda','diffusivity','Pr','dc','alpha','kappa','dvdt','dvdp','dpdt','dpdv','jt','ijt','isentropic','drhodp'])q[k]=null;return {...q,A:q.u-q.T*q.s,G:q.h-q.T*q.s,Z:1000*q.p*q.v/R95/q.T,notes:['Двофазна суміш IAPWS-95: h,s,u,v — масовий баланс фаз; похідні та транспортні властивості суміші не визначаються усередненням.']};}
 function inverse95(p,target,key){if(!Number.isFinite(target))throw Error('Введіть скінченне значення.');bounds95(p,Math.max(715,273.16));let sat;if(p>=.000611654771&&p<P95C){sat=saturationP95(p);const tolerance=key==='s'?2e-12:2e-9;if(Math.abs(target-sat.liquid[key])<=tolerance)return {state:{...sat.liquid},saturation:sat};if(Math.abs(target-sat.vapor[key])<=tolerance)return {state:{...sat.vapor},saturation:sat};if(target>=sat.liquid[key]&&target<=sat.vapor[key])return {state:mixture95(sat,(target-sat.liquid[key])/(sat.vapor[key]-sat.liquid[key])),saturation:sat};}
  // Use the already calculated phase endpoints as inverse brackets. A fixed
@@ -1125,7 +1183,13 @@ function inverse95(p,target,key){if(!Number.isFinite(target))throw Error('Вве
  // A P-T ambiguity band must not erase that extra information near an endpoint.
  const side=sat?(target<sat.liquid[key]?'liquid':'vapor'):null;
  const at=T=>{const result=solvePT95(p,T);if(result.state||!side)return result;return {state:decorate95({...density95(p,T,side,result.saturation),p},side==='liquid'?'Стиснена рідина':'Перегріта пара')};};
- L??=at(lo).state;H??=at(hi).state;if(!L||!H||target<L[key]||target>H[key])throw Error('Значення поза реалізованими межами IAPWS-95.');
+ L??=at(lo).state;H??=at(hi).state;const tolerance=key==='s'?2e-12:2e-9;
+ // Accept closed domain endpoints before iteration, using the solver residual tolerance.
+ for(const q of [L,H])if(q&&Math.abs(q[key]-target)<=tolerance)return {state:q};
+ if(!L||!H||target<L[key]||target>H[key])throw Error('Значення поза реалізованими межами IAPWS-95.');
+ // Split the bracket at Tc itself. A remote single-phase root at this T must
+ // not force a coexistence calculation at an indistinguishably close T<Tc.
+ if(lo<T95C&&hi>T95C&&p!==P95C){const C=at(T95C).state;if(Math.abs(C[key]-target)<=tolerance)return {state:C};if(target<C[key]){hi=T95C;H=C;}else{lo=T95C;L=C;}}
  for(let i=0;i<70;i++){const T=(lo+hi)/2,result=at(T),q=result.state;if(!q)throw Error('Інверсія потрапила на неоднозначне насичення.');if(Math.abs(q[key]-target)<(key==='s'?2e-12:2e-9))return result;if(q[key]>target)hi=T;else lo=T;}throw Error('Інверсія IAPWS-95 не збіглася.');}
 function calculate95(mode,a,b){switch(mode){case 'pt':return solvePT95(a,b);case 'pu':return inverse95(a,b,'u');case 'ph':return inverse95(a,b,'h');case 'ps':return inverse95(a,b,'s');case 'satp':return {saturation:saturationP95(a)};case 'satt':return {saturation:saturationT95(a)};case 'px':{const sat=saturationP95(a);return {state:mixture95(sat,b),saturation:sat};}case 'tx':{const sat=saturationT95(a);return {state:mixture95(sat,b),saturation:sat};}case 'hs':return solveHS95(a,b);default:throw Error('Невідомий режим IAPWS-95.');}}
 function solveHS95(h,s){
@@ -1134,9 +1198,11 @@ function solveHS95(h,s){
  const domeTemperatures=Array.from({length:71},(_,i)=>273.16+(T95C-.0001-273.16)*i/70);
  for(let k=-8;k<=32;k++)domeTemperatures.push(T95C-10**(-k/8));domeTemperatures.sort((a,b)=>a-b);
  let prev=null;for(const T of domeTemperatures){let sat;try{sat=saturationT95(T);}catch{prev=null;continue;}const x=(h-sat.liquid.h)/sat.latentHeat;if(x<0||x>1){prev=null;continue;}const e=sat.liquid.s+x*(sat.vapor.s-sat.liquid.s)-s;if(Math.abs(e)<1e-9)return {state:mixture95(sat,x),saturation:sat};if(prev&&e*prev.e<0){let lo=prev.T,hi=T,elo=prev.e;for(let k=0;k<65;k++){const t=(lo+hi)/2,a=saturationT95(t),q=(h-a.liquid.h)/a.latentHeat,err=a.liquid.s+q*(a.vapor.s-a.liquid.s)-s;if(Math.abs(err)<1e-9&&q>=0&&q<=1)return {state:mixture95(a,q),saturation:a};if(err*elo>0){lo=t;elo=err;}else hi=t;}}prev={T,e};}
+ // At the closed 1000 MPa boundary, tolerate only final pressure roundoff
+ // (1e-9 MPa); recheck both forward residuals after snapping to the boundary.
  // Two-variable analytic Newton: log density and log temperature. Each solution
  // is checked against the stable P-T phase, so metastable/spurious roots are rejected.
- for(const [T0,r0] of [[300,1000],[450,900],[600,700],[650,350],[750,500],[900,800],[400,.01],[500,1],[700,10],[900,50],[1200,1]]){let T=T0,rho=r0;for(let k=0;k<70;k++){const q=raw95(T,rho),eh=q.h-h,es=q.s-s;if(Math.abs(eh)<2e-6&&Math.abs(es)<2e-8){try{const stable=solvePT95(q.p,T).state;if(stable&&Math.abs(stable.rho-rho)<rho*1e-7)return {state:stable};}catch{}break;}
+ for(const [T0,r0] of [[300,1000],[450,900],[600,700],[650,350],[750,500],[900,800],[400,.01],[500,1],[700,10],[900,50],[1200,1]]){let T=T0,rho=r0;for(let k=0;k<70;k++){const q=raw95(T,rho),eh=q.h-h,es=q.s-s;if(Math.abs(eh)<2e-6&&Math.abs(es)<2e-8&&(q.p<=1000||(Math.abs(eh)<2e-9&&Math.abs(es)<2e-12))){try{const p=q.p>1000&&q.p-1000<=1e-9?1000:q.p,stable=solvePT95(p,T).state;if(stable&&Math.abs(stable.rho-rho)<rho*1e-7&&Math.abs(stable.h-h)<(q.p>1000?2e-9:2e-6)&&Math.abs(stable.s-s)<(q.p>1000?2e-12:2e-8))return {state:stable};}catch{}break;}
  const dpdt=q.alpha*q.rho/q.drhodp,dpdr=1/q.drhodp,a=1000*(dpdr-T*dpdt/rho),b=T*q.cv+1000*T*dpdt/rho,c=-1000*dpdt/rho,d=q.cv,det=a*d-b*c;
  const dr=(-eh*d+b*es)/det,dt=(-a*es+c*eh)/det;let ok=false;for(let f=1;f>2**-20;f/=2){const rn=rho*Math.exp(f*dr),tn=T*Math.exp(f*dt);if(!(rn>1e-12&&rn<1800&&tn>=273.16&&tn<=1273))continue;const n=raw95(tn,rn);if(Math.hypot((n.h-h)/1000,n.s-s)<Math.hypot(eh/1000,es)){rho=rn;T=tn;ok=true;break;}}if(!ok)break;}}
  throw Error('IAPWS-95: не знайдено стабільний стан h–s у реалізованих межах.');
@@ -1205,10 +1271,11 @@ function finish(state,phase,x=null) {
     sigma:x===0||x===1||state.critical?surfaceTension(state.T):null};
 }
 function saturation(p) {
-  const T=saturationTemperature(p);
+  // Select the 1/2–3 cutoff by pressure; inverse Eq. 31 rounds above 623.15 K.
+  const cutoff=saturationPressure(623.15),lowRegions=p<=cutoff,T=p===cutoff?623.15:saturationTemperature(p);
   if(p===PC) {const c=finish({...helmholtz(TC,RHOC),p:PC,cp:null,drhodp:null,critical:true},'Критична точка');return {p,T,liquid:c,vapor:{...c},latentHeat:0,critical:true};}
-  const liquid=T<=623.15?gibbs(p,T,1):densityState(p,T,px(p,0,2),'liquid');
-  const vapor=T<=623.15?gibbs(p,T,2):densityState(p,T,px(p,1,2),'vapor');
+  const liquid=lowRegions?gibbs(p,T,1):densityState(p,T,px(p,0,2),'liquid');
+  const vapor=lowRegions?gibbs(p,T,2):densityState(p,T,px(p,1,2),'vapor');
   return {p,T,liquid:finish(liquid,'Насичена рідина',0),vapor:finish(vapor,'Насичена пара',1),latentHeat:vapor.h-liquid.h};
 }
 function mix(sat,x) {
@@ -1332,6 +1399,7 @@ function solveHS(h,s) {
   }
   previous={p,error};
  }
+ for(const r of boundaryInputRoots(['h','s'],[h,s],'IF97',calculate))if(valid(r))return finalize(r);
  throw Error('Не знайдено узгоджений стан h–s у межах IF97. Перевірте одиниці та значення; біля меж областей можливий малий розрив рівнянь. Для дуже низьких тисків використайте P–h/P–s.');
 }
 function calculate(mode,a,b,model='IF97') {

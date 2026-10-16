@@ -1,0 +1,12 @@
+# Deterministic source, vendored checksums and release assets on every checkout.
+* text=auto eol=lf
+*.wasm -text
+*.png -text
+*.jpg -text
+*.jpeg -text
+*.gif -text
+*.ico -text
+*.zip -text
+*.pdf -text
+*.woff -text
+*.woff2 -text
