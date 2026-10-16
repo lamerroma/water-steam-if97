@@ -1,0 +1,91 @@
+{
+  "version": "1.35.0",
+  "build": "92d78da3d904",
+  "status": "passed_local",
+  "scope": "Single open-feedwater-heater Rankine extraction-pressure study; existing 30 tools retained.",
+  "features": {
+    "grid": "Linear, endpoints included, 2–41 distinct finite pressures; default 11. Only extraction pressure varies.",
+    "fixed": "Condenser/boiler pressure, inlet steam condition, model, reference mass, two pump and two turbine efficiencies. Single-cycle pBleed is inactive.",
+    "metrics": [
+      "enthalpy efficiency",
+      "specific net work per kg boiler steam",
+      "extraction fraction",
+      "LP exit moisture; null outside saturation"
+    ],
+    "maximum": "Valid sampled points only; no continuous/global optimum claim.",
+    "invalid": "Reason per point, null metrics, line gaps, excluded from maximum; all-invalid grid has no maximum.",
+    "selection": "Chart keyboard/click or table row; valid point rebuilt in Worker and opened in existing editor.",
+    "storage": "Canonical inputs, selection and chart metric in shared JSON; imported metrics ignored.",
+    "exports": [
+      "CSV with fixed inputs, units, status, all points",
+      "SVG with canonical metadata and notes",
+      "UK/EN report with four plots/table and source reopening"
+    ],
+    "background": "Worker with termination/revision guards; 120s timeout, no partial completion; reports containing studies also render in Worker."
+  },
+  "numerical": {
+    "fixture": "tests/fixtures/rankine-sweep-reference.json",
+    "source": "Independent Python iapws 1.5.5, generation only; NumPy/SciPy not in runtime.",
+    "generator": "scripts/generate-regeneration-reference.py --sweep",
+    "records": 10,
+    "pressures_MPa": [
+      0.1,
+      0.825,
+      1.55,
+      2.275,
+      3
+    ],
+    "models": [
+      "IF97",
+      "IAPWS-95"
+    ],
+    "tolerances": {
+      "efficiency_y": 2e-07,
+      "work_kJ_per_kg_boiler": 0.003,
+      "quality_moisture": 2e-06
+    },
+    "existing_cycle_tolerances": "Unchanged; full per-point mass/energy/entropy/integration checks.",
+    "unit_tests_added": 6,
+    "upper_bound_run": {
+      "model": "IAPWS-95",
+      "count": 41,
+      "valid": 41,
+      "seconds": 84.584,
+      "best_sampled_pressure_MPa": 1.26
+    },
+    "full_unit_count": 818
+  },
+  "checks": {
+    "chromium_final": "Passed extraction grid, ideal/actual both models, sampled maximum, gaps/null, selection/editor, CSV/SVG, project/reload/import, report/source, cancellation/edit/navigation/responsiveness, UK/EN and 320/390/768px.",
+    "firefox_final": "Same final scenario plus standalone sweep and report offline.",
+    "calculator_async_final": "Firefox passed responsiveness, cancellation/edit/model/import/reload, offline Worker and startup retry.",
+    "previous_regeneration": "Chromium full prior-sprint scenario passed before final input/status/report-cancellation refinements.",
+    "cross_browser": "Both browsers: all 30 sections, UK/EN, HTML/JSON, restore and 320/390/768px passed before final input/status/report-cancellation refinements.",
+    "study_workflow": "Chromium web/report/PDF journey passed; system Chromium file:// is blocked by administrator policy. Firefox complete journey and standalone offline passed before final refinements.",
+    "release_core": "All 14 checks passed on Node.js 22.23.3: 818 tests, water/transport/reactor software checks, deterministic build/package and ZIP integrity.",
+    "print_pdf_final": "Chromium: asynchronous Print/PDF invoked print once after completion; HTML and PDF with all four plots generated.",
+    "unit_final": "All 818 tests passed on Node.js 22.23.3, including independent grids and built Worker/report equivalence."
+  },
+  "runtime": {
+    "node": "22.23.3",
+    "playwright": "1.64.1",
+    "chromium": "154.0.8037.57 system",
+    "firefox": "157.0"
+  },
+  "limitations": [
+    "No continuous optimization, multiple parameters/heaters, reheat or pressure losses.",
+    "Moisture does not establish equipment suitability.",
+    "41-point timing is one local observation, not a performance guarantee.",
+    "Safari and physical touch devices not checked.",
+    "Existing reactor-cell physical screening remains failed and unchanged."
+  ],
+  "publication": "Not requested in this sprint; full GitHub CI and Pages deployment not started.",
+  "evidence": {
+    "core_report": ".release/2026-10-16T04-13-17-778Z/report.json",
+    "print_pdf": ".release/rankine-sweep-135/",
+    "physical_validation": {
+      "reactorCell": "physical-screening-failed",
+      "scope": "Independent cell screening; failure blocks claims of neutron-model physical validation, separately from software acceptance."
+    }
+  }
+}

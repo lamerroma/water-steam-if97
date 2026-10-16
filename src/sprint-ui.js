@@ -96,6 +96,7 @@ function showProjectLibrary(){selectView('panel');activeSection='projects';$('ca
 }
 document.addEventListener('languagechange',()=>{if(activeSection==='research')showResearch();else if(activeSection==='projects')showProjectLibrary();else if(activeSection==='exchanger'&&exchangerResult)renderExchanger();});
 function openReportCalculation(entry){
+ if(entry.kind==='rankine-sweep'){showRankineSweepSource(entry.input);return;}
  if(entry.kind==='cycle-comparison'){showCycleComparisonSource(entry.input);return;}
  if(entry.kind==='custom-cycle'){showCustomCycle(entry.input,entry.model,entry.view);$('cc-form').requestSubmit();return;}
  if(entry.kind==='water-process'){if((entry.input.fluid||'water')==='water')selectModel(entry.model);showWaterProcess(entry.input,entry.model);$('wp-form').requestSubmit();return;}

@@ -1,3 +1,5 @@
+import {solveRankineSweep} from './rankine-sweep.js';
+import {studyReportHTML} from './study-report.js';
 import {buildLibraryCycle,compareLibraryCycles} from './cycle-library.js';
 import {cycleChartGuides} from './cycle-chart.js';
 import {initialize,calculate} from './engine.js';
@@ -11,7 +13,7 @@ self.onmessage=async({data})=>{
  const {id,type,payload}=data;
  try{
   await calculatorWorkerReady;
-  const result=type==='calculate'?calculate(payload.mode,payload.a,payload.b,payload.model):type==='project'?readProject(payload.text):type==='water-process'?solveWaterProcess(payload.input,payload.model):type==='custom-cycle'?workerCustomCycle(payload.input,payload.model):type==='library-cycle'?buildLibraryCycle(payload.input):type==='cycle-comparison'?compareLibraryCycles(payload.input):type==='cycle-preset'?customCyclePreset(payload.name,payload.model):null;
+  const result=type==='rankine-sweep'?solveRankineSweep(payload.input):type==='study-report-html'?studyReportHTML(payload.title,payload.report,payload.options):type==='calculate'?calculate(payload.mode,payload.a,payload.b,payload.model):type==='project'?readProject(payload.text):type==='water-process'?solveWaterProcess(payload.input,payload.model):type==='custom-cycle'?workerCustomCycle(payload.input,payload.model):type==='library-cycle'?buildLibraryCycle(payload.input):type==='cycle-comparison'?compareLibraryCycles(payload.input):type==='cycle-preset'?customCyclePreset(payload.name,payload.model):null;
   if(!result)throw Error('Unknown background operation.');
   self.postMessage({id,result});
  }catch(error){self.postMessage({id,error:error.message});}

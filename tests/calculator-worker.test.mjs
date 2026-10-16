@@ -4,6 +4,8 @@ import {readFile} from 'node:fs/promises';
 import {Worker} from 'node:worker_threads';
 import {initialize,calculate} from '../src/engine.js';
 import {buildLibraryCycle,compareLibraryCycles} from '../src/cycle-library.js';
+import {solveRankineSweep} from '../src/rankine-sweep.js';
+import {studyReportHTML} from '../src/study-report.js';
 import {readProject} from '../src/project.js';
 await initialize(await readFile(new URL('../vendor/seuif97_bg.wasm',import.meta.url)));
 const source=await readFile(new URL('../assets/calculator-worker.js',import.meta.url),'utf8');
@@ -29,6 +31,8 @@ test('Built background kernel preserves all 20 modes for both water models',asyn
   for(const kind of ['rankine','rankine-reheat']){const input={kind,fluid:'water',model:'IF97',mass:1,pLow:.01,pHigh:10,pReheat:2,Tsteam:773.15,Treheat:773.15,steamMode:'superheated'};assert.deepEqual(await execute('library-cycle',{input}),structuredClone(buildLibraryCycle(input)));}
   const machinery={kind:'rankine-reheat',fluid:'water',model:'IF97',mass:1,pLow:.01,pHigh:10,pReheat:2,Tsteam:773.15,Treheat:773.15,steamMode:'superheated',equipment:'actual',etaPump:.85,etaHP:.88,etaLP:.9};assert.deepEqual(await execute('library-cycle',{input:machinery}),structuredClone(buildLibraryCycle(machinery)));
   const regeneration={kind:'rankine-regenerative',fluid:'water',model:'IF97',mass:1,pLow:.01,pBleed:1,pHigh:10,Tsteam:773.15,steamMode:'superheated',equipment:'actual',etaPump:.85,etaPumpHigh:.82,etaHP:.88,etaLP:.9};assert.deepEqual(await execute('library-cycle',{input:regeneration}),structuredClone(buildLibraryCycle(regeneration)));
+  const sweep={config:regeneration,min:.1,max:3,count:3};assert.deepEqual(await execute('rankine-sweep',{input:sweep}),structuredClone(solveRankineSweep(sweep)));
+  const report={entries:[{kind:'rankine-sweep',model:'IF97',title:'Sweep',input:sweep}]},options={language:'en'};assert.equal(await execute('study-report-html',{title:'Study',report,options}),studyReportHTML('Study',report,options));
   const anchor=calculate('pt',100,623.16).state;
   assert.deepEqual(await execute('calculate',{mode:'ph',a:100,b:anchor.h,model:'IF97'}),structuredClone(calculate('ph',100,anchor.h)));
   const project={format:'water-steam-if97',version:1,history:[{p:anchor.p,h:anchor.h,source:{mode:'pt',a:100,b:623.16}}],form:{mode:'satp',a:'10',b:'unused',ua:'bar',ub:'C',calculated:true}};

@@ -1,5 +1,6 @@
 """Independent numeric references only: isolated Python iapws==1.5.5, NumPy/SciPy."""
 import json
+import sys
 from pathlib import Path
 import iapws
 from iapws import IAPWS97, IAPWS95
@@ -12,6 +13,9 @@ cases = [
     dict(name='saturated-inlet', equipment='actual', pLow=.01, pBleed=.5, pHigh=3., steamMode='saturated'),
     dict(name='superheated-exit', equipment='actual', pLow=.5, pBleed=2., pHigh=10., Tsteam=1000., steamMode='superheated'),
 ]
+sweep='--sweep' in sys.argv
+if sweep:
+    cases=[dict(name='extraction-'+str(p),equipment='actual',pLow=.01,pBleed=p,pHigh=10.,Tsteam=773.15,steamMode='superheated') for p in [.1,.825,1.55,2.275,3.]]
 records=[]
 for model, equation in [('IF97', IAPWS97), ('IAPWS-95', IAPWS95)]:
     @lru_cache(maxsize=100)
@@ -43,4 +47,4 @@ for model, equation in [('IF97', IAPWS97), ('IAPWS-95', IAPWS95)]:
         metrics=dict(y=y,pumpLow=pumpLow,pumpHigh=pumpHigh,boiler=boiler,hp=hp,lp=lp,condenser=condenser,net=net,efficiency=net/boiler,mixerEntropy=three.s-(1-y)*two.s-y*six.s,baselineHeat=baselineHeat,baselineWork=baselineWork,baselineEfficiency=baselineWork/baselineHeat)
         records.append(dict(name=case['name'],input=a,states=states,metrics=metrics))
         print(model,case['name'],'y',y,'eta',net/boiler,flush=True)
-Path('tests/fixtures/rankine-regeneration-reference.json').write_text(json.dumps(dict(source='Independent Python iapws 1.5.5 (GPL-3.0), IAPWS97/IAPWS95; not included in runtime',version=iapws.__version__,generator='scripts/generate-regeneration-reference.py',inverse='At fixed P, saturation lever rules for s/h or scipy brentq on independent EOS; s residual <1e-8, h residual <1e-6. Application output is never used.',basis='1 kg boiler steam; adiabatic open heater saturated-liquid outlet, no pressure losses/reheat; baseline retains both pumps/stages and efficiencies',records=records),indent=2)+'\n')
+Path('tests/fixtures/rankine-sweep-reference.json' if sweep else 'tests/fixtures/rankine-regeneration-reference.json').write_text(json.dumps(dict(source='Independent Python iapws 1.5.5 (GPL-3.0), IAPWS97/IAPWS95; not included in runtime',version=iapws.__version__,generator='scripts/generate-regeneration-reference.py --sweep' if sweep else 'scripts/generate-regeneration-reference.py',inverse='At fixed P, saturation lever rules for s/h or scipy brentq on independent EOS; s residual <1e-8, h residual <1e-6. Application output is never used.',basis='1 kg boiler steam; adiabatic open heater saturated-liquid outlet, no pressure losses/reheat; baseline retains both pumps/stages and efficiencies',records=records),indent=2)+'\n')

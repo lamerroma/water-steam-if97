@@ -192,7 +192,7 @@ $('history-undo').onclick=()=>{if(!historyUndo)return;historyStates.splice(0,his
 window.addEventListener('beforeunload',e=>{if(unsavedProject){e.preventDefault();e.returnValue='';}});
 
 function selectView(view) {
- cancelCustomCycle();cancelWaterProcess();capturePanel();activeSection=view==='panel'?'general':view;currentPanelKind=null;learningResult=null;
+ cancelStudyRender();cancelCustomCycle();cancelWaterProcess();capturePanel();activeSection=view==='panel'?'general':view;currentPanelKind=null;learningResult=null;
  leaveDiagram();
  for(const b of document.querySelectorAll('[role="tab"]'))b.setAttribute('aria-selected','false');$('process-view').hidden=true;$('calculator-view').hidden=view==='help';$('help-view').hidden=view!=='help';
  for(const name of ['general','saturation','help'])$('tab-'+name).setAttribute('aria-selected',String(name===view));

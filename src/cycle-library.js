@@ -1,3 +1,4 @@
+import {readRankineSweepWorkspace} from './rankine-sweep.js';
 import {RANKINE_LIBRARY_TYPES,readRankineLibraryConfig,buildRankineLibraryCycle,rankineCycleDetails,rankineCycleNotes} from './rankine-library.js';
 import {processGas,PROCESS_GASES,PROCESS_MODELS} from './process-gas.js';
 import {readCustomCycleInput,solveCustomCycle} from './custom-cycle.js';
@@ -52,7 +53,7 @@ export function readCycleLibraryWorkspace(value){
  const slots=v.slots??[null,null];if(!Array.isArray(slots)||slots.length!==2)throw Error('Порівняння потребує двох варіантів. / Comparison needs two variants.');
  if(v.label!=null&&(typeof v.label!=='string'||v.label.length>60))throw Error('Invalid cycle label.');
  const kind=v.kind??'ts';if(!Object.hasOwn(CYCLE_CHARTS,kind)||v.compared!=null&&typeof v.compared!=='boolean')throw Error('Invalid comparison view.');
- return {label:v.label??'',builder:readCycleBuilderDraft(v.builder),templates,slots:slots.map(s=>s==null?null:readCycleTemplate(s)),kind,compared:v.compared===true};
+ return {sweep:readRankineSweepWorkspace(v.sweep),label:v.label??'',builder:readCycleBuilderDraft(v.builder),templates,slots:slots.map(s=>s==null?null:readCycleTemplate(s)),kind,compared:v.compared===true};
 }
 export function readCycleComparisonInput(a){
  if(!a||!Array.isArray(a.slots)||a.slots.length!==2||a.slots.some(s=>!s))throw Error('Збережіть обидва варіанти A і B. / Capture both variants A and B.');

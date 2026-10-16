@@ -89,5 +89,5 @@ function ccRenderChart(){
  for(const row of document.querySelectorAll('[data-cc-result-state]'))row.setAttribute('aria-selected',String(Number(row.dataset.ccResultState)===customCycleSelected));
 }
 
-document.addEventListener('languagechange',()=>{if(activeSection!=='custom-cycle'||!$('cc-form'))return;const q=customCycleResult,d=customCycleDraft;showCustomCycle({fluid:d.fluid,closed:d.closed,mass:d.mass,points:d.points},d.model,customCycleChart);if(q){customCycleResult=q;panelCalculated($('cc-form'),undefined,q.model);renderCustomCycle();}});
+document.addEventListener('languagechange',()=>{if(activeSection!=='custom-cycle'||!$('cc-form'))return;const q=customCycleResult,d=customCycleDraft;showCustomCycle({fluid:d.fluid,...(d.topology?{topology:d.topology}:{}),closed:d.closed,mass:d.mass,points:d.points},d.model,customCycleChart);if(q){customCycleResult=q;panelCalculated($('cc-form'),undefined,q.model);renderCustomCycle();}});
 window.addEventListener('pagehide',cancelCustomCycle);
