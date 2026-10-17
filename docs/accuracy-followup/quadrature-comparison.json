@@ -1,0 +1,60 @@
+{
+  "experiment": "Controlled comparison of fixed linear versus adaptive cubic quadrature; same independent reference and EOS",
+  "sourceSha256": "b547e4c9aa34b2d5d6337744a734ab59e9bd6987b707d1168c8168b7942755a6",
+  "records": [
+    {
+      "T": 647.0959,
+      "phase": "liquid",
+      "referenceCp": 7360513.614301093,
+      "beforeCp": 7360513.4750329,
+      "afterCp": 7360513.614300784,
+      "beforeRelative": 1.8920988331672106e-8,
+      "afterRelative": 4.196643033083092e-14
+    },
+    {
+      "T": 647.0959,
+      "phase": "vapor",
+      "referenceCp": 7485592.548662574,
+      "beforeCp": 7485592.408322586,
+      "afterCp": 7485592.548662554,
+      "beforeRelative": 1.8748013252967155e-8,
+      "afterRelative": 2.7755575615628914e-15
+    },
+    {
+      "T": 647.0959993,
+      "phase": "liquid",
+      "referenceCp": 1051089102.0518292,
+      "beforeCp": 1051089098.549498,
+      "afterCp": 1051089102.051909,
+      "beforeRelative": 3.33209737579665e-9,
+      "afterRelative": 7.593925488436071e-14
+    },
+    {
+      "T": 647.0959993,
+      "phase": "vapor",
+      "referenceCp": 1052533351.2227871,
+      "beforeCp": 1052533347.717673,
+      "afterCp": 1052533351.2217685,
+      "beforeRelative": 3.3301692514697834e-9,
+      "afterRelative": 9.67781410565749e-13
+    },
+    {
+      "T": 647.0959998,
+      "phase": "liquid",
+      "referenceCp": 3677353909.8895836,
+      "beforeCp": 3677353902.0727324,
+      "afterCp": 3677353909.889931,
+      "beforeRelative": 2.1256727489316063e-9,
+      "afterRelative": 9.459100169806334e-14
+    },
+    {
+      "T": 647.0959998,
+      "phase": "vapor",
+      "referenceCp": 3680047156.245564,
+      "beforeCp": 3680047148.4214134,
+      "afterCp": 3680047156.2399864,
+      "beforeRelative": 2.126100628885297e-9,
+      "afterRelative": 1.5156764732182637e-12
+    }
+  ]
+}

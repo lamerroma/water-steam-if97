@@ -1,0 +1,204 @@
+{
+  "status": "passed-with-model-limits",
+  "build": {
+    "version": "1.35.2",
+    "id": "699b1105f96b"
+  },
+  "baseCommit": "934113f6b3869db86cc5346ee964994238c675a5",
+  "environmentRecovery": {
+    "initialVersion": "1.24.0",
+    "recoveredPublishedVersion": "1.35.1",
+    "previousUnpublishedFilesAvailable": false
+  },
+  "reference": {
+    "precisionDigits": [
+      70,
+      90
+    ],
+    "ordinaryIF97": "Independent Python iapws double-precision region-1/2 equations",
+    "cases": 68,
+    "verifiedModelLimitRequests": [
+      {
+        "model": "IF97",
+        "mode": "satp",
+        "a": 22.063999,
+        "b": null,
+        "error": "IF97 region-4 pressure above region-3 vapor spinodal by 0.000629007059483541 Pa"
+      },
+      {
+        "model": "IF97",
+        "mode": "satp",
+        "a": 22.0639999,
+        "b": null,
+        "error": "IF97 region-4 pressure above region-3 vapor spinodal by 0.000405043878009032 Pa"
+      },
+      {
+        "model": "IF97",
+        "mode": "satp",
+        "a": 22.06399999,
+        "b": null,
+        "error": "IF97 region-4 pressure above region-3 vapor spinodal by 0.000372967523224166 Pa"
+      },
+      {
+        "model": "IF97",
+        "mode": "satp",
+        "a": 22.0639999999,
+        "b": null,
+        "error": "IF97 region-4 pressure above region-3 vapor spinodal by 0.000369099579075876 Pa"
+      },
+      {
+        "model": "IF97",
+        "mode": "satt",
+        "a": 647.0959993,
+        "b": null,
+        "error": "IF97 region-4 pressure above region-3 vapor spinodal by 0.000433302861890437 Pa"
+      },
+      {
+        "model": "IF97",
+        "mode": "satt",
+        "a": 647.0959998,
+        "b": null,
+        "error": "IF97 region-4 pressure above region-3 vapor spinodal by 0.000388901140945442 Pa"
+      },
+      {
+        "model": "IF97",
+        "mode": "satt",
+        "a": 647.0959999,
+        "b": null,
+        "error": "IF97 region-4 pressure above region-3 vapor spinodal by 0.000379179765335782 Pa"
+      },
+      {
+        "model": "IF97",
+        "mode": "satt",
+        "a": 647.095999999,
+        "b": null,
+        "error": "IF97 region-4 pressure above region-3 vapor spinodal by 0.000369038406280431 Pa"
+      }
+    ]
+  },
+  "baseline": {
+    "cases": 68,
+    "passed": 18,
+    "different": 35,
+    "failed": 15,
+    "scalarChecks": 848,
+    "scalarDifferences": 393,
+    "modelLimitRequests": 8,
+    "inverseCases": 0,
+    "inverseFailures": 0
+  },
+  "current": {
+    "cases": 68,
+    "passed": 68,
+    "different": 0,
+    "failed": 0,
+    "scalarChecks": 1088,
+    "scalarDifferences": 0,
+    "modelLimitRequests": 8,
+    "inverseCases": 40,
+    "inverseFailures": 0
+  },
+  "tests": {
+    "unit": 926,
+    "new": 78,
+    "coreChecks": 14
+  },
+  "browser": {
+    "chromium": {
+      "status": "passed",
+      "scenarios": 17,
+      "values": 416,
+      "coordinateChecks": 12,
+      "errors": []
+    },
+    "firefox": {
+      "status": "passed",
+      "scenarios": 17,
+      "values": 416,
+      "coordinateChecks": 12,
+      "errors": []
+    }
+  },
+  "artifacts": [
+    {
+      "path": ".release/2026-10-17T05-34-16-308Z/report.json",
+      "sha256": "c41fb7da40a62dabb8e5193c1fdd95b50b313f272d5a8bc40f89a1f8d12f62e7"
+    },
+    {
+      "path": ".release/accuracy-followup/reference.json",
+      "sha256": "e1cd70ab2862ad9b6428dfc34769f9aa17bba7a28ac204b04ed807ae95c48c89"
+    },
+    {
+      "path": ".release/accuracy-followup/before.json",
+      "sha256": "4fc34ab1a69283463e9101b404b52e976b9224040512af143e10fb67543b750a"
+    },
+    {
+      "path": ".release/accuracy-followup/after.json",
+      "sha256": "6e42d91546a0b104ab672ceaf9dce8118ccff2d4b4723ddd1d8d12d5c7d19d4b"
+    },
+    {
+      "path": ".release/accuracy-followup/quadrature-comparison.json",
+      "sha256": "dcd1968b51216ed1cd1497201ae6ced7c670a4edad8886317f0d4d013e03886e"
+    },
+    {
+      "path": "tests/fixtures/accuracy-followup-reference.json",
+      "sha256": "e1cd70ab2862ad9b6428dfc34769f9aa17bba7a28ac204b04ed807ae95c48c89"
+    },
+    {
+      "path": "src/precision.js",
+      "sha256": "26b8cfc3f2e9973de948de6e8260b220e89416cc12e6291e14927d991b55b292"
+    },
+    {
+      "path": "src/critical-eos.js",
+      "sha256": "b5006604b1ac4fe67d09c10aafae33ad268e7e548573428b89df21d620bdc51a"
+    },
+    {
+      "path": "src/equations.js",
+      "sha256": "8a7ff9638c6966b6031b5029c607350a33067b61f5b35b511c9a8f3ddbda959d"
+    },
+    {
+      "path": "src/iapws95.js",
+      "sha256": "b547e4c9aa34b2d5d6337744a734ab59e9bd6987b707d1168c8168b7942755a6"
+    },
+    {
+      "path": "src/engine.js",
+      "sha256": "0811d80b0479bd042f41f63a4cc0baec9550b08086e662bfb70089ad0c7901c3"
+    },
+    {
+      "path": "src/extra-inputs.js",
+      "sha256": "49bde0221ac42878ef786720029bc96e40a37507bc341dc8a21d4f0cd96ab917"
+    },
+    {
+      "path": ".release/accuracy-followup/chromium/report.json",
+      "sha256": "b263de948c72628116cafa5c3adbc7829ad264e2db240f512727043b278633ba"
+    },
+    {
+      "path": ".release/accuracy-followup/firefox/report.json",
+      "sha256": "07b67f055792ed15f968503567ddc95718aab7b81d5f6d84fb776a9f0db4452d"
+    },
+    {
+      "path": "docs/accuracy-followup/after.csv",
+      "sha256": "8700e2c98da38ffad50dd38acf2ccb9cb91ddd84e913f82bfc978ccffb6c0732"
+    },
+    {
+      "path": "docs/accuracy-followup/quadrature-improvement.pdf",
+      "sha256": "3925d33a9f7c9997b452ae21ac25ea3a46be3f637add1357af623a666b45b2a3"
+    },
+    {
+      "path": "docs/accuracy-followup/quadrature-comparison.json",
+      "sha256": "dcd1968b51216ed1cd1497201ae6ced7c670a4edad8886317f0d4d013e03886e"
+    },
+    {
+      "path": "docs/accuracy-followup/quadrature-improvement.png",
+      "sha256": "db6c57d74973d5240504ac85bd0246c077280cdc462be4021ce137c5d668fb39"
+    },
+    {
+      "path": "docs/accuracy-followup/before.csv",
+      "sha256": "f454eaa26cfadb71c630f8d6a78a20a722af8251794eda279004ef2179e97c7c"
+    },
+    {
+      "path": "docs/NUMERICAL_PRECISION_FOLLOWUP_UK.md",
+      "sha256": "870a57c2e2d8b5f6b4f3d42f5ab064c4c1e0615e03df0a175164c1703575d770"
+    }
+  ]
+}

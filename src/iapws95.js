@@ -2,6 +2,8 @@
 // Independent transcription; MPa, K, kg/m³, kJ/kg. No IF97 property substitution.
 import {viscosity,viscosityScientific,conductivity,surfaceTension} from './transport.js';
 import {dielectric} from './dielectric.js';
+import {hpDecimal,hpAdd,hpSub,hpDiv,hpValue,criticalDensityRoot} from './precision.js';
+import {useCriticalPrecision,critical95Data} from './critical-eos.js';
 export const R95=.46151805, T95C=647.096, D95C=322, P95C=22.064;
 const N95=[.012533547935523,7.8957634722828,-8.7803203303561,.31802509345418,-.26145533859358,-.0078199751687981,.0088089493102134,-.66856572307965,.20433810950965,-.000066212605039687,-.19232721156002,-.25709043003438,.16074868486251,-.040092828925807,.00000039343422603254,-.0000075941377088144,.00056250979351888,-.000015608652257135,.0000000011537996422951,.00000036582165144204,-.0000000000013251180074668,-.00000000062639586912454,-.10793600908932,.017611491008752,.22132295167546,-.40247669763528,.58083399985759,.0049969146990806,-.031358700712549,-.74315929710341,.47807329915480,.020527940895948,-.13636435110343,.014180634400617,.0083326504880713,-.029052336009585,.038615085574206,-.020393486513704,-.0016554050063734,.0019955571979541,.00015870308324157,-.000016388568342530,.043613615723811,.034994005463765,-.076788197844621,.022446277332006,-.000062689710414685,-.00000000055711118565645,-.19905718354408,.31777497330738,-.11841182425981];
 const D95=[1,1,1,2,2,3,4,1,1,1,2,2,3,4,4,5,7,9,10,11,13,15,1,2,2,2,3,4,4,4,5,6,6,7,9,9,9,9,9,10,10,12,3,4,4,5,14,3,6,6,6];
@@ -35,9 +37,11 @@ export function derivatives95(delta,tau){
  }
  return {ideal,residual};
 }
-export function raw95(T,rho){
- const delta=rho/D95C,tau=T95C/T,{ideal:o,residual:r}=derivatives95(delta,tau),f=add95(o,r),B=1+2*delta*r[1]+delta*delta*r[3],A=1+delta*r[1]-delta*tau*r[4],cv=-R95*tau*tau*f[5];
- return {T,rho,v:1/rho,p:rho*R95*T*(1+delta*r[1])/1000,u:R95*T*tau*f[2],h:R95*T*(1+tau*f[2]+delta*r[1]),s:R95*(tau*f[2]-f[0]),cv,cp:cv+R95*A*A/B,w:Math.sqrt(1000*R95*T*(B+A*A/(cv/R95))),alpha:A/(T*B),drhodp:1000/(R95*T*B),region:null,model:'IAPWS-95'};
+let preciseCache95;
+function preciseData95(T,rho,preciseT){if(preciseCache95?.T!==T||preciseCache95?.rho!==rho||preciseCache95?.preciseT!==preciseT)preciseCache95={T,rho,preciseT,...critical95Data(preciseT??T,rho,N95,D95,E95,C95)};return preciseCache95;}
+export function raw95(T,rho,preciseT){
+ const exact=useCriticalPrecision(T,rho)?preciseData95(T,rho,preciseT):null,delta=exact?.delta??rho/D95C,tau=exact?.tau??T95C/T,ordinary=derivatives95(delta,tau),o=ordinary.ideal,r=exact?.residual??ordinary.residual,f=add95(o,r),B=exact?.B??(1+2*delta*r[1]+delta*delta*r[3]),A=exact?.A??(1+delta*r[1]-delta*tau*r[4]),cv=-R95*tau*tau*f[5];
+ return {T,rho,v:1/rho,p:exact?hpValue(exact.pressure):rho*R95*T*(1+delta*r[1])/1000,u:R95*T*tau*f[2],h:R95*T*(1+tau*f[2]+delta*r[1]),s:R95*(tau*f[2]-f[0]),cv,cp:cv+R95*A*A/B,w:Math.sqrt(1000*R95*T*(B+A*A/(cv/R95))),alpha:A/(T*B),drhodp:1000/(R95*T*B),region:null,model:'IAPWS-95'};
 }
 function bounds95(p,T){if(!Number.isFinite(p)||p<=0||p>1000)throw Error('IAPWS-95: абсолютний тиск 0 < P ≤ 1000 МПа.');if(!Number.isFinite(T)||T<273.16||T>1273)throw Error('Реалізований діапазон IAPWS-95: 273,16…1273 K; лід і переохолоджена вода не моделюються.');
  if(p>meltingLimit95(T))throw Error('IAPWS-95: стан у твердій області або на межі плавлення; лід не моделюється.');}
@@ -52,10 +56,39 @@ function decorate95(q,phase,x=null){
  return {...q,phase,x,kappa,dvdt:q.v*q.alpha,dvdp:-q.v*kappa,dpdt:q.alpha/kappa,dpdv:-1/(q.v*kappa),jt:1000*q.v*(q.T*q.alpha-1)/q.cp,ijt:1000*q.v*(1-q.T*q.alpha),A:q.u-q.T*q.s,G:q.h-q.T*q.s,Z:1000*q.p*q.v/(R95*q.T),isentropic:q.w*q.w*q.rho/(q.p*1e6),dc:dielectric(q.T,q.rho),mu,nu:mu==null?null:mu/q.rho,lambda,diffusivity:lambda==null?null:lambda/(q.rho*q.cp*1000),Pr:lambda==null?null:mu*q.cp*1000/lambda,sigma:x===0||x===1?surfaceTension(q.T):null,notes:['IAPWS-95 R6-95(2018). Насичення — рівновага основного рівняння. μ та λ: наукові IAPWS 2008/2011 з критичними доданками та опорною похідною IAPWS-95; реалізовано лише P≤100 МПа, T≤1173 K. Області 1–5 IF97 до цієї моделі не застосовуються.']};
 }
 function seedSaturation95(T){const z=1-T/T95C,liquid=[1.99274064,1.09965342,-.510839303,-1.75493479,-45.5170352,-674694.45],le=[1/3,2/3,5/3,16/3,43/3,110/3],vapor=[-2.0315024,-2.6830294,-5.38626492,-17.2991605,-44.7586581,-63.9201063],ve=[1/3,2/3,4/3,3,37/6,71/6];return [D95C*(1+liquid.reduce((s,n,i)=>s+n*z**le[i],0)),D95C*Math.exp(vapor.reduce((s,n,i)=>s+n*z**ve[i],0))];}
+// Integrate pressure/Gibbs derivatives rather than subtracting almost equal
+// phase pressures. The cubic coordinate resolves the noninteger powers at δ=1.
+const satNodes95=[.09501250983763744,.2816035507792589,.4580167776572274,.6178762444026438,.755404408355003,.8656312023878318,.9445750230732326,.9894009349916499];
+const satWeights95=[.1894506104550685,.1826034150449236,.16915651939500254,.14959598881657673,.12462897125553388,.09515851168249278,.06225352393864789,.027152459411754095];
+function criticalSaturation95(T,rl,rv,preciseT){
+ const tau=T95C/T,B=delta=>{if(useCriticalPrecision(T,delta*D95C))return preciseData95(T,delta*D95C,preciseT).B;const r=derivatives95(delta,tau).residual;return 1+2*delta*r[1]+delta*delta*r[3];};
+ let panels=1,validated=false;
+ const residual=(l,v)=>{const mean=(l+v)/2,gap=l-v;let e1=0,e2=0;
+  for(const [direction,extent]of [[-1,1-v],[1,l-1]])for(let panel=0;panel<panels;panel++)for(let i=0;i<satNodes95.length;i++)for(const sign of [-1,1]){
+   const u=(panel+(1+sign*satNodes95[i])/2)/panels,offsetFromCritical=direction*extent*u**3,delta=1+offsetFromCritical,offset=offsetFromCritical+(1-mean),term=satWeights95[i]*1.5*extent*u*u*B(delta)/panels;e1+=term;e2-=term*offset/(delta*mean);
+  }
+  return [e1,e2/gap];
+ };
+ let l=rl/D95C,v=rv/D95C;
+ for(let i=0;i<55;i++){
+  const [e1,e2]=residual(l,v),mean=(l+v)/2,gap=l-v,bl=B(l),bv=B(v),a=l*bl,b=-v*bv,c=(-gap*bl/(2*mean)+e1*l/(2*mean*mean))/gap,d=(-gap*bv/(2*mean)+e1*v/(2*mean*mean))/gap,det=a*d-b*c;
+  const dl=(-e1*d+b*e2)/det,dv=(-a*e2+c*e1)/det;
+  if(Math.max(Math.abs(dl),Math.abs(dv))<2e-14&&bl>0&&bv>0){if(validated||panels===8)return [l*D95C,v*D95C];panels*=2;validated=true;continue;}
+  validated=false;
+  let ok=false;for(let f=1;f>2**-22;f/=2){const nl=l*Math.exp(f*dl),nv=v*Math.exp(f*dv);if(!(nl>1&&nv<1&&nv>0&&nl<1800/D95C))continue;const [E1,E2]=residual(nl,nv);if(Math.hypot(E1,E2)<Math.hypot(e1,e2)){l=nl;v=nv;ok=true;break;}}
+  if(!ok)break;
+ }
+ throw Error('IAPWS-95: рівновага насичення не збіглася; стан надто близький до критичної точки.');
+}
+function criticalCoexistence95(T,preciseT){
+ const [rl,rv]=criticalSaturation95(T,...seedSaturation95(T),preciseT),liquid=raw95(T,rl,preciseT),vapor=raw95(T,rv,preciseT),pressure=hpDiv(hpAdd(preciseData95(T,rl,preciseT).pressure,preciseData95(T,rv,preciseT).pressure),[2,0]),p=hpValue(pressure);
+ return {pressure,saturation:{p,T,liquid:decorate95({...liquid,p},'Насичена рідина',0),vapor:decorate95({...vapor,p},'Насичена пара',1),latentHeat:vapor.h-liquid.h,model:'IAPWS-95'}};
+}
 const satCache95=new Map();
 export function saturationT95(T){
  if(!Number.isFinite(T)||T<273.16||T>=T95C)throw Error('Насичення IAPWS-95: 273,16 ≤ T < 647,096 K; точна критична точка не підтримується.');
  if(satCache95.has(T))return satCache95.get(T);
+ if(T95C-T<=.011){const sat=criticalCoexistence95(T).saturation;if(satCache95.size>400)satCache95.clear();satCache95.set(T,sat);return sat;}
  let [rl,rv]=seedSaturation95(T);const RT=R95*T;
  for(let i=0;i<55;i++){
  const l=raw95(T,rl),v=raw95(T,rv),e1=(l.p-v.p)*1000/RT,e2=(l.h-T*l.s-v.h+T*v.s)/RT;
@@ -71,7 +104,17 @@ const satPressureCache95=new Map();
 export function saturationP95(p){
  if(!Number.isFinite(p)||p<.000611654771||p>=P95C)throw Error('Насичення IAPWS-95: 0,000611654771 ≤ P < 22,064 МПа.');
  if(satPressureCache95.has(p))return satPressureCache95.get(p);
- let lo=273.16,hi=T95C-1e-5,T=(lo+hi)/2;
+ if(p>22.0611){
+  const target=hpDecimal(p);let preciseT=hpSub(hpDecimal(T95C),hpDecimal((P95C-p)/.2673));
+  for(let i=0;i<12;i++){
+   const T=hpValue(preciseT);if(!(T<T95C))throw Error('IAPWS-95: тиск надто близький до критичного для визначення фаз.');
+   const q=criticalCoexistence95(T,preciseT),s=q.saturation,error=hpValue(hpSub(q.pressure,target)),slope=s.latentHeat/(1000*T*(s.vapor.v-s.liquid.v)),step=error/slope;
+   if(Math.abs(step)<2e-17){const result={...s,p,liquid:{...s.liquid,p},vapor:{...s.vapor,p}};if(satPressureCache95.size>=500)satPressureCache95.clear();satPressureCache95.set(p,result);return result;}
+   preciseT=hpSub(preciseT,hpDecimal(step));
+  }
+  throw Error('Не збіглася температура критичного насичення IAPWS-95.');
+ }
+ let lo=273.16,hi=T95C-.001,T=(lo+hi)/2;
  for(let i=0;i<65;i++){
  const s=saturationT95(T),e=s.p-p;
  if(Math.abs(e)<Math.max(2e-11,p*2e-11)){if(satPressureCache95.size>=500)satPressureCache95.clear();satPressureCache95.set(p,s);return s;}
@@ -84,6 +127,7 @@ export function saturationP95(p){
 }
 
 function density95(p,T,side,sat){
+ if(Math.abs(T-T95C)<=.011&&Math.abs(p-P95C)<.01)return criticalDensityRoot(p,side,rho=>{const state=raw95(T,rho),error=useCriticalPrecision(T,rho)?hpValue(hpSub(preciseData95(T,rho).pressure,hpDecimal(p))):state.p-p;return {state,error,slope:1/state.drhodp};},'IAPWS-95');
  let rho=side==='liquid'?(sat?.liquid.rho||1000):p*1000/(R95*T);
  if(T>=T95C)rho=p>30?700:Math.min(600,rho);
  for(let i=0;i<90;i++){const q=raw95(T,rho),err=q.p-p;if(q.drhodp>0&&Math.abs(err)<Math.max(2e-10,p*2e-13))return q;const step=err*q.drhodp;let ok=false;for(let f=1;f>2**-25;f/=2){const r=rho-f*step;if(!(r>0&&r<1800)||(side==='liquid'&&sat&&r<sat.liquid.rho*(1-1e-7))||(side==='vapor'&&sat&&r>sat.vapor.rho*(1+1e-7)))continue;const n=raw95(T,r);if(n.drhodp>0&&Math.abs(n.p-p)<Math.abs(err)){rho=r;ok=true;break;}}if(!ok)break;}
@@ -92,9 +136,9 @@ function density95(p,T,side,sat){
  for(let i=0;i<100;i++){const mid=(lo+hi)/2,q=raw95(T,mid);if(Math.abs(q.p-p)<Math.max(2e-10,p*2e-13)&&q.drhodp>0)return q;if(q.p>p)hi=mid;else lo=mid;}
  throw Error('IAPWS-95: не знайдено стабільний корінь густини.');
 }
-export function solvePT95(p,T){bounds95(p,T);if(p===P95C&&T===T95C)throw Error('Точна критична точка IAPWS-95: сингулярні похідні; використайте стан поза нею.');let sat,side;if(T<T95C){sat=saturationT95(T);if(Math.abs(p-sat.p)<Math.max(3e-10,sat.p*1e-9))return {saturation:sat,ambiguous:true};side=p>sat.p?'liquid':'vapor';}const q=density95(p,T,side,sat);return {state:decorate95({...q,p},side==='liquid'?'Стиснена рідина':side==='vapor'?'Перегріта пара':p>=P95C?'Надкритичний флюїд':'Газ / перегріта пара')};}
+export function solvePT95(p,T){bounds95(p,T);if(p===P95C&&T===T95C)throw Error('Точна критична точка IAPWS-95: сингулярні похідні; використайте стан поза нею.');let sat,side;if(T<T95C&&p>=P95C)side='liquid';else if(T<T95C){sat=saturationT95(T);if(Math.abs(p-sat.p)<(T95C-T<=.011?5e-14:Math.max(3e-10,sat.p*1e-9)))return {saturation:sat,ambiguous:true};side=p>sat.p?'liquid':'vapor';}const q=density95(p,T,side,sat);return {state:decorate95({...q,p},side==='liquid'?'Стиснена рідина':side==='vapor'?'Перегріта пара':p>=P95C?'Надкритичний флюїд':'Газ / перегріта пара')};}
 function mixture95(sat,x){if(!Number.isFinite(x)||x<0||x>1)throw Error('Ступінь сухості має бути 0…1.');if(x===0)return {...sat.liquid};if(x===1)return {...sat.vapor};const blend=k=>sat.liquid[k]+x*(sat.vapor[k]-sat.liquid[k]),v=blend('v'),q={...sat.liquid,x,phase:'Двофазна суміш',v,rho:1/v,h:blend('h'),s:blend('s'),u:blend('u'),sigma:surfaceTension(sat.T)};for(const k of ['cp','cv','w','mu','nu','lambda','diffusivity','Pr','dc','alpha','kappa','dvdt','dvdp','dpdt','dpdv','jt','ijt','isentropic','drhodp'])q[k]=null;return {...q,A:q.u-q.T*q.s,G:q.h-q.T*q.s,Z:1000*q.p*q.v/R95/q.T,notes:['Двофазна суміш IAPWS-95: h,s,u,v — масовий баланс фаз; похідні та транспортні властивості суміші не визначаються усередненням.']};}
-export function inverse95(p,target,key){if(!Number.isFinite(target))throw Error('Введіть скінченне значення.');bounds95(p,Math.max(715,273.16));let sat;if(p>=.000611654771&&p<P95C){sat=saturationP95(p);const tolerance=key==='s'?2e-12:2e-9;if(Math.abs(target-sat.liquid[key])<=tolerance)return {state:{...sat.liquid},saturation:sat};if(Math.abs(target-sat.vapor[key])<=tolerance)return {state:{...sat.vapor},saturation:sat};if(target>=sat.liquid[key]&&target<=sat.vapor[key])return {state:mixture95(sat,(target-sat.liquid[key])/(sat.vapor[key]-sat.liquid[key])),saturation:sat};}
+export function inverse95(p,target,key){if(!Number.isFinite(target))throw Error('Введіть скінченне значення.');bounds95(p,Math.max(715,273.16));let sat;if(p>=.000611654771&&p<P95C){sat=saturationP95(p);const tolerance=p>22.0611?32*Number.EPSILON*Math.max(Math.abs(target),Math.abs(sat.liquid[key]),Math.abs(sat.vapor[key])):key==='s'?2e-12:2e-9;if(Math.abs(target-sat.liquid[key])<=tolerance)return {state:{...sat.liquid},saturation:sat};if(Math.abs(target-sat.vapor[key])<=tolerance)return {state:{...sat.vapor},saturation:sat};if(target>=sat.liquid[key]&&target<=sat.vapor[key])return {state:mixture95(sat,(target-sat.liquid[key])/(sat.vapor[key]-sat.liquid[key])),saturation:sat};}
  // Use the already calculated phase endpoints as inverse brackets. A fixed
  // 1e-7 K offset can still lie inside solvePT95's saturation ambiguity band,
  // especially at low pressure, and falsely reject a valid compressed liquid.

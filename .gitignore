@@ -4,3 +4,4 @@ node_modules/
 *.log
 dist/release-stage/
 dist/water-steam-calculator.zip
+__pycache__/

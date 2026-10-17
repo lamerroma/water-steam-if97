@@ -2,8 +2,9 @@ import {extraInputs,boundaryInputRoots} from './extra-inputs.js';
 import {calculate95} from './iapws95.js';
 import {dielectric} from './dielectric.js';
 import init, {initSync,pt,px,hs,ph,ps} from '../vendor/seuif97.js';
-import {gibbs,helmholtz,TC,PC,RHOC,PMIN_SAT,saturationPressure,saturationTemperature,boundary23Pressure,boundary23Temperature} from './equations.js';
+import {gibbs,helmholtz,pressureError97,TC,PC,RHOC,PMIN_SAT,saturationPressure,saturationPressurePair,saturationTemperature,saturationTemperaturePair,boundary23Pressure,boundary23Temperature} from './equations.js';
 import {viscosity,conductivity,surfaceTension} from './transport.js';
+import {criticalDensityRoot,hpValue} from './precision.js';
 export {TC,PC,PMIN_SAT,saturationPressure,saturationTemperature,boundary23Pressure};
 export async function initialize(bytes) { if(bytes)initSync({module:bytes});else await init(); }
 function finite(n,name) {if(!Number.isFinite(n))throw Error(`${name}: введіть скінченне число.`);}
@@ -16,14 +17,15 @@ export function regionPT(p,T) {
   if(T<=863.15 && p>boundary23Pressure(T))return 3;
   return 2;
 }
-function critical(p,T) {return Math.abs(p-PC)<1e-10 && Math.abs(T-TC)<2e-9;}
+function critical(p,T) {return p===PC && T===TC;}
 // Official v(p,T) backward equation supplies only an initial guess; Newton solves Eq. 28.
-function densityState(p,T,guess,side) {
+function densityState(p,T,guess,side,targetPressure,preciseT) {
   if(critical(p,T))return {...helmholtz(TC,RHOC),p:PC,T:TC,cp:null,drhodp:null,critical:true};
+  if(Math.abs(T-TC)<=.6&&Math.abs(p-PC)<.2)return criticalDensityRoot(p,side,rho=>{const state=helmholtz(T,rho,preciseT);return {state,error:pressureError97(T,rho,p,targetPressure,preciseT),slope:1/state.drhodp};},'IF97');
   let rho=guess;
   for(let k=0;k<60;k++) {
     const state=helmholtz(T,rho),err=state.p-p;
-    if(Math.abs(err)<Math.max(2e-12,Math.abs(p)*2e-13) && state.drhodp>0)return {...state,p};
+    if(Math.abs(err)<Math.max(4e-13,Math.abs(p)*2e-14) && state.drhodp>0)return {...state,p};
     const step=err*state.drhodp;
     let accepted=false;
     for(let damping=1;damping>=2**-24;damping/=2) {
@@ -35,13 +37,13 @@ function densityState(p,T,guess,side) {
     if(!accepted)break;
   }
   const state=helmholtz(T,rho);
-  if(state.drhodp>0&&Math.abs(state.p-p)<1e-9)return {...state,p};
+  if(state.drhodp>0&&Math.abs(state.p-p)<1e-10)return {...state,p};
   throw Error('Не вдалося збігтися до стабільного кореня області 3. Стан надто близький до критичної точки або межі; змініть вхідні дані.');
 }
 function basePT(p,T) {
   const region=regionPT(p,T);
   if(region!==3)return gibbs(p,T,region);
-  const side=T<TC?(p>=saturationPressure(T)?'liquid':'vapor'):undefined;
+  const side=T<TC?(p>=PC||p>=saturationPressure(T)?'liquid':'vapor'):undefined;
   return densityState(p,T,pt(p,T-273.15,2),side);
 }
 function finish(state,phase,x=null) {
@@ -65,12 +67,13 @@ function finish(state,phase,x=null) {
     isentropic:state.w**2*state.rho/(state.p*1e6),nu:mu==null?null:mu/state.rho,diffusivity:lambda==null?null:lambda/(state.rho*state.cp*1000),Pr:mu==null||lambda==null?null:mu*state.cp*1000/lambda,
     sigma:x===0||x===1||state.critical?surfaceTension(state.T):null};
 }
-export function saturation(p) {
+export function saturation(p,givenT) {
   // Select the 1/2–3 cutoff by pressure; inverse Eq. 31 rounds above 623.15 K.
-  const cutoff=saturationPressure(623.15),lowRegions=p<=cutoff,T=p===cutoff?623.15:saturationTemperature(p);
+  const cutoff=saturationPressure(623.15),lowRegions=p<=cutoff,preciseT=givenT===undefined&&p>21.9&&p<PC?saturationTemperaturePair(p):undefined,T=givenT??(preciseT?hpValue(preciseT):p===cutoff?623.15:saturationTemperature(p));
   if(p===PC) {const c=finish({...helmholtz(TC,RHOC),p:PC,cp:null,drhodp:null,critical:true},'Критична точка');return {p,T,liquid:c,vapor:{...c},latentHeat:0,critical:true};}
-  const liquid=lowRegions?gibbs(p,T,1):densityState(p,T,px(p,0,2),'liquid');
-  const vapor=lowRegions?gibbs(p,T,2):densityState(p,T,px(p,1,2),'vapor');
+  const targetPressure=givenT!==undefined&&TC-T<=.6?saturationPressurePair(T):undefined;
+  const liquid=lowRegions?gibbs(p,T,1):densityState(p,T,px(p,0,2),'liquid',targetPressure,preciseT);
+  const vapor=lowRegions?gibbs(p,T,2):densityState(p,T,px(p,1,2),'vapor',targetPressure,preciseT);
   return {p,T,liquid:finish(liquid,'Насичена рідина',0),vapor:finish(vapor,'Насичена пара',1),latentHeat:vapor.h-liquid.h};
 }
 function mix(sat,x) {
@@ -87,7 +90,7 @@ export function solvePT(p,T) {
   if(critical(p,T))return {state:finish(basePT(p,T),'Критична точка')};
   if(T<=TC) {
     const ps=saturationPressure(T);
-    if(Math.abs(p-ps)<=Math.max(1e-12,ps*1e-10))return {saturation:saturation(Math.min(PC,Math.max(PMIN_SAT,p))),ambiguous:true};
+    if(Math.abs(p-ps)<=(TC-T<=.011?5e-14:Math.max(1e-12,ps*1e-10)))return {saturation:saturation(Math.min(PC,Math.max(PMIN_SAT,p))),ambiguous:true};
   }
   const s=basePT(p,T);
   const phase=s.region===1?'Стиснена рідина':s.region===2||s.region===5?'Перегріта пара':T>=TC&&p>=PC?'Надкритичний флюїд':T<TC&&p>saturationPressure(T)?'Густа рідина':'Густий флюїд / пара';
@@ -99,6 +102,9 @@ export function solveInverse(p,target,key,tolerance) {
   let sat;
   if(p>=PMIN_SAT&&p<PC) {
     sat=saturation(p);const a=sat.liquid[key],b=sat.vapor[key];
+    // Keep rounded independent endpoint inputs on the exact phase endpoint.
+    // This tolerance scales with machine roundoff, not the full latent range.
+    for(const endpoint of [sat.liquid,sat.vapor])if(Math.abs(target-endpoint[key])<=32*Number.EPSILON*Math.max(Math.abs(target),Math.abs(endpoint[key])))return {state:mix(sat,endpoint.x),saturation:sat};
     if(target>=a&&target<=b)return {state:mix(sat,(target-a)/(b-a)),saturation:sat};
   }
   if(p===PC) {
@@ -116,7 +122,7 @@ export function solveInverse(p,target,key,tolerance) {
   for(let i=0;i<cuts.length-1;i++) {
     let lo=cuts[i],hi=cuts[i+1];if(hi===lo)continue;
     const region=regionPT(p,(lo+hi)/2);
-    const evaluate=T=>region===3?densityState(p,T,pt(p,T-273.15,2),T<TC?(p>=saturationPressure(T)?'liquid':'vapor'):undefined):gibbs(p,T,region);
+    const evaluate=T=>region===3?densityState(p,T,pt(p,T-273.15,2),T<TC?(p>=PC||p>=saturationPressure(T)?'liquid':'vapor'):undefined):gibbs(p,T,region);
     const endpoint=T=>sat&&Math.abs(T-sat.T)<1e-9?(T===lo?sat.vapor:sat.liquid):evaluate(T);
     const a=endpoint(lo),b=endpoint(hi);
     if(target<a[key]-1e-9||target>b[key]+1e-9)continue;
@@ -146,9 +152,9 @@ export function solveInverse(p,target,key,tolerance) {
   const min=basePT(p,273.15)[key],max=basePT(p,maxT)[key];
   throw Error(`Значення поза допустимим діапазоном або в малому розриві на межі рівнянь IF97. Для цього тиску: ${min.toPrecision(8)}…${max.toPrecision(8)} ${key==='s'?'кДж/(кг·K)':'кДж/кг'}.`);
 }
-export function solveQuality(p,x) {
+export function solveQuality(p,x,givenT) {
  finite(x,'Сухість');if(x<0||x>1)throw Error('Ступінь сухості x має бути від 0 до 1 (0…100 %).');
- const sat=saturation(p);
+ const sat=saturation(p,givenT);
  if(sat.critical)throw Error('У критичній точці ступінь сухості не визначений. Використайте P–T або насичення без x.');
  return {state:mix(sat,x),saturation:sat};
 }
@@ -208,10 +214,10 @@ export function calculate(mode,a,b,model='IF97') {
     case 'ph':return solveInverse(a,b,'h');
     case 'ps':return solveInverse(a,b,'s');
     case 'px':return solveQuality(a,b);
-    case 'tx':return solveQuality(saturationPressure(a),b);
+    case 'tx':return solveQuality(saturationPressure(a),b,a);
     case 'hs':return solveHS(a,b);
     case 'satp':return {saturation:saturation(a)};
-    case 'satt':return {saturation:saturation(saturationPressure(a))};
+    case 'satt':return {saturation:saturation(saturationPressure(a),a)};
     default:throw Error('Невідомий режим розрахунку.');
   }
 }

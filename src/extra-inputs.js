@@ -14,12 +14,12 @@ export function extraInputs(mode,a,b,model,calc){
  // would erase real wet states in the rest of the dome.
  const endpointTolerance=q=>{
   const roundoff=64*Number.EPSILON*Math.max(Math.abs(q[key]),Math.abs(b));
-  if(model!=='IF97'||q.region!==3)return roundoff;
+  if(model!=='IF97')return roundoff;
   const [dp,dT]=inputGradient(q,key);
-  return Math.max(roundoff,Math.abs(dp)*Math.max(2e-12,q.p*2e-13)+Math.abs(dT)*64*Number.EPSILON*q.T);
+  return Math.max(roundoff,Math.abs(dp)*(q.region===3?Math.max(2e-12,q.p*2e-13):64*Number.EPSILON*q.p)+Math.abs(dT)*64*Number.EPSILON*q.T);
  };
  if(Math.abs(b-l[key])<=endpointTolerance(l))x=0;else if(Math.abs(b-v[key])<=endpointTolerance(v))x=1;
- if(x>=0&&x<=1)keep(calc('px',sat.p,x,model));}
+ if(x>=0&&x<=1)keep(calc(fixedT?'tx':'px',fixedT?a:sat.p,x,model));}
  const values=fixedT?Array.from({length:193},(_,i)=>10**(-9+(Math.log10(model==='IF97'?100:1000)+9)*i/192)):Array.from({length:257},(_,i)=>(model==='IF97'?273.15:273.16)+((model==='IF97'?(a<=50?2273.15:1073.15):1273)-(model==='IF97'?273.15:273.16))*i/256);
  if(fixedT)values.push(model==='IF97'?100:1000,50,22.064);
  else values.push(model==='IF97'?273.15:273.16,model==='IF97'?(a<=50?2273.15:1073.15):1273,274,275,276,277,277.13,277.5,278,279,280,623.15,647.096,1073.15);
