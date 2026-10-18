@@ -1,0 +1,17 @@
+{
+  "schema_version":1,
+  "baseline_version":"1.35.4",
+  "findings":[
+    {"id":"N01","type":"confirmed_local_inverse_failure","owner":"P02","status":"open","model":"IF97","case_ids":["IF97-below-pc-decimal","IF97-below-pc-one-ulp"],"modes":["ph","ps","pu"],"failed_queries":6,"inputs":{"p_MPa":[22.06399999,22.063999999999997],"T_K":647.196},"observation":"Independent forward reference and local PT work; pressure inversions throw before returning the hot single-phase state.","source_diagnosis":"solveInverse in src/engine.js calls saturation for every subcritical pressure before searching target branches. Saturation failure prevents the independent single-phase solve.","required_fix":"Allow valid single-phase inversions when a separate coexistence calculation cannot resolve that pressure. Preserve wet-state/endpoint checks, all roots and honest singular-state errors.","reference_site_result":null},
+    {"id":"N02","type":"confirmed_local_inverse_failure","owner":"P02","status":"open","model":"IAPWS-95","case_ids":["IAPWS-95-below-pc-one-ulp"],"modes":["ph","ps","pu"],"failed_queries":3,"inputs":{"p_MPa":[22.063999999999997],"T_K":647.196},"observation":"PT and independent reference work; inverse95 calls saturationP95, which rejects a subcritical temperature that rounds to Tc. This does not make the requested hot state singular.","required_fix":"Separate inverse single-phase feasibility from coexistence resolution without fabricating quality or weakening critical-point behavior.","reference_site_result":null},
+    {"id":"N03","type":"confirmed_local_scientific_domain_gap","owner":"P05","status":"open","case_ids":["sub-triple-liquid"],"observation":"IAPWS-95 rejects 200 MPa / 260 K via constant Tmin. Ice-Ih melting pressure at 260 K is 138.2681130022179 MPa, so this point is stable liquid. Python iapws and CoolProp independently agree on h/rho; Python labels sub-triple-T use as extrapolation generically.","required_fix":"Pressure-dependent stable-fluid boundary, full melting-curve validation and inverse/UI acceptance. Website extended-domain behavior still B06.","reference_site_result":null},
+    {"id":"N04","type":"confirmed_local_transport_domain_gap","owner":"P05","status":"open","case_ids":["high-pressure-transport"],"observation":"At 200 MPa / 400 K thermodynamics returns but mu and lambda are null due to the implemented 100 MPa cap. Independent scientific values are retained; full property-specific release boundaries must be mapped before extending.","reference_site_result":null}
+  ],
+  "fixture_review": {
+    "initial_problem":"External libraries re-evaluate p from the EOS and return values slightly below the requested Pc. That changed the intended initial exact-Pc cases.",
+    "correction":"Freeze the exact supplied pressure; retain separately named nextafter(Pc,-infinity) and Pc-1e-8 probes to test actual neighboring inputs.",
+    "tolerances_changed":false,
+    "exact_pc_result":"All nine input pairs tested for IAPWS-95 and fourteen for IF97 pass at the original near-critical pilot state; failures below Pc are explicit additional probes.",
+    "reference_generation":"Two-phase process references use independent EOS endpoints and analytic s/h balances, avoiding unnecessary inverse-solver roundoff; no product data used."
+  }
+}

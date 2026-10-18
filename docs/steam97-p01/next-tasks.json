@@ -1,0 +1,14 @@
+{
+  "schema_version":1,
+  "next_sprint":"P02",
+  "readiness":"Bounded numerical tasks ready. Full reference parity and unknown saturation modes remain blocked.",
+  "tasks":[
+    {"id":"P02-01","status":"ready","title":"Hot single-phase inversions just below Pc","finding_ids":["N01","N02"],"requirement_ids":["input-if97-ph","input-if97-ps","input-if97-pu","input-iapws-95-ph","input-iapws-95-ps","input-iapws-95-pu"],"scope":"Separate necessary phase identification from optional saturation results; retain all valid roots and existing guards.","acceptance":["All 217 frozen water queries pass unchanged policy","Densify pressures on both sides of Pc and temperatures above/below Tc with independent references","Wet states, exact saturation endpoints and critical-point conventions remain valid","Existing 4657 inverse queries pass","Worker/form/save/CSV scenarios pass Chromium and Firefox"]},
+    {"id":"P02-02","status":"ready","title":"Publish the bounded water contract in the app workflow","scope":"Use the confirmed 16/11 pairs and px/tx phase columns; inspect end-to-end support and address demonstrated omissions only.","acceptance":["Both models and SI/English input conversion","All physical alternatives and unavailable properties represented consistently","Saved project and CSV keep model, units and exact canonical inputs","Existing exact-Pc, B23 and 1074 K pilot states remain passing"]},
+    {"id":"P02-03","status":"blocked","title":"Complete saturation selector coverage","blocker_ids":["B01","B02","B03"],"scope":"Enumerate real selector options before designing additional modes. Count 15 is insufficient."},
+    {"id":"P02-04","status":"blocked","title":"Match exergy convention and fresh reference cases","blocker_ids":["B01","B03","B07"],"scope":"Resolve ambient pressure/reference zero and retain live outputs. Historical point does not close this task."}
+  ],
+  "implementation_order":["P02-01","P02-02"],
+  "parallel_research_without_agents":["Resolve B04/B05 coefficient and convention sources for P03/P04","Map property-specific validity for N03/N04 in P05"],
+  "release_rule":"Do not call P02 fully accepted while mandatory reference tasks remain blocked; release numerical fixes under a bounded, explicit scope."
+}

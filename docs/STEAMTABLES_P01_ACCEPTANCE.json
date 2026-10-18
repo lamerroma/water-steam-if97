@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-18",
+  "sprint": "P01",
+  "status": "preparation_complete_with_blockers",
+  "preparation_accepted": true,
+  "numerical_pilot_passed": false,
+  "reference_inventory_complete": false,
+  "full_reference_acceptance": false,
+  "coverage_percentage": null,
+  "baseline": {
+    "version": "1.35.4",
+    "commit": "9c87d171d093ee2a4f7ec7a92e3c10d1de95f123"
+  },
+  "product_code_changed": false,
+  "pushed": false,
+  "published": false,
+  "requirements": {
+    "initial": 82,
+    "added": 4,
+    "current": 86,
+    "implementation": {
+      "present": 69,
+      "partial": 10,
+      "missing": 7
+    },
+    "parity": {
+      "requires_reference_cases": 71,
+      "known_gap": 15
+    }
+  },
+  "evidence": {
+    "sources": "steam97-p01/sources.json",
+    "contracts": "steam97-p01/contracts.json",
+    "blockers": "steam97-p01/blockers.json",
+    "findings": "steam97-p01/findings.json",
+    "pilot": "steam97-p01/pilot-results.json",
+    "next_tasks": "steam97-p01/next-tasks.json"
+  },
+  "numeric_summary": {
+    "water": {
+      "total": 217,
+      "passed": 208,
+      "failed": 9
+    },
+    "units": {
+      "total": 12,
+      "passed": 12,
+      "failed": 0
+    },
+    "processes": {
+      "total": 10,
+      "passed": 10,
+      "failed": 0
+    },
+    "historical": {
+      "total": 7,
+      "passed": 7,
+      "failed": 0
+    },
+    "knownDomainGaps": 2,
+    "unexpectedDomainResults": 0,
+    "newSteam97NumericResponses": 0,
+    "referenceParityVerified": 0
+  },
+  "open_blocker_ids": [
+    "B01",
+    "B02",
+    "B03",
+    "B04",
+    "B05",
+    "B06",
+    "B07",
+    "B08",
+    "B09"
+  ],
+  "open_numerical_findings": [
+    "N01",
+    "N02",
+    "N03",
+    "N04"
+  ],
+  "acceptance_reason": "P01 allows preparation to finish with explicit blockers. Every known requirement has a contract/blocker; bounded P02 work has independent cases and one limited historical reference transcription. Nine failing inverse queries remain failures. No verified full parity claimed.",
+  "validation_scope": "Numeric pilot, source immutability, script syntax and evidence integrity only. No product-code change; full release suite and browser UI not rerun.",
+  "artifact_sha256": {
+    "README.md": "c7dd6995ac581180001d784cb15a7646a647e331b56866371b3aa842d5cc372c",
+    "docs/COMPARISON.md": "2807a03ffce45b944c16a6e03fb60fe320116148fdc575c22baea6e18f1a02b2",
+    "docs/PRODUCT_STRATEGY_UK.md": "33457b60747f07ff4cd303761729dd74fa2eb20c68c61a80482fc908d090b11c",
+    "docs/STEAMTABLES_P01_UK.md": "4b83d4ab133e3f46755a2a7f138908d61b143b4f1dc02e8ad777ed8b649b22b4",
+    "docs/STEAMTABLES_PARITY_MATRIX.json": "7f718c7c24904fbcd48a15618f7b6068993d2d3ec598777b5f571d61dc7a3dd1",
+    "docs/STEAMTABLES_PARITY_SPRINTS.json": "9f2691ce4473b9b88840a28cdcc13479aea7b4217f8b9e55ddffca1e61ba00e3",
+    "docs/STEAMTABLES_PARITY_SPRINTS_UK.md": "941d08bfb35ebf76f6e1e5f680c05a772cc5f8789dc9f0f58dde4e39832974a7",
+    "docs/steam97-p01/blockers.json": "d0eade6c888c859ecb64872eef7b3e7203e533ecd1d8b2250ba1a5319c101533",
+    "docs/steam97-p01/contracts.json": "4f3147bed6e0adb12aa2c3a9ba39e6666de254b1b7e5b63f913600fc363e35f7",
+    "docs/steam97-p01/executor-access.headers": "24cd8a7d8b552ef58a38a364b6b63f481e12c68ca46e1037cad3240e3b630289",
+    "docs/steam97-p01/findings.json": "e4ed6d32f43970b46b6f9f6594898d34bb5ac53d8e2e9af04b8e11c0f0aa1437",
+    "docs/steam97-p01/next-tasks.json": "809fe71ada218e52f981027cd875318760d76de7c38d6a1fda1f2515364d7bc7",
+    "docs/steam97-p01/pilot-policy.json": "b3d35cf9158b3cb26e3b8881b526f84f324fc900ae739b89589cf726e14aafcd",
+    "docs/steam97-p01/pilot-reference.json": "0f70a8b8d889256558adbfb670399114c1f3086dafdbe200dc5577f48cfad1dd",
+    "docs/steam97-p01/pilot-results.json": "8392c0c00f0cc22de3dec6538c158c2a256fa259cc0bbf178a4404b38ee9acbd",
+    "docs/steam97-p01/sources.json": "8daacaacbbb126a0d5542a5feadf024f20328b6a32a0d2a061ab366d3f31010a",
+    "package.json": "85c15935af7512b2f421770b3754c50034a41ca24d60bfa876177de1caf71677",
+    "scripts/audit-steam97-p01.mjs": "9c3afc8c8da2f707701c135abb7603e91db17a3846e506836a99838ab8055a86",
+    "scripts/generate-steam97-p01.py": "55aeccc490f54199d9850d17234c1da57fe182a5427b84ab110c122598867052",
+    "scripts/inverse-precision-common.mjs": "4c01fecc6cbcf5ce3a48197039ad625046a4a991ae8078aedea7f20927cc78d1",
+    "scripts/verify-steam97-p01.mjs": "cf4072e16a369586674d89e5d95dfa8bd4a6723346b3e091d84bad10d43040cc",
+    "vendor/seuif97_bg.wasm": "4bec90ffc5e9dc2b39e6244921b270c7bae862166eed39b4207b499690d08340"
+  }
+}

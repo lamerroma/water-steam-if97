@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "retrieved_date_utc": "2026-10-18",
+  "method": "Web retrieval of official help, search-index excerpts of the calculator and local source inspection. No interactive reference browser available.",
+  "sources": [
+    {
+      "id": "S01",
+      "url": "https://www.steamtablesonline.com/help.aspx",
+      "kind": "indexed_official_help",
+      "sections": [
+        "Input variables",
+        "Available Properties",
+        "Calculate Properties",
+        "Steam Turbine Calculations",
+        "Flash evaporator calculations",
+        "Diagrams",
+        "About Gas Tables",
+        "Save data"
+      ],
+      "findings": "16 IF97 and 11 IAPWS-95 pairs; 32 outputs; 15 unnamed saturation functions; three turbine and two flash modes; named point/line/spline operations; eight gas percentages totaling 100; Buecker/Span/Wagner 2003, 200–3300 K without dissociation, up to 2000 K with dissociation and complete combustion lambda>1.05; spreadsheet formats.",
+      "limitation": "Documentation describes intent; inconsistent function counts and old transport limits do not establish current operational behavior."
+    },
+    {
+      "id": "S02",
+      "url": "https://www.steamtablesonline.com/Steam97Web.aspx",
+      "kind": "search_index_interface_excerpt",
+      "queries": [
+        "site:steamtablesonline.com/Steam97Web.aspx saturation temperature superheat",
+        "site:steamtablesonline.com/Steam97Web.aspx Kinematic viscosity ft²/h"
+      ],
+      "findings": "Eight tabs; default saturation P plus quality, liquid/mixture/vapor columns; 15 turbine result fields including inlet Tsat and exhaust superheat; MW power and lb/(kW h) consumption; transport output units and registration markers.",
+      "limitation": "Search-index representation; select options, calculations, file contents and authenticated controls were not exercised. Some derivative unit labels appear inconsistent and need live checking."
+    },
+    {
+      "id": "S03",
+      "url": "https://www.steamtablesonline.com/steam97web.aspx",
+      "kind": "search_index_interface_excerpt",
+      "findings": "Turbine consumption default inputs P1,T1,P2,eta,powerMW; flash P1,T1,flow,P2; gas P,T and Ar,CO,CO2,H2O,N2,Ne,O2,SO2, dissociation checkbox, h/s/cp/cv/kappa and component outputs.",
+      "limitation": "Default indexed form only; conditional fields, percentage basis and dissociation-output definition remain unknown."
+    },
+    {
+      "id": "S04",
+      "url": "https://www.thermo.ruhr-uni-bochum.de/thermo/forschung/wagner_publikationen.html.en",
+      "kind": "author_bibliography",
+      "findings": "Buecker D., Span R., Wagner W.: Thermodynamic Property Models for Moist Air and Combustion Gases, Journal of Engineering for Gas Turbines and Power 125 (2003), 374–384; DOI 10.1115/1.1520154.",
+      "limitation": "Bibliographic identity confirmed. Full paper, usable coefficient tables, reference conventions and reuse terms not acquired; DOI retrieval unavailable."
+    },
+    {
+      "id": "S05",
+      "url": "https://iapws.org/technical-guidance/release/IAPWS-95",
+      "kind": "primary_scientific_release",
+      "findings": "R6-95(2018): stable fluid from melting curve to 1273 K and 1000 MPa. Beyond this is extrapolation; lower-temperature liquid can be valid above its melting boundary.",
+      "limitation": "Scientific validity is separate from the website help claim of 5000 K and 100000 MPa and its untested numerical implementation."
+    },
+    {
+      "id": "S06",
+      "url": "https://iapws.org/technical-guidance/release/viscosity",
+      "kind": "primary_scientific_release",
+      "findings": "R12-08: melting curve to 1173 K up to 300 MPa, with lower maximum temperatures at higher pressure up to 1000 MPa; scientific critical enhancement differs from industrial use.",
+      "limitation": "Use the release's complete boundary before any domain expansion; a single rectangular bound is insufficient."
+    },
+    {
+      "id": "S07",
+      "url": "https://www.iapws.org/relguide/ThCond.html",
+      "kind": "indexed_primary_scientific_release",
+      "findings": "R15-11: melting curve to 1173 K up to 100 MPa, with lower maximum temperatures at higher pressures up to 1000 MPa.",
+      "limitation": "Do not apply viscosity's larger rectangular domain to conductivity."
+    },
+    {
+      "id": "S08",
+      "url": "https://www.steamtablesonline.com/ru/help_ru.aspx",
+      "kind": "indexed_official_help_translation",
+      "findings": "Older translated help describes 31 properties while English help and indexed interface describe 32.",
+      "limitation": "Translation/version conflict. Use identified fields and live results rather than assuming the older total is current."
+    },
+    {
+      "id": "S09",
+      "path": "docs/COMPARISON.md",
+      "kind": "historical_repository_transcription",
+      "observation_date": "2026-10-10",
+      "findings": "Seven printed values for 1 MPa, 523.15 K, region 2. P01 preserves all decimal digits and repeats comparison with the current engine and independent IF97.",
+      "limitation": "Raw network response and exact model metadata are unavailable. Not a new Steam97 query or a full verified scenario."
+    },
+    {
+      "id": "S10",
+      "path": "src",
+      "kind": "local_source_inspection",
+      "baseline_commit": "9c87d171d093ee2a4f7ec7a92e3c10d1de95f123",
+      "findings": "Current 1.35.4 source and frozen pilot results establish implementation behavior; missing fields and domain caps are recorded separately from reference parity.",
+      "limitation": "Source inspection and numerical tests do not constitute a browser/UI acceptance."
+    },
+    {
+      "id": "S11",
+      "url": "https://f-m.hszg.de/fileadmin/Redakteure/Fakultaeten/Thermodynamik/Dateien/FluidEES_LibHuGas_Docu_Eng.pdf",
+      "kind": "related_university_library_manual",
+      "findings": "Public manual for a separate humid-gas library was located during early model research.",
+      "limitation": "Different product; not adopted as Steam97 specification, coefficients or numerical oracle."
+    }
+  ],
+  "access": {
+    "target": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
+    "direct_request_utc": "2026-10-18T09:39:03Z",
+    "direct_result": "Proxy CONNECT denied with HTTP 403; curl exit 56; no page body or calculation response received.",
+    "headers_file": "executor-access.headers",
+    "browser": "No connected extension/browser control tool in this session; no interactive reference checks performed.",
+    "policy": "Environment outbound destination allowlist excludes the reference host. No bypass attempted.",
+    "new_numeric_responses": 0,
+    "headers_encoding": "Original proxy header text, line endings normalized to LF for deterministic checkout hashes."
+  }
+}

@@ -1,0 +1,546 @@
+{
+  "schema_version": 1,
+  "updated": "2026-10-18",
+  "baseline_version": "1.35.4",
+  "reference_inventory_complete": false,
+  "evidence_rule": "Documented/indexed fields are specifications, not live calculation evidence. Ready below means a bounded task can proceed; it does not close parity.",
+  "canonical_units": {
+    "p": "MPa absolute",
+    "T": "K",
+    "h/u/A/G/ex": "kJ/kg",
+    "s/cp/cv": "kJ/(kg K)",
+    "v": "m3/kg",
+    "rho": "kg/m3",
+    "x/eta": "fraction",
+    "flow": "kg/s",
+    "power": "kW",
+    "mu": "Pa s",
+    "lambda": "W/(m K)"
+  },
+  "modules": [
+    {
+      "id": "water-general",
+      "tab": "General Properties",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S05"
+      ],
+      "readiness": "bounded_inputs_ready_for_engine_work; direct parity blocked",
+      "models": {
+        "IF97": [
+          "pt",
+          "ph",
+          "ps",
+          "pv",
+          "pu",
+          "th",
+          "ts",
+          "tv",
+          "tu",
+          "hs",
+          "us",
+          "vs",
+          "hv",
+          "uv",
+          "px",
+          "tx"
+        ],
+        "IAPWS-95": [
+          "pt",
+          "ph",
+          "ps",
+          "pv",
+          "pu",
+          "th",
+          "ts",
+          "tv",
+          "tu",
+          "px",
+          "tx"
+        ]
+      },
+      "input_rules": [
+        "Absolute pressure; SI and English; temperature is absolute after conversion.",
+        "Quality is a mass fraction 0..1, displayed as percent in reference.",
+        "Preserve all physically admissible roots; PT on coexistence does not define a mixture.",
+        "Critical singular derivatives must not be replaced by finite invented values."
+      ],
+      "outputs": [
+        "p",
+        "T",
+        "rho",
+        "v",
+        "h",
+        "s",
+        "ex",
+        "u",
+        "cp",
+        "cv",
+        "w",
+        "isentropic",
+        "A",
+        "G",
+        "Z",
+        "x",
+        "region",
+        "alpha",
+        "kappa",
+        "dvdt",
+        "dvdp",
+        "dpdt",
+        "dpdv",
+        "ijt",
+        "jt",
+        "dc",
+        "mu",
+        "nu",
+        "lambda",
+        "diffusivity",
+        "Pr",
+        "sigma"
+      ],
+      "output_rules": [
+        "Region applies to IF97; dc is documented as IAPWS-95 only. Extra local IF97 dc is not required parity.",
+        "Bulk two-phase cp/cv/w and transport require a specified physical model; leave unavailable unless reference semantics are established.",
+        "Match reference state, phase, property domain and units before comparing."
+      ],
+      "pilot": "pilot-reference.json / cases; all 27 advertised model-pair combinations exercised in pilot-results.json",
+      "blocker_ids": [
+        "B01",
+        "B03",
+        "B07"
+      ]
+    },
+    {
+      "id": "saturation",
+      "tab": "Saturation Properties",
+      "source_ids": [
+        "S01",
+        "S02"
+      ],
+      "readiness": "P/T plus quality known; full selector blocked",
+      "confirmed_inputs": [
+        "P absolute + x percent (indexed default)",
+        "General-property px and tx listed for both models"
+      ],
+      "claimed_selector_count": 15,
+      "enumerated_selector_options": null,
+      "outputs": [
+        "liquid column",
+        "mixture column",
+        "vapor column",
+        "property names/units and formulation"
+      ],
+      "rules": [
+        "Keep exact endpoint identity x=0/1 and phase values; do not average undefined mixture derivatives.",
+        "Critical point has no independently specified liquid/vapor quality.",
+        "15 mentioned functions is not a list of 15 new modes."
+      ],
+      "pilot": "Each model at 1 MPa, x=0,0.5,1; px/tx/ph/ps/pv.",
+      "blocker_ids": [
+        "B01",
+        "B02",
+        "B03"
+      ]
+    },
+    {
+      "id": "domains",
+      "source_ids": [
+        "S01",
+        "S05",
+        "S06",
+        "S07",
+        "S10"
+      ],
+      "readiness": "map and independently demonstrated gaps ready; website extrapolation blocked",
+      "IF97": {
+        "T_K": [
+          273.15,
+          1073.15
+        ],
+        "p_max_MPa": 100,
+        "high_temperature_T_K": [
+          1073.15,
+          2273.15
+        ],
+        "high_temperature_p_max_MPa": 50
+      },
+      "IAPWS95": {
+        "scientific_T_max_K": 1273,
+        "scientific_p_max_MPa": 1000,
+        "lower_limit": "pressure-dependent melting curve, not a constant 273.16 K",
+        "website_claim_T_max_K": 5000,
+        "website_claim_p_max_MPa": 100000,
+        "claim_operationally_verified": false
+      },
+      "transport": "Use separate release boundaries for viscosity, conductivity, dielectric and surface tension, and phase-specific values. Website help carries older transport limits; identify correlation versions.",
+      "known_local_probes": [
+        "200 MPa / 260 K: liquid above ice-Ih melting pressure; local Tmin rejects it.",
+        "200 MPa / 400 K: local scientific viscosity/conductivity omitted by P<=100 MPa cap; independent values retained."
+      ],
+      "blocker_ids": [
+        "B01",
+        "B03",
+        "B06"
+      ]
+    },
+    {
+      "id": "turbine",
+      "tab": "Steam Turbine",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S10"
+      ],
+      "readiness": "documented fields and independent balances ready; complete modes require live evidence",
+      "modes": [
+        "steam consumption",
+        "efficiency",
+        "power"
+      ],
+      "default_consumption_inputs": [
+        "P1 bar",
+        "T1 C",
+        "P2 bar",
+        "eta %",
+        "power MW"
+      ],
+      "inverse_contract_provisional": {
+        "power": [
+          "P1",
+          "T1",
+          "P2",
+          "eta",
+          "flow"
+        ],
+        "efficiency": [
+          "P1",
+          "T1",
+          "P2",
+          "power",
+          "flow"
+        ]
+      },
+      "outputs": [
+        "inlet p",
+        "inlet T",
+        "inlet Tsat",
+        "inlet h",
+        "inlet s",
+        "exhaust p",
+        "exhaust T",
+        "exhaust h",
+        "exhaust s",
+        "exhaust degree superheat",
+        "exhaust quality",
+        "eta",
+        "power",
+        "specific steam consumption",
+        "actual steam flow"
+      ],
+      "units": {
+        "power": "MW in both reference systems",
+        "specific_consumption_SI": "kg/(kW h)",
+        "specific_consumption_English": "lb/(kW h)",
+        "flow_SI": "kg/s",
+        "flow_English": "lb/s",
+        "temperature": "C/F; superheat uses a difference, no absolute offset"
+      },
+      "local_gaps": [
+        "No explicit inlet Tsat or exhaust superheat row in renderProcessOutput.",
+        "MW output exists through global unit preferences, but turbine power input selector offers kW/Btu h only.",
+        "English specific consumption currently uses lb/(hp h); reference uses lb/(kW h)."
+      ],
+      "pilot": "Three modes per model; independent ideal ps/outlet ph plus energy balance. Not reference mode switching or browser acceptance.",
+      "unknowns": [
+        "Any wet/saturated inlet controls",
+        "Mode-dependent fields/limits and formulation support",
+        "Superheat and quality display in wet/supercritical cases",
+        "Three comparison columns vs required practical workflow"
+      ],
+      "blocker_ids": [
+        "B01",
+        "B03"
+      ]
+    },
+    {
+      "id": "flash",
+      "tab": "Flash Evaporator",
+      "source_ids": [
+        "S01",
+        "S03"
+      ],
+      "readiness": "two physical modes and balance pilot ready; reference results blocked",
+      "modes": [
+        "condensate at saturation",
+        "subcooled condensate"
+      ],
+      "indexed_inputs": [
+        "P1 absolute",
+        "T1",
+        "inlet flow",
+        "P2 absolute"
+      ],
+      "conditional_input": "Whether/how T1 is disabled or derived in saturated mode requires live confirmation.",
+      "outputs": [
+        "inlet pressure",
+        "inlet temperature",
+        "inlet flow",
+        "outlet pressure",
+        "steam formed percent",
+        "steam flow",
+        "liquid flow",
+        "inlet/outlet states in history"
+      ],
+      "rules": [
+        "Isenthalpic pressure reduction; mass balance between phases where separation exists.",
+        "No fabricated phase split for single-phase outlet."
+      ],
+      "pilot": "Both modes per model with independent ph and mass/energy balances.",
+      "blocker_ids": [
+        "B01",
+        "B03"
+      ]
+    },
+    {
+      "id": "diagrams",
+      "tabs": [
+        "T-S",
+        "H-S",
+        "H-S vapor"
+      ],
+      "source_ids": [
+        "S01",
+        "S02"
+      ],
+      "readiness": "documented operations ready; exact geometry and behavior blocked",
+      "operations": [
+        "Select calculated point IDs with equal-length label list",
+        "Edit point IDs/labels",
+        "Shared point radius/color",
+        "Named series from point labels",
+        "Line or spline (spline at least 3 points)",
+        "Edit a selected named series",
+        "Shared line width/color",
+        "SI/English",
+        "Save image and print"
+      ],
+      "rules": [
+        "Use the same thermodynamic state for table, coordinates and export.",
+        "Drawing a spline is separate from solving an intermediate thermodynamic process.",
+        "Determine vapor-only view bounds and background families before implementing an equivalent view."
+      ],
+      "blocker_ids": [
+        "B01",
+        "B03",
+        "B09"
+      ]
+    },
+    {
+      "id": "gas-fixed",
+      "tab": "Gas Tables",
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04"
+      ],
+      "readiness": "model identification ready; implementation contract blocked",
+      "model": "Buecker/Span/Wagner 2003, DOI 10.1115/1.1520154",
+      "inputs": [
+        "absolute pressure",
+        "temperature",
+        "Ar %",
+        "CO %",
+        "CO2 %",
+        "H2O %",
+        "N2 %",
+        "Ne %",
+        "O2 %",
+        "SO2 %"
+      ],
+      "composition_rule": "All eight values entered, absent species zero, total exactly 100%; mass/mole basis UNKNOWN.",
+      "documented_T_K": [
+        200,
+        3300
+      ],
+      "pressure_limits": null,
+      "reference_state_h_s": null,
+      "indexed_outputs": [
+        "p",
+        "T",
+        "h",
+        "s",
+        "cp",
+        "cv",
+        "isentropic exponent",
+        "Dissociation",
+        "eight component percentages"
+      ],
+      "local_model": "NASA7 frozen composition; retained separately with its existing reference state and species-dependent bounds.",
+      "data_research": {
+        "paper_identity_confirmed": true,
+        "full_paper_available": false,
+        "coefficient_data_acquired": false,
+        "usable_data_terms_confirmed": false,
+        "separate_university_library_manual": "S11; not a substitute for this model"
+      },
+      "blocker_ids": [
+        "B01",
+        "B03",
+        "B04"
+      ]
+    },
+    {
+      "id": "gas-dissociation",
+      "tab": "Gas Tables / Include Dissociation",
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04"
+      ],
+      "readiness": "documented restrictions ready; equations and output semantics blocked",
+      "documented_constraints": {
+        "T_max_K": 2000,
+        "complete_combustion": true,
+        "excess_air_lambda_min_exclusive": 1.05
+      },
+      "required_model": "Confirm the BSW caloric dissociation correction; help does not specify a general chemical-equilibrium solver.",
+      "unknowns": [
+        "Correction equations and coefficients",
+        "How lambda is supplied/inferred",
+        "Pressure bounds",
+        "Meaning/units of Dissociation output",
+        "Initial versus resulting component percentages",
+        "Frozen versus equilibrium cp/cv and other derivatives"
+      ],
+      "rules": [
+        "Implement required correction semantics; add reaction/element balances only where the confirmed model requires them.",
+        "An unrelated general equilibrium calculation does not establish parity.",
+        "Need off/on reference cases and an independently evaluated correction before implementation acceptance."
+      ],
+      "blocker_ids": [
+        "B01",
+        "B03",
+        "B04",
+        "B05"
+      ]
+    },
+    {
+      "id": "export",
+      "source_ids": [
+        "S01",
+        "S02"
+      ],
+      "readiness": "format families known; exact file contents blocked",
+      "formats": [
+        "CSV",
+        "Unicode CSV",
+        "XLS Excel 97-2003",
+        "XLSX",
+        "OpenDocument spreadsheet"
+      ],
+      "rules": [
+        "Real spreadsheet structures, numeric cells and explicit units; not a renamed CSV.",
+        "Retain model, composition/basis, reference state and unavailable values.",
+        "Independently read downloaded examples and generated files; offline browser scenario."
+      ],
+      "blocker_ids": [
+        "B01",
+        "B03",
+        "B08"
+      ]
+    },
+    {
+      "id": "units-settings",
+      "source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S10"
+      ],
+      "readiness": "core conversions known; complete reference preferences blocked",
+      "reference_units": {
+        "p": [
+          "bar",
+          "psi"
+        ],
+        "T": [
+          "C",
+          "F"
+        ],
+        "h_u": [
+          "kJ/kg",
+          "Btu/lb"
+        ],
+        "s_cp_cv": [
+          "kJ/(kg K)",
+          "Btu/(lb F)"
+        ],
+        "mu": [
+          "microPa s",
+          "lb/(ft h)"
+        ],
+        "nu_diffusivity": [
+          "mm2/s",
+          "ft2/h"
+        ],
+        "sigma": [
+          "mN/m",
+          "lbf/ft"
+        ],
+        "power": [
+          "MW",
+          "MW"
+        ]
+      },
+      "rules": [
+        "Temperature increments use no offset; distinguish absolute pressure from optional local gauge modes.",
+        "Current English hp h consumption and transport second/hour choices need the reference alternatives; correct conversion alone does not make the unit choice available.",
+        "Do not copy inconsistent indexed dpdt/dpdv SI dimension labels without resolving them.",
+        "Reference ambient temperature changes exergy; fixed pressure convention is unknown."
+      ],
+      "pilot": "12 SI/English input/conversion scenarios on matched independent states; not every property/unit.",
+      "blocker_ids": [
+        "B01",
+        "B03",
+        "B07"
+      ]
+    },
+    {
+      "id": "workspace",
+      "source_ids": [
+        "S01",
+        "S02"
+      ],
+      "readiness": "documented clear/history scenario ready; reference behavior blocked",
+      "operations": [
+        "New clears displayed calculations",
+        "Newest general result first",
+        "Formulation per row",
+        "Process inlet/outlet states in history",
+        "Turbine comparison results and clear"
+      ],
+      "rules": [
+        "Preserve working local save/restore and canonical numeric values.",
+        "Practical workflow equivalence does not require pixel-identical panels."
+      ],
+      "blocker_ids": [
+        "B01",
+        "B03"
+      ]
+    }
+  ],
+  "pilot_summary": {
+    "states": 24,
+    "water_queries": 217,
+    "passed": 208,
+    "failed": 9,
+    "finding_ids": [
+      "N01",
+      "N02"
+    ],
+    "new_reference_site_cases": 0
+  }
+}

@@ -1,0 +1,1274 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-18",
+  "baseline": "1.35.4",
+  "evidence_kind": "independent_reference_not_new_steam97_response",
+  "dependencies": {
+    "iapws": "1.5.5",
+    "CoolProp": "8.0.0",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1"
+  },
+  "coolprop_git_revision": "ae81610e7d23efc57f9d051c8e70a4d66e87537f",
+  "coolprop_native_sha256": "05d85591871524e83bb23170e22ee149e1167fb3ef5deaf81b9d248283089be5",
+  "generation_warnings": [],
+  "pressure_input_rule": "Retain exact requested P; never substitute an EOS re-evaluation. Adjacent-pressure cases are separately named.",
+  "library_source_hashes": {
+    "__init__.py": "915ebb7f0f7127174decc740e52d03e2c6135461575f6dc173bcf7849be77f1f",
+    "_iapws.py": "9e077afb6634e0a54c26206162959e1dd5fb560fb328fc2117f80c7f087cf4ea",
+    "_iapws97Constants.py": "0af0556e4448aa3d61ad96ccf6efcac552f43fb02d7c111f9245871dd59db8ee",
+    "_utils.py": "f946c8d31262517f2f6b8676261afebb24ea06db03b67bba2bc51837283eff76",
+    "ammonia.py": "620b1762ea8783d55f155d33b20d81b0f4b260788d96235f4363e62395b15bb3",
+    "humidAir.py": "adc8e3a0dc339ac1f2eda132225adb9a3c0974506ba53deec353a775e43706fe",
+    "iapws08.py": "0913addf889e8e35dc2a82b66e9f4791bc931806058af07e53380ac1318cdedd",
+    "iapws95.py": "89edb7c0e3b77533319d253819cdb4c1da50775d2e7b324249574607d6790520",
+    "iapws97.py": "9272a239bbe9245ad71afa747b211e68a1fddea097966fb098e55bcb9b098f9e"
+  },
+  "generator_sha256": "55aeccc490f54199d9850d17234c1da57fe182a5427b84ab110c122598867052",
+  "historical_document_sha256": "2807a03ffce45b944c16a6e03fb60fe320116148fdc575c22baea6e18f1a02b2",
+  "limitations": [
+    "Same-EOS independent implementations, not independent experimental data.",
+    "Finite pilot; not exhaustive ranges, graphs, all 32 outputs or UI acceptance.",
+    "Mixture cp/cv/w not assigned; no averaged transport properties.",
+    "No new numeric response obtained from Steam97Web."
+  ],
+  "required_modes": {
+    "IF97": [
+      "pt",
+      "ph",
+      "ps",
+      "pv",
+      "pu",
+      "th",
+      "ts",
+      "tv",
+      "tu",
+      "hs",
+      "us",
+      "vs",
+      "hv",
+      "uv",
+      "px",
+      "tx"
+    ],
+    "IAPWS-95": [
+      "pt",
+      "ph",
+      "ps",
+      "pv",
+      "pu",
+      "th",
+      "ts",
+      "tv",
+      "tu",
+      "px",
+      "tx"
+    ]
+  },
+  "cases": [
+    {
+      "id": "IF97-liquid",
+      "model": "IF97",
+      "group": "liquid",
+      "x": null,
+      "expected": {
+        "p": 3,
+        "T": 300.0,
+        "h": 115.33127302143888,
+        "s": 0.39229479240262577,
+        "u": 112.32481798237879,
+        "v": 0.0010021516796866943,
+        "rho": 997.852940098482,
+        "cp": 4.173012184067787,
+        "cv": 4.121201603587441,
+        "w": 1507.739209669031
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pv",
+        "pu",
+        "th",
+        "ts",
+        "tv",
+        "tu",
+        "hs",
+        "us",
+        "vs",
+        "hv",
+        "uv"
+      ]
+    },
+    {
+      "id": "IF97-vapor",
+      "model": "IF97",
+      "group": "vapor",
+      "x": null,
+      "expected": {
+        "p": 1,
+        "T": 523.15,
+        "h": 2943.2221652336634,
+        "s": 6.926622739684809,
+        "u": 2710.4832319337365,
+        "v": 0.23273893329992676,
+        "rho": 4.296659720062035,
+        "cp": 2.2116202733092276,
+        "cv": 1.6361901740328515,
+        "w": 550.1074973271711
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pv",
+        "pu",
+        "th",
+        "ts",
+        "tv",
+        "tu",
+        "hs",
+        "us",
+        "vs",
+        "hv",
+        "uv"
+      ]
+    },
+    {
+      "id": "IF97-dense",
+      "model": "IF97",
+      "group": "dense",
+      "x": null,
+      "expected": {
+        "p": 25,
+        "T": 650.0,
+        "h": 1876.3591225169687,
+        "s": 4.07597900031328,
+        "u": 1825.2213115493612,
+        "v": 0.002045512438704298,
+        "rho": 488.87505207909487,
+        "cp": 15.73102414093232,
+        "cv": 3.244066650058811,
+        "w": 478.98025465492555
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pv",
+        "pu",
+        "th",
+        "ts",
+        "tv",
+        "tu",
+        "hs",
+        "us",
+        "vs",
+        "hv",
+        "uv"
+      ]
+    },
+    {
+      "id": "IF97-supercritical",
+      "model": "IF97",
+      "group": "supercritical",
+      "x": null,
+      "expected": {
+        "p": 25,
+        "T": 700.0,
+        "h": 2817.308157651073,
+        "s": 5.488354109809735,
+        "u": 2617.4644515798964,
+        "v": 0.007993748242847074,
+        "rho": 125.09776010206663,
+        "cp": 6.610904130353465,
+        "cv": 2.682840196780863,
+        "w": 515.248893071612
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pv",
+        "pu",
+        "th",
+        "ts",
+        "tv",
+        "tu",
+        "hs",
+        "us",
+        "vs",
+        "hv",
+        "uv"
+      ]
+    },
+    {
+      "id": "IF97-near-critical",
+      "model": "IF97",
+      "group": "near-critical",
+      "x": null,
+      "expected": {
+        "p": 22.064,
+        "T": 647.196,
+        "h": 2211.8660819938727,
+        "s": 4.604133118369596,
+        "u": 2126.364237171762,
+        "v": 0.003875174257709881,
+        "rho": 258.05291155886545,
+        "cp": 376.23628333694967,
+        "cv": 4.593634536803802,
+        "w": 337.6376668175325
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pv",
+        "pu",
+        "th",
+        "ts",
+        "tv",
+        "tu",
+        "hs",
+        "us",
+        "vs",
+        "hv",
+        "uv"
+      ]
+    },
+    {
+      "id": "IF97-region-5",
+      "model": "IF97",
+      "group": "region-5",
+      "x": null,
+      "expected": {
+        "p": 0.5,
+        "T": 1500.0,
+        "h": 5219.768551208338,
+        "s": 9.654088753312948,
+        "u": 4527.493101817573,
+        "v": 1.38455089878153,
+        "rho": 0.7222558599182212,
+        "cp": 2.616094453943664,
+        "cv": 2.1533778352104127,
+        "w": 917.0686903018855
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pv",
+        "pu",
+        "th",
+        "ts",
+        "tv",
+        "tu",
+        "hs",
+        "us",
+        "vs",
+        "hv",
+        "uv"
+      ]
+    },
+    {
+      "id": "IF97-B23-below",
+      "model": "IF97",
+      "group": "B23-below",
+      "x": null,
+      "expected": {
+        "p": 25,
+        "T": 675.8104859077272,
+        "h": 2611.31614834319,
+        "s": 5.188383578912171,
+        "u": 2454.6965992986197,
+        "v": 0.0062647819617828076,
+        "rho": 159.62247466876306,
+        "cp": 11.66325518259491,
+        "cv": 3.1319861349983715,
+        "w": 459.6176754624742
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pv",
+        "pu",
+        "th",
+        "ts",
+        "tv",
+        "tu",
+        "hs",
+        "us",
+        "vs",
+        "hv",
+        "uv"
+      ]
+    },
+    {
+      "id": "IF97-B23-above",
+      "model": "IF97",
+      "group": "B23-above",
+      "x": null,
+      "expected": {
+        "p": 25,
+        "T": 677.8104859077272,
+        "h": 2633.7941430614496,
+        "s": 5.221595190802625,
+        "u": 2472.6410842112286,
+        "v": 0.006446122354008838,
+        "rho": 155.1320228009791,
+        "cp": 10.834674955005841,
+        "cv": 3.0818148863593713,
+        "w": 465.67088214275066
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pv",
+        "pu",
+        "th",
+        "ts",
+        "tv",
+        "tu",
+        "hs",
+        "us",
+        "vs",
+        "hv",
+        "uv"
+      ]
+    },
+    {
+      "id": "IF97-region-5-start",
+      "model": "IF97",
+      "group": "region-5-start",
+      "x": null,
+      "expected": {
+        "p": 1,
+        "T": 1074.0,
+        "h": 4158.133886136914,
+        "s": 8.504214113892202,
+        "u": 3663.3529822390296,
+        "v": 0.4947809038978846,
+        "rho": 2.021096594718993,
+        "cp": 2.35505114726817,
+        "cv": 1.8867057168808454,
+        "w": 785.1645236041702
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pv",
+        "pu",
+        "th",
+        "ts",
+        "tv",
+        "tu",
+        "hs",
+        "us",
+        "vs",
+        "hv",
+        "uv"
+      ]
+    },
+    {
+      "id": "IF97-quality-0",
+      "model": "IF97",
+      "group": "saturation",
+      "x": 0,
+      "expected": {
+        "p": 1,
+        "T": 453.0356323914666,
+        "h": 762.6828443354104,
+        "s": 2.138431350899127,
+        "u": 761.5556105900088,
+        "v": 0.0011272337454016697,
+        "rho": 887.1274516747791,
+        "cp": 4.405112049727733,
+        "cv": 3.39674802233621,
+        "w": 1391.6387059049043,
+        "x": 0
+      },
+      "modes": [
+        "px",
+        "tx",
+        "ph",
+        "ps",
+        "pv"
+      ]
+    },
+    {
+      "id": "IF97-quality-0.5",
+      "model": "IF97",
+      "group": "saturation",
+      "x": 0.5,
+      "expected": {
+        "p": 1,
+        "T": 453.0356323914666,
+        "h": 1769.9011910100362,
+        "s": 4.361705173625648,
+        "u": 1672.1631319736393,
+        "v": 0.09773805903639679,
+        "rho": 10.231428881021762,
+        "x": 0.5
+      },
+      "modes": [
+        "px",
+        "tx",
+        "ph",
+        "ps",
+        "pv"
+      ]
+    },
+    {
+      "id": "IF97-quality-1",
+      "model": "IF97",
+      "group": "saturation",
+      "x": 1,
+      "expected": {
+        "p": 1,
+        "T": 453.0356323914666,
+        "h": 2777.1195376846617,
+        "s": 6.58497899635217,
+        "u": 2582.77065335727,
+        "v": 0.1943488843273919,
+        "rho": 5.145385853182684,
+        "cp": 2.7149847959710276,
+        "cv": 1.9303381580199013,
+        "w": 500.8939123694853,
+        "x": 1
+      },
+      "modes": [
+        "px",
+        "tx",
+        "ph",
+        "ps",
+        "pv"
+      ]
+    },
+    {
+      "id": "IF97-below-pc-decimal",
+      "model": "IF97",
+      "group": "below-pc-decimal",
+      "x": null,
+      "expected": {
+        "p": 22.06399999,
+        "T": 647.196,
+        "h": 2211.866098064384,
+        "s": 4.604133143260454,
+        "u": 2126.364250900506,
+        "v": 0.0038751743656014175,
+        "rho": 258.0529043742274,
+        "cp": 376.23617092196986,
+        "cv": 4.593634512788535,
+        "w": 337.63767065183725
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pu"
+      ]
+    },
+    {
+      "id": "IF97-below-pc-one-ulp",
+      "model": "IF97",
+      "group": "below-pc-one-ulp",
+      "x": null,
+      "expected": {
+        "p": 22.063999999999997,
+        "T": 647.196,
+        "h": 2211.8660819937427,
+        "s": 4.604133118369396,
+        "u": 2126.3642371716505,
+        "v": 0.0038751742577090207,
+        "rho": 258.05291155892274,
+        "cp": 376.236283337972,
+        "cv": 4.593634536803968,
+        "w": 337.63766681750246
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pu"
+      ]
+    },
+    {
+      "id": "IAPWS-95-liquid",
+      "model": "IAPWS-95",
+      "group": "liquid",
+      "x": null,
+      "expected": {
+        "p": 3,
+        "T": 300.0,
+        "h": 115.32080302871734,
+        "s": 0.39225909264304104,
+        "u": 112.31435222893857,
+        "v": 0.0010021502666210827,
+        "rho": 997.8543471047184,
+        "cp": 4.172526471796093,
+        "cv": 4.120688948468455,
+        "w": 1506.4018499309618
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pv",
+        "pu",
+        "th",
+        "ts",
+        "tv",
+        "tu"
+      ]
+    },
+    {
+      "id": "IAPWS-95-vapor",
+      "model": "IAPWS-95",
+      "group": "vapor",
+      "x": null,
+      "expected": {
+        "p": 1,
+        "T": 523.15,
+        "h": 2943.1224215286043,
+        "s": 6.926482858129736,
+        "u": 2710.3756744992174,
+        "v": 0.23274674702938705,
+        "rho": 4.296515473420293,
+        "cp": 2.2106392792023293,
+        "cv": 1.6354131522530262,
+        "w": 550.1477998319382
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pv",
+        "pu",
+        "th",
+        "ts",
+        "tv",
+        "tu"
+      ]
+    },
+    {
+      "id": "IAPWS-95-dense",
+      "model": "IAPWS-95",
+      "group": "dense",
+      "x": null,
+      "expected": {
+        "p": 25,
+        "T": 650.0,
+        "h": 1876.3520773494956,
+        "s": 4.0760071494837415,
+        "u": 1825.2112308333124,
+        "v": 0.002045633860647171,
+        "rho": 488.8460341009574,
+        "cp": 15.700879267163547,
+        "cv": 3.2505556302783463,
+        "w": 479.2566086841164
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pv",
+        "pu",
+        "th",
+        "ts",
+        "tv",
+        "tu"
+      ]
+    },
+    {
+      "id": "IAPWS-95-supercritical",
+      "model": "IAPWS-95",
+      "group": "supercritical",
+      "x": null,
+      "expected": {
+        "p": 25,
+        "T": 700.0,
+        "h": 2817.392878479609,
+        "s": 5.48852501594159,
+        "u": 2617.539951350926,
+        "v": 0.007994117085147306,
+        "rho": 125.09198818940907,
+        "cp": 6.624379662986708,
+        "cv": 2.6894493034280558,
+        "w": 514.9102897449786
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pv",
+        "pu",
+        "th",
+        "ts",
+        "tv",
+        "tu"
+      ]
+    },
+    {
+      "id": "IAPWS-95-near-critical",
+      "model": "IAPWS-95",
+      "group": "near-critical",
+      "x": null,
+      "expected": {
+        "p": 22.064,
+        "T": 647.196,
+        "h": 2221.643714914307,
+        "s": 4.6192692540123605,
+        "u": 2134.55279945777,
+        "v": 0.00394719522555057,
+        "rho": 253.3444491234953,
+        "cp": 345.251239548638,
+        "cv": 5.128798868280569,
+        "w": 327.45966418941146
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pv",
+        "pu",
+        "th",
+        "ts",
+        "tv",
+        "tu"
+      ]
+    },
+    {
+      "id": "IAPWS-95-quality-0",
+      "model": "IAPWS-95",
+      "group": "saturation",
+      "x": 0,
+      "expected": {
+        "p": 1,
+        "T": 453.0280078816743,
+        "h": 762.5150697660758,
+        "s": 2.1380644702301796,
+        "u": 761.3878383260242,
+        "v": 0.001127231440052156,
+        "rho": 887.1292659772965,
+        "cp": 4.404483982919747,
+        "cv": 3.3954155758559392,
+        "w": 1392.0460795688348,
+        "x": 0
+      },
+      "modes": [
+        "px",
+        "tx",
+        "ph",
+        "ps",
+        "pv"
+      ]
+    },
+    {
+      "id": "IAPWS-95-quality-0.5",
+      "model": "IAPWS-95",
+      "group": "saturation",
+      "x": 0.5,
+      "expected": {
+        "p": 1,
+        "T": 453.0280078816743,
+        "h": 1769.811836906693,
+        "s": 4.3615401706635,
+        "u": 1672.0672616209763,
+        "v": 0.0977445752857212,
+        "rho": 10.230746791592871,
+        "x": 0.5
+      },
+      "modes": [
+        "px",
+        "tx",
+        "ph",
+        "ps",
+        "pv"
+      ]
+    },
+    {
+      "id": "IAPWS-95-quality-1",
+      "model": "IAPWS-95",
+      "group": "saturation",
+      "x": 1,
+      "expected": {
+        "p": 1,
+        "T": 453.0280078816743,
+        "h": 2777.1086040473106,
+        "s": 6.585015871096821,
+        "u": 2582.7466849159287,
+        "v": 0.19436191913139028,
+        "rho": 5.145040779948214,
+        "cp": 2.7113754396152405,
+        "cv": 1.9271299162599735,
+        "w": 501.0164090678355,
+        "x": 1
+      },
+      "modes": [
+        "px",
+        "tx",
+        "ph",
+        "ps",
+        "pv"
+      ]
+    },
+    {
+      "id": "IAPWS-95-below-pc-decimal",
+      "model": "IAPWS-95",
+      "group": "below-pc-decimal",
+      "x": null,
+      "expected": {
+        "p": 22.06399999,
+        "T": 647.196,
+        "h": 2221.64372954793,
+        "s": 4.619269276684198,
+        "u": 2134.5528119727583,
+        "v": 0.003947195323359922,
+        "rho": 253.34444284575775,
+        "cp": 345.2511394501755,
+        "cv": 5.128798735469442,
+        "w": 327.4596703600927
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pu"
+      ]
+    },
+    {
+      "id": "IAPWS-95-below-pc-one-ulp",
+      "model": "IAPWS-95",
+      "group": "below-pc-one-ulp",
+      "x": null,
+      "expected": {
+        "p": 22.063999999999997,
+        "T": 647.196,
+        "h": 2221.6437149143076,
+        "s": 4.619269254012353,
+        "u": 2134.5527994577824,
+        "v": 0.003947195225550414,
+        "rho": 253.34444912350534,
+        "cp": 345.25123955094267,
+        "cv": 5.128798868280428,
+        "w": 327.4596641894113
+      },
+      "modes": [
+        "pt",
+        "ph",
+        "ps",
+        "pu"
+      ]
+    }
+  ],
+  "unit_cases": [
+    {
+      "id": "IF97-vapor-SI-pt",
+      "case_id": "IF97-vapor",
+      "mode": "pt",
+      "system": "SI",
+      "units": [
+        "bar",
+        "C"
+      ],
+      "values": [
+        10,
+        250.0
+      ]
+    },
+    {
+      "id": "IF97-vapor-SI-ph",
+      "case_id": "IF97-vapor",
+      "mode": "ph",
+      "system": "SI",
+      "units": [
+        "bar",
+        "kJkg"
+      ],
+      "values": [
+        10,
+        2943.2221652336634
+      ]
+    },
+    {
+      "id": "IF97-vapor-English-pt",
+      "case_id": "IF97-vapor",
+      "mode": "pt",
+      "system": "English",
+      "units": [
+        "psi",
+        "F"
+      ],
+      "values": [
+        145.03773773020924,
+        482.0
+      ]
+    },
+    {
+      "id": "IF97-vapor-English-ph",
+      "case_id": "IF97-vapor",
+      "mode": "ph",
+      "system": "English",
+      "units": [
+        "psi",
+        "Btulb"
+      ],
+      "values": [
+        145.03773773020924,
+        1265.3577666524777
+      ]
+    },
+    {
+      "id": "IF97-quality-0.5-SI-px",
+      "case_id": "IF97-quality-0.5",
+      "mode": "px",
+      "system": "SI",
+      "units": [
+        "bar",
+        "percent"
+      ],
+      "values": [
+        10,
+        50.0
+      ]
+    },
+    {
+      "id": "IF97-quality-0.5-English-px",
+      "case_id": "IF97-quality-0.5",
+      "mode": "px",
+      "system": "English",
+      "units": [
+        "psi",
+        "percent"
+      ],
+      "values": [
+        145.03773773020924,
+        50.0
+      ]
+    },
+    {
+      "id": "IAPWS-95-vapor-SI-pt",
+      "case_id": "IAPWS-95-vapor",
+      "mode": "pt",
+      "system": "SI",
+      "units": [
+        "bar",
+        "C"
+      ],
+      "values": [
+        10,
+        250.0
+      ]
+    },
+    {
+      "id": "IAPWS-95-vapor-SI-ph",
+      "case_id": "IAPWS-95-vapor",
+      "mode": "ph",
+      "system": "SI",
+      "units": [
+        "bar",
+        "kJkg"
+      ],
+      "values": [
+        10,
+        2943.1224215286043
+      ]
+    },
+    {
+      "id": "IAPWS-95-vapor-English-pt",
+      "case_id": "IAPWS-95-vapor",
+      "mode": "pt",
+      "system": "English",
+      "units": [
+        "psi",
+        "F"
+      ],
+      "values": [
+        145.03773773020924,
+        482.0
+      ]
+    },
+    {
+      "id": "IAPWS-95-vapor-English-ph",
+      "case_id": "IAPWS-95-vapor",
+      "mode": "ph",
+      "system": "English",
+      "units": [
+        "psi",
+        "Btulb"
+      ],
+      "values": [
+        145.03773773020924,
+        1265.3148845780759
+      ]
+    },
+    {
+      "id": "IAPWS-95-quality-0.5-SI-px",
+      "case_id": "IAPWS-95-quality-0.5",
+      "mode": "px",
+      "system": "SI",
+      "units": [
+        "bar",
+        "percent"
+      ],
+      "values": [
+        10,
+        50.0
+      ]
+    },
+    {
+      "id": "IAPWS-95-quality-0.5-English-px",
+      "case_id": "IAPWS-95-quality-0.5",
+      "mode": "px",
+      "system": "English",
+      "units": [
+        "psi",
+        "percent"
+      ],
+      "values": [
+        145.03773773020924,
+        50.0
+      ]
+    }
+  ],
+  "process_cases": [
+    {
+      "id": "IF97-turbine-power",
+      "kind": "turbine",
+      "model": "IF97",
+      "mode": "power",
+      "inputs": {
+        "p1": 6,
+        "T1": 773.15,
+        "p2": 0.1,
+        "eta": 0.85,
+        "flow": 10
+      },
+      "expected": {
+        "work": 786.7593956970098,
+        "power": 7867.593956970099,
+        "flow": 10.0,
+        "eta": 0.85,
+        "outlet_h": 2636.189923925288,
+        "outlet_T": 372.7559186113376,
+        "outlet_x": 0.9828307902344935,
+        "specific_consumption": 4.575731817998398
+      }
+    },
+    {
+      "id": "IF97-turbine-flow",
+      "kind": "turbine",
+      "model": "IF97",
+      "mode": "flow",
+      "inputs": {
+        "p1": 6,
+        "T1": 773.15,
+        "p2": 0.1,
+        "eta": 0.85,
+        "flow": 10
+      },
+      "expected": {
+        "work": 786.7593956970098,
+        "power": 7867.593956970099,
+        "flow": 10.0,
+        "eta": 0.85,
+        "outlet_h": 2636.189923925288,
+        "outlet_T": 372.7559186113376,
+        "outlet_x": 0.9828307902344935,
+        "specific_consumption": 4.575731817998398
+      }
+    },
+    {
+      "id": "IF97-turbine-efficiency",
+      "kind": "turbine",
+      "model": "IF97",
+      "mode": "efficiency",
+      "inputs": {
+        "p1": 6,
+        "T1": 773.15,
+        "p2": 0.1,
+        "eta": 0.85,
+        "flow": 10
+      },
+      "expected": {
+        "work": 786.7593956970098,
+        "power": 7867.593956970099,
+        "flow": 10.0,
+        "eta": 0.85,
+        "outlet_h": 2636.189923925288,
+        "outlet_T": 372.7559186113376,
+        "outlet_x": 0.9828307902344935,
+        "specific_consumption": 4.575731817998398
+      }
+    },
+    {
+      "id": "IF97-flash-0",
+      "kind": "flash",
+      "model": "IF97",
+      "inputs": {
+        "p1": 1,
+        "T1": 423.15,
+        "p2": 0.1,
+        "flow": 10,
+        "saturated": 0
+      },
+      "expected": {
+        "outlet_h": 632.574919593967,
+        "outlet_T": 372.7559186113376,
+        "outlet_x": 0.09529886162555658,
+        "vaporFlow": 0.9529886162555657,
+        "liquidFlow": 9.047011383744435
+      }
+    },
+    {
+      "id": "IF97-flash-1",
+      "kind": "flash",
+      "model": "IF97",
+      "inputs": {
+        "p1": 1,
+        "T1": 453.0356323914666,
+        "p2": 0.1,
+        "flow": 10,
+        "saturated": 1
+      },
+      "expected": {
+        "outlet_h": 762.6828443354104,
+        "outlet_T": 372.7559186113376,
+        "outlet_x": 0.15293215800407808,
+        "vaporFlow": 1.529321580040781,
+        "liquidFlow": 8.470678419959219
+      }
+    },
+    {
+      "id": "IAPWS-95-turbine-power",
+      "kind": "turbine",
+      "model": "IAPWS-95",
+      "mode": "power",
+      "inputs": {
+        "p1": 6,
+        "T1": 773.15,
+        "p2": 0.1,
+        "eta": 0.85,
+        "flow": 10
+      },
+      "expected": {
+        "work": 786.8305988200686,
+        "power": 7868.305988200686,
+        "flow": 10.0,
+        "eta": 0.85,
+        "outlet_h": 2636.283394009367,
+        "outlet_T": 372.75592889710504,
+        "outlet_x": 0.9828725374996932,
+        "specific_consumption": 4.575317743614141
+      }
+    },
+    {
+      "id": "IAPWS-95-turbine-flow",
+      "kind": "turbine",
+      "model": "IAPWS-95",
+      "mode": "flow",
+      "inputs": {
+        "p1": 6,
+        "T1": 773.15,
+        "p2": 0.1,
+        "eta": 0.85,
+        "flow": 10
+      },
+      "expected": {
+        "work": 786.8305988200686,
+        "power": 7868.305988200686,
+        "flow": 10.0,
+        "eta": 0.85,
+        "outlet_h": 2636.283394009367,
+        "outlet_T": 372.75592889710504,
+        "outlet_x": 0.9828725374996932,
+        "specific_consumption": 4.575317743614141
+      }
+    },
+    {
+      "id": "IAPWS-95-turbine-efficiency",
+      "kind": "turbine",
+      "model": "IAPWS-95",
+      "mode": "efficiency",
+      "inputs": {
+        "p1": 6,
+        "T1": 773.15,
+        "p2": 0.1,
+        "eta": 0.85,
+        "flow": 10
+      },
+      "expected": {
+        "work": 786.8305988200686,
+        "power": 7868.305988200686,
+        "flow": 10.0,
+        "eta": 0.85,
+        "outlet_h": 2636.283394009367,
+        "outlet_T": 372.75592889710504,
+        "outlet_x": 0.9828725374996932,
+        "specific_consumption": 4.575317743614141
+      }
+    },
+    {
+      "id": "IAPWS-95-flash-0",
+      "kind": "flash",
+      "model": "IAPWS-95",
+      "inputs": {
+        "p1": 1,
+        "T1": 423.15,
+        "p2": 0.1,
+        "flow": 10,
+        "saturated": 0
+      },
+      "expected": {
+        "outlet_h": 632.5027142125547,
+        "outlet_T": 372.75592889710504,
+        "outlet_x": 0.09523993755973091,
+        "vaporFlow": 0.9523993755973091,
+        "liquidFlow": 9.04760062440269
+      }
+    },
+    {
+      "id": "IAPWS-95-flash-1",
+      "kind": "flash",
+      "model": "IAPWS-95",
+      "inputs": {
+        "p1": 1,
+        "T1": 453.0280078816743,
+        "p2": 0.1,
+        "flow": 10,
+        "saturated": 1
+      },
+      "expected": {
+        "outlet_h": 762.5150697660758,
+        "outlet_T": 372.75592889710504,
+        "outlet_x": 0.15283267031129777,
+        "vaporFlow": 1.5283267031129777,
+        "liquidFlow": 8.471673296887023
+      }
+    }
+  ],
+  "domain_probes": [
+    {
+      "id": "sub-triple-liquid",
+      "model": "IAPWS-95",
+      "p": 200,
+      "T": 260,
+      "expected": {
+        "p": 200,
+        "T": 260.0,
+        "h": 133.76585847446847,
+        "s": -0.21648580938254713,
+        "u": -50.36058009861265,
+        "v": 0.000920632192866913,
+        "rho": 1086.2101149058562,
+        "cp": 3.5738848404881063,
+        "cv": 3.5251270220798303,
+        "w": 1712.2480408059184,
+        "mu": 0.0025310708846405243,
+        "lambda_": 0.6383602704854813
+      },
+      "independent_cross_check": {
+        "h": {
+          "python": 133.76585847472506,
+          "coolprop": 133.76585847446847,
+          "relative": 1.9182433419473455e-12
+        },
+        "rho": {
+          "python": 1086.2101149059465,
+          "coolprop": 1086.2101149058562,
+          "relative": 8.304468224196171e-14
+        }
+      },
+      "python_warnings": [
+        "Using extrapolated values"
+      ],
+      "melting_pressure_at_T": 138.2681130022179,
+      "sources": [
+        "S05",
+        "S06",
+        "S07"
+      ],
+      "reference_site_result": null,
+      "expected_local_gap": "temperature_rejected"
+    },
+    {
+      "id": "high-pressure-transport",
+      "model": "IAPWS-95",
+      "p": 200,
+      "T": 400,
+      "expected": {
+        "p": 200,
+        "T": 400.0,
+        "h": 677.1047057476409,
+        "s": 1.451987752148123,
+        "u": 480.4714823862607,
+        "v": 0.0009831661168110397,
+        "rho": 1017.1221148706405,
+        "cp": 3.9362634641056458,
+        "cv": 3.4513113129177273,
+        "w": 1882.658934898237,
+        "mu": 0.00026681629678140383,
+        "lambda_": 0.7912002804302015
+      },
+      "independent_cross_check": {
+        "h": {
+          "python": 677.1047057482647,
+          "coolprop": 677.1047057476409,
+          "relative": 9.212630658339549e-13
+        },
+        "rho": {
+          "python": 1017.1221148709124,
+          "coolprop": 1017.1221148706405,
+          "relative": 2.673417043297377e-13
+        }
+      },
+      "python_warnings": [],
+      "melting_pressure_at_T": null,
+      "sources": [
+        "S05",
+        "S06",
+        "S07"
+      ],
+      "reference_site_result": null,
+      "expected_local_gap": "transport_unavailable"
+    }
+  ],
+  "historical": {
+    "id": "steam97-2026-10-10-vapor",
+    "source": "S09",
+    "kind": "historical_transcription",
+    "original_response_retained": false,
+    "date": "2026-10-10",
+    "model": "IF97",
+    "model_metadata": "inferred from region 2 and historical context; original metadata unavailable",
+    "inputs": {
+      "p": 1,
+      "T": 523.15
+    },
+    "independent": {
+      "p": 1,
+      "T": 523.15,
+      "h": 2943.2221652336634,
+      "s": 6.926622739684809,
+      "u": 2710.4832319337365,
+      "v": 0.23273893329992676,
+      "rho": 4.296659720062035,
+      "cp": 2.2116202733092276,
+      "cv": 1.6361901740328515,
+      "w": 550.1074973271711
+    },
+    "printed": {
+      "v": "0.2327389333",
+      "h": "2943.2221652337",
+      "s": "6.9266227397",
+      "u": "2710.4832319337",
+      "cp": "2.2116202733",
+      "cv": "1.6361901740",
+      "w": "550.1074973272"
+    },
+    "tolerance": "half of last printed decimal + 64 * Number.EPSILON * max(1, abs(value))"
+  }
+}

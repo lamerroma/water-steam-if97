@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "updated": "2026-10-18",
+  "baseline_version": "1.35.4",
+  "baseline_commit": "9c87d171d093ee2a4f7ec7a92e3c10d1de95f123",
+  "status": "p01_preparation_complete_inventory_open",
+  "reference_url": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
+  "requirements_file": "STEAMTABLES_PARITY_MATRIX.json",
+  "details_file": "STEAMTABLES_PARITY_SPRINTS_UK.md",
+  "reference_inventory_complete": false,
+  "release_numbers": "Assigned from actual release scope; sprint IDs remain stable.",
+  "ownership_rule": "Each current requirement has exactly one delivery owner; P01 inventories and P09 accepts every mandatory requirement.",
+  "prerequisites_rule": "Module evidence and contracts must be ready before dependent implementation. P01 may finish preparation with blockers, but final parity cannot pass with unresolved mandatory requirements.",
+  "completion_rule": "Direct reference evidence, independent validation, predefined tolerances and a complete user scenario are required; implementation presence alone does not establish parity.",
+  "planning_estimates": "Calendar and effort follow P01; P03/P04 may split into child sprints while parents remain open.",
+  "sprints": [
+    {
+      "id": "P01",
+      "title": "Інвентаризація та контрольні приклади",
+      "status": "done",
+      "depends_on": [],
+      "dependency_scope": "Ready module contracts and accepted prerequisite results; unrelated blocked requirements do not prevent independent work.",
+      "reviews_all_requirements": true,
+      "requirement_ids": [],
+      "result": "Контракти модулів, докази оригіналу, раннє дослідження газів та реєстр блокерів",
+      "acceptance": "Можна завершити підготовку з явними блокерами; повний інвентар лишається відкритим до їх закриття.",
+      "completion": "preparation_complete_with_blockers",
+      "report": "STEAMTABLES_P01_UK.md",
+      "acceptance_file": "STEAMTABLES_P01_ACCEPTANCE.json",
+      "inventory_closed": false
+    },
+    {
+      "id": "P02",
+      "title": "Вода, пара та повне насичення",
+      "status": "ready",
+      "depends_on": [
+        "P01"
+      ],
+      "dependency_scope": "Ready module contracts and accepted prerequisite results; unrelated blocked requirements do not prevent independent work.",
+      "reviews_all_requirements": false,
+      "requirement_ids": [
+        "input-if97-pt",
+        "input-if97-ph",
+        "input-if97-ps",
+        "input-if97-pv",
+        "input-if97-pu",
+        "input-if97-th",
+        "input-if97-ts",
+        "input-if97-tv",
+        "input-if97-tu",
+        "input-if97-hs",
+        "input-if97-us",
+        "input-if97-vs",
+        "input-if97-hv",
+        "input-if97-uv",
+        "input-if97-px",
+        "input-if97-tx",
+        "input-iapws-95-pt",
+        "input-iapws-95-ph",
+        "input-iapws-95-ps",
+        "input-iapws-95-pv",
+        "input-iapws-95-pu",
+        "input-iapws-95-th",
+        "input-iapws-95-ts",
+        "input-iapws-95-tv",
+        "input-iapws-95-tu",
+        "input-iapws-95-px",
+        "input-iapws-95-tx",
+        "property-p",
+        "property-T",
+        "property-density",
+        "property-volume",
+        "property-enthalpy",
+        "property-entropy",
+        "property-exergy",
+        "property-internal-energy",
+        "property-cp",
+        "property-cv",
+        "property-sound",
+        "property-isentropic-exponent",
+        "property-helmholtz",
+        "property-gibbs",
+        "property-compressibility-factor",
+        "property-quality",
+        "property-region",
+        "property-expansion",
+        "property-compressibility",
+        "property-dv-dT-p",
+        "property-dv-dp-T",
+        "property-dp-dT-v",
+        "property-dp-dv-T",
+        "property-isothermal-jt",
+        "property-jt",
+        "saturation-selector",
+        "formulation-ambient"
+      ],
+      "result": "Повні підтверджені режими води й насичення в поточних діапазонах",
+      "acceptance": "Прямі приклади оригіналу, незалежні еталони, усі фізичні корені й завершений сценарій UI/проєкту/експорту.",
+      "readiness": "bounded implementation tasks only; full reference acceptance and unknown saturation selectors blocked",
+      "task_file": "steam97-p01/next-tasks.json"
+    },
+    {
+      "id": "P03",
+      "title": "Газові таблиці та суміші фіксованого складу",
+      "status": "planned",
+      "depends_on": [
+        "P01"
+      ],
+      "dependency_scope": "Ready module contracts and accepted prerequisite results; unrelated blocked requirements do not prevent independent work.",
+      "reviews_all_requirements": false,
+      "requirement_ids": [
+        "gas-fixed-mixture"
+      ],
+      "result": "Підтверджена модель газів, базиси складу й відліку, усі потрібні входи та виходи",
+      "acceptance": "Властивості й інверсії перевірено для потрібних компонентів і сумішей; попередня NASA7 відтворюється.",
+      "readiness": "model-data contract blocked; research can continue"
+    },
+    {
+      "id": "P04",
+      "title": "Дисоціація газів",
+      "status": "planned",
+      "depends_on": [
+        "P03"
+      ],
+      "dependency_scope": "Ready module contracts and accepted prerequisite results; unrelated blocked requirements do not prevent independent work.",
+      "reviews_all_requirements": false,
+      "requirement_ids": [
+        "gas-dissociation"
+      ],
+      "result": "Властивості з підтвердженою моделлю дисоціації BSW у потрібному обмеженому діапазоні",
+      "acceptance": "Підтверджені рівняння/дані й визначення виходів; off/on приклади, межі T та lambda і незалежна перевірка. Загальну хімічну рівновагу додавати лише за вимогою моделі.",
+      "readiness": "model-data contract blocked; research can continue"
+    },
+    {
+      "id": "P05",
+      "title": "Діапазони й транспортні властивості",
+      "status": "planned",
+      "depends_on": [
+        "P02"
+      ],
+      "dependency_scope": "Ready module contracts and accepted prerequisite results; unrelated blocked requirements do not prevent independent work.",
+      "reviews_all_requirements": false,
+      "requirement_ids": [
+        "property-dielectric",
+        "property-viscosity",
+        "property-kinematic-viscosity",
+        "property-conductivity",
+        "property-diffusivity",
+        "property-prandtl",
+        "property-surface-tension",
+        "domain-if97",
+        "domain-iapws95",
+        "domain-transport"
+      ],
+      "result": "Карта допустимості кожної властивості й потрібні обґрунтовані розширення",
+      "acceptance": "Є крайові приклади оригіналу та незалежні перевірки; відмінності екстраполяції розв’язані або вимога відкрита."
+    },
+    {
+      "id": "P06",
+      "title": "Турбіна та флеш-випарник",
+      "status": "planned",
+      "depends_on": [
+        "P02",
+        "P05"
+      ],
+      "dependency_scope": "Ready module contracts and accepted prerequisite results; unrelated blocked requirements do not prevent independent work.",
+      "reviews_all_requirements": false,
+      "requirement_ids": [
+        "turbine-power",
+        "turbine-flow",
+        "turbine-efficiency",
+        "flash-saturated",
+        "flash-subcooled",
+        "turbine-inlet-tsat",
+        "turbine-exhaust-superheat",
+        "turbine-power-mw",
+        "turbine-consumption-english"
+      ],
+      "result": "Усі підтверджені режими, поля, виходи й одиниці трьох турбінних і двох flash-задач",
+      "acceptance": "Пройдені зіставлення, баланси та збереження/відновлення потрібних сценаріїв."
+    },
+    {
+      "id": "P07",
+      "title": "Діаграми й робота із серіями",
+      "status": "planned",
+      "depends_on": [
+        "P02",
+        "P05",
+        "P06"
+      ],
+      "dependency_scope": "Ready module contracts and accepted prerequisite results; unrelated blocked requirements do not prevent independent work.",
+      "reviews_all_requirements": false,
+      "requirement_ids": [
+        "diagram-ts",
+        "diagram-hs",
+        "diagram-hs-vapor",
+        "diagram-points-series",
+        "diagram-export-print"
+      ],
+      "result": "Цільові T–s/h–s/паровий h–s та повний набір операцій з точками й серіями",
+      "acceptance": "Числа, координати, фазові межі, одиниці, редагування, збереження й друк перевірено в браузерах."
+    },
+    {
+      "id": "P08",
+      "title": "XLSX, ODS, XLS та CSV",
+      "status": "planned",
+      "depends_on": [
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07"
+      ],
+      "dependency_scope": "Ready module contracts and accepted prerequisite results; unrelated blocked requirements do not prevent independent work.",
+      "reviews_all_requirements": false,
+      "requirement_ids": [
+        "export-csv",
+        "export-xls",
+        "export-xlsx",
+        "export-ods"
+      ],
+      "result": "Справжні табличні формати для всіх потрібних наборів результатів",
+      "acceptance": "Формати прочитано незалежними читачами; структура, числа, одиниці, Unicode та offline пройдені."
+    },
+    {
+      "id": "P09",
+      "title": "Повне приймання аналога",
+      "status": "planned",
+      "depends_on": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08"
+      ],
+      "dependency_scope": "Ready module contracts and accepted prerequisite results; unrelated blocked requirements do not prevent independent work.",
+      "reviews_all_requirements": true,
+      "requirement_ids": [
+        "units",
+        "clear-results"
+      ],
+      "result": "Закрита матриця, повні користувацькі сценарії й підтверджене розгортання",
+      "acceptance": "Інвентар завершено, усі обов’язкові вимоги підтверджено, немає невирішених прогалин; перевірено CI і сайт саме для прийнятого коміту."
+    }
+  ],
+  "inventory_delta": {
+    "P01": {
+      "initial_rows": 82,
+      "added": 4,
+      "current_rows": 86,
+      "source": "steam97-p01/sources.json"
+    }
+  }
+}

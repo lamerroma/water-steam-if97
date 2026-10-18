@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "declared_before_first_run": "2026-10-18",
+  "purpose": "Finite P01 implementation pilot against independent same-formulation software. Not a Steam97 parity acceptance or physical uncertainty claim.",
+  "forward_relative": 2e-7,
+  "forward_absolute": {"p": 1e-9, "T": 2e-5, "h": 2e-5, "s": 2e-8, "u": 2e-5, "v": 2e-10, "rho": 2e-5, "cp": 5e-5, "cv": 5e-5, "w": 2e-4, "x": 2e-5},
+  "inverse_policy": "scripts/inverse-precision-common.mjs: assess and assessAllRoots; pre-existing pressure/temperature conditioning and input-residual floors. Every returned root must satisfy its inputs.",
+  "inverse_output_scope": "Inverse acceptance checks p/T and supplied input residuals, phase and stability of every returned root; ten forward properties are compared separately on pt/px/tx. No claim to all inverse output derivatives.",
+  "process_relative": 2e-7,
+  "process_absolute": 2e-5,
+  "process_balance_relative": 2e-9,
+  "historical_policy": "Half of last printed decimal plus 64 binary64 epsilons times max(1, absolute value); retained transcription only, raw server response unavailable.",
+  "domain_probe_policy": "Known gaps are listed separately and never counted as numerical passes. Unexpected behavior requires review.",
+  "rationale": "Same-EOS implementations should agree far inside engineering model uncertainty. Binary64 inversion and the finite near-critical pilot need small absolute floors; previous inverse criteria account for input conditioning. Published decimal precision bounds the historical comparison. No thresholds fitted to observed P01 discrepancies."
+}

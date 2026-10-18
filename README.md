@@ -4,7 +4,7 @@
 
 [Великий навчальний спринт (1.10.0)](docs/SPRINT_FULL_STUDY.md) · [Навчальний звіт і схема АЕС (1.9.0)](docs/SPRINT_STUDY_NPP.md) · [Відкрити калькулятор](https://lamerroma.github.io/water-steam-if97/) · [Тиск, витрати та навчальні приклади: інструкція і межі застосування](docs/SPRINT_PRESSURE_FLOW_LEARNING.md).
 
-**Пріоритет розвитку: спочатку повне функціональне покриття SteamTablesOnline, потім власні розширення.** [Стратегія](docs/PRODUCT_STRATEGY_UK.md) · [Матриця відповідності — початковий аудит](docs/STEAMTABLES_PARITY_MATRIX.json).
+**Пріоритет розвитку: спочатку повне функціональне покриття SteamTablesOnline, потім власні розширення.** [Стратегія](docs/PRODUCT_STRATEGY_UK.md) · [План спринтів P01–P09](docs/STEAMTABLES_PARITY_SPRINTS_UK.md) · [Матриця відповідності](docs/STEAMTABLES_PARITY_MATRIX.json) · [P01: контракти, перевірки й відкриті проблеми](docs/STEAMTABLES_P01_UK.md).
 
 Автор проєкту: **Роман Гавриш**. Copyright © 2026 Роман Гавриш. Ліцензія: [MIT](LICENSE). Атрибуція сторонніх авторів: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
