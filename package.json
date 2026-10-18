@@ -1,6 +1,6 @@
 {
   "name": "water-steam-if97-uk",
-  "version": "1.35.4",
+  "version": "1.35.5",
   "private": true,
   "type": "module",
   "scripts": {
@@ -58,7 +58,9 @@
     "test:inverse-boundaries": "node scripts/check-inverse-boundaries-browser.cjs",
     "test:rankine-sweep": "node scripts/check-rankine-sweep-browser.cjs",
     "audit:inverse:quick": "node scripts/audit-inverse-precision.mjs --quick",
-    "audit:inverse:full": "node scripts/audit-inverse-precision.mjs"
+    "audit:inverse:full": "node scripts/audit-inverse-precision.mjs",
+    "audit:steam97:p02": "node scripts/audit-steam97-p02.mjs",
+    "test:steam97:p02": "node scripts/check-steam97-p02-browser.cjs"
   },
   "engines": {
     "node": ">=20"

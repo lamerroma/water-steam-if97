@@ -4,7 +4,7 @@
   "baseline_version": "1.35.0",
   "baseline_commit": "2c3bfe83d6b3f772018334074bdfa6df0abaa215",
   "goal": "All calculations available in the referenced Steam97Web calculator must be covered before further capability expansion.",
-  "status": "p01_preparation_complete_inventory_open",
+  "status": "p02_bounded_delivery_complete_reference_inventory_open",
   "scope": {
     "target": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
     "include": "All calculator tabs and available model/phase/input/units/domain variants, including features marked as requiring registration. Workflow parity tracked separately.",
@@ -114,6 +114,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "pt"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -122,7 +131,7 @@
       "feature": "IF97: PH",
       "scope": "calculation",
       "implementation": "present",
-      "parity": "known_gap",
+      "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/engine.js",
@@ -132,7 +141,7 @@
         "tests/calculator-worker.test.mjs",
         "tests/all-modes.test.mjs"
       ],
-      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website. P01 found a valid hot single-phase inverse rejected slightly below Pc; see findings N01/N02. Exact Pc pilot passes. Fix and independent regression are P02-01.",
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website. P01 found a valid hot single-phase inverse rejected slightly below Pc; see findings N01/N02. Exact Pc pilot passes. Resolved by P02-01 in 1.35.5 on the frozen independent grid; direct reference parity remains unverified.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "water-general",
@@ -148,6 +157,15 @@
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "ph",
         "finding_id": "N01"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -156,7 +174,7 @@
       "feature": "IF97: PS",
       "scope": "calculation",
       "implementation": "present",
-      "parity": "known_gap",
+      "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/engine.js",
@@ -166,7 +184,7 @@
         "tests/calculator-worker.test.mjs",
         "tests/all-modes.test.mjs"
       ],
-      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website. P01 found a valid hot single-phase inverse rejected slightly below Pc; see findings N01/N02. Exact Pc pilot passes. Fix and independent regression are P02-01.",
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website. P01 found a valid hot single-phase inverse rejected slightly below Pc; see findings N01/N02. Exact Pc pilot passes. Resolved by P02-01 in 1.35.5 on the frozen independent grid; direct reference parity remains unverified.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "water-general",
@@ -182,6 +200,15 @@
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "ps",
         "finding_id": "N01"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -215,6 +242,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "pv"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -223,7 +259,7 @@
       "feature": "IF97: PU",
       "scope": "calculation",
       "implementation": "present",
-      "parity": "known_gap",
+      "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/engine.js",
@@ -233,7 +269,7 @@
         "tests/calculator-worker.test.mjs",
         "tests/all-modes.test.mjs"
       ],
-      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website. P01 found a valid hot single-phase inverse rejected slightly below Pc; see findings N01/N02. Exact Pc pilot passes. Fix and independent regression are P02-01.",
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website. P01 found a valid hot single-phase inverse rejected slightly below Pc; see findings N01/N02. Exact Pc pilot passes. Resolved by P02-01 in 1.35.5 on the frozen independent grid; direct reference parity remains unverified.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "water-general",
@@ -249,6 +285,15 @@
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "pu",
         "finding_id": "N01"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -282,6 +327,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "th"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -315,6 +369,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "ts"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -348,6 +411,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "tv"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -381,6 +453,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "tu"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -414,6 +495,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "hs"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -447,6 +537,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "us"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -480,6 +579,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "vs"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -513,6 +621,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "hv"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -546,6 +663,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "uv"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -579,6 +705,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "px"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -612,6 +747,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "tx"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -645,6 +789,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "pt"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -653,7 +806,7 @@
       "feature": "IAPWS-95: PH",
       "scope": "calculation",
       "implementation": "present",
-      "parity": "known_gap",
+      "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/engine.js",
@@ -663,7 +816,7 @@
         "tests/calculator-worker.test.mjs",
         "tests/all-modes.test.mjs"
       ],
-      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website. P01 found a valid hot single-phase inverse rejected slightly below Pc; see findings N01/N02. Exact Pc pilot passes. Fix and independent regression are P02-01.",
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website. P01 found a valid hot single-phase inverse rejected slightly below Pc; see findings N01/N02. Exact Pc pilot passes. Resolved by P02-01 in 1.35.5 on the frozen independent grid; direct reference parity remains unverified.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "water-general",
@@ -679,6 +832,15 @@
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "ph",
         "finding_id": "N02"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -687,7 +849,7 @@
       "feature": "IAPWS-95: PS",
       "scope": "calculation",
       "implementation": "present",
-      "parity": "known_gap",
+      "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/engine.js",
@@ -697,7 +859,7 @@
         "tests/calculator-worker.test.mjs",
         "tests/all-modes.test.mjs"
       ],
-      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website. P01 found a valid hot single-phase inverse rejected slightly below Pc; see findings N01/N02. Exact Pc pilot passes. Fix and independent regression are P02-01.",
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website. P01 found a valid hot single-phase inverse rejected slightly below Pc; see findings N01/N02. Exact Pc pilot passes. Resolved by P02-01 in 1.35.5 on the frozen independent grid; direct reference parity remains unverified.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "water-general",
@@ -713,6 +875,15 @@
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "ps",
         "finding_id": "N02"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -746,6 +917,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "pv"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -754,7 +934,7 @@
       "feature": "IAPWS-95: PU",
       "scope": "calculation",
       "implementation": "present",
-      "parity": "known_gap",
+      "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/engine.js",
@@ -764,7 +944,7 @@
         "tests/calculator-worker.test.mjs",
         "tests/all-modes.test.mjs"
       ],
-      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website. P01 found a valid hot single-phase inverse rejected slightly below Pc; see findings N01/N02. Exact Pc pilot passes. Fix and independent regression are P02-01.",
+      "notes": "Pair exists. Need common-state cases over phase/region/range and ambiguous inversions; existing tests do not establish full equivalence to the website. P01 found a valid hot single-phase inverse rejected slightly below Pc; see findings N01/N02. Exact Pc pilot passes. Resolved by P02-01 in 1.35.5 on the frozen independent grid; direct reference parity remains unverified.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "water-general",
@@ -780,6 +960,15 @@
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "pu",
         "finding_id": "N02"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -813,6 +1002,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "th"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -846,6 +1044,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "ts"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -879,6 +1086,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "tv"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -912,6 +1128,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "tu"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -945,6 +1170,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "px"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -978,6 +1212,15 @@
         ],
         "pilot_file": "steam97-p01/pilot-results.json",
         "pilot_mode": "tx"
+      },
+      "p02": {
+        "version": "1.35.5",
+        "numeric_evidence": "steam97-p02/numeric-results.json",
+        "workflow_evidence": [
+          "steam97-p02/chromium.json",
+          "steam97-p02/firefox.json"
+        ],
+        "scope": "finite confirmed-input contract; not full reference acceptance"
       }
     },
     {
@@ -2053,6 +2296,14 @@
           "B02",
           "B03"
         ]
+      },
+      "p02": {
+        "confirmed_px_tx_workflow": "passed in both models and unit systems",
+        "remaining_blocker_ids": [
+          "B01",
+          "B02",
+          "B03"
+        ]
       }
     },
     {
@@ -2894,9 +3145,12 @@
     "updated": "2026-10-18",
     "sprint_plan": "STEAMTABLES_PARITY_SPRINTS.json",
     "details": "STEAMTABLES_PARITY_SPRINTS_UK.md",
-    "next_sprint": "P02",
+    "next_sprint": "P02 (reference tasks blocked)",
     "first_implementation_sprint": "P02",
-    "P01_status": "preparation_complete_with_blockers"
+    "P01_status": "preparation_complete_with_blockers",
+    "current_version": "1.35.5",
+    "P02_status": "bounded_delivery_complete_reference_acceptance_blocked",
+    "next_independent_work": "P05 validity map"
   },
   "p01_audit": {
     "date": "2026-10-18",
@@ -2916,5 +3170,20 @@
     "current_rows": 86,
     "reference_inventory_complete": false,
     "coverage_percentage": null
+  },
+  "p02_audit": {
+    "version": "1.35.5",
+    "report": "STEAMTABLES_P02_UK.md",
+    "acceptance": "STEAMTABLES_P02_ACCEPTANCE.json",
+    "tasks": "steam97-p02/tasks.json",
+    "resolved_local_findings": [
+      "N01",
+      "N02"
+    ],
+    "numeric_queries": 745,
+    "passed": 745,
+    "regression_queries": 4657,
+    "reference_inventory_complete": false,
+    "new_reference_site_cases": 0
   }
 }

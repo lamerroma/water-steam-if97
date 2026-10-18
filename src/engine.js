@@ -6,6 +6,7 @@ import init, {initSync,pt,px,hs,ph,ps} from '../vendor/seuif97.js';
 import {gibbs,helmholtz,pressureError97,TC,PC,RHOC,PMIN_SAT,saturationPressure,saturationPressurePair,saturationTemperature,saturationTemperaturePair,boundary23Pressure,boundary23Temperature} from './equations.js';
 import {viscosity,conductivity,surfaceTension} from './transport.js';
 import {criticalDensityRoot,hpValue} from './precision.js';
+import {resolvedSinglePhaseBracket} from './inverse-phase-bracket.js';
 export {TC,PC,PMIN_SAT,saturationPressure,saturationTemperature,boundary23Pressure};
 export async function initialize(bytes) { if(bytes)initSync({module:bytes});else await init(); }
 function finite(n,name) {if(!Number.isFinite(n))throw Error(`${name}: введіть скінченне число.`);}
@@ -100,31 +101,36 @@ export function solvePT(p,T) {
 export function solveInverse(p,target,key,tolerance) {
   pressure(p);finite(target,key==='h'?'Ентальпія':key==='u'?'Внутрішня енергія':'Ентропія');
   if(!['h','s','u'].includes(key))throw Error('Невідомий режим інверсії.');
-  let sat;
+  let sat,fallback;
   if(p>=PMIN_SAT&&p<PC) {
-    sat=saturation(p);const a=sat.liquid[key],b=sat.vapor[key];
+    try{sat=saturation(p);}catch(error){
+      if(p>PC-.01)fallback=resolvedSinglePhaseBracket(p,target,key,TC,RHOC,solvePT);
+      if(!fallback)throw error;
+    }
+    if(sat){const a=sat.liquid[key],b=sat.vapor[key];
     // Keep rounded independent endpoint inputs on the exact phase endpoint.
     // This tolerance scales with machine roundoff, not the full latent range.
     for(const endpoint of [sat.liquid,sat.vapor])if(Math.abs(target-endpoint[key])<=32*Number.EPSILON*Math.max(Math.abs(target),Math.abs(endpoint[key])))return {state:mix(sat,endpoint.x),saturation:sat};
     if(target>=a&&target<=b)return {state:mix(sat,(target-a)/(b-a)),saturation:sat};
+    }
   }
   if(p===PC) {
     const c=finish({...helmholtz(TC,RHOC),p,cp:null,drhodp:null,critical:true},'Критична точка');
     if(Math.abs(target-c[key])<1e-8)return {state:c};
   }
   // Separate fundamental regions: do not interpolate across IF97 consistency gaps.
-  const maxT=p<=50?2273.15:1073.15;
-  let cuts=[273.15,623.15,1073.15,maxT];
+  const minT=fallback?.lo??273.15,maxT=fallback?.hi??(p<=50?2273.15:1073.15);
+  let cuts=[minT,623.15,1073.15,maxT];
   if(p>boundary23Pressure(623.15))cuts.push(boundary23Temperature(p));
   if(sat)cuts.push(sat.T);
   if(p===PC)cuts.push(TC);
-  cuts=[...new Set(cuts.filter(t=>t>=273.15&&t<=maxT))].sort((a,b)=>a-b);
+  cuts=[...new Set(cuts.filter(t=>t>=minT&&t<=maxT))].sort((a,b)=>a-b);
   const candidates=[];
   for(let i=0;i<cuts.length-1;i++) {
     let lo=cuts[i],hi=cuts[i+1];if(hi===lo)continue;
     const region=regionPT(p,(lo+hi)/2);
     const evaluate=T=>region===3?densityState(p,T,pt(p,T-273.15,2),T<TC?(p>=PC||p>=saturationPressure(T)?'liquid':'vapor'):undefined):gibbs(p,T,region);
-    const endpoint=T=>sat&&Math.abs(T-sat.T)<1e-9?(T===lo?sat.vapor:sat.liquid):evaluate(T);
+    const endpoint=T=>T===fallback?.lo?fallback.L:T===fallback?.hi?fallback.H:sat&&Math.abs(T-sat.T)<1e-9?(T===lo?sat.vapor:sat.liquid):evaluate(T);
     const a=endpoint(lo),b=endpoint(hi);
     if(target<a[key]-1e-9||target>b[key]+1e-9)continue;
     let answer;
@@ -170,7 +176,11 @@ export function solveHS(h,s) {
  finite(h,'Ентальпія');finite(s,'Ентропія');
  const evaluate=p=>solveInverse(p,h,'h',1e-10);
  const valid=r=>Math.abs(r.state.h-h)<Math.max(1e-6,4*Number.EPSILON*r.state.T*Math.abs(r.state.cp||0))&&Math.abs(r.state.s-s)<Math.max(2e-11,4*Number.EPSILON*Math.abs(r.state.cp||0));
- const finalize=result=>{const state=result.state;if(state.x===null&&state.p>=PMIN_SAT&&state.p<PC){const sat=saturation(state.p);for(const endpoint of [sat.liquid,sat.vapor])if(Math.abs(endpoint.h-h)<1e-6&&Math.abs(endpoint.s-s)<2e-9)return {state:mix(sat,endpoint.x),saturation:sat};}return result;};
+ const finalize=result=>{const state=result.state;if(state.x===null&&state.p>=PMIN_SAT&&state.p<PC){
+  // A validated single-phase h-s root may now lie just below Pc. Optional
+  // endpoint classification must not undo the successful pressure inverse.
+  let sat;try{sat=saturation(state.p);}catch(error){if(state.p<=PC-.01)throw error;return result;}
+  for(const endpoint of [sat.liquid,sat.vapor])if(Math.abs(endpoint.h-h)<1e-6&&Math.abs(endpoint.s-s)<2e-9)return {state:mix(sat,endpoint.x),saturation:sat};}return result;};
  let seed;try{seed=hs(h,s,0);}catch{}
  if(Number.isFinite(seed)&&seed>0&&seed<=100){
   let p=seed;

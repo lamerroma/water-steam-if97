@@ -3,7 +3,7 @@
   "updated": "2026-10-18",
   "baseline_version": "1.35.4",
   "baseline_commit": "9c87d171d093ee2a4f7ec7a92e3c10d1de95f123",
-  "status": "p01_preparation_complete_inventory_open",
+  "status": "p02_bounded_delivery_complete_reference_inventory_open",
   "reference_url": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
   "requirements_file": "STEAMTABLES_PARITY_MATRIX.json",
   "details_file": "STEAMTABLES_PARITY_SPRINTS_UK.md",
@@ -32,7 +32,7 @@
     {
       "id": "P02",
       "title": "Вода, пара та повне насичення",
-      "status": "ready",
+      "status": "blocked",
       "depends_on": [
         "P01"
       ],
@@ -96,8 +96,18 @@
       ],
       "result": "Повні підтверджені режими води й насичення в поточних діапазонах",
       "acceptance": "Прямі приклади оригіналу, незалежні еталони, усі фізичні корені й завершений сценарій UI/проєкту/експорту.",
-      "readiness": "bounded implementation tasks only; full reference acceptance and unknown saturation selectors blocked",
-      "task_file": "steam97-p01/next-tasks.json"
+      "readiness": "Full reference acceptance remains open; confirmed-input implementation and workflows passed.",
+      "task_file": "steam97-p02/tasks.json",
+      "completion": "P02-01 and confirmed contract P02-02 accepted; P02-03/P02-04 blocked",
+      "release_version": "1.35.5",
+      "report": "STEAMTABLES_P02_UK.md",
+      "acceptance_file": "STEAMTABLES_P02_ACCEPTANCE.json",
+      "blocked_by": [
+        "B01",
+        "B02",
+        "B03",
+        "B07"
+      ]
     },
     {
       "id": "P03",
@@ -153,7 +163,8 @@
         "domain-transport"
       ],
       "result": "Карта допустимості кожної властивості й потрібні обґрунтовані розширення",
-      "acceptance": "Є крайові приклади оригіналу та незалежні перевірки; відмінності екстраполяції розв’язані або вимога відкрита."
+      "acceptance": "Є крайові приклади оригіналу та незалежні перевірки; відмінності екстраполяції розв’язані або вимога відкрита.",
+      "readiness": "Scientific validity-map work and N03/N04 probes ready from accepted water contract; direct reference domains still B06."
     },
     {
       "id": "P06",

@@ -1,0 +1,16 @@
+{
+  "schema_version":1,
+  "version":"1.35.5",
+  "parent_sprint":"P02",
+  "status":"bounded_delivery_complete_reference_acceptance_blocked",
+  "full_sprint_accepted":false,
+  "tasks":[
+    {"id":"P02-01","status":"done","scope":"Stable hot/cold pressure inversions near Pc, preserving unresolved-phase errors and validated h-s roots","resolved_findings":["N01","N02"],"evidence":["numeric-results.json","regression-results.json","p01-replay.json","chromium.json","firefox.json"],"acceptance":"745/745 water queries, 4657/4657 inverse regression queries, every returned inverse root checked; predefined tolerances unchanged."},
+    {"id":"P02-02","status":"done","scope":"Confirmed contract only: 16 IF97/11 IAPWS-95 pairs, SI/English, phase columns, alternatives, Worker, exact input/project/CSV restore, offline","evidence":["chromium.json","firefox.json"],"acceptance":"80 calculations and seven scenario groups per browser; this does not enumerate unknown saturation selectors or validate all 32 reference outputs."},
+    {"id":"P02-03","status":"blocked","scope":"Complete reference saturation selector inventory and any missing modes","blocker_ids":["B01","B02","B03"],"evidence_needed":"Actual permitted selector inspection and retained input/model/phase/output cases. No invented list based on the help's count of 15."},
+    {"id":"P02-04","status":"blocked","scope":"Reference exergy convention and fresh reference numeric cases","blocker_ids":["B01","B03","B07"],"evidence_needed":"Actual ambient reference pressure/temperature convention and reference outputs; a historical vapor point does not close exergy."}
+  ],
+  "remaining_scientific_domain_findings":[{"id":"N03","owner":"P05","status":"open"},{"id":"N04","owner":"P05","status":"open"}],
+  "independent_work_ready":"P05 validity map and independent scientific-domain probes can proceed from the accepted water contract; reference-domain acceptance remains blocked by B06.",
+  "gas_work":"P03/P04 model coefficients, fraction/reference basis and dissociation output semantics still require B04/B05 research."
+}

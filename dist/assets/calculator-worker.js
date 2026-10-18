@@ -1270,6 +1270,48 @@ function boundaryInputRoots(keys,targets,model,calc){
 }
 
 
+// src/inverse-phase-bracket.js
+// If coexistence cannot be resolved near Pc, a forward-validated single-phase
+// bracket can still establish a remote hot/cold inverse. Never interpolate
+// through the unresolved phase interval or substitute a critical mixture.
+const phaseBracketCache=new WeakMap();
+function resolvedSinglePhaseBracket(p,target,key,Tc,rhoc,forward){
+ const stable=q=>q&&q.x==null&&q.cp>0&&q.cv>0&&q.drhodp>0&&
+  ['h','s','u'].every(k=>Number.isFinite(q[k]))&&q.cp-1000*p*q.v*q.alpha>0;
+ const boundary=direction=>{
+  // A hot probe needs no coexistence calculation. Start the cold probe well
+  // below Tc, then refine it toward Tc only when the target needs that detail.
+  // One kelvin is an initial search step, never a fixed exclusion or tolerance.
+  let step=direction>0?Number.EPSILON*Tc:1;
+  for(let i=0;i<52;i++,step*=2){
+   const T=Tc+direction*step;if(!(T>0))break;
+   try{const q=forward(p,T).state;if(stable(q)&&(direction>0||q.rho>rhoc))return q;}catch{}
+  }
+ };
+ let cache=phaseBracketCache.get(forward);if(!cache){cache=new Map();phaseBracketCache.set(forward,cache);}
+ let entry=cache.get(p);
+ if(!entry||entry.Tc!==Tc||entry.rhoc!==rhoc){
+  entry={Tc,rhoc,hot:boundary(1),cold:boundary(-1)};
+  // Reuse forward-validated states across h/s/u. A colder target needs no
+  // extra coexistence work; a closer target can refine the cold anchor below.
+  if(entry.hot&&entry.cold){if(cache.size>=64)cache.clear();cache.set(p,entry);}
+ }
+ const {hot}=entry;let {cold}=entry;
+ if(!hot||!cold)return null;
+ for(let i=0;i<52&&target>=Math.min(hot[key],cold[key])&&target<=Math.max(hot[key],cold[key]);i++){
+  const T=Tc-(Tc-cold.T)/2;if(T===Tc||T===cold.T)break;
+  try{const q=forward(p,T).state;if(!stable(q)||q.rho<=rhoc)break;cold=q;entry.cold=q;}catch{break;}
+ }
+ // Include both certified anchors in the excluded interval, even if rounding
+ // or IF97 consistency error reverses their extremely close property values.
+ if(target>Math.max(hot[key],cold[key]))return {lo:hot.T,L:hot};
+ if(target<Math.min(hot[key],cold[key]))return {hi:cold.T,H:cold};
+ // Quality/endpoint targets within the unresolved interval still need a
+ // successful coexistence solve; the caller retains its original phase error.
+ return null;
+}
+
+
 // src/iapws95.js
 // IAPWS R6-95(2018), Eqs. (4)-(6), Tables 1-3. © 2018 IAPWS.
 // Independent transcription; MPa, K, kg/m³, kJ/kg. No IF97 property substitution.
@@ -1410,11 +1452,13 @@ function density95(p,T,side,sat){
 }
 function solvePT95(p,T){bounds95(p,T);if(p===P95C&&T===T95C)throw Error('Точна критична точка IAPWS-95: сингулярні похідні; використайте стан поза нею.');let sat,side;if(T<T95C&&p>=P95C)side='liquid';else if(T<T95C){sat=saturationT95(T);if(Math.abs(p-sat.p)<(T95C-T<=.011?5e-14:Math.max(3e-10,sat.p*1e-9)))return {saturation:sat,ambiguous:true};side=p>sat.p?'liquid':'vapor';}const q=density95(p,T,side,sat);return {state:decorate95({...q,p},side==='liquid'?'Стиснена рідина':side==='vapor'?'Перегріта пара':p>=P95C?'Надкритичний флюїд':'Газ / перегріта пара')};}
 function mixture95(sat,x){if(!Number.isFinite(x)||x<0||x>1)throw Error('Ступінь сухості має бути 0…1.');if(x===0)return {...sat.liquid};if(x===1)return {...sat.vapor};const blend=k=>sat.liquid[k]+x*(sat.vapor[k]-sat.liquid[k]),v=blend('v'),q={...sat.liquid,x,phase:'Двофазна суміш',v,rho:1/v,h:blend('h'),s:blend('s'),u:blend('u'),sigma:surfaceTension(sat.T)};for(const k of ['cp','cv','w','mu','nu','lambda','diffusivity','Pr','dc','alpha','kappa','dvdt','dvdp','dpdt','dpdv','jt','ijt','isentropic','drhodp'])q[k]=null;return {...q,A:q.u-q.T*q.s,G:q.h-q.T*q.s,Z:1000*q.p*q.v/R95/q.T,notes:['Двофазна суміш IAPWS-95: h,s,u,v — масовий баланс фаз; похідні та транспортні властивості суміші не визначаються усередненням.']};}
-function inverse95(p,target,key){if(!Number.isFinite(target))throw Error('Введіть скінченне значення.');bounds95(p,Math.max(715,273.16));let sat;if(p>=.000611654771&&p<P95C){sat=saturationP95(p);const tolerance=p>22.0611?32*Number.EPSILON*Math.max(Math.abs(target),Math.abs(sat.liquid[key]),Math.abs(sat.vapor[key])):key==='s'?2e-12:2e-9;if(Math.abs(target-sat.liquid[key])<=tolerance)return {state:{...sat.liquid},saturation:sat};if(Math.abs(target-sat.vapor[key])<=tolerance)return {state:{...sat.vapor},saturation:sat};if(target>=sat.liquid[key]&&target<=sat.vapor[key])return {state:mixture95(sat,(target-sat.liquid[key])/(sat.vapor[key]-sat.liquid[key])),saturation:sat};}
+function inverse95(p,target,key){if(!Number.isFinite(target))throw Error('Введіть скінченне значення.');bounds95(p,Math.max(715,273.16));let sat,fallback;if(p>=.000611654771&&p<P95C){
+ try{sat=saturationP95(p);}catch(error){if(p>P95C-.01)fallback=resolvedSinglePhaseBracket(p,target,key,T95C,D95C,solvePT95);if(!fallback)throw error;}
+ if(sat){const tolerance=p>22.0611?32*Number.EPSILON*Math.max(Math.abs(target),Math.abs(sat.liquid[key]),Math.abs(sat.vapor[key])):key==='s'?2e-12:2e-9;if(Math.abs(target-sat.liquid[key])<=tolerance)return {state:{...sat.liquid},saturation:sat};if(Math.abs(target-sat.vapor[key])<=tolerance)return {state:{...sat.vapor},saturation:sat};if(target>=sat.liquid[key]&&target<=sat.vapor[key])return {state:mixture95(sat,(target-sat.liquid[key])/(sat.vapor[key]-sat.liquid[key])),saturation:sat};}}
  // Use the already calculated phase endpoints as inverse brackets. A fixed
  // 1e-7 K offset can still lie inside solvePT95's saturation ambiguity band,
  // especially at low pressure, and falsely reject a valid compressed liquid.
- let lo=lowerT95(p),hi=1273,L,H;if(sat){if(target<sat.liquid[key]){hi=sat.T;H=sat.liquid;}else{lo=sat.T;L=sat.vapor;}}
+ let lo=fallback?.lo??lowerT95(p),hi=fallback?.hi??1273,L=fallback?.L,H=fallback?.H;if(sat){if(target<sat.liquid[key]){hi=sat.T;H=sat.liquid;}else{lo=sat.T;L=sat.vapor;}}
  // The inverse target selects the stable phase outside the coexistence range.
  // A P-T ambiguity band must not erase that extra information near an endpoint.
  const side=sat?(target<sat.liquid[key]?'liquid':'vapor'):null;
@@ -1554,31 +1598,36 @@ function solvePT(p,T) {
 function solveInverse(p,target,key,tolerance) {
   pressure(p);finite(target,key==='h'?'Ентальпія':key==='u'?'Внутрішня енергія':'Ентропія');
   if(!['h','s','u'].includes(key))throw Error('Невідомий режим інверсії.');
-  let sat;
+  let sat,fallback;
   if(p>=PMIN_SAT&&p<PC) {
-    sat=saturation(p);const a=sat.liquid[key],b=sat.vapor[key];
+    try{sat=saturation(p);}catch(error){
+      if(p>PC-.01)fallback=resolvedSinglePhaseBracket(p,target,key,TC,RHOC,solvePT);
+      if(!fallback)throw error;
+    }
+    if(sat){const a=sat.liquid[key],b=sat.vapor[key];
     // Keep rounded independent endpoint inputs on the exact phase endpoint.
     // This tolerance scales with machine roundoff, not the full latent range.
     for(const endpoint of [sat.liquid,sat.vapor])if(Math.abs(target-endpoint[key])<=32*Number.EPSILON*Math.max(Math.abs(target),Math.abs(endpoint[key])))return {state:mix(sat,endpoint.x),saturation:sat};
     if(target>=a&&target<=b)return {state:mix(sat,(target-a)/(b-a)),saturation:sat};
+    }
   }
   if(p===PC) {
     const c=finish({...helmholtz(TC,RHOC),p,cp:null,drhodp:null,critical:true},'Критична точка');
     if(Math.abs(target-c[key])<1e-8)return {state:c};
   }
   // Separate fundamental regions: do not interpolate across IF97 consistency gaps.
-  const maxT=p<=50?2273.15:1073.15;
-  let cuts=[273.15,623.15,1073.15,maxT];
+  const minT=fallback?.lo??273.15,maxT=fallback?.hi??(p<=50?2273.15:1073.15);
+  let cuts=[minT,623.15,1073.15,maxT];
   if(p>boundary23Pressure(623.15))cuts.push(boundary23Temperature(p));
   if(sat)cuts.push(sat.T);
   if(p===PC)cuts.push(TC);
-  cuts=[...new Set(cuts.filter(t=>t>=273.15&&t<=maxT))].sort((a,b)=>a-b);
+  cuts=[...new Set(cuts.filter(t=>t>=minT&&t<=maxT))].sort((a,b)=>a-b);
   const candidates=[];
   for(let i=0;i<cuts.length-1;i++) {
     let lo=cuts[i],hi=cuts[i+1];if(hi===lo)continue;
     const region=regionPT(p,(lo+hi)/2);
     const evaluate=T=>region===3?densityState(p,T,pt(p,T-273.15,2),T<TC?(p>=PC||p>=saturationPressure(T)?'liquid':'vapor'):undefined):gibbs(p,T,region);
-    const endpoint=T=>sat&&Math.abs(T-sat.T)<1e-9?(T===lo?sat.vapor:sat.liquid):evaluate(T);
+    const endpoint=T=>T===fallback?.lo?fallback.L:T===fallback?.hi?fallback.H:sat&&Math.abs(T-sat.T)<1e-9?(T===lo?sat.vapor:sat.liquid):evaluate(T);
     const a=endpoint(lo),b=endpoint(hi);
     if(target<a[key]-1e-9||target>b[key]+1e-9)continue;
     let answer;
@@ -1624,7 +1673,11 @@ function solveHS(h,s) {
  finite(h,'Ентальпія');finite(s,'Ентропія');
  const evaluate=p=>solveInverse(p,h,'h',1e-10);
  const valid=r=>Math.abs(r.state.h-h)<Math.max(1e-6,4*Number.EPSILON*r.state.T*Math.abs(r.state.cp||0))&&Math.abs(r.state.s-s)<Math.max(2e-11,4*Number.EPSILON*Math.abs(r.state.cp||0));
- const finalize=result=>{const state=result.state;if(state.x===null&&state.p>=PMIN_SAT&&state.p<PC){const sat=saturation(state.p);for(const endpoint of [sat.liquid,sat.vapor])if(Math.abs(endpoint.h-h)<1e-6&&Math.abs(endpoint.s-s)<2e-9)return {state:mix(sat,endpoint.x),saturation:sat};}return result;};
+ const finalize=result=>{const state=result.state;if(state.x===null&&state.p>=PMIN_SAT&&state.p<PC){
+  // A validated single-phase h-s root may now lie just below Pc. Optional
+  // endpoint classification must not undo the successful pressure inverse.
+  let sat;try{sat=saturation(state.p);}catch(error){if(state.p<=PC-.01)throw error;return result;}
+  for(const endpoint of [sat.liquid,sat.vapor])if(Math.abs(endpoint.h-h)<1e-6&&Math.abs(endpoint.s-s)<2e-9)return {state:mix(sat,endpoint.x),saturation:sat};}return result;};
  let seed;try{seed=hs(h,s,0);}catch{}
  if(Number.isFinite(seed)&&seed>0&&seed<=100){
   let p=seed;
