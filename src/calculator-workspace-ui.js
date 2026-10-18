@@ -8,7 +8,7 @@ async function calculatorCopyProperty(button){
  else q=button.dataset.alternative==null?last.state:last.alternatives?.[Number(button.dataset.alternative)];
  if(!q)return;q=ambientResult({state:q}).state;
  const key=button.dataset.copy,row=rows.find(r=>r[0]===key);if(!row)return;
- const [value,unit]=display(key,key==='T'?q.T-273.15:q[key],row[3]),content=calculatorCopyValue(value,uiTranslator.text(unit),{digits:displayDigits,locale:uiTranslator.numberLocale,includeUnit:$('calculator-copy-units').checked});if(content===null)return;
+ const [value,unit]=display(key,key==='T'?q.T-273.15:q[key],row[3]),content=calculatorCopyValue(value,uiTranslator.text(unit),{digits:resultPropertyDigits(q,key,value),locale:uiTranslator.numberLocale,includeUnit:$('calculator-copy-units').checked});if(content===null)return;
  try{if(!navigator.clipboard?.writeText)throw Error('clipboard unavailable');await navigator.clipboard.writeText(content);$('result-status').textContent=uiTranslator.t('calculator.copied',{value:content});}
  catch{calculatorManualCopy(content,uiTranslator.t('calculator.manualProperty',{property:uiTranslator.text(row[1])}));}
 }

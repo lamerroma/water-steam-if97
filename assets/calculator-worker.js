@@ -1048,6 +1048,84 @@ function dielectric(T,rho){
 }
 
 
+// src/inverse-diagnostics.js
+// Canonical MPa, K, kJ/kg. Rounding scenarios are NOT measurement uncertainty.
+const DIAGNOSTIC_PAIRS={pt:['p','T'],ph:['p','h'],ps:['p','s'],pu:['p','u'],th:['T','h'],ts:['T','s'],tu:['T','u'],pv:['p','v'],tv:['T','v'],prho:['p','rho'],trho:['T','rho'],hs:['h','s'],us:['u','s'],vs:['v','s'],hv:['h','v'],uv:['u','v']};
+const DIAGNOSTIC_UNITS={p:'MPa',T:'K',h:'kJ/kg',s:'kJ/(kg K)',u:'kJ/kg',v:'m3/kg',rho:'kg/m3'};
+function diagnosticGradient(q,key){
+ switch(key){case'p':return[1,0];case'T':return[0,1];case'v':return[q.dvdp,q.dvdt];case'rho':return[q.drhodp,-q.rho*q.alpha];case'h':return[1000*q.v*(1-q.T*q.alpha),q.cp];case's':return[-1000*q.v*q.alpha,q.cp/q.T];case'u':return[-1000*(q.T*q.dvdt+q.p*q.dvdp),q.cp-1000*q.p*q.dvdt];default:return[NaN,NaN];}
+}
+function diagnosticFloor(q,key){return 128*Number.EPSILON*Math.max(Math.abs(q[key]),key==='v'?.001:key==='s'?1:key==='h'||key==='u'?.461526*q.T:1);}
+function diagnosticJacobian(q,keys){
+ if(q.cp==null||q.critical)return null;
+ const [a,b]=diagnosticGradient(q,keys[0]),[c,d]=diagnosticGradient(q,keys[1]),det=a*d-b*c;
+ if(![a,b,c,d,det].every(Number.isFinite)||Math.abs(det)<=128*Number.EPSILON*(Math.abs(a*d)+Math.abs(b*c)))return null;
+ return {a,b,c,d,det};
+}
+function diagnosticResponse(q,keys,halfWidths){
+ const j=diagnosticJacobian(q,keys);if(!j)return null;
+ const {a,b,c,d,det}=j,dp=[d/det,-b/det],dt=[-c/det,a/det],response={};
+ for(const key of Object.keys(DIAGNOSTIC_UNITS)){
+  const [g,h]=diagnosticGradient(q,key),weights=[g*dp[0]+h*dt[0],g*dp[1]+h*dt[1]];
+  // Fixed input coordinates are exact identities, avoiding cancellation noise.
+  if(keys.includes(key)){weights[0]=key===keys[0]?1:0;weights[1]=key===keys[1]?1:0;}
+  response[key]=Math.abs(weights[0])*halfWidths[0]+Math.abs(weights[1])*halfWidths[1];
+ }
+ return Object.values(response).every(Number.isFinite)?response:null;
+}
+function diagnosticStable(q){return q.x!=null&&!q.critical?q.x>=0&&q.x<=1:q.cp>0&&q.cv>0&&q.drhodp>0;}
+const diagnosticAcceptanceFloors={p:1e-11,T:2e-8,h:2e-7,s:2e-10,u:2e-7,v:2e-12,rho:1e-8};
+function diagnosticInputValid(q,keys,targets){return keys.every((k,i)=>Number.isFinite(q[k])&&Math.abs(q[k]-targets[i])<=Math.max(diagnosticAcceptanceFloors[k],Math.abs(targets[i])*2e-9));}
+function diagnosticScore(q,keys,targets){return Math.hypot(...keys.map((key,i)=>(q[key]-targets[i])/diagnosticFloor(q,key)));}
+function diagnosticDuplicates(a,b,keys){
+ if(a.model!==b.model||a.region!==b.region||a.phase!==b.phase||a.cp==null||b.cp==null)return false;
+ const ja=diagnosticJacobian(a,keys),jb=diagnosticJacobian(b,keys);
+ // Opposite sides of a turning point represent separate physical roots.
+ if(!ja||!jb||Math.sign(ja.det)!==Math.sign(jb.det))return false;
+ const ea=diagnosticResponse(a,keys,keys.map(k=>diagnosticFloor(a,k))),eb=diagnosticResponse(b,keys,keys.map(k=>diagnosticFloor(b,k)));
+ if(!ea||!eb)return false;
+ return Math.abs(a.p-b.p)<=Math.min(.01*Math.max(a.p,b.p),4*(ea.p+eb.p))&&Math.abs(a.T-b.T)<=Math.min(1e-5,4*(ea.T+eb.T))&&Math.abs(a.rho-b.rho)<=1e-7*Math.max(a.rho,b.rho);
+}
+function diagnoseCalculation(result,mode,a,b,options){
+ const keys=DIAGNOSTIC_PAIRS[mode];if(!result.state||!keys)return result;
+ const candidates=[result.state,...result.alternatives||[]],targets=[a,b];
+ const accepted=candidates.filter(q=>diagnosticInputValid(q,keys,targets));
+ if(!accepted.length)throw Error('Не знайдено стан, що узгоджується з обома вхідними значеннями. Перевірте одиниці та межі моделі.');
+ const ranked=accepted.map(q=>({q,score:diagnosticScore(q,keys,targets),stable:diagnosticStable(q)})).sort((x,y)=>Number(y.stable)-Number(x.stable)||x.score-y.score);
+ const groups=[];
+ for(const item of ranked){const group=groups.find(g=>g.every(z=>diagnosticDuplicates(z.q,item.q,keys)));if(group)group.push(item);else groups.push([item]);}
+ const rounding=options?.inputRounding;
+ const validRounding=Array.isArray(rounding)&&rounding.length===2&&rounding.every(x=>Number.isFinite(x?.halfWidth)&&x.halfWidth>0&&typeof x.unit==='string');
+ const states=groups.map(group=>{
+  const q={...group[0].q,notes:(group[0].q.notes||[]).filter(n=>!/^Знайдено \d+ станів/.test(n)&&!n.includes('Показано корінь з нижчою температурою'))};
+  if(groups.length>1)q.notes.push('Вхідним значенням відповідають кілька коренів. Перевірте інші знайдені стани та виберіть потрібну фізичну гілку.');
+  if(validRounding){const halfWidths=rounding.map(x=>x.halfWidth),response=q.x!=null?null:diagnosticResponse(q,keys,halfWidths);
+   const limited=response&&(response.p>.05*q.p||response.T>1||response.rho>.01*q.rho);
+   const numericalResponse=response?diagnosticResponse(q,keys,keys.map(k=>diagnosticFloor(q,k))):null;
+   q.inputSensitivity={numericalResponse,status:response?(limited?'limited':'local'):'unavailable',reason:response?(limited?'large-perturbation':null):q.cp==null||q.x!=null?'phase-coexistence':'singular-jacobian',response,units:DIAGNOSTIC_UNITS};
+  }
+  return q;
+ });
+ const out={...result,state:states[0]},diagnostics={version:1,mode,keys,targets,candidates:candidates.length,roots:states.length,rejected:candidates.length-accepted.length,merged:accepted.length-states.length,selection:'stability-then-normalized-input-residual',assessments:groups.map(g=>({stable:g[0].stable,normalizedResidual:g[0].score,members:g.length,candidatePressureRange:[Math.min(...g.map(x=>x.q.p)),Math.max(...g.map(x=>x.q.p))]})),numericalFloor:'128 * Number.EPSILON * thermodynamic scale'};
+ if(validRounding)diagnostics.roundingScenario={assumption:'independent half of last typed decimal place; local linear response, not measurement uncertainty or an error bound',inputs:rounding.map((x,i)=>({key:keys[i],halfWidth:x.halfWidth,unit:DIAGNOSTIC_UNITS[keys[i]],enteredUnit:x.unit,enteredText:String(x.text??'')}))};
+ if(states.length>1)out.alternatives=states.slice(1);else delete out.alternatives;
+ if(mode!=='pt'||validRounding)out.diagnostics=diagnostics;
+ return out;
+}
+// Suggested display precision only; engine and machine-readable exports stay raw.
+function sensitivityDigits(value,halfWidth,maximum=8){
+ if(!Number.isFinite(value)||!Number.isFinite(halfWidth)||halfWidth<=0)return maximum;
+ if(value===0)return 1;
+ return Math.max(1,Math.min(maximum,Math.floor(Math.log10(Math.abs(value)/halfWidth))+1));
+}
+
+function selectCalculatedAlternative(result,index){
+ if(!Number.isInteger(index)||index<0||!result.alternatives?.[index])return result;
+ const states=[result.state,...result.alternatives],chosen=index+1,order=[chosen,...states.map((_,i)=>i).filter(i=>i!==chosen)];
+ return {...result,state:states[chosen],alternatives:order.slice(1).map(i=>states[i]),...(result.diagnostics?{diagnostics:{...result.diagnostics,selection:'manual',assessments:order.map(i=>result.diagnostics.assessments[i])}}:{})};
+}
+
+
 // src/extra-inputs.js
 // Numerical inversions of the selected fundamental model, with explicit multiple roots.
 function extraInputs(mode,a,b,model,calc){
@@ -1073,11 +1151,15 @@ function extraInputs(mode,a,b,model,calc){
  const values=fixedT?Array.from({length:193},(_,i)=>10**(-9+(Math.log10(model==='IF97'?100:1000)+9)*i/192)):Array.from({length:257},(_,i)=>(model==='IF97'?273.15:273.16)+((model==='IF97'?(a<=50?2273.15:1073.15):1273)-(model==='IF97'?273.15:273.16))*i/256);
  if(fixedT)values.push(model==='IF97'?100:1000,50,22.064);
  else values.push(model==='IF97'?273.15:273.16,model==='IF97'?(a<=50?2273.15:1073.15):1273,274,275,276,277,277.13,277.5,278,279,280,623.15,647.096,1073.15);
- const addCut=z=>values.push(z,z*(1-64*Number.EPSILON),z*(1+64*Number.EPSILON));
- if(!fixedT&&model==='IF97'){addCut(623.15);if(a>boundary23Pressure(623.15)&&a<=100)addCut(boundary23Temperature(a));}
+ // Sample successively farther representable points on BOTH sides. The
+ // official B23 inverse and forward polynomials have separately rounded
+ // coefficients, so a single few-ulp offset can still have the wrong label.
+ // Keep the near points too: a wide fixed offset would lose nearby roots.
+ const addCut=z=>{values.push(z);for(const shift of [64*Number.EPSILON,2**-42,2**-38,2**-34,2**-30])values.push(z*(1-shift),z*(1+shift));};
+ if(!fixedT&&model==='IF97'){addCut(623.15);addCut(1073.15);if(a>boundary23Pressure(623.15)&&a<=100)addCut(boundary23Temperature(a));}
  // Put samples on both sides of changes in the phase/region labels. Otherwise
  // a valid narrow interval can be skipped by a coarse grid plus phase filtering.
- if(fixedT&&model==='IF97'&&a>623.15&&a<=863.15){const p=boundary23Pressure(a);values.push(p*(1-2e-8),p*(1+2e-8));}
+ if(fixedT&&model==='IF97'&&a>623.15&&a<=863.15)addCut(boundary23Pressure(a));
  if(!fixedT)values.push(647.096-1e-6,647.096+1e-6);
  if(sat){const q=fixedT?sat.p:sat.T;values.push(q,q*(1-2e-8),q*(1+2e-8));}
  values.sort((x,y)=>x-y);let prev=null;
@@ -1279,7 +1361,10 @@ function saturationT95(T){
  let [rl,rv]=seedSaturation95(T);const RT=R95*T;
  for(let i=0;i<55;i++){
  const l=raw95(T,rl),v=raw95(T,rv),e1=(l.p-v.p)*1000/RT,e2=(l.h-T*l.s-v.h+T*v.s)/RT;
- if(Math.abs(e1)<2e-10&&Math.abs(e2)<2e-11&&l.drhodp>0&&v.drhodp>0&&rl>rv*1.00001){const p=(l.p+v.p)/2,sat={p,T,liquid:decorate95({...l,p},'Насичена рідина',0),vapor:decorate95({...v,p},'Насичена пара',1),latentHeat:v.h-l.h,model:'IAPWS-95'};if(satCache95.size>400)satCache95.clear();satCache95.set(T,sat);return sat;}
+ // The liquid EOS pressure loses digits through cancellation at low p.
+ // The vapor endpoint supplies the same coexistence pressure with a much
+ // better conditioned evaluation; averaging would reintroduce liquid noise.
+ if(Math.abs(e1)<2e-10&&Math.abs(e2)<2e-11&&l.drhodp>0&&v.drhodp>0&&rl>rv*1.00001){const p=v.p,sat={p,T,liquid:decorate95({...l,p},'Насичена рідина',0),vapor:decorate95({...v,p},'Насичена пара',1),latentHeat:v.h-l.h,model:'IAPWS-95'};if(satCache95.size>400)satCache95.clear();satCache95.set(T,sat);return sat;}
  const a=1000*rl/l.drhodp/RT,b=-1000*rv/v.drhodp/RT,c=1000/l.drhodp/RT,d=-1000/v.drhodp/RT,det=a*d-b*c;
  const dl=(-e1*d+b*e2)/det,dv=(-a*e2+c*e1)/det;let ok=false;
  for(let f=1;f>2**-22;f/=2){const nl=rl*Math.exp(f*dl),nv=rv*Math.exp(f*dv);if(!(nl>D95C&&nv<D95C&&nv>0&&nl<1800))continue;const L=raw95(T,nl),V=raw95(T,nv),E1=(L.p-V.p)*1000/RT,E2=(L.h-T*L.s-V.h+T*V.s)/RT;if(Math.hypot(E1,E2)<Math.hypot(e1,e2)){rl=nl;rv=nv;ok=true;break;}}
@@ -1304,7 +1389,7 @@ function saturationP95(p){
  let lo=273.16,hi=T95C-.001,T=(lo+hi)/2;
  for(let i=0;i<65;i++){
  const s=saturationT95(T),e=s.p-p;
- if(Math.abs(e)<Math.max(2e-11,p*2e-11)){if(satPressureCache95.size>=500)satPressureCache95.clear();satPressureCache95.set(p,s);return s;}
+ if(Math.abs(e)<Math.max(2e-14,p*2e-13)){const result={...s,p,liquid:{...s.liquid,p},vapor:{...s.vapor,p}};if(satPressureCache95.size>=500)satPressureCache95.clear();satPressureCache95.set(p,result);return result;}
  if(e>0)hi=T;else lo=T;
  // Exact Clapeyron slope of the computed coexistence states, safeguarded by a bracket.
  const slope=(s.vapor.h-s.liquid.h)/(1000*T*(s.vapor.v-s.liquid.v)),next=T-e/slope;
@@ -1317,10 +1402,10 @@ function density95(p,T,side,sat){
  if(Math.abs(T-T95C)<=.011&&Math.abs(p-P95C)<.01)return criticalDensityRoot(p,side,rho=>{const state=raw95(T,rho),error=useCriticalPrecision(T,rho)?hpValue(hpSub(preciseData95(T,rho).pressure,hpDecimal(p))):state.p-p;return {state,error,slope:1/state.drhodp};},'IAPWS-95');
  let rho=side==='liquid'?(sat?.liquid.rho||1000):p*1000/(R95*T);
  if(T>=T95C)rho=p>30?700:Math.min(600,rho);
- for(let i=0;i<90;i++){const q=raw95(T,rho),err=q.p-p;if(q.drhodp>0&&Math.abs(err)<Math.max(2e-10,p*2e-13))return q;const step=err*q.drhodp;let ok=false;for(let f=1;f>2**-25;f/=2){const r=rho-f*step;if(!(r>0&&r<1800)||(side==='liquid'&&sat&&r<sat.liquid.rho*(1-1e-7))||(side==='vapor'&&sat&&r>sat.vapor.rho*(1+1e-7)))continue;const n=raw95(T,r);if(n.drhodp>0&&Math.abs(n.p-p)<Math.abs(err)){rho=r;ok=true;break;}}if(!ok)break;}
+ for(let i=0;i<90;i++){const q=raw95(T,rho),err=q.p-p;if(q.drhodp>0&&Math.abs(err)<Math.max(q.rho>500?2e-11:2e-13,p*3e-14))return q;const step=err*q.drhodp;let ok=false;for(let f=1;f>2**-25;f/=2){const r=rho-f*step;if(!(r>0&&r<1800)||(side==='liquid'&&sat&&r<sat.liquid.rho*(1-1e-7))||(side==='vapor'&&sat&&r>sat.vapor.rho*(1+1e-7)))continue;const n=raw95(T,r);if(n.drhodp>0&&Math.abs(n.p-p)<Math.abs(err)){rho=r;ok=true;break;}}if(!ok)break;}
  // Stable phase-specific bracket; never select an unstable intermediate root.
  let lo=side==='liquid'?sat?.liquid.rho||D95C:1e-12,hi=side==='vapor'?sat?.vapor.rho||D95C:1800;
- for(let i=0;i<100;i++){const mid=(lo+hi)/2,q=raw95(T,mid);if(Math.abs(q.p-p)<Math.max(2e-10,p*2e-13)&&q.drhodp>0)return q;if(q.p>p)hi=mid;else lo=mid;}
+ for(let i=0;i<100;i++){const mid=(lo+hi)/2,q=raw95(T,mid);if(Math.abs(q.p-p)<Math.max(q.rho>500?2e-11:2e-13,p*3e-14)&&q.drhodp>0)return q;if(q.p>p)hi=mid;else lo=mid;}
  throw Error('IAPWS-95: не знайдено стабільний корінь густини.');
 }
 function solvePT95(p,T){bounds95(p,T);if(p===P95C&&T===T95C)throw Error('Точна критична точка IAPWS-95: сингулярні похідні; використайте стан поза нею.');let sat,side;if(T<T95C&&p>=P95C)side='liquid';else if(T<T95C){sat=saturationT95(T);if(Math.abs(p-sat.p)<(T95C-T<=.011?5e-14:Math.max(3e-10,sat.p*1e-9)))return {saturation:sat,ambiguous:true};side=p>sat.p?'liquid':'vapor';}const q=density95(p,T,side,sat);return {state:decorate95({...q,p},side==='liquid'?'Стиснена рідина':side==='vapor'?'Перегріта пара':p>=P95C?'Надкритичний флюїд':'Газ / перегріта пара')};}
@@ -1341,21 +1426,36 @@ function inverse95(p,target,key){if(!Number.isFinite(target))throw Error('Вве
  // Split the bracket at Tc itself. A remote single-phase root at this T must
  // not force a coexistence calculation at an indistinguishably close T<Tc.
  if(lo<T95C&&hi>T95C&&p!==P95C){const C=at(T95C).state;if(Math.abs(C[key]-target)<=tolerance)return {state:C};if(target<C[key]){hi=T95C;H=C;}else{lo=T95C;L=C;}}
- for(let i=0;i<70;i++){const T=(lo+hi)/2,result=at(T),q=result.state;if(!q)throw Error('Інверсія потрапила на неоднозначне насичення.');if(Math.abs(q[key]-target)<(key==='s'?2e-12:2e-9))return result;if(q[key]>target)hi=T;else lo=T;}throw Error('Інверсія IAPWS-95 не збіглася.');}
+ // Analytic safeguarded Newton: keep the phase-specific bracket, use
+ // bisection whenever the derivative step leaves it. Accept final Number
+ // temperature roundoff in proportion to the actual thermal derivative.
+ let T=lo+(hi-lo)*Math.max(.01,Math.min(.99,(target-L[key])/(H[key]-L[key])));
+ for(let i=0;i<90;i++){
+  const result=at(T),q=result.state;if(!q)throw Error('Інверсія потрапила на неоднозначне насичення.');
+  const derivative=key==='h'?q.cp:key==='s'?q.cp/T:q.cp-1000*p*q.v*q.alpha;
+  if(Math.abs(q[key]-target)<=Math.max(tolerance,2*Number.EPSILON*T*Math.abs(derivative)))return result;
+  if(q[key]>target)hi=T;else lo=T;
+  const next=T-(q[key]-target)/derivative;
+  T=Number.isFinite(next)&&next>lo&&next<hi?next:(lo+hi)/2;
+  if(p===P95C&&T===T95C)T=T95C+(hi-T95C>T95C-lo?1:-1)*Number.EPSILON*T95C;
+ }
+ throw Error('Інверсія IAPWS-95 не збіглася.');}
 function calculate95(mode,a,b){switch(mode){case 'pt':return solvePT95(a,b);case 'pu':return inverse95(a,b,'u');case 'ph':return inverse95(a,b,'h');case 'ps':return inverse95(a,b,'s');case 'satp':return {saturation:saturationP95(a)};case 'satt':return {saturation:saturationT95(a)};case 'px':{const sat=saturationP95(a);return {state:mixture95(sat,b),saturation:sat};}case 'tx':{const sat=saturationT95(a);return {state:mixture95(sat,b),saturation:sat};}case 'hs':return solveHS95(a,b);default:throw Error('Невідомий режим IAPWS-95.');}}
 function solveHS95(h,s){
  if(!Number.isFinite(h)||!Number.isFinite(s))throw Error('h і s мають бути скінченними.');
- // First search the equilibrium dome, solving h and s with one common quality.
- const domeTemperatures=Array.from({length:71},(_,i)=>273.16+(T95C-.0001-273.16)*i/70);
- for(let k=-8;k<=32;k++)domeTemperatures.push(T95C-10**(-k/8));domeTemperatures.sort((a,b)=>a-b);
- let prev=null;for(const T of domeTemperatures){let sat;try{sat=saturationT95(T);}catch{prev=null;continue;}const x=(h-sat.liquid.h)/sat.latentHeat;if(x<0||x>1){prev=null;continue;}const e=sat.liquid.s+x*(sat.vapor.s-sat.liquid.s)-s;if(Math.abs(e)<1e-9)return {state:mixture95(sat,x),saturation:sat};if(prev&&e*prev.e<0){let lo=prev.T,hi=T,elo=prev.e;for(let k=0;k<65;k++){const t=(lo+hi)/2,a=saturationT95(t),q=(h-a.liquid.h)/a.latentHeat,err=a.liquid.s+q*(a.vapor.s-a.liquid.s)-s;if(Math.abs(err)<1e-9&&q>=0&&q<=1)return {state:mixture95(a,q),saturation:a};if(err*elo>0){lo=t;elo=err;}else hi=t;}}prev={T,e};}
  // At the closed 1000 MPa boundary, tolerate only final pressure roundoff
  // (1e-9 MPa); recheck both forward residuals after snapping to the boundary.
  // Two-variable analytic Newton: log density and log temperature. Each solution
  // is checked against the stable P-T phase, so metastable/spurious roots are rejected.
- for(const [T0,r0] of [[300,1000],[450,900],[600,700],[650,350],[750,500],[900,800],[400,.01],[500,1],[700,10],[900,50],[1200,1]]){let T=T0,rho=r0;for(let k=0;k<70;k++){const q=raw95(T,rho),eh=q.h-h,es=q.s-s;if(Math.abs(eh)<2e-6&&Math.abs(es)<2e-8&&(q.p<=1000||(Math.abs(eh)<2e-9&&Math.abs(es)<2e-12))){try{const p=q.p>1000&&q.p-1000<=1e-9?1000:q.p,stable=solvePT95(p,T).state;if(stable&&Math.abs(stable.rho-rho)<rho*1e-7&&Math.abs(stable.h-h)<(q.p>1000?2e-9:2e-6)&&Math.abs(stable.s-s)<(q.p>1000?2e-12:2e-8))return {state:stable};}catch{}break;}
+ for(const [T0,r0] of [[300,1000],[450,900],[600,700],[650,350],[750,500],[900,800],[400,.01],[500,1],[700,10],[900,50],[1200,1]]){let T=T0,rho=r0;for(let k=0;k<70;k++){const q=raw95(T,rho),eh=q.h-h,es=q.s-s;if(Math.abs(eh)<2e-8&&Math.abs(es)<2e-11&&(q.p<=1000||(Math.abs(eh)<2e-9&&Math.abs(es)<2e-12))){try{const p=q.p>1000&&q.p-1000<=1e-9?1000:q.p,stable=solvePT95(p,T).state;if(stable&&Math.abs(stable.rho-rho)<rho*1e-7&&Math.abs(stable.h-h)<(q.p>1000?2e-9:2e-8)&&Math.abs(stable.s-s)<(q.p>1000?2e-12:2e-11))return {state:stable};}catch{}break;}
  const dpdt=q.alpha*q.rho/q.drhodp,dpdr=1/q.drhodp,a=1000*(dpdr-T*dpdt/rho),b=T*q.cv+1000*T*dpdt/rho,c=-1000*dpdt/rho,d=q.cv,det=a*d-b*c;
  const dr=(-eh*d+b*es)/det,dt=(-a*es+c*eh)/det;let ok=false;for(let f=1;f>2**-20;f/=2){const rn=rho*Math.exp(f*dr),tn=T*Math.exp(f*dt);if(!(rn>1e-12&&rn<1800&&tn>=273.16&&tn<=1273))continue;const n=raw95(tn,rn);if(Math.hypot((n.h-h)/1000,n.s-s)<Math.hypot(eh/1000,es)){rho=rn;T=tn;ok=true;break;}}if(!ok)break;}}
+ // No stable single-phase root matched. Search the equilibrium dome next,
+ // solving h and s with one common quality. This avoids critical coexistence
+ // calculations for every ordinary single-phase h-s query.
+ const domeTemperatures=Array.from({length:71},(_,i)=>273.16+(T95C-.0001-273.16)*i/70);
+ for(let k=-8;k<=32;k++)domeTemperatures.push(T95C-10**(-k/8));domeTemperatures.sort((a,b)=>a-b);
+ let prev=null;for(const T of domeTemperatures){let sat;try{sat=saturationT95(T);}catch{prev=null;continue;}const x=(h-sat.liquid.h)/sat.latentHeat;if(x<0||x>1){prev=null;continue;}const e=sat.liquid.s+x*(sat.vapor.s-sat.liquid.s)-s;if(Math.abs(e)<2e-12)return {state:mixture95(sat,x),saturation:sat};if(prev&&e*prev.e<0){let lo=prev.T,hi=T,elo=prev.e;for(let k=0;k<65;k++){const t=(lo+hi)/2,a=saturationT95(t),q=(h-a.liquid.h)/a.latentHeat,err=a.liquid.s+q*(a.vapor.s-a.liquid.s)-s;if(Math.abs(err)<2e-12&&q>=0&&q<=1)return {state:mixture95(a,q),saturation:a};if(err*elo>0){lo=t;elo=err;}else hi=t;}}prev={T,e};}
  throw Error('IAPWS-95: не знайдено стабільний стан h–s у реалізованих межах.');
 }
 
@@ -1488,9 +1588,14 @@ function solveInverse(p,target,key,tolerance) {
      let mid=Number.isFinite(seed)&&seed>lo&&seed<hi?seed:(lo+hi)/2;
      for(let k=0;k<90;k++) {
       const m=evaluate(mid);
-      if(Math.abs(m[key]-target)<(tolerance??(key==='s'?2e-11:2e-8))){answer=m;break;}
+      const derivative=key==='h'?m.cp:key==='u'?m.cp-1000*p*m.v*m.alpha:m.cp/mid;
+      // Near criticality one representable temperature step can change h/s
+      // more than the requested residual. Do not reject a converged bracket
+      // merely because the final Number temperature cannot resolve that step.
+      const residualTolerance=Math.max(tolerance??(key==='s'?2e-11:2e-10),2*Number.EPSILON*mid*Math.abs(derivative));
+      if(Math.abs(m[key]-target)<=residualTolerance){answer=m;break;}
       if(m[key]<target)lo=mid;else hi=mid;
-      const next=mid-(m[key]-target)/(key==='h'?m.cp:key==='u'?m.cp-1000*p*m.v*m.alpha:m.cp/mid);
+      const next=mid-(m[key]-target)/derivative;
       // Safeguarded Newton: retain the fundamental-region bracket and bisection fallback.
       mid=Number.isFinite(next)&&next>lo&&next<hi?next:(lo+hi)/2;
      }
@@ -1518,7 +1623,7 @@ function solveQuality(p,x,givenT) {
 function solveHS(h,s) {
  finite(h,'Ентальпія');finite(s,'Ентропія');
  const evaluate=p=>solveInverse(p,h,'h',1e-10);
- const valid=r=>Math.abs(r.state.h-h)<1e-6&&Math.abs(r.state.s-s)<2e-11;
+ const valid=r=>Math.abs(r.state.h-h)<Math.max(1e-6,4*Number.EPSILON*r.state.T*Math.abs(r.state.cp||0))&&Math.abs(r.state.s-s)<Math.max(2e-11,4*Number.EPSILON*Math.abs(r.state.cp||0));
  const finalize=result=>{const state=result.state;if(state.x===null&&state.p>=PMIN_SAT&&state.p<PC){const sat=saturation(state.p);for(const endpoint of [sat.liquid,sat.vapor])if(Math.abs(endpoint.h-h)<1e-6&&Math.abs(endpoint.s-s)<2e-9)return {state:mix(sat,endpoint.x),saturation:sat};}return result;};
  let seed;try{seed=hs(h,s,0);}catch{}
  if(Number.isFinite(seed)&&seed>0&&seed<=100){
@@ -1555,13 +1660,13 @@ function solveHS(h,s) {
   }
   previous={p,error};
  }
- for(const r of boundaryInputRoots(['h','s'],[h,s],'IF97',calculate))if(valid(r))return finalize(r);
+ for(const r of boundaryInputRoots(['h','s'],[h,s],'IF97',calculateRaw))if(valid(r))return finalize(r);
  throw Error('Не знайдено узгоджений стан h–s у межах IF97. Перевірте одиниці та значення; біля меж областей можливий малий розрив рівнянь. Для дуже низьких тисків використайте P–h/P–s.');
 }
-function calculate(mode,a,b,model='IF97') {
+function calculateRaw(mode,a,b,model='IF97') {
   if(!['IF97','IAPWS-95'].includes(model))throw Error('Невідома формуляція.');
   if(mode==='pu')return model==='IAPWS-95'?calculate95(mode,a,b):solveInverse(a,b,'u');
-  if(['th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'].includes(mode))return extraInputs(mode,a,b,model,calculate);
+  if(['th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'].includes(mode))return extraInputs(mode,a,b,model,calculateRaw);
   if(model==='IAPWS-95')return calculate95(mode,a,b);
   if(model!=='IF97')throw Error('Невідома формуляція.');
   switch(mode) {
@@ -1576,6 +1681,8 @@ function calculate(mode,a,b,model='IF97') {
     default:throw Error('Невідомий режим розрахунку.');
   }
 }
+
+function calculate(mode,a,b,model='IF97',options){return diagnoseCalculation(calculateRaw(mode,a,b,model),mode,a,b,options);}
 
 
 // src/gas-data.js
@@ -2165,6 +2272,20 @@ function englishProperty(key,value,unit=''){
  const e=1000*LB/BTU,v=LB/FT**3,p=1e6/PSI;
  const map={p:[p,'psi'],consumption:[HP/LB,'lb/(hp·h)'],T:[1.8,'°F'],rho:[FT**3/LB,'lb/ft³'],v:[v,'ft³/lb'],h:[e,'Btu/lb'],u:[e,'Btu/lb'],A:[e,'Btu/lb'],G:[e,'Btu/lb'],ex:[e,'Btu/lb'],s:[e/1.8,'Btu/(lb·°R)'],cp:[e/1.8,'Btu/(lb·°R)'],cv:[e/1.8,'Btu/(lb·°R)'],w:[1/FT,'ft/s'],alpha:[1/1.8,'1/°R'],kappa:[1/p,'1/psi'],dvdt:[v/1.8,'ft³/(lb·°R)'],dvdp:[v/p,'ft³/(lb·psi)'],dpdt:[p/1.8,'psi/°R'],dpdv:[p/v,'psi·lb/ft³'],jt:[1.8/p,'°R/psi'],ijt:[e/p,'Btu/(lb·psi)'],mu:[FT/LB,'lb/(ft·s)'],nu:[1/FT**2,'ft²/s'],diffusivity:[1/FT**2,'ft²/s'],lambda:[3600*FT/(BTU*1.8),'Btu/(h·ft·°R)'],sigma:[FT/(LB*9.80665),'lbf/ft'],flow:[1/LB,'lb/s'],power:[3600000/BTU,'Btu/h'],work:[e,'Btu/lb']};
  const spec=map[key];if(!spec)return [value,unit];return [value==null?null:key==='T'?(value-273.15)*1.8+32:value*spec[0],spec[1]];
+}
+
+
+// src/input-rounding.js
+// Parse the spelling, not Number.toString(): trailing zeroes carry the scenario.
+function typedRounding(text,unit){
+ const normalized=String(text).trim().replace(',','.'),m=/^[+-]?(?:\d+(?:\.(\d*))?|\.(\d+))(?:e([+-]?\d+))?$/i.exec(normalized);
+ if(!m||!Number.isFinite(Number(normalized)))return null;
+ const decimalPlaces=(m[1]??m[2]??'').length,exponent=Number(m[3]||0),step=10**(exponent-decimalPlaces);
+ // Units are affine. Their offsets (Celsius/Fahrenheit, gauge pressure) must
+ // never enter an increment. Use the same conversion as the calculator.
+ let factor;try{factor=Math.abs(toCanonical(1,unit)-toCanonical(0,unit));}catch{return null;}
+ const halfWidth=.5*step*factor;
+ return Number.isFinite(halfWidth)&&halfWidth>0?{halfWidth,unit,text:String(text)}:null;
 }
 
 
@@ -3753,7 +3874,13 @@ function readProject(text){
   if(q.source){
    const z=q.source;if(!['pt','ph','ps','px','tx','hs','th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'].includes(z.mode)||!Number.isFinite(z.a)||!Number.isFinite(z.b))throw Error('Некоректні входи стану.');
    const r=calculate(z.mode,z.a,z.b,q.model||'IF97');
-   state=[r.state,...(r.alternatives||[])].find(v=>v&&Math.abs(v.p-q.p)<=Math.max(1e-10,Math.abs(q.p)*1e-7)&&Math.abs(v.h-q.h)<=Math.max(1e-7,Math.abs(q.h)*1e-7));
+   state=[r.state,...(r.alternatives||[])].find((v,i)=>{
+    if(!v||Math.abs(v.h-q.h)>Math.max(1e-7,Math.abs(q.h)*1e-7))return false;
+    const tolerance=Math.max(1e-10,Math.abs(q.p)*1e-7),range=r.diagnostics?.assessments[i]?.candidatePressureRange;
+    // Older projects may record another member of the same numerical cluster.
+    // Return the recomputed representative; never trust stored EOS properties.
+    return Math.abs(v.p-q.p)<=tolerance||range&&q.p>=range[0]-tolerance&&q.p<=range[1]+tolerance;
+   });
    if(!state)throw Error('Стан журналу не відповідає збереженим входам.');source={mode:z.mode,a:z.a,b:z.b};
   }else state=calculate('ph',q.p,q.h,q.model||'IF97').state;
   return {...state,name:q.name||'',...(source?{source}:{})};
@@ -3764,7 +3891,18 @@ function readProject(text){
  if(f.inputStyle!=null&&!['smart','advanced'].includes(f.inputStyle)||f.inputOrder!=null&&!['canonical','reverse'].includes(f.inputOrder))throw Error('Некоректний спосіб введення.');
  const {a:allowedA,b:allowedB}=batchUnits(f.mode);if(!allowedA.includes(f.ua)||!allowedB.includes(f.ub))throw Error('Одиниці не відповідають режиму.');
  if(f.calculated!=null&&typeof f.calculated!=='boolean')throw Error('Некоректний статус розрахунку.');
- const result=f.calculated?calculate(f.mode,pressureInput(parseNumber(f.a),f.ua,pressure),f.mode.startsWith('sat')?undefined:pressureInput(parseNumber(f.b),f.ub,pressure),f.model||'IF97'):null;
+ if(f.roundingDisplay!=null&&typeof f.roundingDisplay!=='boolean')throw Error('Некоректний формат округлення.');
+ let result=null;
+ if(f.calculated){const a=pressureInput(parseNumber(f.a),f.ua,pressure),b=f.mode.startsWith('sat')?undefined:pressureInput(parseNumber(f.b),f.ub,pressure);
+  result=calculate(f.mode,a,b,f.model||'IF97',{inputRounding:[typedRounding(f.a,f.ua),typedRounding(f.b,f.ub)]});
+  for(const q of [result.state,...result.alternatives||[]].filter(Boolean))q.source={mode:f.mode,a,b};
+ }
+ if(f.selectedRoot!=null){
+  const z=f.selectedRoot;if(!result?.state||!Number.isFinite(z.p)||!Number.isFinite(z.T))throw Error('Некоректний вибраний корінь.');
+  const index=[result.state,...result.alternatives||[]].findIndex(q=>Math.abs(q.p-z.p)<=Math.max(1e-10,q.p*1e-7)&&Math.abs(q.T-z.T)<=1e-6);
+  if(index<0)throw Error('Вибраний корінь не відповідає входам.');
+  if(index>0)result=selectCalculatedAlternative(result,index-1);else if(result.diagnostics)result.diagnostics={...result.diagnostics,selection:'manual'};
+ }
  const drafts={};for(const type of ['turbine','flash','engineering']){const d=p.drafts?.[type];if(!d)continue;const v={};for(const k of ['p1','t1','p2','eta','flow','power','mode','pressure','temperature','mass','power-unit','pc1','tc1','pc2','coldflow'])if(typeof d[k]==='string'&&d[k].length<80)v[k]=d[k];drafts[type]=v;}
  const ambient=p.ambient||{p:.101325,T:298.15};referenceState(ambient.p,ambient.T);
  if(p.title!=null&&(typeof p.title!=='string'||p.title.length>80))throw Error('Назва проєкту має бути до 80 символів.');
@@ -3832,7 +3970,7 @@ self.onmessage=async({data})=>{
  const {id,type,payload}=data;
  try{
   await calculatorWorkerReady;
-  const result=type==='rankine-sweep'?solveRankineSweep(payload.input):type==='study-report-html'?studyReportHTML(payload.title,payload.report,payload.options):type==='calculate'?calculate(payload.mode,payload.a,payload.b,payload.model):type==='project'?readProject(payload.text):type==='water-process'?solveWaterProcess(payload.input,payload.model):type==='custom-cycle'?workerCustomCycle(payload.input,payload.model):type==='library-cycle'?buildLibraryCycle(payload.input):type==='cycle-comparison'?compareLibraryCycles(payload.input):type==='cycle-preset'?customCyclePreset(payload.name,payload.model):null;
+  const result=type==='rankine-sweep'?solveRankineSweep(payload.input):type==='study-report-html'?studyReportHTML(payload.title,payload.report,payload.options):type==='calculate'?calculate(payload.mode,payload.a,payload.b,payload.model,payload.options):type==='project'?readProject(payload.text):type==='water-process'?solveWaterProcess(payload.input,payload.model):type==='custom-cycle'?workerCustomCycle(payload.input,payload.model):type==='library-cycle'?buildLibraryCycle(payload.input):type==='cycle-comparison'?compareLibraryCycles(payload.input):type==='cycle-preset'?customCyclePreset(payload.name,payload.model):null;
   if(!result)throw Error('Unknown background operation.');
   self.postMessage({id,result});
  }catch(error){self.postMessage({id,error:error.message});}

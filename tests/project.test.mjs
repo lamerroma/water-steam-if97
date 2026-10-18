@@ -13,3 +13,14 @@ test('project names and state labels persist without trusting extra state proper
 test('hints (glossary) flag defaults to on and round-trips explicit off',()=>{assert.equal(readProject(JSON.stringify(base())).hints,true);const p=base();p.hints=false;assert.equal(readProject(JSON.stringify(p)).hints,false);const q=base();q.hints=true;assert.equal(readProject(JSON.stringify(q)).hints,true);});
 
 test('project save and export metadata survive parsing without changing schema compatibility',()=>{const p=base(),m={appVersion:'1.14.0',buildId:'old-build',method:'project / multiple methods',model:'per result'};p.savedWith=m;p.exportedWith={...m,appVersion:'1.16.5'};p.importedFrom=m;const r=readProject(JSON.stringify(p));assert.deepEqual(r.savedWith,m);assert.deepEqual(r.importedFrom,m);assert.equal(r.exportedWith.appVersion,'1.16.5');assert.equal(readProject(JSON.stringify(base())).savedWith,null);p.savedWith={...m,buildId:'x'.repeat(1000)};assert.throws(()=>readProject(JSON.stringify(p)));});
+test('Manual physical branch and typed rounding survive project reload; untrusted root values are checked',()=>{
+ const state=calculate('pt',40,1073.14999).state,result=calculate('pv',40,state.v),other=result.alternatives[0];
+ const p=base();p.history=[];p.process=null;p.form={calculated:true,mode:'pv',model:'IF97',a:'40.000000',b:String(state.v),ua:'MPa',ub:'m3kg',roundingDisplay:true,selectedRoot:{p:other.p,T:other.T}};
+ const restored=readProject(JSON.stringify(p));assert.equal(restored.result.state.T,other.T);assert.equal(restored.result.diagnostics.selection,'manual');assert.equal(restored.result.diagnostics.roundingScenario.inputs[0].halfWidth,.0000005);assert.equal(restored.form.roundingDisplay,true);assert.deepEqual(restored.result.state.source,{mode:'pv',a:40,b:state.v});
+ for(const change of [q=>q.form.selectedRoot.T=100,q=>q.form.selectedRoot.p='40',q=>q.form.roundingDisplay='yes',q=>q.form.calculated=false]){const bad=structuredClone(p);change(bad);assert.throws(()=>readProject(JSON.stringify(bad)));}
+});
+test('Old cold-liquid u-s history may record another member of the computational root cluster',()=>{
+ const p=base();p.process=null;p.history=[{p:.005173683148148375,h:38.63730268853567,model:'IAPWS-95',source:{mode:'us',a:38.63212828313412,b:.1391036658359701}}];
+ const result=readProject(JSON.stringify(p));assert.equal(result.states.length,1);assert.equal(result.states[0].model,'IAPWS-95');assert.ok(Math.abs(result.states[0].h-p.history[0].h)<4e-6);assert.ok(Math.abs(result.states[0].u-p.history[0].source.a)<1e-10);assert.ok(Math.abs(result.states[0].s-p.history[0].source.b)<1e-12);
+ p.history[0].p=.01;assert.throws(()=>readProject(JSON.stringify(p)));
+});

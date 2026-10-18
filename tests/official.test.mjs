@@ -77,7 +77,7 @@ test('Cv and density derivative agree with thermodynamic identities',()=>{
 });
 test('Small overlaps at region boundaries expose alternate roots',()=>{
  const original=calculate('pt',10,1073.151).state;
- for(const key of ['h','s']) {const inverse=calculate('p'+key,10,original[key]);assert.ok(inverse.alternatives.length>0);assert.ok(inverse.state.notes.some(n=>n.includes('кілька коренів')));near(inverse.alternatives.at(-1).T,1073.151,1e-9);}
+ for(const key of ['h','s']) {const inverse=calculate('p'+key,10,original[key]);assert.ok(inverse.alternatives.length>0);assert.ok(inverse.state.notes.some(n=>n.includes('кілька коренів')));assert.ok([inverse.state,...inverse.alternatives].some(q=>Math.abs(q.T-1073.151)<1e-9));const scores=inverse.diagnostics.assessments;assert.ok(scores.every(q=>q.normalizedResidual>=scores[0].normalizedResidual));}
  assert.throws(()=>calculate('pt',1e-300,300));
 });
 test('CSV exports full precision, units, unavailable values and phase endpoints',async()=>{

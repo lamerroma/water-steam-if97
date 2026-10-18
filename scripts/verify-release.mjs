@@ -1,7 +1,7 @@
 // Sequential acceptance checks against one build; no external reference downloads.
 import {spawn} from 'node:child_process';
 import {createServer} from 'node:http';
-import {readFile,writeFile,mkdir,readdir,stat} from 'node:fs/promises';
+import {readFile,writeFile,mkdir,readdir,stat,open} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
@@ -20,14 +20,16 @@ const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const snapshot=async()=>Object.fromEntries(await Promise.all(['index.html','standalone.html','assets/app.js','assets/calculator-worker.js','assets/styles.css','assets/coolprop.wasm','service-worker.js','manifest.webmanifest'].map(async p=>[p,hash(await readFile(path.join(root,p)))])));
 async function check(name,args,env={},executable=process.execPath){
  const start=Date.now();console.log(`Starting ${name}`);
- const log=path.join(dir,name+'.log');let output='';
- const code=await new Promise((resolve,reject)=>{
-  const child=spawn(executable,args,{cwd:root,env:{...process.env,...env},stdio:['ignore','pipe','pipe']});
+ const log=path.join(dir,name+'.log'),logFile=await open(log,'w');
+ let code;
+ try{code=await new Promise((resolve,reject)=>{
+  // Stream directly to the durable log. This keeps long test output visible
+  // during execution and avoids losing all diagnostics if a pipe is closed.
+  const child=spawn(executable,args,{cwd:root,env:{...process.env,...env},stdio:['ignore',logFile.fd,logFile.fd]});
   const timeout=setTimeout(()=>child.kill('SIGTERM'),600000);
-  child.stdout.on('data',b=>{output+=b;});child.stderr.on('data',b=>{output+=b;});
   child.once('error',e=>{clearTimeout(timeout);reject(e);});child.once('close',c=>{clearTimeout(timeout);resolve(c);});
- });
- await writeFile(log,output);
+ });}finally{await logFile.close();}
+ const output=await readFile(log,'utf8');
  report.checks.push({name,status:code===0?'passed':'failed',exitCode:code,durationMs:Date.now()-start,log:path.relative(root,log)});
  console.log(`${code===0?'PASS':'FAIL'} ${name} (${((Date.now()-start)/1000).toFixed(1)} s)`);
  if(code!==0)console.error(output.slice(-2500));
@@ -65,9 +67,9 @@ try{
  }
  if(mode!=='core'){
   const env=await serve();
-  for(const name of ['inverse-boundaries','rankine-sweep','rankine-regeneration','rankine-efficiency','rankine-library','cycle-library','custom-cycle','processes-extended','water-process','calculator-async','navigation','smart-input','calculator-workspace','state-comparison','study-workflow','task-ui','diagram','diagram-guides','diagram-quality','process-paths','chart-layout','study-workspace','hydraulics','study','full-sprint','laboratory','coursework','usability','reactor-course','reactor-validation','provenance','project-safety','pwa','ui-workspace'])await check('browser-'+name,[`scripts/check-${name}-browser.cjs`],env);
+  for(const name of ['input-sensitivity','inverse-boundaries','rankine-sweep','rankine-regeneration','rankine-efficiency','rankine-library','cycle-library','custom-cycle','processes-extended','water-process','calculator-async','navigation','smart-input','calculator-workspace','state-comparison','study-workflow','task-ui','diagram','diagram-guides','diagram-quality','process-paths','chart-layout','study-workspace','hydraulics','study','full-sprint','laboratory','coursework','usability','reactor-course','reactor-validation','provenance','project-safety','pwa','ui-workspace'])await check('browser-'+name,[`scripts/check-${name}-browser.cjs`],env);
   await check('browser-cross-browser',['scripts/check-cross-browser.cjs'],{...env,UI_EVIDENCE_DIR:path.join(dir,'ui')});
-  for(const name of ['inverse-boundaries','rankine-sweep','rankine-regeneration','rankine-efficiency','rankine-library','cycle-library','custom-cycle','processes-extended','water-process','calculator-async','calculator-workspace','smart-input','state-comparison','study-workflow','pwa'])await check('browser-'+name+'-firefox',[`scripts/check-${name}-browser.cjs`],{...env,BROWSER_NAME:'firefox'});
+  for(const name of ['input-sensitivity','inverse-boundaries','rankine-sweep','rankine-regeneration','rankine-efficiency','rankine-library','cycle-library','custom-cycle','processes-extended','water-process','calculator-async','calculator-workspace','smart-input','state-comparison','study-workflow','pwa'])await check('browser-'+name+'-firefox',[`scripts/check-${name}-browser.cjs`],{...env,BROWSER_NAME:'firefox'});
  }
  if(await check('rebuild',['scripts/build.mjs'])){
   const repeated=await snapshot();const same=JSON.stringify(initial)===JSON.stringify(repeated);

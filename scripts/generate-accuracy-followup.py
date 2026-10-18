@@ -95,39 +95,42 @@ def solve97(mode,a,b,precision):
   rho=d*rc;cv=-R*tau*tau*dyy;result.append(dict(T=T,p=p,rho=rho,v=1/rho,h=R*T*(tau*dy+d*pd(d)),s=R*(tau*dy-phi(d)),u=R*T*tau*dy,cp=cv+R*A*A/B,cv=cv,w=mp.sqrt(1000*R*T*(B+R*A*A/cv)),alpha=A/(T*B),drhodp=1000/(R*T*B)))
  return [{k:mp.nstr(v,45) for k,v in q.items()} for q in result]
 
-requests=[]
-for model in ['IF97','IAPWS-95']:
- for p in [.1,1,10,20,22,22.0638,22.0639,22.06399,22.063999,22.0639999,22.06399999,22.0639999999]:requests.append((model,'satp',p,None))
- for T in [647.086,647.095,647.0959,647.0959993,647.0959998,647.0959999,647.095999999]:requests.append((model,'satt',T,None))
- for T in [647.0959,647.0960001,647.095999999,647.096000001]:requests.append((model,'pt',22.064,T))
-records=[];limits=[]
-for model,mode,a,b in requests:
- try:
-  low=(solve95 if model=='IAPWS-95' else solve97)(mode,a,b,70);high=(solve95 if model=='IAPWS-95' else solve97)(mode,a,b,90)
-  for l,h in zip(low,high):
-   for key in h:
-    tolerance=mp.mpf('1e-25') if model=='IAPWS-95' or float(h['T'])>623.15 else mp.mpf('1e-14')
-    assert abs(mp.mpf(l[key])/mp.mpf(h[key])-1)<tolerance,(model,mode,a,key,l[key],h[key])
-  for i,q in enumerate(high):records.append(dict(id=f'{model}-{mode}-{a}-{i}',model=model,mode=mode,a=a,b=b,phase=i if mode!='pt' else None,expected={k:float(v) for k,v in q.items()}))
-  print(model,mode,a,'verified',flush=True)
- except Exception as e:
-  if model!='IF97' or 'spinodal' not in str(e):raise
-  limits.append(dict(model=model,mode=mode,a=a,b=b,error=str(e)));print(model,mode,a,'LIMIT',str(e)[:100],flush=True)
-# Independent transport correlations use the MP EOS derivative, not a
-# cancellation-prone critical derivative from a double-precision flash.
-from iapws._iapws import _Viscosity,_ThCond
-from types import SimpleNamespace
-for row in records:
- q=row['expected'];rho,T=q['rho'],q['T'];phase=SimpleNamespace(cp=q['cp'],cp_cv=q['cp']/q['cv'],drhodP_T=q['drhodp'])
- if row['model']=='IAPWS-95':
-  reference=CP.AbstractState('HEOS','Water');reference.update(CP.DmassT_INPUTS,rho,1.5*647.096);drho=1e6*reference.first_partial_deriv(CP.iDmass,CP.iP,CP.iT)
-  mu=_Viscosity(rho,T,phase,drho)
- else:drho=None;mu=_Viscosity(rho,T)
- phase.mu=mu;conductivity=_ThCond(rho,T,phase,drho)
- q.update(mu=mu,nu=mu/rho,lambda_=conductivity,Pr=mu*q['cp']*1000/conductivity)
- q['lambda']=q.pop('lambda_')
+def main():
+ requests=[]
+ for model in ['IF97','IAPWS-95']:
+  for p in [.1,1,10,20,22,22.0638,22.0639,22.06399,22.063999,22.0639999,22.06399999,22.0639999999]:requests.append((model,'satp',p,None))
+  for T in [647.086,647.095,647.0959,647.0959993,647.0959998,647.0959999,647.095999999]:requests.append((model,'satt',T,None))
+  for T in [647.0959,647.0960001,647.095999999,647.096000001]:requests.append((model,'pt',22.064,T))
+ records=[];limits=[]
+ for model,mode,a,b in requests:
+  try:
+   low=(solve95 if model=='IAPWS-95' else solve97)(mode,a,b,70);high=(solve95 if model=='IAPWS-95' else solve97)(mode,a,b,90)
+   for l,h in zip(low,high):
+    for key in h:
+     tolerance=mp.mpf('1e-25') if model=='IAPWS-95' or float(h['T'])>623.15 else mp.mpf('1e-14')
+     assert abs(mp.mpf(l[key])/mp.mpf(h[key])-1)<tolerance,(model,mode,a,key,l[key],h[key])
+   for i,q in enumerate(high):records.append(dict(id=f'{model}-{mode}-{a}-{i}',model=model,mode=mode,a=a,b=b,phase=i if mode!='pt' else None,expected={k:float(v) for k,v in q.items()}))
+   print(model,mode,a,'verified',flush=True)
+  except Exception as e:
+   if model!='IF97' or 'spinodal' not in str(e):raise
+   limits.append(dict(model=model,mode=mode,a=a,b=b,error=str(e)));print(model,mode,a,'LIMIT',str(e)[:100],flush=True)
+ # Independent transport correlations use the MP EOS derivative, not a
+ # cancellation-prone critical derivative from a double-precision flash.
+ from iapws._iapws import _Viscosity,_ThCond
+ from types import SimpleNamespace
+ for row in records:
+  q=row['expected'];rho,T=q['rho'],q['T'];phase=SimpleNamespace(cp=q['cp'],cp_cv=q['cp']/q['cv'],drhodP_T=q['drhodp'])
+  if row['model']=='IAPWS-95':
+   reference=CP.AbstractState('HEOS','Water');reference.update(CP.DmassT_INPUTS,rho,1.5*647.096);drho=1e6*reference.first_partial_deriv(CP.iDmass,CP.iP,CP.iT)
+   mu=_Viscosity(rho,T,phase,drho)
+  else:drho=None;mu=_Viscosity(rho,T)
+  phase.mu=mu;conductivity=_ThCond(rho,T,phase,drho)
+  q.update(mu=mu,nu=mu/rho,lambda_=conductivity,Pr=mu*q['cp']*1000/conductivity)
+  q['lambda']=q.pop('lambda_')
 
-report=dict(source='Independent IF97 region-3/4 and IAPWS-95 equations at 70/90 decimal digits; ordinary IF97 regions 1/2 from Python iapws double-precision fundamental equations. CoolProp supplies initial seeds and the regular 1.5 Tc transport reference derivative. Fixed-P coexistence solved jointly for both densities and temperature.',precisionDigits=[70,90],records=records,limits=limits)
-(out/'reference.json').write_text(json.dumps(report,indent=2)+'\n')
-if '--fixture' in __import__('sys').argv:(root/'tests/fixtures/accuracy-followup-reference.json').write_text(json.dumps(report,indent=2)+'\n')
-print('records',len(records),'limits',len(limits))
+ report=dict(source='Independent IF97 region-3/4 and IAPWS-95 equations at 70/90 decimal digits; ordinary IF97 regions 1/2 from Python iapws double-precision fundamental equations. CoolProp supplies initial seeds and the regular 1.5 Tc transport reference derivative. Fixed-P coexistence solved jointly for both densities and temperature.',precisionDigits=[70,90],records=records,limits=limits)
+ (out/'reference.json').write_text(json.dumps(report,indent=2)+'\n')
+ if '--fixture' in __import__('sys').argv:(root/'tests/fixtures/accuracy-followup-reference.json').write_text(json.dumps(report,indent=2)+'\n')
+ print('records',len(records),'limits',len(limits))
+
+if __name__=='__main__':main()

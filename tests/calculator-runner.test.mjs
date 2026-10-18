@@ -29,3 +29,7 @@ test('A numerical error preserves the warm worker; a startup exception remains r
  const next=runner.calculate('pt',1,300,'IF97');assert.equal(workers.length,1);answer(workers[0],'valid');assert.equal(await next,'valid');
  let attempts=0;const startup=createCalculationRunner(()=>{attempts++;throw Error('Blocked');});for(let i=0;i<2;i++)await assert.rejects(startup.calculate('pt',1,300,'IF97'),{code:'unavailable'});assert.equal(attempts,2);
 });
+test('Input spelling and canonical rounding increments reach the background executor unchanged',async()=>{
+ const {runner,workers,answer}=harness(),options={inputRounding:[{text:'3.000',unit:'MPa',halfWidth:.0005},{text:'100.0',unit:'C',halfWidth:.05}]};
+ const pending=runner.calculate('pt',3,373.15,'IF97',options);assert.deepEqual(workers[0].request.payload.options,options);answer(workers[0],{diagnostics:{roundingScenario:options}});assert.deepEqual((await pending).diagnostics.roundingScenario,options);
+});

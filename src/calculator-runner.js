@@ -25,7 +25,7 @@ export function createCalculationRunner(createWorker,timeoutMs=60000){
   });
  }
  return {
-  calculate:(mode,a,b,model)=>execute('calculate',{mode,a,b,model}),
+  calculate:(mode,a,b,model,options)=>execute('calculate',{mode,a,b,model,...(options?{options}:{})}),
   readProject:text=>execute('project',{text}),
   customCycle:(input,model)=>execute('custom-cycle',{input,model}),
   libraryCycle:input=>execute('library-cycle',{input}),

@@ -1,3 +1,4 @@
+import {DIAGNOSTIC_UNITS} from './inverse-diagnostics.js';
 import {englishProperty} from './units.js';
 // Unrounded canonical values; energy unit is explicitly recorded in each CSV row.
 export function exportCSV(result,energy='kJ',ambient=null,system='si') {
@@ -9,7 +10,9 @@ export function exportCSV(result,energy='kJ',ambient=null,system='si') {
   for(const [name,s] of states) {
     rows.push([name,'p',...(system==='english'?englishProperty('p',s.p,'MPa'):[s.p,'MPa'])],[name,'T',...(system==='english'?englishProperty('T',s.T,'K'):[s.T,'K'])],[name,'model',s.model||'IF97',''],[name,'region',s.region??'',''],[name,'phase',s.phase,''],[name,'x',s.x??'','']);
     for(const [key,unit] of props) {if(system==='english'){const [v,u]=englishProperty(key,s[key],unit);rows.push([name,key,v??'',u]);continue;}const convert=energy==='J'&&['h','s','cp','cv','u','A','G','ijt','ex'].includes(key);rows.push([name,key,s[key]==null?'':s[key]*(convert?1000:1),convert?unit.replace('кДж','Дж'):unit]);}
+    if(s.inputSensitivity){rows.push([name,'rounding_response_status',s.inputSensitivity.status,'']);for(const [key,value] of Object.entries(s.inputSensitivity.response||{}))rows.push([name,'rounding_response_'+key,value,DIAGNOSTIC_UNITS[key]]);for(const [key,value] of Object.entries(s.inputSensitivity.numericalResponse||{}))rows.push([name,'numerical_response_'+key,value,DIAGNOSTIC_UNITS[key]]);}
     for(const note of s.notes||[])rows.push([name,'note',note,'']);
   }
+  if(result.diagnostics){const d=result.diagnostics;rows.push(['diagnostics','root_selection',d.selection,''],['diagnostics','numerical_duplicates_merged',d.merged,'']);if(d.roundingScenario){rows.push(['diagnostics','rounding_assumption',d.roundingScenario.assumption,'']);for(const x of d.roundingScenario.inputs)rows.push(['diagnostics','input_half_step_'+x.key,x.halfWidth,x.unit]);}}
   return '\uFEFF'+rows.map(r=>r.map(c=>'"'+String(c).replaceAll('"','""')+'"').join(',')).join('\r\n');
 }

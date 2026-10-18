@@ -688,3 +688,10 @@ body.ui-task-layout{height:auto;min-height:100dvh}
 .cc-library{border:1px solid #b5c9dc;border-radius:6px;padding:10px;margin:12px 0;min-width:0}.cc-library>summary{font-weight:600;cursor:pointer}.cc-library form{margin:10px 0}.cl-personal-actions{display:flex;align-items:end;gap:8px;flex-wrap:wrap}.cl-personal-actions label{flex:1;min-width:150px}.cc-library input,.cc-library select{max-width:100%;box-sizing:border-box}.cl-overlay svg{display:block;width:100%;height:auto}.cc-library #cl-slots{overflow-wrap:anywhere}.cc-library details{margin:12px 0}.cc-library button{min-height:40px}.cc-library [hidden]{display:none!important}
 
 .cl-sweep{margin:12px 0;border:1px solid var(--line);padding:10px;min-width:0}.cs-toolbar{display:flex;align-items:end;flex-wrap:wrap;gap:8px;margin:12px 0}.cs-toolbar label{margin:0}#cs-chart svg{display:block;width:100%;max-width:1000px;height:auto}#cs-chart [role=button]{cursor:pointer}#cs-chart [role=button]:focus{outline:2px solid #a04e00}#cs-table{min-width:760px}#cs-table tr[aria-selected=true]{background:#fff0d6}#cs-selection,#cs-summary{overflow-wrap:anywhere}#cs-table td:last-child{white-space:normal;min-width:200px}@media(max-width:480px){.cl-sweep{padding:5px}.cs-toolbar button,#cs-open,#cs-run,#cs-cancel{min-height:44px}.cs-toolbar label{width:100%}}
+
+#input-sensitivity{margin:.35rem 0;padding:.3rem .45rem;border:1px solid #c8cbd2;border-radius:3px}
+#input-sensitivity summary{cursor:pointer}
+#input-sensitivity p{margin:.5rem 0;overflow-wrap:anywhere}
+.sensitivity-scroll{overflow:auto}
+.sensitivity-scroll table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+.sensitivity-scroll th,.sensitivity-scroll td{padding:.3rem .5rem;text-align:left;border-bottom:1px solid #d9dde3}

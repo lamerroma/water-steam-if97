@@ -1,0 +1,500 @@
+{
+  "auditRuntime": {
+    "node": "v22.23.3",
+    "v8": "12.4.254.21-node.57",
+    "platform": "linux",
+    "arch": "x64"
+  },
+  "version": "1.35.4",
+  "build": "e0d6a646caab",
+  "date": "2026-10-18T06:58:00.407Z",
+  "scope": "Numerical inverse roots and local sensitivity; not a certified uncertainty bound.",
+  "core": {
+    "report": ".release/2026-10-18T06-44-52-266Z/report.json",
+    "build": "d209c4a35bae",
+    "status": "passed",
+    "checks": 14,
+    "unit": {
+      "tests": 1074,
+      "pass": 1074,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "workerUnchanged": true
+  },
+  "uiFollowup": {
+    "status": "passed",
+    "build": {
+      "version": "1.35.4",
+      "id": "e0d6a646caab"
+    },
+    "workerSha256": "1e99805096fff1f4f17c3cfa05ef8ff5e5a72f2b7b62b1ffb4f2655e110753ad",
+    "unit": {
+      "tests": 41,
+      "pass": 41,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "checks": [
+      {
+        "name": "rebuild",
+        "status": "passed"
+      },
+      {
+        "name": "deterministic-build",
+        "status": "passed"
+      },
+      {
+        "name": "dist-mirror",
+        "status": "passed"
+      },
+      {
+        "name": "package",
+        "status": "passed"
+      },
+      {
+        "name": "package-integrity",
+        "status": "passed"
+      },
+      {
+        "name": "repackage",
+        "status": "passed"
+      },
+      {
+        "name": "deterministic-package",
+        "status": "passed"
+      }
+    ],
+    "artifacts": {
+      "index.html": "03565210870d625934b1b47715d96952a0ba8792598d884e026a360e16f80802",
+      "standalone.html": "bd3029d8f2b42b3d4976871ba05d88429648520e601b6fa21d49bacfb6afd66f",
+      "assets/app.js": "300edbe3799b25e1c401fc59077a6742275dd299481e852d2209a50e3eb281e6",
+      "assets/calculator-worker.js": "1e99805096fff1f4f17c3cfa05ef8ff5e5a72f2b7b62b1ffb4f2655e110753ad",
+      "assets/styles.css": "c77c47d879b7395bc7ba157c838cd325d06509517c4a80984776480c17a25e34",
+      "assets/coolprop.wasm": "28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307",
+      "service-worker.js": "1d8dbdd163c0029497a5f509f0d51135e7b7feed5232e957cac60175b034d2d7",
+      "manifest.webmanifest": "63130e8f1083e12602ca499f9de40ad3d97d64b457c005ce570215966f783056"
+    },
+    "zipSha256": "8a341857f4fccb3841bcfffca03464a5fe1a6cfa6ca602cf8aef42004dcc3d12"
+  },
+  "uiOnlyChanges": [
+    {
+      "path": "src/app.js",
+      "auditedSha256": "1ca132d845e16424a94ea972dc8afedacc6ea2e55528fd4e3f8278292919e5cf",
+      "finalSha256": "a97396c69ca49757275fd4a54389de9bc772be92f5f2b54d9c0dc858a54c2fd7",
+      "reason": "Explicit pressure/temperature label for the saturation table; browser regression added."
+    }
+  ],
+  "full": {
+    "complete": true,
+    "profile": "full",
+    "states": 2200,
+    "queries": 4657,
+    "passed": 4657,
+    "different": 0,
+    "failed": 0,
+    "byModel": {
+      "IF97": {
+        "queries": 3439,
+        "passed": 3439,
+        "different": 0,
+        "failed": 0
+      },
+      "IAPWS-95": {
+        "queries": 1218,
+        "passed": 1218,
+        "different": 0,
+        "failed": 0
+      }
+    },
+    "byMode": {
+      "ph": {
+        "queries": 370,
+        "passed": 370,
+        "different": 0,
+        "failed": 0
+      },
+      "ps": {
+        "queries": 370,
+        "passed": 370,
+        "different": 0,
+        "failed": 0
+      },
+      "pu": {
+        "queries": 355,
+        "passed": 355,
+        "different": 0,
+        "failed": 0
+      },
+      "pv": {
+        "queries": 370,
+        "passed": 370,
+        "different": 0,
+        "failed": 0
+      },
+      "prho": {
+        "queries": 370,
+        "passed": 370,
+        "different": 0,
+        "failed": 0
+      },
+      "th": {
+        "queries": 370,
+        "passed": 370,
+        "different": 0,
+        "failed": 0
+      },
+      "ts": {
+        "queries": 370,
+        "passed": 370,
+        "different": 0,
+        "failed": 0
+      },
+      "tu": {
+        "queries": 355,
+        "passed": 355,
+        "different": 0,
+        "failed": 0
+      },
+      "tv": {
+        "queries": 370,
+        "passed": 370,
+        "different": 0,
+        "failed": 0
+      },
+      "trho": {
+        "queries": 370,
+        "passed": 370,
+        "different": 0,
+        "failed": 0
+      },
+      "hs": {
+        "queries": 250,
+        "passed": 250,
+        "different": 0,
+        "failed": 0
+      },
+      "us": {
+        "queries": 184,
+        "passed": 184,
+        "different": 0,
+        "failed": 0
+      },
+      "vs": {
+        "queries": 184,
+        "passed": 184,
+        "different": 0,
+        "failed": 0
+      },
+      "hv": {
+        "queries": 184,
+        "passed": 184,
+        "different": 0,
+        "failed": 0
+      },
+      "uv": {
+        "queries": 185,
+        "passed": 185,
+        "different": 0,
+        "failed": 0
+      }
+    },
+    "durationMs": 324482
+  },
+  "quick": {
+    "complete": false,
+    "profile": "quick",
+    "states": 77,
+    "queries": 123,
+    "passed": 123,
+    "different": 0,
+    "failed": 0,
+    "byModel": {
+      "IF97": {
+        "queries": 73,
+        "passed": 73,
+        "different": 0,
+        "failed": 0
+      },
+      "IAPWS-95": {
+        "queries": 50,
+        "passed": 50,
+        "different": 0,
+        "failed": 0
+      }
+    },
+    "byMode": {
+      "ph": {
+        "queries": 18,
+        "passed": 18,
+        "different": 0,
+        "failed": 0
+      },
+      "ps": {
+        "queries": 18,
+        "passed": 18,
+        "different": 0,
+        "failed": 0
+      },
+      "pu": {
+        "queries": 4,
+        "passed": 4,
+        "different": 0,
+        "failed": 0
+      },
+      "pv": {
+        "queries": 20,
+        "passed": 20,
+        "different": 0,
+        "failed": 0
+      },
+      "prho": {
+        "queries": 4,
+        "passed": 4,
+        "different": 0,
+        "failed": 0
+      },
+      "th": {
+        "queries": 4,
+        "passed": 4,
+        "different": 0,
+        "failed": 0
+      },
+      "ts": {
+        "queries": 4,
+        "passed": 4,
+        "different": 0,
+        "failed": 0
+      },
+      "tu": {
+        "queries": 4,
+        "passed": 4,
+        "different": 0,
+        "failed": 0
+      },
+      "tv": {
+        "queries": 18,
+        "passed": 18,
+        "different": 0,
+        "failed": 0
+      },
+      "trho": {
+        "queries": 4,
+        "passed": 4,
+        "different": 0,
+        "failed": 0
+      },
+      "hs": {
+        "queries": 4,
+        "passed": 4,
+        "different": 0,
+        "failed": 0
+      },
+      "us": {
+        "queries": 7,
+        "passed": 7,
+        "different": 0,
+        "failed": 0
+      },
+      "vs": {
+        "queries": 6,
+        "passed": 6,
+        "different": 0,
+        "failed": 0
+      },
+      "hv": {
+        "queries": 4,
+        "passed": 4,
+        "different": 0,
+        "failed": 0
+      },
+      "uv": {
+        "queries": 4,
+        "passed": 4,
+        "different": 0,
+        "failed": 0
+      }
+    },
+    "durationMs": 53487
+  },
+  "rootChecks": {
+    "candidates": 4988,
+    "returned": 4947,
+    "merged": 39,
+    "rejected": 2,
+    "allReturnedRootsPassed": true,
+    "mergedCases": [
+      {
+        "id": "IAPWS-95-1856",
+        "mode": "us",
+        "version": 1,
+        "keys": [
+          "u",
+          "s"
+        ],
+        "targets": [
+          129.0477448902857,
+          0.4476857574823555
+        ],
+        "candidates": 16,
+        "roots": 1,
+        "rejected": 0,
+        "merged": 15,
+        "selection": "stability-then-normalized-input-residual",
+        "assessments": [
+          {
+            "stable": true,
+            "normalizedResidual": 0.04317167580679946,
+            "members": 16,
+            "candidatePressureRange": [
+              0.010173061159522214,
+              0.01017429943226495
+            ]
+          }
+        ],
+        "numericalFloor": "128 * Number.EPSILON * thermodynamic scale"
+      },
+      {
+        "id": "IAPWS-95-2066",
+        "mode": "us",
+        "version": 1,
+        "keys": [
+          "u",
+          "s"
+        ],
+        "targets": [
+          38.63212828313412,
+          0.1391036658359701
+        ],
+        "candidates": 25,
+        "roots": 1,
+        "rejected": 0,
+        "merged": 24,
+        "selection": "stability-then-normalized-input-residual",
+        "assessments": [
+          {
+            "stable": true,
+            "normalizedResidual": 0.0048828125,
+            "members": 25,
+            "candidatePressureRange": [
+              0.005173436913465004,
+              0.0051758716923411136
+            ]
+          }
+        ],
+        "numericalFloor": "128 * Number.EPSILON * thermodynamic scale"
+      }
+    ],
+    "rejectedCases": [
+      {
+        "id": "IF97-0000",
+        "mode": "pv",
+        "version": 1,
+        "keys": [
+          "p",
+          "v"
+        ],
+        "targets": [
+          0.001,
+          495.2857156300932
+        ],
+        "candidates": 2,
+        "roots": 1,
+        "rejected": 1,
+        "merged": 0,
+        "selection": "stability-then-normalized-input-residual",
+        "assessments": [
+          {
+            "stable": true,
+            "normalizedResidual": 0.004038073251225583,
+            "members": 1,
+            "candidatePressureRange": [
+              0.001,
+              0.001
+            ]
+          }
+        ],
+        "numericalFloor": "128 * Number.EPSILON * thermodynamic scale"
+      },
+      {
+        "id": "IF97-0002",
+        "mode": "pv",
+        "version": 1,
+        "keys": [
+          "p",
+          "v"
+        ],
+        "targets": [
+          0.001,
+          495.2857309305475
+        ],
+        "candidates": 2,
+        "roots": 1,
+        "rejected": 1,
+        "merged": 0,
+        "selection": "stability-then-normalized-input-residual",
+        "assessments": [
+          {
+            "stable": true,
+            "normalizedResidual": 0.012114219379442136,
+            "members": 1,
+            "candidatePressureRange": [
+              0.001,
+              0.001
+            ]
+          }
+        ],
+        "numericalFloor": "128 * Number.EPSILON * thermodynamic scale"
+      }
+    ]
+  },
+  "sensitivity": {
+    "source": {
+      "IF97": "iapws 1.5.5, forward P-T",
+      "IAPWS-95": "CoolProp 8.0.0 HEOS Water",
+      "method": "five-point central differences at two step sizes; no product JS"
+    },
+    "states": 12,
+    "derivativeChecks": 168,
+    "propagatedResponseChecks": 1344,
+    "maxAbsoluteDerivativeDifference": 0.0000020163246858828643,
+    "maxRelativeDerivativeDifference": 1.1262986625333318e-7
+  },
+  "browsers": {
+    "chromium": {
+      "status": "passed",
+      "build": "e0d6a646caab",
+      "checks": 13,
+      "standalone": "loopback-then-offline",
+      "fileNavigation": "blocked"
+    },
+    "firefox": {
+      "status": "passed",
+      "build": "e0d6a646caab",
+      "checks": 13,
+      "standalone": "file",
+      "fileNavigation": "allowed"
+    },
+    "chromium-inverse": {
+      "status": "passed",
+      "build": "e0d6a646caab",
+      "checks": 32,
+      "standalone": "standalone-http-offline",
+      "fileNavigation": "blocked"
+    },
+    "firefox-inverse": {
+      "status": "passed",
+      "build": "e0d6a646caab",
+      "checks": 32,
+      "standalone": "standalone-file",
+      "fileNavigation": "allowed"
+    }
+  },
+  "ci": {
+    "quick": "every CI change",
+    "full": "main or manual CI; Pages requires successful CI for the exact commit",
+    "remoteRun": "not run before push"
+  }
+}

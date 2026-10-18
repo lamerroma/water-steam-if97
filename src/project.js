@@ -1,3 +1,5 @@
+import {selectCalculatedAlternative} from './inverse-diagnostics.js';
+import {typedRounding} from './input-rounding.js';
 import {readUIUnits} from './ui-quantities.js';
 import {readExportMetadata} from './provenance.js';
 import {readResearch} from './research.js';
@@ -29,7 +31,13 @@ export function readProject(text){
   if(q.source){
    const z=q.source;if(!['pt','ph','ps','px','tx','hs','th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'].includes(z.mode)||!Number.isFinite(z.a)||!Number.isFinite(z.b))throw Error('Некоректні входи стану.');
    const r=calculate(z.mode,z.a,z.b,q.model||'IF97');
-   state=[r.state,...(r.alternatives||[])].find(v=>v&&Math.abs(v.p-q.p)<=Math.max(1e-10,Math.abs(q.p)*1e-7)&&Math.abs(v.h-q.h)<=Math.max(1e-7,Math.abs(q.h)*1e-7));
+   state=[r.state,...(r.alternatives||[])].find((v,i)=>{
+    if(!v||Math.abs(v.h-q.h)>Math.max(1e-7,Math.abs(q.h)*1e-7))return false;
+    const tolerance=Math.max(1e-10,Math.abs(q.p)*1e-7),range=r.diagnostics?.assessments[i]?.candidatePressureRange;
+    // Older projects may record another member of the same numerical cluster.
+    // Return the recomputed representative; never trust stored EOS properties.
+    return Math.abs(v.p-q.p)<=tolerance||range&&q.p>=range[0]-tolerance&&q.p<=range[1]+tolerance;
+   });
    if(!state)throw Error('Стан журналу не відповідає збереженим входам.');source={mode:z.mode,a:z.a,b:z.b};
   }else state=calculate('ph',q.p,q.h,q.model||'IF97').state;
   return {...state,name:q.name||'',...(source?{source}:{})};
@@ -40,7 +48,18 @@ export function readProject(text){
  if(f.inputStyle!=null&&!['smart','advanced'].includes(f.inputStyle)||f.inputOrder!=null&&!['canonical','reverse'].includes(f.inputOrder))throw Error('Некоректний спосіб введення.');
  const {a:allowedA,b:allowedB}=batchUnits(f.mode);if(!allowedA.includes(f.ua)||!allowedB.includes(f.ub))throw Error('Одиниці не відповідають режиму.');
  if(f.calculated!=null&&typeof f.calculated!=='boolean')throw Error('Некоректний статус розрахунку.');
- const result=f.calculated?calculate(f.mode,pressureInput(parseNumber(f.a),f.ua,pressure),f.mode.startsWith('sat')?undefined:pressureInput(parseNumber(f.b),f.ub,pressure),f.model||'IF97'):null;
+ if(f.roundingDisplay!=null&&typeof f.roundingDisplay!=='boolean')throw Error('Некоректний формат округлення.');
+ let result=null;
+ if(f.calculated){const a=pressureInput(parseNumber(f.a),f.ua,pressure),b=f.mode.startsWith('sat')?undefined:pressureInput(parseNumber(f.b),f.ub,pressure);
+  result=calculate(f.mode,a,b,f.model||'IF97',{inputRounding:[typedRounding(f.a,f.ua),typedRounding(f.b,f.ub)]});
+  for(const q of [result.state,...result.alternatives||[]].filter(Boolean))q.source={mode:f.mode,a,b};
+ }
+ if(f.selectedRoot!=null){
+  const z=f.selectedRoot;if(!result?.state||!Number.isFinite(z.p)||!Number.isFinite(z.T))throw Error('Некоректний вибраний корінь.');
+  const index=[result.state,...result.alternatives||[]].findIndex(q=>Math.abs(q.p-z.p)<=Math.max(1e-10,q.p*1e-7)&&Math.abs(q.T-z.T)<=1e-6);
+  if(index<0)throw Error('Вибраний корінь не відповідає входам.');
+  if(index>0)result=selectCalculatedAlternative(result,index-1);else if(result.diagnostics)result.diagnostics={...result.diagnostics,selection:'manual'};
+ }
  const drafts={};for(const type of ['turbine','flash','engineering']){const d=p.drafts?.[type];if(!d)continue;const v={};for(const k of ['p1','t1','p2','eta','flow','power','mode','pressure','temperature','mass','power-unit','pc1','tc1','pc2','coldflow'])if(typeof d[k]==='string'&&d[k].length<80)v[k]=d[k];drafts[type]=v;}
  const ambient=p.ambient||{p:.101325,T:298.15};referenceState(ambient.p,ambient.T);
  if(p.title!=null&&(typeof p.title!=='string'||p.title.length>80))throw Error('Назва проєкту має бути до 80 символів.');

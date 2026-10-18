@@ -1,0 +1,524 @@
+{
+  "status": "passed-with-conditioning-limits",
+  "build": {
+    "version": "1.35.3",
+    "id": "62a81462d23c"
+  },
+  "baseCommit": "ff7c663511c8764178ad799368abcc114b6d5914",
+  "reference": {
+    "states": 2200,
+    "models": {
+      "IF97": 1700,
+      "IAPWS-95": 500
+    },
+    "criticalMPStates": 24,
+    "precisionDigits": [
+      70,
+      90
+    ],
+    "ordinaryCrossChecks": 25,
+    "maxPythonCriticalRelativeDifference": 4.847039665108866e-14,
+    "maxCoolPropCriticalRelativeDifference": 4.445363443782061e-06
+  },
+  "comparison": {
+    "scope": "4441 matched requests across all 2200 states and 15 modes. The additional 216 compound mixture us/vs/hv/uv requests are checked against independent references in the candidate only; the legacy run is expensive.",
+    "before": {
+      "states": 2200,
+      "queries": 4441,
+      "passed": 4321,
+      "different": 27,
+      "failed": 93,
+      "byModel": {
+        "IF97": {
+          "queries": 3331,
+          "passed": 3219,
+          "different": 19,
+          "failed": 93
+        },
+        "IAPWS-95": {
+          "queries": 1110,
+          "passed": 1102,
+          "different": 8,
+          "failed": 0
+        }
+      },
+      "byMode": {
+        "ph": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "ps": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "pu": {
+          "queries": 355,
+          "passed": 355,
+          "different": 0,
+          "failed": 0
+        },
+        "pv": {
+          "queries": 370,
+          "passed": 311,
+          "different": 13,
+          "failed": 46
+        },
+        "prho": {
+          "queries": 370,
+          "passed": 314,
+          "different": 9,
+          "failed": 47
+        },
+        "th": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "ts": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "tu": {
+          "queries": 355,
+          "passed": 355,
+          "different": 0,
+          "failed": 0
+        },
+        "tv": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "trho": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "hs": {
+          "queries": 250,
+          "passed": 245,
+          "different": 5,
+          "failed": 0
+        },
+        "us": {
+          "queries": 130,
+          "passed": 130,
+          "different": 0,
+          "failed": 0
+        },
+        "vs": {
+          "queries": 130,
+          "passed": 130,
+          "different": 0,
+          "failed": 0
+        },
+        "hv": {
+          "queries": 130,
+          "passed": 130,
+          "different": 0,
+          "failed": 0
+        },
+        "uv": {
+          "queries": 131,
+          "passed": 131,
+          "different": 0,
+          "failed": 0
+        }
+      },
+      "maxErrors": {
+        "p": 1.5916721576303416e-06,
+        "T": 0.08790121864831235,
+        "rhoRelative": 7.744041652379963e-08
+      }
+    },
+    "afterMatched": {
+      "states": 2200,
+      "queries": 4441,
+      "passed": 4441,
+      "different": 0,
+      "failed": 0,
+      "byModel": {
+        "IF97": {
+          "queries": 3331,
+          "passed": 3331,
+          "different": 0,
+          "failed": 0
+        },
+        "IAPWS-95": {
+          "queries": 1110,
+          "passed": 1110,
+          "different": 0,
+          "failed": 0
+        }
+      },
+      "byMode": {
+        "ph": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "ps": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "pu": {
+          "queries": 355,
+          "passed": 355,
+          "different": 0,
+          "failed": 0
+        },
+        "pv": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "prho": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "th": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "ts": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "tu": {
+          "queries": 355,
+          "passed": 355,
+          "different": 0,
+          "failed": 0
+        },
+        "tv": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "trho": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "hs": {
+          "queries": 250,
+          "passed": 250,
+          "different": 0,
+          "failed": 0
+        },
+        "us": {
+          "queries": 130,
+          "passed": 130,
+          "different": 0,
+          "failed": 0
+        },
+        "vs": {
+          "queries": 130,
+          "passed": 130,
+          "different": 0,
+          "failed": 0
+        },
+        "hv": {
+          "queries": 130,
+          "passed": 130,
+          "different": 0,
+          "failed": 0
+        },
+        "uv": {
+          "queries": 131,
+          "passed": 131,
+          "different": 0,
+          "failed": 0
+        }
+      },
+      "maxErrors": {
+        "p": 6.66847654429148e-07,
+        "T": 8.959481192505336e-07,
+        "rhoRelative": 7.744041652379963e-08
+      }
+    },
+    "afterAll": {
+      "states": 2200,
+      "queries": 4657,
+      "passed": 4657,
+      "different": 0,
+      "failed": 0,
+      "byModel": {
+        "IF97": {
+          "queries": 3439,
+          "passed": 3439,
+          "different": 0,
+          "failed": 0
+        },
+        "IAPWS-95": {
+          "queries": 1218,
+          "passed": 1218,
+          "different": 0,
+          "failed": 0
+        }
+      },
+      "byMode": {
+        "ph": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "ps": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "pu": {
+          "queries": 355,
+          "passed": 355,
+          "different": 0,
+          "failed": 0
+        },
+        "pv": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "prho": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "th": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "ts": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "tu": {
+          "queries": 355,
+          "passed": 355,
+          "different": 0,
+          "failed": 0
+        },
+        "tv": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "trho": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "hs": {
+          "queries": 250,
+          "passed": 250,
+          "different": 0,
+          "failed": 0
+        },
+        "us": {
+          "queries": 184,
+          "passed": 184,
+          "different": 0,
+          "failed": 0
+        },
+        "vs": {
+          "queries": 184,
+          "passed": 184,
+          "different": 0,
+          "failed": 0
+        },
+        "hv": {
+          "queries": 184,
+          "passed": 184,
+          "different": 0,
+          "failed": 0
+        },
+        "uv": {
+          "queries": 185,
+          "passed": 185,
+          "different": 0,
+          "failed": 0
+        }
+      },
+      "maxErrors": {
+        "p": 6.66847654429148e-07,
+        "T": 8.959481192505336e-07,
+        "rhoRelative": 7.744041652379963e-08
+      }
+    },
+    "composition": "Full IAPWS-95 audit plus full IF97 replay after tightening h/u residual; only the IF97 stopping constant differs (byte-verified)."
+  },
+  "tests": {
+    "unit": 1052,
+    "newRegressions": 126,
+    "core": 14,
+    "mode": "Standard isolated Node 22 release core, with permitted child-process I/O"
+  },
+  "browser": {
+    "chromium": {
+      "status": "passed",
+      "scenarios": 32,
+      "build": "62a81462d23c",
+      "surfaces": [
+        "loaded-offline",
+        "standalone-http-offline",
+        "worker"
+      ],
+      "fileNavigation": {
+        "status": "blocked",
+        "message": "page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at file:///workspace/water-steam-if97/dist/standalone.html\nCall log:\n\u001b[2m  - navigating to \"file:///workspace/water-steam-if97/dist/standalone.html\", waiting until \"load\"\u001b[22m\n"
+      }
+    },
+    "firefox": {
+      "status": "passed",
+      "scenarios": 32,
+      "build": "62a81462d23c",
+      "surfaces": [
+        "loaded-offline",
+        "standalone-file",
+        "worker"
+      ],
+      "fileNavigation": null
+    }
+  },
+  "limits": {
+    "rootSelection": "Closest reference-matching state among explicitly returned alternatives; not a guarantee that an ambiguous primary root is the original state",
+    "maxPressureRelativeDifference": {
+      "value": 8.995180098424774e-05,
+      "id": "IAPWS-95-2066",
+      "mode": "us",
+      "pMPa": 0.005172971595353562,
+      "TK": 282.3426494427408
+    },
+    "physicalModel": "Finite grid and declared conditioning-aware tolerances; singular critical points and prior IF97 consistency limits unchanged",
+    "chromiumFile": "Managed browser blocks file://; same standalone artifact tested over loopback then offline"
+  },
+  "artifacts": [
+    {
+      "path": ".release/2026-10-18T05-26-46-737Z/report.json",
+      "sha256": "6306f0585677b4beeb9983036c36d9e825ba931a1f247f8a17b90b710bfb1880"
+    },
+    {
+      "path": ".release/2026-10-18T05-26-46-737Z/unit.log",
+      "sha256": "fac300201ba9b2531b4d994c5e5f6b2532434bcb5549d7c4e15463b95d7bc98c"
+    },
+    {
+      "path": ".release/inverse-precision/before-final.json",
+      "sha256": "97d9eb6fedb3f59fafc4e99a6955d10fbc744c5c6f47892b023e49f505df070c"
+    },
+    {
+      "path": ".release/inverse-precision/after-final.json",
+      "sha256": "e6045450e16cf65606e6ceedb8a22449d12954a2b64d9e5d742baa56444a5b75"
+    },
+    {
+      "path": ".release/inverse-precision/after-if97-final.json",
+      "sha256": "eff1ff9c355bf495b0ac01b0e18bdb9a81eaaf89cb25f3eeb698a27f6a5e3167"
+    },
+    {
+      "path": ".release/inverse-precision/after-validated.json",
+      "sha256": "315f9d7a6d3290b17e1f02d88ac5e088cdc43e8c0d2684d100b17faef8b949e8"
+    },
+    {
+      "path": ".release/inverse-precision/chromium/report.json",
+      "sha256": "731761e91ef2211e26824b8ee627fc564557af22e9063dac96003a7c1318ddf3"
+    },
+    {
+      "path": ".release/inverse-precision/firefox/report.json",
+      "sha256": "fd04a8d14f74b339017e9756b95894dd34909858d31718a346d822825343d7d9"
+    },
+    {
+      "path": "docs/INVERSE_PRECISION_SPRINT_UK.md",
+      "sha256": "3c1211a6325066069e495cba3fc416d60b41893c0c4e243dc200a84c4024c845"
+    },
+    {
+      "path": "docs/inverse-precision/summary.json",
+      "sha256": "f41ed4cd34263f2acca63f3b02ad6a6688e41335ef34dbe460fce716c7a7e0d4"
+    },
+    {
+      "path": "docs/inverse-precision/before.csv",
+      "sha256": "efc6bafd28bee46deed8ff684d3e7db4b5138af0bda0464d8c19ffbe4148cbc9"
+    },
+    {
+      "path": "docs/inverse-precision/after.csv",
+      "sha256": "0bb984d1d011505745a583d520236180487dd7402eec62a807f639a984a5f376"
+    },
+    {
+      "path": "tests/fixtures/inverse-precision-reference.json",
+      "sha256": "1dc79ba20518a315087ada0b26e1540873aa91067e26b44dd602a01f0badc7fb"
+    },
+    {
+      "path": "tests/inverse-precision.test.mjs",
+      "sha256": "f1efd42a3032cf7126e3bba7ef9bb9af7f7c2529eea1a0724c60a0ae41e4b4a5"
+    },
+    {
+      "path": "src/engine.js",
+      "sha256": "12bbeeb6de76446735dd6f568bf5b8c383387f01f16457d6dc307f54db0ec771"
+    },
+    {
+      "path": "src/extra-inputs.js",
+      "sha256": "5e999767a1026ee4321597a976c655e8066268ed2ee1948bd3abf64fa2f1e5ea"
+    },
+    {
+      "path": "src/iapws95.js",
+      "sha256": "f21cfc58096501a9e8c97a3ae0e24e54eba512fd4aa15ed2adf596a9d23757e5"
+    },
+    {
+      "path": "scripts/generate-accuracy-followup.py",
+      "sha256": "1cf75bd3082f02623865abd4ca87e84d6524c23d26825fcd375c69f12f35c447"
+    },
+    {
+      "path": "scripts/generate-inverse-precision.py",
+      "sha256": "8bae16cb7ec34be7ce352cd81fe45c4d9d70cf1381f121586f8848a33105fdb3"
+    },
+    {
+      "path": "scripts/inverse-precision-common.mjs",
+      "sha256": "66db9b500ebd2786a8fbcf79a1a25acf971f0d08cf370e1ca13a6a89a273a958"
+    },
+    {
+      "path": "scripts/audit-inverse-precision.mjs",
+      "sha256": "afb880ad8cf22507b5f942bf3803c9283c2698cd86f584efb0a9a0cd1da73324"
+    },
+    {
+      "path": "scripts/finalize-inverse-precision.mjs",
+      "sha256": "389baf82ea2a0386a74d5534797ab57d369150f761779d94d5bfa36e4f8da4f7"
+    },
+    {
+      "path": "scripts/check-inverse-precision-browser.cjs",
+      "sha256": "7312ba6df3f082d60cc3c3c0d809cfc35a22778eb4618c1d5b11e3f816274417"
+    },
+    {
+      "path": "scripts/verify-release.mjs",
+      "sha256": "510b1a0b258b03513bc3b254724957cc8fb76f8e668550aa231dd48c9939c5c6"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import {diagnoseCalculation} from './inverse-diagnostics.js';
 import {extraInputs,boundaryInputRoots} from './extra-inputs.js';
 import {calculate95} from './iapws95.js';
 import {dielectric} from './dielectric.js';
@@ -133,9 +134,14 @@ export function solveInverse(p,target,key,tolerance) {
      let mid=Number.isFinite(seed)&&seed>lo&&seed<hi?seed:(lo+hi)/2;
      for(let k=0;k<90;k++) {
       const m=evaluate(mid);
-      if(Math.abs(m[key]-target)<(tolerance??(key==='s'?2e-11:2e-8))){answer=m;break;}
+      const derivative=key==='h'?m.cp:key==='u'?m.cp-1000*p*m.v*m.alpha:m.cp/mid;
+      // Near criticality one representable temperature step can change h/s
+      // more than the requested residual. Do not reject a converged bracket
+      // merely because the final Number temperature cannot resolve that step.
+      const residualTolerance=Math.max(tolerance??(key==='s'?2e-11:2e-10),2*Number.EPSILON*mid*Math.abs(derivative));
+      if(Math.abs(m[key]-target)<=residualTolerance){answer=m;break;}
       if(m[key]<target)lo=mid;else hi=mid;
-      const next=mid-(m[key]-target)/(key==='h'?m.cp:key==='u'?m.cp-1000*p*m.v*m.alpha:m.cp/mid);
+      const next=mid-(m[key]-target)/derivative;
       // Safeguarded Newton: retain the fundamental-region bracket and bisection fallback.
       mid=Number.isFinite(next)&&next>lo&&next<hi?next:(lo+hi)/2;
      }
@@ -163,7 +169,7 @@ export function solveQuality(p,x,givenT) {
 export function solveHS(h,s) {
  finite(h,'Ентальпія');finite(s,'Ентропія');
  const evaluate=p=>solveInverse(p,h,'h',1e-10);
- const valid=r=>Math.abs(r.state.h-h)<1e-6&&Math.abs(r.state.s-s)<2e-11;
+ const valid=r=>Math.abs(r.state.h-h)<Math.max(1e-6,4*Number.EPSILON*r.state.T*Math.abs(r.state.cp||0))&&Math.abs(r.state.s-s)<Math.max(2e-11,4*Number.EPSILON*Math.abs(r.state.cp||0));
  const finalize=result=>{const state=result.state;if(state.x===null&&state.p>=PMIN_SAT&&state.p<PC){const sat=saturation(state.p);for(const endpoint of [sat.liquid,sat.vapor])if(Math.abs(endpoint.h-h)<1e-6&&Math.abs(endpoint.s-s)<2e-9)return {state:mix(sat,endpoint.x),saturation:sat};}return result;};
  let seed;try{seed=hs(h,s,0);}catch{}
  if(Number.isFinite(seed)&&seed>0&&seed<=100){
@@ -200,13 +206,13 @@ export function solveHS(h,s) {
   }
   previous={p,error};
  }
- for(const r of boundaryInputRoots(['h','s'],[h,s],'IF97',calculate))if(valid(r))return finalize(r);
+ for(const r of boundaryInputRoots(['h','s'],[h,s],'IF97',calculateRaw))if(valid(r))return finalize(r);
  throw Error('Не знайдено узгоджений стан h–s у межах IF97. Перевірте одиниці та значення; біля меж областей можливий малий розрив рівнянь. Для дуже низьких тисків використайте P–h/P–s.');
 }
-export function calculate(mode,a,b,model='IF97') {
+function calculateRaw(mode,a,b,model='IF97') {
   if(!['IF97','IAPWS-95'].includes(model))throw Error('Невідома формуляція.');
   if(mode==='pu')return model==='IAPWS-95'?calculate95(mode,a,b):solveInverse(a,b,'u');
-  if(['th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'].includes(mode))return extraInputs(mode,a,b,model,calculate);
+  if(['th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'].includes(mode))return extraInputs(mode,a,b,model,calculateRaw);
   if(model==='IAPWS-95')return calculate95(mode,a,b);
   if(model!=='IF97')throw Error('Невідома формуляція.');
   switch(mode) {
@@ -221,3 +227,5 @@ export function calculate(mode,a,b,model='IF97') {
     default:throw Error('Невідомий режим розрахунку.');
   }
 }
+
+export function calculate(mode,a,b,model='IF97',options){return diagnoseCalculation(calculateRaw(mode,a,b,model),mode,a,b,options);}

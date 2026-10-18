@@ -23,11 +23,15 @@ export function extraInputs(mode,a,b,model,calc){
  const values=fixedT?Array.from({length:193},(_,i)=>10**(-9+(Math.log10(model==='IF97'?100:1000)+9)*i/192)):Array.from({length:257},(_,i)=>(model==='IF97'?273.15:273.16)+((model==='IF97'?(a<=50?2273.15:1073.15):1273)-(model==='IF97'?273.15:273.16))*i/256);
  if(fixedT)values.push(model==='IF97'?100:1000,50,22.064);
  else values.push(model==='IF97'?273.15:273.16,model==='IF97'?(a<=50?2273.15:1073.15):1273,274,275,276,277,277.13,277.5,278,279,280,623.15,647.096,1073.15);
- const addCut=z=>values.push(z,z*(1-64*Number.EPSILON),z*(1+64*Number.EPSILON));
- if(!fixedT&&model==='IF97'){addCut(623.15);if(a>boundary23Pressure(623.15)&&a<=100)addCut(boundary23Temperature(a));}
+ // Sample successively farther representable points on BOTH sides. The
+ // official B23 inverse and forward polynomials have separately rounded
+ // coefficients, so a single few-ulp offset can still have the wrong label.
+ // Keep the near points too: a wide fixed offset would lose nearby roots.
+ const addCut=z=>{values.push(z);for(const shift of [64*Number.EPSILON,2**-42,2**-38,2**-34,2**-30])values.push(z*(1-shift),z*(1+shift));};
+ if(!fixedT&&model==='IF97'){addCut(623.15);addCut(1073.15);if(a>boundary23Pressure(623.15)&&a<=100)addCut(boundary23Temperature(a));}
  // Put samples on both sides of changes in the phase/region labels. Otherwise
  // a valid narrow interval can be skipped by a coarse grid plus phase filtering.
- if(fixedT&&model==='IF97'&&a>623.15&&a<=863.15){const p=boundary23Pressure(a);values.push(p*(1-2e-8),p*(1+2e-8));}
+ if(fixedT&&model==='IF97'&&a>623.15&&a<=863.15)addCut(boundary23Pressure(a));
  if(!fixedT)values.push(647.096-1e-6,647.096+1e-6);
  if(sat){const q=fixedT?sat.p:sat.T;values.push(q,q*(1-2e-8),q*(1+2e-8));}
  values.sort((x,y)=>x-y);let prev=null;
