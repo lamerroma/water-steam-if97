@@ -1,4 +1,19 @@
 import {calculate,PC,TC} from './engine.js';
+function processSaturation(p,model){
+ if(p>=PC)return {T:null,status:'no-saturation'};
+ try{return {T:calculate('satp',p,undefined,model).saturation.T,status:'available'};}
+ catch{return {T:null,status:'unavailable'};}
+}
+export function processSummary(type,r){
+ return type==='turbine'?
+  [['work',r.work,'kJ/kg'],['power',r.power,'kW'],['flow',r.flow,'kg/s'],['consumption',r.specificConsumption,'kg/(kW·h)'],['efficiency',r.eta,'fraction'],['inletTsat',r.inletTsat,'K'],['outletSuperheat',r.outletSuperheat,'K']]:
+  [['flow',r.flow,'kg/s'],['vaporFlow',r.vaporFlow,'kg/s'],['liquidFlow',r.liquidFlow,'kg/s'],['vaporFraction',r.outlet.x,'fraction']];
+}
+export function processMetricReason(key,r){
+ if(key==='inletTsat')return r.inletSaturationStatus==='no-saturation'?'За критичного або надкритичного тиску температура насичення не визначається.':'Температура насичення недоступна за цього тиску в обраній моделі.';
+ if(key==='outletSuperheat')return r.outletSuperheatStatus==='compressed-liquid'?'Рідкий вихід: перегрів пари не визначається.':'Перегрів недоступний без температури насичення за вихідного тиску.';
+ return 'Вихід однофазний; баланс сепарації на рідину й пару не застосовується.';
+}
 function processInput(p1,T1,p2,flow,model='IF97'){
  if(![p1,T1,p2,flow].every(Number.isFinite)||flow<0)throw Error('Введіть скінченні числа; витрата не може бути від’ємною.');
  if(p2<=0||p2>=p1)throw Error('Вихідний абсолютний тиск має бути додатним і нижчим за вхідний.');
@@ -11,16 +26,20 @@ export function turbine(p1,T1,p2,eta,flow=1,model='IF97'){
  const inlet=processInput(p1,T1,p2,flow,model),ideal=calculate('ps',p2,inlet.s,model).state;
  if(inlet.phase.includes('рідина')||inlet.h<=ideal.h)throw Error('Для парової турбіни задайте паровий стан на вході з додатним перепадом ентальпії.');
  const work=eta*(inlet.h-ideal.h),outlet=calculate('ph',p2,inlet.h-work,model).state;
- return {inlet,ideal,outlet,work,power:flow*work,eta,flow};
+ if(!(work>0)||!Number.isFinite(flow*work)||!Number.isFinite(3600/work))throw Error('Перепад ентальпії, потужність або питома витрата виходять за числові межі.');
+ const sat1=processSaturation(p1,model),sat2=processSaturation(p2,model);
+ const outletSuperheat=sat2.T==null?null:outlet.x!=null?0:outlet.T>=sat2.T?outlet.T-sat2.T:null;
+ return {inlet,ideal,outlet,work,power:flow*work,eta,flow,specificConsumption:3600/work,inletTsat:sat1.T,outletTsat:sat2.T,outletSuperheat,inletSaturationStatus:sat1.status,outletSuperheatStatus:sat2.T==null?sat2.status:outletSuperheat==null?'compressed-liquid':outlet.x!=null?'saturated':'available'};
 }
 export function flash(p1,T1,p2,flow=1,saturated=0,model='IF97'){
- if(![0,1].includes(saturated))throw Error('Невірний режим конденсату.');
- if(saturated&&(!Number.isFinite(flow)||flow<0||p2<=0||p2>=p1))throw Error('Перевірте тиски й витрату.');
- const inlet=saturated?calculate('px',p1,0,model).state:processInput(p1,T1,p2,flow,model);
- if(saturated&&inlet.critical)throw Error('У критичній точці немає окремої насиченої рідини.');
+ if(![0,1,2].includes(saturated))throw Error('Невірний режим конденсату.');
+ if(![p1,p2,flow].every(Number.isFinite)||flow<0||p2<=0||p2>=p1)throw Error('Перевірте тиски й витрату.');
+ const inlet=saturated===1?calculate('px',p1,0,model).state:processInput(p1,T1,p2,flow,model);
+ if(saturated===1&&inlet.critical)throw Error('У критичній точці немає окремої насиченої рідини.');
+ if(saturated===2&&(inlet.T>=TC||!inlet.phase.includes('рідина')))throw Error('Для недогрітого конденсату потрібна однофазна стиснена рідина на вході.');
  const result=calculate('ph',p2,inlet.h,model),outlet=result.state;
  const x=outlet.x;
- return {inlet,outlet,flow,vaporFlow:x==null?null:flow*x,liquidFlow:x==null?null:flow*(1-x),saturation:result.saturation};
+ return {inlet,outlet,flow,inletMode:['single-phase','saturated','condensate'][saturated],vaporFlow:x==null?null:flow*x,liquidFlow:x==null?null:flow*(1-x),saturation:result.saturation};
 }
 export function turbineInverse(mode,p1,T1,p2,power,known,model='IF97'){
  if(!['flow','efficiency'].includes(mode)||!Number.isFinite(power)||power<=0||!Number.isFinite(known)||known<=0)throw Error('Для зворотного розрахунку потужність і відомий параметр мають бути додатними.');

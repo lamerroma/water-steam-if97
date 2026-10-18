@@ -3,7 +3,7 @@
   "updated": "2026-10-18",
   "baseline_version": "1.35.4",
   "baseline_commit": "9c87d171d093ee2a4f7ec7a92e3c10d1de95f123",
-  "status": "p05_bounded_delivery_reference_acceptance_open",
+  "status": "p06_bounded_delivery_reference_acceptance_open",
   "reference_url": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
   "requirements_file": "STEAMTABLES_PARITY_MATRIX.json",
   "details_file": "STEAMTABLES_PARITY_SPRINTS_UK.md",
@@ -180,7 +180,7 @@
     {
       "id": "P06",
       "title": "Турбіна та флеш-випарник",
-      "status": "planned",
+      "status": "blocked",
       "depends_on": [
         "P02",
         "P05"
@@ -199,7 +199,19 @@
         "turbine-consumption-english"
       ],
       "result": "Усі підтверджені режими, поля, виходи й одиниці трьох турбінних і двох flash-задач",
-      "acceptance": "Пройдені зіставлення, баланси та збереження/відновлення потрібних сценаріїв."
+      "acceptance": "Пройдені зіставлення, баланси та збереження/відновлення потрібних сценаріїв.",
+      "readiness": "Confirmed fields, modes, balances and local workflows implemented in 1.35.7; direct reference acceptance remains B01/B03.",
+      "blocked_by": [
+        "B01",
+        "B03"
+      ],
+      "bounded_delivery": {
+        "version": "1.35.7",
+        "report": "STEAMTABLES_P06_UK.md",
+        "acceptance": "STEAMTABLES_P06_ACCEPTANCE.json",
+        "tasks": "steam97-p06/tasks.json",
+        "full_sprint_accepted": false
+      }
     },
     {
       "id": "P07",

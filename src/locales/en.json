@@ -1718,5 +1718,16 @@
   "p05.transport.lower": "All intervals start at the melting curve. Vapor below the triple-point pressure requires T ≥ 273.16 K. Kinematic viscosity needs viscosity, thermal diffusivity needs conductivity, and Prandtl number needs both. A dash means unavailable, not zero.",
   "p05.unavailable.prefix": "Outside this IAPWS-95 property range: T ≤",
   "p05.unavailable.suffix": "K at the specified pressure; stable fluid is required. R12-08 / R15-11.",
-  "p05.subtriple.vapor": "IAPWS-95: vapor below 273.16 K requires extrapolation, which is not implemented here."
+  "p05.subtriple.vapor": "IAPWS-95: vapor below 273.16 K requires extrapolation, which is not implemented here.",
+  "p06.condensate": "Subcooled condensate",
+  "p06.legacyThrottle": "Single-phase P–T throttling",
+  "p06.inletTsat": "Inlet saturation temperature",
+  "p06.superheat": "Exhaust superheat",
+  "p06.inletFlow": "Inlet flow",
+  "p06.noSat": "Saturation temperature is undefined at critical or supercritical pressure.",
+  "p06.unavailableSat": "Saturation temperature is unavailable at this pressure in the selected model.",
+  "p06.liquidExit": "Liquid exhaust: vapor superheat is undefined.",
+  "p06.noSuperheat": "Superheat is unavailable without saturation temperature at the exhaust pressure.",
+  "p06.needLiquid": "Subcooled condensate requires a single-phase compressed liquid inlet.",
+  "p06.overflow": "Enthalpy drop, power or specific consumption exceeds the numerical range."
 }

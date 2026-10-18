@@ -1,0 +1,85 @@
+{
+  "browser": "firefox",
+  "status": "passed",
+  "checks": [
+    {
+      "label": "Three turbine modes; both models and unit systems; MW input",
+      "status": "passed"
+    },
+    {
+      "label": "Superheated and supercritical exits; temperature difference and null reasons",
+      "status": "passed"
+    },
+    {
+      "label": "Saturated/subcooled condensate and legacy vapor throttle; both systems",
+      "status": "passed"
+    },
+    {
+      "label": "MW conversion, stale outputs and input guards",
+      "status": "passed"
+    },
+    {
+      "label": "Exact JSON/project reload and history for all modes; printable fields",
+      "status": "passed"
+    },
+    {
+      "label": "Gauge pressure, English interface and mobile width",
+      "status": "passed"
+    },
+    {
+      "label": "Offline standalone with both models",
+      "status": "passed"
+    }
+  ],
+  "errors": [],
+  "build": "aa97c5d64437",
+  "version": "1.35.7",
+  "standalone": "file",
+  "records": [
+    {"id":"IF97-turbine-01","mode":"power","system":"SI","surface":"site"},
+    {"id":"IF97-turbine-01","mode":"flow","system":"SI","surface":"site"},
+    {"id":"IF97-turbine-01","mode":"efficiency","system":"SI","surface":"site"},
+    {"id":"IF97-turbine-01","mode":"power","system":"English","surface":"site"},
+    {"id":"IF97-turbine-01","mode":"flow","system":"English","surface":"site"},
+    {"id":"IF97-turbine-01","mode":"efficiency","system":"English","surface":"site"},
+    {"id":"IAPWS-95-turbine-25","mode":"power","system":"SI","surface":"site"},
+    {"id":"IAPWS-95-turbine-25","mode":"flow","system":"SI","surface":"site"},
+    {"id":"IAPWS-95-turbine-25","mode":"efficiency","system":"SI","surface":"site"},
+    {"id":"IAPWS-95-turbine-25","mode":"power","system":"English","surface":"site"},
+    {"id":"IAPWS-95-turbine-25","mode":"flow","system":"English","surface":"site"},
+    {"id":"IAPWS-95-turbine-25","mode":"efficiency","system":"English","surface":"site"},
+    {"id":"IF97-turbine-02","mode":"power","system":"SI","surface":"site"},
+    {"id":"IF97-turbine-04","mode":"power","system":"SI","surface":"site"},
+    {"id":"IF97-turbine-02","mode":"power","system":"English","surface":"site"},
+    {"id":"IF97-turbine-04","mode":"power","system":"English","surface":"site"},
+    {"id":"IAPWS-95-turbine-26","mode":"power","system":"SI","surface":"site"},
+    {"id":"IAPWS-95-turbine-28","mode":"power","system":"SI","surface":"site"},
+    {"id":"IAPWS-95-turbine-26","mode":"power","system":"English","surface":"site"},
+    {"id":"IAPWS-95-turbine-28","mode":"power","system":"English","surface":"site"},
+    {"id":"IF97-flash-14","mode":"saturated","system":"SI","surface":"site"},
+    {"id":"IF97-flash-17","mode":"condensate","system":"SI","surface":"site"},
+    {"id":"IF97-flash-20","mode":"subcooled","system":"SI","surface":"site"},
+    {"id":"IF97-flash-14","mode":"saturated","system":"English","surface":"site"},
+    {"id":"IF97-flash-17","mode":"condensate","system":"English","surface":"site"},
+    {"id":"IF97-flash-20","mode":"subcooled","system":"English","surface":"site"},
+    {"id":"IAPWS-95-flash-38","mode":"saturated","system":"SI","surface":"site"},
+    {"id":"IAPWS-95-flash-41","mode":"condensate","system":"SI","surface":"site"},
+    {"id":"IAPWS-95-flash-44","mode":"subcooled","system":"SI","surface":"site"},
+    {"id":"IAPWS-95-flash-38","mode":"saturated","system":"English","surface":"site"},
+    {"id":"IAPWS-95-flash-41","mode":"condensate","system":"English","surface":"site"},
+    {"id":"IAPWS-95-flash-44","mode":"subcooled","system":"English","surface":"site"},
+    {"id":"IF97-turbine-01","mode":"flow","system":"SI","surface":"site"},
+    {"id":"IF97-flash-17","mode":"condensate","system":"SI","surface":"site"},
+    {"id":"IAPWS-95-turbine-25","mode":"power","system":"SI","surface":"site"},
+    {"id":"IAPWS-95-turbine-25","mode":"flow","system":"SI","surface":"site"},
+    {"id":"IAPWS-95-turbine-25","mode":"efficiency","system":"SI","surface":"site"},
+    {"id":"IAPWS-95-flash-38","mode":"saturated","system":"SI","surface":"site"},
+    {"id":"IAPWS-95-flash-41","mode":"condensate","system":"SI","surface":"site"},
+    {"id":"IF97-turbine-02","mode":"power","system":"SI","surface":"site"},
+    {"id":"IF97-turbine-01","mode":"flow","system":"English","surface":"site"},
+    {"id":"IF97-turbine-02","mode":"power","system":"SI","surface":"standalone-offline"},
+    {"id":"IF97-flash-17","mode":"condensate","system":"SI","surface":"standalone-offline"},
+    {"id":"IAPWS-95-turbine-26","mode":"power","system":"SI","surface":"standalone-offline"},
+    {"id":"IAPWS-95-flash-41","mode":"condensate","system":"SI","surface":"standalone-offline"}
+  ]
+}

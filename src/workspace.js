@@ -27,7 +27,7 @@ const choices={'wp-fluid':['water',...PROCESS_GASES],'wp-model':PROCESS_MODELS,'
  'satgrid-basis':['temperature','pressure'],'satgrid-unit':['C','K','F','MPa','kPa','Pa','bar','atm','psi'],
  'tutorial-id':['saturation','wet','throttle','turbine','pipe','rankine-study','reheat-study','hydraulic-study','npp-study'],
  'flow-hydraulics':['off','on'],'flow-length-unit':['m','ft'],'flow-roughness-unit':['m','mm','inch'],'flow-pressure-difference-unit':['Pa','kPa','MPa','bar','psi'],'flow-source':['manual','water','real','gas'],'flow-fluid':['N2','O2','CO2','CO','H2','H2O','CH4','Ar','He','SO2','Ne'],'flow-rho-unit':['kgm3','lbft3'],'flow-visc-kind':['dynamic','kinematic'],'flow-visc-unit':['Pas','mPas','cP','m2s','mm2s','cSt'],'flow-kind':['mass','volume','velocity','standard'],'flow-unit':['kgs','kgh','lbs','lbh','m3s','m3h','ls','lmin','ft3min','ms','fts'],'flow-diameter-unit':['m','mm','inch'],'flow-standard':['off','normal','room','custom'],
- 'process-pressure':['MPa','bar','kPa','psi'],'process-temperature':['C','K','F'],'process-mass':['kgs','kgh','lbs','lbh'],'process-power-unit':['kW','Btuh'],
+ 'process-pressure':['MPa','bar','kPa','psi'],'process-temperature':['C','K','F'],'process-mass':['kgs','kgh','lbs','lbh'],'process-power-unit':['kW','MW','Btuh'],
  'eng-mode':['pump','compressor','heat-exchanger'],'eng-pressure':['MPa','kPa','Pa','bar','atm','psi'],'eng-temperature':['C','K','F'],'eng-mass':['kgs','kgh','lbs','lbh'],'eng-power-unit':['kW','Btuh'],
  'batch-mode':modes,'batch-vary':['a','b'],'gas-model':['real','mixture','ideal'],'gas-fluid':species.filter(s=>s!=='NO'),'gas-mode':['pt','ph','ps'],'gas-basis':['mole','mass'],'gas-preset':['air','flue','custom',...species],
  'ha-mode':['R','W','D','B'],'cycle-kind':['rankine','rankine-reheat','rankine-regen','brayton'],'d2o-mode':['pt','sat'],
@@ -47,7 +47,7 @@ export function readWorkspace(value){
    const unitField=id.startsWith('ui-unit-')&&fields[kind].includes(id.slice(8));
    if(unitField&&!Object.values(UI_UNIT_GROUPS).some(g=>Object.hasOwn(g,v)))throw Error('Невідома локальна одиниця. / Unknown local unit.');
    if(!unitField&&!fields[kind].includes(id)||typeof v!=='string'||v.length>(id==='cc-data'?30000:id==='batch-text'?1000000:id==='lab-data'?100000:id==='cw-controlLayout'?20000:['lab-condition','lab-conclusion'].includes(id)?3000:id==='lab-source'?500:80))throw Error('Некоректні дані вкладки '+kind+'.');
-   const allowed=id==='process-mode'?(kind==='turbine'?['power','flow','efficiency']:['subcooled','saturated']):choices[id];
+   const allowed=id==='process-mode'?(kind==='turbine'?['power','flow','efficiency']:['condensate','saturated','subcooled']):choices[id];
    if(allowed&&!allowed.includes(v))throw Error('Невідомий режим або одиниця вкладки '+kind+'.');
    inputs[id]=v;
   }

@@ -1,0 +1,72 @@
+{
+  "build": {
+    "version": "1.35.7",
+    "id": "aa97c5d64437"
+  },
+  "checks": [
+    {
+      "name": "processes-extended",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6105,
+      "log": ".release/steam97-p06/processes-extended.log",
+      "sha256": "ccaa8306f0b6b755d913b5f0078a346e0e067a42dad2c4b9ce9f405626c06b45",
+      "output": "chromium: water isenthalpic/polytropic, n=0/1 validation, six ideal-gas processes with both cp models, gas ps input, report/project/source restore, UK/EN/mobile, CSV and cancellation PASS\n"
+    },
+    {
+      "name": "water-process",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 7181,
+      "log": ".release/steam97-p06/water-process.log",
+      "sha256": "61af6e69d6054241fc8c2b4faaf1ebd25296b8f2c9667e25873eea0bbb3e87af",
+      "output": "chromium: four processes, 95 phase change, background cancellation/edit/navigation, project restore, report/source, CSV/SVG, English and mobile PASS\n"
+    },
+    {
+      "name": "ui-workspace",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5083,
+      "log": ".release/steam97-p06/ui-workspace.log",
+      "sha256": "0dc4a73128c2089cc3f23ad22ae439e1e4ad1900471ba57840667c303da6591b",
+      "output": "Mixed input/output units, independent pressures/efficiency, global apply, native persistence/reload, other models, mobile and languages PASS\n"
+    },
+    {
+      "name": "project-safety",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4585,
+      "log": ".release/steam97-p06/project-safety.log",
+      "sha256": "989670275f9cead927ed5b3c7850d399a6a523ed354df26602aa0ac75abaf00d",
+      "output": "Malformed, unsupported, invalid-state/report and oversized imports preserve current project PASS\nChanges made during asynchronous import are preserved PASS\nStorage quota failure retains memory and original data; JSON export and subsequent save work PASS\nCorrupt startup record survives failed backup; exact recovery download, backup and reload PASS\n"
+    },
+    {
+      "name": "cross-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 23429,
+      "log": ".release/steam97-p06/cross-browser.log",
+      "sha256": "91bf2bdd71adb6a37e498359d2a675a0612e50c6bcb33318429b8c35b819a916",
+      "output": "chromium 154.0.8037.57: calculation, errors, UK/EN, HTML/JSON, restore, all 30 sections at 320/390/768px, NPP, diagrams and laboratory PASS\nfirefox 142.0.1: calculation, errors, UK/EN, HTML/JSON, restore, all 30 sections at 320/390/768px, NPP, diagrams and laboratory PASS\n"
+    },
+    {
+      "name": "pwa-chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 29577,
+      "log": ".release/steam97-p06/pwa-chromium.log",
+      "sha256": "0047b1796583654f8adf65aef413e4f28da7027d64647b72e5e8416ac40ba0fb",
+      "output": "Full cache, scope, mobile and English PASS\nBrowser restart, project, IAPWS-95, WASM, diagram and exports offline PASS\nBlocked unsaved update and controlled release update preserve project and language PASS\nOlder open tab retains release assets PASS\nInterrupted installation, atomic cache and retry PASS\nCorrupt resource is rejected PASS\nEvicted cache recovery retries without a connection, preserves project and language, and restores offline calculations PASS\n"
+    },
+    {
+      "name": "pwa-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 28682,
+      "log": ".release/steam97-p06/pwa-firefox.log",
+      "sha256": "0047b1796583654f8adf65aef413e4f28da7027d64647b72e5e8416ac40ba0fb",
+      "output": "Full cache, scope, mobile and English PASS\nBrowser restart, project, IAPWS-95, WASM, diagram and exports offline PASS\nBlocked unsaved update and controlled release update preserve project and language PASS\nOlder open tab retains release assets PASS\nInterrupted installation, atomic cache and retry PASS\nCorrupt resource is rejected PASS\nEvicted cache recovery retries without a connection, preserves project and language, and restores offline calculations PASS\n"
+    }
+  ],
+  "status": "passed"
+}

@@ -9,7 +9,7 @@ import {compression,heatExchanger} from './engineering.js';
 import {englishProperty} from './units.js';
 import {referenceState} from './exergy.js';
 import {calculate} from './engine.js';
-import {turbine,flash,throttle} from './processes.js';
+import {turbine,flash,throttle,processSummary,processMetricReason} from './processes.js';
 import {parseNumber,toCanonical} from './units.js';
 import {readDisplayDigits} from './ux-display.js';
 import {readPressure,pressureInput} from './pressure.js';
@@ -81,5 +81,15 @@ export function readProject(text){
 export function processCSV(type,r,system='si'){
  const convert=(k,v,u='')=>system==='english'?englishProperty(k,v,u):[v,u];
  const states=[['inlet',r.inlet],...(r.ideal?[['isentropic_outlet',r.ideal]]:[]),['outlet',r.outlet]];
- return '\ufeff'+[['process','state',`p [${convert('p',0,'MPa')[1]}]`,`T [${convert('T',273.15,'K')[1]}]`,`h [${convert('h',0,'kJ/kg')[1]}]`,`s [${convert('s',0,'kJ/(kg K)')[1]}]`,'x [-]'].join(';'),...states.map(([name,q])=>[type,name,convert('p',q.p)[0],convert('T',q.T)[0],convert('h',q.h)[0],convert('s',q.s)[0],q.x??''].join(';')),'',`model;${r.inlet.model||'IF97'}`,'pressure_basis;absolute','quantity;value;unit',...Object.entries(type==='turbine'?{work:r.work,power:r.power,efficiency:r.eta,flow:r.flow}:{flow:r.flow,vaporFlow:r.vaporFlow,liquidFlow:r.liquidFlow}).map(([k,v])=>(()=>{const [value,unit]=convert(k.includes('Flow')?'flow':k,v,k==='work'?'kJ/kg':k==='power'?'kW':k==='efficiency'?'-':'kg/s');return `${k};${value??''};${unit}`;})())].join('\r\n');
+ const rows=[['process','state',`p [${convert('p',0,'MPa')[1]}]`,`T [${convert('T',273.15,'K')[1]}]`,`h [${convert('h',0,'kJ/kg')[1]}]`,`s [${convert('s',0,'kJ/(kg K)')[1]}]`,'x [-]','phase'],
+ ...states.map(([name,q])=>[type,name,convert('p',q.p)[0],convert('T',q.T)[0],convert('h',q.h)[0],convert('s',q.s)[0],q.x??'',q.phase]),[],['model',r.inlet.model||'IF97'],['pressure_basis','absolute'],['quantity','value','unit']];
+ for(const [key,value,unit] of processSummary(type,r)){
+  const convertKey=key==='inletTsat'?'T':key==='outletSuperheat'?'dT':key.endsWith('Flow')?'flow':key;
+  const [v,u]=convert(convertKey,value,unit==='fraction'?'-':unit);rows.push([key,v??'',u]);
+  if(value==null)rows.push([key+'_unavailable_reason',processMetricReason(key,r),'']);
+ }
+ if(type==='turbine')rows.push(['powerMW',r.power/1000,'MW'],['inlet_saturation_status',r.inletSaturationStatus,''],['outlet_superheat_status',r.outletSuperheatStatus,'']);
+ else rows.push(['inlet_mode',r.inletMode||'single-phase','']);
+ const cell=v=>/[;"\r\n]/.test(String(v??''))?'"'+String(v).replaceAll('"','""')+'"':String(v??'');
+ return '\ufeff'+rows.map(r=>r.map(cell).join(';')).join('\r\n');
 }

@@ -4,7 +4,7 @@
   "baseline_version": "1.35.0",
   "baseline_commit": "2c3bfe83d6b3f772018334074bdfa6df0abaa215",
   "goal": "All calculations available in the referenced Steam97Web calculator must be covered before further capability expansion.",
-  "status": "p05_bounded_delivery_reference_inventory_open",
+  "status": "p06_bounded_delivery_reference_inventory_open",
   "scope": {
     "target": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
     "include": "All calculator tabs and available model/phase/input/units/domain variants, including features marked as requiring registration. Workflow parity tracked separately.",
@@ -2512,11 +2512,15 @@
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/processes.js",
-        "src/app.js"
+        "src/app.js",
+        "src/project.js",
+        "src/workspace.js"
       ],
       "existing_checks": [
         "tests/processes.test.mjs",
-        "tests/english-units.test.mjs"
+        "tests/english-units.test.mjs",
+        "tests/steam97-p06.test.mjs",
+        "scripts/check-steam97-p06-browser.cjs"
       ],
       "notes": "Match all inputs and outputs, steam specific consumption, inlet/exhaust states and unit choices; complete reference field inventory is still required.",
       "p01": {
@@ -2532,6 +2536,12 @@
           "B01",
           "B03"
         ]
+      },
+      "p06": {
+        "version": "1.35.7",
+        "report": "STEAMTABLES_P06_UK.md",
+        "acceptance": "STEAMTABLES_P06_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2544,11 +2554,15 @@
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/processes.js",
-        "src/app.js"
+        "src/app.js",
+        "src/project.js",
+        "src/workspace.js"
       ],
       "existing_checks": [
         "tests/processes.test.mjs",
-        "tests/english-units.test.mjs"
+        "tests/english-units.test.mjs",
+        "tests/steam97-p06.test.mjs",
+        "scripts/check-steam97-p06-browser.cjs"
       ],
       "notes": "Match all inputs and outputs, steam specific consumption, inlet/exhaust states and unit choices; complete reference field inventory is still required.",
       "p01": {
@@ -2564,6 +2578,12 @@
           "B01",
           "B03"
         ]
+      },
+      "p06": {
+        "version": "1.35.7",
+        "report": "STEAMTABLES_P06_UK.md",
+        "acceptance": "STEAMTABLES_P06_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2576,11 +2596,15 @@
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/processes.js",
-        "src/app.js"
+        "src/app.js",
+        "src/project.js",
+        "src/workspace.js"
       ],
       "existing_checks": [
         "tests/processes.test.mjs",
-        "tests/english-units.test.mjs"
+        "tests/english-units.test.mjs",
+        "tests/steam97-p06.test.mjs",
+        "scripts/check-steam97-p06-browser.cjs"
       ],
       "notes": "Match all inputs and outputs, steam specific consumption, inlet/exhaust states and unit choices; complete reference field inventory is still required.",
       "p01": {
@@ -2596,6 +2620,12 @@
           "B01",
           "B03"
         ]
+      },
+      "p06": {
+        "version": "1.35.7",
+        "report": "STEAMTABLES_P06_UK.md",
+        "acceptance": "STEAMTABLES_P06_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2608,10 +2638,14 @@
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/processes.js",
-        "src/app.js"
+        "src/app.js",
+        "src/project.js",
+        "src/workspace.js"
       ],
       "existing_checks": [
-        "tests/processes.test.mjs"
+        "tests/processes.test.mjs",
+        "tests/steam97-p06.test.mjs",
+        "scripts/check-steam97-p06-browser.cjs"
       ],
       "notes": "Compare steam percentage, vapor/liquid flows, inlet/outlet states and both water models where supported by the reference.",
       "p01": {
@@ -2625,6 +2659,12 @@
           "B01",
           "B03"
         ]
+      },
+      "p06": {
+        "version": "1.35.7",
+        "report": "STEAMTABLES_P06_UK.md",
+        "acceptance": "STEAMTABLES_P06_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2637,10 +2677,14 @@
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/processes.js",
-        "src/app.js"
+        "src/app.js",
+        "src/project.js",
+        "src/workspace.js"
       ],
       "existing_checks": [
-        "tests/processes.test.mjs"
+        "tests/processes.test.mjs",
+        "tests/steam97-p06.test.mjs",
+        "scripts/check-steam97-p06-browser.cjs"
       ],
       "notes": "Compare steam percentage, vapor/liquid flows, inlet/outlet states and both water models where supported by the reference.",
       "p01": {
@@ -2654,6 +2698,12 @@
           "B01",
           "B03"
         ]
+      },
+      "p06": {
+        "version": "1.35.7",
+        "report": "STEAMTABLES_P06_UK.md",
+        "acceptance": "STEAMTABLES_P06_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -3088,17 +3138,23 @@
       "group": "turbine",
       "feature": "Inlet saturation temperature in turbine results",
       "scope": "calculation",
-      "implementation": "missing",
-      "parity": "known_gap",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/Steam97Web.aspx",
       "local_evidence": [
         "src/app.js",
         "src/units.js",
         "src/ui-quantities.js",
-        "src/ui-workspace.js"
+        "src/ui-workspace.js",
+        "src/processes.js",
+        "src/project.js",
+        "src/workspace.js"
       ],
-      "existing_checks": [],
-      "notes": "src/app.js renderProcessOutput lists p/T/h/s/x, but no inlet Tsat row.",
+      "existing_checks": [
+        "tests/steam97-p06.test.mjs",
+        "scripts/check-steam97-p06-browser.cjs"
+      ],
+      "notes": "Inlet Tsat implemented; null plus reason at critical/supercritical or unavailable saturation. Actual reference display remains open.",
       "introduced_in": "P01 / 2026-10-18",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
@@ -3113,6 +3169,12 @@
           "B01",
           "B03"
         ]
+      },
+      "p06": {
+        "version": "1.35.7",
+        "report": "STEAMTABLES_P06_UK.md",
+        "acceptance": "STEAMTABLES_P06_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -3120,17 +3182,23 @@
       "group": "turbine",
       "feature": "Exhaust degree of superheat in turbine results",
       "scope": "calculation",
-      "implementation": "missing",
-      "parity": "known_gap",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/Steam97Web.aspx",
       "local_evidence": [
         "src/app.js",
         "src/units.js",
         "src/ui-quantities.js",
-        "src/ui-workspace.js"
+        "src/ui-workspace.js",
+        "src/processes.js",
+        "src/project.js",
+        "src/workspace.js"
       ],
-      "existing_checks": [],
-      "notes": "No exhaust superheat result. Wet/supercritical behavior still needs reference cases.",
+      "existing_checks": [
+        "tests/steam97-p06.test.mjs",
+        "scripts/check-steam97-p06-browser.cjs"
+      ],
+      "notes": "Exhaust superheat implemented; wet endpoints/mixtures use zero, unavailable saturation uses null plus reason. These are explicit local policies pending reference cases.",
       "introduced_in": "P01 / 2026-10-18",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
@@ -3145,6 +3213,12 @@
           "B01",
           "B03"
         ]
+      },
+      "p06": {
+        "version": "1.35.7",
+        "report": "STEAMTABLES_P06_UK.md",
+        "acceptance": "STEAMTABLES_P06_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -3152,17 +3226,23 @@
       "group": "turbine",
       "feature": "MW power input and output in turbine workflow",
       "scope": "workflow",
-      "implementation": "partial",
-      "parity": "known_gap",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/Steam97Web.aspx",
       "local_evidence": [
         "src/app.js",
         "src/units.js",
         "src/ui-quantities.js",
-        "src/ui-workspace.js"
+        "src/ui-workspace.js",
+        "src/processes.js",
+        "src/project.js",
+        "src/workspace.js"
       ],
-      "existing_checks": [],
-      "notes": "Global output preferences include MW; turbine power input selector offers only kW/Btu h. MW input is still missing.",
+      "existing_checks": [
+        "tests/steam97-p06.test.mjs",
+        "scripts/check-steam97-p06-browser.cjs"
+      ],
+      "notes": "MW input conversion/persistence implemented; MW output preference and explicit CSV powerMW row verified.",
       "introduced_in": "P01 / 2026-10-18",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
@@ -3177,6 +3257,12 @@
           "B01",
           "B03"
         ]
+      },
+      "p06": {
+        "version": "1.35.7",
+        "report": "STEAMTABLES_P06_UK.md",
+        "acceptance": "STEAMTABLES_P06_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -3184,17 +3270,23 @@
       "group": "turbine",
       "feature": "English specific consumption in lb/(kW h)",
       "scope": "workflow",
-      "implementation": "missing",
-      "parity": "known_gap",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/Steam97Web.aspx",
       "local_evidence": [
         "src/app.js",
         "src/units.js",
         "src/ui-quantities.js",
-        "src/ui-workspace.js"
+        "src/ui-workspace.js",
+        "src/processes.js",
+        "src/project.js",
+        "src/workspace.js"
       ],
-      "existing_checks": [],
-      "notes": "Current English conversion displays lb/(hp h). Reference indexed output is lb/(kW h); preserve both as explicit choices.",
+      "existing_checks": [
+        "tests/steam97-p06.test.mjs",
+        "scripts/check-steam97-p06-browser.cjs"
+      ],
+      "notes": "English consumption corrected from lb/(hp h) to the documented lb/(kW h). Canonical kg/(kW h) unchanged.",
       "introduced_in": "P01 / 2026-10-18",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
@@ -3209,6 +3301,12 @@
           "B01",
           "B03"
         ]
+      },
+      "p06": {
+        "version": "1.35.7",
+        "report": "STEAMTABLES_P06_UK.md",
+        "acceptance": "STEAMTABLES_P06_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     }
   ],
@@ -3238,10 +3336,11 @@
     "next_sprint": "P02 (reference tasks blocked)",
     "first_implementation_sprint": "P02",
     "P01_status": "preparation_complete_with_blockers",
-    "current_version": "1.35.6",
+    "current_version": "1.35.7",
     "P02_status": "bounded_delivery_complete_reference_acceptance_blocked",
-    "next_independent_work": "P06 confirmed turbine/flash contract",
-    "P05_status": "scientific_domains_implemented_reference_acceptance_blocked"
+    "next_independent_work": "P07 confirmed diagram/series contract",
+    "P05_status": "scientific_domains_implemented_reference_acceptance_blocked",
+    "P06_status": "bounded_delivery_complete_reference_acceptance_blocked"
   },
   "p01_audit": {
     "date": "2026-10-18",
@@ -3284,6 +3383,18 @@
       "N04"
     ],
     "scientific_queries": 435,
+    "reference_inventory_complete": false,
+    "new_reference_site_cases": 0
+  },
+  "p06_audit": {
+    "version": "1.35.7",
+    "known_local_gaps_resolved": [
+      "turbine-inlet-tsat",
+      "turbine-exhaust-superheat",
+      "turbine-power-mw",
+      "turbine-consumption-english"
+    ],
+    "scientific_queries": 97,
     "reference_inventory_complete": false,
     "new_reference_site_cases": 0
   }

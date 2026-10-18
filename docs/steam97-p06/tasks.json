@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "version": "1.35.7",
+  "parent_sprint": "P06",
+  "status": "bounded_delivery_complete_reference_acceptance_blocked",
+  "full_sprint_accepted": false,
+  "requirement_ids": [
+    "turbine-power",
+    "turbine-flow",
+    "turbine-efficiency",
+    "flash-saturated",
+    "flash-subcooled",
+    "turbine-inlet-tsat",
+    "turbine-exhaust-superheat",
+    "turbine-power-mw",
+    "turbine-consumption-english"
+  ],
+  "tasks": [
+    {
+      "id": "P06-01",
+      "status": "done",
+      "scope": "Inlet saturation temperature, exhaust superheat and explicit availability policies; 15 documented turbine outputs",
+      "evidence": [
+        "numeric-results.json"
+      ]
+    },
+    {
+      "id": "P06-02",
+      "status": "done",
+      "scope": "Three turbine modes, MW input, lb/(kW h), absolute/difference temperature conversions; retained canonical API",
+      "evidence": [
+        "chromium.json",
+        "firefox.json"
+      ]
+    },
+    {
+      "id": "P06-03",
+      "status": "done",
+      "scope": "Saturated/subcooled condensate with liquid guard, preserved legacy throttle and no fabricated single-phase separation",
+      "evidence": [
+        "numeric-results.json",
+        "chromium.json",
+        "firefox.json"
+      ]
+    },
+    {
+      "id": "P06-04",
+      "status": "done",
+      "scope": "State history, JSON import/reload, CSV, printable fields, UK/EN, both models/systems, mobile, offline and PWA",
+      "evidence": [
+        "chromium.json",
+        "firefox.json",
+        "regression-results.json",
+        "pwa-results.json"
+      ]
+    },
+    {
+      "id": "P06-05",
+      "status": "blocked",
+      "scope": "Direct reference numerical/mode examples, wet/saturated inlet controls, model restrictions, exact wet/supercritical display and comparison-column workflow",
+      "blocker_ids": [
+        "B01",
+        "B03"
+      ],
+      "evidence_needed": "Permitted interactive original inputs and complete outputs in every mandatory mode."
+    }
+  ],
+  "next_independent_work": "P07 confirmed diagrams/series contract; B09 reference geometry/editing behavior remains open.",
+  "gas_work": "P03/P04 still need B04/B05 data and model conventions."
+}

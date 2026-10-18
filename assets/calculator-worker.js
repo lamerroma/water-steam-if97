@@ -2450,10 +2450,10 @@ function fromCanonical(value,unit) {
   throw Error('Невідома одиниця.');
 }
 // International pound/foot, standard gravity and International Table Btu (NIST SP811).
-const LB=.45359237,FT=.3048,BTU=1055.05585262,PSI=LB*9.80665/(FT/12)**2,HP=.745699872;
+const LB=.45359237,FT=.3048,BTU=1055.05585262,PSI=LB*9.80665/(FT/12)**2;
 function englishProperty(key,value,unit=''){
  const e=1000*LB/BTU,v=LB/FT**3,p=1e6/PSI;
- const map={p:[p,'psi'],consumption:[HP/LB,'lb/(hp·h)'],T:[1.8,'°F'],rho:[FT**3/LB,'lb/ft³'],v:[v,'ft³/lb'],h:[e,'Btu/lb'],u:[e,'Btu/lb'],A:[e,'Btu/lb'],G:[e,'Btu/lb'],ex:[e,'Btu/lb'],s:[e/1.8,'Btu/(lb·°R)'],cp:[e/1.8,'Btu/(lb·°R)'],cv:[e/1.8,'Btu/(lb·°R)'],w:[1/FT,'ft/s'],alpha:[1/1.8,'1/°R'],kappa:[1/p,'1/psi'],dvdt:[v/1.8,'ft³/(lb·°R)'],dvdp:[v/p,'ft³/(lb·psi)'],dpdt:[p/1.8,'psi/°R'],dpdv:[p/v,'psi·lb/ft³'],jt:[1.8/p,'°R/psi'],ijt:[e/p,'Btu/(lb·psi)'],mu:[FT/LB,'lb/(ft·s)'],nu:[1/FT**2,'ft²/s'],diffusivity:[1/FT**2,'ft²/s'],lambda:[3600*FT/(BTU*1.8),'Btu/(h·ft·°R)'],sigma:[FT/(LB*9.80665),'lbf/ft'],flow:[1/LB,'lb/s'],power:[3600000/BTU,'Btu/h'],work:[e,'Btu/lb']};
+ const map={p:[p,'psi'],consumption:[1/LB,'lb/(kW·h)'],dT:[1.8,'°F'],T:[1.8,'°F'],rho:[FT**3/LB,'lb/ft³'],v:[v,'ft³/lb'],h:[e,'Btu/lb'],u:[e,'Btu/lb'],A:[e,'Btu/lb'],G:[e,'Btu/lb'],ex:[e,'Btu/lb'],s:[e/1.8,'Btu/(lb·°R)'],cp:[e/1.8,'Btu/(lb·°R)'],cv:[e/1.8,'Btu/(lb·°R)'],w:[1/FT,'ft/s'],alpha:[1/1.8,'1/°R'],kappa:[1/p,'1/psi'],dvdt:[v/1.8,'ft³/(lb·°R)'],dvdp:[v/p,'ft³/(lb·psi)'],dpdt:[p/1.8,'psi/°R'],dpdv:[p/v,'psi·lb/ft³'],jt:[1.8/p,'°R/psi'],ijt:[e/p,'Btu/(lb·psi)'],mu:[FT/LB,'lb/(ft·s)'],nu:[1/FT**2,'ft²/s'],diffusivity:[1/FT**2,'ft²/s'],lambda:[3600*FT/(BTU*1.8),'Btu/(h·ft·°R)'],sigma:[FT/(LB*9.80665),'lbf/ft'],flow:[1/LB,'lb/s'],power:[3600000/BTU,'Btu/h'],work:[e,'Btu/lb']};
  const spec=map[key];if(!spec)return [value,unit];return [value==null?null:key==='T'?(value-273.15)*1.8+32:value*spec[0],spec[1]];
 }
 
@@ -3865,6 +3865,21 @@ function batchCSV(records,system='si',energy='kJ'){
 
 
 // src/processes.js
+function processSaturation(p,model){
+ if(p>=PC)return {T:null,status:'no-saturation'};
+ try{return {T:calculate('satp',p,undefined,model).saturation.T,status:'available'};}
+ catch{return {T:null,status:'unavailable'};}
+}
+function processSummary(type,r){
+ return type==='turbine'?
+  [['work',r.work,'kJ/kg'],['power',r.power,'kW'],['flow',r.flow,'kg/s'],['consumption',r.specificConsumption,'kg/(kW·h)'],['efficiency',r.eta,'fraction'],['inletTsat',r.inletTsat,'K'],['outletSuperheat',r.outletSuperheat,'K']]:
+  [['flow',r.flow,'kg/s'],['vaporFlow',r.vaporFlow,'kg/s'],['liquidFlow',r.liquidFlow,'kg/s'],['vaporFraction',r.outlet.x,'fraction']];
+}
+function processMetricReason(key,r){
+ if(key==='inletTsat')return r.inletSaturationStatus==='no-saturation'?'За критичного або надкритичного тиску температура насичення не визначається.':'Температура насичення недоступна за цього тиску в обраній моделі.';
+ if(key==='outletSuperheat')return r.outletSuperheatStatus==='compressed-liquid'?'Рідкий вихід: перегрів пари не визначається.':'Перегрів недоступний без температури насичення за вихідного тиску.';
+ return 'Вихід однофазний; баланс сепарації на рідину й пару не застосовується.';
+}
 function processInput(p1,T1,p2,flow,model='IF97'){
  if(![p1,T1,p2,flow].every(Number.isFinite)||flow<0)throw Error('Введіть скінченні числа; витрата не може бути від’ємною.');
  if(p2<=0||p2>=p1)throw Error('Вихідний абсолютний тиск має бути додатним і нижчим за вхідний.');
@@ -3877,16 +3892,20 @@ function turbine(p1,T1,p2,eta,flow=1,model='IF97'){
  const inlet=processInput(p1,T1,p2,flow,model),ideal=calculate('ps',p2,inlet.s,model).state;
  if(inlet.phase.includes('рідина')||inlet.h<=ideal.h)throw Error('Для парової турбіни задайте паровий стан на вході з додатним перепадом ентальпії.');
  const work=eta*(inlet.h-ideal.h),outlet=calculate('ph',p2,inlet.h-work,model).state;
- return {inlet,ideal,outlet,work,power:flow*work,eta,flow};
+ if(!(work>0)||!Number.isFinite(flow*work)||!Number.isFinite(3600/work))throw Error('Перепад ентальпії, потужність або питома витрата виходять за числові межі.');
+ const sat1=processSaturation(p1,model),sat2=processSaturation(p2,model);
+ const outletSuperheat=sat2.T==null?null:outlet.x!=null?0:outlet.T>=sat2.T?outlet.T-sat2.T:null;
+ return {inlet,ideal,outlet,work,power:flow*work,eta,flow,specificConsumption:3600/work,inletTsat:sat1.T,outletTsat:sat2.T,outletSuperheat,inletSaturationStatus:sat1.status,outletSuperheatStatus:sat2.T==null?sat2.status:outletSuperheat==null?'compressed-liquid':outlet.x!=null?'saturated':'available'};
 }
 function flash(p1,T1,p2,flow=1,saturated=0,model='IF97'){
- if(![0,1].includes(saturated))throw Error('Невірний режим конденсату.');
- if(saturated&&(!Number.isFinite(flow)||flow<0||p2<=0||p2>=p1))throw Error('Перевірте тиски й витрату.');
- const inlet=saturated?calculate('px',p1,0,model).state:processInput(p1,T1,p2,flow,model);
- if(saturated&&inlet.critical)throw Error('У критичній точці немає окремої насиченої рідини.');
+ if(![0,1,2].includes(saturated))throw Error('Невірний режим конденсату.');
+ if(![p1,p2,flow].every(Number.isFinite)||flow<0||p2<=0||p2>=p1)throw Error('Перевірте тиски й витрату.');
+ const inlet=saturated===1?calculate('px',p1,0,model).state:processInput(p1,T1,p2,flow,model);
+ if(saturated===1&&inlet.critical)throw Error('У критичній точці немає окремої насиченої рідини.');
+ if(saturated===2&&(inlet.T>=TC||!inlet.phase.includes('рідина')))throw Error('Для недогрітого конденсату потрібна однофазна стиснена рідина на вході.');
  const result=calculate('ph',p2,inlet.h,model),outlet=result.state;
  const x=outlet.x;
- return {inlet,outlet,flow,vaporFlow:x==null?null:flow*x,liquidFlow:x==null?null:flow*(1-x),saturation:result.saturation};
+ return {inlet,outlet,flow,inletMode:['single-phase','saturated','condensate'][saturated],vaporFlow:x==null?null:flow*x,liquidFlow:x==null?null:flow*(1-x),saturation:result.saturation};
 }
 function turbineInverse(mode,p1,T1,p2,power,known,model='IF97'){
  if(!['flow','efficiency'].includes(mode)||!Number.isFinite(power)||power<=0||!Number.isFinite(known)||known<=0)throw Error('Для зворотного розрахунку потужність і відомий параметр мають бути додатними.');
@@ -3991,7 +4010,7 @@ const choices={'wp-fluid':['water',...PROCESS_GASES],'wp-model':PROCESS_MODELS,'
  'satgrid-basis':['temperature','pressure'],'satgrid-unit':['C','K','F','MPa','kPa','Pa','bar','atm','psi'],
  'tutorial-id':['saturation','wet','throttle','turbine','pipe','rankine-study','reheat-study','hydraulic-study','npp-study'],
  'flow-hydraulics':['off','on'],'flow-length-unit':['m','ft'],'flow-roughness-unit':['m','mm','inch'],'flow-pressure-difference-unit':['Pa','kPa','MPa','bar','psi'],'flow-source':['manual','water','real','gas'],'flow-fluid':['N2','O2','CO2','CO','H2','H2O','CH4','Ar','He','SO2','Ne'],'flow-rho-unit':['kgm3','lbft3'],'flow-visc-kind':['dynamic','kinematic'],'flow-visc-unit':['Pas','mPas','cP','m2s','mm2s','cSt'],'flow-kind':['mass','volume','velocity','standard'],'flow-unit':['kgs','kgh','lbs','lbh','m3s','m3h','ls','lmin','ft3min','ms','fts'],'flow-diameter-unit':['m','mm','inch'],'flow-standard':['off','normal','room','custom'],
- 'process-pressure':['MPa','bar','kPa','psi'],'process-temperature':['C','K','F'],'process-mass':['kgs','kgh','lbs','lbh'],'process-power-unit':['kW','Btuh'],
+ 'process-pressure':['MPa','bar','kPa','psi'],'process-temperature':['C','K','F'],'process-mass':['kgs','kgh','lbs','lbh'],'process-power-unit':['kW','MW','Btuh'],
  'eng-mode':['pump','compressor','heat-exchanger'],'eng-pressure':['MPa','kPa','Pa','bar','atm','psi'],'eng-temperature':['C','K','F'],'eng-mass':['kgs','kgh','lbs','lbh'],'eng-power-unit':['kW','Btuh'],
  'batch-mode':modes,'batch-vary':['a','b'],'gas-model':['real','mixture','ideal'],'gas-fluid':species.filter(s=>s!=='NO'),'gas-mode':['pt','ph','ps'],'gas-basis':['mole','mass'],'gas-preset':['air','flue','custom',...species],
  'ha-mode':['R','W','D','B'],'cycle-kind':['rankine','rankine-reheat','rankine-regen','brayton'],'d2o-mode':['pt','sat'],
@@ -4011,7 +4030,7 @@ function readWorkspace(value){
    const unitField=id.startsWith('ui-unit-')&&fields[kind].includes(id.slice(8));
    if(unitField&&!Object.values(UI_UNIT_GROUPS).some(g=>Object.hasOwn(g,v)))throw Error('Невідома локальна одиниця. / Unknown local unit.');
    if(!unitField&&!fields[kind].includes(id)||typeof v!=='string'||v.length>(id==='cc-data'?30000:id==='batch-text'?1000000:id==='lab-data'?100000:id==='cw-controlLayout'?20000:['lab-condition','lab-conclusion'].includes(id)?3000:id==='lab-source'?500:80))throw Error('Некоректні дані вкладки '+kind+'.');
-   const allowed=id==='process-mode'?(kind==='turbine'?['power','flow','efficiency']:['subcooled','saturated']):choices[id];
+   const allowed=id==='process-mode'?(kind==='turbine'?['power','flow','efficiency']:['condensate','saturated','subcooled']):choices[id];
    if(allowed&&!allowed.includes(v))throw Error('Невідомий режим або одиниця вкладки '+kind+'.');
    inputs[id]=v;
   }
@@ -4108,7 +4127,17 @@ function readProject(text){
 function processCSV(type,r,system='si'){
  const convert=(k,v,u='')=>system==='english'?englishProperty(k,v,u):[v,u];
  const states=[['inlet',r.inlet],...(r.ideal?[['isentropic_outlet',r.ideal]]:[]),['outlet',r.outlet]];
- return '\ufeff'+[['process','state',`p [${convert('p',0,'MPa')[1]}]`,`T [${convert('T',273.15,'K')[1]}]`,`h [${convert('h',0,'kJ/kg')[1]}]`,`s [${convert('s',0,'kJ/(kg K)')[1]}]`,'x [-]'].join(';'),...states.map(([name,q])=>[type,name,convert('p',q.p)[0],convert('T',q.T)[0],convert('h',q.h)[0],convert('s',q.s)[0],q.x??''].join(';')),'',`model;${r.inlet.model||'IF97'}`,'pressure_basis;absolute','quantity;value;unit',...Object.entries(type==='turbine'?{work:r.work,power:r.power,efficiency:r.eta,flow:r.flow}:{flow:r.flow,vaporFlow:r.vaporFlow,liquidFlow:r.liquidFlow}).map(([k,v])=>(()=>{const [value,unit]=convert(k.includes('Flow')?'flow':k,v,k==='work'?'kJ/kg':k==='power'?'kW':k==='efficiency'?'-':'kg/s');return `${k};${value??''};${unit}`;})())].join('\r\n');
+ const rows=[['process','state',`p [${convert('p',0,'MPa')[1]}]`,`T [${convert('T',273.15,'K')[1]}]`,`h [${convert('h',0,'kJ/kg')[1]}]`,`s [${convert('s',0,'kJ/(kg K)')[1]}]`,'x [-]','phase'],
+ ...states.map(([name,q])=>[type,name,convert('p',q.p)[0],convert('T',q.T)[0],convert('h',q.h)[0],convert('s',q.s)[0],q.x??'',q.phase]),[],['model',r.inlet.model||'IF97'],['pressure_basis','absolute'],['quantity','value','unit']];
+ for(const [key,value,unit] of processSummary(type,r)){
+  const convertKey=key==='inletTsat'?'T':key==='outletSuperheat'?'dT':key.endsWith('Flow')?'flow':key;
+  const [v,u]=convert(convertKey,value,unit==='fraction'?'-':unit);rows.push([key,v??'',u]);
+  if(value==null)rows.push([key+'_unavailable_reason',processMetricReason(key,r),'']);
+ }
+ if(type==='turbine')rows.push(['powerMW',r.power/1000,'MW'],['inlet_saturation_status',r.inletSaturationStatus,''],['outlet_superheat_status',r.outletSuperheatStatus,'']);
+ else rows.push(['inlet_mode',r.inletMode||'single-phase','']);
+ const cell=v=>/[;"\r\n]/.test(String(v??''))?'"'+String(v).replaceAll('"','""')+'"':String(v??'');
+ return '\ufeff'+rows.map(r=>r.map(cell).join(';')).join('\r\n');
 }
 
 
