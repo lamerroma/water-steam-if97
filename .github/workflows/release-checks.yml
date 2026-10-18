@@ -73,6 +73,8 @@ jobs:
         run: npm run audit:steam97:p05
       - name: Steam97 P06 independent turbine and flash audit
         run: npm run audit:steam97:p06
+      - name: Steam97 P07 independent diagram and drawing audit
+        run: npm run audit:steam97:p07
       - name: Preserve all roots and reference evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -83,5 +85,6 @@ jobs:
             .release/steam97-p02/
             .release/steam97-p05/
             .release/steam97-p06/
+            .release/steam97-p07/
           include-hidden-files: true
           retention-days: 14

@@ -3,7 +3,7 @@
   "updated": "2026-10-18",
   "baseline_version": "1.35.4",
   "baseline_commit": "9c87d171d093ee2a4f7ec7a92e3c10d1de95f123",
-  "status": "p06_bounded_delivery_reference_acceptance_open",
+  "status": "p07_bounded_delivery_reference_acceptance_open",
   "reference_url": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
   "requirements_file": "STEAMTABLES_PARITY_MATRIX.json",
   "details_file": "STEAMTABLES_PARITY_SPRINTS_UK.md",
@@ -216,7 +216,7 @@
     {
       "id": "P07",
       "title": "Діаграми й робота із серіями",
-      "status": "planned",
+      "status": "blocked",
       "depends_on": [
         "P02",
         "P05",
@@ -232,7 +232,20 @@
         "diagram-export-print"
       ],
       "result": "Цільові T–s/h–s/паровий h–s та повний набір операцій з точками й серіями",
-      "acceptance": "Числа, координати, фазові межі, одиниці, редагування, збереження й друк перевірено в браузерах."
+      "acceptance": "Числа, координати, фазові межі, одиниці, редагування, збереження й друк перевірено в браузерах.",
+      "readiness": "Documented point/series operations, shared geometry, persistence and independent checks delivered in 1.35.8. Dedicated reference vapor-view geometry/backgrounds remain unconfirmed.",
+      "blocked_by": [
+        "B01",
+        "B03",
+        "B09"
+      ],
+      "bounded_delivery": {
+        "version": "1.35.8",
+        "report": "STEAMTABLES_P07_UK.md",
+        "acceptance": "STEAMTABLES_P07_ACCEPTANCE.json",
+        "tasks": "steam97-p07/tasks.json",
+        "full_sprint_accepted": false
+      }
     },
     {
       "id": "P08",

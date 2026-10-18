@@ -1,0 +1,89 @@
+{
+  "build": {
+    "version": "1.35.8",
+    "id": "d32113562af9"
+  },
+  "checks": [
+    {
+      "name": "diagram",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 15159,
+      "log": ".release/steam97-p07/diagram.log",
+      "sha256": "0ec13bb87408aafa70144759541afed44522ba84e6d675159307ee24e318ec1f",
+      "managedFileFallback": true,
+      "output": "phdiagram history/isobars/selection PASS\nts history/isobars/selection PASS\nhsdiagram history/isobars/selection PASS\nOverlapping selection and native tooltip PASS\nKeyboard/wheel/drag PASS\nPersistence and English units PASS\nPNG/SVG/CSV/HTML exports PASS\nTurbine and transfer PASS\nThrottling vertical line PASS\nModel isolation PASS\nSaturation table → P–h PASS\nJSON export/import PASS\nMobile layout and real touch pinch PASS\nMANAGED_FILE_FALLBACK: same saved artifact loaded on localhost, offline state restored; file navigation denied\nOffline file:// three charts PASS\nMANAGED_FILE_FALLBACK: same saved artifact loaded on localhost, offline state restored; file navigation denied\nReduced motion PASS\n"
+    },
+    {
+      "name": "diagram-guides",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 7698,
+      "log": ".release/steam97-p07/diagram-guides.log",
+      "sha256": "482b58f73392a46434c7977d16cf2e9cf5eef34f0b3e0e8c8bc5465dfd3b2600",
+      "managedFileFallback": true,
+      "output": "P-h overlays and crosshair PASS\nCustom guides, decimal comma, units, validation PASS\nSVG/HTML guide exports and translations PASS\nGuide persistence PASS\nJSON guide round trip PASS\nT-s/h-s overlays PASS\nIAPWS-95 and mobile PASS\nMobile tap coordinates PASS\nOverlay switches and lifecycle PASS\nMANAGED_FILE_FALLBACK: same saved artifact loaded on localhost, offline state restored; file navigation denied\nOffline guide generation PASS\n"
+    },
+    {
+      "name": "diagram-quality",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 26722,
+      "log": ".release/steam97-p07/diagram-quality.log",
+      "sha256": "a3788f3ba7d8d50e72690277730a1d45425c57856be7489293ef6292e9fdded0",
+      "managedFileFallback": true,
+      "output": "Critical isobar contains exact IF97 critical coordinates PASS\nVisible critical isobar gains detail on close zoom PASS\nRefinement cancellation and export readiness PASS\nhsdiagram SVG matches Canvas ticks, clip, styles and points PASS\nts SVG matches Canvas ticks, clip, styles and points PASS\nphdiagram SVG matches Canvas ticks, clip, styles and points PASS\nMANAGED_FILE_FALLBACK: same saved artifact loaded on localhost, offline state restored; file navigation denied\nHTML uses the same exported geometry PASS\nTurbine endpoint connection and computed isentrope PASS\nThrottling computed constant enthalpy path PASS\nMobile layout and 4× CPU slowdown PASS\nIAPWS-95 refinement PASS\nMANAGED_FILE_FALLBACK: same saved artifact loaded on localhost, offline state restored; file navigation denied\nOffline refinement and chart lifecycle PASS\n"
+    },
+    {
+      "name": "chart-layout",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 3568,
+      "log": ".release/steam97-p07/chart-layout.log",
+      "sha256": "25aa8289c806789aeccd3a274bba0ba75981c120bdf2bed96a9889b216e0adaf",
+      "managedFileFallback": false,
+      "output": "[\n  {\n    id: 'steam-diagram',\n    width: 1920,\n    chartWidth: 849,\n    chartHeight: 530,\n    ratio: 1.6018867924528302\n  },\n  {\n    id: 'steam-diagram',\n    width: 1440,\n    chartWidth: 849,\n    chartHeight: 530,\n    ratio: 1.6018867924528302\n  },\n  {\n    id: 'steam-diagram',\n    width: 1024,\n    chartWidth: 849,\n    chartHeight: 530,\n    ratio: 1.6018867924528302\n  },\n  {\n    id: 'steam-diagram',\n    width: 390,\n    chartWidth: 359,\n    chartHeight: 269,\n    ratio: 1.3345724907063197\n  },\n  {\n    id: 'steam-diagram',\n    width: 1440,\n    chartWidth: 1194,\n    chartHeight: 746,\n    ratio: 1.6005361930294906\n  },\n  {\n    id: 'cw-chart',\n    width: 1920,\n    chartWidth: 910,\n    chartHeight: 568.796875,\n    ratio: 1.5998681427354888\n  },\n  {\n    id: 'cw-chart',\n    width: 1440,\n    chartWidth: 910,\n    chartHeight: 568.796875,\n    ratio: 1.5998681427354888\n  },\n  {\n    id: 'cw-chart',\n    width: 1024,\n    chartWidth: 910,\n    chartHeight: 568.796875,\n    ratio: 1.5998681427354888\n  },\n  {\n    id: 'cw-chart',\n    width: 390,\n    chartWidth: 339,\n    chartHeight: 260,\n    ratio: 1.3038461538461539\n  },\n  {\n    id: 'cycle-chart',\n    width: 390,\n    chartWidth: 324,\n    chartHeight: 260,\n    ratio: 1.2461538461538462\n  }\n]\nDesktop/mobile proportions, resize, expansion and no page errors PASS\n"
+    },
+    {
+      "name": "project-safety",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 2519,
+      "log": ".release/steam97-p07/project-safety.log",
+      "sha256": "989670275f9cead927ed5b3c7850d399a6a523ed354df26602aa0ac75abaf00d",
+      "managedFileFallback": false,
+      "output": "Malformed, unsupported, invalid-state/report and oversized imports preserve current project PASS\nChanges made during asynchronous import are preserved PASS\nStorage quota failure retains memory and original data; JSON export and subsequent save work PASS\nCorrupt startup record survives failed backup; exact recovery download, backup and reload PASS\n"
+    },
+    {
+      "name": "cross-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 16613,
+      "log": ".release/steam97-p07/cross-browser.log",
+      "sha256": "3aabf764bc45272cf5651fb63e91444c534d7e6e58684c36739418c0d7db7a3f",
+      "managedFileFallback": false,
+      "output": "chromium 141.0.7390.37: calculation, errors, UK/EN, HTML/JSON, restore, all 30 sections at 320/390/768px, NPP, diagrams and laboratory PASS\nfirefox 142.0.1: calculation, errors, UK/EN, HTML/JSON, restore, all 30 sections at 320/390/768px, NPP, diagrams and laboratory PASS\n"
+    },
+    {
+      "name": "pwa-chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 27724,
+      "log": ".release/steam97-p07/pwa-chromium.log",
+      "sha256": "0047b1796583654f8adf65aef413e4f28da7027d64647b72e5e8416ac40ba0fb",
+      "managedFileFallback": false,
+      "output": "Full cache, scope, mobile and English PASS\nBrowser restart, project, IAPWS-95, WASM, diagram and exports offline PASS\nBlocked unsaved update and controlled release update preserve project and language PASS\nOlder open tab retains release assets PASS\nInterrupted installation, atomic cache and retry PASS\nCorrupt resource is rejected PASS\nEvicted cache recovery retries without a connection, preserves project and language, and restores offline calculations PASS\n"
+    },
+    {
+      "name": "pwa-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 24610,
+      "log": ".release/steam97-p07/pwa-firefox.log",
+      "sha256": "0047b1796583654f8adf65aef413e4f28da7027d64647b72e5e8416ac40ba0fb",
+      "managedFileFallback": false,
+      "output": "Full cache, scope, mobile and English PASS\nBrowser restart, project, IAPWS-95, WASM, diagram and exports offline PASS\nBlocked unsaved update and controlled release update preserve project and language PASS\nOlder open tab retains release assets PASS\nInterrupted installation, atomic cache and retry PASS\nCorrupt resource is rejected PASS\nEvicted cache recovery retries without a connection, preserves project and language, and restores offline calculations PASS\n"
+    }
+  ],
+  "status": "passed"
+}

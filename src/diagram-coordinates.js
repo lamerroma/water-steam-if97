@@ -8,3 +8,9 @@ export function diagramPoint(kind,q){
  if(kind==='phdiagram')return {x:q.h,y:q.p>0?Math.log10(q.p):NaN};
  return {x:q.s,y:kind==='ts'?q.T-273.15:q.h};
 }
+// Local viewing presets, not EOS restrictions or verified Steam97Web geometry.
+export function diagramViewport(kind,preset='full'){
+ if(preset==='full')return {...diagramAxes(kind).initial};
+ if(kind==='hsdiagram'&&preset==='vapor')return {xmin:3.5,xmax:10,ymin:1500,ymax:4200};
+ throw Error('Невідомий масштаб діаграми.');
+}

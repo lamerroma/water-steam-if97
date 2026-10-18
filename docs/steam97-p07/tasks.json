@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "version": "1.35.8",
+  "parent_sprint": "P07",
+  "status": "bounded_delivery_complete_reference_acceptance_blocked",
+  "full_sprint_accepted": false,
+  "requirement_ids": [
+    "diagram-ts",
+    "diagram-hs",
+    "diagram-hs-vapor",
+    "diagram-points-series",
+    "diagram-export-print"
+  ],
+  "tasks": [
+    {
+      "id": "P07-01",
+      "status": "done",
+      "scope": "Calculated point IDs, matching unique labels, named line/spline create/edit/delete, shared point and series styles",
+      "evidence": [
+        "chromium.json",
+        "firefox.json"
+      ]
+    },
+    {
+      "id": "P07-02",
+      "status": "done",
+      "scope": "Canonical shared sampled geometry for Canvas/SVG, bounded centripetal interpolation and closed loops; no fabricated EOS states",
+      "evidence": [
+        "numeric-results.json"
+      ]
+    },
+    {
+      "id": "P07-03",
+      "status": "done",
+      "scope": "Independent thermodynamic/coordinate checks including 108 background points and near-critical saturation; both models and unit systems",
+      "evidence": [
+        "numeric-results.json",
+        "chromium.json",
+        "firefox.json"
+      ]
+    },
+    {
+      "id": "P07-04",
+      "status": "done",
+      "scope": "Native project/CSV/print, point labels and references, isobar visibility and per-model viewport restoration; mobile and offline",
+      "evidence": [
+        "chromium.json",
+        "firefox.json",
+        "regression-results.json",
+        "pwa-results.json"
+      ]
+    },
+    {
+      "id": "P07-05",
+      "status": "done",
+      "scope": "Local h-s steam viewport preset, preserving all point data and optional fit/zoom; no reference-equivalence claim",
+      "evidence": [
+        "chromium.json",
+        "firefox.json"
+      ]
+    },
+    {
+      "id": "P07-06",
+      "status": "blocked",
+      "scope": "Dedicated reference vapor-view bounds/backgrounds, exact interpolation, registered controls and fresh original numerical/interaction examples",
+      "blocker_ids": [
+        "B01",
+        "B03",
+        "B09"
+      ],
+      "evidence_needed": "Permitted interactive reference diagrams in both unit systems and retained point/series edits and exports."
+    }
+  ],
+  "next_independent_work": "P08 true XLSX/ODS/XLS/CSV for confirmed outputs; reference export variants B08 stay open.",
+  "gas_work": "P03/P04 still require B04/B05 data and model conventions."
+}

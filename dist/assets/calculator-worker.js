@@ -3713,6 +3713,12 @@ function diagramPoint(kind,q){
  if(kind==='phdiagram')return {x:q.h,y:q.p>0?Math.log10(q.p):NaN};
  return {x:q.s,y:kind==='ts'?q.T-273.15:q.h};
 }
+// Local viewing presets, not EOS restrictions or verified Steam97Web geometry.
+function diagramViewport(kind,preset='full'){
+ if(preset==='full')return {...diagramAxes(kind).initial};
+ if(kind==='hsdiagram'&&preset==='vapor')return {xmin:3.5,xmax:10,ymin:1500,ymax:4200};
+ throw Error('Невідомий масштаб діаграми.');
+}
 
 
 // src/diagram-guides.js
@@ -3771,6 +3777,100 @@ function diagramGuideLabel(kind,line,range){
 }
 
 
+// src/diagram-series.js
+const diagramDrawingModels=['IF97','IAPWS-95'],diagramDrawingHas=(o,k)=>Object.hasOwn(o,k);
+const diagramDrawingObject=v=>v&&typeof v==='object'&&!Array.isArray(v);
+const diagramDrawingName=v=>typeof v==='string'&&v.trim()&&v.trim().length<=80&&!/[;\r\n]/.test(v);
+const diagramDrawingColor=v=>typeof v==='string'&&/^#[0-9a-f]{6}$/i.test(v);
+function readDiagramDrawing(raw,states){
+ const sets=raw.pointSets??{},series=raw.series??[],style=raw.drawingStyle??{};
+ if(!diagramDrawingObject(sets)||!Array.isArray(series)||series.length>32||!diagramDrawingObject(style))throw Error('Некоректні точки або серії діаграми.');
+ const at=(i,model)=>{if(!Number.isInteger(i)||!states[i]||(states[i].model||'IF97')!==model)throw Error('Точка серії не відповідає історії або моделі.');return states[i];};
+ const pointSets={};
+ for(const [model,points]of Object.entries(sets)){
+  if(!diagramDrawingModels.includes(model)||!Array.isArray(points)||points.length>500)throw Error('Некоректний набір точок діаграми.');
+  const labels=new Set(),refs=new Set();pointSets[model]=points.map(p=>{
+   if(!diagramDrawingObject(p)||!diagramDrawingName(p.label))throw Error('Підпис точки: від 1 до 80 символів, без крапки з комою.');
+   const q=at(p.historyIndex,model),label=p.label.trim();if(labels.has(label)||refs.has(q))throw Error('ID та підписи точок мають бути унікальними.');labels.add(label);refs.add(q);return {state:q,label};
+  });
+ }
+ const names=new Set();const lines=series.map(s=>{
+  if(!diagramDrawingObject(s)||!diagramDrawingModels.includes(s.model)||!diagramDrawingName(s.name)||!['line','spline'].includes(s.kind)||!Array.isArray(s.points)||s.points.length>500)throw Error('Некоректна іменована серія.');
+  const key=s.model+':'+s.name.trim();if(names.has(key))throw Error('Назва серії вже існує.');names.add(key);
+  const points=s.points.map(i=>at(i,s.model));
+  if(diagramDrawingHas(pointSets,s.model)&&points.some(q=>!pointSets[s.model].some(p=>p.state===q)))throw Error('Серія посилається на невибрану точку.');
+  // History deletion can leave an incomplete series. Keep its name and surviving
+  // references for repair; it is not drawn until the required points exist.
+  return {name:s.name.trim(),model:s.model,kind:s.kind,points};
+ });
+ const drawingStyle={radius:style.radius??6,pointColor:style.pointColor??'phase',width:style.width??2.3,lineColor:style.lineColor??'#8b4599'};
+ if(!Number.isFinite(drawingStyle.radius)||drawingStyle.radius<2||drawingStyle.radius>14||!(drawingStyle.pointColor==='phase'||diagramDrawingColor(drawingStyle.pointColor))||!Number.isFinite(drawingStyle.width)||drawingStyle.width<.5||drawingStyle.width>8||!diagramDrawingColor(drawingStyle.lineColor))throw Error('Некоректний радіус, колір або товщина лінії.');
+ return {pointSets,series:lines,drawingStyle};
+}
+function syncDiagramDrawing(plan,states){
+ for(const points of Object.values(plan.pointSets||{}))for(let i=points.length-1;i>=0;i--)if(!states.includes(points[i].state))points.splice(i,1);
+ for(const s of plan.series||[])s.points=s.points.filter(q=>states.includes(q));
+}
+function diagramDrawingSnapshot(plan,states){
+ return {pointSets:Object.fromEntries(Object.entries(plan.pointSets||{}).map(([model,points])=>[model,points.map(p=>({historyIndex:states.indexOf(p.state),label:p.label}))])),
+  series:(plan.series||[]).map(s=>({...s,points:s.points.map(q=>states.indexOf(q))})),drawingStyle:{...plan.drawingStyle}};
+}
+function diagramChoices(plan,states,model,process=[]){
+ const set=plan.pointSets?.[model];
+ return [...plan.order.filter(q=>(q.model||'IF97')===model&&(!set||set.some(p=>p.state===q))).map(q=>[q,set?.find(p=>p.state===q)?.label||q.name||`Журнал № ${states.length-states.indexOf(q)}`,'history',!!set||!!q.name]),...process];
+}
+function setDiagramPoints(plan,states,model,idsText,labelsText){
+ const ids=String(idsText).trim()?String(idsText).trim().split(/[;,\s]+/):[],labels=String(labelsText).trim()?String(labelsText).split(';').map(s=>s.trim()):[];
+ if(ids.length!==labels.length)throw Error('Кількість ID і підписів має збігатися.');
+ const points=ids.map((id,i)=>{if(!/^\d+$/.test(id)||!Number.isSafeInteger(Number(id)))throw Error('ID точки має бути цілим числом з історії.');return {historyIndex:states.length-Number(id),label:labels[i]};});
+ const raw={pointSets:{[model]:points}},parsed=readDiagramDrawing(raw,states),next=parsed.pointSets[model];
+ if((plan.series||[]).some(s=>s.model===model&&s.points.some(q=>!next.some(p=>p.state===q))))throw Error('Спочатку змініть або видаліть серію, яка використовує прибрані точки.');
+ plan.pointSets[model]=next;const ordered=next.map(p=>p.state);plan.order=[...ordered,...plan.order.filter(q=>!ordered.includes(q))];
+}
+function saveDiagramSeries(plan,model,index,input,entries){
+ if(index!=null&&(!Number.isInteger(index)||!plan.series[index]||plan.series[index].model!==model))throw Error('Виберіть серію для редагування.');
+ if(!diagramDrawingName(input.name)||!['line','spline'].includes(input.kind))throw Error('Задайте назву серії та тип лінії.');
+ const labels=String(input.labels).split(';').map(s=>s.trim()),points=labels.map(label=>{
+  const matches=entries.filter(([q,l,source])=>source==='history'&&l===label);if(matches.length!==1)throw Error('Кожний підпис серії має однозначно відповідати показаній точці.');return matches[0][0];
+ });
+ if(points.length>500||new Set(points).size<(input.kind==='spline'?3:2))throw Error(input.kind==='spline'?'Для сплайна потрібно щонайменше 3 різні точки.':'Для лінії потрібно щонайменше 2 різні точки.');
+ const title=input.name.trim();if(plan.series.some((s,i)=>i!==index&&s.model===model&&s.name===title))throw Error('Назва серії вже існує.');
+ const s={name:title,kind:input.kind,model,points};if(index==null){if(plan.series.length>=32)throw Error('Дозволено до 32 іменованих серій.');plan.series.push(s);}else plan.series[index]=s;
+ return index??plan.series.length-1;
+}
+// A drawing interpolant, never a thermodynamic path. Centripetal Catmull–Rom
+// uses fixed canonical axis scales, so changing units or viewport cannot alter
+// the curve. Both canvas and SVG receive this same sampled polyline.
+function diagramSeriesPath(kind,states,curve='line',geometry={}){
+ const axes=diagramAxes(kind),base=axes.initial,span={x:base.xmax-base.xmin,y:base.ymax-base.ymin};
+ const anchors=states.map(q=>diagramPoint(kind,q));
+ if(anchors.some(p=>!Number.isFinite(p.x)||!Number.isFinite(p.y)))return {points:[],limited:true};
+ if(curve==='line')return {points:anchors,limited:false};
+ const cleanAnchors=anchors.filter((p,i)=>!i||p.x!==anchors[i-1].x||p.y!==anchors[i-1].y),ps=cleanAnchors.map(p=>({x:p.x/span.x,y:p.y/span.y}));
+ if(ps.length<3)return {points:[],limited:false};
+ const closed=ps.length>3&&ps[0].x===ps.at(-1).x&&ps[0].y===ps.at(-1).y;
+ const range=geometry.range||base,w=geometry.width||800,h=geometry.height||500,tolerance=.4,points=[anchors[0]],maxExtra=Math.max(0,4096-ps.length);let extra=0,limited=false;
+ const physical=p=>({x:p.x*span.x,y:p.y*span.y}),pixel=p=>({x:(p.x*span.x-range.xmin)/(range.xmax-range.xmin)*w,y:(p.y*span.y-range.ymin)/(range.ymax-range.ymin)*h});
+ const extrapolate=(a,b)=>({x:2*a.x-b.x,y:2*a.y-b.y}),distance=(a,b)=>Math.max(1e-12,Math.sqrt(Math.hypot(a.x-b.x,a.y-b.y)));
+ for(let i=0;i<ps.length-1;i++){
+  const b=ps[i],c=ps[i+1],a=ps[i-1]||(closed?ps.at(-2):extrapolate(b,c)),d=ps[i+2]||(closed?ps[1]:extrapolate(c,b)),ab=distance(a,b),bc=distance(b,c),cd=distance(c,d);
+  const m={},n={};for(const k of ['x','y']){m[k]=bc*((b[k]-a[k])/ab-(c[k]-a[k])/(ab+bc)+(c[k]-b[k])/bc);n[k]=bc*((c[k]-b[k])/bc-(d[k]-b[k])/(bc+cd)+(d[k]-c[k])/cd);}
+  // The Bezier control hull bounds the whole cubic. Invisible segments need no
+  // subdivision and cannot consume the budget intended for visible detail.
+  const hull=[b,{x:b.x+m.x/3,y:b.y+m.y/3},{x:c.x-n.x/3,y:c.y-n.y/3},c].map(pixel);
+  if(hull.every(p=>p.x<0)||hull.every(p=>p.x>w)||hull.every(p=>p.y<0)||hull.every(p=>p.y>h)){points.push(cleanAnchors[i+1]);continue;}
+  const at=t=>Object.fromEntries(['x','y'].map(k=>[k,(2*t**3-3*t*t+1)*b[k]+(t**3-2*t*t+t)*m[k]+(-2*t**3+3*t*t)*c[k]+(t**3-t*t)*n[k]]));
+  const deviation=(p,a,b)=>{const dx=b.x-a.x,dy=b.y-a.y,v=dx*dx+dy*dy,t=v?Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/v)):0;return Math.hypot(p.x-a.x-t*dx,p.y-a.y-t*dy);};
+  const emit=(t0,t1,p0,p1,depth)=>{const error=Math.max(...[.25,.5,.75].map(f=>deviation(pixel(at(t0+(t1-t0)*f)),pixel(p0),pixel(p1))));
+   if(error<=tolerance){points.push(physical(p1));return;}
+   if(depth>=12||extra>=maxExtra){limited=true;points.push(physical(p1));return;}
+   extra++;const tm=(t0+t1)/2,pm=at(tm);emit(t0,tm,p0,pm,depth+1);emit(tm,t1,pm,p1,depth+1);
+  };emit(0,1,b,c,0);points[points.length-1]=cleanAnchors[i+1];
+ }
+ return {points,limited};
+}
+
+
 // src/diagram-workspace.js
 function readDiagramWorkspace(data,states){
  const d=data??{};
@@ -3784,36 +3884,47 @@ function readDiagramWorkspace(data,states){
   if(v.historyIndex!=null&&(!Number.isInteger(v.historyIndex)||!states[v.historyIndex]))throw Error('Некоректна вибрана точка.');
   if(v.processIndex!=null&&(!Number.isInteger(v.processIndex)||v.processIndex<0||v.processIndex>4))throw Error('Некоректна точка процесу.');
   if(v.historyIndex!=null&&v.processIndex!=null)throw Error('Неоднозначна вибрана точка.');
-  views[key]={range:{...r},point:v.historyIndex!=null?states[v.historyIndex]:null,processIndex:v.processIndex??null};
+  const preset=v.preset??'full';if(preset!=='full'&&!(preset==='vapor'&&key.endsWith(':hsdiagram')))throw Error('Невідомий масштаб діаграми.');
+  if(v.hiddenIsobars!=null&&(!Array.isArray(v.hiddenIsobars)||new Set(v.hiddenIsobars).size!==v.hiddenIsobars.length||v.hiddenIsobars.some(i=>!Number.isInteger(i)||i<0||i>6)))throw Error('Некоректна видимість ізобар.');
+  views[key]={range:{...r},point:v.historyIndex!=null?states[v.historyIndex]:null,processIndex:v.processIndex??null,preset,...(v.hiddenIsobars?{hiddenIsobars:[...v.hiddenIsobars]}:{})};
  }
- return {tools:readDiagramTools(d.tools),views,connectHistory:d.connectHistory===true,numbers:d.numbers!==false,order:indexes('order'),excluded:indexes('excluded')};
+ return {tools:readDiagramTools(d.tools),views,connectHistory:d.connectHistory===true,numbers:d.numbers!==false,order:indexes('order'),excluded:indexes('excluded'),...readDiagramDrawing(d,states)};
 }
 function syncDiagramWorkspace(plan,states){
  plan.order=plan.order.filter(q=>states.includes(q));
  for(const q of [...states].reverse())if(!plan.order.includes(q))plan.order.push(q);
  plan.excluded=plan.excluded.filter(q=>states.includes(q));
+ syncDiagramDrawing(plan,states);
  return plan;
 }
 function diagramWorkspaceSnapshot(plan,states){
  syncDiagramWorkspace(plan,states);
- const views=Object.fromEntries(Object.entries(plan.views||{}).map(([k,v])=>[k,{range:{...v.range},...(states.includes(v.point)?{historyIndex:states.indexOf(v.point)}:v.processIndex!=null?{processIndex:v.processIndex}:{})}]));
- return {tools:readDiagramTools(plan.tools),views,connectHistory:plan.connectHistory,numbers:plan.numbers,order:plan.order.map(q=>states.indexOf(q)),excluded:plan.excluded.map(q=>states.indexOf(q))};
+ const views=Object.fromEntries(Object.entries(plan.views||{}).map(([k,v])=>[k,{range:{...v.range},preset:v.preset||'full',...(v.hiddenIsobars?{hiddenIsobars:[...v.hiddenIsobars]}:{}),...(states.includes(v.point)?{historyIndex:states.indexOf(v.point)}:v.processIndex!=null?{processIndex:v.processIndex}:{})}]));
+ return {tools:readDiagramTools(plan.tools),views,connectHistory:plan.connectHistory,numbers:plan.numbers,order:plan.order.map(q=>states.indexOf(q)),excluded:plan.excluded.map(q=>states.indexOf(q)),...diagramDrawingSnapshot(plan,states)};
 }
 const diagramEscape=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function diagramTable(entries,system='si',energy='kJ',interactive=false,excluded=[],digits=10,preferences){
  const fields=['p','T','h','s','x'];
  const val=(k,q)=>k==='x'?[q.x,'–']:diagramQuantity(k,k==='T'?q.T-273.15:q[k],system,energy,preferences);
  const text=v=>Number.isFinite(v)?String(Number(v.toPrecision(digits))):'—';
- return `<table class="sat-table diagram-state-table"><thead><tr><th>№</th><th>Стан</th>${fields.map(k=>`<th>${k} [${diagramEscape(val(k,{})[1])}${k==='p'?' (абс.)':''}]</th>`).join('')}<th>Фаза</th>${interactive?'<th>Послідовність журналу</th>':''}</tr></thead><tbody>${entries.map(([q,label,source],i)=>`<tr><td>${interactive?`<button type="button" data-diagram-select="${i}" aria-label="Вибрати точку ${i+1}">${i+1}</button>`:i+1}</td><td ${q.name?'data-i18n-ignore':''}>${diagramEscape(label)}</td>${fields.map(k=>`<td>${text(val(k,q)[0])}</td>`).join('')}<td>${diagramEscape(q.phase)}</td>${interactive?`<td>${source==='history'?`<label><input type="checkbox" data-diagram-include="${i}" ${excluded.includes(q)?'':'checked'}> Додати</label><button type="button" data-diagram-move="${i}" data-direction="-1" aria-label="Точку ${i+1} раніше">↑</button><button type="button" data-diagram-move="${i}" data-direction="1" aria-label="Точку ${i+1} пізніше">↓</button>`:'Процес'}</td>`:''}</tr>`).join('')}</tbody></table>`;
+ return `<table class="sat-table diagram-state-table"><thead><tr><th>№</th><th>Стан</th>${fields.map(k=>`<th>${k} [${diagramEscape(val(k,{})[1])}${k==='p'?' (абс.)':''}]</th>`).join('')}<th>Фаза</th>${interactive?'<th>Послідовність журналу</th>':''}</tr></thead><tbody>${entries.map(([q,label,source,custom],i)=>`<tr><td>${interactive?`<button type="button" data-diagram-select="${i}" aria-label="Вибрати точку ${i+1}">${i+1}</button>`:i+1}</td><td ${q.name||custom?'data-i18n-ignore':''}>${diagramEscape(label)}</td>${fields.map(k=>`<td>${text(val(k,q)[0])}</td>`).join('')}<td>${diagramEscape(q.phase)}</td>${interactive?`<td>${source==='history'?`<label><input type="checkbox" data-diagram-include="${i}" ${excluded.includes(q)?'':'checked'}> Додати</label><button type="button" data-diagram-move="${i}" data-direction="-1" aria-label="Точку ${i+1} раніше">↑</button><button type="button" data-diagram-move="${i}" data-direction="1" aria-label="Точку ${i+1} пізніше">↓</button>`:'Процес'}</td>`:''}</tr>`).join('')}</tbody></table>`;
 }
 function diagramCSV(entries,system='si',energy='kJ',plan={connectHistory:false,excluded:[]},preferences){
  const cell=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
  const fields=['p','T','h','s'];const convert=(k,q)=>diagramQuantity(k,k==='T'?q.T-273.15:q[k],system,energy,preferences);
  const rows=[['pressure_basis','absolute'],['history_connections',plan.connectHistory?'enabled':'disabled'],['number','state','source','journal_selected',...fields.map(k=>`${k} [${convert(k,{})[1]}]`),'x [-]','model','phase'],...entries.map(([q,label,source],i)=>[i+1,label,source,source==='history'?!plan.excluded.includes(q):'',...fields.map(k=>convert(k,q)[0]),q.x,q.model||'IF97',q.phase])];
+ const model=plan.exportModel||entries[0]?.[0].model||'IF97';
+ if(plan.drawingStyle)rows.push([],['point_radius_px',plan.drawingStyle.radius],['point_color',plan.drawingStyle.pointColor],['series_width_px',plan.drawingStyle.width],['series_color',plan.drawingStyle.lineColor]);
+ const series=(plan.series||[]).filter(s=>s.model===model);
+ if(series.length)rows.push([],['drawing_interpolation','centripetal Catmull-Rom; fixed canonical axis normalization; not a thermodynamic path'],['series','model','kind','point_labels','complete'],...series.map(s=>[s.name,s.model,s.kind,s.points.map(q=>entries.find(e=>e[0]===q)?.[1]||'').join(' → '),new Set(s.points).size>=(s.kind==='spline'?3:2)]));
  return '\ufeff'+rows.map(r=>r.map(cell).join(';')).join('\r\n');
 }
-function diagramReport(title,svg,entries,system='si',energy='kJ',note='',preferences){
- return `<!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title data-i18n-ignore>${diagramEscape(title)}</title><style>body{font:14px Arial;color:#182b40;margin:24px}svg{display:block;width:100%;height:auto;max-height:65vh}table{border-collapse:collapse;width:100%;font-size:11px}td,th{border:1px solid #abc;padding:6px}thead{display:table-header-group}tr{break-inside:avoid}.table-scroll{overflow:auto}@page{size:A4 landscape;margin:12mm}@media print{body{margin:0}svg{max-height:140mm}.table-scroll{overflow:visible}}</style></head><body><h1 data-i18n-ignore>${diagramEscape(title)}</h1><p>${diagramEscape(note)}</p><p>Усі тиски абсолютні. Коли нумерацію ввімкнено, номери точок відповідають таблиці; лінії між станами — схематичні зв’язки, а не розрахований проміжний шлях процесу.</p>${svg}<h2>Стани на діаграмі</h2><div class="table-scroll">${diagramTable(entries,system,energy,false,[],10,preferences)}</div><p>Для друку або збереження PDF скористайтеся командою друку браузера.</p></body></html>`;
+function diagramDrawingReport(plan,entries,model){
+ const series=(plan?.series||[]).filter(s=>s.model===model);if(!series.length)return '';
+ return '<h2>Іменовані серії</h2><p>Лінії та сплайни — графічні зв’язки між точками, а не розраховані проміжні термодинамічні стани.</p><table><thead><tr><th>Назва серії</th><th>Тип серії</th><th>Підписи точок серії</th><th>Стан</th></tr></thead><tbody>'+series.map(s=>`<tr><td data-i18n-ignore>${diagramEscape(s.name)}</td><td>${s.kind==='spline'?'Сплайн':'Лінія'}</td><td data-i18n-ignore>${diagramEscape(s.points.map(q=>entries.find(e=>e[0]===q)?.[1]||'').join(' → '))}</td><td>${new Set(s.points).size>=(s.kind==='spline'?3:2)?'Готово':'Бракує точок'}</td></tr>`).join('')+'</tbody></table>';
+}
+function diagramReport(title,svg,entries,system='si',energy='kJ',note='',preferences,drawing){
+ return `<!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title data-i18n-ignore>${diagramEscape(title)}</title><style>body{font:14px Arial;color:#182b40;margin:24px}svg{display:block;width:100%;height:auto;max-height:65vh}table{border-collapse:collapse;width:100%;font-size:11px}td,th{border:1px solid #abc;padding:6px}thead{display:table-header-group}tr{break-inside:avoid}.table-scroll{overflow:auto}@page{size:A4 landscape;margin:12mm}@media print{body{margin:0}svg{max-height:140mm}.table-scroll{overflow:visible}}</style></head><body><h1 data-i18n-ignore>${diagramEscape(title)}</h1><p>${diagramEscape(note)}</p><p>Усі тиски абсолютні. Коли нумерацію ввімкнено, номери точок відповідають таблиці; лінії між станами — схематичні зв’язки, а не розрахований проміжний шлях процесу.</p>${svg}${drawing?diagramDrawingReport(drawing.plan,entries,drawing.model):''}<h2>Стани на діаграмі</h2><div class="table-scroll">${diagramTable(entries,system,energy,false,[],10,preferences)}</div><p>Для друку або збереження PDF скористайтеся командою друку браузера.</p></body></html>`;
 }
 
 

@@ -4,7 +4,7 @@
   "baseline_version": "1.35.0",
   "baseline_commit": "2c3bfe83d6b3f772018334074bdfa6df0abaa215",
   "goal": "All calculations available in the referenced Steam97Web calculator must be covered before further capability expansion.",
-  "status": "p06_bounded_delivery_reference_inventory_open",
+  "status": "p07_bounded_delivery_reference_inventory_open",
   "scope": {
     "target": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
     "include": "All calculator tabs and available model/phase/input/units/domain variants, including features marked as requiring registration. Workflow parity tracked separately.",
@@ -2711,19 +2711,27 @@
       "group": "diagrams",
       "feature": "ts",
       "scope": "workflow",
-      "implementation": "partial",
+      "implementation": "present",
       "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/diagram-chart.js",
         "src/diagram-workspace.js",
-        "src/diagram-units.js"
+        "src/diagram-units.js",
+        "src/diagram-series.js",
+        "src/diagram-series-ui.js",
+        "src/diagram-chart-data.js",
+        "src/diagram-svg.js"
       ],
       "existing_checks": [
         "tests/diagram-units.test.mjs",
-        "scripts/check-diagram-browser.cjs"
+        "scripts/check-diagram-browser.cjs",
+        "tests/diagram-series.test.mjs",
+        "tests/steam97-p07.test.mjs",
+        "scripts/audit-steam97-p07.mjs",
+        "scripts/check-steam97-p07-browser.cjs"
       ],
-      "notes": "Check corresponding view, domain, background families, displayed units and usable point/series operations. A general h-s view does not yet prove the dedicated vapor view is equivalent.",
+      "notes": "Documented point/label/named-line/spline/style/persistence workflows implemented and independently checked in 1.35.8; exact reference geometry, backgrounds and interpolation semantics still require direct examples.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "diagrams",
@@ -2736,6 +2744,12 @@
           "B03",
           "B09"
         ]
+      },
+      "p07": {
+        "version": "1.35.8",
+        "report": "STEAMTABLES_P07_UK.md",
+        "acceptance": "STEAMTABLES_P07_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2743,19 +2757,27 @@
       "group": "diagrams",
       "feature": "hs",
       "scope": "workflow",
-      "implementation": "partial",
+      "implementation": "present",
       "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/diagram-chart.js",
         "src/diagram-workspace.js",
-        "src/diagram-units.js"
+        "src/diagram-units.js",
+        "src/diagram-series.js",
+        "src/diagram-series-ui.js",
+        "src/diagram-chart-data.js",
+        "src/diagram-svg.js"
       ],
       "existing_checks": [
         "tests/diagram-units.test.mjs",
-        "scripts/check-diagram-browser.cjs"
+        "scripts/check-diagram-browser.cjs",
+        "tests/diagram-series.test.mjs",
+        "tests/steam97-p07.test.mjs",
+        "scripts/audit-steam97-p07.mjs",
+        "scripts/check-steam97-p07-browser.cjs"
       ],
-      "notes": "Check corresponding view, domain, background families, displayed units and usable point/series operations. A general h-s view does not yet prove the dedicated vapor view is equivalent.",
+      "notes": "Documented point/label/named-line/spline/style/persistence workflows implemented and independently checked in 1.35.8; exact reference geometry, backgrounds and interpolation semantics still require direct examples.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "diagrams",
@@ -2768,6 +2790,12 @@
           "B03",
           "B09"
         ]
+      },
+      "p07": {
+        "version": "1.35.8",
+        "report": "STEAMTABLES_P07_UK.md",
+        "acceptance": "STEAMTABLES_P07_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2781,13 +2809,21 @@
       "local_evidence": [
         "src/diagram-chart.js",
         "src/diagram-workspace.js",
-        "src/diagram-units.js"
+        "src/diagram-units.js",
+        "src/diagram-series.js",
+        "src/diagram-series-ui.js",
+        "src/diagram-chart-data.js",
+        "src/diagram-svg.js"
       ],
       "existing_checks": [
         "tests/diagram-units.test.mjs",
-        "scripts/check-diagram-browser.cjs"
+        "scripts/check-diagram-browser.cjs",
+        "tests/diagram-series.test.mjs",
+        "tests/steam97-p07.test.mjs",
+        "scripts/audit-steam97-p07.mjs",
+        "scripts/check-steam97-p07-browser.cjs"
       ],
-      "notes": "Check corresponding view, domain, background families, displayed units and usable point/series operations. A general h-s view does not yet prove the dedicated vapor view is equivalent.",
+      "notes": "Local h-s steam viewport implemented as a viewing preset only. Dedicated reference view bounds, backgrounds and geometry remain B01/B03/B09; implementation intentionally remains partial.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "diagrams",
@@ -2800,6 +2836,12 @@
           "B03",
           "B09"
         ]
+      },
+      "p07": {
+        "version": "1.35.8",
+        "report": "STEAMTABLES_P07_UK.md",
+        "acceptance": "STEAMTABLES_P07_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2807,17 +2849,25 @@
       "group": "diagrams",
       "feature": "Point labels/style, named lines/curves and editing",
       "scope": "workflow",
-      "implementation": "partial",
+      "implementation": "present",
       "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/diagram-workspace.js",
-        "src/workspace.js"
+        "src/workspace.js",
+        "src/diagram-series.js",
+        "src/diagram-series-ui.js",
+        "src/diagram-chart-data.js",
+        "src/diagram-svg.js"
       ],
       "existing_checks": [
-        "tests/diagram-workspace.test.mjs"
+        "tests/diagram-workspace.test.mjs",
+        "tests/diagram-series.test.mjs",
+        "tests/steam97-p07.test.mjs",
+        "scripts/audit-steam97-p07.mjs",
+        "scripts/check-steam97-p07-browser.cjs"
       ],
-      "notes": "Compare actual reference series controls and interpolation behavior; distinguish drawing interpolation from a thermodynamic process.",
+      "notes": "Documented point/label/named-line/spline/style/persistence workflows implemented and independently checked in 1.35.8; exact reference geometry, backgrounds and interpolation semantics still require direct examples.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "diagrams",
@@ -2830,6 +2880,12 @@
           "B03",
           "B09"
         ]
+      },
+      "p07": {
+        "version": "1.35.8",
+        "report": "STEAMTABLES_P07_UK.md",
+        "acceptance": "STEAMTABLES_P07_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2842,12 +2898,19 @@
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/diagram-svg.js",
-        "src/study-report.js"
+        "src/study-report.js",
+        "src/diagram-series.js",
+        "src/diagram-series-ui.js",
+        "src/diagram-chart-data.js"
       ],
       "existing_checks": [
-        "scripts/check-diagram-browser.cjs"
+        "scripts/check-diagram-browser.cjs",
+        "tests/diagram-series.test.mjs",
+        "tests/steam97-p07.test.mjs",
+        "scripts/audit-steam97-p07.mjs",
+        "scripts/check-steam97-p07-browser.cjs"
       ],
-      "notes": "Verify practical equivalent result and units; pixel identity is not a completion criterion.",
+      "notes": "Documented point/label/named-line/spline/style/persistence workflows implemented and independently checked in 1.35.8; exact reference geometry, backgrounds and interpolation semantics still require direct examples.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "diagrams",
@@ -2860,6 +2923,12 @@
           "B03",
           "B09"
         ]
+      },
+      "p07": {
+        "version": "1.35.8",
+        "report": "STEAMTABLES_P07_UK.md",
+        "acceptance": "STEAMTABLES_P07_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -3336,11 +3405,12 @@
     "next_sprint": "P02 (reference tasks blocked)",
     "first_implementation_sprint": "P02",
     "P01_status": "preparation_complete_with_blockers",
-    "current_version": "1.35.7",
+    "current_version": "1.35.8",
     "P02_status": "bounded_delivery_complete_reference_acceptance_blocked",
-    "next_independent_work": "P07 confirmed diagram/series contract",
+    "next_independent_work": "P08 true spreadsheet formats for confirmed result contracts",
     "P05_status": "scientific_domains_implemented_reference_acceptance_blocked",
-    "P06_status": "bounded_delivery_complete_reference_acceptance_blocked"
+    "P06_status": "bounded_delivery_complete_reference_acceptance_blocked",
+    "P07_status": "bounded_delivery_complete_dedicated_vapor_reference_acceptance_blocked"
   },
   "p01_audit": {
     "date": "2026-10-18",
@@ -3397,5 +3467,15 @@
     "scientific_queries": 97,
     "reference_inventory_complete": false,
     "new_reference_site_cases": 0
+  },
+  "p07_audit": {
+    "version": "1.35.8",
+    "scientific_states": 172,
+    "background_controls": 108,
+    "drawing_controls": 12,
+    "queries": 184,
+    "reference_inventory_complete": false,
+    "new_reference_site_cases": 0,
+    "dedicated_vapor_view_verified": false
   }
 }
