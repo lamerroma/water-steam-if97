@@ -35,6 +35,13 @@ function diagnosticDuplicates(a,b,keys){
  if(!ea||!eb)return false;
  return Math.abs(a.p-b.p)<=Math.min(.01*Math.max(a.p,b.p),4*(ea.p+eb.p))&&Math.abs(a.T-b.T)<=Math.min(1e-5,4*(ea.T+eb.T))&&Math.abs(a.rho-b.rho)<=1e-7*Math.max(a.rho,b.rho);
 }
+// A saved pressure can identify an older representative that a new search grid
+// no longer samples. Only a freshly recomputed, input-valid state in the same
+// conditioned numerical cluster may match; stored properties are never trusted.
+export function sameComputationalRoot(candidate,representative,mode,a,b){
+ const keys=DIAGNOSTIC_PAIRS[mode];
+ return !!keys&&diagnosticInputValid(candidate,keys,[a,b])&&diagnosticDuplicates(candidate,representative,keys);
+}
 export function diagnoseCalculation(result,mode,a,b,options){
  const keys=DIAGNOSTIC_PAIRS[mode];if(!result.state||!keys)return result;
  const candidates=[result.state,...result.alternatives||[]],targets=[a,b];

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "version": "1.35.6",
+  "parent_sprint": "P05",
+  "status": "scientific_bounded_delivery_complete_reference_acceptance_blocked",
+  "full_sprint_accepted": false,
+  "tasks": [
+    {"id":"P05-01","status":"done","scope":"Scientific map for all ten P05 requirements; primary IAPWS releases and explicit phase/extrapolation policy","evidence":["validity-map.json"]},
+    {"id":"P05-02","status":"done","scope":"Stable cold IAPWS-95 liquid, pressure-dependent melting floor and inverse boundary search","resolved_findings":["N03"],"evidence":["numeric-results.json","regression-results.json"]},
+    {"id":"P05-03","status":"done","scope":"Independent viscosity/conductivity ranges, auxiliary viscosity policy and derived-property availability","resolved_findings":["N04"],"evidence":["numeric-results.json"]},
+    {"id":"P05-04","status":"done","scope":"Form, UK/EN help, missing-property reasons in UI/CSV, project/Worker/offline acceptance","evidence":["chromium.json","firefox.json","p02-chromium.json","p02-firefox.json","pwa-results.json"]},
+    {"id":"P05-05","status":"blocked","scope":"Actual Steam97Web edge behavior and any required extrapolation contract","blocker_ids":["B01","B03","B06"],"evidence_needed":"Permitted direct reference inputs, model/property/phase outputs and actual limits; no inferred full parity from help claims."}
+  ],
+  "next_independent_work": "P06 confirmed turbine/flash contract; unverified reference variants remain open.",
+  "gas_work": "P03/P04 still need B04/B05 coefficients and fraction/dissociation conventions."
+}

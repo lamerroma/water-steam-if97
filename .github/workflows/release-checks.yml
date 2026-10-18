@@ -69,6 +69,8 @@ jobs:
         run: npm run audit:inverse:full
       - name: Steam97 P02 critical pressure grid and P01 replay
         run: npm run audit:steam97:p02
+      - name: Steam97 P05 independent domains and transport audit
+        run: npm run audit:steam97:p05
       - name: Preserve all roots and reference evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -77,5 +79,6 @@ jobs:
           path: |
             .release/inverse-precision/
             .release/steam97-p02/
+            .release/steam97-p05/
           include-hidden-files: true
           retention-days: 14

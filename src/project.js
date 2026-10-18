@@ -1,4 +1,4 @@
-import {selectCalculatedAlternative} from './inverse-diagnostics.js';
+import {selectCalculatedAlternative,sameComputationalRoot,DIAGNOSTIC_PAIRS} from './inverse-diagnostics.js';
 import {typedRounding} from './input-rounding.js';
 import {readUIUnits} from './ui-quantities.js';
 import {readExportMetadata} from './provenance.js';
@@ -38,6 +38,13 @@ export function readProject(text){
     // Return the recomputed representative; never trust stored EOS properties.
     return Math.abs(v.p-q.p)<=tolerance||range&&q.p>=range[0]-tolerance&&q.p<=range[1]+tolerance;
    });
+   if(!state&&DIAGNOSTIC_PAIRS[z.mode]&&!DIAGNOSTIC_PAIRS[z.mode].includes('p')){
+    const second=DIAGNOSTIC_PAIRS[z.mode][1],inner={s:'ps',h:'ph',u:'pu',v:'pv',rho:'prho',T:'pt'}[second];
+    if(inner)try{
+     const candidate=calculate(inner,q.p,z.b,q.model||'IF97').state;
+     if(candidate)state=[r.state,...(r.alternatives||[])].find(v=>v&&Math.abs(v.h-q.h)<=Math.max(1e-7,Math.abs(q.h)*1e-7)&&sameComputationalRoot(candidate,v,z.mode,z.a,z.b));
+    }catch{}
+   }
    if(!state)throw Error('Стан журналу не відповідає збереженим входам.');source={mode:z.mode,a:z.a,b:z.b};
   }else state=calculate('ph',q.p,q.h,q.model||'IF97').state;
   return {...state,name:q.name||'',...(source?{source}:{})};
@@ -56,7 +63,13 @@ export function readProject(text){
  }
  if(f.selectedRoot!=null){
   const z=f.selectedRoot;if(!result?.state||!Number.isFinite(z.p)||!Number.isFinite(z.T))throw Error('Некоректний вибраний корінь.');
-  const index=[result.state,...result.alternatives||[]].findIndex(q=>Math.abs(q.p-z.p)<=Math.max(1e-10,q.p*1e-7)&&Math.abs(q.T-z.T)<=1e-6);
+  let index=[result.state,...result.alternatives||[]].findIndex(q=>Math.abs(q.p-z.p)<=Math.max(1e-10,q.p*1e-7)&&Math.abs(q.T-z.T)<=1e-6);
+  if(index<0&&DIAGNOSTIC_PAIRS[f.mode]){
+   const keys=DIAGNOSTIC_PAIRS[f.mode],inner={s:'ps',h:'ph',u:'pu',v:'pv',rho:'prho',T:'pt'}[keys[1]],source=result.state.source;
+   if(inner)try{const candidate=calculate(inner,z.p,source.b,f.model||'IF97').state;
+    if(candidate&&Math.abs(candidate.T-z.T)<=1e-6)index=[result.state,...result.alternatives||[]].findIndex(q=>sameComputationalRoot(candidate,q,f.mode,source.a,source.b));
+   }catch{}
+  }
   if(index<0)throw Error('Вибраний корінь не відповідає входам.');
   if(index>0)result=selectCalculatedAlternative(result,index-1);else if(result.diagnostics)result.diagnostics={...result.diagnostics,selection:'manual'};
  }

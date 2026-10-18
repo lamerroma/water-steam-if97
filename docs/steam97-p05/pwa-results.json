@@ -1,0 +1,31 @@
+{
+  "scope": "Current 1.35.6 build; synthetic 1.35.7 update only, no live deployment",
+  "browsers": {
+    "chromium": {
+      "status": "passed",
+      "checks": [
+        "Full cache, scope, mobile and English PASS",
+        "Browser restart, project, IAPWS-95, WASM, diagram and exports offline PASS",
+        "Blocked unsaved update and controlled release update preserve project and language PASS",
+        "Older open tab retains release assets PASS",
+        "Interrupted installation, atomic cache and retry PASS",
+        "Corrupt resource is rejected PASS",
+        "Evicted cache recovery retries without a connection, preserves project and language, and restores offline calculations PASS"
+      ],
+      "log_sha256": "0047b1796583654f8adf65aef413e4f28da7027d64647b72e5e8416ac40ba0fb"
+    },
+    "firefox": {
+      "status": "passed",
+      "checks": [
+        "Full cache, scope, mobile and English PASS",
+        "Browser restart, project, IAPWS-95, WASM, diagram and exports offline PASS",
+        "Blocked unsaved update and controlled release update preserve project and language PASS",
+        "Older open tab retains release assets PASS",
+        "Interrupted installation, atomic cache and retry PASS",
+        "Corrupt resource is rejected PASS",
+        "Evicted cache recovery retries without a connection, preserves project and language, and restores offline calculations PASS"
+      ],
+      "log_sha256": "0047b1796583654f8adf65aef413e4f28da7027d64647b72e5e8416ac40ba0fb"
+    }
+  }
+}

@@ -3,7 +3,7 @@
   "updated": "2026-10-18",
   "baseline_version": "1.35.4",
   "baseline_commit": "9c87d171d093ee2a4f7ec7a92e3c10d1de95f123",
-  "status": "p02_bounded_delivery_complete_reference_inventory_open",
+  "status": "p05_bounded_delivery_reference_acceptance_open",
   "reference_url": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
   "requirements_file": "STEAMTABLES_PARITY_MATRIX.json",
   "details_file": "STEAMTABLES_PARITY_SPRINTS_UK.md",
@@ -144,7 +144,7 @@
     {
       "id": "P05",
       "title": "Діапазони й транспортні властивості",
-      "status": "planned",
+      "status": "blocked",
       "depends_on": [
         "P02"
       ],
@@ -164,7 +164,18 @@
       ],
       "result": "Карта допустимості кожної властивості й потрібні обґрунтовані розширення",
       "acceptance": "Є крайові приклади оригіналу та незалежні перевірки; відмінності екстраполяції розв’язані або вимога відкрита.",
-      "readiness": "Scientific validity-map work and N03/N04 probes ready from accepted water contract; direct reference domains still B06."
+      "readiness": "Scientific domain map and local N03/N04 fixes implemented in 1.35.6; direct reference domain acceptance remains B01/B03/B06.",
+      "bounded_delivery": {
+        "version": "1.35.6",
+        "report": "STEAMTABLES_P05_UK.md",
+        "acceptance": "STEAMTABLES_P05_ACCEPTANCE.json",
+        "scientific_map": "steam97-p05/validity-map.json",
+        "resolved_local_findings": [
+          "N03",
+          "N04"
+        ],
+        "full_sprint_accepted": false
+      }
     },
     {
       "id": "P06",

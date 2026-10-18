@@ -1,5 +1,6 @@
 import {DIAGNOSTIC_UNITS} from './inverse-diagnostics.js';
 import {englishProperty} from './units.js';
+import {propertyUnavailableReason} from './ux-display.js';
 // Unrounded canonical values; energy unit is explicitly recorded in each CSV row.
 export function exportCSV(result,energy='kJ',ambient=null,system='si') {
   const props=[['dc','–'],['ex','кДж/кг'],['h','кДж/кг'],['s','кДж/(кг·K)'],['rho','кг/м³'],['v','м³/кг'],['cp','кДж/(кг·K)'],['cv','кДж/(кг·K)'],['w','м/с'],['u','кДж/кг'],['mu','Па·с'],['lambda','Вт/(м·K)'],['A','кДж/кг'],['G','кДж/кг'],['Z','–'],['isentropic','–'],['alpha','1/K'],['kappa','1/МПа'],['dvdt','м³/(кг·K)'],['dvdp','м³/(кг·МПа)'],['dpdt','МПа/K'],['dpdv','МПа·кг/м³'],['jt','K/МПа'],['ijt','кДж/(кг·МПа)'],['nu','м²/с'],['diffusivity','м²/с'],['Pr','–'],['sigma','Н/м']];
@@ -9,7 +10,9 @@ export function exportCSV(result,energy='kJ',ambient=null,system='si') {
   if(result.alternatives)result.alternatives.forEach((s,i)=>states.push(['alternative_'+(i+1),s]));
   for(const [name,s] of states) {
     rows.push([name,'p',...(system==='english'?englishProperty('p',s.p,'MPa'):[s.p,'MPa'])],[name,'T',...(system==='english'?englishProperty('T',s.T,'K'):[s.T,'K'])],[name,'model',s.model||'IF97',''],[name,'region',s.region??'',''],[name,'phase',s.phase,''],[name,'x',s.x??'','']);
-    for(const [key,unit] of props) {if(system==='english'){const [v,u]=englishProperty(key,s[key],unit);rows.push([name,key,v??'',u]);continue;}const convert=energy==='J'&&['h','s','cp','cv','u','A','G','ijt','ex'].includes(key);rows.push([name,key,s[key]==null?'':s[key]*(convert?1000:1),convert?unit.replace('кДж','Дж'):unit]);}
+    for(const [key,unit] of props) {
+      if(s[key]==null&&['mu','nu','lambda','diffusivity','Pr','dc','sigma'].includes(key))rows.push([name,key+'_unavailable_reason',propertyUnavailableReason(key,s),'']);
+      if(system==='english'){const [v,u]=englishProperty(key,s[key],unit);rows.push([name,key,v??'',u]);continue;}const convert=energy==='J'&&['h','s','cp','cv','u','A','G','ijt','ex'].includes(key);rows.push([name,key,s[key]==null?'':s[key]*(convert?1000:1),convert?unit.replace('кДж','Дж'):unit]);}
     if(s.inputSensitivity){rows.push([name,'rounding_response_status',s.inputSensitivity.status,'']);for(const [key,value] of Object.entries(s.inputSensitivity.response||{}))rows.push([name,'rounding_response_'+key,value,DIAGNOSTIC_UNITS[key]]);for(const [key,value] of Object.entries(s.inputSensitivity.numericalResponse||{}))rows.push([name,'numerical_response_'+key,value,DIAGNOSTIC_UNITS[key]]);}
     for(const note of s.notes||[])rows.push([name,'note',note,'']);
   }

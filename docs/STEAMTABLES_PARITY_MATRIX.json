@@ -4,7 +4,7 @@
   "baseline_version": "1.35.0",
   "baseline_commit": "2c3bfe83d6b3f772018334074bdfa6df0abaa215",
   "goal": "All calculations available in the referenced Steam97Web calculator must be covered before further capability expansion.",
-  "status": "p02_bounded_delivery_complete_reference_inventory_open",
+  "status": "p05_bounded_delivery_reference_inventory_open",
   "scope": {
     "target": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
     "include": "All calculator tabs and available model/phase/input/units/domain variants, including features marked as requiring registration. Workflow parity tracked separately.",
@@ -2035,10 +2035,12 @@
       "local_evidence": [
         "src/engine.js",
         "src/iapws95.js",
-        "src/export.js"
+        "src/export.js",
+        "src/water-validity.js"
       ],
       "existing_checks": [
-        "tests/dielectric.test.mjs"
+        "tests/dielectric.test.mjs",
+        "tests/steam97-p05.test.mjs"
       ],
       "notes": "Compare definition, reference state, units, phase availability and validity domain. Reference help assigns this property to IAPWS-95; our IF97-density variant must not stand in for that comparison.",
       "p01": {
@@ -2056,6 +2058,13 @@
           "B03",
           "B06"
         ]
+      },
+      "p05": {
+        "version": "1.35.6",
+        "report": "STEAMTABLES_P05_UK.md",
+        "scientific_map": "steam97-p05/validity-map.json",
+        "acceptance": "STEAMTABLES_P05_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2069,11 +2078,13 @@
       "local_evidence": [
         "src/engine.js",
         "src/iapws95.js",
-        "src/export.js"
+        "src/export.js",
+        "src/water-validity.js"
       ],
       "existing_checks": [
         "tests/official.test.mjs",
-        "tests/water-accuracy.test.mjs"
+        "tests/water-accuracy.test.mjs",
+        "tests/steam97-p05.test.mjs"
       ],
       "notes": "Compare definition, reference state, units, phase availability and validity domain.",
       "p01": {
@@ -2091,6 +2102,13 @@
           "B03",
           "B06"
         ]
+      },
+      "p05": {
+        "version": "1.35.6",
+        "report": "STEAMTABLES_P05_UK.md",
+        "scientific_map": "steam97-p05/validity-map.json",
+        "acceptance": "STEAMTABLES_P05_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2104,11 +2122,13 @@
       "local_evidence": [
         "src/engine.js",
         "src/iapws95.js",
-        "src/export.js"
+        "src/export.js",
+        "src/water-validity.js"
       ],
       "existing_checks": [
         "tests/official.test.mjs",
-        "tests/water-accuracy.test.mjs"
+        "tests/water-accuracy.test.mjs",
+        "tests/steam97-p05.test.mjs"
       ],
       "notes": "Compare definition, reference state, units, phase availability and validity domain.",
       "p01": {
@@ -2126,6 +2146,13 @@
           "B03",
           "B06"
         ]
+      },
+      "p05": {
+        "version": "1.35.6",
+        "report": "STEAMTABLES_P05_UK.md",
+        "scientific_map": "steam97-p05/validity-map.json",
+        "acceptance": "STEAMTABLES_P05_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2139,11 +2166,13 @@
       "local_evidence": [
         "src/engine.js",
         "src/iapws95.js",
-        "src/export.js"
+        "src/export.js",
+        "src/water-validity.js"
       ],
       "existing_checks": [
         "tests/official.test.mjs",
-        "tests/water-accuracy.test.mjs"
+        "tests/water-accuracy.test.mjs",
+        "tests/steam97-p05.test.mjs"
       ],
       "notes": "Compare definition, reference state, units, phase availability and validity domain.",
       "p01": {
@@ -2161,6 +2190,13 @@
           "B03",
           "B06"
         ]
+      },
+      "p05": {
+        "version": "1.35.6",
+        "report": "STEAMTABLES_P05_UK.md",
+        "scientific_map": "steam97-p05/validity-map.json",
+        "acceptance": "STEAMTABLES_P05_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2174,11 +2210,13 @@
       "local_evidence": [
         "src/engine.js",
         "src/iapws95.js",
-        "src/export.js"
+        "src/export.js",
+        "src/water-validity.js"
       ],
       "existing_checks": [
         "tests/official.test.mjs",
-        "tests/water-accuracy.test.mjs"
+        "tests/water-accuracy.test.mjs",
+        "tests/steam97-p05.test.mjs"
       ],
       "notes": "Compare definition, reference state, units, phase availability and validity domain.",
       "p01": {
@@ -2196,6 +2234,13 @@
           "B03",
           "B06"
         ]
+      },
+      "p05": {
+        "version": "1.35.6",
+        "report": "STEAMTABLES_P05_UK.md",
+        "scientific_map": "steam97-p05/validity-map.json",
+        "acceptance": "STEAMTABLES_P05_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2209,11 +2254,13 @@
       "local_evidence": [
         "src/engine.js",
         "src/iapws95.js",
-        "src/export.js"
+        "src/export.js",
+        "src/water-validity.js"
       ],
       "existing_checks": [
         "tests/official.test.mjs",
-        "tests/water-accuracy.test.mjs"
+        "tests/water-accuracy.test.mjs",
+        "tests/steam97-p05.test.mjs"
       ],
       "notes": "Compare definition, reference state, units, phase availability and validity domain.",
       "p01": {
@@ -2231,6 +2278,13 @@
           "B03",
           "B06"
         ]
+      },
+      "p05": {
+        "version": "1.35.6",
+        "report": "STEAMTABLES_P05_UK.md",
+        "scientific_map": "steam97-p05/validity-map.json",
+        "acceptance": "STEAMTABLES_P05_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2244,11 +2298,13 @@
       "local_evidence": [
         "src/engine.js",
         "src/iapws95.js",
-        "src/export.js"
+        "src/export.js",
+        "src/water-validity.js"
       ],
       "existing_checks": [
         "tests/official.test.mjs",
-        "tests/water-accuracy.test.mjs"
+        "tests/water-accuracy.test.mjs",
+        "tests/steam97-p05.test.mjs"
       ],
       "notes": "Compare definition, reference state, units, phase availability and validity domain.",
       "p01": {
@@ -2266,6 +2322,13 @@
           "B03",
           "B06"
         ]
+      },
+      "p05": {
+        "version": "1.35.6",
+        "report": "STEAMTABLES_P05_UK.md",
+        "scientific_map": "steam97-p05/validity-map.json",
+        "acceptance": "STEAMTABLES_P05_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2316,11 +2379,13 @@
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/equations.js",
-        "src/extra-inputs.js"
+        "src/extra-inputs.js",
+        "src/water-validity.js"
       ],
       "existing_checks": [
         "tests/official.test.mjs",
-        "tests/all-modes.test.mjs"
+        "tests/all-modes.test.mjs",
+        "tests/steam97-p05.test.mjs"
       ],
       "notes": "Need domain-by-property comparison and numerical cases at boundaries; nominal formulation range alone is insufficient.",
       "p01": {
@@ -2338,6 +2403,13 @@
           "B03",
           "B06"
         ]
+      },
+      "p05": {
+        "version": "1.35.6",
+        "report": "STEAMTABLES_P05_UK.md",
+        "scientific_map": "steam97-p05/validity-map.json",
+        "acceptance": "STEAMTABLES_P05_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2350,10 +2422,12 @@
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/iapws95.js",
-        "src/extra-inputs.js"
+        "src/extra-inputs.js",
+        "src/water-validity.js"
       ],
       "existing_checks": [
-        "tests/iapws95.test.mjs"
+        "tests/iapws95.test.mjs",
+        "tests/steam97-p05.test.mjs"
       ],
       "notes": "Website help claims a wider calculation domain than our implemented bounds. Verify actual website points, phase/melting restrictions and any extrapolation separately from authoritative validity.",
       "p01": {
@@ -2374,6 +2448,13 @@
         "finding_ids": [
           "N03"
         ]
+      },
+      "p05": {
+        "version": "1.35.6",
+        "report": "STEAMTABLES_P05_UK.md",
+        "scientific_map": "steam97-p05/validity-map.json",
+        "acceptance": "STEAMTABLES_P05_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -2386,10 +2467,12 @@
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/transport.js",
-        "src/iapws95.js"
+        "src/iapws95.js",
+        "src/water-validity.js"
       ],
       "existing_checks": [
-        "tests/transport-domain.test.mjs"
+        "tests/transport-domain.test.mjs",
+        "tests/steam97-p05.test.mjs"
       ],
       "notes": "Compare formulation versions and low/high-temperature/high-pressure availability for each property, including valid phase outputs.",
       "p01": {
@@ -2410,6 +2493,13 @@
         "finding_ids": [
           "N04"
         ]
+      },
+      "p05": {
+        "version": "1.35.6",
+        "report": "STEAMTABLES_P05_UK.md",
+        "scientific_map": "steam97-p05/validity-map.json",
+        "acceptance": "STEAMTABLES_P05_ACCEPTANCE.json",
+        "reference_parity_verified": false
       }
     },
     {
@@ -3148,9 +3238,10 @@
     "next_sprint": "P02 (reference tasks blocked)",
     "first_implementation_sprint": "P02",
     "P01_status": "preparation_complete_with_blockers",
-    "current_version": "1.35.5",
+    "current_version": "1.35.6",
     "P02_status": "bounded_delivery_complete_reference_acceptance_blocked",
-    "next_independent_work": "P05 validity map"
+    "next_independent_work": "P06 confirmed turbine/flash contract",
+    "P05_status": "scientific_domains_implemented_reference_acceptance_blocked"
   },
   "p01_audit": {
     "date": "2026-10-18",
@@ -3183,6 +3274,16 @@
     "numeric_queries": 745,
     "passed": 745,
     "regression_queries": 4657,
+    "reference_inventory_complete": false,
+    "new_reference_site_cases": 0
+  },
+  "p05_audit": {
+    "version": "1.35.6",
+    "resolved_local_findings": [
+      "N03",
+      "N04"
+    ],
+    "scientific_queries": 435,
     "reference_inventory_complete": false,
     "new_reference_site_cases": 0
   }

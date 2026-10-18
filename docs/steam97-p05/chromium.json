@@ -1,0 +1,57 @@
+{
+  "browser": "chromium",
+  "status": "passed",
+  "checks": [
+    {
+      "label": "Cold stable liquid: forward/inverses, SI and English",
+      "status": "passed"
+    },
+    {
+      "label": "Independent transport availability and CSV reasons",
+      "status": "passed"
+    },
+    {
+      "label": "Cold input survives JSON import, reload and offline recalculation",
+      "status": "passed"
+    },
+    {
+      "label": "Ice input fails without adding history; English property explanation",
+      "status": "passed"
+    },
+    {
+      "label": "Standalone embedded Worker calculates cold liquid offline",
+      "status": "passed"
+    }
+  ],
+  "errors": [],
+  "build": "7defd8214340",
+  "version": "1.35.6",
+  "fileNavigation": {
+    "status": "blocked",
+    "message": "page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at file:///workspace/water-steam-if97/dist/standalone.html\nCall log:\n\u001b[2m  - navigating to \"file:///workspace/water-steam-if97/dist/standalone.html\", waiting until \"load\"\u001b[22m\n"
+  },
+  "standalone": "loopback-then-offline",
+  "records": [
+    {"id":"P05-068","mode":"pt","english":false,"surface":"worker","p":200,"T":260,"mu":0.002531070884640538,"lambda":0.6383602704855043,"Pr":14.170298940970952},
+    {"id":"P05-068","mode":"ph","english":false,"surface":"worker","p":200,"T":259.99999999999784,"mu":0.002531070884640753,"lambda":0.6383602704855118,"Pr":14.17029894097213},
+    {"id":"P05-068","mode":"ps","english":false,"surface":"worker","p":200,"T":259.9999999999975,"mu":0.0025310708846408222,"lambda":0.6383602704854783,"Pr":14.170298940973145},
+    {"id":"P05-068","mode":"pv","english":false,"surface":"worker","p":200,"T":260.0000000000148,"mu":0.002531070884639228,"lambda":0.6383602704855155,"Pr":14.170298940964448},
+    {"id":"P05-068","mode":"hs","english":false,"surface":"worker","p":200.00000000003305,"T":259.9999999999985,"mu":0.0025310708846407086,"lambda":0.6383602704855215,"Pr":14.170298940970254},
+    {"id":"P05-068","mode":"pt","english":true,"surface":"worker","p":200.00000000001043,"T":260,"mu":0.002531070884640608,"lambda":0.6383602704854879,"Pr":14.170298940972232},
+    {"id":"P05-068","mode":"ph","english":true,"surface":"worker","p":200.00000000001043,"T":259.9999999999987,"mu":0.0025310708846406835,"lambda":0.6383602704855157,"Pr":14.170298940972135},
+    {"id":"P05-068","mode":"ps","english":true,"surface":"worker","p":200.00000000001043,"T":259.99999999999744,"mu":0.0025310708846407654,"lambda":0.6383602704854783,"Pr":14.170298940972335},
+    {"id":"P05-068","mode":"pv","english":true,"surface":"worker","p":200.00000000001043,"T":259.99999999998795,"mu":0.0025310708846417052,"lambda":0.6383602704854817,"Pr":14.170298940975167},
+    {"id":"P05-068","mode":"hs","english":true,"surface":"worker","p":200.00000000001796,"T":259.9999999999985,"mu":0.002531070884640706,"lambda":0.638360270485497,"Pr":14.170298940972506},
+    {"id":"P05-070","mode":"pt","english":false,"surface":"worker","p":200,"T":400,"mu":0.0002668162967814013,"lambda":0.7912002804301961,"Pr":1.3274252633952228},
+    {"id":"P05-165","mode":"pt","english":false,"surface":"worker","p":400,"T":500,"mu":null,"lambda":0.9065354815243575,"Pr":null},
+    {"id":"P05-217","mode":"pt","english":false,"surface":"worker","p":700,"T":380,"mu":null,"lambda":0.9599834985907623,"Pr":null},
+    {"id":"P05-123","mode":"pt","english":false,"surface":"worker","p":300,"T":900,"mu":0.00008776335604810203,"lambda":null,"Pr":null},
+    {"id":"P05-250","mode":"pt","english":false,"surface":"worker","p":1000,"T":348,"mu":0.0007461659262626507,"lambda":0.9693345583565891,"Pr":2.8750411034677374},
+    {"id":"P05-068","mode":"pt","english":false,"surface":"worker","p":200,"T":260,"mu":0.002531070884640538,"lambda":0.6383602704855043,"Pr":14.170298940970952},
+    {"id":"P05-068","mode":"ph","english":false,"surface":"loaded-offline","p":200,"T":259.99999999999784,"mu":0.002531070884640753,"lambda":0.6383602704855118,"Pr":14.17029894097213},
+    {"id":"P05-068","mode":"pt","english":false,"surface":"worker","p":200,"T":260,"mu":0.002531070884640538,"lambda":0.6383602704855043,"Pr":14.170298940970952},
+    {"id":"P05-165","mode":"pt","english":false,"surface":"worker","p":400,"T":500,"mu":null,"lambda":0.9065354815243575,"Pr":null},
+    {"id":"P05-068","mode":"pt","english":false,"surface":"standalone-offline","p":200,"T":260,"mu":0.002531070884640538,"lambda":0.6383602704855043,"Pr":14.170298940970952},
+    {"id":"P05-165","mode":"pt","english":false,"surface":"standalone-offline","p":400,"T":500,"mu":null,"lambda":0.9065354815243575,"Pr":null}
+  ]
+}

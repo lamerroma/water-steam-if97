@@ -20,7 +20,7 @@ test('Pressure bounds are expressed in the selected units and account for gauge 
  assert.ok(validateCalculatorInput(input({a:'101'})).errors.a);assert.deepEqual(validateCalculatorInput(input({model:'IAPWS-95',a:'101'})).errors,{});
 });
 test('Model, saturation, quality and positive density/volume limits map to the right field',()=>{
- assert.ok(validateCalculatorInput(input({b:'2001'})).errors.b);assert.ok(validateCalculatorInput(input({model:'IAPWS-95',b:'0'})).errors.b);
+ assert.ok(validateCalculatorInput(input({b:'2001'})).errors.b);assert.ok(validateCalculatorInput(input({model:'IAPWS-95',b:'-30'})).errors.b);
  const coupled=validateCalculatorInput(input({a:'60',b:'900'}));assert.ok(coupled.errors.a);assert.ok(coupled.errors.b);
  assert.deepEqual(validateCalculatorInput(input({mode:'satp',a:String(PMIN_SAT),b:'',ub:'C'})).errors,{});
  assert.ok(validateCalculatorInput(input({mode:'satp',a:String(PC+1)})).errors.a);

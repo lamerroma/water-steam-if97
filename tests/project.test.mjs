@@ -22,5 +22,8 @@ test('Manual physical branch and typed rounding survive project reload; untruste
 test('Old cold-liquid u-s history may record another member of the computational root cluster',()=>{
  const p=base();p.process=null;p.history=[{p:.005173683148148375,h:38.63730268853567,model:'IAPWS-95',source:{mode:'us',a:38.63212828313412,b:.1391036658359701}}];
  const result=readProject(JSON.stringify(p));assert.equal(result.states.length,1);assert.equal(result.states[0].model,'IAPWS-95');assert.ok(Math.abs(result.states[0].h-p.history[0].h)<4e-6);assert.ok(Math.abs(result.states[0].u-p.history[0].source.a)<1e-10);assert.ok(Math.abs(result.states[0].s-p.history[0].source.b)<1e-12);
+ p.form={mode:'us',model:'IAPWS-95',a:String(p.history[0].source.a),b:String(p.history[0].source.b),ua:'kJkg',ub:'kJkgK',calculated:true,selectedRoot:{p:p.history[0].p,T:282.3426492768052}};
+ const selected=readProject(JSON.stringify(p));assert.equal(selected.result.diagnostics.selection,'manual');
+ const forged=structuredClone(p);forged.form.selectedRoot.p=.01;assert.throws(()=>readProject(JSON.stringify(forged)));
  p.history[0].p=.01;assert.throws(()=>readProject(JSON.stringify(p)));
 });

@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "version": "1.35.6",
+  "purpose": "Scientific validity map; reference website operational domain still unknown (B06).",
+  "units": {
+    "p": "MPa absolute",
+    "T": "K",
+    "rho": "kg/m3"
+  },
+  "sources": [
+    {
+      "id": "D95",
+      "release": "R6-95(2018)",
+      "url": "https://iapws.org/technical-guidance/release/IAPWS-95.download",
+      "section": "5"
+    },
+    {
+      "id": "MELT",
+      "release": "R14-08(2011)",
+      "url": "https://iapws.org/technical-guidance/release/MeltSub.download",
+      "section": "3, Eqs. 1–4"
+    },
+    {
+      "id": "MU",
+      "release": "R12-08",
+      "url": "https://iapws.org/technical-guidance/release/viscosity.download",
+      "section": "2.4 Eq. 9; 2.7; 3"
+    },
+    {
+      "id": "LAMBDA",
+      "release": "R15-11",
+      "url": "https://iapws.org/public/documents/w-mwl/ThCond.pdf",
+      "section": "2.4 Eq. 14; 2.7; 3"
+    },
+    {
+      "id": "DC",
+      "release": "R8-97",
+      "url": "https://iapws.org/technical-guidance/release/Dielec.download",
+      "section": "validated temperature and pressure range"
+    },
+    {
+      "id": "SIGMA",
+      "release": "R1-76(2014)",
+      "url": "https://iapws.org/technical-guidance/release/Surf-H2O",
+      "section": "vapor–liquid equilibrium"
+    },
+    {
+      "id": "IF97",
+      "release": "R7-97(2012)",
+      "url": "https://iapws.org/technical-guidance/release/IF97-Rev",
+      "section": "regions 1–5"
+    }
+  ],
+  "scientific_domain": {
+    "IF97": {
+      "temperature_pressure": [
+        {
+          "T": [
+            273.15,
+            1073.15
+          ],
+          "p_max": 100
+        },
+        {
+          "T": [
+            1073.15,
+            2273.15
+          ],
+          "p_max": 50
+        }
+      ],
+      "saturation": {
+        "T": [
+          273.15,
+          647.096
+        ],
+        "p_max": 22.064
+      },
+      "critical": "Some finite properties retained; singular derivatives unavailable",
+      "metastability": "273.15–273.16 K warning retained; separate metastable-vapor equation not implemented"
+    },
+    "IAPWS95": {
+      "p": [
+        0,
+        1000
+      ],
+      "p_lower_open": true,
+      "T_max": 1273,
+      "T_min_global": 251.165,
+      "lower_boundary": "R14-08 Ih lower pressure for T<273.16; III/V/VI upper pressure, pressure-dependent inversion; melting boundary excluded",
+      "sub_triple_vapor": "Not implemented: outside the validated range, requires explicit extrapolation policy",
+      "saturation": {
+        "T": [
+          273.16,
+          647.096
+        ],
+        "upper_open": true
+      },
+      "critical": "Exact Pc/Tc rejected; local convergence and phase certification still required"
+    }
+  },
+  "transport_ranges": {
+    "mu": [
+      {
+        "p_upper": 300,
+        "T_upper": 1173.15
+      },
+      {
+        "p_upper": 350,
+        "T_upper": 873.15
+      },
+      {
+        "p_upper": 500,
+        "T_upper": 433.15
+      },
+      {
+        "p_upper": 1000,
+        "T_upper": 373.15
+      }
+    ],
+    "lambda": [
+      {
+        "p_upper": 100,
+        "T_upper": 1173.15
+      },
+      {
+        "p_upper": 250,
+        "T_upper": 874
+      },
+      {
+        "p_upper": 687,
+        "T_upper": 573
+      },
+      {
+        "p_upper": 785,
+        "T_upper": 403
+      },
+      {
+        "p_upper": 1000,
+        "T_upper": 348
+      }
+    ],
+    "pressure_intervals": "Each lower pressure cutoff is open and each upper cutoff closed; p>0. Lower T is melting, or 273.16 K for vapor at p<0.000611657.",
+    "IF97": "Industrial versions inside the IF97 domain, up to 1173.15 K; 273.15–273.16 K metastability note retained."
+  },
+  "property_map": [
+    {
+      "requirement": "property-viscosity",
+      "keys": [
+        "mu"
+      ],
+      "source": "MU",
+      "availability": "Scientific critical enhancement with IAPWS-95 reference derivative; independent mu range"
+    },
+    {
+      "requirement": "property-kinematic-viscosity",
+      "keys": [
+        "nu"
+      ],
+      "source": "MU",
+      "availability": "mu/rho only if mu available"
+    },
+    {
+      "requirement": "property-conductivity",
+      "keys": [
+        "lambda"
+      ],
+      "source": "LAMBDA",
+      "availability": "Own lambda range; R15-11 auxiliary viscosity may be evaluated outside displayed mu validity"
+    },
+    {
+      "requirement": "property-diffusivity",
+      "keys": [
+        "diffusivity"
+      ],
+      "source": "LAMBDA",
+      "availability": "lambda/(rho*cp) with consistent SI conversion only if lambda available"
+    },
+    {
+      "requirement": "property-prandtl",
+      "keys": [
+        "Pr"
+      ],
+      "source": "MU/LAMBDA",
+      "availability": "mu*cp/lambda only in the intersection of both domains"
+    },
+    {
+      "requirement": "property-dielectric",
+      "keys": [
+        "dc"
+      ],
+      "source": "DC",
+      "availability": "238<=T<=873 K, p<=1000 MPa; IAPWS-95 density preferred. IF97 density variant explicitly noted."
+    },
+    {
+      "requirement": "property-surface-tension",
+      "keys": [
+        "sigma"
+      ],
+      "source": "SIGMA",
+      "availability": "273.16<=T<=647.096 K on a vapor–liquid interface; no sub-triple extrapolation. Equilibrium mixtures retain sigma, no averaged transport."
+    },
+    {
+      "requirement": "domain-if97",
+      "keys": [],
+      "source": "IF97",
+      "availability": "Existing IF97 bounds retained"
+    },
+    {
+      "requirement": "domain-iapws95",
+      "keys": [],
+      "source": "D95/MELT",
+      "availability": "Stable fluid only, no ice or implicit extrapolation"
+    },
+    {
+      "requirement": "domain-transport",
+      "keys": [],
+      "source": "MU/LAMBDA/DC/SIGMA",
+      "availability": "Availability is per property and phase, never a shared pressure cap"
+    }
+  ],
+  "mixtures": "For 0<x<1, h/s/u/v use mass balance; cp/cv/derivatives/mu/nu/lambda/diffusivity/Pr/dc remain unavailable. sigma describes the interface.",
+  "numerical_policy": "tests/fixtures/steam97-p05-reference.json; tolerances fixed before product evaluation. Numerical agreement is not physical measurement uncertainty.",
+  "limitations": [
+    "IAPWS-95 higher derivatives can behave unphysically extremely near criticality (R6-95 §5); transport enhancement also has numerical limitations on the critical isotherm (R12-08/R15-11). Existing precision controls do not remove formulation limitations.",
+    "R14-08 rounded branch junction constants are used as published, with one-sided branch domains, without an invented smoothing curve.",
+    "Steam97Web help extrapolation claims (5000 K / 100000 MPa) are not accepted as validated ranges; actual website phase/property behavior still needs B06 evidence."
+  ]
+}

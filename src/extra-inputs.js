@@ -1,4 +1,6 @@
 // Numerical inversions of the selected fundamental model, with explicit multiple roots.
+import {meltingPressure} from './phase-boundaries.js';
+import {lowerFluidTemperature95,upperMeltingPressure95} from './water-validity.js';
 import {boundary23Pressure,boundary23Temperature,PMIN_SAT} from './equations.js';
 export function extraInputs(mode,a,b,model,calc){
  if(!Number.isFinite(a)||!Number.isFinite(b))throw Error('Параметри мають бути скінченними.');
@@ -20,14 +22,16 @@ export function extraInputs(mode,a,b,model,calc){
  };
  if(Math.abs(b-l[key])<=endpointTolerance(l))x=0;else if(Math.abs(b-v[key])<=endpointTolerance(v))x=1;
  if(x>=0&&x<=1)keep(calc(fixedT?'tx':'px',fixedT?a:sat.p,x,model));}
- const values=fixedT?Array.from({length:193},(_,i)=>10**(-9+(Math.log10(model==='IF97'?100:1000)+9)*i/192)):Array.from({length:257},(_,i)=>(model==='IF97'?273.15:273.16)+((model==='IF97'?(a<=50?2273.15:1073.15):1273)-(model==='IF97'?273.15:273.16))*i/256);
+ const minT=model==='IF97'?273.15:fixedT?251.165:lowerFluidTemperature95(a);
+ const values=fixedT?Array.from({length:193},(_,i)=>10**(-9+(Math.log10(model==='IF97'?100:1000)+9)*i/192)):Array.from({length:257},(_,i)=>minT+((model==='IF97'?(a<=50?2273.15:1073.15):1273)-minT)*i/256);
  if(fixedT)values.push(model==='IF97'?100:1000,50,22.064);
- else values.push(model==='IF97'?273.15:273.16,model==='IF97'?(a<=50?2273.15:1073.15):1273,274,275,276,277,277.13,277.5,278,279,280,623.15,647.096,1073.15);
+ else values.push(minT,model==='IF97'?(a<=50?2273.15:1073.15):1273,274,275,276,277,277.13,277.5,278,279,280,623.15,647.096,1073.15);
  // Sample successively farther representable points on BOTH sides. The
  // official B23 inverse and forward polynomials have separately rounded
  // coefficients, so a single few-ulp offset can still have the wrong label.
  // Keep the near points too: a wide fixed offset would lose nearby roots.
  const addCut=z=>{values.push(z);for(const shift of [64*Number.EPSILON,2**-42,2**-38,2**-34,2**-30])values.push(z*(1-shift),z*(1+shift));};
+ if(fixedT&&model==='IAPWS-95'&&a<355){addCut(upperMeltingPressure95(a));if(a>=251.165&&a<273.16)addCut(meltingPressure(a,'Ih'));}
  if(!fixedT&&model==='IF97'){addCut(623.15);addCut(1073.15);if(a>boundary23Pressure(623.15)&&a<=100)addCut(boundary23Temperature(a));}
  // Put samples on both sides of changes in the phase/region labels. Otherwise
  // a valid narrow interval can be skipped by a coarse grid plus phase filtering.
@@ -79,12 +83,28 @@ function pairInputs(mode,a,b,model,calc){
  let prev;const max=model==='IF97'?100:1000,tol=Math.max(target==='u'?1e-7:1e-12,Math.abs(wanted)*2e-10);
  const pressures=Array.from({length:161},(_,i)=>10**(-8+(8+Math.log10(max))*i/160));
  pressures.push(model==='IF97'?PMIN_SAT:.000611654771,max,50,20,21.5,22,22.064*(1-1e-5),22.064,22.1,23);pressures.sort((a,b)=>a-b);
- for(const p of pressures){
- let q;try{q=evaluate(p);}catch{prev=null;continue;}if(!q.state){prev=null;continue;}const e=q.state[target]-wanted;if(Math.abs(e)<(q.state.cp==null?tol:Math.max(1e-10,Math.abs(wanted)*2e-8)))keep(q);
+ const samples=pressures.map(p=>{try{return {p,q:evaluate(p)};}catch{return {p,q:null};}});
+ if(model==='IAPWS-95'){
+  // A cold liquid interval can end at melting between two pressure samples.
+  // Resolve its fluid-side edge before bracketing the second input residual.
+  const edges=[];
+  for(let i=1;i<samples.length;i++){
+   const a=samples[i-1],b=samples[i],valid=a.q?.state?a:b,invalid=a.q?.state?b:a;
+   if(!valid.q?.state||invalid.q?.state||valid.q.state.T>=273.16)continue;
+   let good=valid,bad=invalid.p;
+   for(let j=0;j<48;j++){const p=Math.sqrt(good.p*bad);if(p===good.p||p===bad)break;
+    try{const q=evaluate(p);if(q.state)good={p,q};else bad=p;}catch{bad=p;}
+   }
+   edges.push(good);
+  }
+  samples.push(...edges);samples.sort((a,b)=>a.p-b.p);
+ }
+ for(const {p,q} of samples){
+ if(!q?.state){prev=null;continue;}const e=q.state[target]-wanted;if(Math.abs(e)<(q.state.cp==null?tol:Math.max(1e-10,Math.abs(wanted)*2e-8)))keep(q);
  if(prev&&e*prev.e<0){let lo=prev.p,hi=p,elo=prev.e,best=null,bestError=Infinity;for(let j=0;j<60;j++){const mid=Math.sqrt(lo*hi);let z;try{z=evaluate(mid);}catch{break;}if(!z.state)break;const err=z.state[target]-wanted;if(Math.abs(err)<bestError){best=z;bestError=Math.abs(err);}if(j===59&&best?.state.cp==null&&bestError<Math.max(target==='u'?1e-6:1e-10,Math.abs(wanted)*2e-8)){keep(best);break;}if(Math.abs(err)<(z.state.cp==null?tol:Math.max(1e-10,Math.abs(wanted)*2e-8))){keep(z);break;}if(err*elo>0){lo=mid;elo=err;}else hi=mid;}}
  prev={p,e};
  }
- if(!roots.length||roots.some(r=>[273.15,623.15,1073.15,2273.15].some(T=>Math.abs(r.state.T-T)<.1)))for(const r of boundaryInputRoots(keys,[a,b],model,calc))keep(r);
+ if(!roots.length||(model==='IAPWS-95'&&roots.some(r=>r.state.T-lowerFluidTemperature95(r.state.p)<.1))||roots.some(r=>[273.15,623.15,1073.15,2273.15].some(T=>Math.abs(r.state.T-T)<.1)))for(const r of boundaryInputRoots(keys,[a,b],model,calc))keep(r);
  if(!roots.length)throw Error('Не знайдено узгоджений стан у межах обраної моделі.');
  roots.sort((x,y)=>x.state.p-y.state.p);const q=roots[0];if(roots.length>1){q.alternatives=roots.slice(1).map(z=>z.state);q.state={...q.state,notes:[...(q.state.notes||[]),`Знайдено ${roots.length} станів; показано найменший тиск, інші корені наведені окремо.`]};}return q;
 }
@@ -127,12 +147,21 @@ function refineInputs(result,keys,targets,model,calc){
 // Seed each adjacent fundamental region there, then solve both residuals. This
 // also recovers the second branch in the small IF97 consistency overlaps.
 export function boundaryInputRoots(keys,targets,model,calc){
- if(model!=='IF97')return [];
  const roots=[],keep=r=>{
   r=refineInputs(r,keys,targets,model,calc);
   const tolerances={h:2e-7,u:2e-7,s:2e-10,v:2e-12};
   if(keys.every((key,i)=>Math.abs(r.state[key]-targets[i])<=tolerances[key]))roots.push(r);
  };
+ if(model==='IAPWS-95'){
+  // The valid interval of an isenthalp/isentrope can lie wholly between two
+  // pressure samples near the curved ice boundary. Seed on the fluid side of
+  // that boundary and refine BOTH independent inputs against the stable EOS.
+  const pressures=Array.from({length:97},(_,i)=>10**(-3+(6*i/96)));
+  pressures.push(208.566,350.1,632.4,1000);
+  for(const p of pressures){try{keep(calc('pt',p,lowerFluidTemperature95(p)+1e-5,model));}catch{}}
+  return roots;
+ }
+ if(model!=='IF97')return [];
  const mode={h:'th',s:'ts',u:'tu',v:'tv'}[keys[0]];
  const temperatures=[273.15,623.15,623.15*(1+64*Number.EPSILON),1073.15,1073.15*(1+64*Number.EPSILON),2273.15];
  for(const T of temperatures){try{const q=extraInputs(mode,T,targets[0],model,calc);for(const state of [q.state,...(q.alternatives||[])])keep({state});}catch{}}

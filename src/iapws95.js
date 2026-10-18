@@ -1,7 +1,8 @@
 // IAPWS R6-95(2018), Eqs. (4)-(6), Tables 1-3. © 2018 IAPWS.
 // Independent transcription; MPa, K, kg/m³, kJ/kg. No IF97 property substitution.
-import {viscosity,viscosityScientific,conductivity,surfaceTension} from './transport.js';
+import {viscosityScientific,conductivity,surfaceTension} from './transport.js';
 import {dielectric} from './dielectric.js';
+import {MIN_FLUID_T95,upperMeltingPressure95,fluidAboveMelting95,lowerFluidTemperature95,transportAvailable95} from './water-validity.js';
 import {hpDecimal,hpAdd,hpSub,hpDiv,hpValue,criticalDensityRoot} from './precision.js';
 import {useCriticalPrecision,critical95Data} from './critical-eos.js';
 import {resolvedSinglePhaseBracket} from './inverse-phase-bracket.js';
@@ -44,17 +45,21 @@ export function raw95(T,rho,preciseT){
  const exact=useCriticalPrecision(T,rho)?preciseData95(T,rho,preciseT):null,delta=exact?.delta??rho/D95C,tau=exact?.tau??T95C/T,ordinary=derivatives95(delta,tau),o=ordinary.ideal,r=exact?.residual??ordinary.residual,f=add95(o,r),B=exact?.B??(1+2*delta*r[1]+delta*delta*r[3]),A=exact?.A??(1+delta*r[1]-delta*tau*r[4]),cv=-R95*tau*tau*f[5];
  return {T,rho,v:1/rho,p:exact?hpValue(exact.pressure):rho*R95*T*(1+delta*r[1])/1000,u:R95*T*tau*f[2],h:R95*T*(1+tau*f[2]+delta*r[1]),s:R95*(tau*f[2]-f[0]),cv,cp:cv+R95*A*A/B,w:Math.sqrt(1000*R95*T*(B+A*A/(cv/R95))),alpha:A/(T*B),drhodp:1000/(R95*T*B),region:null,model:'IAPWS-95'};
 }
-function bounds95(p,T){if(!Number.isFinite(p)||p<=0||p>1000)throw Error('IAPWS-95: абсолютний тиск 0 < P ≤ 1000 МПа.');if(!Number.isFinite(T)||T<273.16||T>1273)throw Error('Реалізований діапазон IAPWS-95: 273,16…1273 K; лід і переохолоджена вода не моделюються.');
- if(p>meltingLimit95(T))throw Error('IAPWS-95: стан у твердій області або на межі плавлення; лід не моделюється.');}
-// R14-08(2011), Eqs. (3),(4). For T≥355 K melting pressure exceeds our 1000 MPa limit.
-export function meltingLimit95(T){if(T>=355)return Infinity;if(T>=273.31)return 632.4*(1-1.07476*(1-(T/273.31)**4.6));return 350.1*(1-1.18721*(1-(T/256.164)**8));}
-function lowerT95(p){let lo=273.16,hi=355;if(p<=meltingLimit95(lo))return lo;for(let i=0;i<50;i++){const m=(lo+hi)/2;if(p>meltingLimit95(m))lo=m;else hi=m;}return hi+1e-6;}
+function bounds95(p,T){if(!Number.isFinite(p)||p<=0||p>1000)throw Error('IAPWS-95: абсолютний тиск 0 < P ≤ 1000 МПа.');if(!Number.isFinite(T)||T<MIN_FLUID_T95||T>1273)throw Error('IAPWS-95: 251,165…1273 K; нижня межа залежить від тиску та кривої плавлення.');
+ if(T<273.16&&p<.000611657)throw Error('IAPWS-95: пара нижче 273,16 K потребує екстраполяції, яку тут не реалізовано.');
+ if(!fluidAboveMelting95(p,T))throw Error('IAPWS-95: стан у твердій області або на межі плавлення; лід не моделюється.');}
+export const meltingLimit95=upperMeltingPressure95;
+const lowerT95=lowerFluidTemperature95;
 
 function decorate95(q,phase,x=null){
  if(!(q.drhodp>0&&q.cp>0&&q.cv>0&&Number.isFinite(q.w)))throw Error('IAPWS-95: нестабільний або сингулярний стан.');
  const kappa=q.drhodp/q.rho,ref=raw95(1.5*T95C,q.rho).drhodp;
- const mu=q.T<=1173&&q.p<=100?viscosityScientific(q,ref):null,lambda=mu==null?null:conductivity(q,ref,mu);
- return {...q,phase,x,kappa,dvdt:q.v*q.alpha,dvdp:-q.v*kappa,dpdt:q.alpha/kappa,dpdv:-1/(q.v*kappa),jt:1000*q.v*(q.T*q.alpha-1)/q.cp,ijt:1000*q.v*(1-q.T*q.alpha),A:q.u-q.T*q.s,G:q.h-q.T*q.s,Z:1000*q.p*q.v/(R95*q.T),isentropic:q.w*q.w*q.rho/(q.p*1e6),dc:dielectric(q.T,q.rho),mu,nu:mu==null?null:mu/q.rho,lambda,diffusivity:lambda==null?null:lambda/(q.rho*q.cp*1000),Pr:lambda==null?null:mu*q.cp*1000/lambda,sigma:x===0||x===1?surfaceTension(q.T):null,notes:['IAPWS-95 R6-95(2018). Насичення — рівновага основного рівняння. μ та λ: наукові IAPWS 2008/2011 з критичними доданками та опорною похідною IAPWS-95; реалізовано лише P≤100 МПа, T≤1173 K. Області 1–5 IF97 до цієї моделі не застосовуються.']};
+ const muValid=transportAvailable95('mu',q.p,q.T),lambdaValid=transportAvailable95('lambda',q.p,q.T);
+ // R15-11 requires the viscosity correlation internally even where viscosity
+ // itself lies outside R12-08's validated range; do not expose that auxiliary value.
+ const auxiliaryMu=muValid||lambdaValid?viscosityScientific(q,ref):null;
+ const mu=muValid?auxiliaryMu:null,lambda=lambdaValid?conductivity(q,ref,auxiliaryMu):null;
+ return {...q,phase,x,kappa,dvdt:q.v*q.alpha,dvdp:-q.v*kappa,dpdt:q.alpha/kappa,dpdv:-1/(q.v*kappa),jt:1000*q.v*(q.T*q.alpha-1)/q.cp,ijt:1000*q.v*(1-q.T*q.alpha),A:q.u-q.T*q.s,G:q.h-q.T*q.s,Z:1000*q.p*q.v/(R95*q.T),isentropic:q.w*q.w*q.rho/(q.p*1e6),dc:dielectric(q.T,q.rho),mu,nu:mu==null?null:mu/q.rho,lambda,diffusivity:lambda==null?null:lambda/(q.rho*q.cp*1000),Pr:lambda==null||mu==null?null:mu*q.cp*1000/lambda,sigma:x===0||x===1?surfaceTension(q.T):null,notes:['IAPWS-95 R6-95(2018). Насичення — рівновага основного рівняння. μ та λ: наукові IAPWS 2008/2011 з критичними доданками та опорною похідною IAPWS-95; межі μ та λ перевіряються окремо за тиском і температурою (R12-08/R15-11). Області 1–5 IF97 до цієї моделі не застосовуються.']};
 }
 function seedSaturation95(T){const z=1-T/T95C,liquid=[1.99274064,1.09965342,-.510839303,-1.75493479,-45.5170352,-674694.45],le=[1/3,2/3,5/3,16/3,43/3,110/3],vapor=[-2.0315024,-2.6830294,-5.38626492,-17.2991605,-44.7586581,-63.9201063],ve=[1/3,2/3,4/3,3,37/6,71/6];return [D95C*(1+liquid.reduce((s,n,i)=>s+n*z**le[i],0)),D95C*Math.exp(vapor.reduce((s,n,i)=>s+n*z**ve[i],0))];}
 // Integrate pressure/Gibbs derivatives rather than subtracting almost equal
@@ -140,7 +145,7 @@ function density95(p,T,side,sat){
  for(let i=0;i<100;i++){const mid=(lo+hi)/2,q=raw95(T,mid);if(Math.abs(q.p-p)<Math.max(q.rho>500?2e-11:2e-13,p*3e-14)&&q.drhodp>0)return q;if(q.p>p)hi=mid;else lo=mid;}
  throw Error('IAPWS-95: не знайдено стабільний корінь густини.');
 }
-export function solvePT95(p,T){bounds95(p,T);if(p===P95C&&T===T95C)throw Error('Точна критична точка IAPWS-95: сингулярні похідні; використайте стан поза нею.');let sat,side;if(T<T95C&&p>=P95C)side='liquid';else if(T<T95C){sat=saturationT95(T);if(Math.abs(p-sat.p)<(T95C-T<=.011?5e-14:Math.max(3e-10,sat.p*1e-9)))return {saturation:sat,ambiguous:true};side=p>sat.p?'liquid':'vapor';}const q=density95(p,T,side,sat);return {state:decorate95({...q,p},side==='liquid'?'Стиснена рідина':side==='vapor'?'Перегріта пара':p>=P95C?'Надкритичний флюїд':'Газ / перегріта пара')};}
+export function solvePT95(p,T){bounds95(p,T);if(p===P95C&&T===T95C)throw Error('Точна критична точка IAPWS-95: сингулярні похідні; використайте стан поза нею.');let sat,side;if(T<273.16||(T<T95C&&p>=P95C))side='liquid';else if(T<T95C){sat=saturationT95(T);if(Math.abs(p-sat.p)<(T95C-T<=.011?5e-14:Math.max(3e-10,sat.p*1e-9)))return {saturation:sat,ambiguous:true};side=p>sat.p?'liquid':'vapor';}const q=density95(p,T,side,sat);return {state:decorate95({...q,p},side==='liquid'?'Стиснена рідина':side==='vapor'?'Перегріта пара':p>=P95C?'Надкритичний флюїд':'Газ / перегріта пара')};}
 function mixture95(sat,x){if(!Number.isFinite(x)||x<0||x>1)throw Error('Ступінь сухості має бути 0…1.');if(x===0)return {...sat.liquid};if(x===1)return {...sat.vapor};const blend=k=>sat.liquid[k]+x*(sat.vapor[k]-sat.liquid[k]),v=blend('v'),q={...sat.liquid,x,phase:'Двофазна суміш',v,rho:1/v,h:blend('h'),s:blend('s'),u:blend('u'),sigma:surfaceTension(sat.T)};for(const k of ['cp','cv','w','mu','nu','lambda','diffusivity','Pr','dc','alpha','kappa','dvdt','dvdp','dpdt','dpdv','jt','ijt','isentropic','drhodp'])q[k]=null;return {...q,A:q.u-q.T*q.s,G:q.h-q.T*q.s,Z:1000*q.p*q.v/R95/q.T,notes:['Двофазна суміш IAPWS-95: h,s,u,v — масовий баланс фаз; похідні та транспортні властивості суміші не визначаються усередненням.']};}
 export function inverse95(p,target,key){if(!Number.isFinite(target))throw Error('Введіть скінченне значення.');bounds95(p,Math.max(715,273.16));let sat,fallback;if(p>=.000611654771&&p<P95C){
  try{sat=saturationP95(p);}catch(error){if(p>P95C-.01)fallback=resolvedSinglePhaseBracket(p,target,key,T95C,D95C,solvePT95);if(!fallback)throw error;}
@@ -183,7 +188,7 @@ export function solveHS95(h,s){
  // is checked against the stable P-T phase, so metastable/spurious roots are rejected.
  for(const [T0,r0] of [[300,1000],[450,900],[600,700],[650,350],[750,500],[900,800],[400,.01],[500,1],[700,10],[900,50],[1200,1]]){let T=T0,rho=r0;for(let k=0;k<70;k++){const q=raw95(T,rho),eh=q.h-h,es=q.s-s;if(Math.abs(eh)<2e-8&&Math.abs(es)<2e-11&&(q.p<=1000||(Math.abs(eh)<2e-9&&Math.abs(es)<2e-12))){try{const p=q.p>1000&&q.p-1000<=1e-9?1000:q.p,stable=solvePT95(p,T).state;if(stable&&Math.abs(stable.rho-rho)<rho*1e-7&&Math.abs(stable.h-h)<(q.p>1000?2e-9:2e-8)&&Math.abs(stable.s-s)<(q.p>1000?2e-12:2e-11))return {state:stable};}catch{}break;}
  const dpdt=q.alpha*q.rho/q.drhodp,dpdr=1/q.drhodp,a=1000*(dpdr-T*dpdt/rho),b=T*q.cv+1000*T*dpdt/rho,c=-1000*dpdt/rho,d=q.cv,det=a*d-b*c;
- const dr=(-eh*d+b*es)/det,dt=(-a*es+c*eh)/det;let ok=false;for(let f=1;f>2**-20;f/=2){const rn=rho*Math.exp(f*dr),tn=T*Math.exp(f*dt);if(!(rn>1e-12&&rn<1800&&tn>=273.16&&tn<=1273))continue;const n=raw95(tn,rn);if(Math.hypot((n.h-h)/1000,n.s-s)<Math.hypot(eh/1000,es)){rho=rn;T=tn;ok=true;break;}}if(!ok)break;}}
+ const dr=(-eh*d+b*es)/det,dt=(-a*es+c*eh)/det;let ok=false;for(let f=1;f>2**-20;f/=2){const rn=rho*Math.exp(f*dr),tn=T*Math.exp(f*dt);if(!(rn>1e-12&&rn<1800&&tn>=MIN_FLUID_T95&&tn<=1273))continue;const n=raw95(tn,rn);if(Math.hypot((n.h-h)/1000,n.s-s)<Math.hypot(eh/1000,es)){rho=rn;T=tn;ok=true;break;}}if(!ok)break;}}
  // No stable single-phase root matched. Search the equilibrium dome next,
  // solving h and s with one common quality. This avoids critical coexistence
  // calculations for every ordinary single-phase h-s query.
