@@ -1,0 +1,15 @@
+{
+  "sprint": "P08",
+  "version": "1.35.9",
+  "contract": "Typed finite calculated results, explicit units/model/absolute pressure and export provenance; no intermediate display rounding or CSV parsing.",
+  "scope": ["current state and saturation endpoints", "alternative roots", "history", "saturation grids", "turbine and flash", "diagram points and named series", "batch successes and errors"],
+  "formats": ["XLSX", "ODS", "XLS BIFF8", "CSV UTF-8 BOM"],
+  "independent_readers": ["openpyxl 3.1.5", "odfpy 1.4.1", "xlrd 2.0.2", "Python stdlib CSV/ZIP"],
+  "serialization_tolerance": {"relative": 2e-14, "absolute": 1e-13},
+  "browser_numeric_controls": "Independent P07 fixtures, retaining their finite-state EOS tolerances; separate from serialization tolerance.",
+  "limits": {"rows_per_sheet": 65536, "columns_per_sheet": 256, "text_utf16_units": 32767, "xls_text_utf16_units": 4000, "overflow": "reject before writing; no truncation"},
+  "reference_blockers": ["B01", "B03", "B08"],
+  "reference_file_samples": 0,
+  "full_reference_acceptance": false,
+  "unconfirmed_gas_outputs": "Deferred with P03/P04; this delivery covers known water-result contracts only."
+}

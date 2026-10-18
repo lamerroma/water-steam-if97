@@ -78,7 +78,7 @@ export function readProject(text){
  if(p.title!=null&&(typeof p.title!=='string'||p.title.length>80))throw Error('Назва проєкту має бути до 80 символів.');
  return {uiUnits:readUIUnits(p.uiUnits||(p.system==='english'?{temperature:'F',pressure:'psi',mass:'lbs',power:'Btuh',length:'ft',energy:'Btulb'}:null)),uiInputDefaults:p.uiInputDefaults===true,savedWith:readExportMetadata(p.savedWith),importedFrom:readExportMetadata(p.importedFrom),exportedWith:readExportMetadata(p.exportedWith),research:readResearch(p.research),study:readStudyReport(p.study),digits:readDisplayDigits(p.digits),diagram:readDiagramWorkspace(p.diagram,states),pressure,title:p.title||'Вода та пара',system:p.system==='english'?'english':'si',ambient,states,process,form:f,drafts,workspace,result,energy:p.energy==='J'?'J':'kJ',gray:p.gray===true,scale:['1','1.15','1.3'].includes(p.scale)?p.scale:'1',hints:p.hints!==false};
 }
-export function processCSV(type,r,system='si'){
+export function processExportRows(type,r,system='si'){
  const convert=(k,v,u='')=>system==='english'?englishProperty(k,v,u):[v,u];
  const states=[['inlet',r.inlet],...(r.ideal?[['isentropic_outlet',r.ideal]]:[]),['outlet',r.outlet]];
  const rows=[['process','state',`p [${convert('p',0,'MPa')[1]}]`,`T [${convert('T',273.15,'K')[1]}]`,`h [${convert('h',0,'kJ/kg')[1]}]`,`s [${convert('s',0,'kJ/(kg K)')[1]}]`,'x [-]','phase'],
@@ -91,5 +91,10 @@ export function processCSV(type,r,system='si'){
  if(type==='turbine')rows.push(['powerMW',r.power/1000,'MW'],['inlet_saturation_status',r.inletSaturationStatus,''],['outlet_superheat_status',r.outletSuperheatStatus,'']);
  else rows.push(['inlet_mode',r.inletMode||'single-phase','']);
  const cell=v=>/[;"\r\n]/.test(String(v??''))?'"'+String(v).replaceAll('"','""')+'"':String(v??'');
- return '\ufeff'+rows.map(r=>r.map(cell).join(';')).join('\r\n');
+ return rows;
+}
+
+export function processCSV(type,r,system='si'){
+ const cell=v=>/[;"\r\n]/.test(String(v??''))?'"'+String(v).replaceAll('"','""')+'"':String(v??'');
+ return '\ufeff'+processExportRows(type,r,system).map(r=>r.map(cell).join(';')).join('\r\n');
 }

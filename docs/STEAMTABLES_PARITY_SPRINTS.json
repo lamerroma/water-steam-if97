@@ -250,7 +250,7 @@
     {
       "id": "P08",
       "title": "XLSX, ODS, XLS та CSV",
-      "status": "planned",
+      "status": "bounded_delivery_complete_reference_acceptance_blocked",
       "depends_on": [
         "P02",
         "P03",
@@ -268,7 +268,12 @@
         "export-ods"
       ],
       "result": "Справжні табличні формати для всіх потрібних наборів результатів",
-      "acceptance": "Формати прочитано незалежними читачами; структура, числа, одиниці, Unicode та offline пройдені."
+      "acceptance": "Формати прочитано незалежними читачами; структура, числа, одиниці, Unicode та offline пройдені.",
+      "delivered_version": "1.35.9",
+      "report": "STEAMTABLES_P08_UK.md",
+      "acceptance_file": "STEAMTABLES_P08_ACCEPTANCE.json",
+      "bounded_scope": "Confirmed existing water outputs only; B01/B03/B08 and unconfirmed gas sets remain open.",
+      "full_sprint_accepted": false
     },
     {
       "id": "P09",

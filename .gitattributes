@@ -10,3 +10,8 @@
 *.pdf -text
 *.woff -text
 *.woff2 -text
+*.xlsx -text
+*.xls -text
+*.ods -text
+# Downloaded CSV evidence retains its original UTF-8 BOM and CRLF bytes.
+docs/steam97-p08/samples/*.csv -text whitespace=cr-at-eol

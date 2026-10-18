@@ -1,0 +1,1023 @@
+{
+  "schema_version": 1,
+  "created": "2026-10-18T19:40:52.403Z",
+  "version": "1.35.9",
+  "build": {
+    "version": "1.35.9",
+    "id": "59e17a542e26"
+  },
+  "status": "bounded_delivery_complete_reference_acceptance_blocked",
+  "full_sprint_accepted": false,
+  "pushed": false,
+  "published": false,
+  "reference_inventory_complete": false,
+  "direct_reference_file_samples": 0,
+  "reference_blockers": [
+    "B01",
+    "B03",
+    "B08"
+  ],
+  "scope": [
+    "state and phases",
+    "alternatives",
+    "history",
+    "saturation grids",
+    "turbine and flash",
+    "diagram points and series",
+    "batch successes and errors"
+  ],
+  "formats": [
+    "XLSX",
+    "ODS",
+    "XLS BIFF8",
+    "CSV UTF-8 BOM"
+  ],
+  "verification": {
+    "fileAudit": {
+      "status": "passed",
+      "version": "1.35.9",
+      "readers": {
+        "openpyxl": "3.1.5",
+        "xlrd": "2.0.2",
+        "odfpy": "1.4.1",
+        "csv": "Python stdlib"
+      },
+      "files": 91,
+      "cells": 33138,
+      "checks": [
+        {
+          "id": "IF97-liquid",
+          "format": "xlsx",
+          "cells": 200,
+          "status": "passed"
+        },
+        {
+          "id": "IF97-liquid",
+          "format": "ods",
+          "cells": 200,
+          "status": "passed"
+        },
+        {
+          "id": "IF97-liquid",
+          "format": "xls",
+          "cells": 200,
+          "status": "passed"
+        },
+        {
+          "id": "IF97-liquid",
+          "format": "csv",
+          "cells": 204,
+          "status": "passed"
+        },
+        {
+          "id": "IF97-region3",
+          "format": "xlsx",
+          "cells": 200,
+          "status": "passed"
+        },
+        {
+          "id": "IF97-region3",
+          "format": "ods",
+          "cells": 200,
+          "status": "passed"
+        },
+        {
+          "id": "IF97-region3",
+          "format": "xls",
+          "cells": 200,
+          "status": "passed"
+        },
+        {
+          "id": "IF97-region3",
+          "format": "csv",
+          "cells": 204,
+          "status": "passed"
+        },
+        {
+          "id": "IF97-wet",
+          "format": "xlsx",
+          "cells": 552,
+          "status": "passed"
+        },
+        {
+          "id": "IF97-wet",
+          "format": "ods",
+          "cells": 552,
+          "status": "passed"
+        },
+        {
+          "id": "IF97-wet",
+          "format": "xls",
+          "cells": 552,
+          "status": "passed"
+        },
+        {
+          "id": "IF97-wet",
+          "format": "csv",
+          "cells": 556,
+          "status": "passed"
+        },
+        {
+          "id": "IF97-near-critical",
+          "format": "xlsx",
+          "cells": 492,
+          "status": "passed"
+        },
+        {
+          "id": "IF97-near-critical",
+          "format": "ods",
+          "cells": 492,
+          "status": "passed"
+        },
+        {
+          "id": "IF97-near-critical",
+          "format": "xls",
+          "cells": 492,
+          "status": "passed"
+        },
+        {
+          "id": "IF97-near-critical",
+          "format": "csv",
+          "cells": 496,
+          "status": "passed"
+        },
+        {
+          "id": "IAPWS-95-liquid",
+          "format": "xlsx",
+          "cells": 204,
+          "status": "passed"
+        },
+        {
+          "id": "IAPWS-95-liquid",
+          "format": "ods",
+          "cells": 204,
+          "status": "passed"
+        },
+        {
+          "id": "IAPWS-95-liquid",
+          "format": "xls",
+          "cells": 204,
+          "status": "passed"
+        },
+        {
+          "id": "IAPWS-95-liquid",
+          "format": "csv",
+          "cells": 208,
+          "status": "passed"
+        },
+        {
+          "id": "IAPWS-95-region3",
+          "format": "xlsx",
+          "cells": 204,
+          "status": "passed"
+        },
+        {
+          "id": "IAPWS-95-region3",
+          "format": "ods",
+          "cells": 204,
+          "status": "passed"
+        },
+        {
+          "id": "IAPWS-95-region3",
+          "format": "xls",
+          "cells": 204,
+          "status": "passed"
+        },
+        {
+          "id": "IAPWS-95-region3",
+          "format": "csv",
+          "cells": 208,
+          "status": "passed"
+        },
+        {
+          "id": "IAPWS-95-wet",
+          "format": "xlsx",
+          "cells": 564,
+          "status": "passed"
+        },
+        {
+          "id": "IAPWS-95-wet",
+          "format": "ods",
+          "cells": 564,
+          "status": "passed"
+        },
+        {
+          "id": "IAPWS-95-wet",
+          "format": "xls",
+          "cells": 564,
+          "status": "passed"
+        },
+        {
+          "id": "IAPWS-95-wet",
+          "format": "csv",
+          "cells": 568,
+          "status": "passed"
+        },
+        {
+          "id": "IAPWS-95-near-critical",
+          "format": "xlsx",
+          "cells": 492,
+          "status": "passed"
+        },
+        {
+          "id": "IAPWS-95-near-critical",
+          "format": "ods",
+          "cells": 492,
+          "status": "passed"
+        },
+        {
+          "id": "IAPWS-95-near-critical",
+          "format": "xls",
+          "cells": 492,
+          "status": "passed"
+        },
+        {
+          "id": "IAPWS-95-near-critical",
+          "format": "csv",
+          "cells": 496,
+          "status": "passed"
+        },
+        {
+          "id": "hot-region5",
+          "format": "xlsx",
+          "cells": 228,
+          "status": "passed"
+        },
+        {
+          "id": "hot-region5",
+          "format": "ods",
+          "cells": 228,
+          "status": "passed"
+        },
+        {
+          "id": "hot-region5",
+          "format": "xls",
+          "cells": 228,
+          "status": "passed"
+        },
+        {
+          "id": "hot-region5",
+          "format": "csv",
+          "cells": 232,
+          "status": "passed"
+        },
+        {
+          "id": "critical",
+          "format": "xlsx",
+          "cells": 248,
+          "status": "passed"
+        },
+        {
+          "id": "critical",
+          "format": "ods",
+          "cells": 248,
+          "status": "passed"
+        },
+        {
+          "id": "critical",
+          "format": "xls",
+          "cells": 248,
+          "status": "passed"
+        },
+        {
+          "id": "critical",
+          "format": "csv",
+          "cells": 252,
+          "status": "passed"
+        },
+        {
+          "id": "history-unicode-formula-text",
+          "format": "xlsx",
+          "cells": 503,
+          "status": "passed"
+        },
+        {
+          "id": "history-unicode-formula-text",
+          "format": "ods",
+          "cells": 503,
+          "status": "passed"
+        },
+        {
+          "id": "history-unicode-formula-text",
+          "format": "xls",
+          "cells": 503,
+          "status": "passed"
+        },
+        {
+          "id": "history-unicode-formula-text",
+          "format": "csv",
+          "cells": 507,
+          "status": "passed"
+        },
+        {
+          "id": "state-si-J",
+          "format": "xlsx",
+          "cells": 200,
+          "status": "passed"
+        },
+        {
+          "id": "state-si-J",
+          "format": "ods",
+          "cells": 200,
+          "status": "passed"
+        },
+        {
+          "id": "state-si-J",
+          "format": "xls",
+          "cells": 200,
+          "status": "passed"
+        },
+        {
+          "id": "state-si-J",
+          "format": "csv",
+          "cells": 204,
+          "status": "passed"
+        },
+        {
+          "id": "saturation-si",
+          "format": "xlsx",
+          "cells": 152,
+          "status": "passed"
+        },
+        {
+          "id": "saturation-si",
+          "format": "ods",
+          "cells": 152,
+          "status": "passed"
+        },
+        {
+          "id": "saturation-si",
+          "format": "xls",
+          "cells": 152,
+          "status": "passed"
+        },
+        {
+          "id": "saturation-si",
+          "format": "csv",
+          "cells": 156,
+          "status": "passed"
+        },
+        {
+          "id": "turbine-si",
+          "format": "xlsx",
+          "cells": 847,
+          "status": "passed"
+        },
+        {
+          "id": "turbine-si",
+          "format": "ods",
+          "cells": 847,
+          "status": "passed"
+        },
+        {
+          "id": "turbine-si",
+          "format": "xls",
+          "cells": 847,
+          "status": "passed"
+        },
+        {
+          "id": "turbine-si",
+          "format": "csv",
+          "cells": 853,
+          "status": "passed"
+        },
+        {
+          "id": "flash-si",
+          "format": "xlsx",
+          "cells": 549,
+          "status": "passed"
+        },
+        {
+          "id": "flash-si",
+          "format": "ods",
+          "cells": 549,
+          "status": "passed"
+        },
+        {
+          "id": "flash-si",
+          "format": "xls",
+          "cells": 549,
+          "status": "passed"
+        },
+        {
+          "id": "flash-si",
+          "format": "csv",
+          "cells": 555,
+          "status": "passed"
+        },
+        {
+          "id": "state-english-J",
+          "format": "xlsx",
+          "cells": 200,
+          "status": "passed"
+        },
+        {
+          "id": "state-english-J",
+          "format": "ods",
+          "cells": 200,
+          "status": "passed"
+        },
+        {
+          "id": "state-english-J",
+          "format": "xls",
+          "cells": 200,
+          "status": "passed"
+        },
+        {
+          "id": "state-english-J",
+          "format": "csv",
+          "cells": 204,
+          "status": "passed"
+        },
+        {
+          "id": "saturation-english",
+          "format": "xlsx",
+          "cells": 152,
+          "status": "passed"
+        },
+        {
+          "id": "saturation-english",
+          "format": "ods",
+          "cells": 152,
+          "status": "passed"
+        },
+        {
+          "id": "saturation-english",
+          "format": "xls",
+          "cells": 152,
+          "status": "passed"
+        },
+        {
+          "id": "saturation-english",
+          "format": "csv",
+          "cells": 156,
+          "status": "passed"
+        },
+        {
+          "id": "turbine-english",
+          "format": "xlsx",
+          "cells": 847,
+          "status": "passed"
+        },
+        {
+          "id": "turbine-english",
+          "format": "ods",
+          "cells": 847,
+          "status": "passed"
+        },
+        {
+          "id": "turbine-english",
+          "format": "xls",
+          "cells": 847,
+          "status": "passed"
+        },
+        {
+          "id": "turbine-english",
+          "format": "csv",
+          "cells": 853,
+          "status": "passed"
+        },
+        {
+          "id": "flash-english",
+          "format": "xlsx",
+          "cells": 549,
+          "status": "passed"
+        },
+        {
+          "id": "flash-english",
+          "format": "ods",
+          "cells": 549,
+          "status": "passed"
+        },
+        {
+          "id": "flash-english",
+          "format": "xls",
+          "cells": 549,
+          "status": "passed"
+        },
+        {
+          "id": "flash-english",
+          "format": "csv",
+          "cells": 555,
+          "status": "passed"
+        },
+        {
+          "id": "diagram-series",
+          "format": "xlsx",
+          "cells": 560,
+          "status": "passed"
+        },
+        {
+          "id": "diagram-series",
+          "format": "ods",
+          "cells": 560,
+          "status": "passed"
+        },
+        {
+          "id": "diagram-series",
+          "format": "xls",
+          "cells": 560,
+          "status": "passed"
+        },
+        {
+          "id": "diagram-series",
+          "format": "csv",
+          "cells": 566,
+          "status": "passed"
+        },
+        {
+          "id": "batch-errors",
+          "format": "xlsx",
+          "cells": 237,
+          "status": "passed"
+        },
+        {
+          "id": "batch-errors",
+          "format": "ods",
+          "cells": 237,
+          "status": "passed"
+        },
+        {
+          "id": "batch-errors",
+          "format": "xls",
+          "cells": 237,
+          "status": "passed"
+        },
+        {
+          "id": "batch-errors",
+          "format": "csv",
+          "cells": 243,
+          "status": "passed"
+        },
+        {
+          "id": "text-types",
+          "format": "xlsx",
+          "cells": 56,
+          "status": "passed"
+        },
+        {
+          "id": "text-types",
+          "format": "ods",
+          "cells": 56,
+          "status": "passed"
+        },
+        {
+          "id": "text-types",
+          "format": "xls",
+          "cells": 56,
+          "status": "passed"
+        },
+        {
+          "id": "text-types",
+          "format": "csv",
+          "cells": 60,
+          "status": "passed"
+        },
+        {
+          "id": "long-unicode",
+          "format": "xlsx",
+          "cells": 30,
+          "status": "passed"
+        },
+        {
+          "id": "long-unicode",
+          "format": "ods",
+          "cells": 30,
+          "status": "passed"
+        },
+        {
+          "id": "long-unicode",
+          "format": "csv",
+          "cells": 34,
+          "status": "passed"
+        }
+      ]
+    },
+    "legacyCSV": {
+      "status": "passed",
+      "checks": 30,
+      "baseline": "133a58918162f4572174a7f6b2fa44be5f4b133a",
+      "meaning": "Byte-for-byte comparison against original baseline serializers on identical canonical results."
+    },
+    "core": {
+      "path": ".release/2026-10-18T19-32-06-235Z/report.json",
+      "status": "passed",
+      "checks": 14,
+      "unitTests": 1673,
+      "unitPassed": 1673
+    },
+    "browsers": {
+      "chromium": {
+        "status": "passed",
+        "groups": 5,
+        "files": 48,
+        "independent": {
+          "status": "passed",
+          "files": 48,
+          "checks": 112,
+          "version": "1.35.9"
+        },
+        "standaloneMode": "managed-file-policy-loopback-then-offline",
+        "errors": 0
+      },
+      "firefox": {
+        "status": "passed",
+        "groups": 5,
+        "files": 48,
+        "independent": {
+          "status": "passed",
+          "files": 48,
+          "checks": 112,
+          "version": "1.35.9"
+        },
+        "standaloneMode": "file-offline",
+        "errors": 0
+      }
+    },
+    "regression": {
+      "status": "passed",
+      "checks": [
+        {
+          "name": "diagram",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 22776,
+          "log": ".release/steam97-p08/regression/diagram.log",
+          "sha256": "0ec13bb87408aafa70144759541afed44522ba84e6d675159307ee24e318ec1f",
+          "managedFileFallback": true
+        },
+        {
+          "name": "diagram-guides",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 11494,
+          "log": ".release/steam97-p08/regression/diagram-guides.log",
+          "sha256": "482b58f73392a46434c7977d16cf2e9cf5eef34f0b3e0e8c8bc5465dfd3b2600",
+          "managedFileFallback": true
+        },
+        {
+          "name": "diagram-quality",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 31482,
+          "log": ".release/steam97-p08/regression/diagram-quality.log",
+          "sha256": "a3788f3ba7d8d50e72690277730a1d45425c57856be7489293ef6292e9fdded0",
+          "managedFileFallback": true
+        },
+        {
+          "name": "chart-layout",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 5081,
+          "log": ".release/steam97-p08/regression/chart-layout.log",
+          "sha256": "25aa8289c806789aeccd3a274bba0ba75981c120bdf2bed96a9889b216e0adaf",
+          "managedFileFallback": false
+        },
+        {
+          "name": "project-safety",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 4624,
+          "log": ".release/steam97-p08/regression/project-safety.log",
+          "sha256": "989670275f9cead927ed5b3c7850d399a6a523ed354df26602aa0ac75abaf00d",
+          "managedFileFallback": false
+        },
+        {
+          "name": "cross-browser",
+          "status": "passed",
+          "exitCode": 0,
+          "durationMs": 24089,
+          "log": ".release/steam97-p08/regression/cross-browser.log",
+          "sha256": "91bf2bdd71adb6a37e498359d2a675a0612e50c6bcb33318429b8c35b819a916",
+          "managedFileFallback": false
+        }
+      ]
+    },
+    "pwa": {
+      "chromium": {
+        "status": "passed",
+        "checks": 7,
+        "log": ".release/steam97-p08/pwa-chromium.log"
+      },
+      "firefox": {
+        "status": "passed",
+        "checks": 7,
+        "log": ".release/steam97-p08/pwa-firefox.log"
+      }
+    }
+  },
+  "limits": {
+    "rows": 65536,
+    "columns": 256,
+    "text_utf16_units": 32767,
+    "xls_text_utf16_units": 4000,
+    "overflow": "Explicit rejection; no truncation."
+  },
+  "sizes": {
+    "app_js": 3105673,
+    "standalone_html": 16301133,
+    "baseline_app_js": 2140245,
+    "baseline_standalone_html": 15323591
+  },
+  "scientific_scope": "Serialization and workflow acceptance; EOS unchanged. Independent P07 state controls retain their predeclared finite numerical tolerances. No new Steam97Web results or direct file-format parity.",
+  "artifacts": {
+    ".gitattributes": {
+      "sha256": "ae71392241110f523603f4becc5dc1c2a3217ddd4a564386eb08324852e05028",
+      "bytes": 393
+    },
+    ".github/workflows/release-checks.yml": {
+      "sha256": "4bd4f22df0a9ed1a785882a23dbdf3589257b2e86a4b4e29d50d1c68d3d8c1e6",
+      "bytes": 4283
+    },
+    "CHANGELOG.md": {
+      "sha256": "ce8f2237c5b3a298a8813d787d6ef19dcc413a7e5dc82dbb2f0ad1e64a7482d0",
+      "bytes": 96242
+    },
+    "README.md": {
+      "sha256": "ecbf306c36e33c0fc5bf99ffaf4db18b7a2c03c6c4ff963f21de78eb41cff7b7",
+      "bytes": 84925
+    },
+    "THIRD_PARTY_NOTICES.md": {
+      "sha256": "702496070f090257de59921e028c26f40ff6902310e39ce7e4081517f521cf22",
+      "bytes": 16442
+    },
+    "assets/app.js": {
+      "sha256": "25d8b8e9197052dc10792cb98f778babf35fbddd6b5eff185baa96bb2589bcbb",
+      "bytes": 3105673
+    },
+    "assets/calculator-worker.js": {
+      "sha256": "833a1c937201c772a568ab66b5ab8c6f1fddc98ed2b39f4c3172e72f025645f5",
+      "bytes": 812940
+    },
+    "assets/styles.css": {
+      "sha256": "a6588a0e50245cf79327284ec3e9acf5a454c4a71d12d3d0ad94c5e5f28e0427",
+      "bytes": 69252
+    },
+    "dist/assets/app.js": {
+      "sha256": "25d8b8e9197052dc10792cb98f778babf35fbddd6b5eff185baa96bb2589bcbb",
+      "bytes": 3105673
+    },
+    "dist/assets/calculator-worker.js": {
+      "sha256": "833a1c937201c772a568ab66b5ab8c6f1fddc98ed2b39f4c3172e72f025645f5",
+      "bytes": 812940
+    },
+    "dist/assets/styles.css": {
+      "sha256": "a6588a0e50245cf79327284ec3e9acf5a454c4a71d12d3d0ad94c5e5f28e0427",
+      "bytes": 69252
+    },
+    "dist/index.html": {
+      "sha256": "8d9dfeb650f5d9ed142549c7c8da08b4f199e7b845785fd0a2b35e7af7066a07",
+      "bytes": 45393
+    },
+    "dist/service-worker.js": {
+      "sha256": "c0321fe8f01593c57dde01d79fb3326e86f7c8a7fb689adeffe3d7934591c4fd",
+      "bytes": 6564
+    },
+    "dist/standalone.html": {
+      "sha256": "31e2bfcbe5aa7092c84a8cc4f8f4c245732e375368ef1d4236c7aa8e68011c7d",
+      "bytes": 16301133
+    },
+    "docs/PRODUCT_STRATEGY_UK.md": {
+      "sha256": "60756b96e726a2340ced545fceaf7592222f198a67487895b2afa41e224a7f3c",
+      "bytes": 16026
+    },
+    "docs/STEAMTABLES_P08_UK.md": {
+      "sha256": "941e0a8b31a87c3a8399a23abba4ee08bcc5cfb8a979bbf35e11417a35fd20f5",
+      "bytes": 11832
+    },
+    "docs/STEAMTABLES_PARITY_MATRIX.json": {
+      "sha256": "71f88912f26a147228befe4aec27db51a9a451a8763832949cdcdf3f077e6078",
+      "bytes": 109073
+    },
+    "docs/STEAMTABLES_PARITY_SPRINTS.json": {
+      "sha256": "bae06cef2eb2dbfa92a819758877f6acb518ae215a3ddf85c7a7fe38b6a4c67b",
+      "bytes": 13620
+    },
+    "docs/STEAMTABLES_PARITY_SPRINTS_UK.md": {
+      "sha256": "a94040fd5e888dfb7243b9db71dc8605026910654491131d8b687c1efb60837a",
+      "bytes": 33309
+    },
+    "docs/steam97-p08/chromium.json": {
+      "sha256": "503d361b86a3fdf326f2bd4841d68bdb1fdca9d88f8e3e96f9378f4dfbcd0af1",
+      "bytes": 28250
+    },
+    "docs/steam97-p08/core.json": {
+      "sha256": "ec8c73d839cc37371826e83f3b7c8a2a275021b458bc88b5df01ff32f02673f5",
+      "bytes": 3761
+    },
+    "docs/steam97-p08/file-reader-report.json": {
+      "sha256": "c54ada068fc9ce2f34bd5052ffdd1aef4bda798456456920ba70f6f3d581241e",
+      "bytes": 10289
+    },
+    "docs/steam97-p08/firefox.json": {
+      "sha256": "72b596699d57b82c213101641861681c65a8d83921d47439bedf3e3edb27989e",
+      "bytes": 28172
+    },
+    "docs/steam97-p08/legacy-csv.json": {
+      "sha256": "10c901f0f5cd09a8f50ad7045981a3b7b228e718fcd58d9144040c391336d23d",
+      "bytes": 210
+    },
+    "docs/steam97-p08/regression.json": {
+      "sha256": "a94bc18d61d5413b88a7dfe09fc61d023be48d4d2d21fa755d11dc028bfd8269",
+      "bytes": 1918
+    },
+    "docs/steam97-p08/samples/state-IF97.csv": {
+      "sha256": "69016d82f5ba2c18a56a2bd14653d0e9e07322608ea2c4e531852be211ee3c7a",
+      "bytes": 4043
+    },
+    "docs/steam97-p08/samples/state-IF97.ods": {
+      "sha256": "91d3ed246bcb3926508d28dd4dfcfd54314b41dd13063f13e805f8e7975a7353",
+      "bytes": 41307
+    },
+    "docs/steam97-p08/samples/state-IF97.xls": {
+      "sha256": "085b97b6ce19727e44fa8f8ac0b79d0cd2720269941aaa059051c32b6388fadf",
+      "bytes": 11776
+    },
+    "docs/steam97-p08/samples/state-IF97.xlsx": {
+      "sha256": "4332c245c0e6e87ca0eb5c3b908b651b97468523736c6bfc11718b4720ecc4da",
+      "bytes": 16074
+    },
+    "docs/steam97-p08/tasks.json": {
+      "sha256": "e103c7b305ffad5914d5023e2871461eadd6f7636544dbffdf45584619ae1adb",
+      "bytes": 1171
+    },
+    "index.html": {
+      "sha256": "8d9dfeb650f5d9ed142549c7c8da08b4f199e7b845785fd0a2b35e7af7066a07",
+      "bytes": 45393
+    },
+    "package.json": {
+      "sha256": "d0b7de6d0c7a1eb314c057f5f3309d062406b2434ded65c0ce6484040597acc4",
+      "bytes": 4706
+    },
+    "scripts/audit-steam97-p08.mjs": {
+      "sha256": "38f331d786dc0e14d60d1384cb5d8ded495c7569012884ba44bcc7c7118e24c0",
+      "bytes": 4400
+    },
+    "scripts/build.mjs": {
+      "sha256": "f4f770efb60cf85e357c832e49383ba33a387dbcf27d5969e3ff3c9fbd59fef6",
+      "bytes": 12323
+    },
+    "scripts/check-steam97-p08-browser.cjs": {
+      "sha256": "dcdd17859501fdf07a7ad154f59582bf960b5a023bf676d4c653c15c7c389da1",
+      "bytes": 8262
+    },
+    "scripts/check-steam97-p08-legacy.mjs": {
+      "sha256": "8c70e4ab84a24c58b2b6e6c63be82cb3670834fd56bc48da86bcd9501c223679",
+      "bytes": 2141
+    },
+    "scripts/check-steam97-p08-regression.mjs": {
+      "sha256": "f6c6ad91dac0e5e95b51fe8a9a0b39ba2cb3b00674f2188974d702048c0d484c",
+      "bytes": 1792
+    },
+    "scripts/finalize-steam97-p08.mjs": {
+      "sha256": "6e8582f29e25c4705ab54ac2744e440224ec1965f0a2389d38b4a69708425188",
+      "bytes": 6213
+    },
+    "scripts/reference/requirements-p08.txt": {
+      "sha256": "b245656a117c190db070922d918af76f8319e806f668aecd2c86ec5861636a31",
+      "bytes": 77
+    },
+    "scripts/reference/spreadsheet_readers.py": {
+      "sha256": "c26df3e3d95bdd185c356f6650a8c51bb395f9e3ef73bbe49830d44fcf847f62",
+      "bytes": 8001
+    },
+    "scripts/verify-release.mjs": {
+      "sha256": "f933ca8ebc68328b26dc44c5e79e32d80c0a3e19fff5b190e01be3adcee8ac62",
+      "bytes": 7439
+    },
+    "scripts/verify-steam97-p08.mjs": {
+      "sha256": "eff3592579c0a42bda51e25f072661b2502370d60077bd8b9e2bb2ad6be66d14",
+      "bytes": 1262
+    },
+    "service-worker.js": {
+      "sha256": "c0321fe8f01593c57dde01d79fb3326e86f7c8a7fb689adeffe3d7934591c4fd",
+      "bytes": 6564
+    },
+    "src/app.js": {
+      "sha256": "130328d78941e385e3c943613556977bf5bf189cd77346cdf36592f789d23115",
+      "bytes": 138069
+    },
+    "src/calculator-workspace-ui.js": {
+      "sha256": "91e74612c86bc4bf0e9e43f07e944711546f5b76eba2cc6a02d6fd89457ca3e3",
+      "bytes": 9792
+    },
+    "src/diagram-workspace.js": {
+      "sha256": "472635d7b062e1a012280427f362febba5b4515e44f82839c77ff6f2b526f64b",
+      "bytes": 9350
+    },
+    "src/export.js": {
+      "sha256": "627a563174a9661ec4c312a46382b3f0a847c7e20d3d113f59659b5e97f432bc",
+      "bytes": 3418
+    },
+    "src/locales/en.json": {
+      "sha256": "d40d72555745aeaddc1bac9e3a6cad41eeac382201ed2f62108319a44a6dfbac",
+      "bytes": 135615
+    },
+    "src/locales/uk.json": {
+      "sha256": "f882b31c7a3cb973b170dc264d57c32fee25ae7db61e35eed4f7ea7fa92af846",
+      "bytes": 195324
+    },
+    "src/project.js": {
+      "sha256": "55665ae792acbe956825f5b443211d3c46edfdb3832641b53fd372a974604275",
+      "bytes": 10124
+    },
+    "src/saturation-grid-ui.js": {
+      "sha256": "ff0c39b4a5b31a8e66fffadfa76bc58733452e4581d9e0b092b367a7b4f7974d",
+      "bytes": 5930
+    },
+    "src/spreadsheet-ui.js": {
+      "sha256": "c530b23c8eab92ffd5e5d76a40c7e3b43722d577413b13e0cd91a1208a7d1f7c",
+      "bytes": 1157
+    },
+    "src/spreadsheet.js": {
+      "sha256": "6b67426874fa7925d028909f89aa6f0374d6371945fa9694940b665fd521fde0",
+      "bytes": 4677
+    },
+    "src/styles.css": {
+      "sha256": "a6588a0e50245cf79327284ec3e9acf5a454c4a71d12d3d0ad94c5e5f28e0427",
+      "bytes": 69252
+    },
+    "src/tabular-data.js": {
+      "sha256": "d033ac029c9f1d2114c4f4307f43af49c2e4f4b680401a794200a29e23009b3a",
+      "bytes": 5729
+    },
+    "standalone.html": {
+      "sha256": "31e2bfcbe5aa7092c84a8cc4f8f4c245732e375368ef1d4236c7aa8e68011c7d",
+      "bytes": 16301133
+    },
+    "tests/spreadsheet.test.mjs": {
+      "sha256": "d3e8a49eb46cc65e06ccbf7b06efb41255325cf2787660ee59acfc1b2d856a95",
+      "bytes": 5927
+    },
+    "vendor/SHEETJS-LICENSE": {
+      "sha256": "4d2a38ac35cda06a555c84074a819d413339cd3691b822cae50f8f322fe01f64",
+      "bytes": 11355
+    },
+    "vendor/SHEETJS.json": {
+      "sha256": "81029be671e25484dc0b8c1c6ab8054f22bf9338f6d1828ad1faa691a40acc80",
+      "bytes": 745
+    },
+    "vendor/sheetjs.cjs": {
+      "sha256": "cc015130aa8521e7f088f88898eba949ccdcbfb38df0bd129b44b7273c3a6f41",
+      "bytes": 951904
+    }
+  },
+  "rawEvidence": {
+    ".release/2026-10-18T19-32-06-235Z/report.json": {
+      "sha256": "ec8c73d839cc37371826e83f3b7c8a2a275021b458bc88b5df01ff32f02673f5",
+      "bytes": 3761
+    },
+    ".release/2026-10-18T19-32-06-235Z/unit.log": {
+      "sha256": "3b8b1637b220da068bf8d8cf5b700434580570c8e62cdd3d7becc22c303e1f20",
+      "bytes": 300036
+    },
+    ".release/steam97-p08/files/manifest.json": {
+      "sha256": "b0b7ac739883b272dbf807bc0e69f4abd03046aa760f1b87872d39f9ca157507",
+      "bytes": 1497291
+    },
+    ".release/steam97-p08/files/reader-report.json": {
+      "sha256": "c54ada068fc9ce2f34bd5052ffdd1aef4bda798456456920ba70f6f3d581241e",
+      "bytes": 10289
+    },
+    ".release/steam97-p08/chromium/manifest.json": {
+      "sha256": "ebbd8e833fee75591b6ada0c16c3abf56c9cd6505ba78498d55639413e13d83a",
+      "bytes": 27745
+    },
+    ".release/steam97-p08/chromium/report.json": {
+      "sha256": "503d361b86a3fdf326f2bd4841d68bdb1fdca9d88f8e3e96f9378f4dfbcd0af1",
+      "bytes": 28250
+    },
+    ".release/steam97-p08/chromium/reader-report.json": {
+      "sha256": "f7e4f07be85b4f7ccffc4b0e444faf06c755c4bc681955b65c0b1ea25106247d",
+      "bytes": 80
+    },
+    ".release/steam97-p08/pwa-chromium.log": {
+      "sha256": "0047b1796583654f8adf65aef413e4f28da7027d64647b72e5e8416ac40ba0fb",
+      "bytes": 461
+    },
+    ".release/steam97-p08/firefox/manifest.json": {
+      "sha256": "f2a81902c81c7838299673b21571198830fd80553bb9397f55840664d67867bc",
+      "bytes": 27696
+    },
+    ".release/steam97-p08/firefox/report.json": {
+      "sha256": "72b596699d57b82c213101641861681c65a8d83921d47439bedf3e3edb27989e",
+      "bytes": 28172
+    },
+    ".release/steam97-p08/firefox/reader-report.json": {
+      "sha256": "f7e4f07be85b4f7ccffc4b0e444faf06c755c4bc681955b65c0b1ea25106247d",
+      "bytes": 80
+    },
+    ".release/steam97-p08/pwa-firefox.log": {
+      "sha256": "0047b1796583654f8adf65aef413e4f28da7027d64647b72e5e8416ac40ba0fb",
+      "bytes": 461
+    },
+    ".release/steam97-p08/regression/regression.json": {
+      "sha256": "a94bc18d61d5413b88a7dfe09fc61d023be48d4d2d21fa755d11dc028bfd8269",
+      "bytes": 1918
+    },
+    ".release/steam97-p08/legacy-csv.json": {
+      "sha256": "10c901f0f5cd09a8f50ad7045981a3b7b228e718fcd58d9144040c391336d23d",
+      "bytes": 210
+    }
+  }
+}

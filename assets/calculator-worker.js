@@ -3909,7 +3909,7 @@ function diagramTable(entries,system='si',energy='kJ',interactive=false,excluded
  const text=v=>Number.isFinite(v)?String(Number(v.toPrecision(digits))):'—';
  return `<table class="sat-table diagram-state-table"><thead><tr><th>№</th><th>Стан</th>${fields.map(k=>`<th>${k} [${diagramEscape(val(k,{})[1])}${k==='p'?' (абс.)':''}]</th>`).join('')}<th>Фаза</th>${interactive?'<th>Послідовність журналу</th>':''}</tr></thead><tbody>${entries.map(([q,label,source,custom],i)=>`<tr><td>${interactive?`<button type="button" data-diagram-select="${i}" aria-label="Вибрати точку ${i+1}">${i+1}</button>`:i+1}</td><td ${q.name||custom?'data-i18n-ignore':''}>${diagramEscape(label)}</td>${fields.map(k=>`<td>${text(val(k,q)[0])}</td>`).join('')}<td>${diagramEscape(q.phase)}</td>${interactive?`<td>${source==='history'?`<label><input type="checkbox" data-diagram-include="${i}" ${excluded.includes(q)?'':'checked'}> Додати</label><button type="button" data-diagram-move="${i}" data-direction="-1" aria-label="Точку ${i+1} раніше">↑</button><button type="button" data-diagram-move="${i}" data-direction="1" aria-label="Точку ${i+1} пізніше">↓</button>`:'Процес'}</td>`:''}</tr>`).join('')}</tbody></table>`;
 }
-function diagramCSV(entries,system='si',energy='kJ',plan={connectHistory:false,excluded:[]},preferences){
+function diagramExportRows(entries,system='si',energy='kJ',plan={connectHistory:false,excluded:[]},preferences){
  const cell=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
  const fields=['p','T','h','s'];const convert=(k,q)=>diagramQuantity(k,k==='T'?q.T-273.15:q[k],system,energy,preferences);
  const rows=[['pressure_basis','absolute'],['history_connections',plan.connectHistory?'enabled':'disabled'],['number','state','source','journal_selected',...fields.map(k=>`${k} [${convert(k,{})[1]}]`),'x [-]','model','phase'],...entries.map(([q,label,source],i)=>[i+1,label,source,source==='history'?!plan.excluded.includes(q):'',...fields.map(k=>convert(k,q)[0]),q.x,q.model||'IF97',q.phase])];
@@ -3917,7 +3917,7 @@ function diagramCSV(entries,system='si',energy='kJ',plan={connectHistory:false,e
  if(plan.drawingStyle)rows.push([],['point_radius_px',plan.drawingStyle.radius],['point_color',plan.drawingStyle.pointColor],['series_width_px',plan.drawingStyle.width],['series_color',plan.drawingStyle.lineColor]);
  const series=(plan.series||[]).filter(s=>s.model===model);
  if(series.length)rows.push([],['drawing_interpolation','centripetal Catmull-Rom; fixed canonical axis normalization; not a thermodynamic path'],['series','model','kind','point_labels','complete'],...series.map(s=>[s.name,s.model,s.kind,s.points.map(q=>entries.find(e=>e[0]===q)?.[1]||'').join(' → '),new Set(s.points).size>=(s.kind==='spline'?3:2)]));
- return '\ufeff'+rows.map(r=>r.map(cell).join(';')).join('\r\n');
+ return rows;
 }
 function diagramDrawingReport(plan,entries,model){
  const series=(plan?.series||[]).filter(s=>s.model===model);if(!series.length)return '';
@@ -3925,6 +3925,11 @@ function diagramDrawingReport(plan,entries,model){
 }
 function diagramReport(title,svg,entries,system='si',energy='kJ',note='',preferences,drawing){
  return `<!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title data-i18n-ignore>${diagramEscape(title)}</title><style>body{font:14px Arial;color:#182b40;margin:24px}svg{display:block;width:100%;height:auto;max-height:65vh}table{border-collapse:collapse;width:100%;font-size:11px}td,th{border:1px solid #abc;padding:6px}thead{display:table-header-group}tr{break-inside:avoid}.table-scroll{overflow:auto}@page{size:A4 landscape;margin:12mm}@media print{body{margin:0}svg{max-height:140mm}.table-scroll{overflow:visible}}</style></head><body><h1 data-i18n-ignore>${diagramEscape(title)}</h1><p>${diagramEscape(note)}</p><p>Усі тиски абсолютні. Коли нумерацію ввімкнено, номери точок відповідають таблиці; лінії між станами — схематичні зв’язки, а не розрахований проміжний шлях процесу.</p>${svg}${drawing?diagramDrawingReport(drawing.plan,entries,drawing.model):''}<h2>Стани на діаграмі</h2><div class="table-scroll">${diagramTable(entries,system,energy,false,[],10,preferences)}</div><p>Для друку або збереження PDF скористайтеся командою друку браузера.</p></body></html>`;
+}
+
+function diagramCSV(...args){
+ const cell=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+ return '\ufeff'+diagramExportRows(...args).map(r=>r.map(cell).join(';')).join('\r\n');
 }
 
 
@@ -4235,7 +4240,7 @@ function readProject(text){
  if(p.title!=null&&(typeof p.title!=='string'||p.title.length>80))throw Error('Назва проєкту має бути до 80 символів.');
  return {uiUnits:readUIUnits(p.uiUnits||(p.system==='english'?{temperature:'F',pressure:'psi',mass:'lbs',power:'Btuh',length:'ft',energy:'Btulb'}:null)),uiInputDefaults:p.uiInputDefaults===true,savedWith:readExportMetadata(p.savedWith),importedFrom:readExportMetadata(p.importedFrom),exportedWith:readExportMetadata(p.exportedWith),research:readResearch(p.research),study:readStudyReport(p.study),digits:readDisplayDigits(p.digits),diagram:readDiagramWorkspace(p.diagram,states),pressure,title:p.title||'Вода та пара',system:p.system==='english'?'english':'si',ambient,states,process,form:f,drafts,workspace,result,energy:p.energy==='J'?'J':'kJ',gray:p.gray===true,scale:['1','1.15','1.3'].includes(p.scale)?p.scale:'1',hints:p.hints!==false};
 }
-function processCSV(type,r,system='si'){
+function processExportRows(type,r,system='si'){
  const convert=(k,v,u='')=>system==='english'?englishProperty(k,v,u):[v,u];
  const states=[['inlet',r.inlet],...(r.ideal?[['isentropic_outlet',r.ideal]]:[]),['outlet',r.outlet]];
  const rows=[['process','state',`p [${convert('p',0,'MPa')[1]}]`,`T [${convert('T',273.15,'K')[1]}]`,`h [${convert('h',0,'kJ/kg')[1]}]`,`s [${convert('s',0,'kJ/(kg K)')[1]}]`,'x [-]','phase'],
@@ -4248,7 +4253,12 @@ function processCSV(type,r,system='si'){
  if(type==='turbine')rows.push(['powerMW',r.power/1000,'MW'],['inlet_saturation_status',r.inletSaturationStatus,''],['outlet_superheat_status',r.outletSuperheatStatus,'']);
  else rows.push(['inlet_mode',r.inletMode||'single-phase','']);
  const cell=v=>/[;"\r\n]/.test(String(v??''))?'"'+String(v).replaceAll('"','""')+'"':String(v??'');
- return '\ufeff'+rows.map(r=>r.map(cell).join(';')).join('\r\n');
+ return rows;
+}
+
+function processCSV(type,r,system='si'){
+ const cell=v=>/[;"\r\n]/.test(String(v??''))?'"'+String(v).replaceAll('"','""')+'"':String(v??'');
+ return '\ufeff'+processExportRows(type,r,system).map(r=>r.map(cell).join(';')).join('\r\n');
 }
 
 

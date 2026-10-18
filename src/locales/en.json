@@ -1785,5 +1785,7 @@
   "diagram.p07.limit": "Up to 32 named series are allowed.",
   "diagram.p07.badViewport": "Unknown diagram viewport.",
   "diagram.p07.badVisibility": "Invalid isobar visibility.",
-  "diagram.p07.detailLimit": "Spline detail limit reached; the curve is displayed approximately."
+  "diagram.p07.detailLimit": "Spline detail limit reached; the curve is displayed approximately.",
+  "spreadsheet.format": "Spreadsheet format",
+  "spreadsheet.save": "Save spreadsheet"
 }

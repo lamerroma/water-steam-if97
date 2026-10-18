@@ -2,7 +2,7 @@ import {DIAGNOSTIC_UNITS} from './inverse-diagnostics.js';
 import {englishProperty} from './units.js';
 import {propertyUnavailableReason} from './ux-display.js';
 // Unrounded canonical values; energy unit is explicitly recorded in each CSV row.
-export function exportCSV(result,energy='kJ',ambient=null,system='si') {
+export function resultExportRows(result,energy='kJ',ambient=null,system='si') {
   const props=[['dc','–'],['ex','кДж/кг'],['h','кДж/кг'],['s','кДж/(кг·K)'],['rho','кг/м³'],['v','м³/кг'],['cp','кДж/(кг·K)'],['cv','кДж/(кг·K)'],['w','м/с'],['u','кДж/кг'],['mu','Па·с'],['lambda','Вт/(м·K)'],['A','кДж/кг'],['G','кДж/кг'],['Z','–'],['isentropic','–'],['alpha','1/K'],['kappa','1/МПа'],['dvdt','м³/(кг·K)'],['dvdp','м³/(кг·МПа)'],['dpdt','МПа/K'],['dpdv','МПа·кг/м³'],['jt','K/МПа'],['ijt','кДж/(кг·МПа)'],['nu','м²/с'],['diffusivity','м²/с'],['Pr','–'],['sigma','Н/м']];
   const rows=[['state','property','value','unit'],['reference','pressure_basis','absolute','']],states=result.state?[['state',result.state]]:[];
   if(ambient)rows.push(['reference','p0',ambient.p,'MPa'],['reference','T0',ambient.T,'K'],['reference','exergy_definition','(h-h0)-T0*(s-s0); physical flow exergy','']);
@@ -17,5 +17,10 @@ export function exportCSV(result,energy='kJ',ambient=null,system='si') {
     for(const note of s.notes||[])rows.push([name,'note',note,'']);
   }
   if(result.diagnostics){const d=result.diagnostics;rows.push(['diagnostics','root_selection',d.selection,''],['diagnostics','numerical_duplicates_merged',d.merged,'']);if(d.roundingScenario){rows.push(['diagnostics','rounding_assumption',d.roundingScenario.assumption,'']);for(const x of d.roundingScenario.inputs)rows.push(['diagnostics','input_half_step_'+x.key,x.halfWidth,x.unit]);}}
-  return '\uFEFF'+rows.map(r=>r.map(c=>'"'+String(c).replaceAll('"','""')+'"').join(',')).join('\r\n');
+ return rows;
+}
+
+export function exportCSV(result,energy='kJ',ambient=null,system='si'){
+ const rows=resultExportRows(result,energy,ambient,system);
+ return '\uFEFF'+rows.map(r=>r.map(c=>'"'+String(c).replaceAll('"','""')+'"').join(',')).join('\r\n');
 }

@@ -1,0 +1,63 @@
+{
+  "build": {
+    "version": "1.35.9",
+    "id": "59e17a542e26"
+  },
+  "checks": [
+    {
+      "name": "diagram",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 22776,
+      "log": ".release/steam97-p08/regression/diagram.log",
+      "sha256": "0ec13bb87408aafa70144759541afed44522ba84e6d675159307ee24e318ec1f",
+      "managedFileFallback": true
+    },
+    {
+      "name": "diagram-guides",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 11494,
+      "log": ".release/steam97-p08/regression/diagram-guides.log",
+      "sha256": "482b58f73392a46434c7977d16cf2e9cf5eef34f0b3e0e8c8bc5465dfd3b2600",
+      "managedFileFallback": true
+    },
+    {
+      "name": "diagram-quality",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 31482,
+      "log": ".release/steam97-p08/regression/diagram-quality.log",
+      "sha256": "a3788f3ba7d8d50e72690277730a1d45425c57856be7489293ef6292e9fdded0",
+      "managedFileFallback": true
+    },
+    {
+      "name": "chart-layout",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5081,
+      "log": ".release/steam97-p08/regression/chart-layout.log",
+      "sha256": "25aa8289c806789aeccd3a274bba0ba75981c120bdf2bed96a9889b216e0adaf",
+      "managedFileFallback": false
+    },
+    {
+      "name": "project-safety",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4624,
+      "log": ".release/steam97-p08/regression/project-safety.log",
+      "sha256": "989670275f9cead927ed5b3c7850d399a6a523ed354df26602aa0ac75abaf00d",
+      "managedFileFallback": false
+    },
+    {
+      "name": "cross-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 24089,
+      "log": ".release/steam97-p08/regression/cross-browser.log",
+      "sha256": "91bf2bdd71adb6a37e498359d2a675a0612e50c6bcb33318429b8c35b819a916",
+      "managedFileFallback": false
+    }
+  ],
+  "status": "passed"
+}

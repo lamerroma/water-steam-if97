@@ -4,7 +4,7 @@
   "baseline_version": "1.35.0",
   "baseline_commit": "2c3bfe83d6b3f772018334074bdfa6df0abaa215",
   "goal": "All calculations available in the referenced Steam97Web calculator must be covered before further capability expansion.",
-  "status": "p07_bounded_delivery_reference_inventory_open",
+  "status": "p08_bounded_delivery_reference_inventory_open",
   "scope": {
     "target": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
     "include": "All calculator tabs and available model/phase/input/units/domain variants, including features marked as requiring registration. Workflow parity tracked separately.",
@@ -3068,13 +3068,17 @@
       "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
-        "src/export.js",
-        "src/learning-export.js"
+        "src/tabular-data.js",
+        "src/spreadsheet.js",
+        "src/spreadsheet-ui.js",
+        "docs/STEAMTABLES_P08_UK.md"
       ],
       "existing_checks": [
-        "tests/english-units.test.mjs"
+        "tests/spreadsheet.test.mjs",
+        "scripts/audit-steam97-p08.mjs",
+        "scripts/check-steam97-p08-browser.cjs"
       ],
-      "notes": "Compare units, numeric values, Unicode and exported sets of results.",
+      "notes": "Real files for confirmed water results, independent readers and offline browser checks. Direct reference file samples and unconfirmed gas-result sets remain B01/B03/B08; XLS text >4000 UTF-16 units is rejected explicitly.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "export",
@@ -3094,15 +3098,21 @@
       "group": "export",
       "feature": "XLS export",
       "scope": "workflow",
-      "implementation": "missing",
-      "parity": "known_gap",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
-        "src/export.js",
-        "src/learning-export.js"
+        "src/tabular-data.js",
+        "src/spreadsheet.js",
+        "src/spreadsheet-ui.js",
+        "docs/STEAMTABLES_P08_UK.md"
       ],
-      "existing_checks": [],
-      "notes": "Official help specifies Excel 97–2003 XLS. Actual downloaded signature/variant and result sets require B08; no local XLS writer.",
+      "existing_checks": [
+        "tests/spreadsheet.test.mjs",
+        "scripts/audit-steam97-p08.mjs",
+        "scripts/check-steam97-p08-browser.cjs"
+      ],
+      "notes": "Real files for confirmed water results, independent readers and offline browser checks. Direct reference file samples and unconfirmed gas-result sets remain B01/B03/B08; XLS text >4000 UTF-16 units is rejected explicitly.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "export",
@@ -3122,15 +3132,21 @@
       "group": "export",
       "feature": "XLSX export",
       "scope": "workflow",
-      "implementation": "missing",
-      "parity": "known_gap",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
-        "src/export.js",
-        "src/learning-export.js"
+        "src/tabular-data.js",
+        "src/spreadsheet.js",
+        "src/spreadsheet-ui.js",
+        "docs/STEAMTABLES_P08_UK.md"
       ],
-      "existing_checks": [],
-      "notes": "Listed in official calculator help; no dedicated implementation found in current source. CSV is not the same file format.",
+      "existing_checks": [
+        "tests/spreadsheet.test.mjs",
+        "scripts/audit-steam97-p08.mjs",
+        "scripts/check-steam97-p08-browser.cjs"
+      ],
+      "notes": "Real files for confirmed water results, independent readers and offline browser checks. Direct reference file samples and unconfirmed gas-result sets remain B01/B03/B08; XLS text >4000 UTF-16 units is rejected explicitly.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "export",
@@ -3150,15 +3166,21 @@
       "group": "export",
       "feature": "ODS export",
       "scope": "workflow",
-      "implementation": "missing",
-      "parity": "known_gap",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
-        "src/export.js",
-        "src/learning-export.js"
+        "src/tabular-data.js",
+        "src/spreadsheet.js",
+        "src/spreadsheet-ui.js",
+        "docs/STEAMTABLES_P08_UK.md"
       ],
-      "existing_checks": [],
-      "notes": "Listed in official calculator help; no dedicated implementation found in current source. CSV is not the same file format.",
+      "existing_checks": [
+        "tests/spreadsheet.test.mjs",
+        "scripts/audit-steam97-p08.mjs",
+        "scripts/check-steam97-p08-browser.cjs"
+      ],
+      "notes": "Real files for confirmed water results, independent readers and offline browser checks. Direct reference file samples and unconfirmed gas-result sets remain B01/B03/B08; XLS text >4000 UTF-16 units is rejected explicitly.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "export",
@@ -3405,12 +3427,13 @@
     "next_sprint": "P02 (reference tasks blocked)",
     "first_implementation_sprint": "P02",
     "P01_status": "preparation_complete_with_blockers",
-    "current_version": "1.35.8",
+    "current_version": "1.35.9",
     "P02_status": "bounded_delivery_complete_reference_acceptance_blocked",
-    "next_independent_work": "P08 true spreadsheet formats for confirmed result contracts",
+    "next_independent_work": "P09 audit of implemented scenarios and explicit remaining reference blockers",
     "P05_status": "scientific_domains_implemented_reference_acceptance_blocked",
     "P06_status": "bounded_delivery_complete_reference_acceptance_blocked",
-    "P07_status": "bounded_delivery_complete_dedicated_vapor_reference_acceptance_blocked"
+    "P07_status": "bounded_delivery_complete_dedicated_vapor_reference_acceptance_blocked",
+    "P08_status": "bounded_delivery_complete_reference_acceptance_blocked"
   },
   "p01_audit": {
     "date": "2026-10-18",
@@ -3477,5 +3500,13 @@
     "reference_inventory_complete": false,
     "new_reference_site_cases": 0,
     "dedicated_vapor_view_verified": false
+  },
+  "p08_audit": {
+    "version": "1.35.9",
+    "report": "STEAMTABLES_P08_UK.md",
+    "acceptance": "STEAMTABLES_P08_ACCEPTANCE.json",
+    "reference_inventory_complete": false,
+    "new_reference_site_cases": 0,
+    "direct_reference_files": 0
   }
 }

@@ -705,3 +705,7 @@ body.ui-task-layout{height:auto;min-height:100dvh}
 .sensitivity-scroll{overflow:auto}
 .sensitivity-scroll table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
 .sensitivity-scroll th,.sensitivity-scroll td{padding:.3rem .5rem;text-align:left;border-bottom:1px solid #d9dde3}
+
+/* Compact tabular exports wrap with their existing toolbar on small screens. */
+.spreadsheet-export{display:inline-flex;align-items:center;flex-wrap:wrap;gap:.3rem;max-width:100%;vertical-align:middle}.spreadsheet-export select{width:auto;max-width:100%;min-width:5rem}.spreadsheet-export button{white-space:normal}
+.output-tabs .spreadsheet-export{order:-1;flex-basis:100%}

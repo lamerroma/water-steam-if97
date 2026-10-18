@@ -18,7 +18,7 @@ function calculatorErrorSummary(){
  for(const input of fields){const b=document.createElement('button');b.type='button';const letter=input.id.at(-1);b.textContent=$('label-'+letter).textContent+' '+$('input-error-'+letter).textContent;b.onclick=()=>{input.focus();input.scrollIntoView({block:'nearest'});};summary.append(b);}
 }
 function syncCalculatorResultTools(){
- const tools=$('calculator-result-tools');if(tools)tools.hidden=!last;workflowCalculatorStatus(!!last);
+ const tools=$('calculator-result-tools');if(tools&&last&&!$('state-spreadsheet'))attachSpreadsheetExport($('copy-result-json'),spreadsheetOptions('state-spreadsheet',()=>resultTabular(ambientResult(last),spreadsheetContext('state / '+$('mode').value,last.state?.model||modelValue(),{p0:ambient.p,T0:ambient.T}))));if(tools)tools.hidden=!last;workflowCalculatorStatus(!!last);
 }
 function openCalculatorHistoryState(index){
  const q=historyStates[index];if(!q)return;const source=calculatorHistoryInput(q);selectModel(q.model||'IF97');selectView('general');$('mode').value=source.mode;resetMode();
