@@ -38,7 +38,7 @@ for(const c of reference.records)test(`Independent finite-difference Jacobian an
 
 test('Poorly conditioned cold liquid u-s duplicates collapse without changing inputs',()=>{
  const c=inverse.records.find(c=>c.id==='IAPWS-95-2066'),r=calculate('us',c.expected.u,c.expected.s,c.model);
- assert.equal(r.diagnostics.roots,1);assert.ok(r.diagnostics.merged>=20);assert.equal(r.alternatives,undefined);const diagnostic=calculate('us',c.expected.u,c.expected.s,c.model,{inputRounding:[typedRounding(String(c.expected.u),'kJkg'),typedRounding(String(c.expected.s),'kJkgK')]}).state.inputSensitivity;assert.ok(diagnostic.numericalResponse.p>diagnostic.response.p);assert.ok(sensitivityDigits(r.state.p,diagnostic.response.p+diagnostic.numericalResponse.p)<=4);
+ assert.equal(r.diagnostics.roots,1);assert.ok(r.diagnostics.merged>0);assert.equal(r.alternatives,undefined);const diagnostic=calculate('us',c.expected.u,c.expected.s,c.model,{inputRounding:[typedRounding(String(c.expected.u),'kJkg'),typedRounding(String(c.expected.s),'kJkgK')]}).state.inputSensitivity;assert.ok(diagnostic.numericalResponse.p>diagnostic.response.p);assert.ok(sensitivityDigits(r.state.p,diagnostic.response.p+diagnostic.numericalResponse.p)<=4);
  assert.equal(assessAllRoots(r,[c.expected.u,c.expected.s],['u','s'])[0].valid,true);
  // Changing the user's spelling cannot affect computational deduplication.
  const rounded=calculate('us',c.expected.u,c.expected.s,c.model,{inputRounding:[typedRounding('38.6','kJkg'),typedRounding('.14','kJkgK')]});

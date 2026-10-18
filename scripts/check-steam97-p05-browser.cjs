@@ -46,6 +46,10 @@ const {openTool,chooseModel,openUnits,closeUnits}=require('./browser-tools.cjs')
    assert.equal(saved.form.a,'200');assert.equal(saved.form.b,'260');assert.equal(saved.form.model,'IAPWS-95');
    await page.fill('#input-b','400');await page.locator('input[type=file][accept=".json,application/json"]').setInputFiles({name:'p05.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(saved))});
    await page.waitForFunction(()=>document.querySelector('#result-status').textContent.includes('Проєкт імпортовано'));await page.reload();await ready();await page.waitForFunction(()=>!document.querySelector('#copy-result-json').disabled);assert.ok(Math.abs((await capture()).state.T-260)<2e-6);
+   // A restored result was computed by the project reader, not the calculator
+   // worker. Start the latter online before testing its offline reuse. Full
+   // cold-start offline support is checked separately with the installed PWA.
+   await run(c);assert.ok(page.workers().length>=2);
    await context.setOffline(true);await run(c,'ph',false,'loaded-offline');await context.setOffline(false);
    const legacy={format:'water-steam-if97',version:1,history:[{p:.005173683148148375,h:38.63730268853567,model:'IAPWS-95',source:{mode:'us',a:38.63212828313412,b:.1391036658359701}}],form:{mode:'us',model:'IAPWS-95',a:'38.63212828313412',b:'.1391036658359701',ua:'kJkg',ub:'kJkgK',calculated:true,selectedRoot:{p:.005173683148148375,T:282.3426492768052}}};
    await page.locator('input[type=file][accept=".json,application/json"]').setInputFiles({name:'legacy.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(legacy))});

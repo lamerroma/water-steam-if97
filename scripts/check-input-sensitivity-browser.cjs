@@ -39,7 +39,12 @@ const {openTool,chooseModel,openUnits,closeUnits}=require('./browser-tools.cjs')
   });
   await check('Coarse input scenario is marked limited',async()=>{const r=await run('pt',['3','400'],['MPa','K']);assert.equal(r.state.inputSensitivity.status,'limited');assert.equal(await page.locator('#rounding-display').count(),0);});
   await check('Scientific cold liquid duplicates collapse',async()=>{
-   const c=inverse.records.find(c=>c.id==='IAPWS-95-2066'),r=await run('us',[String(c.expected.u),String(c.expected.s)],['kJkg','kJkgK'],c.model);assert.equal(r.diagnostics.roots,1);assert.ok(r.diagnostics.merged>=20);assert.equal(await page.locator('[data-use-alternative]').count(),0);assert.ok(r.state.inputSensitivity.response.p>0);
+   const c=inverse.records.find(c=>c.id==='IAPWS-95-2066'),r=await run('us',[String(c.expected.u),String(c.expected.s)],['kJkg','kJkgK'],c.model);
+   // Search candidates vary between JS engines. Require real deduplication and
+   // the physical result, rather than a particular number of numerical starts.
+   assert.equal(r.diagnostics.roots,1);assert.ok(r.diagnostics.merged>0);assert.equal(await page.locator('[data-use-alternative]').count(),0);
+   assert.ok(Math.abs(r.state.T-c.expected.T)<2e-6);assert.ok(Math.abs(r.state.u-c.expected.u)<2e-7);assert.ok(Math.abs(r.state.s-c.expected.s)<2e-10);
+   assert.ok(r.state.cp>0&&r.state.cv>0&&r.state.drhodp>0);assert.ok(r.state.inputSensitivity.response.p>0);
   });
   await check('Physical alternatives keep original pair and scenario when selected',async()=>{
    const c=inverse.records.find(c=>c.id==='IF97-0042'),r=await run('pv',['40.000000',String(c.expected.v)],['MPa','m3kg']);assert.equal(r.diagnostics.roots,2);const target=r.alternatives[0];await page.locator('[data-use-alternative="0"]').click();const selected=await capture();assert.equal(await page.locator('#mode').inputValue(),'pv');assert.equal(selected.state.T,target.T);assert.equal(selected.diagnostics.selection,'manual');assert.deepEqual(selected.diagnostics.roundingScenario,r.diagnostics.roundingScenario);assert.equal(selected.alternatives.length,1);assert.deepEqual(selected.state.source,{mode:'pv',a:40,b:c.expected.v});await page.reload();await ready();await page.waitForFunction(()=>!document.querySelector('#copy-result-json').disabled);const restored=await capture();assert.equal(restored.state.T,target.T);assert.equal(restored.diagnostics.selection,'manual');
