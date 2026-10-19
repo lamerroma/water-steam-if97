@@ -25,7 +25,7 @@
       "title": "FluidVIEW LibIdGasMix documentation, Zittau/Goerlitz University",
       "locations": "PDF pp.12-14, reference states and range of validity.",
       "evidence": "This library documents VDI 4670 dissociation and its own pressure, composition and reference-state policies.",
-      "use": "Model disambiguation only. These policies cannot be assigned to BSW2003 or Steam97Web."
+      "use": "Model disambiguation. PTB-CP-3 establishes a BSW/VDI connection, but equality of editions and implementations is not proven; library policies cannot be assigned to Steam97Web."
     },
     {
       "id": "P04-S04",
@@ -33,10 +33,51 @@
       "title": "Buecker, Span, Wagner (2003), Thermodynamic Property Models for Moist Air and Combustion Gases",
       "full_paper_acquired": false,
       "use": "Required primary correction source; bibliography identifies the target, but abstract is insufficient for implementation."
+    },
+    {
+      "id": "P04-S05",
+      "url": "https://github.com/modelica/ModelicaStandardLibrary/blob/64d9bd4a625cc6f28c18c0398bbf4082ef460625/Modelica/Media/Air/ReferenceMoistAir.mo",
+      "title": "Modelica Standard Library ReferenceMoistAir, ReactionIndices and cp/h/s dissociation functions",
+      "evidence": "All six A-E coefficient rows, U2-U6, V2-V6 and caloric correction functions; cites VDI 4670 (2003).",
+      "limitations": "Humid-air subset without U1 for CO/CO2; source derivative inconsistencies and D2 sign conflict documented in modelica-source-audit.json. Not run in a Modelica compiler or validated against Steam97Web.",
+      "source_sha256": "c209c4fd2077eae1f299745dd72b752d703d61f6c629ba3c9d523be36ce5de58"
+    },
+    {
+      "id": "P04-S06",
+      "url": "https://thermofluidprop.com/fileadmin/Dateien/KCE-Dateien/PTB_Bericht_Bremerhaven_2009.pdf",
+      "title": "Herrmann et al. (2009), PTB-CP-3, Determination of Thermodynamic and Transport Properties of Humid Air for Power-Cycle Calculations",
+      "locations": "Printed pp.28-29,108 and bibliography [16]/[23], PDF pp.29-30,109,123.",
+      "evidence": "Primary report links simplified VDI 4670 dissociation to Buecker/Span/Wagner 2003; identifies T>1200 K and oxygen mole fraction at least 1%.",
+      "limitation": "Caloric correction terms named rather than all equations/coefficients provided. These are report model conditions, not confirmed site policy."
+    },
+    {
+      "id": "P04-S07",
+      "url": "https://mspace.lib.umanitoba.ca/bitstreams/ffa9abe7-514f-4991-9394-561df7322798/download",
+      "title": "Seyedeh Fatemeh Allahgholipour (2020), Hybrid Brayton cycle for distributed micro-grid applications by potential use of biomass and solar renewable resources",
+      "locations": "Section 3.2.3, printed pp.63-66, equations 3.19-3.27 and Table 3.3.",
+      "evidence": "Secondary equations and six reaction coefficient rows.",
+      "limitations": [
+        "Extracted H2 D coefficient sign conflicts with Modelica; original PDF table not visually verified.",
+        "Generic reaction-number expression does not provide all differing U2-U6 dependencies.",
+        "Does not replace full BSW2003 or direct reference examples."
+      ]
+    },
+    {
+      "id": "P04-S08",
+      "url": "https://www.rol-span.com/",
+      "title": "Roland Span publication list, 1999",
+      "evidence": "Search-indexed author bibliography identifies Buecker/Span/Wagner simplified-dissociation presentation to the VDI 4670 committee in 1999.",
+      "limitation": "Presentation full text not acquired; author page could not be retrieved directly."
     }
   ],
   "unresolved_access": [
-    {"url": "https://dspace.lib.cranfield.ac.uk/bitstream/1826/5612/1/Daniel_Kamunge_Thesis_2011.pdf", "result": "Public web retrieval explicitly denied by BotStopper; not bypassed; indexed excerpts are not a verified correction source."},
-    {"url": "https://dspace.lib.cranfield.ac.uk/bitstream/1826/9243/1/Kadambari_Lokesh_Thesis_2015.pdf", "result": "Public web retrieval returned 403; full text not acquired."}
+    {
+      "url": "https://dspace.lib.cranfield.ac.uk/bitstream/1826/5612/1/Daniel_Kamunge_Thesis_2011.pdf",
+      "result": "Public web retrieval explicitly denied by BotStopper; not bypassed; indexed excerpts are not a verified correction source."
+    },
+    {
+      "url": "https://dspace.lib.cranfield.ac.uk/bitstream/1826/9243/1/Kadambari_Lokesh_Thesis_2015.pdf",
+      "result": "Public web retrieval returned 403; full text not acquired."
+    }
   ]
 }

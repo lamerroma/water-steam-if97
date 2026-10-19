@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "source_url": "https://github.com/modelica/ModelicaStandardLibrary/blob/64d9bd4a625cc6f28c18c0398bbf4082ef460625/Modelica/Media/Air/ReferenceMoistAir.mo",
+  "source_sha256": "c209c4fd2077eae1f299745dd72b752d703d61f6c629ba3c9d523be36ce5de58",
+  "method": "Scalar formulas read from pinned source; Python float central differences versus calculus and source derivative expressions. Modelica runtime was not executed.",
+  "inputs": {
+    "T_K": 2000.0,
+    "p_Pa": 101325,
+    "mole_fractions": {
+      "H2O": 0.1,
+      "N2": 0.7,
+      "O2": 0.2,
+      "Ar": 0
+    }
+  },
+  "constants": {
+    "AA": [
+      20413.2,
+      1075.5,
+      165.95,
+      1491.75,
+      3235.34,
+      4.5542
+    ],
+    "BB": [
+      -33086.5,
+      -30283.3,
+      -19526.8,
+      -27488.0,
+      -30807.8,
+      -10973.6
+    ],
+    "CC": [
+      -19.5,
+      -65.2,
+      -18.7,
+      -3.6,
+      -21.8,
+      -5.6
+    ],
+    "DD": [
+      -115000.0,
+      303000.0,
+      57200.0,
+      393000.0,
+      150000.0,
+      16200.0
+    ],
+    "EE": [
+      9483000000.0,
+      7277000000.0,
+      3136000000.0,
+      5826000000.0,
+      7659000000.0,
+      994000000.0
+    ]
+  },
+  "D_H2_discrepancy": {
+    "Modelica_J_mol": 303000.0,
+    "Manitoba_table_3_3_text_J_mol": -303000,
+    "resolved": false,
+    "V_H2_difference_at_2000K_J_molK": 303.0
+  },
+  "derivative_diagnostics": [
+    {
+      "function": "U2_der",
+      "direction": "Increase H2O, decrease inert N2 equally; fixed O2, p and T",
+      "central_difference": 0.0006384992257677836,
+      "calculus": 0.0006384992257659142,
+      "source_expression": 0.00012769984515318281,
+      "source_to_calculus_ratio": 0.19999999999999998,
+      "matches": false
+    },
+    {
+      "function": "U3_der",
+      "direction": "Temperature only; fixed composition and p",
+      "central_difference": 9.854057628688392e-06,
+      "calculus": 9.85405762910102e-06,
+      "source_expression": -6.967870971740364e-06,
+      "matches": false
+    }
+  ],
+  "Steam97Web_cases": 0,
+  "physical_validation": false,
+  "production_integration": false,
+  "note": "The six coefficient rows exist, but humid-air source implements U2-U6 only, with no CO/CO2 branch U1. This audit does not infer the missing branch or establish equivalence with Steam97Web."
+}
