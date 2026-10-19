@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-18",
+  "updated": "2026-10-19",
   "baseline_version": "1.35.4",
   "baseline_commit": "9c87d171d093ee2a4f7ec7a92e3c10d1de95f123",
   "status": "p07_bounded_delivery_reference_acceptance_open",
@@ -278,7 +278,7 @@
     {
       "id": "P09",
       "title": "Повне приймання аналога",
-      "status": "planned",
+      "status": "blocked",
       "depends_on": [
         "P01",
         "P02",
@@ -296,7 +296,12 @@
         "clear-results"
       ],
       "result": "Закрита матриця, повні користувацькі сценарії й підтверджене розгортання",
-      "acceptance": "Інвентар завершено, усі обов’язкові вимоги підтверджено, немає невирішених прогалин; перевірено CI і сайт саме для прийнятого коміту."
+      "acceptance": "Інвентар завершено, усі обов’язкові вимоги підтверджено, немає невирішених прогалин; перевірено CI і сайт саме для прийнятого коміту.",
+      "bounded_delivery": "P09-01 transport unit choices",
+      "delivered_version": "1.35.10",
+      "report": "STEAMTABLES_P09_UNITS_UK.md",
+      "acceptance_file": "STEAMTABLES_P09_UNITS_ACCEPTANCE.json",
+      "full_sprint_accepted": false
     }
   ],
   "inventory_delta": {

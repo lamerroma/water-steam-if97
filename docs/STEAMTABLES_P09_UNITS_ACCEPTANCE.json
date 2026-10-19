@@ -1,0 +1,291 @@
+{
+  "schema_version": 1,
+  "sprint": "P09-01",
+  "version": "1.35.10",
+  "build": {
+    "version": "1.35.10",
+    "id": "fa155a9636c3"
+  },
+  "status": "bounded_delivery_passed",
+  "full_sprint_accepted": false,
+  "full_reference_parity_verified": false,
+  "baseline": "a533ddf27c695602c82e74dfb60164fbf18a754e",
+  "scope": "Confirmed transport unit choices and existing water workflows; independent dimensional conversion checks, not new EOS reference evidence.",
+  "verification": {
+    "coreChecks": 15,
+    "unitTests": 1678,
+    "unitConversions": {
+      "status": "passed",
+      "version": "1.35.10",
+      "method": "Python Decimal precision 60; exact international pound, foot and standard gravity; independent of JS conversion factors",
+      "relative_tolerance": 2e-14,
+      "absolute_tolerance_for_nonzero": 0,
+      "checks": 600,
+      "numeric": 406,
+      "missing": 194,
+      "max_relative_error": 3.261502100453828e-16,
+      "scope": "Unit conversions of canonical program states, not a new independent EOS or Steam97Web comparison."
+    },
+    "browsers": {
+      "chromium": {
+        "status": "passed",
+        "version": "154.0.8037.57",
+        "playwright": "1.64.1",
+        "groups": [
+          "Ukrainian scientific exponent in small transport table values and reversible preference changes",
+          "Both models: all selectable transport units, SI/English overrides, actual four-format downloads, JSON persistence and reload",
+          "English captions and settings layout at 320/390 px",
+          "Standalone offline, both models, four formats with preferred units",
+          "Installed PWA offline reload, both models, four formats with preferred units"
+        ],
+        "files": 56,
+        "checks": 448,
+        "standaloneMode": "managed-file-policy-loopback-then-offline",
+        "rawReport": ".release/steam97-p09/chromium/report.json",
+        "rawReportSha256": "fe56ed9cbe93558cf50e624462d940b44fe7bd16951298072930a5280edc4215"
+      },
+      "firefox": {
+        "status": "passed",
+        "version": "157.0",
+        "playwright": "1.64.1",
+        "groups": [
+          "Ukrainian scientific exponent in small transport table values and reversible preference changes",
+          "Both models: all selectable transport units, SI/English overrides, actual four-format downloads, JSON persistence and reload",
+          "English captions and settings layout at 320/390 px",
+          "Standalone offline, both models, four formats with preferred units",
+          "Installed PWA offline reload, both models, four formats with preferred units"
+        ],
+        "files": 56,
+        "checks": 448,
+        "standaloneMode": "file-offline",
+        "rawReport": ".release/steam97-p09/firefox/report.json",
+        "rawReportSha256": "ddb84e5f3750aef6c3a2303957bcb478099505fca51e39a1dc69c7861b4cc072"
+      }
+    },
+    "previousSpreadsheetFileAudit": {
+      "files": 91,
+      "cells": 33138
+    },
+    "legacyCSV": {
+      "status": "passed",
+      "checks": 30,
+      "baseline": "133a58918162f4572174a7f6b2fa44be5f4b133a",
+      "meaning": "Byte-for-byte comparison against original baseline serializers on identical canonical results."
+    },
+    "regression": [
+      {
+        "name": "diagram",
+        "status": "passed"
+      },
+      {
+        "name": "diagram-guides",
+        "status": "passed"
+      },
+      {
+        "name": "diagram-quality",
+        "status": "passed"
+      },
+      {
+        "name": "chart-layout",
+        "status": "passed"
+      },
+      {
+        "name": "project-safety",
+        "status": "passed"
+      },
+      {
+        "name": "cross-browser",
+        "status": "passed"
+      }
+    ]
+  },
+  "runtimeFinding": {
+    "initialFirefox153": "With preinstalled Playwright 1.62.1, one run reached 48 files and then the PWA import tab crashed. This is not treated as accepted evidence; final acceptance uses CI-pinned Playwright 1.64.1 and its browser.",
+    "node24": "One pre-existing IAPWS-95 dry-saturated-inlet Rankine test fails on unchanged baseline and current tree under Node 24.19.0.",
+    "node22": "Same case and all 1678 tests pass with CI Node 22.20.0.",
+    "status": "Existing runtime-dependent numerical issue; no EOS patch included."
+  },
+  "reference": {
+    "newNumericalCases": 0,
+    "inventoryComplete": false,
+    "openBlockers": [
+      "B01",
+      "B02",
+      "B03",
+      "B04",
+      "B05",
+      "B06",
+      "B07",
+      "B08",
+      "B09"
+    ]
+  },
+  "publication": {
+    "pushed": false,
+    "published": false
+  },
+  "evidence": [
+    {
+      "path": "docs/steam97-p09/unit-reference-report.json",
+      "sha256": "121f24cf69f3b7618e5e53ea6d6f7a36c3c927e17eda446dd7d776cf235e1345"
+    },
+    {
+      "path": "docs/steam97-p09/unit-values.json",
+      "sha256": "efc4de9b0ee7be793654e060ecd2ca61696abbc9a753998e176be8e7bcba6875"
+    },
+    {
+      "path": "docs/steam97-p09/core-report.json",
+      "sha256": "f2b2569c2f757c23c73f6c8ba5c240527f42f0b67b2529e77825b922affab2db"
+    },
+    {
+      "path": "docs/steam97-p09/chromium-readers.json",
+      "sha256": "6f8f8c88763cd536c3e39cb7e68a9b3de63a12c16afc534acbbab15f0f5bad9e"
+    },
+    {
+      "path": "docs/steam97-p09/p08-chromium-readers.json",
+      "sha256": "80720dd36c346ec61942e6f3439c0e70a9e7959379ed27107fd8e39cf357e3e0"
+    },
+    {
+      "path": "docs/steam97-p09/firefox-readers.json",
+      "sha256": "6f8f8c88763cd536c3e39cb7e68a9b3de63a12c16afc534acbbab15f0f5bad9e"
+    },
+    {
+      "path": "docs/steam97-p09/p08-firefox-readers.json",
+      "sha256": "80720dd36c346ec61942e6f3439c0e70a9e7959379ed27107fd8e39cf357e3e0"
+    },
+    {
+      "path": "docs/steam97-p09/p08-file-readers.json",
+      "sha256": "b51bfa3d121a057b589dbff3ec91634583d218666662cff1a030247083f29942"
+    },
+    {
+      "path": "docs/steam97-p09/legacy-csv.json",
+      "sha256": "10c901f0f5cd09a8f50ad7045981a3b7b228e718fcd58d9144040c391336d23d"
+    },
+    {
+      "path": "docs/steam97-p09/ui-workspace.txt",
+      "sha256": "0dc4a73128c2089cc3f23ad22ae439e1e4ad1900471ba57840667c303da6591b"
+    },
+    {
+      "path": "docs/steam97-p09/regression.json",
+      "sha256": "279686e78057468d48a77146b7fb9522eeaaa417bef0ebcf567f0aa5d0c91560"
+    },
+    {
+      "path": "docs/steam97-p09/node24-baseline-rankine.txt",
+      "sha256": "ccb18d3ad9737555cf8fae55da4b57024df8b5df38c55b46c583c7139bcf98c6"
+    },
+    {
+      "path": "docs/steam97-p09/node22-rankine.txt",
+      "sha256": "572e591f51fe40cfb0382f3e06b3b2c62ee3343393c9c3c35394fddb56cfa077"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "package.json",
+      "sha256": "b26733a88330fffe85c1f8615a07593a0101d202d315df368f4780906931b872"
+    },
+    {
+      "path": "src/ui-quantities.js",
+      "sha256": "6c34a7d3eed53b757b8108a6f1267b567a68b6c869452a8eab0558b0fe988eef"
+    },
+    {
+      "path": "src/ui-workspace.js",
+      "sha256": "af3c7da8073c6f431423686eb7d1dc5313e362ae64e26f8d5620c4809221ba21"
+    },
+    {
+      "path": "src/app.js",
+      "sha256": "c58d8314ca062d51ea8d33dce62c7bfef6ab8f70e868d62cc9ce34bc587dc6fd"
+    },
+    {
+      "path": "src/export.js",
+      "sha256": "2ffb9c6e6b82031d2ba5355dbf3f1008600f6d5d44b595ccaf14cc1c1a3e340e"
+    },
+    {
+      "path": "src/tabular-data.js",
+      "sha256": "95a36964f84f386752b8b09ff1dfe790e1a77ac0f3fee76cd21185da8ebd006f"
+    },
+    {
+      "path": "src/print-report.js",
+      "sha256": "6e9b8d5f5740fa2a00a7b35fea61bc03a426b21a42b6068f87895bbb0f9a932f"
+    },
+    {
+      "path": "scripts/audit-steam97-p09-units.mjs",
+      "sha256": "98f434dc377d1172dd533e36ca3eac50d5bfa48193aaee903bea9330d17db1d5"
+    },
+    {
+      "path": "scripts/reference/transport_unit_reference.py",
+      "sha256": "6346bec1c6669309e5d18d393ede866c69b043ea5d02c9ab5a0ac7fbde985c7a"
+    },
+    {
+      "path": "scripts/check-steam97-p09-units-browser.cjs",
+      "sha256": "30cc51443619f30e9148ff164c8117f3d785b3d7376547fb224741d8268beed0"
+    },
+    {
+      "path": "scripts/reference/spreadsheet_readers.py",
+      "sha256": "89e145054883bf4727c8b00e4464f1b56a90ec6e96ab8b6d62f5556232606e1e"
+    },
+    {
+      "path": "scripts/verify-release.mjs",
+      "sha256": "a7d89e49c5693a812143dc32ee1455b975504a36fa6f3c8ad900e6ce1f1b8b11"
+    },
+    {
+      "path": "scripts/finalize-steam97-p09-units.mjs",
+      "sha256": "b5880d3167688712d51d84f6c5abc4173cda1e0c52323240d3ad9167dc3013d5"
+    },
+    {
+      "path": "scripts/verify-steam97-p09-units.mjs",
+      "sha256": "7120d4fa7d3c6414c86d44501aed0dea0adcb55517e6f8630098bd705f1a1b1a"
+    },
+    {
+      "path": "tests/transport-units.test.mjs",
+      "sha256": "026cefe287281c4f478746986a198b6f44ead82fb13a206b79d5f1ac0df99c7c"
+    },
+    {
+      "path": "scripts/check-diagram-browser.cjs",
+      "sha256": "29a2ec303b23a54825dc0f832a5cb132c0653f46ce0b614e3cc214fa51344324"
+    },
+    {
+      "path": "index.html",
+      "sha256": "d7afd0c9880ebb056f1fa3f96b91bf91bd3b713531a7ddab64854e9436801e6a"
+    },
+    {
+      "path": "assets/app.js",
+      "sha256": "b73d1efe946831af49c389804f2b48b988306d3c7df5a7325dd65db1d488789f"
+    },
+    {
+      "path": "assets/calculator-worker.js",
+      "sha256": "c0f4ad9d6511f051b2c5e8c8d8e266c11480434e51093935acf9fe3d4287911b"
+    },
+    {
+      "path": "service-worker.js",
+      "sha256": "6e41e091eeb5feed281e7be8ab1ae5bb283779430b54e83df08bbebc4607b2b8"
+    },
+    {
+      "path": "standalone.html",
+      "sha256": "e823e267a7f6bc1aa7d986bd96e2fd75ecd13e5d6fafc787e0f95b224a27307c"
+    },
+    {
+      "path": "dist/standalone.html",
+      "sha256": "e823e267a7f6bc1aa7d986bd96e2fd75ecd13e5d6fafc787e0f95b224a27307c"
+    },
+    {
+      "path": "docs/STEAMTABLES_P09_UNITS_UK.md",
+      "sha256": "3425147d615bb13a8c9813ea3ed3879ab2fdb0d556f2fbe47de95a26f623a40a"
+    },
+    {
+      "path": "docs/STEAMTABLES_PARITY_MATRIX.json",
+      "sha256": "c40e72160911ae87cd2fcc45eb53a67e2e951e789a5976ab9529b3b93131d44e"
+    },
+    {
+      "path": "docs/STEAMTABLES_PARITY_SPRINTS.json",
+      "sha256": "c017a77213f5eb7d55f76825c0925747ca40d6153508fd43d421883e7a89a345"
+    },
+    {
+      "path": "docs/STEAMTABLES_PARITY_SPRINTS_UK.md",
+      "sha256": "259bd1fc786acf3045a310f8cf2a5d51d0700367d84b65fde4eb650297c8fd43"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "58e1014ee0d6d79264fdef970b4f1c6f9a142c48155ade051c0038038375850a"
+    }
+  ]
+}

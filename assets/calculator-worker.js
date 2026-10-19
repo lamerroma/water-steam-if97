@@ -2474,7 +2474,8 @@ function typedRounding(text,unit){
 
 // src/ui-quantities.js
 // Display units are independent of the numerical models. Canonical values are
-// MPa, K, kg/s, kW, m, kJ/kg and kJ/(kg K); temperature differences have no offset.
+// MPa, K, kg/s, kW, m, kJ/kg, Pa s, m²/s and N/m; temperature differences have no offset.
+const UNIT_LB=.45359237,UNIT_FT=.3048;
 const UI_UNIT_GROUPS={
  temperature:{C:['°C',1,273.15],K:['K',1,0],F:['°F',1/1.8,273.15-32/1.8]},
  temperatureDifference:{dK:['K',1,0],dC:['°C',1,0],dF:['°F',1/1.8,0]},
@@ -2484,12 +2485,15 @@ const UI_UNIT_GROUPS={
  length:{m:['m',1,0],mm:['mm',.001,0],cm:['cm',.01,0],ft:['ft',.3048,0],inch:['in',.0254,0]},
  energy:{kJkg:['kJ/kg',1,0],Jkg:['J/kg',.001,0],Btulb:['Btu/lb',2.326,0]},
  entropy:{kJkgK:['kJ/(kg K)',1,0],JkgK:['J/(kg K)',.001,0],BtulbR:['Btu/(lb °R)',4.1868,0]},
+ dynamicViscosity:{auto:['За системою',null,0],Pas:['Pa·s',1,0],uPas:['μPa·s',1e-6,0],lb_fts:['lb/(ft·s)',UNIT_LB/UNIT_FT,0],lb_fth:['lb/(ft·h)',UNIT_LB/(UNIT_FT*3600),0]},
+ kinematicViscosity:{auto:['За системою',null,0],m2s:['m²/s',1,0],mm2s:['mm²/s',1e-6,0],ft2s:['ft²/s',UNIT_FT**2,0],ft2h:['ft²/h',UNIT_FT**2/3600,0]},
+ surfaceTension:{auto:['За системою',null,0],Nm:['N/m',1,0],mNm:['mN/m',.001,0],lbf_ft:['lbf/ft',UNIT_LB*9.80665/UNIT_FT,0]},
  fraction:{fraction:['0…1',1,0],percent:['%',.01,0]}
 };
-const UI_UNIT_DEFAULTS={temperature:'C',pressure:'MPa',mass:'kgs',power:'kW',length:'m',energy:'kJkg'};
+const UI_UNIT_DEFAULTS={temperature:'C',pressure:'MPa',mass:'kgs',power:'kW',length:'m',energy:'kJkg',dynamicViscosity:'auto',kinematicViscosity:'auto',surfaceTension:'auto'};
 function uiConvertQuantity(value,group,from,to){
  const a=UI_UNIT_GROUPS[group]?.[from],b=UI_UNIT_GROUPS[group]?.[to];
- if(!a||!b||!Number.isFinite(value))throw Error('Несумісні одиниці або нескінченне число. / Incompatible units or nonfinite number.');
+ if(!a||!b||!(a[1]>0)||!(b[1]>0)||!Number.isFinite(value))throw Error('Несумісні одиниці або нескінченне число. / Incompatible units or nonfinite number.');
  const result=(value*a[1]+a[2]-b[2])/b[1];if(!Number.isFinite(result))throw Error('Переповнення перетворення одиниць. / Unit conversion overflow.');return result;
 }
 function readUIUnits(value){
@@ -2500,11 +2504,11 @@ function readUIUnits(value){
 function uiPreferredUnit(group,prefs){
  if(group==='entropy')return prefs.energy==='Btulb'?'BtulbR':prefs.energy==='Jkg'?'JkgK':'kJkgK';
  if(group==='temperatureDifference')return prefs.temperature==='F'?'dF':prefs.temperature==='C'?'dC':'dK';
- return prefs[group];
+ return prefs[group]==='auto'?undefined:prefs[group];
 }
 function uiUnitFromLabel(text){
- const cleaned=String(text).replace(/\s*(?:\(абс\.\)|\(abs\)|\(absolute\)|abs|абс\.)/g,'').replace(/МПа/g,'MPa').replace(/кПа/g,'kPa').replace(/Па/g,'Pa').replace(/МВт/g,'MW').replace(/кВт/g,'kW').replace(/Вт/g,'W').replace(/кДж/g,'kJ').replace(/Дж/g,'J').replace(/кг/g,'kg').replace(/год/g,'h').replace(/м³/g,'m³').replace(/мм/g,'mm').replace(/см/g,'cm').replace(/м/g,'m').replace(/с/g,'s').replace(/бар/g,'bar').replace(/·/g,' ').replace(/\s+/g,' ').trim();
- for(const [group,units] of Object.entries(UI_UNIT_GROUPS))for(const [unit,[label]] of Object.entries(units))if(label===cleaned)return {group,unit};return null;
+ const cleaned=String(text).replace(/\s*(?:\(абс\.\)|\(abs\)|\(absolute\)|abs|абс\.)/g,'').replace(/МПа/g,'MPa').replace(/кПа/g,'kPa').replace(/Па/g,'Pa').replace(/МВт/g,'MW').replace(/кВт/g,'kW').replace(/Вт/g,'W').replace(/кДж/g,'kJ').replace(/Дж/g,'J').replace(/кг/g,'kg').replace(/год/g,'h').replace(/м³/g,'m³').replace(/мм/g,'mm').replace(/см/g,'cm').replace(/м/g,'m').replace(/с/g,'s').replace(/бар/g,'bar').replace(/Н/g,'N').replace(/m2\/s/g,'m²/s').replace(/·/g,' ').replace(/\s+/g,' ').trim();
+ for(const [group,units] of Object.entries(UI_UNIT_GROUPS))for(const [unit,[label]] of Object.entries(units))if(unit!=='auto'&&label.replace(/·/g,' ')===cleaned)return {group,unit};return null;
 }
 function uiDisplayQuantity(value,unit,prefs,{difference=false}={}){
  const spec=uiUnitFromLabel(unit);if(!spec)return [value,unit];
@@ -2512,6 +2516,11 @@ function uiDisplayQuantity(value,unit,prefs,{difference=false}={}){
  let {group}=spec,from=spec.unit;if(difference&&group==='temperature'){group='temperatureDifference';from='d'+from;}
  const target=uiPreferredUnit(group,prefs);if(!target)return [value,unit];
  return [Number.isFinite(value)?uiConvertQuantity(value,group,from,target):value,UI_UNIT_GROUPS[group][target][0]];
+}
+
+// Only transport dimensions override legacy export units; other export contracts stay explicit.
+function uiTransportQuantity(key,value,unit,prefs){
+ return prefs&&['mu','nu','diffusivity','sigma'].includes(key)?uiDisplayQuantity(value,unit,prefs):[value,unit];
 }
 
 

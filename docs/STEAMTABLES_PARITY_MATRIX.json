@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updated": "2026-10-18",
+  "updated": "2026-10-19",
   "baseline_version": "1.35.0",
   "baseline_commit": "2c3bfe83d6b3f772018334074bdfa6df0abaa215",
   "goal": "All calculations available in the referenced Steam97Web calculator must be covered before further capability expansion.",
-  "status": "p08_bounded_delivery_reference_inventory_open",
+  "status": "p09_transport_units_delivered_full_acceptance_blocked",
   "scope": {
     "target": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
     "include": "All calculator tabs and available model/phase/input/units/domain variants, including features marked as requiring registration. Workflow parity tracked separately.",
@@ -2937,18 +2937,23 @@
       "feature": "SI and English inputs, outputs and charts",
       "scope": "calculation",
       "implementation": "partial",
-      "parity": "known_gap",
+      "parity": "requires_reference_cases",
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/units.js",
         "src/ui-quantities.js",
-        "src/diagram-units.js"
+        "src/diagram-units.js",
+        "docs/STEAMTABLES_P09_UNITS_UK.md",
+        "docs/STEAMTABLES_P09_UNITS_ACCEPTANCE.json"
       ],
       "existing_checks": [
         "tests/english-units.test.mjs",
-        "tests/diagram-units.test.mjs"
+        "tests/diagram-units.test.mjs",
+        "tests/transport-units.test.mjs",
+        "scripts/audit-steam97-p09-units.mjs",
+        "scripts/check-steam97-p09-units-browser.cjs"
       ],
-      "notes": "Core conversions exist. Required reference choices still differ: viscosity lb/(ft h), nu/diffusivity mm2/s or ft2/h and surface tension mN/m. Turbine MW input and lb/(kW h) consumption are tracked separately. Indexed derivative labels require scientific dimension checking.",
+      "notes": "1.35.10 adds independently checked transport choices: dynamic viscosity Pa s, microPa s, lb/(ft s), lb/(ft h); nu/diffusivity m2/s, mm2/s, ft2/s, ft2/h; surface tension N/m, mN/m, lbf/ft. Old SI/English defaults remain automatic. Preferences persist and apply to display/copy/current CSV/full-property spreadsheet export/print. The wider units inventory and reference derivative conventions still require B01/B03/B07; not verified reference parity.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "units-settings",
@@ -3433,7 +3438,8 @@
     "P05_status": "scientific_domains_implemented_reference_acceptance_blocked",
     "P06_status": "bounded_delivery_complete_reference_acceptance_blocked",
     "P07_status": "bounded_delivery_complete_dedicated_vapor_reference_acceptance_blocked",
-    "P08_status": "bounded_delivery_complete_reference_acceptance_blocked"
+    "P08_status": "bounded_delivery_complete_reference_acceptance_blocked",
+    "P09_status": "bounded_units_delivery_full_acceptance_blocked"
   },
   "p01_audit": {
     "date": "2026-10-18",

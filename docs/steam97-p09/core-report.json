@@ -1,0 +1,131 @@
+{
+  "started": "2026-10-19T03:49:55.594Z",
+  "mode": "core",
+  "version": "1.35.10",
+  "build": {
+    "version": "1.35.10",
+    "id": "fa155a9636c3"
+  },
+  "status": "passed",
+  "checks": [
+    {
+      "name": "build",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4975,
+      "log": ".release/2026-10-19T03-49-55-594Z/build.log"
+    },
+    {
+      "name": "unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 171497,
+      "log": ".release/2026-10-19T03-49-55-594Z/unit.log"
+    },
+    {
+      "name": "water",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 32774,
+      "log": ".release/2026-10-19T03-49-55-594Z/water.log"
+    },
+    {
+      "name": "transport",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 212,
+      "log": ".release/2026-10-19T03-49-55-594Z/transport.log"
+    },
+    {
+      "name": "steam97-p09-units",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 158,
+      "log": ".release/2026-10-19T03-49-55-594Z/steam97-p09-units.log"
+    },
+    {
+      "name": "reactor",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 957,
+      "log": ".release/2026-10-19T03-49-55-594Z/reactor.log"
+    },
+    {
+      "name": "reactor-thermal",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 73,
+      "log": ".release/2026-10-19T03-49-55-594Z/reactor-thermal.log"
+    },
+    {
+      "name": "reactor-validation",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 678,
+      "log": ".release/2026-10-19T03-49-55-594Z/reactor-validation.log"
+    },
+    {
+      "name": "reactor-cell-audit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 41,
+      "log": ".release/2026-10-19T03-49-55-594Z/reactor-cell-audit.log"
+    },
+    {
+      "name": "rebuild",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4665,
+      "log": ".release/2026-10-19T03-49-55-594Z/rebuild.log"
+    },
+    {
+      "name": "deterministic-build",
+      "status": "passed"
+    },
+    {
+      "name": "package",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 1185,
+      "log": ".release/2026-10-19T03-49-55-594Z/package.log"
+    },
+    {
+      "name": "package-integrity",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 230,
+      "log": ".release/2026-10-19T03-49-55-594Z/package-integrity.log"
+    },
+    {
+      "name": "repackage",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 1178,
+      "log": ".release/2026-10-19T03-49-55-594Z/repackage.log"
+    },
+    {
+      "name": "deterministic-package",
+      "status": "passed"
+    }
+  ],
+  "artifacts": {
+    "index.html": "d7afd0c9880ebb056f1fa3f96b91bf91bd3b713531a7ddab64854e9436801e6a",
+    "standalone.html": "e823e267a7f6bc1aa7d986bd96e2fd75ecd13e5d6fafc787e0f95b224a27307c",
+    "assets/app.js": "b73d1efe946831af49c389804f2b48b988306d3c7df5a7325dd65db1d488789f",
+    "assets/calculator-worker.js": "c0f4ad9d6511f051b2c5e8c8d8e266c11480434e51093935acf9fe3d4287911b",
+    "assets/styles.css": "a6588a0e50245cf79327284ec3e9acf5a454c4a71d12d3d0ad94c5e5f28e0427",
+    "assets/coolprop.wasm": "28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307",
+    "service-worker.js": "6e41e091eeb5feed281e7be8ab1ae5bb283779430b54e83df08bbebc4607b2b8",
+    "manifest.webmanifest": "63130e8f1083e12602ca499f9de40ad3d97d64b457c005ce570215966f783056",
+    "dist/water-steam-calculator.zip": {
+      "sha256": "9c4339ff887eca7fd891a4718bfcd81e2e94c49e9f4d7e35d83892f7f6efad22",
+      "bytes": 6643319
+    }
+  },
+  "scope": "Software acceptance only; passing does not validate every physical model or device.",
+  "physicalValidation": {
+    "reactorCell": "physical-screening-failed",
+    "scope": "Independent cell screening; failure blocks claims of neutron-model physical validation, separately from software acceptance."
+  },
+  "completed": "2026-10-19T03:53:34.314Z"
+}

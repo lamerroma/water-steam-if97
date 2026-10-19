@@ -1,10 +1,11 @@
+import {uiTransportQuantity} from './ui-quantities.js';
 import {englishProperty} from './units.js';
 import {modeGuidance} from './input-guidance.js';
 export function printableReport(title,states,system='si',energy='kJ',context={}){
  const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const fields=[['p','MPa'],['T','K'],['h','kJ/kg'],['s','kJ/(kg K)'],['u','kJ/kg'],['rho','kg/m3'],['v','m3/kg'],['cp','kJ/(kg K)'],['cv','kJ/(kg K)'],['w','m/s'],['x','-']];
  const pressure=context.pressure||{basis:'absolute',atmosphere:.101325};
- const convert=(k,v,u)=>{if(k==='p'&&v!=null&&pressure.basis==='gauge')v-=pressure.atmosphere;const out=system==='english'?englishProperty(k,v,u):energy==='J'&&['h','s','u','ex','cp','cv'].includes(k)?[v==null?null:v*1000,u.replace('kJ','J')]:[v,u];return [out[0],out[1]+(k==='p'&&pressure.basis==='gauge'?' (gauge)':'')];};
+ const convert=(k,v,u)=>{if(k==='p'&&v!=null&&pressure.basis==='gauge')v-=pressure.atmosphere;const out=system==='english'?englishProperty(k,v,u):energy==='J'&&['h','s','u','ex','cp','cv'].includes(k)?[v==null?null:v*1000,u.replace('kJ','J')]:[v,u];const transport=uiTransportQuantity(k,...out,context.preferences);return [transport[0],transport[1]+(k==='p'&&pressure.basis==='gauge'?' (gauge)':'')];};
  const number=v=>Number.isFinite(v)?esc(Number(v.toPrecision(10))):'—';
  const cell=(k,v,u)=>number(convert(k,v,u)[0]);
  const notes=list=>[...new Set(list||[])].map(n=>`<p>${esc(n)}</p>`).join('');

@@ -137,7 +137,7 @@ def verify_browser(manifest):
             actual_value=matches[0][check['column']];expected=check['value']
             if fmt=='csv' and isinstance(expected,(int,float)): actual_value=float(actual_value)
             if type(expected) in (int,float):
-                assert type(actual_value) in (int,float) and math.isclose(expected,actual_value,rel_tol=2e-7,abs_tol=2e-8),(file.name,expected,actual_value)
+                assert type(actual_value) in (int,float) and math.isclose(expected,actual_value,rel_tol=check.get('relative_tolerance',2e-7),abs_tol=check.get('absolute_tolerance',2e-8)),(file.name,expected,actual_value)
             else: same(expected,actual_value)
             count+=1
     return {'status':'passed','files':len(manifest['files']),'checks':count,'version':manifest['version']}

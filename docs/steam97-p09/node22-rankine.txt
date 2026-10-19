@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: Independent Python iapws IF97: simple-superheated
+ok 1 - Independent Python iapws IF97: simple-superheated
+  ---
+  duration_ms: 250.619399
+  type: 'test'
+  ...
+# Subtest: Independent Python iapws IF97: single-reheat
+ok 2 - Independent Python iapws IF97: single-reheat
+  ---
+  duration_ms: 164.034184
+  type: 'test'
+  ...
+# Subtest: Independent Python iapws IF97: dry-saturated-inlet
+ok 3 - Independent Python iapws IF97: dry-saturated-inlet
+  ---
+  duration_ms: 65.953381
+  type: 'test'
+  ...
+# Subtest: Independent Python iapws IF97: superheated-exit
+ok 4 - Independent Python iapws IF97: superheated-exit
+  ---
+  duration_ms: 121.20024
+  type: 'test'
+  ...
+# Subtest: Independent Python iapws IAPWS-95: simple-superheated
+ok 5 - Independent Python iapws IAPWS-95: simple-superheated
+  ---
+  duration_ms: 4656.88243
+  type: 'test'
+  ...
+# Subtest: Independent Python iapws IAPWS-95: single-reheat
+ok 6 - Independent Python iapws IAPWS-95: single-reheat
+  ---
+  duration_ms: 4223.807987
+  type: 'test'
+  ...
+# Subtest: Independent Python iapws IAPWS-95: dry-saturated-inlet
+ok 7 - Independent Python iapws IAPWS-95: dry-saturated-inlet
+  ---
+  duration_ms: 1883.528547
+  type: 'test'
+  ...
+# Subtest: Independent Python iapws IAPWS-95: superheated-exit
+ok 8 - Independent Python iapws IAPWS-95: superheated-exit
+  ---
+  duration_ms: 1685.003398
+  type: 'test'
+  ...
+# Subtest: Reheat raises exit quality for the reference example; exact pump is not replaced by v*dp
+ok 9 - Reheat raises exit quality for the reference example; exact pump is not replaced by v*dp
+  ---
+  duration_ms: 367.593052
+  type: 'test'
+  ...
+# Subtest: Phase modes, heat direction and pressure order are explicit; invalid unused values are ignored
+ok 10 - Phase modes, heat direction and pressure order are explicit; invalid unused values are ignored
+  ---
+  duration_ms: 132.054833
+  type: 'test'
+  ...
+# Subtest: Old gas drafts migrate; water drafts retain inactive invalid strings and enforce model compatibility
+ok 11 - Old gas drafts migrate; water drafts retain inactive invalid strings and enforce model compatibility
+  ---
+  duration_ms: 0.505643
+  type: 'test'
+  ...
+# Subtest: Components are inferred from current states/laws, survive input-only reports, and clear after topology edits
+ok 12 - Components are inferred from current states/laws, survive input-only reports, and clear after topology edits
+  ---
+  duration_ms: 220.697031
+  type: 'test'
+  ...
+# Subtest: Mass scales total energies; superheated exit quality stays undefined in comparison
+ok 13 - Mass scales total energies; superheated exit quality stays undefined in comparison
+  ---
+  duration_ms: 432.375066
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 14302.871562

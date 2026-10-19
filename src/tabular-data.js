@@ -31,8 +31,8 @@ export function tabularDocument(kind,tables,context={}){
  return {format:'water-steam-tabular',version:1,sheets};
 }
 
-function completeStateRows(result,energy,ambient,system){
- const records=resultExportRows(result,energy,ambient,system);
+function completeStateRows(result,energy,ambient,system,preferences){
+ const records=resultExportRows(result,energy,ambient,system,preferences);
  const states=[...(result.state?[['state',result.state]]:[]),...(result.saturation?[['saturated_liquid',result.saturation.liquid],['saturated_vapor',result.saturation.vapor]]:[]),...(result.alternatives||[]).map((q,i)=>['alternative_'+(i+1),q])];
  for(const [name,state] of states){
   for(const row of records.filter(r=>r[0]===name)){
@@ -48,12 +48,12 @@ function completeStateRows(result,energy,ambient,system){
 export function resultTabular(result,context={}){
  if(!result?.state&&!result?.saturation)throw Error('Calculate a state before exporting.');
  const {system='si',energy='kJ',p0=.101325,T0=298.15}=context;
- return tabularDocument('state',[{name:'Properties',rows:completeStateRows(result,energy,{p:p0,T:T0},system)}],context);
+ return tabularDocument('state',[{name:'Properties',rows:completeStateRows(result,energy,{p:p0,T:T0},system,context)}],context);
 }
 export function historyTabular(states,context={}){
  if(!states.length)throw Error('No calculated history to export.');
  const rows=[['name','state','property','value','unit']];
- for(const q of states)rows.push(...completeStateRows({state:q},context.energy||'kJ',null,context.system||'si').slice(1).map(r=>[q.name||'',...r]));
+ for(const q of states)rows.push(...completeStateRows({state:q},context.energy||'kJ',null,context.system||'si',context).slice(1).map(r=>[q.name||'',...r]));
  return tabularDocument('history',[{name:'Properties',rows}],{...context,model:'per result'});
 }
 export function saturationTabular(records,model,context={}){
@@ -64,16 +64,16 @@ export function saturationTabular(records,model,context={}){
 }
 export function processTabular(kind,result,context={}){
  const states=[result.inlet,...(result.ideal?[result.ideal]:[]),result.outlet];
- return tabularDocument(kind,[{name:'Process',rows:processExportRows(kind,result,context.system||'si')},{name:'Properties',rows:[['point','state','property','value','unit'],...states.flatMap((q,i)=>completeStateRows({state:q},'kJ',null,context.system||'si').slice(1).map(row=>[i+1,...row]))]}],{...context,model:result.inlet.model||'IF97'});
+ return tabularDocument(kind,[{name:'Process',rows:processExportRows(kind,result,context.system||'si')},{name:'Properties',rows:[['point','state','property','value','unit'],...states.flatMap((q,i)=>completeStateRows({state:q},'kJ',null,context.system||'si',context).slice(1).map(row=>[i+1,...row]))]}],{...context,model:result.inlet.model||'IF97'});
 }
 export function diagramTabular(entries,plan={},context={},preferences){
  if(!entries.length)throw Error('No calculated diagram points to export.');
- return tabularDocument('diagram',[{name:'Points and series',rows:diagramExportRows(entries,context.system||'si',context.energy||'kJ',plan,preferences)},{name:'Properties',rows:[['name','state','property','value','unit'],...entries.flatMap(([q,name])=>completeStateRows({state:q},context.energy||'kJ',null,context.system||'si').slice(1).map(row=>[name,...row]))]}],context);
+ return tabularDocument('diagram',[{name:'Points and series',rows:diagramExportRows(entries,context.system||'si',context.energy||'kJ',plan,preferences)},{name:'Properties',rows:[['name','state','property','value','unit'],...entries.flatMap(([q,name])=>completeStateRows({state:q},context.energy||'kJ',null,context.system||'si',context).slice(1).map(row=>[name,...row]))]}],context);
 }
 export function batchTabular(records,context={}){
  if(!records.length)throw Error('Calculate a batch before exporting.');
  const states=records.filter(r=>!r.error).flatMap(r=>batchStates(r).map(q=>({...q,name:r.input.name})));
  const rows=[['name','status','message'],...records.map(r=>[r.input.name,r.error?'error':'ok',r.error||''])];
- const properties=[['name','state','property','value','unit'],...states.flatMap(q=>completeStateRows({state:q},context.energy||'kJ',null,context.system||'si').slice(1).map(row=>[q.name,...row]))];
+ const properties=[['name','state','property','value','unit'],...states.flatMap(q=>completeStateRows({state:q},context.energy||'kJ',null,context.system||'si',context).slice(1).map(row=>[q.name,...row]))];
  return tabularDocument('batch',[{name:'Batch',rows},{name:'Properties',rows:properties}],context);
 }

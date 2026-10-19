@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "checks": 30,
+  "baseline": "133a58918162f4572174a7f6b2fa44be5f4b133a",
+  "meaning": "Byte-for-byte comparison against original baseline serializers on identical canonical results."
+}

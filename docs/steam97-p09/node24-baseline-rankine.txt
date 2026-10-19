@@ -1,0 +1,37 @@
+✔ Independent Python iapws IF97: simple-superheated (140.185165ms)
+✔ Independent Python iapws IF97: single-reheat (92.370942ms)
+✔ Independent Python iapws IF97: dry-saturated-inlet (32.876382ms)
+✔ Independent Python iapws IF97: superheated-exit (59.692469ms)
+✔ Independent Python iapws IAPWS-95: simple-superheated (3200.259604ms)
+✔ Independent Python iapws IAPWS-95: single-reheat (2222.103812ms)
+✖ Independent Python iapws IAPWS-95: dry-saturated-inlet (10.363554ms)
+✔ Independent Python iapws IAPWS-95: superheated-exit (1072.049391ms)
+✔ Reheat raises exit quality for the reference example; exact pump is not replaced by v*dp (174.780288ms)
+✔ Phase modes, heat direction and pressure order are explicit; invalid unused values are ignored (57.460241ms)
+✔ Old gas drafts migrate; water drafts retain inactive invalid strings and enforce model compatibility (0.575978ms)
+✔ Components are inferred from current states/laws, survive input-only reports, and clear after topology edits (105.021688ms)
+✔ Mass scales total energies; superheated exit quality stays undefined in comparison (195.128565ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 12
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7473.754424
+
+✖ failing tests:
+
+test at ../../tmp/p09-baseline/tests/rankine-library.test.mjs:12:31
+✖ Independent Python iapws IAPWS-95: dry-saturated-inlet (10.363554ms)
+  Error: 1 → 2: IAPWS-95: не знайдено стабільний корінь густини.
+      at solveCustomCycle (file:///tmp/p09-baseline/src/custom-cycle.js:46:19)
+      at buildRankineLibraryCycle (file:///tmp/p09-baseline/src/rankine-library.js:31:239)
+      at buildLibraryCycle (file:///tmp/p09-baseline/src/cycle-library.js:27:92)
+      at TestContext.<anonymous> (file:///tmp/p09-baseline/tests/rankine-library.test.mjs:13:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
