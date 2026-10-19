@@ -2,8 +2,8 @@
 const assert=require('node:assert/strict'),fs=require('node:fs/promises');
 const {openTool,chooseModel,openUnits,closeUnits}=require('./browser-tools.cjs');
 (async()=>{
- const pw=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright'),name=process.env.BROWSER_NAME||'chromium',browser=await pw[name].launch(name==='chromium'?{executablePath:'/usr/bin/chromium',args:['--no-sandbox']}:{});
- const context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'block',acceptDownloads:true}),folder=process.env.SENSITIVITY_BROWSER_DIR||'.release/input-sensitivity/'+name;
+ const pw=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright'),name=process.env.BROWSER_NAME||'chromium',browser=await pw[name].launch(name==='chromium'?{executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox']}:{});
+ const context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'allow',acceptDownloads:true}),folder=process.env.SENSITIVITY_BROWSER_DIR||'.release/input-sensitivity/'+name;
  await fs.mkdir(folder,{recursive:true});const report={browser:name,status:'running',checks:[],errors:[]};let page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
  const inverse=JSON.parse(await fs.readFile('tests/fixtures/inverse-precision-reference.json')),reference=JSON.parse(await fs.readFile('tests/fixtures/input-sensitivity-reference.json'));
  async function check(title,action){await action();report.checks.push({name:title,status:'passed'});console.log(name,title,'passed');}
@@ -62,9 +62,9 @@ const {openTool,chooseModel,openUnits,closeUnits}=require('./browser-tools.cjs')
    await page.setViewportSize({width:390,height:844});await page.locator('#input-sensitivity summary').click();const box=await page.locator('#input-sensitivity').boundingBox();assert.ok(box.x>=0&&box.x+box.width<=391,JSON.stringify(box));await page.screenshot({path:folder+'/mobile.png',fullPage:true});await page.setViewportSize({width:1440,height:1000});
   });
   await check('Loaded offline warm worker retains diagnostics',async()=>{await run('pt',['3.000','400.00'],['MPa','K']);await context.setOffline(true);const r=await run('pt',['3.000','400.00'],['MPa','K']);assert.equal(r.state.inputSensitivity.status,'local');await context.setOffline(false);});
-  await check('Standalone artifact works offline with embedded worker',async()=>{
-   try{await page.goto('file://'+process.cwd()+'/dist/standalone.html');report.standalone='file';}catch(e){report.fileNavigation={status:'blocked',message:e.message};await page.close();page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));await page.goto(new URL('standalone.html',process.env.CALCULATOR_URL||'http://127.0.0.1:8080/').href);report.standalone='loopback-then-offline';}
-   await ready();await context.setOffline(true);const r=await run('pt',['3.000','400.00'],['MPa','K']);assert.equal(r.state.inputSensitivity.status,'local');assert.equal(r.diagnostics.roundingScenario.inputs[1].halfWidth,.005);await page.screenshot({path:folder+'/standalone.png',fullPage:true});
+  await check('PWA reload works offline with cached worker',async()=>{
+   await require('./browser-tools.cjs').openOfflineApp(page);report.offlineMode='pwa-offline-reload';
+   await ready();await context.setOffline(true);const r=await run('pt',['3.000','400.00'],['MPa','K']);assert.equal(r.state.inputSensitivity.status,'local');assert.equal(r.diagnostics.roundingScenario.inputs[1].halfWidth,.005);await page.screenshot({path:folder+'/pwa-offline.png',fullPage:true});
   });
   assert.deepEqual(report.errors,[]);report.status='passed';
  }catch(e){report.status='failed';report.error=e.stack;throw e;}finally{await browser.close();await fs.writeFile(folder+'/report.json',JSON.stringify(report,null,2)+'\n');}

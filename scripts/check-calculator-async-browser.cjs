@@ -6,7 +6,7 @@ const KEY='water-steam-if97-project-v1';
 (async()=>{
  const browser=await playwright[name].launch(name==='chromium'?{...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{}),args:['--no-sandbox']}:{});
  try{
-  const ctx=await browser.newContext({serviceWorkers:'block',viewport:{width:1366,height:900}}),page=await ctx.newPage(),errors=[];
+  const ctx=await browser.newContext({serviceWorkers:'allow',viewport:{width:1366,height:900}}),page=await ctx.newPage(),errors=[];
   page.on('pageerror',e=>errors.push(e.message));await page.goto(url);await page.waitForFunction(()=>!document.querySelector('#calculate').disabled);
   const finish=()=>page.waitForFunction(()=>!document.querySelector('#calculate').disabled);
   const count=()=>page.evaluate(key=>JSON.parse(localStorage.getItem(key))?.history.length||0,KEY);
@@ -36,8 +36,8 @@ const KEY='water-steam-if97-project-v1';
   console.log('Import during computation and reload restore the saved state without stale history PASS');
   for(const width of [320,390,1366]){await page.setViewportSize({width,height:900});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),width);}
   await page.setViewportSize({width:1366,height:900});await page.selectOption('#language-select','en');assert.equal(await page.locator('#calculator-cancel').textContent(),'Cancel calculation');
-  await page.goto(new URL('standalone.html',url).href);await finish();const requests=[];page.on('request',r=>requests.push(r.url()));await ctx.setOffline(true);await page.click('#calculate');await finish();assert.equal(await page.locator('#error').isHidden(),true);assert.equal(await page.locator('#copy-result-json:not([disabled])').count(),1);assert.deepEqual(requests.filter(request=>/^https?:/.test(request)),[]);assert.ok(page.workers().some(w=>w.url().startsWith('blob:')));
-  console.log('English, mobile layout and embedded offline worker in standalone HTML PASS');await ctx.close();
+  await require('./browser-tools.cjs').openOfflineApp(page);await finish();const requests=[];page.on('request',r=>requests.push(r.url()));await ctx.setOffline(true);await page.click('#calculate');await finish();assert.equal(await page.locator('#error').isHidden(),true);assert.equal(await page.locator('#copy-result-json:not([disabled])').count(),1);assert.ok(requests.every(request=>new URL(request).origin===new URL(url).origin));assert.ok(page.workers().some(w=>w.url().includes('assets/calculator-worker.js?v=')));
+  console.log('English, mobile layout and cached offline worker in PWA PASS');await ctx.close();
   const failure=await browser.newContext({serviceWorkers:'block'}),p=await failure.newPage();p.on('pageerror',e=>errors.push(e.message));await p.route('**/assets/calculator-worker.js?*',route=>route.abort());await p.goto(url);await p.waitForFunction(()=>!document.querySelector('#calculate').disabled);await p.click('#calculate');await p.waitForFunction(()=>!document.querySelector('#calculate').disabled);assert.equal(await p.locator('#error').isVisible(),true);
   await p.unroute('**/assets/calculator-worker.js?*');await p.click('#calculate');await p.waitForFunction(()=>!document.querySelector('#calculate').disabled);assert.equal(await p.locator('#error').isHidden(),true);assert.equal(await p.locator('#copy-result-json:not([disabled])').count(),1);await failure.close();
   assert.deepEqual(errors,[]);console.log('Worker startup failure is reported and retry succeeds PASS');

@@ -2,12 +2,12 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=r
 const {openTool,openUnits,closeUnits}=require('./browser-tools.cjs');
 (async()=>{
  const name=process.env.BROWSER_NAME||'chromium',pw=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright');
- const browser=await pw[name].launch(name==='chromium'?{executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']}:{});
+ const browser=await pw[name].launch(name==='chromium'?{executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox']}:{});
  const dir=path.resolve('.release/steam97-p03/'+name);await fs.mkdir(dir,{recursive:true});
  const controls=JSON.parse(await fs.readFile('.release/steam97-p03/controls.json'));
  const version=JSON.parse(await fs.readFile('package.json')).version;
  const report={version,browser:name,browserVersion:browser.version(),playwrightVersion:require(path.join(path.dirname(require.resolve(process.env.PLAYWRIGHT_MODULE_PATH||'playwright')),'package.json')).version,status:'running',files:[],groups:[],errors:[],numericalChecks:0};
- let context=await browser.newContext({acceptDownloads:true,serviceWorkers:'block',viewport:{width:1440,height:1000}}),page=await context.newPage();
+ let context=await browser.newContext({acceptDownloads:true,serviceWorkers:'allow',viewport:{width:1440,height:1000}}),page=await context.newPage();
  const listen=()=>page.on('pageerror',e=>report.errors.push(e.message));listen();
  const ready=()=>page.waitForFunction(()=>document.querySelector('#calculate')?.disabled===false,{},{timeout:120000});
  const near=(a,b)=>{assert.ok(Math.abs(a-b)<=2e-11+3e-12*Math.abs(b),`${a} != ${b}`);report.numericalChecks++;};
@@ -57,11 +57,10 @@ const {openTool,openUnits,closeUnits}=require('./browser-tools.cjs');
   // Old NASA projects with no scale field use the original 0..1 convention.
   const legacy={format:'water-steam-calculation',version:1,module:'gases',model:'IF97',inputs:{'gas-model':'ideal','gas-mode':'pt','gas-p':'.101325','gas-b':'1000','gas-basis':'mole','gas-preset':'air','fraction-N2':'.78084','fraction-O2':'.20946','fraction-Ar':'.00934','fraction-CO2':'.00036'}};
   await page.locator('input[type=file][accept=".json,application/json"]').setInputFiles({name:'nasa.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(legacy))});await page.waitForFunction(()=>document.querySelector('#learn-form')?.dataset.calculated==='true'&&document.querySelector('#gas-model')?.value==='ideal');assert.equal(await page.locator('#gas-fraction-scale').inputValue(),'fraction');assert.ok((await page.locator('#learn-output').textContent()).includes('NASA7'));report.groups.push('Legacy NASA7 calculation import remains functional without a composition-scale field');
-  await context.close();context=await browser.newContext({acceptDownloads:true,serviceWorkers:'block'});page=await context.newPage();listen();
-  try{await context.setOffline(true);await page.goto(require('node:url').pathToFileURL(path.resolve('standalone.html')).href);report.standaloneMode='file-offline';}
-  catch(e){if(name!=='chromium'||!/ERR_BLOCKED_BY_ADMINISTRATOR/.test(e.message))throw e;await context.setOffline(false);await page.goto(new URL('standalone.html',process.env.CALCULATOR_URL||'http://127.0.0.1:8080/').href);await ready();await context.setOffline(true);report.standaloneMode='managed-file-policy-loopback-then-offline';}
-  await ready();await prepare();await download('standalone-offline');report.groups.push('Standalone offline: worker, numerical results and all four exports');
+  await context.close();context=await browser.newContext({acceptDownloads:true,serviceWorkers:'allow'});page=await context.newPage();listen();
+  await require('./browser-tools.cjs').openOfflineApp(page);report.offlineMode='pwa-offline-reload';
+  await ready();await prepare();await download('pwa-offline');report.groups.push('PWA offline: worker, numerical results and all four exports');
   await context.close();context=await browser.newContext({acceptDownloads:true});page=await context.newPage();listen();await page.goto(process.env.CALCULATOR_URL||'http://127.0.0.1:8080/');await ready();await page.waitForFunction(()=>/готова|ready offline/.test(document.querySelector('#pwa-status')?.textContent||''),{},{timeout:120000});await page.waitForFunction(()=>!!navigator.serviceWorker.controller);await context.setOffline(true);await page.reload();await ready();await prepare();await download('pwa-offline');report.groups.push('Installed PWA offline reload: full BSW2003 calculation and four exports');
-  const manifest=path.join(dir,'manifest.json');await fs.writeFile(manifest,JSON.stringify(report,null,2));const readers=spawnSync(process.env.P03_PYTHON||'python3',['scripts/reference/spreadsheet_readers.py',manifest],{encoding:'utf8',timeout:120000});assert.equal(readers.status,0,readers.stderr);report.readers=JSON.parse(await fs.readFile(path.join(dir,'reader-report.json')));assert.deepEqual(report.errors,[]);report.status='passed';console.log(JSON.stringify({browser:name,status:report.status,groups:report.groups.length,numericalChecks:report.numericalChecks,files:report.files.length,readerChecks:report.readers.checks,standaloneMode:report.standaloneMode}));
+  const manifest=path.join(dir,'manifest.json');await fs.writeFile(manifest,JSON.stringify(report,null,2));const readers=spawnSync(process.env.P03_PYTHON||'python3',['scripts/reference/spreadsheet_readers.py',manifest],{encoding:'utf8',timeout:120000});assert.equal(readers.status,0,readers.stderr);report.readers=JSON.parse(await fs.readFile(path.join(dir,'reader-report.json')));assert.deepEqual(report.errors,[]);report.status='passed';console.log(JSON.stringify({browser:name,status:report.status,groups:report.groups.length,numericalChecks:report.numericalChecks,files:report.files.length,readerChecks:report.readers.checks,offlineMode:report.offlineMode}));
  }catch(e){report.status='failed';report.error=e.stack;throw e;}finally{await fs.writeFile(path.join(dir,'report.json'),JSON.stringify(report,null,2)+'\n');await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

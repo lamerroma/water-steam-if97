@@ -1,10 +1,10 @@
-// Exercise real form -> Worker -> JSON, plus file standalone and loaded offline.
+// Exercise real form -> Worker -> JSON, plus cached PWA and loaded offline.
 const assert=require('node:assert/strict'),fs=require('node:fs/promises');
 const{openTool,chooseModel}=require('./browser-tools.cjs');
 (async()=>{
  const{assess}=await import('./inverse-precision-common.mjs'),fixture=JSON.parse(await fs.readFile('tests/fixtures/inverse-precision-reference.json'));
- const name=process.env.BROWSER_NAME||'chromium',pw=require(process.env.PLAYWRIGHT_MODULE||'playwright'),browser=await pw[name].launch(name==='chromium'?{executablePath:'/usr/bin/chromium',args:['--no-sandbox']}:{});
- const context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'block'}),report={browser:name,records:[],errors:[]};let page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
+ const name=process.env.BROWSER_NAME||'chromium',pw=require(process.env.PLAYWRIGHT_MODULE_PATH||process.env.PLAYWRIGHT_MODULE||'playwright'),browser=await pw[name].launch(name==='chromium'?{executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox']}:{});
+ const context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'allow'}),report={browser:name,records:[],errors:[]};let page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
  const units={p:'MPa',T:'K',h:'kJkg',s:'kJkgK',u:'kJkg',v:'m3kg',rho:'kgm3'};
  const ordinary=fixture.records.find(c=>c.model==='IF97'&&c.expected.p===1&&c.expected.T===1074);
  const requests=Object.keys(fixture.modes).map(mode=>({c:ordinary,mode}));
@@ -22,16 +22,9 @@ const{openTool,chooseModel}=require('./browser-tools.cjs');
   await page.goto('http://127.0.0.1:8080/');await page.waitForFunction(()=>!document.querySelector('#calculate').disabled);report.build=await page.locator('#app-build-value').textContent();
   for(const r of requests)await run(r,'worker');
   await context.setOffline(true);await run(requests.find(r=>r.mode==='pv'),'loaded-offline');await context.setOffline(false);
-  let standaloneSurface='standalone-file';
-  try{await page.goto('file://'+process.cwd()+'/dist/standalone.html');}
-  catch(e){
-   // Respect managed-browser restrictions on local file URLs. Test the same
-   // standalone artifact over the allowed loopback server, then go offline;
-   // report this distinction instead of claiming a successful file:// check.
-   report.fileNavigation={status:'blocked',message:e.message};standaloneSurface='standalone-http-offline';await page.close();page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));await page.goto('http://127.0.0.1:8080/standalone.html');
-  }
-  await page.waitForFunction(()=>!document.querySelector('#calculate').disabled);await context.setOffline(true);
-  for(const r of [requests.find(r=>r.mode==='pv'),requests.find(r=>r.mode==='hs'),{c:scientific,mode:'ps'}])await run(r,standaloneSurface);
+  const offlineSurface='pwa-offline-reload';
+  await require('./browser-tools.cjs').openOfflineApp(page);
+  for(const r of [requests.find(r=>r.mode==='pv'),requests.find(r=>r.mode==='hs'),{c:scientific,mode:'ps'}])await run(r,offlineSurface);
   assert.deepEqual(report.errors,[]);report.status='passed';
  }finally{await browser.close();const folder=process.env.INVERSE_BROWSER_DIR||'.release/inverse-precision/'+name;await fs.mkdir(folder,{recursive:true});await fs.writeFile(folder+'/report.json',JSON.stringify(report,null,2)+'\n');}
 })().catch(e=>{console.error(e);process.exitCode=1;});

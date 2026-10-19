@@ -1,5 +1,5 @@
 // Confirmed water contract: real form -> Worker -> phases/alternatives ->
-// project/export/restore, both input systems and offline standalone.
+// project/export/restore, both input systems and offline PWA.
 const assert=require('node:assert/strict'),fs=require('node:fs/promises');
 const {openTool,chooseModel,openUnits,closeUnits}=require('./browser-tools.cjs');
 (async()=>{
@@ -8,8 +8,8 @@ const {openTool,chooseModel,openUnits,closeUnits}=require('./browser-tools.cjs')
  const inverse=JSON.parse(await fs.readFile('tests/fixtures/inverse-precision-reference.json'));
  const dense=JSON.parse(await fs.readFile('tests/fixtures/steam97-p02-reference.json'));
  const pw=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright'),name=process.env.BROWSER_NAME||'chromium';
- const browser=await pw[name].launch(name==='chromium'?{executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']}:{});
- const context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'block',acceptDownloads:true});
+ const browser=await pw[name].launch(name==='chromium'?{executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox']}:{});
+ const context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'allow',acceptDownloads:true});
  const dir=process.env.P02_BROWSER_DIR||'.release/steam97-p02/'+name;await fs.mkdir(dir,{recursive:true});
  const report={browser:name,status:'running',records:[],checks:[],errors:[]};let page=await context.newPage();
  page.on('pageerror',e=>report.errors.push(e.message));
@@ -77,11 +77,11 @@ const {openTool,chooseModel,openUnits,closeUnits}=require('./browser-tools.cjs')
    await chooseModel(page,'IAPWS-95');await page.selectOption('#mode','pt');await page.selectOption('#unit-a','MPa');await page.selectOption('#unit-b','K');await page.fill('#input-a','22.064');await page.fill('#input-b','647.096');
    const before=await page.evaluate(()=>JSON.parse(localStorage.getItem('water-steam-if97-project-v1')).history.length);await page.click('#calculate');await ready();assert.match(await page.locator('#error').textContent(),/критична точка.*сингулярні/);assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('water-steam-if97-project-v1')).history.length),before);
   });
-  await check('Loaded offline Worker and standalone embedded Worker',async()=>{
+  await check('Loaded offline Worker and PWA cached Worker',async()=>{
    const c=pilot.cases.find(c=>c.id==='IAPWS-95-below-pc-one-ulp');await run(c,'ph');await context.setOffline(true);await run(c,'pu','SI','loaded-offline');await context.setOffline(false);
-   try{await page.goto('file://'+(process.env.CALCULATOR_STANDALONE_PATH||process.cwd()+'/dist/standalone.html'));report.standalone='file';}catch(e){report.fileNavigation={status:'blocked',message:e.message};await page.close();page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));await page.goto(new URL('standalone.html',process.env.CALCULATOR_URL||'http://127.0.0.1:8080/').href);report.standalone='loopback-then-offline';}
-   await ready();await context.setOffline(true);for(const model of ['IF97','IAPWS-95'])await run(pilot.cases.find(c=>c.model===model&&c.group==='below-pc-one-ulp'),'ph','SI','standalone-offline');
-   assert.ok(page.workers().some(w=>w.url().startsWith('blob:')));await page.screenshot({path:dir+'/standalone.png',fullPage:true});
+   await require('./browser-tools.cjs').openOfflineApp(page);report.offlineMode='pwa-offline-reload';
+   await ready();await context.setOffline(true);for(const model of ['IF97','IAPWS-95'])await run(pilot.cases.find(c=>c.model===model&&c.group==='below-pc-one-ulp'),'ph','SI','pwa-offline');
+   assert.ok(page.workers().some(w=>w.url().includes('assets/calculator-worker.js?v=')));await page.screenshot({path:dir+'/pwa-offline.png',fullPage:true});
   });
   assert.deepEqual(report.errors,[]);report.status='passed';
  }catch(e){report.status='failed';report.error=e.stack;throw e;}finally{await browser.close();await fs.writeFile(dir+'/report.json',JSON.stringify(report,null,2)+'\n');}

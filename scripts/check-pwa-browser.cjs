@@ -5,16 +5,19 @@ if(!['chromium','firefox'].includes(browserName))throw Error('Unsupported browse
 const assert=require('node:assert/strict'),http=require('node:http'),fs=require('node:fs/promises'),path=require('node:path'),os=require('node:os');
 (async()=>{
  const currentVersion=require('../package.json').version;const parts=currentVersion.split('.').map(Number);parts[2]++;const nextVersion=parts.join('.');
+ // A simulated release changes the build id everywhere, as a real build does (page, worker, versioned WASM).
+ const currentBuild=require('node:fs').readFileSync(path.join(__dirname,'../dist/service-worker.js'),'utf8').match(/const BUILD=\{"version":"[^"]+","id":"([^"]+)"\}/)[1];
+ const nextRelease=text=>text.replaceAll(currentVersion,nextVersion).replaceAll(/(assets\/app\.js\?v=[a-f0-9]+)/g,'$1-next').replaceAll(currentBuild,'pwa-test-next');
  let release=1,fail=false,corrupt=false,disconnected=false;const requests=[];
  const server=http.createServer(async(req,res)=>{
   if(disconnected){res.destroy();return;}
   const u=new URL(req.url,'http://localhost'),file=u.pathname.replace(/^\/water-steam-if97\//,'')||'index.html';requests.push(req.url);
   if(fail&&file==='assets/coolprop.wasm'){res.writeHead(503);res.end();return;}
-  try{let data=await fs.readFile(path.join(__dirname,'../dist',file));if(release===2&&['index.html','service-worker.js','assets/app.js'].includes(file))data=Buffer.from(data.toString().replaceAll(currentVersion,nextVersion).replaceAll(/(assets\/app\.js\?v=[a-f0-9]+)/g,'$1-next').replaceAll(/const BUILD=\{"version":"[^"]+","id":"[^"]+"\}/g,'const BUILD='+JSON.stringify({version:nextVersion,id:'pwa-test-next'})));
+  try{let data=await fs.readFile(path.join(__dirname,'../dist',file));if(release===2&&['index.html','service-worker.js','assets/app.js'].includes(file))data=Buffer.from(nextRelease(data.toString()));
    if(corrupt&&file==='assets/coolprop.wasm')data=Buffer.from('Corrupt response');
    if(release===2&&file==='service-worker.js'){
     const crypto=require('node:crypto');let worker=data.toString();for(const changed of ['index.html','assets/app.js']){
-     const old=await fs.readFile(path.join(__dirname,'../dist',changed));const next=Buffer.from(old.toString().replaceAll(currentVersion,nextVersion).replaceAll(/(assets\/app\.js\?v=[a-f0-9]+)/g,'$1-next'));
+     const old=await fs.readFile(path.join(__dirname,'../dist',changed));const next=Buffer.from(nextRelease(old.toString()));
      worker=worker.replaceAll(crypto.createHash('sha256').update(old).digest('hex'),crypto.createHash('sha256').update(next).digest('hex'));
     }data=Buffer.from(worker);
    }
@@ -45,6 +48,8 @@ const assert=require('node:assert/strict'),http=require('node:http'),fs=require(
  await p.waitForFunction(()=>document.querySelector('#pwa-status').textContent.includes('save')||document.querySelector('#pwa-status').textContent.includes('зберег'));assert.equal(await p.locator('#app-version-value').textContent(),currentVersion);
  await p.evaluate(()=>{Storage.prototype.setItem=window.pwaOriginalSetItem;delete window.pwaOriginalSetItem;});
  await p.click('#pwa-update');await p.waitForFunction(version=>document.querySelector('#app-version-value').textContent===version,nextVersion);await ready();assert.equal(await p.locator('#project-title').inputValue(),'Unsaved update project');assert.equal(await p.locator('#language-select').inputValue(),'en');console.log('Blocked unsaved update and controlled release update preserve project and language PASS');await ctx.setOffline(true);assert.equal(await other.locator('#app-version-value').textContent(),currentVersion);assert.ok((await other.evaluate(async(src)=>(await fetch(src)).text(),previousScript)).includes('"version":"'+currentVersion+'"'));await other.close();await ctx.setOffline(false);console.log('Older open tab retains release assets PASS');
+ // With the older tab closed, the only window runs the new release: older caches must be removed.
+ await p.evaluate(async()=>{navigator.serviceWorker.controller.postMessage({type:'PWA_STATUS',build:document.getElementById('app-build-value').textContent});for(let i=0;i<100;i++){if((await caches.keys()).length===1)return;await new Promise(r=>setTimeout(r,100));}throw Error('Older release caches were not removed: '+(await caches.keys()).join(', '));});console.log('Older release caches removed once only the current release is open PASS');
  // A clean install with an interrupted WASM request must fail and delete partial cache.
  const bad=await ctx.browser().newContext();const q=await bad.newPage();fail=true;await q.goto('http://127.0.0.1:8091/water-steam-if97/');await q.waitForFunction(()=>!document.querySelector('#pwa-retry').hidden);assert.equal(await q.evaluate(async()=> (await caches.keys()).length),0);fail=false;await q.locator('#pwa-panel summary').click();await q.click('#pwa-retry');await q.waitForFunction(()=>document.querySelector('#pwa-status').textContent.includes('готова'));await bad.close();console.log('Interrupted installation, atomic cache and retry PASS');
  const damaged=await ctx.browser().newContext();const z=await damaged.newPage();corrupt=true;await z.goto('http://127.0.0.1:8091/water-steam-if97/');await z.waitForFunction(()=>!document.querySelector('#pwa-retry').hidden);assert.equal(await z.evaluate(async()=> (await caches.keys()).length),0);corrupt=false;await damaged.close();console.log('Corrupt resource is rejected PASS');

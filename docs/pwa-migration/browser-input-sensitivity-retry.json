@@ -1,0 +1,61 @@
+{
+  "browser": "chromium",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "Canonical steps, independent state and compact default",
+      "status": "passed"
+    },
+    {
+      "name": "Optional digits, property copy, Markdown and raw JSON/CSV",
+      "status": "passed"
+    },
+    {
+      "name": "Language switch preserves values and translated scenario",
+      "status": "passed"
+    },
+    {
+      "name": "Fahrenheit and bar increments exclude gauge offset",
+      "status": "passed"
+    },
+    {
+      "name": "Coarse input scenario is marked limited",
+      "status": "passed"
+    },
+    {
+      "name": "Scientific cold liquid duplicates collapse",
+      "status": "passed"
+    },
+    {
+      "name": "Physical alternatives keep original pair and scenario when selected",
+      "status": "passed"
+    },
+    {
+      "name": "Saturation reference states show their own pressure after a root selection",
+      "status": "passed"
+    },
+    {
+      "name": "Mixture does not invent single-phase sensitivity or digits",
+      "status": "passed"
+    },
+    {
+      "name": "Reload reconstructs scenario from saved input spelling",
+      "status": "passed"
+    },
+    {
+      "name": "Mobile details stay within viewport",
+      "status": "passed"
+    },
+    {
+      "name": "Loaded offline warm worker retains diagnostics",
+      "status": "passed"
+    },
+    {
+      "name": "PWA reload works offline with cached worker",
+      "status": "passed"
+    }
+  ],
+  "errors": [],
+  "build": "d7bcd0fd3b5d",
+  "offlineMode": "pwa-offline-reload"
+}

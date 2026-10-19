@@ -21,14 +21,8 @@ const playwright=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright');const
  await p.fill('#input-b','0');await submit();assert.equal(await p.locator('#error').isHidden(),true);assert.equal(await p.locator('#input-b').getAttribute('aria-invalid'),null);assert.equal(await p.locator('#copy-result-json').isEnabled(),true);
  await p.fill('#input-b','-1');await submit();assert.equal(await p.locator('#input-b').getAttribute('aria-invalid'),'true');assert.equal(await p.locator('#copy-result-json').isEnabled(),false);console.log('IAPWS-95 stable liquid and pressure-dependent melting bounds PASS');
  await p.setViewportSize({width:390,height:844});assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth),390);await p.screenshot({path:path.join(require('node:os').tmpdir(),'smart-input-mobile.png')});console.log('Mobile layout PASS');
- const offlineContext=await b.newContext({viewport:{width:390,height:844},serviceWorkers:'block'});
+ const offlineContext=await b.newContext({viewport:{width:390,height:844},serviceWorkers:'allow'});
  let off=await offlineContext.newPage();off.on('pageerror',e=>errors.push(e.message));await offlineContext.setOffline(true);
- try{await off.goto(pathToFileURL(path.resolve(__dirname,'../standalone.html')).href);}
- catch(e){
-  if(!e.message.includes('ERR_BLOCKED_BY_ADMINISTRATOR'))throw e;
-  // Managed Chromium can forbid file navigation. Load the same standalone
-  // artifact on loopback, then disconnect before exercising its embedded worker.
-  await offlineContext.setOffline(false);await off.close();off=await offlineContext.newPage();off.on('pageerror',e=>errors.push(e.message));await off.goto(new URL('standalone.html',process.env.CALCULATOR_URL||'http://localhost:8080/').href);await offlineContext.setOffline(true);console.log('File navigation blocked by browser policy; standalone loaded on loopback before disconnect');
- }
- await off.waitForFunction(()=>!document.querySelector('#calculate').disabled);await off.selectOption('#smart-first','s');assert.equal(await off.locator('#smart-first').inputValue(),'s');await off.click('#calculate');await off.waitForFunction(()=>!document.querySelector('#calculate').disabled);assert.equal(await off.locator('#error').isHidden(),true,await off.locator('#error').textContent());assert.ok(off.workers().some(w=>w.url().startsWith('blob:')));console.log('Offline reversed input PASS');assert.deepEqual(errors,[]);await b.close();
+ await require('./browser-tools.cjs').openOfflineApp(off);
+ await off.waitForFunction(()=>!document.querySelector('#calculate').disabled);await off.selectOption('#smart-first','s');assert.equal(await off.locator('#smart-first').inputValue(),'s');await off.click('#calculate');await off.waitForFunction(()=>!document.querySelector('#calculate').disabled);assert.equal(await off.locator('#error').isHidden(),true,await off.locator('#error').textContent());assert.ok(off.workers().some(w=>w.url().includes('assets/calculator-worker.js?v=')));console.log('Offline reversed input PASS');assert.deepEqual(errors,[]);await b.close();
 })().catch(e=>{console.error(e);process.exit(1)});

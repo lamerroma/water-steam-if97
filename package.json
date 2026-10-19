@@ -1,13 +1,13 @@
 {
   "name": "water-steam-if97-uk",
-  "version": "1.35.12",
+  "version": "1.36.0",
   "private": true,
   "type": "module",
   "scripts": {
     "test": "node --test tests/*.test.mjs",
     "build": "node scripts/build.mjs",
     "package": "node scripts/package-release.mjs",
-    "serve": "python3 -m http.server 8080",
+    "serve": "python scripts/serve-pwa.py",
     "benchmark": "node scripts/benchmark.mjs",
     "verify:water": "node scripts/water-conformance.mjs",
     "verify:transport": "node scripts/transport-conformance.mjs",
@@ -16,6 +16,7 @@
     "test:diagram-quality": "node scripts/check-diagram-quality-browser.cjs",
     "test:smart-input": "node scripts/check-smart-input-browser.cjs",
     "test:pwa": "node scripts/check-pwa-browser.cjs",
+    "test:pwa-package": "node scripts/check-pwa-package-browser.cjs",
     "test:hydraulics": "node scripts/check-hydraulics-browser.cjs",
     "test:study": "node scripts/check-study-browser.cjs",
     "test:sprint": "node scripts/check-full-sprint-browser.cjs",

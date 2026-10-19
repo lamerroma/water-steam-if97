@@ -3,7 +3,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs/promises');
 const{openTool,chooseModel}=require('./browser-tools.cjs');
 (async()=>{
- const engine=process.env.BROWSER_NAME||'chromium',pw=require('playwright'),browser=await pw[engine].launch(engine==='chromium'?{executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']}:{}),folder=process.env.ACCURACY_DIR||'.release/accuracy-followup',fixture=JSON.parse(await fs.readFile(folder+'/reference.json')),report={engine,records:[],errors:[]};
+ const engine=process.env.BROWSER_NAME||'chromium',pw=require('playwright'),browser=await pw[engine].launch(engine==='chromium'?{executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox']}:{}),folder=process.env.ACCURACY_DIR||'.release/accuracy-followup',fixture=JSON.parse(await fs.readFile(folder+'/reference.json')),report={engine,records:[],errors:[]};
  const context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'block'}),page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
  try{
   await page.goto('http://127.0.0.1:8080/');await page.waitForFunction(()=>!document.querySelector('#calculate').disabled);report.build=await page.locator('#app-build-value').textContent();

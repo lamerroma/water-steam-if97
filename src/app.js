@@ -38,14 +38,8 @@ import {readUIUnits,uiDisplayQuantity,uiConvertQuantity,uiTransportQuantity} fro
 const uiInputUnits=new WeakMap(),uiTableSources=new WeakMap();
 let uiUnitPreferences=readUIUnits(null),uiInputDefaults=false;
 const $=id=>document.getElementById(id);
-let calculationPending=false,calculationSequence=0,calculatorWorkerObjectURL=null;
-const createCalculatorWorker=()=>{
- if(typeof CALCULATOR_WORKER_SOURCE==='string'){
-  calculatorWorkerObjectURL??=URL.createObjectURL(new Blob([CALCULATOR_WORKER_SOURCE],{type:'text/javascript'}));
-  return new Worker(calculatorWorkerObjectURL);
- }
- return new Worker(CALCULATOR_WORKER_URL);
-};
+let calculationPending=false,calculationSequence=0;
+const createCalculatorWorker=()=>new Worker(CALCULATOR_WORKER_URL);
 const calculatorRunner=createCalculationRunner(createCalculatorWorker),projectReader=createCalculationRunner(createCalculatorWorker);
 function calculatorBusy(busy){
  calculationPending=busy;$('calculate').disabled=busy||!persistenceReady;
@@ -59,7 +53,7 @@ function cancelCalculation(notice=false){
 }
 $('calculator-cancel').onclick=()=>cancelCalculation(true);
 document.addEventListener('languagechange',()=>{if(calculationPending){calculatorBusy(true);$('result-status').textContent=uiTranslator.t('text.84c980d39f73');}});
-window.addEventListener('pagehide',()=>{calculatorRunner.cancel();projectReader.cancel();if(calculatorWorkerObjectURL)URL.revokeObjectURL(calculatorWorkerObjectURL);});
+window.addEventListener('pagehide',()=>{calculatorRunner.cancel();projectReader.cancel();});
 // Small original inline-SVG icon set (stroke, currentColor) - no external assets, nothing from the reference site.
 const ICON_SVG={
  calc:'<rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><circle cx="7.5" cy="11" r=".6" fill="currentColor" stroke="none"/><circle cx="12" cy="11" r=".6" fill="currentColor" stroke="none"/><circle cx="16.5" cy="11" r=".6" fill="currentColor" stroke="none"/><circle cx="7.5" cy="15" r=".6" fill="currentColor" stroke="none"/><circle cx="12" cy="15" r=".6" fill="currentColor" stroke="none"/><circle cx="16.5" cy="15" r=".6" fill="currentColor" stroke="none"/><circle cx="7.5" cy="19" r=".6" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r=".6" fill="currentColor" stroke="none"/>',
@@ -355,16 +349,15 @@ resetMode();renderHistory();
  try {$('result-status').textContent='Підготовка ядра води й пари…';const bytes=Uint8Array.from(atob(WASM_BASE64),c=>c.charCodeAt(0));await initialize(bytes);$('result-status').textContent='Готово до розрахунку';await restoreLocal();persistenceReady=true;calculatorBusy(false);}
  catch(e){$('error').textContent='Не вдалося ініціалізувати WebAssembly. Використайте сучасний браузер. '+e.message;$('error').hidden=false;$('calculate').textContent='Помилка завантаження';}
 })();
-// CoolProp WASM (~9 MB) is only needed by the gases/humid-air panels, so it is not
-// loaded at startup. Standalone build embeds it as base64 (no network allowed);
-// the multi-file site fetches assets/coolprop.wasm lazily on first use of either panel.
+// Initialize CoolProp only when needed. The versioned WASM resource is served
+// from the verified PWA cache offline, or from the same origin before installation.
 let coolPropReady=null;
 function ensureCoolProp(){
  if(coolPropReady)return coolPropReady;
  coolPropReady=(async()=>{
-  const bytes=typeof COOLPROP_WASM_BASE64==='string'
-   ?Uint8Array.from(atob(COOLPROP_WASM_BASE64),c=>c.charCodeAt(0))
-   :new Uint8Array(await (await fetch('assets/coolprop.wasm?v='+APP_BUILD.id)).arrayBuffer());
+  const response=await fetch('assets/coolprop.wasm?v='+APP_BUILD.id);
+  if(!response.ok)throw Error(uiTranslator.t('pwa.missing'));
+  const bytes=new Uint8Array(await response.arrayBuffer());
   await initializeHumidAir(bytes);
  })();
  coolPropReady.catch(()=>{coolPropReady=null;});

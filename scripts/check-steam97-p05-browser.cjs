@@ -2,8 +2,8 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises');
 const {openTool,chooseModel,openUnits,closeUnits}=require('./browser-tools.cjs');
 (async()=>{
  const pw=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright'),name=process.env.BROWSER_NAME||'chromium';
- const browser=await pw[name].launch(name==='chromium'?{executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']}:{});
- const context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'block',acceptDownloads:true});
+ const browser=await pw[name].launch(name==='chromium'?{executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox']}:{});
+ const context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'allow',acceptDownloads:true});
  const dir=process.env.P05_BROWSER_DIR||'.release/steam97-p05/'+name;await fs.mkdir(dir,{recursive:true});
  const fixture=JSON.parse(await fs.readFile('tests/fixtures/steam97-p05-reference.json'));
  const report={browser:name,status:'running',records:[],checks:[],errors:[]};let page=await context.newPage();
@@ -61,9 +61,9 @@ const {openTool,chooseModel,openUnits,closeUnits}=require('./browser-tools.cjs')
    assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('water-steam-if97-project-v1')).history.length),before);
    await run(point(400,500));await page.selectOption('#language-select','en');await page.waitForFunction(()=>document.documentElement.lang==='en');assert.match(await page.locator('[data-property="mu"] .unavailable-reason').first().textContent(),/Outside.*433.15/);await page.selectOption('#language-select','uk');
   });
-  await check('Standalone embedded Worker calculates cold liquid offline',async()=>{
-   try{await page.goto('file://'+(process.env.CALCULATOR_STANDALONE_PATH||process.cwd()+'/dist/standalone.html'));report.standalone='file';}catch(e){report.fileNavigation={status:'blocked',message:e.message};await page.close();page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));await page.goto(new URL('standalone.html',process.env.CALCULATOR_URL||'http://127.0.0.1:8080/').href);report.standalone='loopback-then-offline';}
-   await ready();await context.setOffline(true);await run(point(200,260),'pt',false,'standalone-offline');await run(point(400,500),'pt',false,'standalone-offline');assert.ok(page.workers().some(w=>w.url().startsWith('blob:')));await page.screenshot({path:dir+'/standalone.png',fullPage:true});
+  await check('PWA cached Worker calculates cold liquid offline',async()=>{
+   await require('./browser-tools.cjs').openOfflineApp(page);report.offlineMode='pwa-offline-reload';
+   await ready();await context.setOffline(true);await run(point(200,260),'pt',false,'pwa-offline');await run(point(400,500),'pt',false,'pwa-offline');assert.ok(page.workers().some(w=>w.url().includes('assets/calculator-worker.js?v=')));await page.screenshot({path:dir+'/pwa-offline.png',fullPage:true});
   });
   assert.deepEqual(report.errors,[]);report.status='passed';
  }catch(e){report.status='failed';report.error=e.stack;throw e;}finally{await browser.close();await fs.writeFile(dir+'/report.json',JSON.stringify(report,null,2)+'\n');}

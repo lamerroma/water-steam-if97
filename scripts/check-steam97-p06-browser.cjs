@@ -6,8 +6,8 @@ function csvRows(text){text=text.replace(/^\ufeff/,'');const rows=[];let row=[],
  }if(cell||row.length){row.push(cell);rows.push(row);}return rows;}
 (async()=>{
  const pw=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright'),name=process.env.BROWSER_NAME||'chromium';
- const browser=await pw[name].launch(name==='chromium'?{executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']}:{});
- const context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'block',acceptDownloads:true});
+ const browser=await pw[name].launch(name==='chromium'?{executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox']}:{});
+ const context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'allow',acceptDownloads:true});
  const dir=process.env.P06_BROWSER_DIR||'.release/steam97-p06/'+name;await fs.mkdir(dir,{recursive:true});
  const ref=JSON.parse(await fs.readFile('tests/fixtures/steam97-p06-reference.json')),report={browser:name,status:'running',checks:[],records:[],errors:[]};
  let page=await context.newPage(),gauge=false;page.on('pageerror',e=>report.errors.push(e.message));
@@ -91,9 +91,9 @@ function csvRows(text){text=text.replace(/^\ufeff/,'');const rows=[];let row=[],
    await run(selectCase('IF97','turbine',6,773.15),'flow',true);await openUnits(page);await page.selectOption('#pressure-basis','absolute');await page.click('#pressure-apply');await closeUnits(page);gauge=false;
    await page.selectOption('#language-select','en');assert.match(await page.locator('[data-process-metric="outletSuperheat"]').textContent(),/Exhaust superheat/);await page.setViewportSize({width:390,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),390);await page.screenshot({path:dir+'/mobile.png',fullPage:true});await page.setViewportSize({width:1440,height:1000});await page.selectOption('#language-select','uk');
   });
-  await check('Offline standalone with both models',async()=>{
-   try{await page.goto('file://'+process.cwd()+'/dist/standalone.html');report.standalone='file';}catch(e){report.fileNavigation={status:'blocked',message:e.message};await page.close();page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));await page.goto(new URL('standalone.html',process.env.CALCULATOR_URL||'http://127.0.0.1:8711/').href);report.standalone='loopback-then-offline';}
-   await ready();await context.setOffline(true);for(const model of ['IF97','IAPWS-95']){await run(selectCase(model,'turbine',1,973.15),'power',false,'standalone-offline');await run(selectCase(model,'flash',3,450),undefined,false,'standalone-offline');}
+  await check('Offline PWA with both models',async()=>{
+   await require('./browser-tools.cjs').openOfflineApp(page);report.offlineMode='pwa-offline-reload';
+   await ready();await context.setOffline(true);for(const model of ['IF97','IAPWS-95']){await run(selectCase(model,'turbine',1,973.15),'power',false,'pwa-offline');await run(selectCase(model,'flash',3,450),undefined,false,'pwa-offline');}
   });
   assert.deepEqual(report.errors,[]);report.status='passed';
  }catch(e){report.status='failed';report.error=e.stack;report.pageState=await page.evaluate(()=>({error:document.querySelector('#error')?.textContent,status:document.querySelector('#result-status')?.textContent,processError:document.querySelector('#process-error')?.textContent,project:JSON.parse(localStorage.getItem('water-steam-if97-project-v1'))})).catch(()=>null);throw e;}finally{await browser.close();await fs.writeFile(dir+'/report.json',JSON.stringify(report,null,2)+'\n');}

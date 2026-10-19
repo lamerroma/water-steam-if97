@@ -2,8 +2,8 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises');
 const {openTool,openUnits,closeUnits}=require('./browser-tools.cjs');
 function csvRows(text){text=text.replace(/^\ufeff/,'');const rows=[];let row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i];if(c==='"'){if(quoted&&text[i+1]==='"'){cell+='"';i++;}else quoted=!quoted;}else if(!quoted&&(c===';'||c==='\n'||c==='\r')){row.push(cell);cell='';if(c!==';'){if(c==='\r'&&text[i+1]==='\n')i++;rows.push(row);row=[];}}else cell+=c;}if(cell||row.length){row.push(cell);rows.push(row);}return rows;}
 (async()=>{
- const pw=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright'),browserName=process.env.BROWSER_NAME||'chromium',browser=await pw[browserName].launch(browserName==='chromium'?{executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']}:{});
- let context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'block',acceptDownloads:true}),page=await context.newPage();
+ const pw=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright'),browserName=process.env.BROWSER_NAME||'chromium',browser=await pw[browserName].launch(browserName==='chromium'?{executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox']}:{});
+ let context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'allow',acceptDownloads:true}),page=await context.newPage();
  const dir=process.env.P07_BROWSER_DIR||'.release/steam97-p07/'+browserName;await fs.mkdir(dir,{recursive:true});
  const fixture=JSON.parse(await fs.readFile('tests/fixtures/steam97-p07-reference.json')),report={browser:browserName,status:'running',checks:[],records:[],errors:[]};let current;
  const listen=()=>page.on('pageerror',e=>report.errors.push(e.message));listen();
@@ -78,10 +78,10 @@ function csvRows(text){text=text.replace(/^\ufeff/,'');const rows=[];let row=[],
    await page.selectOption('#language-select','en');assert((await page.locator('.diagram-drawing > summary').textContent()).includes('Points and named series'));
    for(const width of [320,390]){await page.setViewportSize({width,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),width);await page.screenshot({path:dir+`/mobile-${width}.png`,fullPage:true});}
   });
-  await check('Offline standalone: both models, labels and spline exports',async()=>{
-   await context.close();context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'block',acceptDownloads:true});page=await context.newPage();listen();
-   try{await page.goto('file://'+process.cwd()+'/dist/standalone.html');report.standalone='file';}catch(e){if(!e.message.includes('ERR_BLOCKED_BY_ADMINISTRATOR'))throw e;await page.close();page=await context.newPage();listen();await page.goto(new URL('standalone.html',process.env.CALCULATOR_URL||'http://127.0.0.1:8711/').href);report.standalone='loopback-then-offline';}
-   await ready();await context.setOffline(true);for(const model of ['IF97','IAPWS-95']){await prepare(model);await series('Офлайн','spline','A; B; C');await waitExport();assert.equal((await chart()).datasets.filter(d=>d.role==='series').length,1);assert((await download(()=>page.click('#diagram-save'))).includes('data-series-kind="spline"'));assert.ok(page.workers().some(w=>w.url().startsWith('blob:')));}
+  await check('Offline PWA: both models, labels and spline exports',async()=>{
+   await context.close();context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'allow',acceptDownloads:true});page=await context.newPage();listen();
+   await require('./browser-tools.cjs').openOfflineApp(page);report.offlineMode='pwa-offline-reload';
+   await ready();await context.setOffline(true);for(const model of ['IF97','IAPWS-95']){await prepare(model);await series('Офлайн','spline','A; B; C');await waitExport();assert.equal((await chart()).datasets.filter(d=>d.role==='series').length,1);assert((await download(()=>page.click('#diagram-save'))).includes('data-series-kind="spline"'));assert.ok(page.workers().some(w=>w.url().includes('assets/calculator-worker.js?v=')));}
   });
   assert.deepEqual(report.errors,[]);report.status='passed';
  }catch(e){report.status='failed';report.error=e.stack;report.pageState=await page.evaluate(()=>({status:document.querySelector('#result-status')?.textContent,error:document.querySelector('#error')?.textContent,drawingError:document.querySelector('#diagram-drawing-error')?.textContent,project:JSON.parse(localStorage.getItem('water-steam-if97-project-v1')),ids:document.querySelector('#diagram-point-ids')?.value})).catch(()=>null);throw e;}

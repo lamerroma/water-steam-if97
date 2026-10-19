@@ -1,0 +1,7 @@
+firefox All 16 IF97 / 11 IAPWS-95 pairs in SI and English passed
+firefox Saturated liquid/vapor endpoints and mixture phase columns passed
+firefox Every P01 failed inverse and a cold near-Pc branch through Worker passed
+firefox Both models: exact near-Pc input, CSV and JSON project import/reload passed
+firefox Multiple physical roots retain original inputs after selection and save passed
+firefox Exact IAPWS-95 critical state remains an error without new history passed
+firefox Loaded offline Worker and PWA cached Worker passed

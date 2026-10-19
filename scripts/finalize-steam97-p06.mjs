@@ -21,14 +21,14 @@ await save('core-results.json',core);
 const browsers={},pwa={scope:'Local 1.35.7; synthetic 1.35.8 update only, no live deployment',browsers:{}};
 for(const name of ['chromium','firefox']){
  const r=await read(`${raw}/${name}/report.json`);assert.equal(r.status,'passed');assert.equal(r.build,core.build.id);assert.equal(r.version,core.build.version);assert.equal(r.checks.length,7);assert.equal(r.records.length,45);assert.deepEqual(r.errors,[]);
- await compact(name+'.json',r);browsers[name]={status:r.status,groups:r.checks.length,calculations:r.records.length,standalone:r.standalone};
+ await compact(name+'.json',r);browsers[name]={status:r.status,groups:r.checks.length,calculations:r.records.length,offlineMode:r.offlineMode};
  const log=await readFile(`${raw}/pwa-${name}.log`,'utf8'),checks=log.trim().split('\n').filter(l=>l.endsWith(' PASS'));assert.equal(checks.length,7);pwa.browsers[name]={status:'passed',checks,log_sha256:sha(Buffer.from(log))};
 }
 await save('pwa-results.json',pwa);
 const retainedRegression={...regression,checks:[]};
 for(const c of regression.checks){const bytes=await readFile(c.log);assert.equal(c.status,'passed');assert.equal(sha(bytes),c.sha256);retainedRegression.checks.push({...c,output:bytes.toString()});}
 await save('regression-results.json',retainedRegression);
-const buildFiles=['index.html','standalone.html','service-worker.js','manifest.webmanifest','assets/app.js','assets/calculator-worker.js','assets/styles.css','assets/coolprop.wasm','assets/icon-192.png','assets/icon-512.png'];
+const buildFiles=['index.html','service-worker.js','manifest.webmanifest','assets/app.js','assets/calculator-worker.js','assets/styles.css','assets/coolprop.wasm','assets/icon-192.png','assets/icon-512.png'];
 const buildHashes=Object.fromEntries(await Promise.all(buildFiles.map(async p=>[p,sha(await readFile('dist/'+p))])));await save('browser-build-sha256.json',buildHashes);
 for(const p of buildFiles)assert.equal(sha(await readFile(p)),buildHashes[p],'Root/dist differ: '+p);
 const files=['package.json','README.md','CHANGELOG.md','.github/workflows/release-checks.yml','scripts/build.mjs','scripts/verify-release.mjs','scripts/generate-steam97-p06.py','scripts/audit-steam97-p06.mjs','scripts/steam97-p06-common.mjs','scripts/check-steam97-p06-browser.cjs','scripts/check-steam97-p06-regression.mjs','scripts/finalize-steam97-p06.mjs','scripts/verify-steam97-p06.mjs','scripts/browser-tools.cjs','scripts/check-pwa-browser.cjs',

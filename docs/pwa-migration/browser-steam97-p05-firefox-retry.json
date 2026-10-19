@@ -1,0 +1,274 @@
+{
+  "browser": "firefox",
+  "status": "passed",
+  "records": [
+    {
+      "id": "P05-068",
+      "mode": "pt",
+      "english": false,
+      "surface": "worker",
+      "p": 200,
+      "T": 260,
+      "mu": 0.0025310708846405915,
+      "lambda": 0.638360270485465,
+      "Pr": 14.170298940972401
+    },
+    {
+      "id": "P05-068",
+      "mode": "ph",
+      "english": false,
+      "surface": "worker",
+      "p": 200,
+      "T": 259.999999999999,
+      "mu": 0.0025310708846406535,
+      "lambda": 0.6383602704854862,
+      "Pr": 14.17029894097237
+    },
+    {
+      "id": "P05-068",
+      "mode": "ps",
+      "english": false,
+      "surface": "worker",
+      "p": 200,
+      "T": 259.999999999998,
+      "mu": 0.0025310708846407455,
+      "lambda": 0.6383602704854828,
+      "Pr": 14.170298940972856
+    },
+    {
+      "id": "P05-068",
+      "mode": "pv",
+      "english": false,
+      "surface": "worker",
+      "p": 200,
+      "T": 260.0000000000148,
+      "mu": 0.002531070884639251,
+      "lambda": 0.6383602704854756,
+      "Pr": 14.170298940965655
+    },
+    {
+      "id": "P05-068",
+      "mode": "hs",
+      "english": false,
+      "surface": "worker",
+      "p": 200.0000000000108,
+      "T": 259.99999999999943,
+      "mu": 0.0025310708846406284,
+      "lambda": 0.638360270485505,
+      "Pr": 14.170298940970515
+    },
+    {
+      "id": "P05-068",
+      "mode": "pt",
+      "english": true,
+      "surface": "worker",
+      "p": 200.00000000001043,
+      "T": 260,
+      "mu": 0.0025310708846405672,
+      "lambda": 0.638360270485465,
+      "Pr": 14.17029894097147
+    },
+    {
+      "id": "P05-068",
+      "mode": "ph",
+      "english": true,
+      "surface": "worker",
+      "p": 200.00000000001043,
+      "T": 259.99999999999574,
+      "mu": 0.002531070884641006,
+      "lambda": 0.6383602704855006,
+      "Pr": 14.170298940974
+    },
+    {
+      "id": "P05-068",
+      "mode": "ps",
+      "english": true,
+      "surface": "worker",
+      "p": 200.00000000001043,
+      "T": 259.9999999999972,
+      "mu": 0.0025310708846408127,
+      "lambda": 0.6383602704855098,
+      "Pr": 14.170298940972229
+    },
+    {
+      "id": "P05-068",
+      "mode": "pv",
+      "english": true,
+      "surface": "worker",
+      "p": 200.00000000001043,
+      "T": 260.0000000000003,
+      "mu": 0.002531070884640587,
+      "lambda": 0.6383602704854793,
+      "Pr": 14.170298940972174
+    },
+    {
+      "id": "P05-068",
+      "mode": "hs",
+      "english": true,
+      "surface": "worker",
+      "p": 200.0000000000108,
+      "T": 259.99999999999943,
+      "mu": 0.0025310708846406284,
+      "lambda": 0.638360270485505,
+      "Pr": 14.170298940970515
+    },
+    {
+      "id": "P05-070",
+      "mode": "pt",
+      "english": false,
+      "surface": "worker",
+      "p": 200,
+      "T": 400,
+      "mu": 0.0002668162967814021,
+      "lambda": 0.7912002804301967,
+      "Pr": 1.3274252633952268
+    },
+    {
+      "id": "P05-165",
+      "mode": "pt",
+      "english": false,
+      "surface": "worker",
+      "p": 400,
+      "T": 500,
+      "mu": null,
+      "lambda": 0.906535481524356,
+      "Pr": null
+    },
+    {
+      "id": "P05-217",
+      "mode": "pt",
+      "english": false,
+      "surface": "worker",
+      "p": 700,
+      "T": 380,
+      "mu": null,
+      "lambda": 0.9599834985907619,
+      "Pr": null
+    },
+    {
+      "id": "P05-123",
+      "mode": "pt",
+      "english": false,
+      "surface": "worker",
+      "p": 300,
+      "T": 900,
+      "mu": 8.776335604810207e-05,
+      "lambda": null,
+      "Pr": null
+    },
+    {
+      "id": "P05-250",
+      "mode": "pt",
+      "english": false,
+      "surface": "worker",
+      "p": 1000,
+      "T": 348,
+      "mu": 0.0007461659262626507,
+      "lambda": 0.9693345583565888,
+      "Pr": 2.8750411034677406
+    },
+    {
+      "id": "P05-068",
+      "mode": "pt",
+      "english": false,
+      "surface": "worker",
+      "p": 200,
+      "T": 260,
+      "mu": 0.0025310708846405915,
+      "lambda": 0.638360270485465,
+      "Pr": 14.170298940972401
+    },
+    {
+      "id": "P05-068",
+      "mode": "pt",
+      "english": false,
+      "surface": "worker",
+      "p": 200,
+      "T": 260,
+      "mu": 0.0025310708846405915,
+      "lambda": 0.638360270485465,
+      "Pr": 14.170298940972401
+    },
+    {
+      "id": "P05-068",
+      "mode": "ph",
+      "english": false,
+      "surface": "loaded-offline",
+      "p": 200,
+      "T": 259.999999999999,
+      "mu": 0.0025310708846406535,
+      "lambda": 0.6383602704854862,
+      "Pr": 14.17029894097237
+    },
+    {
+      "id": "P05-068",
+      "mode": "pt",
+      "english": false,
+      "surface": "worker",
+      "p": 200,
+      "T": 260,
+      "mu": 0.0025310708846405915,
+      "lambda": 0.638360270485465,
+      "Pr": 14.170298940972401
+    },
+    {
+      "id": "P05-165",
+      "mode": "pt",
+      "english": false,
+      "surface": "worker",
+      "p": 400,
+      "T": 500,
+      "mu": null,
+      "lambda": 0.906535481524356,
+      "Pr": null
+    },
+    {
+      "id": "P05-068",
+      "mode": "pt",
+      "english": false,
+      "surface": "pwa-offline",
+      "p": 200,
+      "T": 260,
+      "mu": 0.0025310708846405915,
+      "lambda": 0.638360270485465,
+      "Pr": 14.170298940972401
+    },
+    {
+      "id": "P05-165",
+      "mode": "pt",
+      "english": false,
+      "surface": "pwa-offline",
+      "p": 400,
+      "T": 500,
+      "mu": null,
+      "lambda": 0.906535481524356,
+      "Pr": null
+    }
+  ],
+  "checks": [
+    {
+      "label": "Cold stable liquid: forward/inverses, SI and English",
+      "status": "passed"
+    },
+    {
+      "label": "Independent transport availability and CSV reasons",
+      "status": "passed"
+    },
+    {
+      "label": "Cold input survives JSON import, reload and offline recalculation",
+      "status": "passed"
+    },
+    {
+      "label": "Ice input fails without adding history; English property explanation",
+      "status": "passed"
+    },
+    {
+      "label": "PWA cached Worker calculates cold liquid offline",
+      "status": "passed"
+    }
+  ],
+  "errors": [],
+  "build": "d7bcd0fd3b5d",
+  "version": "1.36.0",
+  "offlineMode": "pwa-offline-reload"
+}

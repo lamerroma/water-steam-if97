@@ -1,4 +1,4 @@
-// Kept inside the application bundle; standalone never registers a worker.
+// Installation, verified offline readiness, repair and controlled PWA updates.
 (()=>{
  const panel=document.getElementById('pwa-panel');if(!panel)return;
  const status=document.getElementById('pwa-status'),progress=document.getElementById('pwa-progress'),retry=document.getElementById('pwa-retry'),update=document.getElementById('pwa-update'),install=document.getElementById('pwa-install');
@@ -6,9 +6,9 @@
  const render=()=>{status.textContent=uiTranslator.t('pwa.'+state,params);document.getElementById('pwa-summary-status').textContent=uiTranslator.t(registration?.waiting?'pwa.available':'pwa.'+state,params);};
  const set=(key,values={})=>{state=key;params=values;render();};
  document.addEventListener('languagechange',render);
- if(location.protocol==='file:'){set('standalone');return;}
+ if(location.protocol==='file:'){set('unsupported');return;}
  if(!('serviceWorker' in navigator)||!isSecureContext){set('unsupported');return;}
- const check=()=>{registration?.active?.postMessage({type:'PWA_STATUS'});update.hidden=!registration?.waiting;render();};
+ const check=()=>{registration?.active?.postMessage({type:'PWA_STATUS',build:APP_BUILD.id});update.hidden=!registration?.waiting;render();};
  const watch=worker=>{if(!worker)return;worker.addEventListener('statechange',()=>{if(worker.state==='installed'){progress.hidden=true;check();}if(worker.state==='redundant'){progress.hidden=true;retry.hidden=false;set('failed');}});};
  navigator.serviceWorker.addEventListener('message',event=>{
   const message=event.data||{};

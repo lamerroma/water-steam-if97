@@ -2,7 +2,7 @@
 
 ## SheetJS Community Edition 0.20.3
 
-- Ліцензія: Apache-2.0; повний текст `vendor/SHEETJS-LICENSE`, включений у сайт, standalone та ZIP.
+- Ліцензія: Apache-2.0; повний текст `vendor/SHEETJS-LICENSE`, включений у PWA та ZIP.
 - Локальний незмінений `vendor/sheetjs.cjs` — `xlsx.full.min.js`, 951904 байти, SHA-256 `cc015130aa8521e7f088f88898eba949ccdcbfb38df0bd129b44b7273c3a6f41`.
 - Авторське джерело: https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js ; документація: https://docs.sheetjs.com/docs/getting-started/installation/standalone/ .
 - Отримано через неофіційну npm-перепублікацію `@e965/xlsx@0.20.3`; integrity tarball перевірено. Бандл побайтово збігається з незалежною перепублікацією `xlsx-republish@0.20.3`; це не оголошується перевіркою підпису автора. Офіційний CDN не входить до мережевого allowlist цього середовища. Повні джерела й контрольні суми: `vendor/SHEETJS.json`.

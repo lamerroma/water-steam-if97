@@ -1,0 +1,37 @@
+✔ Independent Python iapws IF97: simple-superheated (206.8871ms)
+✔ Independent Python iapws IF97: single-reheat (117.2431ms)
+✔ Independent Python iapws IF97: dry-saturated-inlet (56.5563ms)
+✔ Independent Python iapws IF97: superheated-exit (85.854ms)
+✔ Independent Python iapws IAPWS-95: simple-superheated (4401.8247ms)
+✔ Independent Python iapws IAPWS-95: single-reheat (3092.8332ms)
+✖ Independent Python iapws IAPWS-95: dry-saturated-inlet (14.3197ms)
+✔ Independent Python iapws IAPWS-95: superheated-exit (1498.1731ms)
+✔ Reheat raises exit quality for the reference example; exact pump is not replaced by v*dp (221.3331ms)
+✔ Phase modes, heat direction and pressure order are explicit; invalid unused values are ignored (73.7712ms)
+✔ Old gas drafts migrate; water drafts retain inactive invalid strings and enforce model compatibility (0.847ms)
+✔ Components are inferred from current states/laws, survive input-only reports, and clear after topology edits (141.2109ms)
+✔ Mass scales total energies; superheated exit quality stays undefined in comparison (258.9386ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 12
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10385.0135
+
+✖ failing tests:
+
+test at tests\rankine-library.test.mjs:12:31
+✖ Independent Python iapws IAPWS-95: dry-saturated-inlet (14.3197ms)
+  Error: 1 → 2: IAPWS-95: не знайдено стабільний корінь густини.
+      at solveCustomCycle (<workspace>/.release/baseline-head/src/custom-cycle.js:46:19)
+      at buildRankineLibraryCycle (<workspace>/.release/baseline-head/src/rankine-library.js:31:239)
+      at buildLibraryCycle (<workspace>/.release/baseline-head/src/cycle-library.js:27:92)
+      at TestContext.<anonymous> (<workspace>/.release/baseline-head/tests/rankine-library.test.mjs:13:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7)

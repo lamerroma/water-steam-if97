@@ -3,7 +3,7 @@ const {openTool}=require('./browser-tools.cjs');
 (async()=>{
  const name=process.env.BROWSER_NAME||'chromium',browser=await pw[name].launch(name==='chromium'?{executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox']}:{ });
  try{
-  const context=await browser.newContext({serviceWorkers:'block',viewport:{width:1440,height:1000}}),p=await context.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
+  const context=await browser.newContext({serviceWorkers:'allow',viewport:{width:1440,height:1000}}),p=await context.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
   await p.goto(process.env.CALCULATOR_URL||'http://127.0.0.1:8080/');await p.waitForFunction(()=>!document.querySelector('#calculate').disabled);await openTool(p,'water-process');
   async function run(){await p.click('#wp-calculate');await p.waitForFunction(()=>!!document.querySelector('#wp-report')||!document.querySelector('#wp-error').hidden);assert.equal(await p.locator('#wp-error').isHidden(),true,await p.locator('#wp-error').textContent());assert.match(await p.locator('#wp-status').textContent(),/точність підтверджено|accuracy verified/);assert.equal(await p.locator('[data-process-path]').count(),2);}
   await p.fill('#wp-mass','2,5');await run();assert.match(await p.locator('#wp-results').textContent(),/231/);await p.click('#wp-history-add');assert.equal(await p.locator('#history-body [data-history-open]').count(),2);
@@ -25,8 +25,8 @@ const {openTool}=require('./browser-tools.cjs');
   await p.evaluate(()=>{document.querySelector('#wp-form').requestSubmit();const el=document.querySelector('#wp-value');el.value='.6';el.dispatchEvent(new Event('input',{bubbles:true}));});assert.equal(await p.locator('#wp-report').count(),0);assert.equal(await p.locator('#wp-calculate').isEnabled(),true);
   await p.evaluate(()=>document.querySelector('#wp-form').requestSubmit());await openTool(p,'general');await p.waitForTimeout(500);assert.equal(await p.locator('#process-view').isHidden(),true);assert.equal(await p.locator('#wp-report').count(),0);await openTool(p,'water-process');assert.equal(await p.locator('#wp-report').count(),0);
   if(name==='firefox'){
-   const offline=await browser.newContext({offline:true,serviceWorkers:'block'}),file=await offline.newPage();file.on('pageerror',e=>errors.push(e.message));await file.goto(require('node:url').pathToFileURL(path.resolve(__dirname,'../standalone.html')).href);await file.waitForFunction(()=>!document.querySelector('#calculate').disabled);await openTool(file,'water-process');await file.click('#wp-calculate');await file.waitForSelector('#wp-report');assert.match(await file.locator('#wp-status').textContent(),/точність підтверджено/);await offline.close();
+   const offline=await browser.newContext({serviceWorkers:'allow'}),file=await offline.newPage();file.on('pageerror',e=>errors.push(e.message));await require('./browser-tools.cjs').openOfflineApp(file);await file.waitForFunction(()=>!document.querySelector('#calculate').disabled);await openTool(file,'water-process');await file.click('#wp-calculate');await file.waitForSelector('#wp-report');assert.match(await file.locator('#wp-status').textContent(),/точність підтверджено/);await offline.close();
   }
-  assert.deepEqual(errors,[]);console.log(name+': four processes, 95 phase change, background cancellation/edit/navigation, project restore, report/source, CSV/SVG, English and mobile PASS'+(name==='firefox'?'; standalone offline PASS':''));
+  assert.deepEqual(errors,[]);console.log(name+': four processes, 95 phase change, background cancellation/edit/navigation, project restore, report/source, CSV/SVG, English and mobile PASS'+(name==='firefox'?'; PWA offline PASS':''));
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1);});

@@ -3,7 +3,7 @@ const {openTool}=require('./browser-tools.cjs');
 (async()=>{
  const name=process.env.BROWSER_NAME||'chromium',browser=await pw[name].launch(name==='chromium'?{executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox']}:{});
  try{
-  const c=await browser.newContext({serviceWorkers:'block',viewport:{width:1440,height:1000}}),p=await c.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
+  const c=await browser.newContext({serviceWorkers:'allow',viewport:{width:1440,height:1000}}),p=await c.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
   await p.goto(process.env.CALCULATOR_URL||'http://127.0.0.1:8080/');await p.waitForFunction(()=>!document.querySelector('#calculate').disabled);await openTool(p,'water-process');
   async function run(){await p.click('#wp-calculate');await p.waitForFunction(()=>document.querySelector('#wp-report')||!document.querySelector('#wp-error').hidden,{},{timeout:60000});assert.equal(await p.locator('#wp-error').isHidden(),true,await p.locator('#wp-error').textContent());assert.match(await p.locator('#wp-status').textContent(),/точність підтверджено|accuracy verified/);}
   await p.selectOption('#wp-kind','isenthalpic');await run();assert.match(await p.locator('#wp-results').textContent(),/Дросель/);
@@ -25,8 +25,8 @@ const {openTool}=require('./browser-tools.cjs');
   // Ideal gas never reuses water quality or water formulations; history source remains water.
   await p.selectOption('#wp-fluid','He');await p.selectOption('#wp-mode','ps');await p.selectOption('#wp-kind','isentropic');await p.fill('#wp-value','.05');await run();
   if(name==='firefox'){
-   const off=await browser.newContext({offline:true,serviceWorkers:'block'}),file=await off.newPage();file.on('pageerror',e=>errors.push(e.message));await file.goto(require('node:url').pathToFileURL(path.resolve(__dirname,'../standalone.html')).href);await file.waitForFunction(()=>!document.querySelector('#calculate').disabled);await openTool(file,'water-process');await file.selectOption('#wp-fluid','CO2');await file.selectOption('#wp-model','IDEAL-NASA7');await file.selectOption('#wp-kind','polytropic');await file.fill('#wp-value','.05');await file.click('#wp-calculate');await file.waitForSelector('#wp-report');assert.match(await file.locator('#wp-status').textContent(),/точність підтверджено/);await file.click('#wp-report');await off.close();
+   const off=await browser.newContext({serviceWorkers:'allow'}),file=await off.newPage();file.on('pageerror',e=>errors.push(e.message));await require('./browser-tools.cjs').openOfflineApp(file);await file.waitForFunction(()=>!document.querySelector('#calculate').disabled);await openTool(file,'water-process');await file.selectOption('#wp-fluid','CO2');await file.selectOption('#wp-model','IDEAL-NASA7');await file.selectOption('#wp-kind','polytropic');await file.fill('#wp-value','.05');await file.click('#wp-calculate');await file.waitForSelector('#wp-report');assert.match(await file.locator('#wp-status').textContent(),/точність підтверджено/);await file.click('#wp-report');await off.close();
   }
-  assert.deepEqual(errors,[]);console.log(name+': water isenthalpic/polytropic, n=0/1 validation, six ideal-gas processes with both cp models, gas ps input, report/project/source restore, UK/EN/mobile, CSV and cancellation PASS'+(name==='firefox'?'; standalone gas offline PASS':''));
+  assert.deepEqual(errors,[]);console.log(name+': water isenthalpic/polytropic, n=0/1 validation, six ideal-gas processes with both cp models, gas ps input, report/project/source restore, UK/EN/mobile, CSV and cancellation PASS'+(name==='firefox'?'; PWA gas offline PASS':''));
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1)});

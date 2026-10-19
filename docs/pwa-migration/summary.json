@@ -1,0 +1,651 @@
+{
+  "build": {
+    "version": "1.36.0",
+    "id": "d7bcd0fd3b5d"
+  },
+  "started": "2026-10-19T17:27:53.984Z",
+  "completed": "2026-10-19T17:52:18.288Z",
+  "rawReleaseStatus": "failed",
+  "effectiveStatus": "blocked-by-preexisting-unit-failure",
+  "checks": 87,
+  "passedAfterTargetedRetries": 86,
+  "remainingFailures": [
+    "unit"
+  ],
+  "browserChecks": 70,
+  "browserPassed": 70,
+  "unit": {
+    "tests": 1693,
+    "pass": 1692,
+    "fail": 1
+  },
+  "targetedRetries": [
+    "browser-input-sensitivity",
+    "browser-steam97-p07-firefox",
+    "browser-steam97-p05-firefox",
+    "browser-steam97-p02-firefox"
+  ],
+  "runtime": {
+    "os": "Windows",
+    "node": "24.18.1",
+    "playwright": "1.62.1"
+  },
+  "zip": {
+    "bytes": 5718010,
+    "sha256": "fe86f6cc9ae5e7e7465fc5ce1bb92b88c9903ff43bb445b69c857c4772a436cc"
+  },
+  "results": [
+    {
+      "name": "build",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 2952,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\build.log"
+    },
+    {
+      "name": "unit",
+      "status": "failed",
+      "exitCode": 1,
+      "durationMs": 43644,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\unit.log"
+    },
+    {
+      "name": "water",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 29141,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\water.log"
+    },
+    {
+      "name": "transport",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 329,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\transport.log"
+    },
+    {
+      "name": "steam97-p09-units",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 335,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\steam97-p09-units.log"
+    },
+    {
+      "name": "steam97-p03",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 16847,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\steam97-p03.log"
+    },
+    {
+      "name": "steam97-p04",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 670,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\steam97-p04.log"
+    },
+    {
+      "name": "reactor",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 1019,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\reactor.log"
+    },
+    {
+      "name": "reactor-thermal",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 206,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\reactor-thermal.log"
+    },
+    {
+      "name": "reactor-validation",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 563,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\reactor-validation.log"
+    },
+    {
+      "name": "reactor-cell-audit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 110,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\reactor-cell-audit.log"
+    },
+    {
+      "name": "browser-steam97-p04",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 14812,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-steam97-p04.log"
+    },
+    {
+      "name": "browser-steam97-p03",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 21025,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-steam97-p03.log"
+    },
+    {
+      "name": "browser-steam97-p09-units",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 30434,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-steam97-p09-units.log"
+    },
+    {
+      "name": "browser-steam97-p08",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 23888,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-steam97-p08.log"
+    },
+    {
+      "name": "browser-steam97-p07",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 40386,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-steam97-p07.log"
+    },
+    {
+      "name": "browser-steam97-p06",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 39282,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-steam97-p06.log"
+    },
+    {
+      "name": "browser-steam97-p05",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 23077,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-steam97-p05.log"
+    },
+    {
+      "name": "browser-steam97-p02",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 72397,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-steam97-p02.log"
+    },
+    {
+      "name": "browser-input-sensitivity",
+      "status": "passed",
+      "exitCode": 1,
+      "durationMs": 473,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-input-sensitivity.log",
+      "originalStatus": "failed",
+      "retryEvidence": "docs/pwa-migration/browser-input-sensitivity-retry.json"
+    },
+    {
+      "name": "browser-inverse-boundaries",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6857,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-inverse-boundaries.log"
+    },
+    {
+      "name": "browser-rankine-sweep",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 10022,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-rankine-sweep.log"
+    },
+    {
+      "name": "browser-rankine-regeneration",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 10395,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-rankine-regeneration.log"
+    },
+    {
+      "name": "browser-rankine-efficiency",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 7724,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-rankine-efficiency.log"
+    },
+    {
+      "name": "browser-rankine-library",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 15994,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-rankine-library.log"
+    },
+    {
+      "name": "browser-cycle-library",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6796,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-cycle-library.log"
+    },
+    {
+      "name": "browser-custom-cycle",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 25455,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-custom-cycle.log"
+    },
+    {
+      "name": "browser-processes-extended",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 7883,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-processes-extended.log"
+    },
+    {
+      "name": "browser-water-process",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 9237,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-water-process.log"
+    },
+    {
+      "name": "browser-calculator-async",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 7390,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-calculator-async.log"
+    },
+    {
+      "name": "browser-navigation",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5555,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-navigation.log"
+    },
+    {
+      "name": "browser-smart-input",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 8844,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-smart-input.log"
+    },
+    {
+      "name": "browser-calculator-workspace",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6627,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-calculator-workspace.log"
+    },
+    {
+      "name": "browser-state-comparison",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 10168,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-state-comparison.log"
+    },
+    {
+      "name": "browser-study-workflow",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 10003,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-study-workflow.log"
+    },
+    {
+      "name": "browser-task-ui",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 19331,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-task-ui.log"
+    },
+    {
+      "name": "browser-diagram",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 23063,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-diagram.log"
+    },
+    {
+      "name": "browser-diagram-guides",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 13264,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-diagram-guides.log"
+    },
+    {
+      "name": "browser-diagram-quality",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 39421,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-diagram-quality.log"
+    },
+    {
+      "name": "browser-process-paths",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 10238,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-process-paths.log"
+    },
+    {
+      "name": "browser-chart-layout",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5090,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-chart-layout.log"
+    },
+    {
+      "name": "browser-study-workspace",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 48432,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-study-workspace.log"
+    },
+    {
+      "name": "browser-hydraulics",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5532,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-hydraulics.log"
+    },
+    {
+      "name": "browser-study",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 14274,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-study.log"
+    },
+    {
+      "name": "browser-full-sprint",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 9914,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-full-sprint.log"
+    },
+    {
+      "name": "browser-laboratory",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6071,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-laboratory.log"
+    },
+    {
+      "name": "browser-coursework",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5683,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-coursework.log"
+    },
+    {
+      "name": "browser-usability",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5126,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-usability.log"
+    },
+    {
+      "name": "browser-reactor-course",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6511,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-reactor-course.log"
+    },
+    {
+      "name": "browser-reactor-validation",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6163,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-reactor-validation.log"
+    },
+    {
+      "name": "browser-provenance",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 3105,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-provenance.log"
+    },
+    {
+      "name": "browser-project-safety",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4600,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-project-safety.log"
+    },
+    {
+      "name": "browser-pwa",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 30334,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-pwa.log"
+    },
+    {
+      "name": "browser-pwa-package",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 8341,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-pwa-package.log"
+    },
+    {
+      "name": "browser-ui-workspace",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5357,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-ui-workspace.log"
+    },
+    {
+      "name": "browser-cross-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 27515,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-cross-browser.log"
+    },
+    {
+      "name": "browser-steam97-p04-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 20244,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-steam97-p04-firefox.log"
+    },
+    {
+      "name": "browser-steam97-p03-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 25019,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-steam97-p03-firefox.log"
+    },
+    {
+      "name": "browser-steam97-p09-units-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 28055,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-steam97-p09-units-firefox.log"
+    },
+    {
+      "name": "browser-steam97-p08-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 19834,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-steam97-p08-firefox.log"
+    },
+    {
+      "name": "browser-steam97-p07-firefox",
+      "status": "passed",
+      "exitCode": 1,
+      "durationMs": 53745,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-steam97-p07-firefox.log",
+      "originalStatus": "failed",
+      "retryEvidence": "docs/pwa-migration/browser-steam97-p07-firefox-retry.json"
+    },
+    {
+      "name": "browser-steam97-p06-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 56957,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-steam97-p06-firefox.log"
+    },
+    {
+      "name": "browser-steam97-p05-firefox",
+      "status": "passed",
+      "exitCode": 1,
+      "durationMs": 31871,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-steam97-p05-firefox.log",
+      "originalStatus": "failed",
+      "retryEvidence": "docs/pwa-migration/browser-steam97-p05-firefox-retry.json"
+    },
+    {
+      "name": "browser-steam97-p02-firefox",
+      "status": "passed",
+      "exitCode": 1,
+      "durationMs": 117691,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-steam97-p02-firefox.log",
+      "originalStatus": "failed",
+      "retryEvidence": "docs/pwa-migration/browser-steam97-p02-firefox-retry.json"
+    },
+    {
+      "name": "browser-input-sensitivity-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 22972,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-input-sensitivity-firefox.log"
+    },
+    {
+      "name": "browser-inverse-boundaries-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 11616,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-inverse-boundaries-firefox.log"
+    },
+    {
+      "name": "browser-rankine-sweep-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 16999,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-rankine-sweep-firefox.log"
+    },
+    {
+      "name": "browser-rankine-regeneration-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 15917,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-rankine-regeneration-firefox.log"
+    },
+    {
+      "name": "browser-rankine-efficiency-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 15943,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-rankine-efficiency-firefox.log"
+    },
+    {
+      "name": "browser-rankine-library-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 23845,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-rankine-library-firefox.log"
+    },
+    {
+      "name": "browser-cycle-library-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 14453,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-cycle-library-firefox.log"
+    },
+    {
+      "name": "browser-custom-cycle-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 33627,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-custom-cycle-firefox.log"
+    },
+    {
+      "name": "browser-processes-extended-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 14610,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-processes-extended-firefox.log"
+    },
+    {
+      "name": "browser-water-process-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 14228,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-water-process-firefox.log"
+    },
+    {
+      "name": "browser-calculator-async-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 11040,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-calculator-async-firefox.log"
+    },
+    {
+      "name": "browser-calculator-workspace-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 11012,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-calculator-workspace-firefox.log"
+    },
+    {
+      "name": "browser-smart-input-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 13186,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-smart-input-firefox.log"
+    },
+    {
+      "name": "browser-state-comparison-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 14155,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-state-comparison-firefox.log"
+    },
+    {
+      "name": "browser-study-workflow-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 16360,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-study-workflow-firefox.log"
+    },
+    {
+      "name": "browser-pwa-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 35713,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-pwa-firefox.log"
+    },
+    {
+      "name": "browser-pwa-package-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 11642,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\browser-pwa-package-firefox.log"
+    },
+    {
+      "name": "rebuild",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 2958,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\rebuild.log"
+    },
+    {
+      "name": "deterministic-build",
+      "status": "passed"
+    },
+    {
+      "name": "package",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 1069,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\package.log"
+    },
+    {
+      "name": "package-integrity",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 305,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\package-integrity.log"
+    },
+    {
+      "name": "repackage",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 1068,
+      "log": ".release\\2026-10-19T17-27-53-981Z\\repackage.log"
+    },
+    {
+      "name": "deterministic-package",
+      "status": "passed"
+    }
+  ],
+  "scope": "Software and offline packaging acceptance. Mathematical engines unchanged; Steam97Web parity and reactor physical validation are not established by these tests."
+}

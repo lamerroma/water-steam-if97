@@ -1,4 +1,4 @@
-const BUILD={"version":"1.35.12","id":"8976baaf14e1"};const RESOURCES=["index.html","assets/app.js?v=a11934012da0f640","assets/styles.css?v=a6588a0e50245cf7","assets/coolprop.wasm?v=8976baaf14e1","manifest.webmanifest","assets/icon-192.png","assets/icon-512.png","assets/calculator-worker.js?v=a0653914f0f1f551"];const DIGESTS={"index.html":"e341cfdfd3de7d50719a97d0d5a3d4f07b63ba55d932a2c9a81e7f45eb8e6df6","assets/app.js?v=a11934012da0f640":"a11934012da0f640727fb46737599331e52c891613ed0059170c276752653ee3","assets/styles.css?v=a6588a0e50245cf7":"a6588a0e50245cf79327284ec3e9acf5a454c4a71d12d3d0ad94c5e5f28e0427","assets/coolprop.wasm?v=8976baaf14e1":"28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307","manifest.webmanifest":"63130e8f1083e12602ca499f9de40ad3d97d64b457c005ce570215966f783056","assets/calculator-worker.js?v=a0653914f0f1f551":"a0653914f0f1f551a6feb2ddefa8c0eb9b17fcb2059e81f09917b3164ddb9d9b","assets/icon-192.png":"50dd8b5abc44230597dddc0391c9bc50237ac356a824b7a52139e0b4364b0689","assets/icon-512.png":"8f42bcec7ab744311e58bac643f0473846582e36193fc162f328e3640204a88a"};
+const BUILD={"version":"1.36.0","id":"41fe877d84e0"};const RESOURCES=["index.html","assets/app.js?v=462ae6af9d5e5837","assets/styles.css?v=a6588a0e50245cf7","assets/coolprop.wasm?v=41fe877d84e0","manifest.webmanifest","assets/icon-192.png","assets/icon-512.png","assets/calculator-worker.js?v=a0653914f0f1f551"];const DIGESTS={"index.html":"b61544cc8d245aeeb8cafb1dd14684742efcca9a7d831c1e6aa839a9436ea192","assets/app.js?v=462ae6af9d5e5837":"462ae6af9d5e5837829e64302e26cbdf63432e5b3a707176d4344c7db77aa66c","assets/styles.css?v=a6588a0e50245cf7":"a6588a0e50245cf79327284ec3e9acf5a454c4a71d12d3d0ad94c5e5f28e0427","assets/coolprop.wasm?v=41fe877d84e0":"28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307","manifest.webmanifest":"63130e8f1083e12602ca499f9de40ad3d97d64b457c005ce570215966f783056","assets/calculator-worker.js?v=a0653914f0f1f551":"a0653914f0f1f551a6feb2ddefa8c0eb9b17fcb2059e81f09917b3164ddb9d9b","assets/icon-192.png":"50dd8b5abc44230597dddc0391c9bc50237ac356a824b7a52139e0b4364b0689","assets/icon-512.png":"8f42bcec7ab744311e58bac643f0473846582e36193fc162f328e3640204a88a"};
 const cachePrefix='water-steam:'+new URL(self.registration.scope).pathname+'|';
 const cacheName=cachePrefix+BUILD.id+new URL(self.location.href).search;
 const url=path=>new URL(path,self.registration.scope).href;
@@ -32,6 +32,13 @@ self.addEventListener('message',event=>{
  if(event.data?.type==='PWA_STATUS')event.waitUntil((async()=>{
   const cache=await caches.open(cacheName);
   const ready=(await Promise.all(RESOURCES.map(path=>cache.match(url(path))))).every(Boolean);
+  // Updates activated from an open tab keep older releases for other open tabs.
+  // Once the only open window runs this complete release, nothing needs them.
+  // A newer installing or waiting release owns its own cache and is kept.
+  if(ready&&event.data.build===BUILD.id&&!self.registration.installing&&!self.registration.waiting){
+   const windows=(await self.clients.matchAll({type:'window',includeUncontrolled:true})).filter(client=>client.url.startsWith(self.registration.scope));
+   if(windows.length===1&&windows[0].id===event.source?.id&&!self.registration.installing&&!self.registration.waiting)for(const key of await caches.keys())if(key.startsWith(cachePrefix)&&key!==cacheName)await caches.delete(key);
+  }
   event.source?.postMessage({type:ready?'PWA_READY':'PWA_MISSING',build:BUILD});
  })());
 });

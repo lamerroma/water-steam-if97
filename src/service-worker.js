@@ -32,6 +32,13 @@ self.addEventListener('message',event=>{
  if(event.data?.type==='PWA_STATUS')event.waitUntil((async()=>{
   const cache=await caches.open(cacheName);
   const ready=(await Promise.all(RESOURCES.map(path=>cache.match(url(path))))).every(Boolean);
+  // Updates activated from an open tab keep older releases for other open tabs.
+  // Once the only open window runs this complete release, nothing needs them.
+  // A newer installing or waiting release owns its own cache and is kept.
+  if(ready&&event.data.build===BUILD.id&&!self.registration.installing&&!self.registration.waiting){
+   const windows=(await self.clients.matchAll({type:'window',includeUncontrolled:true})).filter(client=>client.url.startsWith(self.registration.scope));
+   if(windows.length===1&&windows[0].id===event.source?.id&&!self.registration.installing&&!self.registration.waiting)for(const key of await caches.keys())if(key.startsWith(cachePrefix)&&key!==cacheName)await caches.delete(key);
+  }
   event.source?.postMessage({type:ready?'PWA_READY':'PWA_MISSING',build:BUILD});
  })());
 });

@@ -1,0 +1,16 @@
+{
+  "baseCommit": "6bae91383df7085f73dd1cc2f3eb462571143867",
+  "runtime": {
+    "os": "Windows",
+    "node": "24.18.1"
+  },
+  "case": "Independent Python iapws IAPWS-95: dry-saturated-inlet",
+  "baselineExitCode": 1,
+  "sourceSha256": {
+    "src/custom-cycle.js": "3fcd199a9e5cd93fde6b91a9b7183be7ca53f63a2ac0b5c219a6adbfb328bfc7",
+    "src/rankine-library.js": "bf9ace1931be60b96043afd7ff3d102fc6c9ba2369412c95d0f563ffb3a6c1e9",
+    "src/cycle-library.js": "df2e8c8315d3d5fd58edb095941527a94eb5df365acb063ca84db8791b294d78",
+    "src/iapws95.js": "2590ea8b87e9a8d2b9a8a3cdeac33700aa43239d0ebf9d4fab3bc3384d5f72e7",
+    "tests/rankine-library.test.mjs": "5a91924a4faf05ace30f50a38a49f90ad3661481a556feb9a72459ec34753ab4"
+  }
+}

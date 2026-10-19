@@ -1,6 +1,6 @@
 import {createTranslator} from './i18n.js';
 
-// LOCALIZATION_CATALOGS is embedded by build.mjs, including in standalone.html.
+// LOCALIZATION_CATALOGS is embedded in the PWA bundle by build.mjs.
 let preferredLanguage='uk';
 try{preferredLanguage=localStorage.getItem('water-steam-language')||'uk';}catch{}
 const uiTranslator=createTranslator(LOCALIZATION_CATALOGS,preferredLanguage);

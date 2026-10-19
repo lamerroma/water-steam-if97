@@ -2,10 +2,10 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=r
 const {openTool}=require('./browser-tools.cjs');
 (async()=>{
  const pw=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright'),name=process.env.BROWSER_NAME||'chromium';
- const browser=await pw[name].launch(name==='chromium'?{executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']}:{});
- let context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'block',acceptDownloads:true}),page=await context.newPage();
+ const browser=await pw[name].launch(name==='chromium'?{executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox']}:{});
+ let context=await browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'allow',acceptDownloads:true}),page=await context.newPage();
  const dir=path.resolve(process.env.P08_BROWSER_DIR||'.release/steam97-p08/'+name);await fs.mkdir(dir,{recursive:true});
- const version=JSON.parse(await fs.readFile('package.json')).version,report={browser:name,version,status:'running',groups:[],files:[],errors:[],standaloneMode:null};
+ const version=JSON.parse(await fs.readFile('package.json')).version,report={browser:name,version,status:'running',groups:[],files:[],errors:[],offlineMode:null};
  const fixture=JSON.parse(await fs.readFile('tests/fixtures/steam97-p07-reference.json'));
  const sample=model=>fixture.records.find(c=>c.model===model&&c.mode==='pt'&&c.a===3&&c.b===673.15);
  const ready=()=>page.waitForFunction(()=>document.querySelector('#calculate')?.disabled===false,{},{timeout:120000});
@@ -39,11 +39,10 @@ const {openTool}=require('./browser-tools.cjs');
   await page.selectOption('#language-select','en');assert.equal(await page.locator('#diagram-spreadsheet-save').textContent(),'Save spreadsheet');
   for(const width of [320,390]){await page.setViewportSize({width,height:900});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),width);await page.screenshot({path:path.join(dir,'mobile-'+width+'.png')});}
   report.groups.push('English and 320/390px layout');
-  await context.close();context=await browser.newContext({viewport:{width:1280,height:900},serviceWorkers:'block',acceptDownloads:true});page=await context.newPage();listen();
-  try{await context.setOffline(true);await page.goto(require('node:url').pathToFileURL(path.resolve('standalone.html')).href);report.standaloneMode='file-offline';}
-  catch(e){if(name!=='chromium'||!/ERR_BLOCKED_BY_ADMINISTRATOR/.test(e.message))throw e;await context.close();context=await browser.newContext({acceptDownloads:true,serviceWorkers:'block'});page=await context.newPage();listen();const url=new URL('standalone.html',process.env.CALCULATOR_URL||'http://127.0.0.1:8080/index.html').href;await page.goto(url);await ready();await context.setOffline(true);report.standaloneMode='managed-file-policy-loopback-then-offline';console.log('MANAGED_FILE_FALLBACK: identical standalone loaded from loopback before offline.');}
+  await context.close();context=await browser.newContext({viewport:{width:1280,height:900},serviceWorkers:'allow',acceptDownloads:true});page=await context.newPage();listen();
+  await require('./browser-tools.cjs').openOfflineApp(page);report.offlineMode='pwa-offline-reload';
   await ready();for(const model of ['IF97','IAPWS-95']){const c=await prepare(model);await download('state-spreadsheet',properties(c),'offline-'+model);}
-  report.groups.push('Standalone offline, both models and four formats');
+  report.groups.push('PWA offline, both models and four formats');
   await context.close();context=await browser.newContext({viewport:{width:1280,height:900},acceptDownloads:true});page=await context.newPage();listen();
   await page.goto(process.env.CALCULATOR_URL||'http://127.0.0.1:8080/index.html');await ready();
   await page.waitForFunction(()=>/готова|ready offline/.test(document.querySelector('#pwa-status')?.textContent||''),{},{timeout:120000});
@@ -52,7 +51,7 @@ const {openTool}=require('./browser-tools.cjs');
   report.groups.push('Installed PWA offline reload, both models and four formats');
   const manifest=path.join(dir,'manifest.json');await fs.writeFile(manifest,JSON.stringify({browser:name,version,buildId:report.buildId,files:report.files},null,2));
   const r=spawnSync(process.env.P08_PYTHON||'python3',['scripts/reference/spreadsheet_readers.py',manifest],{encoding:'utf8',timeout:120000});assert.equal(r.status,0,r.stderr);report.independentReaders=JSON.parse(await fs.readFile(path.join(dir,'reader-report.json')));
-  assert.deepEqual(report.errors,[]);report.status='passed';console.log(JSON.stringify({browser:name,status:report.status,groups:report.groups.length,files:report.files.length,standaloneMode:report.standaloneMode,independent:report.independentReaders}));
+  assert.deepEqual(report.errors,[]);report.status='passed';console.log(JSON.stringify({browser:name,status:report.status,groups:report.groups.length,files:report.files.length,offlineMode:report.offlineMode,independent:report.independentReaders}));
  }catch(e){report.status='failed';report.error=e.stack;report.errorStatus=await page.locator('#result-status').textContent().catch(()=>null);console.error('Export status:',report.errorStatus);throw e;}
  finally{await fs.writeFile(path.join(dir,'report.json'),JSON.stringify(report,null,2));await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

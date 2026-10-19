@@ -6,7 +6,7 @@ const {openTool}=require('./browser-tools.cjs');
 (async()=>{
  const browser=await playwright[browserName].launch(browserName==='chromium'?{...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{}),args:['--no-sandbox']}:{});
  try{
-  const ctx=await browser.newContext({serviceWorkers:'block',viewport:{width:1440,height:1000}}),p=await ctx.newPage(),errors=[];
+  const ctx=await browser.newContext({serviceWorkers:'allow',viewport:{width:1440,height:1000}}),p=await ctx.newPage(),errors=[];
   p.on('pageerror',e=>errors.push(e.message));
   await p.goto(process.env.CALCULATOR_URL||'http://localhost:8080/');await p.waitForFunction(()=>!document.querySelector('#calculate').disabled);
   const calculate=async()=>{await p.click('#calculate');await p.waitForFunction(()=>!document.querySelector('#calculate').disabled);};
@@ -40,6 +40,6 @@ const {openTool}=require('./browser-tools.cjs');
   await p.click('[data-quick-mode=pt]');await p.fill('#input-a','3');await p.fill('#input-b','100');await calculate();assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth),390);assert.ok((await p.locator('#results [data-copy]').first().boundingBox()).height>=44);
   const evidence=path.resolve('.release/calculator-121');await fs.mkdir(evidence,{recursive:true});await p.screenshot({path:path.join(evidence,'mobile.png'),fullPage:true});await p.setViewportSize({width:1440,height:1000});await p.screenshot({path:path.join(evidence,'desktop.png'),fullPage:true});
   console.log('Distinct saturation phase values, mobile overflow and touch targets PASS');
-  const off=await ctx.newPage();off.on('pageerror',e=>errors.push(e.message));await ctx.setOffline(true);await off.goto(require('node:url').pathToFileURL(path.resolve('standalone.html')).href);await off.waitForFunction(()=>!document.querySelector('#calculate').disabled);await off.click('#calculate');await off.waitForFunction(()=>!document.querySelector('#calculate').disabled);assert.equal(await off.locator('#copy-result-json:not([disabled])').count(),1);await off.click('#calculator-add-report');await off.click('#calculator-open-report');assert.equal(await off.locator('#study-list fieldset').count(),1);assert.deepEqual(errors,[]);console.log('Standalone calculation → report offline PASS');
+  const off=await ctx.newPage();off.on('pageerror',e=>errors.push(e.message));await ctx.setOffline(true);await require('./browser-tools.cjs').openOfflineApp(off);await off.waitForFunction(()=>!document.querySelector('#calculate').disabled);await off.click('#calculate');await off.waitForFunction(()=>!document.querySelector('#calculate').disabled);assert.equal(await off.locator('#copy-result-json:not([disabled])').count(),1);await off.click('#calculator-add-report');await off.click('#calculator-open-report');assert.equal(await off.locator('#study-list fieldset').count(),1);assert.deepEqual(errors,[]);console.log('PWA calculation → report offline PASS');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1)});

@@ -1,0 +1,13 @@
+{
+  "browser": "chromium",
+  "status": "passed",
+  "checks": [
+    "Complete ZIP first launch through shipped serve.py; no external requests; correct WASM/manifest MIME; calculation",
+    "Server stopped, browser profile restarted offline; project restored; newly created calculation Worker and matching result"
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "zipSha256": "fe86f6cc9ae5e7e7465fc5ce1bb92b88c9903ff43bb445b69c857c4772a436cc",
+  "browserVersion": "151.0.7922.34",
+  "build": "d7bcd0fd3b5d"
+}

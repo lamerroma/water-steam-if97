@@ -1,8 +1,6 @@
-// Builds a downloadable offline ZIP: one self-contained HTML file plus docs.
-// Uses standalone.html (everything embedded, zero network calls, including the
-// lazily-loaded-elsewhere CoolProp WASM) -- NOT the multi-file site, which needs
-// fetch() and therefore a server; fetch() is blocked under file:// in Chrome.
-import {readFile,writeFile,mkdir,rm} from 'node:fs/promises';
+// Package the complete static PWA, including a loopback server for local use.
+// Calculation runs on the device; the server only serves files, never computes.
+import {readFile,writeFile} from 'node:fs/promises';
 import {deflateRawSync} from 'node:zlib';
 import {fileURLToPath} from 'node:url';
 const root=new URL('../',import.meta.url);
@@ -13,10 +11,17 @@ const README=`Навчальний теплофізичний калькулят
 
 Як запустити:
 1. Розпакуйте цей архів у будь-яку папку.
-2. Відкрийте файл "calculator.html" подвійним кліком у будь-якому сучасному браузері
-   (Chrome, Firefox, Edge, Safari).
-3. Усе готово. Інтернет не потрібен -- жодних запитів з цього файлу ні на які сервери
-   не надсилається, увесь код і дані вбудовані в сам файл.
+2. За наявності Python 3 виконайте в цій папці: python serve.py
+   (у Windows також можна: py -3 serve.py).
+3. Відкрийте http://localhost:8080/ і дочекайтеся статусу готовності офлайн.
+4. За бажанням установіть PWA через меню браузера. Після підготовки кешу можна
+   зупинити локальний сервер і відкрити цю ж адресу або встановлену програму офлайн.
+
+Усі ресурси вже в архіві: для цього локального запуску інтернет не потрібен.
+Python використовується лише як статичний сервер; розрахунки виконує браузер.
+Відкриття index.html через file:// не підтримується. Використовуйте ту саму адресу
+та порт при наступному запуску. Після очищення кешу знову запустіть serve.py.
+Альтернатива: розмістіть комплект на HTTPS-хостингу й установіть PWA звідти.
 
 Ліцензія: MIT (LICENSE). Атрибуція сторонніх джерел і формуляцій IAPWS: THIRD_PARTY_NOTICES.md.
 Журнал змін: https://github.com/lamerroma/water-steam-if97/blob/main/CHANGELOG.md
@@ -39,20 +44,14 @@ function archive(entries){
 }
 
 async function main(){
- const stage=new URL('dist/release-stage/',root);
- await rm(stage,{recursive:true,force:true});
- await mkdir(stage,{recursive:true});
- await writeFile(new URL('calculator.html',stage),await read('standalone.html'));
- await writeFile(new URL('README.txt',stage),README);
- await writeFile(new URL('LICENSE',stage),await read('LICENSE'));
- await writeFile(new URL('THIRD_PARTY_NOTICES.md',stage),await read('THIRD_PARTY_NOTICES.md'));
- await writeFile(new URL('QUICK_START_UK.md',stage),await read('docs/QUICK_START_UK.md'));
  const app=await readFile(new URL('assets/app.js',root),'utf8'),build=JSON.parse(app.match(/const APP_BUILD = ([^\n]+);/)[1]);
- await writeFile(new URL('BUILD_INFO.json',stage),JSON.stringify(build,null,2)+'\n');
+ const worker=await readFile(new URL('service-worker.js',root),'utf8');
+ const resources=JSON.parse(worker.match(/const RESOURCES=(\[[^;]+\]);/)[1]);
+ const names=[...new Set(resources.map(path=>path.split('?')[0])),'service-worker.js'];
+ const entries=await Promise.all(names.map(async name=>[name,await read('dist/'+name)]));
+ for(const [name,source] of [['LICENSE','LICENSE'],['THIRD_PARTY_NOTICES.md','THIRD_PARTY_NOTICES.md'],['QUICK_START_UK.md','docs/QUICK_START_UK.md'],['PWA_UK.md','docs/PWA_UK.md'],['PWA_ARCHITECTURE_UK.md','docs/PWA_ARCHITECTURE_UK.md'],['serve.py','scripts/serve-pwa.py']])entries.push([name,await read(source)]);
+ entries.push(['README.txt',Buffer.from(README)],['BUILD_INFO.json',Buffer.from(JSON.stringify(build,null,2)+'\n')]);
  const zipPath=new URL('dist/water-steam-calculator.zip',root);
- await rm(zipPath,{force:true});
- const names=['calculator.html','README.txt','LICENSE','THIRD_PARTY_NOTICES.md','QUICK_START_UK.md','BUILD_INFO.json'];
- const entries=await Promise.all(names.map(async name=>[name,await readFile(new URL(name,stage))]));
  await writeFile(zipPath,archive(entries));
  const {size}=await import('node:fs').then(fs=>fs.promises.stat(zipPath));
  console.log(`Built ${fileURLToPath(zipPath)} (${size} bytes).`);

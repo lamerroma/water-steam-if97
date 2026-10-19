@@ -1,0 +1,13 @@
+chromium Canonical steps, independent state and compact default passed
+chromium Optional digits, property copy, Markdown and raw JSON/CSV passed
+chromium Language switch preserves values and translated scenario passed
+chromium Fahrenheit and bar increments exclude gauge offset passed
+chromium Coarse input scenario is marked limited passed
+chromium Scientific cold liquid duplicates collapse passed
+chromium Physical alternatives keep original pair and scenario when selected passed
+chromium Saturation reference states show their own pressure after a root selection passed
+chromium Mixture does not invent single-phase sensitivity or digits passed
+chromium Reload reconstructs scenario from saved input spelling passed
+chromium Mobile details stay within viewport passed
+chromium Loaded offline warm worker retains diagnostics passed
+chromium PWA reload works offline with cached worker passed
