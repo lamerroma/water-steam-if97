@@ -1,0 +1,1274 @@
+{
+  "version": "1.35.12",
+  "browser": "chromium",
+  "browserVersion": "154.0.8037.57",
+  "playwrightVersion": "1.64.1",
+  "status": "passed",
+  "groups": [
+    "Worker, missing optional backend, typed SI exports, forged-result import and local reload",
+    "Inverse pairs, basis conversion, strict lambda/domain bounds, endpoints and cancellation/retry",
+    "Off/on reverts to the unchanged P03 state without stale correction",
+    "English units, translated scope and narrow layouts",
+    "Standalone offline correction/worker/four-format export",
+    "Installed PWA offline reload"
+  ],
+  "errors": [],
+  "buildId": "8976baaf14e1",
+  "standaloneMode": "managed-file-policy-loopback-then-offline",
+  "readers": {
+    "status": "passed",
+    "files": 16,
+    "checks": 128,
+    "version": "1.35.12"
+  },
+  "files": [
+    {
+      "file": "si.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaH"
+          ],
+          "column": 1,
+          "value": 3.409470296816661,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaS"
+          ],
+          "column": 1,
+          "value": 0.002130918935510413,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaCp"
+          ],
+          "column": 1,
+          "value": 0.01647317648889961,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "w"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "isentropic"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "dissociation_applied"
+          ],
+          "column": 1,
+          "value": true
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "composition_meaning"
+          ],
+          "column": 1,
+          "value": "initial-frozen"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "excess_air_lambda"
+          ],
+          "column": 1,
+          "value": 1.2
+        }
+      ],
+      "sha256": "b45da0a9d2f12900f61d0b2bf035f2c693a6f39f4e858dc8c7ccfa13f0c95faf",
+      "bytes": 15712
+    },
+    {
+      "file": "si.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaH"
+          ],
+          "column": 1,
+          "value": 3.409470296816661,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaS"
+          ],
+          "column": 1,
+          "value": 0.002130918935510413,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaCp"
+          ],
+          "column": 1,
+          "value": 0.01647317648889961,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "w"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "isentropic"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "dissociation_applied"
+          ],
+          "column": 1,
+          "value": true
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "composition_meaning"
+          ],
+          "column": 1,
+          "value": "initial-frozen"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "excess_air_lambda"
+          ],
+          "column": 1,
+          "value": 1.2
+        }
+      ],
+      "sha256": "bfadf123c8c5f5ec457e50cd209a74265c95d6678830e1e29a1f083e2fefe3ff",
+      "bytes": 32993
+    },
+    {
+      "file": "si.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaH"
+          ],
+          "column": 1,
+          "value": 3.409470296816661,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaS"
+          ],
+          "column": 1,
+          "value": 0.002130918935510413,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaCp"
+          ],
+          "column": 1,
+          "value": 0.01647317648889961,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "w"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "isentropic"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "dissociation_applied"
+          ],
+          "column": 1,
+          "value": true
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "composition_meaning"
+          ],
+          "column": 1,
+          "value": "initial-frozen"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "excess_air_lambda"
+          ],
+          "column": 1,
+          "value": 1.2
+        }
+      ],
+      "sha256": "4e48e9883991f260e41f0aa8a3b86ad954ff894bde38892447ec3ed4b85a7c2d",
+      "bytes": 11264
+    },
+    {
+      "file": "si.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaH"
+          ],
+          "column": 1,
+          "value": 3.409470296816661,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaS"
+          ],
+          "column": 1,
+          "value": 0.002130918935510413,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaCp"
+          ],
+          "column": 1,
+          "value": 0.01647317648889961,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "w"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "isentropic"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "dissociation_applied"
+          ],
+          "column": 1,
+          "value": "true"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "composition_meaning"
+          ],
+          "column": 1,
+          "value": "initial-frozen"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "excess_air_lambda"
+          ],
+          "column": 1,
+          "value": 1.2
+        }
+      ],
+      "sha256": "1097862f5f845f62b3c69741f3dfbd58fd7f455fea1b7cd2b43065252bdbb852",
+      "bytes": 2676
+    },
+    {
+      "file": "english.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaH"
+          ],
+          "column": 1,
+          "value": 1.4658083821223822,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaS"
+          ],
+          "column": 1,
+          "value": 0.0005089612437924938,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaCp"
+          ],
+          "column": 1,
+          "value": 0.003934550608794213,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "w"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "isentropic"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "dissociation_applied"
+          ],
+          "column": 1,
+          "value": true
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "composition_meaning"
+          ],
+          "column": 1,
+          "value": "initial-frozen"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "excess_air_lambda"
+          ],
+          "column": 1,
+          "value": 1.2
+        }
+      ],
+      "sha256": "81276fb6c7ea7b84b7f359678ff37d3487742d0b08f778f6bde78c09009fbe4e",
+      "bytes": 15752
+    },
+    {
+      "file": "english.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaH"
+          ],
+          "column": 1,
+          "value": 1.4658083821223822,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaS"
+          ],
+          "column": 1,
+          "value": 0.0005089612437924938,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaCp"
+          ],
+          "column": 1,
+          "value": 0.003934550608794213,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "w"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "isentropic"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "dissociation_applied"
+          ],
+          "column": 1,
+          "value": true
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "composition_meaning"
+          ],
+          "column": 1,
+          "value": "initial-frozen"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "excess_air_lambda"
+          ],
+          "column": 1,
+          "value": 1.2
+        }
+      ],
+      "sha256": "ba835f397bdc29d33ec8adcf6dd09d3bb61f80245541c6005cd2e4d93cc63c2e",
+      "bytes": 33168
+    },
+    {
+      "file": "english.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaH"
+          ],
+          "column": 1,
+          "value": 1.4658083821223822,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaS"
+          ],
+          "column": 1,
+          "value": 0.0005089612437924938,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaCp"
+          ],
+          "column": 1,
+          "value": 0.003934550608794213,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "w"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "isentropic"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "dissociation_applied"
+          ],
+          "column": 1,
+          "value": true
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "composition_meaning"
+          ],
+          "column": 1,
+          "value": "initial-frozen"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "excess_air_lambda"
+          ],
+          "column": 1,
+          "value": 1.2
+        }
+      ],
+      "sha256": "435225fba1c2c4f2d6806deaf08a062269dbe446a2e41982d8282f0fa55a343d",
+      "bytes": 11264
+    },
+    {
+      "file": "english.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaH"
+          ],
+          "column": 1,
+          "value": 1.4658083821223822,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaS"
+          ],
+          "column": 1,
+          "value": 0.0005089612437924938,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaCp"
+          ],
+          "column": 1,
+          "value": 0.003934550608794213,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "w"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "isentropic"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "dissociation_applied"
+          ],
+          "column": 1,
+          "value": "true"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "composition_meaning"
+          ],
+          "column": 1,
+          "value": "initial-frozen"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "excess_air_lambda"
+          ],
+          "column": 1,
+          "value": 1.2
+        }
+      ],
+      "sha256": "80152082b4a38a17654c8eb398b1ed0dca2ffefd9c754eebc7bd00b428a06533",
+      "bytes": 2795
+    },
+    {
+      "file": "standalone.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaH"
+          ],
+          "column": 1,
+          "value": 3.409470296816661,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaS"
+          ],
+          "column": 1,
+          "value": 0.002130918935510413,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaCp"
+          ],
+          "column": 1,
+          "value": 0.01647317648889961,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "w"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "isentropic"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "dissociation_applied"
+          ],
+          "column": 1,
+          "value": true
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "composition_meaning"
+          ],
+          "column": 1,
+          "value": "initial-frozen"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "excess_air_lambda"
+          ],
+          "column": 1,
+          "value": 1.2
+        }
+      ],
+      "sha256": "b45da0a9d2f12900f61d0b2bf035f2c693a6f39f4e858dc8c7ccfa13f0c95faf",
+      "bytes": 15712
+    },
+    {
+      "file": "standalone.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaH"
+          ],
+          "column": 1,
+          "value": 3.409470296816661,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaS"
+          ],
+          "column": 1,
+          "value": 0.002130918935510413,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaCp"
+          ],
+          "column": 1,
+          "value": 0.01647317648889961,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "w"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "isentropic"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "dissociation_applied"
+          ],
+          "column": 1,
+          "value": true
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "composition_meaning"
+          ],
+          "column": 1,
+          "value": "initial-frozen"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "excess_air_lambda"
+          ],
+          "column": 1,
+          "value": 1.2
+        }
+      ],
+      "sha256": "bfadf123c8c5f5ec457e50cd209a74265c95d6678830e1e29a1f083e2fefe3ff",
+      "bytes": 32993
+    },
+    {
+      "file": "standalone.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaH"
+          ],
+          "column": 1,
+          "value": 3.409470296816661,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaS"
+          ],
+          "column": 1,
+          "value": 0.002130918935510413,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaCp"
+          ],
+          "column": 1,
+          "value": 0.01647317648889961,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "w"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "isentropic"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "dissociation_applied"
+          ],
+          "column": 1,
+          "value": true
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "composition_meaning"
+          ],
+          "column": 1,
+          "value": "initial-frozen"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "excess_air_lambda"
+          ],
+          "column": 1,
+          "value": 1.2
+        }
+      ],
+      "sha256": "4e48e9883991f260e41f0aa8a3b86ad954ff894bde38892447ec3ed4b85a7c2d",
+      "bytes": 11264
+    },
+    {
+      "file": "standalone.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaH"
+          ],
+          "column": 1,
+          "value": 3.409470296816661,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaS"
+          ],
+          "column": 1,
+          "value": 0.002130918935510413,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaCp"
+          ],
+          "column": 1,
+          "value": 0.01647317648889961,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "w"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "isentropic"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "dissociation_applied"
+          ],
+          "column": 1,
+          "value": "true"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "composition_meaning"
+          ],
+          "column": 1,
+          "value": "initial-frozen"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "excess_air_lambda"
+          ],
+          "column": 1,
+          "value": 1.2
+        }
+      ],
+      "sha256": "1097862f5f845f62b3c69741f3dfbd58fd7f455fea1b7cd2b43065252bdbb852",
+      "bytes": 2676
+    },
+    {
+      "file": "pwa.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaH"
+          ],
+          "column": 1,
+          "value": 3.409470296816661,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaS"
+          ],
+          "column": 1,
+          "value": 0.002130918935510413,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaCp"
+          ],
+          "column": 1,
+          "value": 0.01647317648889961,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "w"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "isentropic"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "dissociation_applied"
+          ],
+          "column": 1,
+          "value": true
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "composition_meaning"
+          ],
+          "column": 1,
+          "value": "initial-frozen"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "excess_air_lambda"
+          ],
+          "column": 1,
+          "value": 1.2
+        }
+      ],
+      "sha256": "b45da0a9d2f12900f61d0b2bf035f2c693a6f39f4e858dc8c7ccfa13f0c95faf",
+      "bytes": 15712
+    },
+    {
+      "file": "pwa.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaH"
+          ],
+          "column": 1,
+          "value": 3.409470296816661,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaS"
+          ],
+          "column": 1,
+          "value": 0.002130918935510413,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaCp"
+          ],
+          "column": 1,
+          "value": 0.01647317648889961,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "w"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "isentropic"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "dissociation_applied"
+          ],
+          "column": 1,
+          "value": true
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "composition_meaning"
+          ],
+          "column": 1,
+          "value": "initial-frozen"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "excess_air_lambda"
+          ],
+          "column": 1,
+          "value": 1.2
+        }
+      ],
+      "sha256": "bfadf123c8c5f5ec457e50cd209a74265c95d6678830e1e29a1f083e2fefe3ff",
+      "bytes": 32993
+    },
+    {
+      "file": "pwa.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaH"
+          ],
+          "column": 1,
+          "value": 3.409470296816661,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaS"
+          ],
+          "column": 1,
+          "value": 0.002130918935510413,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaCp"
+          ],
+          "column": 1,
+          "value": 0.01647317648889961,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "w"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "isentropic"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "dissociation_applied"
+          ],
+          "column": 1,
+          "value": true
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "composition_meaning"
+          ],
+          "column": 1,
+          "value": "initial-frozen"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "excess_air_lambda"
+          ],
+          "column": 1,
+          "value": 1.2
+        }
+      ],
+      "sha256": "4e48e9883991f260e41f0aa8a3b86ad954ff894bde38892447ec3ed4b85a7c2d",
+      "bytes": 11264
+    },
+    {
+      "file": "pwa.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaH"
+          ],
+          "column": 1,
+          "value": 3.409470296816661,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaS"
+          ],
+          "column": 1,
+          "value": 0.002130918935510413,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "dissociationDeltaCp"
+          ],
+          "column": 1,
+          "value": 0.01647317648889961,
+          "relative_tolerance": 5e-12,
+          "absolute_tolerance": 2e-12
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "w"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "isentropic"
+          ],
+          "column": 1,
+          "value": null
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "dissociation_applied"
+          ],
+          "column": 1,
+          "value": "true"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "composition_meaning"
+          ],
+          "column": 1,
+          "value": "initial-frozen"
+        },
+        {
+          "sheet": "Metadata",
+          "prefix": [
+            "excess_air_lambda"
+          ],
+          "column": 1,
+          "value": 1.2
+        }
+      ],
+      "sha256": "1097862f5f845f62b3c69741f3dfbd58fd7f455fea1b7cd2b43065252bdbb852",
+      "bytes": 2676
+    }
+  ]
+}

@@ -4,7 +4,7 @@
   "baseline_version": "1.35.0",
   "baseline_commit": "2c3bfe83d6b3f772018334074bdfa6df0abaa215",
   "goal": "All calculations available in the referenced Steam97Web calculator must be covered before further capability expansion.",
-  "status": "p03_bsw2003_bounded_delivery_full_acceptance_blocked",
+  "status": "p04_experimental_bounded_delivery_full_acceptance_blocked",
   "scope": {
     "target": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
     "include": "All calculator tabs and available model/phase/input/units/domain variants, including features marked as requiring registration. Workflow parity tracked separately.",
@@ -3046,15 +3046,20 @@
       "group": "gas-tables",
       "feature": "Combustion-gas dissociation",
       "scope": "calculation",
-      "implementation": "missing",
+      "implementation": "partial",
       "parity": "known_gap",
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
-        "src/gases.js",
-        "docs/COMPARISON.md"
+        "src/gas-dissociation.js",
+        "docs/STEAMTABLES_P04_UK.md",
+        "docs/steam97-p04/contract.json"
       ],
-      "existing_checks": [],
-      "notes": "Mandatory. Official help limits the caloric dissociation model to T<=2000 K and complete combustion lambda>1.05. Equations, coefficients, lambda handling and output definitions unknown; do not assume a general equilibrium model is required.",
+      "existing_checks": [
+        "tests/gas-dissociation.test.mjs",
+        "scripts/audit-steam97-p04.mjs",
+        "scripts/check-steam97-p04-browser.cjs"
+      ],
+      "notes": "Mandatory target parity remains open. Version 1.35.12 adds an explicitly experimental local VDI caloric correction to BSW2003, derived CO branch and supplied lambda. Local bounds 1200-2000 K/0.01-5 MPa and initial composition are not asserted to match Steam97Web. Equilibrium percentages and sound/isentropic outputs unavailable in this mode.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "gas-dissociation",

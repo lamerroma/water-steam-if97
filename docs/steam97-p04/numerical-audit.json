@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "version": "1.35.12",
+  "cases": 280,
+  "inversions": 140,
+  "reference": {
+    "status": "passed",
+    "cases": 280,
+    "checks": 2520,
+    "precision_digits": 60,
+    "method": "Independent Decimal equations using the frozen external coefficient ledger",
+    "max_absolute_errors": {
+      "cp": 6.661338147750939e-16,
+      "h": 7.105427357601002e-14,
+      "s": 3.469446951953614e-17
+    },
+    "physical_accuracy_proven": false,
+    "Steam97Web_parity": false
+  },
+  "full_sprint_accepted": false,
+  "Steam97Web_parity": false
+}

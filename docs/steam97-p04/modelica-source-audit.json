@@ -59,7 +59,9 @@
     "Modelica_J_mol": 303000.0,
     "Manitoba_table_3_3_text_J_mol": -303000,
     "resolved": false,
-    "V_H2_difference_at_2000K_J_molK": 303.0
+    "V_H2_difference_at_2000K_J_molK": 303.0,
+    "local_implementation_choice": "+303000, as in pinned Modelica source; independent NASA reaction-enthalpy check supports this sign; not a direct reading of the original paper",
+    "independent_evidence": "cantera-comparison.json#/reaction_energy_and_mass_action_checks"
   },
   "derivative_diagnostics": [
     {

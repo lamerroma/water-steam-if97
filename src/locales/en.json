@@ -1802,5 +1802,15 @@
   "gas.title": "Gases · BSW2003 / CoolProp HEOS / NASA7",
   "gas.bswOption": "Ideal gas / mixture · BSW2003",
   "gas.scope": "Condensation and dissociation are excluded. Direct comparison with Steam97Web results is still pending.",
-  "gas.mixingEntropy": "Entropy of mixing"
+  "gas.mixingEntropy": "Entropy of mixing",
+  "gas.dissociationLabel": "Dissociation",
+  "gas.dissociationOff": "Do not include",
+  "gas.dissociationOn": "VDI4670 caloric correction · experimental",
+  "gas.dissociationHelp": "Local experimental range: 1200…2000 K, 0.01…5 MPa; O₂ ≥ 1 mol %, initial CO = 0. Specify combustion conditions and excess-air λ > 1.05. Lambda is not inferred automatically from composition.",
+  "gas.combustionLabel": "Gas formation conditions",
+  "gas.combustionUnknown": "Not specified",
+  "gas.combustionAir": "Complete combustion in ordinary air",
+  "gas.excessAirLabel": "Excess-air ratio λ",
+  "gas.dissociationScope": "Experimental VDI4670 caloric correction to BSW2003. cp/cv is a caloric ratio; sound speed and isentropic exponent are not established. The cp increment is fitted separately from h/s. Direct comparison with Steam97Web remains open.",
+  "gas.initialComposition": "Initial composition is shown below. Equilibrium composition and dissociation percentage are not computed; density refers to the initial ideal mixture."
 }

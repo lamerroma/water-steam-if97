@@ -4,7 +4,8 @@ export const d2oPropertyRows=s=>[['Тиск',s.p,'МПа'],['Температу�
 export function learningCSV(q,inputRows,entries){
  const phaseEntries=q.liquid&&q.vapor?[...d2oPropertyRows(q.liquid).map(r=>['Насичена рідина',...r]),...d2oPropertyRows(q.vapor).map(r=>['Насичена пара',...r])]:null;
  const lines=[['model',q.model],['input','value'],...inputRows];
- if(q.modelId==='BSW2003-technical'){lines.push(['model_id',q.modelId],['input_basis',q.inputBasis],['T0',q.reference.T0,'K'],['p0',q.reference.p0,'MPa'],['reference',q.reference.definition],['dissociation_applied',false],['component','mole fraction','mass fraction']);for(const id of ['Ar','CO','CO2','H2O','N2','Ne','O2','SO2'])lines.push([id,q.composition[id]||0,q.massComposition[id]||0]);}
+ if(q.modelId?.startsWith('BSW2003-')){lines.push(['model_id',q.modelId],['input_basis',q.inputBasis],['T0',q.reference.T0,'K'],['p0',q.reference.p0,'MPa'],['reference',q.reference.definition],['dissociation_applied',q.dissociationApplied],['component','mole fraction','mass fraction']);for(const id of ['Ar','CO','CO2','H2O','N2','Ne','O2','SO2'])lines.push([id,q.composition[id]||0,q.massComposition[id]||0]);}
+ if(q.dissociationApplied)lines.push(['dissociation_model',q.dissociation.model],['excess_air_lambda',q.excessAirLambda],['combustion',q.dissociation.combustion],['composition_meaning',q.compositionMeaning],['equilibrium_composition_computed',false],['sound_speed_available',false],['Steam97Web_parity_verified',false],['cp_definition',q.dissociation.cpDefinition]);
  if(q.phase)lines.push(['phase',q.phase]);
  for(const note of q.notes||[])lines.push(['warning',note]);
  if(!q.rows)lines.push(...(phaseEntries?[['phase','quantity','value','unit'],...phaseEntries]:[['quantity','value','unit'],...entries]));

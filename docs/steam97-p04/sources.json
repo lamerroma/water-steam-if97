@@ -68,6 +68,14 @@
       "title": "Roland Span publication list, 1999",
       "evidence": "Search-indexed author bibliography identifies Buecker/Span/Wagner simplified-dissociation presentation to the VDI 4670 committee in 1999.",
       "limitation": "Presentation full text not acquired; author page could not be retrieved directly."
+    },
+    {
+      "id": "P04-S09",
+      "url": "https://github.com/Cantera/cantera/blob/v3.2.0/data/gri30.yaml",
+      "title": "Cantera 3.2.0, GRI-Mech 3.0 NASA thermochemistry and TP equilibrium",
+      "mechanism_sha256": "06650b1e0ee0012f6903d5328b1bb218cb6007d07f8ebe375d18f24811039345",
+      "use": "Independent reaction-enthalpy/Kp diagnostics and 60 TP-equilibrium correction comparisons; no coefficients fitted.",
+      "limitation": "Different physical formulation; not a VDI4670 implementation or Steam97Web oracle; comparison covers methane/ordinary-air products only."
     }
   ],
   "unresolved_access": [

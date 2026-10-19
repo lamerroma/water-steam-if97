@@ -80,6 +80,6 @@ export function batchTabular(records,context={}){
 }
 
 export function gasTabular(q,inputs={},context={},preferences=null){
- if(q?.modelId!=='BSW2003-technical')throw Error('Calculate a BSW2003 state before exporting.');
- return tabularDocument('gas',[{name:'Properties',rows:[['property','value','unit'],...gasTableRows(q,context.system||'si',preferences)]},{name:'Composition',rows:[['component','mole [%]','mass [%]'],...gasCompositionRows(q)]},{name:'Inputs',rows:[['field','value'],...Object.entries(inputs)]}],{...context,model:q.model,composition_basis:q.inputBasis,T0_K:q.reference.T0,p0_MPa:q.reference.p0,reference:q.reference.definition,dissociation_applied:false});
+ if(!q?.modelId?.startsWith('BSW2003-'))throw Error('Calculate a BSW2003 state before exporting.');
+ return tabularDocument('gas',[{name:'Properties',rows:[['property','value','unit'],...gasTableRows(q,context.system||'si',preferences)]},{name:'Composition',rows:[['component','mole [%]','mass [%]'],...gasCompositionRows(q)]},{name:'Inputs',rows:[['field','value'],...Object.entries(inputs)]}],{...context,model:q.model,composition_basis:q.inputBasis,T0_K:q.reference.T0,p0_MPa:q.reference.p0,reference:q.reference.definition,dissociation_applied:q.dissociationApplied,...(q.dissociationApplied?{dissociation_model:q.dissociation.model,excess_air_lambda:q.excessAirLambda,combustion:q.dissociation.combustion,composition_meaning:q.compositionMeaning,equilibrium_composition_computed:false,sound_speed_available:false,Steam97Web_parity_verified:false,cp_definition:q.dissociation.cpDefinition}:{})});
 }

@@ -1,0 +1,621 @@
+{
+  "started": "2026-10-19T11:39:33.891Z",
+  "mode": "full",
+  "version": "1.35.12",
+  "build": {
+    "version": "1.35.12",
+    "id": "8976baaf14e1"
+  },
+  "status": "passed",
+  "checks": [
+    {
+      "name": "build",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5227,
+      "log": ".release/2026-10-19T11-39-33-890Z/build.log"
+    },
+    {
+      "name": "unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 184468,
+      "log": ".release/2026-10-19T11-39-33-890Z/unit.log"
+    },
+    {
+      "name": "water",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 36448,
+      "log": ".release/2026-10-19T11-39-33-890Z/water.log"
+    },
+    {
+      "name": "transport",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 277,
+      "log": ".release/2026-10-19T11-39-33-890Z/transport.log"
+    },
+    {
+      "name": "steam97-p09-units",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 213,
+      "log": ".release/2026-10-19T11-39-33-890Z/steam97-p09-units.log"
+    },
+    {
+      "name": "steam97-p03",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 16249,
+      "log": ".release/2026-10-19T11-39-33-890Z/steam97-p03.log"
+    },
+    {
+      "name": "steam97-p04",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 487,
+      "log": ".release/2026-10-19T11-39-33-890Z/steam97-p04.log"
+    },
+    {
+      "name": "reactor",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 1093,
+      "log": ".release/2026-10-19T11-39-33-890Z/reactor.log"
+    },
+    {
+      "name": "reactor-thermal",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 92,
+      "log": ".release/2026-10-19T11-39-33-890Z/reactor-thermal.log"
+    },
+    {
+      "name": "reactor-validation",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 794,
+      "log": ".release/2026-10-19T11-39-33-890Z/reactor-validation.log"
+    },
+    {
+      "name": "reactor-cell-audit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 50,
+      "log": ".release/2026-10-19T11-39-33-890Z/reactor-cell-audit.log"
+    },
+    {
+      "name": "browser-steam97-p04",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 10622,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p04.log"
+    },
+    {
+      "name": "browser-steam97-p03",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 15717,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p03.log"
+    },
+    {
+      "name": "browser-steam97-p09-units",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 24902,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p09-units.log"
+    },
+    {
+      "name": "browser-steam97-p08",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 19387,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p08.log"
+    },
+    {
+      "name": "browser-steam97-p07",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 36808,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p07.log"
+    },
+    {
+      "name": "browser-steam97-p06",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 30438,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p06.log"
+    },
+    {
+      "name": "browser-steam97-p05",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 20578,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p05.log"
+    },
+    {
+      "name": "browser-steam97-p02",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 78582,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p02.log"
+    },
+    {
+      "name": "browser-input-sensitivity",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 14577,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-input-sensitivity.log"
+    },
+    {
+      "name": "browser-inverse-boundaries",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 7915,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-inverse-boundaries.log"
+    },
+    {
+      "name": "browser-rankine-sweep",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 10541,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-rankine-sweep.log"
+    },
+    {
+      "name": "browser-rankine-regeneration",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 8662,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-rankine-regeneration.log"
+    },
+    {
+      "name": "browser-rankine-efficiency",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6803,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-rankine-efficiency.log"
+    },
+    {
+      "name": "browser-rankine-library",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 14230,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-rankine-library.log"
+    },
+    {
+      "name": "browser-cycle-library",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6459,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-cycle-library.log"
+    },
+    {
+      "name": "browser-custom-cycle",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 20588,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-custom-cycle.log"
+    },
+    {
+      "name": "browser-processes-extended",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5624,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-processes-extended.log"
+    },
+    {
+      "name": "browser-water-process",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6257,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-water-process.log"
+    },
+    {
+      "name": "browser-calculator-async",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6715,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-calculator-async.log"
+    },
+    {
+      "name": "browser-navigation",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4617,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-navigation.log"
+    },
+    {
+      "name": "browser-smart-input",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 8040,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-smart-input.log"
+    },
+    {
+      "name": "browser-calculator-workspace",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6531,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-calculator-workspace.log"
+    },
+    {
+      "name": "browser-state-comparison",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 8571,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-state-comparison.log"
+    },
+    {
+      "name": "browser-study-workflow",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 9419,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-study-workflow.log"
+    },
+    {
+      "name": "browser-task-ui",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 19282,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-task-ui.log"
+    },
+    {
+      "name": "browser-diagram",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 19799,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-diagram.log"
+    },
+    {
+      "name": "browser-diagram-guides",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 10311,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-diagram-guides.log"
+    },
+    {
+      "name": "browser-diagram-quality",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 31763,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-diagram-quality.log"
+    },
+    {
+      "name": "browser-process-paths",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 9514,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-process-paths.log"
+    },
+    {
+      "name": "browser-chart-layout",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5493,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-chart-layout.log"
+    },
+    {
+      "name": "browser-study-workspace",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 46023,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-study-workspace.log"
+    },
+    {
+      "name": "browser-hydraulics",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4400,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-hydraulics.log"
+    },
+    {
+      "name": "browser-study",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 13399,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-study.log"
+    },
+    {
+      "name": "browser-full-sprint",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 9761,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-full-sprint.log"
+    },
+    {
+      "name": "browser-laboratory",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4916,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-laboratory.log"
+    },
+    {
+      "name": "browser-coursework",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4847,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-coursework.log"
+    },
+    {
+      "name": "browser-usability",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4804,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-usability.log"
+    },
+    {
+      "name": "browser-reactor-course",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5593,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-reactor-course.log"
+    },
+    {
+      "name": "browser-reactor-validation",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4657,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-reactor-validation.log"
+    },
+    {
+      "name": "browser-provenance",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 2521,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-provenance.log"
+    },
+    {
+      "name": "browser-project-safety",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4196,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-project-safety.log"
+    },
+    {
+      "name": "browser-pwa",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 29110,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-pwa.log"
+    },
+    {
+      "name": "browser-ui-workspace",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4739,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-ui-workspace.log"
+    },
+    {
+      "name": "browser-cross-browser",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 19809,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-cross-browser.log"
+    },
+    {
+      "name": "browser-steam97-p04-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 13122,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p04-firefox.log"
+    },
+    {
+      "name": "browser-steam97-p03-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 17388,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p03-firefox.log"
+    },
+    {
+      "name": "browser-steam97-p09-units-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 22118,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p09-units-firefox.log"
+    },
+    {
+      "name": "browser-steam97-p08-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 15504,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p08-firefox.log"
+    },
+    {
+      "name": "browser-steam97-p07-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 53169,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p07-firefox.log"
+    },
+    {
+      "name": "browser-steam97-p06-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 45151,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p06-firefox.log"
+    },
+    {
+      "name": "browser-steam97-p05-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 28301,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p05-firefox.log"
+    },
+    {
+      "name": "browser-steam97-p02-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 91925,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p02-firefox.log"
+    },
+    {
+      "name": "browser-input-sensitivity-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 18315,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-input-sensitivity-firefox.log"
+    },
+    {
+      "name": "browser-inverse-boundaries-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 8946,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-inverse-boundaries-firefox.log"
+    },
+    {
+      "name": "browser-rankine-sweep-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 13134,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-rankine-sweep-firefox.log"
+    },
+    {
+      "name": "browser-rankine-regeneration-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 12358,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-rankine-regeneration-firefox.log"
+    },
+    {
+      "name": "browser-rankine-efficiency-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 11554,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-rankine-efficiency-firefox.log"
+    },
+    {
+      "name": "browser-rankine-library-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 19204,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-rankine-library-firefox.log"
+    },
+    {
+      "name": "browser-cycle-library-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 10044,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-cycle-library-firefox.log"
+    },
+    {
+      "name": "browser-custom-cycle-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 29334,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-custom-cycle-firefox.log"
+    },
+    {
+      "name": "browser-processes-extended-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 9836,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-processes-extended-firefox.log"
+    },
+    {
+      "name": "browser-water-process-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 10295,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-water-process-firefox.log"
+    },
+    {
+      "name": "browser-calculator-async-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 9493,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-calculator-async-firefox.log"
+    },
+    {
+      "name": "browser-calculator-workspace-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 10441,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-calculator-workspace-firefox.log"
+    },
+    {
+      "name": "browser-smart-input-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 11106,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-smart-input-firefox.log"
+    },
+    {
+      "name": "browser-state-comparison-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 10722,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-state-comparison-firefox.log"
+    },
+    {
+      "name": "browser-study-workflow-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 12338,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-study-workflow-firefox.log"
+    },
+    {
+      "name": "browser-pwa-firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 19587,
+      "log": ".release/2026-10-19T11-39-33-890Z/browser-pwa-firefox.log"
+    },
+    {
+      "name": "rebuild",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5540,
+      "log": ".release/2026-10-19T11-39-33-890Z/rebuild.log"
+    },
+    {
+      "name": "deterministic-build",
+      "status": "passed"
+    },
+    {
+      "name": "package",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 1369,
+      "log": ".release/2026-10-19T11-39-33-890Z/package.log"
+    },
+    {
+      "name": "package-integrity",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 289,
+      "log": ".release/2026-10-19T11-39-33-890Z/package-integrity.log"
+    },
+    {
+      "name": "repackage",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 1310,
+      "log": ".release/2026-10-19T11-39-33-890Z/repackage.log"
+    },
+    {
+      "name": "deterministic-package",
+      "status": "passed"
+    }
+  ],
+  "artifacts": {
+    "index.html": "e341cfdfd3de7d50719a97d0d5a3d4f07b63ba55d932a2c9a81e7f45eb8e6df6",
+    "standalone.html": "71403ec1ce359f6247b5667c7aca645ea9c3e1dd207e0037c9d595d3b3082b36",
+    "assets/app.js": "a11934012da0f640727fb46737599331e52c891613ed0059170c276752653ee3",
+    "assets/calculator-worker.js": "a0653914f0f1f551a6feb2ddefa8c0eb9b17fcb2059e81f09917b3164ddb9d9b",
+    "assets/styles.css": "a6588a0e50245cf79327284ec3e9acf5a454c4a71d12d3d0ad94c5e5f28e0427",
+    "assets/coolprop.wasm": "28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307",
+    "service-worker.js": "a47985b140c8388285c4c7529c884562ddfe7a51bf0ab5cdc6ceb293ad51d33b",
+    "manifest.webmanifest": "63130e8f1083e12602ca499f9de40ad3d97d64b457c005ce570215966f783056",
+    "dist/water-steam-calculator.zip": {
+      "sha256": "8781d97252247a615e9c599d0c1f2d654aeb332ab80ced84f69bd676b9449ce7",
+      "bytes": 6663255
+    }
+  },
+  "scope": "Software acceptance only; passing does not validate every physical model or device.",
+  "physicalValidation": {
+    "reactorCell": "physical-screening-failed",
+    "scope": "Independent cell screening; failure blocks claims of neutron-model physical validation, separately from software acceptance."
+  },
+  "completed": "2026-10-19T12:02:48.877Z"
+}

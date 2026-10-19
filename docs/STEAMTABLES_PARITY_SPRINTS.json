@@ -3,7 +3,7 @@
   "updated": "2026-10-19",
   "baseline_version": "1.35.4",
   "baseline_commit": "9c87d171d093ee2a4f7ec7a92e3c10d1de95f123",
-  "status": "p03_bounded_delivery_reference_acceptance_open",
+  "status": "p04_bounded_implementation_reference_acceptance_open",
   "reference_url": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
   "requirements_file": "STEAMTABLES_PARITY_MATRIX.json",
   "details_file": "STEAMTABLES_PARITY_SPRINTS_UK.md",
@@ -137,7 +137,7 @@
     {
       "id": "P04",
       "title": "Дисоціація газів",
-      "status": "planned",
+      "status": "blocked",
       "depends_on": [
         "P03"
       ],
@@ -148,7 +148,18 @@
       ],
       "result": "Властивості з підтвердженою моделлю дисоціації BSW у потрібному обмеженому діапазоні",
       "acceptance": "Підтверджені рівняння/дані й визначення виходів; off/on приклади, межі T та lambda і незалежна перевірка. Загальну хімічну рівновагу додавати лише за вимогою моделі.",
-      "readiness": "model-data contract blocked; research can continue"
+      "readiness": "Experimental local caloric workflow implemented in 1.35.12; exact BSW2003/source and direct Steam97Web acceptance remain open.",
+      "report": "STEAMTABLES_P04_UK.md",
+      "acceptance_file": "STEAMTABLES_P04_ACCEPTANCE.json",
+      "task_file": "steam97-p04/contract.json",
+      "bounded_scope_accepted": true,
+      "full_sprint_accepted": false,
+      "open_blocker_ids": [
+        "B01",
+        "B03",
+        "B04",
+        "B05"
+      ]
     },
     {
       "id": "P05",

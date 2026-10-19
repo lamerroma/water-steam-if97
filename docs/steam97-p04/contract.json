@@ -3,10 +3,10 @@
   "sprint": "P04",
   "requirement_id": "gas-dissociation",
   "updated_utc": "2026-10-19",
-  "status": "partial_equations_and_open_source_found_reference_acceptance_blocked",
-  "implementation_ready": false,
+  "status": "bounded_experimental_delivery_passed_reference_acceptance_blocked",
+  "implementation_ready": true,
   "full_sprint_accepted": false,
-  "production_code_changed": false,
+  "production_code_changed": true,
   "primary_correction_acquired": false,
   "fresh_Steam97Web_numerical_cases": 0,
   "source_registry": "sources.json",
@@ -45,7 +45,7 @@
     },
     {
       "id": "P04-02",
-      "status": "blocked",
+      "status": "partial",
       "result": "Acquire primary correction and explicit input/output contract",
       "blocker_ids": [
         "B01",
@@ -56,7 +56,7 @@
     },
     {
       "id": "P04-03",
-      "status": "blocked",
+      "status": "partial",
       "depends_on": [
         "P04-02"
       ],
@@ -64,15 +64,15 @@
     },
     {
       "id": "P04-04",
-      "status": "blocked",
+      "status": "bounded_scope_done",
       "depends_on": [
         "P04-03"
       ],
-      "result": "Pure correction kernel and scientifically confirmed boundary handling"
+      "result": "Pure experimental correction kernel and explicit local boundary handling"
     },
     {
       "id": "P04-05",
-      "status": "blocked",
+      "status": "bounded_scope_done",
       "depends_on": [
         "P04-04"
       ],
@@ -130,12 +130,43 @@
       "P04-S05",
       "P04-S06",
       "P04-S07",
-      "P04-S08"
+      "P04-S08",
+      "P04-S09"
     ],
-    "equations": "U2-U6 and caloric corrections available; U1 missing in code; secondary generic expression insufficient",
-    "coefficients": "Six A-E rows available; D2 sign conflict unresolved",
+    "equations": "U2-U6 and caloric corrections available; local U1 derived from CO2 mass action, not read in full BSW paper",
+    "coefficients": "Six A-E rows from pinned Modelica source; positive D2 independently supported by NASA reaction enthalpies; primary-paper confirmation remains open",
     "source_audit": "modelica-source-audit.json",
     "research_prototype_ready_for_humid_air_subset": true,
-    "production_integration_ready": false
-  }
+    "production_integration_ready": true,
+    "production_integration_status": "experimental only; full target parity not accepted"
+  },
+  "local_model_contract": {
+    "modelId": "BSW2003-VDI4670-caloric-experimental",
+    "classification": "Experimental local caloric approximation, not confirmed Steam97Web implementation",
+    "T_K": [
+      1200,
+      2000
+    ],
+    "p_MPa": [
+      0.01,
+      5
+    ],
+    "oxygen_mole_fraction_min_inclusive": 0.01,
+    "initial_CO_mole_fraction": 0,
+    "combustion": "complete-air, declared explicitly",
+    "lambda": "user supplied, finite, strictly >1.05; never inferred from mixture",
+    "composition": "initial-frozen, not equilibrium products",
+    "cv": "same caloric increment as cp, per PTB ideal-mixture approximation",
+    "unavailable_outputs": [
+      "sound speed",
+      "isentropic exponent",
+      "equilibrium component percentages",
+      "dissociation percentage"
+    ],
+    "CO_branch": "Derived from mass action using CO2 -> CO + O2/2 and the separately tabulated empirical Kp; not claimed directly confirmed from BSW full paper",
+    "D_H2": "Use Modelica +303000, supported by independently computed NASA reaction enthalpies; original-paper sign still not read"
+  },
+  "unknown_scope": "Unknowns below refer to the original Steam97Web contract, not the explicitly documented local experimental model.",
+  "bounded_scope_accepted": true,
+  "acceptance": "../STEAMTABLES_P04_ACCEPTANCE.json"
 }

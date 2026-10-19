@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "sprint": "P04",
+  "version": "1.35.12",
+  "build": {
+    "version": "1.35.12",
+    "id": "8976baaf14e1"
+  },
+  "baseline": "50fa814",
+  "status": "bounded_experimental_delivery_passed",
+  "local_implementation_complete": true,
+  "full_sprint_accepted": false,
+  "full_reference_parity_verified": false,
+  "physical_accuracy_accepted": false,
+  "scope": "Experimental VDI caloric approximation over the frozen BSW2003 initial mixture; CO branch derived from mass action; complete local UI/worker/project/export/offline workflow. Primary model and direct reference acceptance remain open.",
+  "verification": {
+    "releaseStatus": "passed",
+    "releaseChecks": 85,
+    "unitTests": 1694,
+    "numericalCases": 280,
+    "inverseCases": 140,
+    "independentDecimalChecks": 2520,
+    "browsers": {
+      "chromium": {
+        "status": "passed",
+        "version": "154.0.8037.57",
+        "groups": [
+          "Worker, missing optional backend, typed SI exports, forged-result import and local reload",
+          "Inverse pairs, basis conversion, strict lambda/domain bounds, endpoints and cancellation/retry",
+          "Off/on reverts to the unchanged P03 state without stale correction",
+          "English units, translated scope and narrow layouts",
+          "Standalone offline correction/worker/four-format export",
+          "Installed PWA offline reload"
+        ],
+        "exportFiles": 16,
+        "independentReaderChecks": 128,
+        "standaloneMode": "managed-file-policy-loopback-then-offline"
+      },
+      "firefox": {
+        "status": "passed",
+        "version": "157.0",
+        "groups": [
+          "Worker, missing optional backend, typed SI exports, forged-result import and local reload",
+          "Inverse pairs, basis conversion, strict lambda/domain bounds, endpoints and cancellation/retry",
+          "Off/on reverts to the unchanged P03 state without stale correction",
+          "English units, translated scope and narrow layouts",
+          "Standalone offline correction/worker/four-format export",
+          "Installed PWA offline reload"
+        ],
+        "exportFiles": 16,
+        "independentReaderChecks": 128,
+        "standaloneMode": "file-offline"
+      }
+    },
+    "canteraComparison": {
+      "status": "diagnostic_not_physical_accuracy_acceptance",
+      "cases": 60,
+      "maxCorrectionRelativeDifference": {
+        "cp": 0.06885853699504008,
+        "h": 0.02191586514190247,
+        "s": 0.14030892253024108
+      },
+      "scope": "Differences between separate physical models, not errors in total properties or a site tolerance; no coefficients fitted."
+    }
+  },
+  "localLimits": {
+    "T_K": [
+      1200,
+      2000
+    ],
+    "p_MPa": [
+      0.01,
+      5
+    ],
+    "oxygenMoleFractionMin": 0.01,
+    "initialCO": 0,
+    "nitrogenMoleFraction": ">0",
+    "lambda": "finite, user supplied, strictly >1.05",
+    "combustion": "complete-air, user declared; composition alone does not prove this"
+  },
+  "semantics": {
+    "composition": "initial-frozen, not equilibrium",
+    "density": "initial ideal mixture",
+    "cp": "separately fitted empirical increment, not exact dh/dT",
+    "cv": "same empirical increment as cp, not equilibrium constant-volume derivative",
+    "caloricRatio": "cp/cv, not an isentropic exponent",
+    "unavailable": [
+      "equilibrium component percentages",
+      "dissociation percentage",
+      "sound speed",
+      "isentropic exponent"
+    ]
+  },
+  "environment": {
+    "node": "22.20.0",
+    "playwright": "1.64.1",
+    "pythonReferencePath": "/tmp/water-reference",
+    "browserPreload": "docs/steam97-p04/managed-browser-preload.cjs",
+    "notes": [
+      "Managed Chromium rejects file navigation; legacy tests use the documented loopback adapter; P04 accurately reports load via loopback followed by offline calculations.",
+      "Firefox directly tested the saved standalone file offline.",
+      "Initial unprivileged all-unit attempt reported one reactor-cell file failure without subtest diagnostics; the unchanged isolated test and full suite passed in the release environment.",
+      "No new interactive Steam97Web numerical results; deployment not performed by this local acceptance."
+    ]
+  },
+  "reference": {
+    "freshSteam97WebNumericalCases": 0,
+    "primaryCorrectionPaperAcquired": false,
+    "COBranch": "derived from mass action; not directly confirmed from the full paper",
+    "D2": "positive Modelica value supported by NASA reaction enthalpies; original-paper sign unverified"
+  },
+  "openBlockerIds": [
+    "B01",
+    "B03",
+    "B04",
+    "B05"
+  ],
+  "evidence": {
+    "docs/steam97-p04/release-report.json": "700502a5a872e0701e3b3ba361b133d89b8da4a216a5df8a207ac91d13efca2e",
+    "docs/steam97-p04/release-log-hashes.json": "d3ae1e7372362f4d7baa0efd5d3a0ed163c11f519fae7ee4e600d2a6d822fb1c",
+    "docs/steam97-p04/numerical-audit.json": "bff301e43c7cbd42e3b108a4b90e09808146f27d51c648360199cc1b8c1d782e",
+    "docs/steam97-p04/verification-points.json": "2ac0e66e8d75e561e99e96c0b7317387498fe6221fd554aa2302bb31bb9ae28f",
+    "docs/steam97-p04/browser-chromium.json": "ead714299c9c3f00b4de893a25d655b1b33968d46fc94c20ef80ec5c3e81387f",
+    "docs/steam97-p04/browser-firefox.json": "131743a3654655b3eb419167084b2fe4950b1b1e86363e0efe49e92a1fdbeec3",
+    "docs/steam97-p04/cantera-comparison.json": "74b9fcc93cadb3d28f65874204957586367c0f45cb00e96c9607faf05ad04a34",
+    "docs/steam97-p04/modelica-source-audit.json": "7d8b8cbd93d9021c57d89c595d297089c4788f6c3b97cac67546e305b099081d",
+    "docs/steam97-p04/sources.json": "6321dae51baa62c49fea156daa520b8cfcc1da525119562f1136d02a137ecaf7",
+    "docs/steam97-p04/input-identifiability.json": "b01e4f5d731bf8091ed94b4ef64dddce17053b36e02b7629ca51c634ebd9d701",
+    "docs/steam97-p04/managed-browser-preload.cjs": "c3f0e91746567a7a1267905478fbfe9ccecc310eeb6d5b7327205a43825c13bc"
+  },
+  "artifacts": {
+    "index.html": "e341cfdfd3de7d50719a97d0d5a3d4f07b63ba55d932a2c9a81e7f45eb8e6df6",
+    "standalone.html": "71403ec1ce359f6247b5667c7aca645ea9c3e1dd207e0037c9d595d3b3082b36",
+    "assets/app.js": "a11934012da0f640727fb46737599331e52c891613ed0059170c276752653ee3",
+    "assets/calculator-worker.js": "a0653914f0f1f551a6feb2ddefa8c0eb9b17fcb2059e81f09917b3164ddb9d9b",
+    "assets/styles.css": "a6588a0e50245cf79327284ec3e9acf5a454c4a71d12d3d0ad94c5e5f28e0427",
+    "assets/coolprop.wasm": "28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307",
+    "service-worker.js": "a47985b140c8388285c4c7529c884562ddfe7a51bf0ab5cdc6ceb293ad51d33b",
+    "manifest.webmanifest": "63130e8f1083e12602ca499f9de40ad3d97d64b457c005ce570215966f783056",
+    "dist/water-steam-calculator.zip": {
+      "sha256": "8781d97252247a615e9c599d0c1f2d654aeb332ab80ced84f69bd676b9449ce7",
+      "bytes": 6663255
+    }
+  }
+}

@@ -1,0 +1,583 @@
+[
+  {
+    "check": "build",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/build.log",
+    "sha256": "9efb0b719a6b7ec551045d0bb73e5cbdaf9c30d4bf0ae2e78c76387f6c223ff2",
+    "bytes": 104
+  },
+  {
+    "check": "unit",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/unit.log",
+    "sha256": "10c5911c35a8e2fbe64ad8ae34a0da5091de12d42b4bbb6864ac8edde256a938",
+    "bytes": 305048
+  },
+  {
+    "check": "water",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/water.log",
+    "sha256": "ae790c900a2afb6d46bca1f748c189b0191246aed072532641d37bc9243def4f",
+    "bytes": 12725
+  },
+  {
+    "check": "transport",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/transport.log",
+    "sha256": "47f5ee714c45c8a1982e9bb66d83843be304cff4b9a9cd34450465517ad56cd8",
+    "bytes": 592
+  },
+  {
+    "check": "steam97-p09-units",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/steam97-p09-units.log",
+    "sha256": "da71b376d50f152f4e78fbc75cc1329c22732c70dcbbe891818d147db32a3d64",
+    "bytes": 466
+  },
+  {
+    "check": "steam97-p03",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/steam97-p03.log",
+    "sha256": "11572184af501e3b02dd2ca4bf4bb028b44535a335d4ba678a47753e61ca6199",
+    "bytes": 496
+  },
+  {
+    "check": "steam97-p04",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/steam97-p04.log",
+    "sha256": "db1ab082f1c0d5603a9a2c6aab08c7fe71f07530fdd0b6b74d1769e505c896c4",
+    "bytes": 49
+  },
+  {
+    "check": "reactor",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/reactor.log",
+    "sha256": "86ebdd78561061adfe7f7537096d52962b6bebf606c605d572ef94d410acbfcd",
+    "bytes": 281
+  },
+  {
+    "check": "reactor-thermal",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/reactor-thermal.log",
+    "sha256": "d5faa0b7940810c1d58124e8cc4c3299ea6284fd29f52bbe45cdac1fe1ee3ff1",
+    "bytes": 459
+  },
+  {
+    "check": "reactor-validation",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/reactor-validation.log",
+    "sha256": "6ee9727689afaac3bed5880c211a5c4c1eda0a90f0949e7c1b673f9e6fa976f5",
+    "bytes": 348840
+  },
+  {
+    "check": "reactor-cell-audit",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/reactor-cell-audit.log",
+    "sha256": "03cfeb100306ce1b58133dc41fa6c399e277c6d5f04d0a4b68935fb878628fea",
+    "bytes": 7411
+  },
+  {
+    "check": "browser-steam97-p04",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p04.log",
+    "sha256": "281ab8ecd091b8087ca0fbc1b6e8ec9efde660cfb517a3e423651cfc677dc68b",
+    "bytes": 82
+  },
+  {
+    "check": "browser-steam97-p03",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p03.log",
+    "sha256": "3afda40cd4aa4daf08727bc8ac45ef0e4d90a4dca8b7e8d159780ed8e19ec06d",
+    "bytes": 165
+  },
+  {
+    "check": "browser-steam97-p09-units",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p09-units.log",
+    "sha256": "a8747587892b757b6b595e6292f3ba26b6ff5e84b667fc426e60e24901202f90",
+    "bytes": 126
+  },
+  {
+    "check": "browser-steam97-p08",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p08.log",
+    "sha256": "ee71aa9948bcdb40b81564a59c3f7650feb7b8c8e51acb8a7f314bf58d5d5ea7",
+    "bytes": 808
+  },
+  {
+    "check": "browser-steam97-p07",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p07.log",
+    "sha256": "0943d8fdad83d7f2b675a8158100ca22a8603f3b6cbef5b22bb3d380bbe0744d",
+    "bytes": 576
+  },
+  {
+    "check": "browser-steam97-p06",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p06.log",
+    "sha256": "0fe214de22bae84e2bae1a2f920d7c7f0a82fe6a4bd0610b8ee18fe434a17a69",
+    "bytes": 634
+  },
+  {
+    "check": "browser-steam97-p05",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p05.log",
+    "sha256": "c15072f6a4256b415f9dff180fbfcbafbe5ab9c8f34423f88c5bd036e34f343a",
+    "bytes": 488
+  },
+  {
+    "check": "browser-steam97-p02",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p02.log",
+    "sha256": "7bdfd056674669f2fc4150dc73b3162d25915aa2df628a71aa134ecad6275a84",
+    "bytes": 659
+  },
+  {
+    "check": "browser-input-sensitivity",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-input-sensitivity.log",
+    "sha256": "e934d05a2a00f846181aead373cdd98711f8202ca2bd324c62503b79c66fc2c3",
+    "bytes": 1018
+  },
+  {
+    "check": "browser-inverse-boundaries",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-inverse-boundaries.log",
+    "sha256": "52cd05690c0d744a872c00b0c30c5dac5f82bf7bc43cd7aa68c39d56f04d1692",
+    "bytes": 536
+  },
+  {
+    "check": "browser-rankine-sweep",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-rankine-sweep.log",
+    "sha256": "0f848b9156058a0b5c86784e5d4adbcf2208f1d25fd8680587a6dc543b376b7a",
+    "bytes": 210
+  },
+  {
+    "check": "browser-rankine-regeneration",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-rankine-regeneration.log",
+    "sha256": "e31c76ca07f3bb05582ea52f6c579926316202ee70a60216aa9971075a0ba781",
+    "bytes": 303
+  },
+  {
+    "check": "browser-rankine-efficiency",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-rankine-efficiency.log",
+    "sha256": "d51b0a1005429b50369d82524496cbef4243c7ea122209722d17c7f3008c57ba",
+    "bytes": 258
+  },
+  {
+    "check": "browser-rankine-library",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-rankine-library.log",
+    "sha256": "f261b3a0c881a93fabd20b5c0e7bfb80e40e71bc68de64bfefcc164046e4a972",
+    "bytes": 234
+  },
+  {
+    "check": "browser-cycle-library",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-cycle-library.log",
+    "sha256": "9130b1197b43b186271620d41a28d2db6d8e005e1e1898c261a33998409339fd",
+    "bytes": 218
+  },
+  {
+    "check": "browser-custom-cycle",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-custom-cycle.log",
+    "sha256": "bc14370ee56578a65201c225abb4d0c5d13b1e9b62fc7cd33c9b5aa501ab92eb",
+    "bytes": 332
+  },
+  {
+    "check": "browser-processes-extended",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-processes-extended.log",
+    "sha256": "ccaa8306f0b6b755d913b5f0078a346e0e067a42dad2c4b9ce9f405626c06b45",
+    "bytes": 188
+  },
+  {
+    "check": "browser-water-process",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-water-process.log",
+    "sha256": "61af6e69d6054241fc8c2b4faaf1ebd25296b8f2c9667e25873eea0bbb3e87af",
+    "bytes": 149
+  },
+  {
+    "check": "browser-calculator-async",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-calculator-async.log",
+    "sha256": "8c79281d4cefbc9dd98202436d63cbfe15c8daa0b08ee0fb2e64ab2fc0b52cc2",
+    "bytes": 409
+  },
+  {
+    "check": "browser-navigation",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-navigation.log",
+    "sha256": "d82ec74328bf17dabf9d8c305a056b93b7336dece3a439fcd904159fd8837a35",
+    "bytes": 240
+  },
+  {
+    "check": "browser-smart-input",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-smart-input.log",
+    "sha256": "c8ae7018e54e59ab5c6e8185f87d7c6ca815efab4308452287a15156b648d4bb",
+    "bytes": 720
+  },
+  {
+    "check": "browser-calculator-workspace",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-calculator-workspace.log",
+    "sha256": "4456bc23833e5f51900be0162691d3088f3638ba591aff09de9922df047a6794",
+    "bytes": 417
+  },
+  {
+    "check": "browser-state-comparison",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-state-comparison.log",
+    "sha256": "a34bcb7aefaa4ac6d107016a950e7953a7e215f22ac5808ed4a3b910895ac30e",
+    "bytes": 384
+  },
+  {
+    "check": "browser-study-workflow",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-study-workflow.log",
+    "sha256": "c26391a7c8e1f2d908d7545ec495e3736e6a54786f1a325191dee76561bd7c65",
+    "bytes": 323
+  },
+  {
+    "check": "browser-task-ui",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-task-ui.log",
+    "sha256": "2e3ddd49e727e75a18c9173cee52a8a409dc20aa5b658d736cb81f96cef4ea33",
+    "bytes": 274
+  },
+  {
+    "check": "browser-diagram",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-diagram.log",
+    "sha256": "0ec13bb87408aafa70144759541afed44522ba84e6d675159307ee24e318ec1f",
+    "bytes": 701
+  },
+  {
+    "check": "browser-diagram-guides",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-diagram-guides.log",
+    "sha256": "482b58f73392a46434c7977d16cf2e9cf5eef34f0b3e0e8c8bc5465dfd3b2600",
+    "bytes": 432
+  },
+  {
+    "check": "browser-diagram-quality",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-diagram-quality.log",
+    "sha256": "a3788f3ba7d8d50e72690277730a1d45425c57856be7489293ef6292e9fdded0",
+    "bytes": 833
+  },
+  {
+    "check": "browser-process-paths",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-process-paths.log",
+    "sha256": "86466d2d7d658978f240b0fa589fbcf49047d97ba80dea75c4293a76ac2ae05d",
+    "bytes": 470
+  },
+  {
+    "check": "browser-chart-layout",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-chart-layout.log",
+    "sha256": "25aa8289c806789aeccd3a274bba0ba75981c120bdf2bed96a9889b216e0adaf",
+    "bytes": 1310
+  },
+  {
+    "check": "browser-study-workspace",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-study-workspace.log",
+    "sha256": "af1d3f8d47dcfc6aa931a775e8ee4ecf5f8c175370690ebcc9be678e25c45736",
+    "bytes": 267
+  },
+  {
+    "check": "browser-hydraulics",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-hydraulics.log",
+    "sha256": "8f57581f36f873d06388aa32025829123f4cabb1cc64b3777f0d94ae72692fa4",
+    "bytes": 511
+  },
+  {
+    "check": "browser-study",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-study.log",
+    "sha256": "20998fe223daa764d67cd4ebcbe25815daa14ea1d25babe2e0a2a02c21fb2a32",
+    "bytes": 400
+  },
+  {
+    "check": "browser-full-sprint",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-full-sprint.log",
+    "sha256": "a60e0524a4a266248e1ce5cbfedf4b77bc18f82380c963e7daee008a18c08253",
+    "bytes": 541
+  },
+  {
+    "check": "browser-laboratory",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-laboratory.log",
+    "sha256": "bcb87bf18360fddf9587182ab5d614b149c3503c0fc55285ad4b8a119272f1ed",
+    "bytes": 496
+  },
+  {
+    "check": "browser-coursework",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-coursework.log",
+    "sha256": "9ccc03fcee1e9374a17815f78989321614c8e8a97943667a4212eec8e2b7d1c6",
+    "bytes": 361
+  },
+  {
+    "check": "browser-usability",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-usability.log",
+    "sha256": "a4039229de3fdba57155a1965f2c9bc4e4d30311d09ae5421369688997bbc981",
+    "bytes": 423
+  },
+  {
+    "check": "browser-reactor-course",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-reactor-course.log",
+    "sha256": "9dde5f897800539bb189b742752e0c6f2b63914db0ebe8984193752760364a44",
+    "bytes": 623
+  },
+  {
+    "check": "browser-reactor-validation",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-reactor-validation.log",
+    "sha256": "b467edb197257d0da93ac17c5645a78c3f8ef83f02e501e53f134cf7cb8fe44e",
+    "bytes": 282
+  },
+  {
+    "check": "browser-provenance",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-provenance.log",
+    "sha256": "770546006a64e3e0e20fe41554e82d523bfbed468fb9638f575298557102c4cb",
+    "bytes": 83
+  },
+  {
+    "check": "browser-project-safety",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-project-safety.log",
+    "sha256": "989670275f9cead927ed5b3c7850d399a6a523ed354df26602aa0ac75abaf00d",
+    "bytes": 349
+  },
+  {
+    "check": "browser-pwa",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-pwa.log",
+    "sha256": "0047b1796583654f8adf65aef413e4f28da7027d64647b72e5e8416ac40ba0fb",
+    "bytes": 461
+  },
+  {
+    "check": "browser-ui-workspace",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-ui-workspace.log",
+    "sha256": "0dc4a73128c2089cc3f23ad22ae439e1e4ad1900471ba57840667c303da6591b",
+    "bytes": 141
+  },
+  {
+    "check": "browser-cross-browser",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-cross-browser.log",
+    "sha256": "69c54980a9c1b9352ea1b6f2843e0c670f633176b62cec5dd010a4181fe2fb69",
+    "bytes": 271
+  },
+  {
+    "check": "browser-steam97-p04-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p04-firefox.log",
+    "sha256": "37286943044e2838f452d163c7ccf0e6168686149f0a0c39801ab0bf77d4306c",
+    "bytes": 81
+  },
+  {
+    "check": "browser-steam97-p03-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p03-firefox.log",
+    "sha256": "29ede9685a71b98fb4e2cdf813c8bd4ad71578b0d0d9dec3d2c86a219560ec60",
+    "bytes": 135
+  },
+  {
+    "check": "browser-steam97-p09-units-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p09-units-firefox.log",
+    "sha256": "535725028dcbf25ccc75e0dce77573022d75ccafe2fa469360ef54f1434adfa9",
+    "bytes": 96
+  },
+  {
+    "check": "browser-steam97-p08-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p08-firefox.log",
+    "sha256": "aacac77a911cc5aac2ec55c8aea26a88d53597cfd44f17a240dc21fecf50a872",
+    "bytes": 697
+  },
+  {
+    "check": "browser-steam97-p07-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p07-firefox.log",
+    "sha256": "ce35c11465a753ef7ef4047a3ced17e9d0a7aa15e0721272f93026b9431292d3",
+    "bytes": 459
+  },
+  {
+    "check": "browser-steam97-p06-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p06-firefox.log",
+    "sha256": "8958f60bb8118e1cd3fea695ef66dd8e417f09748d5a22497dd77887e42532ae",
+    "bytes": 516
+  },
+  {
+    "check": "browser-steam97-p05-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p05-firefox.log",
+    "sha256": "64d9559487ed7390f44e6e1e6b7438d2cf9f6e346e4632d89f4ca02025d69e34",
+    "bytes": 372
+  },
+  {
+    "check": "browser-steam97-p02-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-steam97-p02-firefox.log",
+    "sha256": "78b576789f7d4ee382ae13f0ef8b001065c319591eef8490dfb3e87b0e895348",
+    "bytes": 541
+  },
+  {
+    "check": "browser-input-sensitivity-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-input-sensitivity-firefox.log",
+    "sha256": "8a9bf95c99188411987e0e1bd7d3812b3c864f9ff8bd3909e70967a54182c0a3",
+    "bytes": 894
+  },
+  {
+    "check": "browser-inverse-boundaries-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-inverse-boundaries-firefox.log",
+    "sha256": "ed9f68d2ddbd15a866d2e9dd42e9766d5b6e97ae93fc6505b783db9660817a5e",
+    "bytes": 523
+  },
+  {
+    "check": "browser-rankine-sweep-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-rankine-sweep-firefox.log",
+    "sha256": "b3722e87cf61bfb740b5ab4bc376f4fe7f8ae3553cf2db7c62469e06267b40e2",
+    "bytes": 236
+  },
+  {
+    "check": "browser-rankine-regeneration-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-rankine-regeneration-firefox.log",
+    "sha256": "28d443c3e0b80e7d93c9fae91ae6d0f8e9edcc343af61d0716cb3b4d5e3333e3",
+    "bytes": 324
+  },
+  {
+    "check": "browser-rankine-efficiency-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-rankine-efficiency-firefox.log",
+    "sha256": "41dd6cf294c3bbbf1907c4e92ea2f8b6a55bba4b5a854dc5baf99fbe75a48339",
+    "bytes": 285
+  },
+  {
+    "check": "browser-rankine-library-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-rankine-library-firefox.log",
+    "sha256": "8bd2c7ac3913c98ced0c969df64989d4e7e2d31b40963f42326e9cc0feb63027",
+    "bytes": 266
+  },
+  {
+    "check": "browser-cycle-library-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-cycle-library-firefox.log",
+    "sha256": "e76d3dfec66a44ba7468c592b047776b04774770b6e8a2b2834c129bdecc5021",
+    "bytes": 250
+  },
+  {
+    "check": "browser-custom-cycle-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-custom-cycle-firefox.log",
+    "sha256": "cc9bd5997cb719583c7bf56f21f4cfeee6e67eb1aad0fc7fe679c17b8b349b69",
+    "bytes": 362
+  },
+  {
+    "check": "browser-processes-extended-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-processes-extended-firefox.log",
+    "sha256": "d115c2549d46aa362485107e88a9db66d4d22aad7619ba69c9cdfe115ffe8ed5",
+    "bytes": 216
+  },
+  {
+    "check": "browser-water-process-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-water-process-firefox.log",
+    "sha256": "41c0c1b6bd0870bc32f28c1178c32bb3798a83a000722bce77a992f57daf09a1",
+    "bytes": 173
+  },
+  {
+    "check": "browser-calculator-async-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-calculator-async-firefox.log",
+    "sha256": "b06e21e3e419d9472eebb9fc4abf61894fb90919341a3aeb17d43bf31a3e5127",
+    "bytes": 395
+  },
+  {
+    "check": "browser-calculator-workspace-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-calculator-workspace-firefox.log",
+    "sha256": "2df2e18ba19490a6f8ba029a915fdef7b3f172ff705028ccc36511ef459127be",
+    "bytes": 306
+  },
+  {
+    "check": "browser-smart-input-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-smart-input-firefox.log",
+    "sha256": "39a1aed2fba119bdc72a083d1bc5f437e968667dedc207362fdfb2462d70879e",
+    "bytes": 609
+  },
+  {
+    "check": "browser-state-comparison-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-state-comparison-firefox.log",
+    "sha256": "417282c5ecdd832e3fa238ba5f165531051708ea61da10686c08709344204bf0",
+    "bytes": 269
+  },
+  {
+    "check": "browser-study-workflow-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-study-workflow-firefox.log",
+    "sha256": "e198b860b4bb82074e93b23b490469d77edfae9995602b2140b6d7619200d10c",
+    "bytes": 212
+  },
+  {
+    "check": "browser-pwa-firefox",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/browser-pwa-firefox.log",
+    "sha256": "0047b1796583654f8adf65aef413e4f28da7027d64647b72e5e8416ac40ba0fb",
+    "bytes": 461
+  },
+  {
+    "check": "rebuild",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/rebuild.log",
+    "sha256": "9efb0b719a6b7ec551045d0bb73e5cbdaf9c30d4bf0ae2e78c76387f6c223ff2",
+    "bytes": 104
+  },
+  {
+    "check": "package",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/package.log",
+    "sha256": "df43d15d4cbb8f8f0fc254ecf57bd8b6b027aab68417015776154e8e87071329",
+    "bytes": 83
+  },
+  {
+    "check": "package-integrity",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/package-integrity.log",
+    "sha256": "cc12833cdf30cb9a762babc7d36bc7b499336b8583b68f4112a8afd5a4715052",
+    "bytes": 82
+  },
+  {
+    "check": "repackage",
+    "status": "passed",
+    "log": ".release/2026-10-19T11-39-33-890Z/repackage.log",
+    "sha256": "df43d15d4cbb8f8f0fc254ecf57bd8b6b027aab68417015776154e8e87071329",
+    "bytes": 83
+  }
+]
