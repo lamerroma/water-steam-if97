@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "scope": "Exact element balances and ambiguity proof; no dissociation properties evaluated",
+  "dry_air_assumption": {
+    "O2_mole_fraction": "21/100",
+    "N2_mole_fraction": "79/100"
+  },
+  "common_products_mol_per_mol_fuel": {
+    "CO2": "1",
+    "H2O": "2",
+    "O2": "2/25",
+    "N2": "4108/525"
+  },
+  "common_eight_component_mole_fractions": {
+    "Ar": "0",
+    "CO": "0",
+    "CO2": "21/229",
+    "H2O": "42/229",
+    "N2": "4108/5725",
+    "Ne": "0",
+    "O2": "42/5725",
+    "SO2": "0"
+  },
+  "cases": [
+    {
+      "fuel": "CH4",
+      "additional_N2_mol": "0",
+      "lambda": "26/25",
+      "passes_lambda_constraint": false
+    },
+    {
+      "fuel": "CH3OH",
+      "additional_N2_mol": "79/42",
+      "lambda": "79/75",
+      "passes_lambda_constraint": true
+    }
+  ],
+  "lambda_min_exclusive": "21/20",
+  "N2_tracer_estimate_for_both": "26/25",
+  "element_balances_exact": true,
+  "composition_equality_exact": true,
+  "conclusion": "Product composition alone does not identify lambda without restrictions on fuel and dilution. This does not establish the assumptions or behaviour of Steam97Web.",
+  "reference_cases_from_Steam97Web": 0,
+  "BSW_correction_validated": false
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "sprint": "P04",
+  "requirement_id": "gas-dissociation",
+  "updated_utc": "2026-10-19",
+  "status": "preparation_delivered_implementation_blocked",
+  "implementation_ready": false,
+  "full_sprint_accepted": false,
+  "production_code_changed": false,
+  "primary_correction_acquired": false,
+  "fresh_Steam97Web_numerical_cases": 0,
+  "source_registry": "sources.json",
+  "documented_necessary_constraints": {
+    "T_max_K_inclusive": 2000,
+    "complete_combustion": true,
+    "lambda_min_exclusive": "1.05",
+    "oxyfuel_processes_supported": false,
+    "source_ids": ["P04-S01", "P04-S02"],
+    "sufficient_to_accept_calculation": false
+  },
+  "unknown": {
+    "correction_equations_and_coefficients": null,
+    "T_min_K": null,
+    "pressure_range": null,
+    "fuel_oxidizer_and_diluent_restrictions": null,
+    "lambda_supply_or_inference": null,
+    "composition_basis_and_reference_states": null,
+    "Dissociation_output_definition_and_units": null,
+    "input_vs_output_component_percentages": null,
+    "frozen_vs_equilibrium_derivatives": null,
+    "site_error_behaviour": null
+  },
+  "tasks": [
+    {"id": "P04-01", "status": "done", "result": "Source disambiguation and exact lambda identifiability audit", "evidence": ["sources.json", "input-identifiability.json"]},
+    {"id": "P04-02", "status": "blocked", "result": "Acquire primary correction and explicit input/output contract", "blocker_ids": ["B01", "B03", "B04", "B05"]},
+    {"id": "P04-03", "status": "blocked", "depends_on": ["P04-02"], "result": "Independent numerical reference, fixed tolerances, direct off/on examples"},
+    {"id": "P04-04", "status": "blocked", "depends_on": ["P04-03"], "result": "Pure correction kernel and scientifically confirmed boundary handling"},
+    {"id": "P04-05", "status": "blocked", "depends_on": ["P04-04"], "result": "Worker cancellation, form, project, export, Chromium/Firefox and P03 regression"}
+  ],
+  "reference_capture_plan": {
+    "status": "planned_not_executed",
+    "required_metadata": ["source/version/date", "exact inputs and units", "composition basis", "fuel/oxidizer assumptions", "lambda source", "off/on flag", "output definitions", "full precision outputs or explicit error"],
+    "temperature_probe_K": ["1999.999", "2000", "2000.001"],
+    "lambda_probe": ["1.049999", "1.05", "1.050001"],
+    "composition_probes": ["documented ordinary air complete combustion", "zero trace components", "oxyfuel outside model scope", "ambiguous fuel/diluent history", "incomplete combustion outside documented scope"],
+    "pressure_probe": "Choose only after primary pressure domain is known, then interior and both boundary sides.",
+    "output_checks": ["off/on caloric properties", "Dissociation meaning and units", "component percentage semantics", "confirmed cp/cv derivatives", "project and export reproduction"],
+    "note": "Probes are capture tasks, not invented reference values; satisfying the two numeric inequalities does not establish model applicability."
+  },
+  "independent_audit": {
+    "command": "python3 scripts/reference/dissociation_input_audit.py",
+    "snapshot": "input-identifiability.json",
+    "arithmetic": "Python Fraction, exact C/H/O/N atom balances and all eight molar fractions",
+    "scope": "Input ambiguity only; not a dissociation solver or Steam97Web comparison"
+  }
+}

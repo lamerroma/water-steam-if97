@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "sprint": "P04",
+  "retrieved_date_utc": "2026-10-19",
+  "method": "Public web text retrieval; no fresh interactive numerical Steam97Web responses or full BSW2003 correction acquired.",
+  "sources": [
+    {
+      "id": "P04-S01",
+      "url": "https://www.steamtablesonline.com/help.aspx",
+      "title": "Steam97Web official help, About Gas Tables / Calculate Properties of Gases",
+      "evidence": "BSW2003; dissociation up to 2000 K, complete combustion, lambda strictly greater than 1.05; eight percentage fields and Include Dissociation checkbox.",
+      "does_not_establish": "Lambda inference, correction equations, output units, derivative semantics, pressure range or minimum dissociation temperature."
+    },
+    {
+      "id": "P04-S02",
+      "url": "https://www.researchgate.net/publication/228826657_Thermophysical_Properties_of_Aqueous_Systems_for_Analysis_and_Design_of_Power_Cycles_with_CO2_Capture",
+      "title": "R. Span (2004), Thermophysical Properties of Aqueous Systems for Analysis and Design of Power Cycles with CO2 Capture",
+      "locations": "Relevant Temperatures and Pressures, printed p.6; bibliography [17], printed p.8.",
+      "evidence": "Author explicitly excludes oxyfuel processes from the simplified Buecker et al. dissociation model. Reference [17] identifies the 2003 paper, volume 125, pp.374-383.",
+      "does_not_establish": "A numerical nitrogen cutoff, oxygen-enrichment threshold, implementation equations or site rejection behaviour."
+    },
+    {
+      "id": "P04-S03",
+      "url": "https://f-m.hszg.de/fileadmin/Redakteure/Fakultaeten/Thermodynamik/Dateien/FluidVIEW_LibIdGasMix_Docu_Eng.pdf",
+      "title": "FluidVIEW LibIdGasMix documentation, Zittau/Goerlitz University",
+      "locations": "PDF pp.12-14, reference states and range of validity.",
+      "evidence": "This library documents VDI 4670 dissociation and its own pressure, composition and reference-state policies.",
+      "use": "Model disambiguation only. These policies cannot be assigned to BSW2003 or Steam97Web."
+    },
+    {
+      "id": "P04-S04",
+      "url": "https://doi.org/10.1115/1.1520154",
+      "title": "Buecker, Span, Wagner (2003), Thermodynamic Property Models for Moist Air and Combustion Gases",
+      "full_paper_acquired": false,
+      "use": "Required primary correction source; bibliography identifies the target, but abstract is insufficient for implementation."
+    }
+  ],
+  "unresolved_access": [
+    {"url": "https://dspace.lib.cranfield.ac.uk/bitstream/1826/5612/1/Daniel_Kamunge_Thesis_2011.pdf", "result": "Public web retrieval explicitly denied by BotStopper; not bypassed; indexed excerpts are not a verified correction source."},
+    {"url": "https://dspace.lib.cranfield.ac.uk/bitstream/1826/9243/1/Kadambari_Lokesh_Thesis_2015.pdf", "result": "Public web retrieval returned 403; full text not acquired."}
+  ]
+}
