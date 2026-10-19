@@ -1,0 +1,7 @@
+MANAGED_FILE_FALLBACK: identical saved reactor report bytes via loopback; original file navigation denied
+Default guide calculation, experimental status, campaign chart, report HTML and JSON/reload PASS
+Square variant, zero-gap contact, custom/comma input, invalidation, English and mobile PASS
+Ring layout, count search and invalid-layout removal PASS
+Study report source reopen, calculation JSON import and invalid-result removal PASS
+MANAGED_FILE_FALLBACK: same saved artifact loaded on localhost, offline state restored; file navigation denied
+Complete local reactor draft calculation/export in standalone offline PASS

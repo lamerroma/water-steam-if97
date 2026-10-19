@@ -1,0 +1,488 @@
+{
+  "source": "CoolProp 8.0.0 CP0MOLAR (ideal term evaluated at fixed dilute molar density with gas phase forced), pinned offline snapshot",
+  "url": "https://coolprop.org/fluid_properties/fluids/index.html",
+  "units": "J/(mol K)",
+  "interpretation": "Separate ideal-model comparison including extrapolated ideal terms outside real-fluid validity. Not BSW2003 or Steam97Web accuracy. 2.5% envelope H2O, 1% others detects unintended changes, not physical acceptance tolerance.",
+  "records": [
+    {
+      "component": "N2",
+      "T": 200,
+      "cp_molar": 29.107539341868776,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "N2",
+      "T": 273.15,
+      "cp_molar": 29.11632256585468,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "N2",
+      "T": 298.15,
+      "cp_molar": 29.125267954931484,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "N2",
+      "T": 500,
+      "cp_molar": 29.58028743630538,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "N2",
+      "T": 1000,
+      "cp_molar": 32.69995927098147,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "N2",
+      "T": 1500,
+      "cp_molar": 34.845243231786924,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "N2",
+      "T": 2000,
+      "cp_molar": 35.97030511210296,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "N2",
+      "T": 2500,
+      "cp_molar": 36.61561181316688,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "N2",
+      "T": 3000,
+      "cp_molar": 37.03198792172672,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "N2",
+      "T": 3300,
+      "cp_molar": 37.22059728550116,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "O2",
+      "T": 200,
+      "cp_molar": 29.126635524829943,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "O2",
+      "T": 273.15,
+      "cp_molar": 29.270501770394194,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "O2",
+      "T": 298.15,
+      "cp_molar": 29.375931323308656,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "O2",
+      "T": 500,
+      "cp_molar": 31.092877672984574,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "O2",
+      "T": 1000,
+      "cp_molar": 34.87714950628878,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "O2",
+      "T": 1500,
+      "cp_molar": 36.566231831553274,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "O2",
+      "T": 2000,
+      "cp_molar": 37.770057794278216,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "O2",
+      "T": 2500,
+      "cp_molar": 38.857942245927916,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "O2",
+      "T": 3000,
+      "cp_molar": 39.81358235664929,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "O2",
+      "T": 3300,
+      "cp_molar": 40.31147244260169,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ar",
+      "T": 200,
+      "cp_molar": 20.786275,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ar",
+      "T": 273.15,
+      "cp_molar": 20.786275,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ar",
+      "T": 298.15,
+      "cp_molar": 20.786275,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ar",
+      "T": 500,
+      "cp_molar": 20.786275,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ar",
+      "T": 1000,
+      "cp_molar": 20.786275,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ar",
+      "T": 1500,
+      "cp_molar": 20.786275,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ar",
+      "T": 2000,
+      "cp_molar": 20.786275,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ar",
+      "T": 2500,
+      "cp_molar": 20.786275,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ar",
+      "T": 3000,
+      "cp_molar": 20.786275,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ar",
+      "T": 3300,
+      "cp_molar": 20.786275,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ne",
+      "T": 200,
+      "cp_molar": 20.7861495,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ne",
+      "T": 273.15,
+      "cp_molar": 20.7861495,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ne",
+      "T": 298.15,
+      "cp_molar": 20.7861495,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ne",
+      "T": 500,
+      "cp_molar": 20.7861495,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ne",
+      "T": 1000,
+      "cp_molar": 20.7861495,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ne",
+      "T": 1500,
+      "cp_molar": 20.7861495,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ne",
+      "T": 2000,
+      "cp_molar": 20.7861495,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ne",
+      "T": 2500,
+      "cp_molar": 20.7861495,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ne",
+      "T": 3000,
+      "cp_molar": 20.7861495,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "Ne",
+      "T": 3300,
+      "cp_molar": 20.7861495,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO",
+      "T": 200,
+      "cp_molar": 29.10629263288867,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO",
+      "T": 273.15,
+      "cp_molar": 29.122234857643978,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO",
+      "T": 298.15,
+      "cp_molar": 29.13881874775581,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO",
+      "T": 500,
+      "cp_molar": 29.790947664049476,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO",
+      "T": 1000,
+      "cp_molar": 33.176757937903,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO",
+      "T": 1500,
+      "cp_molar": 35.192019258211424,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO",
+      "T": 2000,
+      "cp_molar": 36.19570613861146,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO",
+      "T": 2500,
+      "cp_molar": 36.75915540315367,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO",
+      "T": 3000,
+      "cp_molar": 37.120207942298194,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO",
+      "T": 3300,
+      "cp_molar": 37.28436724080204,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO2",
+      "T": 200,
+      "cp_molar": 32.36492946873198,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO2",
+      "T": 273.15,
+      "cp_molar": 35.96683521359174,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO2",
+      "T": 298.15,
+      "cp_molar": 37.14079795168991,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO2",
+      "T": 500,
+      "cp_molar": 44.63212665177678,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO2",
+      "T": 1000,
+      "cp_molar": 54.312632695338756,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO2",
+      "T": 1500,
+      "cp_molar": 58.37525201359805,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO2",
+      "T": 2000,
+      "cp_molar": 60.30621991750552,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO2",
+      "T": 2500,
+      "cp_molar": 61.353204939862664,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO2",
+      "T": 3000,
+      "cp_molar": 61.97880466472191,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "CO2",
+      "T": 3300,
+      "cp_molar": 62.23903309742566,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "SO2",
+      "T": 200,
+      "cp_molar": 36.382007352851,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "SO2",
+      "T": 273.15,
+      "cp_molar": 38.98682330386106,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "SO2",
+      "T": 298.15,
+      "cp_molar": 39.88897248630206,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "SO2",
+      "T": 500,
+      "cp_molar": 46.55392645408679,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "SO2",
+      "T": 1000,
+      "cp_molar": 54.487575305205674,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "SO2",
+      "T": 1500,
+      "cp_molar": 57.04938312198073,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "SO2",
+      "T": 2000,
+      "cp_molar": 58.24103777340491,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "SO2",
+      "T": 2500,
+      "cp_molar": 58.97639768536093,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "SO2",
+      "T": 3000,
+      "cp_molar": 59.52148158528085,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "SO2",
+      "T": 3300,
+      "cp_molar": 59.80071707741173,
+      "model_comparison_envelope": 0.01
+    },
+    {
+      "component": "H2O",
+      "T": 200,
+      "cp_molar": 33.35011668692922,
+      "model_comparison_envelope": 0.025
+    },
+    {
+      "component": "H2O",
+      "T": 273.15,
+      "cp_molar": 33.490683487991625,
+      "model_comparison_envelope": 0.025
+    },
+    {
+      "component": "H2O",
+      "T": 298.15,
+      "cp_molar": 33.58732555422723,
+      "model_comparison_envelope": 0.025
+    },
+    {
+      "component": "H2O",
+      "T": 500,
+      "cp_molar": 35.22628069595986,
+      "model_comparison_envelope": 0.025
+    },
+    {
+      "component": "H2O",
+      "T": 1000,
+      "cp_molar": 41.267297921835606,
+      "model_comparison_envelope": 0.025
+    },
+    {
+      "component": "H2O",
+      "T": 1500,
+      "cp_molar": 47.08986311912766,
+      "model_comparison_envelope": 0.025
+    },
+    {
+      "component": "H2O",
+      "T": 2000,
+      "cp_molar": 51.18002297482135,
+      "model_comparison_envelope": 0.025
+    },
+    {
+      "component": "H2O",
+      "T": 2500,
+      "cp_molar": 53.84845295442722,
+      "model_comparison_envelope": 0.025
+    },
+    {
+      "component": "H2O",
+      "T": 3000,
+      "cp_molar": 55.64088567790786,
+      "model_comparison_envelope": 0.025
+    },
+    {
+      "component": "H2O",
+      "T": 3300,
+      "cp_molar": 56.4484486900294,
+      "model_comparison_envelope": 0.025
+    }
+  ]
+}

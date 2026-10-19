@@ -33,3 +33,9 @@ test('Input spelling and canonical rounding increments reach the background exec
  const {runner,workers,answer}=harness(),options={inputRounding:[{text:'3.000',unit:'MPa',halfWidth:.0005},{text:'100.0',unit:'C',halfWidth:.05}]};
  const pending=runner.calculate('pt',3,373.15,'IF97',options);assert.deepEqual(workers[0].request.payload.options,options);answer(workers[0],{diagnostics:{roundingScenario:options}});assert.deepEqual((await pending).diagnostics.roundingScenario,options);
 });
+test('BSW2003 composition and basis reach the worker; cancellation permits an immediate retry',async()=>{
+ const {runner,workers,answer}=harness(),fractions={N2:.8,O2:.2};
+ const first=runner.gasTable('ph',1,200,fractions,'mass'),cancelled=assert.rejects(first,{code:'cancelled'});
+ assert.deepEqual(workers[0].request.payload,{mode:'ph',p:1,value:200,fractions,basis:'mass'});assert.equal(workers[0].request.type,'gas-bsw2003');runner.cancel();await cancelled;
+ const next=runner.gasTable('pt',.1,300,fractions,'mole');answer(workers[0],{stale:true});answer(workers[1],{T:300});assert.deepEqual(await next,{T:300});
+});

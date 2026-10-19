@@ -1,0 +1,11 @@
+page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at file:///tmp/reactor-thermal-report-BS3w12/report.html
+Call log:
+[2m  - navigating to "file:///tmp/reactor-thermal-report-BS3w12/report.html", waiting until "load"[22m
+
+    at p.goto (/workspace/water-steam-if97/docs/steam97-p07/managed-file-harness.cjs:11:21)
+    at /workspace/water-steam-if97/scripts/check-reactor-course-browser.cjs:12:204 {
+  log: [
+    '  - navigating to "file:///tmp/reactor-thermal-report-BS3w12/report.html", waiting until "load"'
+  ],
+  name: 'Error'
+}

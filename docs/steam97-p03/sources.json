@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "sprint": "P03",
+  "retrieved_date_utc": "2026-10-19",
+  "method": "Web search and text retrieval; original thesis PDF text encoding was unsuitable for checking tables. Numerical transcription uses the text mirror and appendix. No connected interactive Steam97Web browser or fresh numerical reference response was obtained.",
+  "sources": [
+    {
+      "id": "P03-S01",
+      "title": "Buecker, Span, Wagner (2003), Thermodynamic Property Models for Moist Air and Combustion Gases",
+      "url": "https://doi.org/10.1115/1.1520154",
+      "role": "Identifies the model cited by Steam97Web; bibliographic/abstract evidence only.",
+      "full_paper_acquired": false
+    },
+    {
+      "id": "P03-S02",
+      "title": "Janderson Honorio Mazzine Afonso, UFJF (2021), Simulacao numerica do trocador de calor recuperador de uma microturbina a gas aplicada a propulsao hibrida",
+      "url": "https://repositorio.ufjf.br/jspui/handle/ufjf/13031",
+      "pdf_url": "https://repositorio.ufjf.br/jspui/bitstream/ufjf/13031/1/jandersonhonoriomazzineafonso.pdf",
+      "text_mirror": "https://studylib.net/doc/27209695/afonso--2021----simula%C3%A7%C3%A3o-num%C3%A9rica-do-trocador-de-calor-r...",
+      "locations": "Table 2 p.52 (molar masses); section 3.3.3 and Tables 5/6 pp.54-56 (exponents, caloric coefficients, reference); Appendix B pp.141-149 (tabulation and example program). Printed page numbers.",
+      "role": "Secondary factual transcription of the eight-component technical ideal-cp correlation attributed to BSW2003.",
+      "original_pdf_tables_visually_verified": false,
+      "program_code_copied": false,
+      "transcription_file": "coefficients.json",
+      "limitations": [
+        "SO2 eighth coefficient is positive in text extraction of Table 6 and negative in Appendix B. The implementation uses the appendix negative sign, consistent with finite physical heat capacities and a separate model comparison. Original-paper confirmation is still required.",
+        "Molar masses use Table 2, including CO2=44.009 g/mol, not the erroneous 40.019 in the appendix. Ar=39.950, CO=28.010 and SO2=64.058 g/mol follow that same table consistently.",
+        "The accessible appendix program text divides species terms by individual molar masses despite calling its fractions molar and does not accumulate mixing entropy correctly. It and its numerical mixture examples are not used as independent physical references.",
+        "Separately rounded hI/sII constants leave residuals at the stated zero. The implementation integrates definitely from T0, enforcing pure-species h=s=0 exactly. This is an explicit local convention, not a claim of identical Steam97Web constants."
+      ]
+    },
+    {
+      "id": "P03-S03",
+      "title": "Reappraising the appropriate calculation of a common meteorological quantity: potential temperature (2020)",
+      "url": "https://acp.copernicus.org/articles/20/15585/2020/",
+      "role": "Independent discussion of BSW technical versus scientific ideal-gas fits, monatomic heat capacity and component model choices.",
+      "limitation": "The quoted 0.015% fit error concerns the published fit and its chosen reference, not validation of our transcription, absolute physical accuracy or Steam97Web agreement."
+    },
+    {
+      "id": "P03-S04",
+      "title": "CoolProp 8.0.0 fluid ideal-gas terms",
+      "url": "https://coolprop.org/fluid_properties/fluids/index.html",
+      "snapshot": "external-cp-controls.json",
+      "role": "80 independent ideal-cp comparisons using CP0MOLAR. Not real-fluid Cp and not the same BSW correlation.",
+      "limitation": "Includes ideal-term extrapolation beyond real-fluid validity. Model spread reaches about 2.28% for H2O at 3300 K; this is recorded rather than fitted away. Comparison envelopes detect accidental changes and do not constitute physical-accuracy tolerances. Until primary-coefficient verification, the cause cannot conclusively be attributed only to differences between models."
+    },
+    {
+      "id": "P03-S05",
+      "title": "Steam97Web official gas help",
+      "url": "https://www.steamtablesonline.com/help.aspx",
+      "role": "Existing P01 contract: eight components, percentages totaling 100, frozen-composition range 200-3300 K; dissociation belongs to P04.",
+      "limitation": "No new numerical outputs. Actual site composition basis, h/s zeros and pressure bounds remain unconfirmed."
+    }
+  ],
+  "remaining_reference_acceptance": [
+    "Check all coefficients and the SO2 sign against the full 2003 publication or an independently authoritative table.",
+    "Obtain matched pure/mixture Steam97Web calculations with exact input basis, reference zeros, output units and pressure policy.",
+    "Confirm output availability and composition percentages for registered controls; do not invent a dissociation value."
+  ]
+}

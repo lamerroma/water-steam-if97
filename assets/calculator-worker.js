@@ -1873,6 +1873,239 @@ function calculate(mode,a,b,model='IF97',options){return diagnoseCalculation(cal
 const GAS_DATA=[{"id":"N2","M":28.013999999999996,"range":[200.0,1000.0,6000.0],"coeff":[[3.53100528,-0.000123660987,-5.02999437e-07,2.43530612e-09,-1.40881235e-12,-1046.97628,2.96747468],[2.95257626,0.00139690057,-4.92631691e-07,7.86010367e-11,-4.60755321e-15,-923.948645,5.87189252]],"sourceName":"N2"},{"id":"O2","M":31.998,"range":[200.0,1000.0,6000.0],"coeff":[[3.78245636,-0.00299673415,9.847302e-06,-9.68129508e-09,3.24372836e-12,-1063.94356,3.65767573],[3.66096083,0.000656365523,-1.41149485e-07,2.05797658e-11,-1.29913248e-15,-1215.97725,3.41536184]],"sourceName":"O2"},{"id":"CO2","M":44.009,"range":[200.0,1000.0,6000.0],"coeff":[[2.35677352,0.00898459677,-7.12356269e-06,2.45919022e-09,-1.43699548e-13,-48371.9697,9.90105222],[4.63659493,0.00274131991,-9.95828531e-07,1.60373011e-10,-9.16103468e-15,-49024.9341,-1.93534855]],"sourceName":"CO2"},{"id":"CO","M":28.009999999999998,"range":[200.0,1000.0,6000.0],"coeff":[[3.57953347,-0.00061035368,1.01681433e-06,9.07005884e-10,-9.04424499e-13,-14344.086,3.50840928],[3.04848583,0.00135172818,-4.85794075e-07,7.88536486e-11,-4.69807489e-15,-14266.1171,6.0170979]],"sourceName":"CO"},{"id":"H2","M":2.016,"range":[200.0,1000.0,6000.0],"coeff":[[2.34433112,0.00798052075,-1.9478151e-05,2.01572094e-08,-7.37611761e-12,-917.935173,0.683010238],[2.93286579,0.000826607967,-1.46402335e-07,1.54100359e-11,-6.88804432e-16,-813.065597,-1.02432887]],"sourceName":"H2"},{"id":"H2O","M":18.015,"range":[200.0,1000.0,6000.0],"coeff":[[4.19864056,-0.0020364341,6.52040211e-06,-5.48797062e-09,1.77197817e-12,-30293.7267,-0.849032208],[2.67703787,0.00297318329,-7.7376969e-07,9.44336689e-11,-4.26900959e-15,-29885.8938,6.88255571]],"sourceName":"H2O"},{"id":"CH4","M":16.043,"range":[200.0,1000.0,6000.0],"coeff":[[5.14987613,-0.0136709788,4.91800599e-05,-4.84743026e-08,1.66693956e-11,-10246.6476,-4.64130376],[1.63552643,0.0100842795,-3.36916254e-06,5.34958667e-10,-3.15518833e-14,-10005.6455,9.99313326]],"sourceName":"CH4"},{"id":"Ar","M":39.95,"range":[200.0,6000.0],"coeff":[[2.5,0.0,0.0,0.0,0.0,-745.375,4.37967491]],"sourceName":"Ar"},{"id":"He","M":4.002602,"range":[200.0,6000.0],"coeff":[[2.5,0.0,0.0,0.0,0.0,-745.375,0.928724724]],"sourceName":"He"},{"id":"NO","M":30.006000000000004,"range":[200.0,1000.0,6000.0],"coeff":[[4.21859896,-0.00463988124,1.10443049e-05,-9.34055507e-09,2.80554874e-12,9845.09964,2.28061001],[3.26071234,0.00119101135,-4.29122646e-07,6.94481463e-11,-4.03295681e-15,9921.43132,6.36900518]],"sourceName":"NO"},{"id":"SO2","M":64.058,"range":[300.0,1000.0,5000.0],"coeff":[[3.2665338,0.0053237902,6.8437552e-07,-5.2810047e-09,2.5590454e-12,-36908.148,9.66465108],[5.2451364,0.0019704204,-8.0375769e-07,1.5149969e-10,-1.0558004e-14,-37558.227,-1.07404892]],"sourceName":"SO2"},{"id":"Ne","M":20.1797,"range":[200.0,6000.0],"coeff":[[2.5,0.0,0.0,0.0,0.0,-745.375,3.35532272]],"sourceName":"Ne"}];
 
 
+// src/gas-bsw2003-data.js
+// Numerical correlation data, independently transcribed; no third-party program code.
+// Buecker/Span/Wagner (2003), technical ideal-gas fit, as tabulated in
+// Afonso (UFJF, 2021), Tables 2/5/6 and Appendix B. See docs/steam97-p03/sources.json.
+// Decimal strings retain the precision of the printed coefficients.
+const BSW2003_DATA={
+ "T0": "273.15",
+ "p0": "0.101325",
+ "R": "8.314472",
+ "exponents": [
+  "0",
+  "-1.5",
+  "-1.25",
+  "-.75",
+  "-.5",
+  "-.25",
+  ".25",
+  ".5",
+  ".75",
+  "1"
+ ],
+ "species": [
+  {
+   "id": "N2",
+   "M": "28.014",
+   "hI": "4.305300363e8",
+   "sII": "-4.085709350e6",
+   "a": [
+    "2.475830346e6",
+    "-2.815239891e4",
+    "1.116401165e5",
+    "-8.147644187e5",
+    "2.185120405e6",
+    "-2.978031305e6",
+    "-1.308008001e6",
+    "4.305948510e5",
+    "-8.082302563e4",
+    "6.622545214e3"
+   ]
+  },
+  {
+   "id": "O2",
+   "M": "31.998",
+   "hI": "5.295253592e7",
+   "sII": "-7.353805669e5",
+   "a": [
+    "6.408242565e5",
+    "-1.599937045e3",
+    "9.984801256e3",
+    "-1.280873444e5",
+    "4.186599156e5",
+    "-6.720142804e5",
+    "-3.799977202e5",
+    "1.378691801e5",
+    "-2.806954185e4",
+    "2.459943097e3"
+   ]
+  },
+  {
+   "id": "Ar",
+   "M": "39.950",
+   "hI": "-5.677745067e3",
+   "sII": "0",
+   "a": [
+    "2.078618000e1",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "id": "Ne",
+   "M": "20.180",
+   "hI": "-5.677745067e3",
+   "sII": "0",
+   "a": [
+    "2.078618000e1",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "id": "H2O",
+   "M": "18.015",
+   "hI": "-7.574888563e8",
+   "sII": "7.373724814e6",
+   "a": [
+    "-4.747782033e6",
+    "4.799919289e4",
+    "-1.931588954e5",
+    "1.460728340e6",
+    "-4.000075762e6",
+    "5.576209858e6",
+    "2.570488297e6",
+    "-8.670521019e5",
+    "1.666429390e5",
+    "-1.396634620e4"
+   ]
+  },
+  {
+   "id": "CO2",
+   "M": "44.009",
+   "hI": "2.042361458e8",
+   "sII": "-1.912121053e6",
+   "a": [
+    "1.103695150e6",
+    "-1.365096910e4",
+    "5.357704944e4",
+    "-3.816063864e5",
+    "1.008950325e6",
+    "-1.352938737e6",
+    "-5.701809626e5",
+    "1.828513133e5",
+    "-3.329618224e4",
+    "2.635366727e3"
+   ]
+  },
+  {
+   "id": "CO",
+   "M": "28.010",
+   "hI": "4.306836224e8",
+   "sII": "-4.203685809e6",
+   "a": [
+    "2.670755728e6",
+    "-2.715629936e4",
+    "1.096509012e5",
+    "-8.303525865e5",
+    "2.269213594e6",
+    "-3.151865706e6",
+    "-1.438126165e6",
+    "4.824833432e5",
+    "-9.227524508e4",
+    "7.701550175e3"
+   ]
+  },
+  {
+   "id": "SO2",
+   "M": "64.058",
+   "hI": "-3.845730250e8",
+   "sII": "3.543224735e6",
+   "a": [
+    "-2.076653674e6",
+    "2.589571253e4",
+    "-1.012523438e5",
+    "7.161863952e5",
+    "-1.889754780e6",
+    "2.535020356e6",
+    "1.082842148e6",
+    "-3.524395911e5",
+    "6.552035769e4",
+    "-5.325634796e3"
+   ]
+  }
+ ]
+};
+
+
+// src/gas-bsw2003.js
+const BSW2003_SPECIES=BSW2003_DATA.species.map(q=>q.id);
+const BSW2003_R=Number(BSW2003_DATA.R),BSW2003_T0=Number(BSW2003_DATA.T0),BSW2003_P0=Number(BSW2003_DATA.p0);
+const bswT0=hpDecimal(BSW2003_DATA.T0),bswOne=[1,0],bswExponents=BSW2003_DATA.exponents.map(Number);
+const bswSpecies=new Map(BSW2003_DATA.species.map(q=>[q.id,{id:q.id,M:Number(q.M),a:q.a.map(hpDecimal)}]));
+function bswComposition(fractions,basis='mole'){
+ if(!['mole','mass'].includes(basis)||!fractions||typeof fractions!=='object'||Array.isArray(fractions))throw Error('BSW2003: некоректний склад або базис. / Invalid composition or basis.');
+ let total=0;const comp=[];
+ for(const [id,value] of Object.entries(fractions)){
+  if(!Number.isFinite(value)||value<0||value>1||!bswSpecies.has(id)&&value!==0)throw Error('BSW2003: невідомий компонент або некоректна частка. / Unknown component or invalid fraction.');
+  total+=value;if(value>0)comp.push({id,value,M:bswSpecies.get(id).M});
+ }
+ if(!comp.length||Math.abs(total-1)>1e-10)throw Error('BSW2003: сума часток має дорівнювати 1 (100 %). / Fractions must sum to 1 (100%).');
+ const divisor=comp.reduce((s,q)=>s+(basis==='mass'?q.value/q.M:q.value),0);
+ const mole=comp.map(q=>({...q,x:(basis==='mass'?q.value/q.M:q.value)/divisor})),M=mole.reduce((s,q)=>s+q.x*q.M,0);
+ return {M,mole:Object.fromEntries(mole.map(q=>[q.id,q.x])),mass:Object.fromEntries(mole.map(q=>[q.id,q.x*q.M/M]))};
+}
+// The large, alternating coefficients cancel strongly. Evaluate the printed decimals
+// with double-double arithmetic and one fourth-root shared by all quarter powers.
+// Integrals start at T0, enforcing the documented pure-species zero exactly rather
+// than inheriting residuals of the separately rounded integration constants.
+function bswMolar(T,composition){
+ const tau=hpDiv(hpDecimal(T),bswT0),root=hpPow(tau,.25),log=hpLog(tau);let cp=[0,0],h=[0,0],s=[0,0];
+ for(const [id,x] of Object.entries(composition)){
+  const a=bswSpecies.get(id).a;let cpi=[0,0],hi=[0,0],si=[0,0];
+  for(let i=0;i<a.length;i++){
+   if(a[i][0]===0&&a[i][1]===0)continue;
+   const b=bswExponents[i];cpi=hpAdd(cpi,hpMul(a[i],hpIntPow(root,b*4)));
+   hi=hpAdd(hi,hpMul(a[i],hpMul(bswT0,hpDiv(hpSub(hpIntPow(root,(b+1)*4),bswOne),[b+1,0]))));
+   si=hpAdd(si,hpMul(a[i],b===0?log:hpDiv(hpSub(hpIntPow(root,b*4),bswOne),[b,0])));
+  }
+  cp=hpAdd(cp,hpMul([x,0],cpi));h=hpAdd(h,hpMul([x,0],hi));s=hpAdd(s,hpMul([x,0],si));
+ }
+ return {cp:hpValue(cp),h:hpValue(h),s:hpValue(s)};
+}
+function bswGasState(p,T,fractions,basis='mole'){
+ if(!Number.isFinite(p)||p<=0||!Number.isFinite(T)||T<200||T>3300)throw Error('BSW2003: 200 ≤ T ≤ 3300 K; потрібен додатний абсолютний тиск. / Positive absolute pressure required.');
+ const composition=bswComposition(fractions,basis),q=bswMolar(T,composition.mole),M=composition.M,R=BSW2003_R/M;
+ const mixingMolar=-BSW2003_R*Object.values(composition.mole).reduce((s,x)=>s+x*Math.log(x),0);
+ const cp=q.cp/M,cv=cp-R,h=q.h/M,s=(q.s+mixingMolar-BSW2003_R*(Math.log(p)-Math.log(BSW2003_P0)))/M;
+ const rho=1000*p/(R*T),v=1/rho,u=h-R*T,gamma=cp/cv,w=Math.sqrt(gamma*R*T*1000);
+ if(!(cv>0&&rho>0&&v>0)||![cp,cv,h,s,rho,v,u,w,gamma].every(Number.isFinite))throw Error('BSW2003: результат поза числовими межами. / Result exceeds numerical bounds.');
+ return {model:'BSW2003 · technical ideal gas',modelId:'BSW2003-technical',p,T,M,R,cp,cv,h,s,u,rho,v,w,gamma,isentropic:gamma,Z:1,composition:composition.mole,massComposition:composition.mass,basis:'mole',inputBasis:basis,limits:{min:200,max:3300},reference:{T0:BSW2003_T0,p0:BSW2003_P0,definition:'h0=s0=0 for each pure ideal species at T0,p0; mixture entropy includes -R sum(x ln x).',formationEnthalpyIncluded:false},mixingEntropy:mixingMolar/M,dissociationApplied:false,mu:null,lambda:null,notes:['Ідеальний газ зі сталим складом; конденсацію та реакції не враховано. / Frozen ideal gas; no condensation or reactions.','Нуль h і s чистих компонентів: 273,15 K та 0,101325 МПа. Ентропія суміші містить внесок змішування. / Pure-species h/s reference: 273.15 K, 0.101325 MPa; mixture entropy includes mixing.'],validation:{source:'https://repositorio.ufjf.br/jspui/handle/ufjf/13031',status:'Technical coefficient transcription; direct Steam97Web parity remains unverified.',transport:'Caloric ideal-gas model; transport properties are not supplied.'}};
+}
+function bswGasInverse(p,target,key,fractions,basis='mole'){
+ if(!['h','s'].includes(key)||!Number.isFinite(target))throw Error('BSW2003: скінченні h або s. / Finite h or s required.');
+ let lo=200,hi=3300;const L=bswGasState(p,lo,fractions,basis),H=bswGasState(p,hi,fractions,basis);
+ if(target<L[key]||target>H[key])throw Error('BSW2003: задана величина поза діапазоном 200…3300 K. / Target outside temperature bounds.');
+ if(target===L[key])return L;if(target===H[key])return H;
+ let T=(lo+hi)/2;
+ for(let i=0;i<90;i++){
+  const q=bswGasState(p,T,fractions,basis),error=q[key]-target,step=error/(key==='h'?q.cp:q.cp/T);
+  if(Math.abs(error)<=2e-12*Math.max(1,Math.abs(target))&&Math.abs(step)<=2e-9)return q;
+  if(error<0)lo=T;else hi=T;const next=T-step;T=next>lo&&next<hi?next:(lo+hi)/2;
+ }
+ throw Error('BSW2003: обернений розрахунок не збігся. / Inverse calculation did not converge.');
+}
+function calculateBSWGas(mode,p,value,fractions,basis='mole'){
+ if(!['pt','ph','ps'].includes(mode))throw Error('BSW2003: підтримуються P–T, P–h, P–s. / Supported input pairs: P–T, P–h, P–s.');
+ return mode==='pt'?bswGasState(p,value,fractions,basis):bswGasInverse(p,value,mode==='ph'?'h':'s',fractions,basis);
+}
+
+
 // src/gases.js
 // Frozen ideal-gas thermodynamics: NASA7 / NASA TM-4513. MPa, K, kg, kJ.
 const GAS_R=8.31446261815324, GAS_P0=.101325;
@@ -4125,7 +4358,7 @@ const fields={'custom-cycle':['cc-data'],'water-process':['wp-fluid','wp-n','wp-
  flash:['process-mode','process-pressure','process-temperature','process-mass','process-p1','process-t1','process-p2','process-flow'],
  engineering:['eng-mode','eng-pressure','eng-temperature','eng-mass','eng-power-unit','eng-p1','eng-t1','eng-p2','eng-eta','eng-flow','eng-pc1','eng-tc1','eng-pc2','eng-coldflow','eng-power'],
  batch:['batch-mode','batch-vary','batch-ua','batch-ub','batch-start','batch-end','batch-count','batch-fixed','batch-text'],
- gases:['gas-model','gas-fluid','gas-mode','gas-p','gas-b','gas-basis','gas-preset',...species.map(s=>'fraction-'+s)],
+ gases:['gas-model','gas-fluid','gas-mode','gas-p','gas-b','gas-basis','gas-fraction-scale','gas-preset',...species.map(s=>'fraction-'+s)],
  humid:['ha-p','ha-t','ha-mode','ha-rh'],
  cycles:['cycle-kind','cycle-low','cycle-high','cycle-mid','cycle-tmin','cycle-tmax','cycle-tmid','cycle-et','cycle-ec','cycle-flow'],
  ice:['ice-t','ice-p'],d2o:['d2o-mode','d2o-p','d2o-t'],seawater:['sw-s','sw-t','sw-p'],
@@ -4137,7 +4370,7 @@ const choices={'wp-fluid':['water',...PROCESS_GASES],'wp-model':PROCESS_MODELS,'
  'flow-hydraulics':['off','on'],'flow-length-unit':['m','ft'],'flow-roughness-unit':['m','mm','inch'],'flow-pressure-difference-unit':['Pa','kPa','MPa','bar','psi'],'flow-source':['manual','water','real','gas'],'flow-fluid':['N2','O2','CO2','CO','H2','H2O','CH4','Ar','He','SO2','Ne'],'flow-rho-unit':['kgm3','lbft3'],'flow-visc-kind':['dynamic','kinematic'],'flow-visc-unit':['Pas','mPas','cP','m2s','mm2s','cSt'],'flow-kind':['mass','volume','velocity','standard'],'flow-unit':['kgs','kgh','lbs','lbh','m3s','m3h','ls','lmin','ft3min','ms','fts'],'flow-diameter-unit':['m','mm','inch'],'flow-standard':['off','normal','room','custom'],
  'process-pressure':['MPa','bar','kPa','psi'],'process-temperature':['C','K','F'],'process-mass':['kgs','kgh','lbs','lbh'],'process-power-unit':['kW','MW','Btuh'],
  'eng-mode':['pump','compressor','heat-exchanger'],'eng-pressure':['MPa','kPa','Pa','bar','atm','psi'],'eng-temperature':['C','K','F'],'eng-mass':['kgs','kgh','lbs','lbh'],'eng-power-unit':['kW','Btuh'],
- 'batch-mode':modes,'batch-vary':['a','b'],'gas-model':['real','mixture','ideal'],'gas-fluid':species.filter(s=>s!=='NO'),'gas-mode':['pt','ph','ps'],'gas-basis':['mole','mass'],'gas-preset':['air','flue','custom',...species],
+ 'batch-mode':modes,'batch-vary':['a','b'],'gas-model':['real','mixture','ideal','bsw2003'],'gas-fluid':species.filter(s=>s!=='NO'),'gas-mode':['pt','ph','ps'],'gas-basis':['mole','mass'],'gas-fraction-scale':['fraction','percent'],'gas-preset':['air','flue','custom',...species],
  'ha-mode':['R','W','D','B'],'cycle-kind':['rankine','rankine-reheat','rankine-regen','brayton'],'d2o-mode':['pt','sat'],
  'phase-substance':['H2O','D2O','seawater'],'phase-kind':['melt','subl','freeze','boil'],'phase-ice':['Ih','III','V','VI','VII'],'compare-mode':['pt','ph','ps','px','tx']
 };
@@ -4326,7 +4559,7 @@ self.onmessage=async({data})=>{
  const {id,type,payload}=data;
  try{
   await calculatorWorkerReady;
-  const result=type==='rankine-sweep'?solveRankineSweep(payload.input):type==='study-report-html'?studyReportHTML(payload.title,payload.report,payload.options):type==='calculate'?calculate(payload.mode,payload.a,payload.b,payload.model,payload.options):type==='project'?readProject(payload.text):type==='water-process'?solveWaterProcess(payload.input,payload.model):type==='custom-cycle'?workerCustomCycle(payload.input,payload.model):type==='library-cycle'?buildLibraryCycle(payload.input):type==='cycle-comparison'?compareLibraryCycles(payload.input):type==='cycle-preset'?customCyclePreset(payload.name,payload.model):null;
+  const result=type==='gas-bsw2003'?calculateBSWGas(payload.mode,payload.p,payload.value,payload.fractions,payload.basis):type==='rankine-sweep'?solveRankineSweep(payload.input):type==='study-report-html'?studyReportHTML(payload.title,payload.report,payload.options):type==='calculate'?calculate(payload.mode,payload.a,payload.b,payload.model,payload.options):type==='project'?readProject(payload.text):type==='water-process'?solveWaterProcess(payload.input,payload.model):type==='custom-cycle'?workerCustomCycle(payload.input,payload.model):type==='library-cycle'?buildLibraryCycle(payload.input):type==='cycle-comparison'?compareLibraryCycles(payload.input):type==='cycle-preset'?customCyclePreset(payload.name,payload.model):null;
   if(!result)throw Error('Unknown background operation.');
   self.postMessage({id,result});
  }catch(error){self.postMessage({id,error:error.message});}

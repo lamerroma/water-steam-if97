@@ -27,6 +27,7 @@ export function createCalculationRunner(createWorker,timeoutMs=60000){
  return {
   calculate:(mode,a,b,model,options)=>execute('calculate',{mode,a,b,model,...(options?{options}:{})}),
   readProject:text=>execute('project',{text}),
+  gasTable:(mode,p,value,fractions,basis)=>execute('gas-bsw2003',{mode,p,value,fractions,basis}),
   customCycle:(input,model)=>execute('custom-cycle',{input,model}),
   libraryCycle:input=>execute('library-cycle',{input}),
   rankineSweep:input=>execute('rankine-sweep',{input}),

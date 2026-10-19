@@ -1787,5 +1787,20 @@
   "diagram.p07.badVisibility": "Invalid isobar visibility.",
   "diagram.p07.detailLimit": "Spline detail limit reached; the curve is displayed approximately.",
   "spreadsheet.format": "Spreadsheet format",
-  "spreadsheet.save": "Save spreadsheet"
+  "spreadsheet.save": "Save spreadsheet",
+  "gas.fractionUnit": "Composition units",
+  "gas.fractions": "Fractions 0…1",
+  "gas.percentages": "Percentages 0…100",
+  "gas.percentHelp": "Percentages must sum to 100%. Changing the basis converts the composition.",
+  "gas.fractionHelp": "Fractions must sum to 1. Changing the basis converts the composition.",
+  "gas.calculate": "Calculate gas",
+  "gas.cancel": "Cancel",
+  "gas.component": "Component",
+  "gas.molePercent": "Mole fractions, %",
+  "gas.massPercent": "Mass fractions, %",
+  "gas.bswHelp": "BSW2003: 8 components, 200…3300 K, frozen composition. Pure-species h and s are zero at 273.15 K and 0.101325 MPa; mixture entropy includes mixing.",
+  "gas.title": "Gases · BSW2003 / CoolProp HEOS / NASA7",
+  "gas.bswOption": "Ideal gas / mixture · BSW2003",
+  "gas.scope": "Condensation and dissociation are excluded. Direct comparison with Steam97Web results is still pending.",
+  "gas.mixingEntropy": "Entropy of mixing"
 }

@@ -1,0 +1,242 @@
+{
+  "status": "passed",
+  "version": "1.35.11",
+  "cases": 528,
+  "inversions": 264,
+  "reference": {
+    "status": "passed",
+    "method": "Python stdlib Decimal, 70 digits; independent adaptive Simpson quadrature",
+    "cases": 528,
+    "checks": 6896,
+    "max_absolute_errors": {
+      "M": 0,
+      "R": 5.551115123125783e-17,
+      "cp": 4.440892098500626e-16,
+      "cv": 4.440892098500626e-16,
+      "h": 9.094947017729282e-13,
+      "s": 1.7763568394002505e-15,
+      "u": 9.094947017729282e-13,
+      "rho": 4.547473508864641e-13,
+      "v": 2.2737367544323206e-13,
+      "w": 2.2737367544323206e-13,
+      "isentropic": 2.220446049250313e-16,
+      "Z": 0,
+      "mixingEntropy": 5.551115123125783e-17
+    },
+    "quadrature": [
+      {
+        "component": "N2",
+        "T": 200,
+        "quantity": "h",
+        "error_molar": 2.5757344701560214e-8
+      },
+      {
+        "component": "N2",
+        "T": 200,
+        "quantity": "s",
+        "error_molar": 8.810729923425242e-13
+      },
+      {
+        "component": "N2",
+        "T": 3300,
+        "quantity": "h",
+        "error_molar": 2.6193447411060333e-10
+      },
+      {
+        "component": "N2",
+        "T": 3300,
+        "quantity": "s",
+        "error_molar": 2.842170943040401e-14
+      },
+      {
+        "component": "O2",
+        "T": 200,
+        "quantity": "h",
+        "error_molar": 1.5065779734868556e-9
+      },
+      {
+        "component": "O2",
+        "T": 200,
+        "quantity": "s",
+        "error_molar": 2.2737367544323206e-13
+      },
+      {
+        "component": "O2",
+        "T": 3300,
+        "quantity": "h",
+        "error_molar": 5.093170329928398e-10
+      },
+      {
+        "component": "O2",
+        "T": 3300,
+        "quantity": "s",
+        "error_molar": 1.4210854715202004e-14
+      },
+      {
+        "component": "Ar",
+        "T": 200,
+        "quantity": "h",
+        "error_molar": 2.2737367544323206e-13
+      },
+      {
+        "component": "Ar",
+        "T": 200,
+        "quantity": "s",
+        "error_molar": 1.3233858453531866e-13
+      },
+      {
+        "component": "Ar",
+        "T": 3300,
+        "quantity": "h",
+        "error_molar": 7.275957614183426e-12
+      },
+      {
+        "component": "Ar",
+        "T": 3300,
+        "quantity": "s",
+        "error_molar": 4.263256414560601e-14
+      },
+      {
+        "component": "Ne",
+        "T": 200,
+        "quantity": "h",
+        "error_molar": 2.2737367544323206e-13
+      },
+      {
+        "component": "Ne",
+        "T": 200,
+        "quantity": "s",
+        "error_molar": 1.3233858453531866e-13
+      },
+      {
+        "component": "Ne",
+        "T": 3300,
+        "quantity": "h",
+        "error_molar": 7.275957614183426e-12
+      },
+      {
+        "component": "Ne",
+        "T": 3300,
+        "quantity": "s",
+        "error_molar": 4.263256414560601e-14
+      },
+      {
+        "component": "H2O",
+        "T": 200,
+        "quantity": "h",
+        "error_molar": 2.8589965950232e-9
+      },
+      {
+        "component": "H2O",
+        "T": 200,
+        "quantity": "s",
+        "error_molar": 3.197442310920451e-13
+      },
+      {
+        "component": "H2O",
+        "T": 3300,
+        "quantity": "h",
+        "error_molar": 2.6193447411060333e-10
+      },
+      {
+        "component": "H2O",
+        "T": 3300,
+        "quantity": "s",
+        "error_molar": 5.684341886080802e-14
+      },
+      {
+        "component": "CO2",
+        "T": 200,
+        "quantity": "h",
+        "error_molar": 4.102275852346793e-9
+      },
+      {
+        "component": "CO2",
+        "T": 200,
+        "quantity": "s",
+        "error_molar": 5.755396159656812e-13
+      },
+      {
+        "component": "CO2",
+        "T": 3300,
+        "quantity": "h",
+        "error_molar": 5.820766091346741e-11
+      },
+      {
+        "component": "CO2",
+        "T": 3300,
+        "quantity": "s",
+        "error_molar": 0
+      },
+      {
+        "component": "CO",
+        "T": 200,
+        "quantity": "h",
+        "error_molar": 1.934040483320132e-9
+      },
+      {
+        "component": "CO",
+        "T": 200,
+        "quantity": "s",
+        "error_molar": 1.035616037370346e-12
+      },
+      {
+        "component": "CO",
+        "T": 3300,
+        "quantity": "h",
+        "error_molar": 4.3655745685100555e-10
+      },
+      {
+        "component": "CO",
+        "T": 3300,
+        "quantity": "s",
+        "error_molar": 4.263256414560601e-14
+      },
+      {
+        "component": "SO2",
+        "T": 200,
+        "quantity": "h",
+        "error_molar": 7.29764906282071e-8
+      },
+      {
+        "component": "SO2",
+        "T": 200,
+        "quantity": "s",
+        "error_molar": 2.646771690706373e-13
+      },
+      {
+        "component": "SO2",
+        "T": 3300,
+        "quantity": "h",
+        "error_molar": 2.9103830456733704e-11
+      },
+      {
+        "component": "SO2",
+        "T": 3300,
+        "quantity": "s",
+        "error_molar": 2.842170943040401e-14
+      }
+    ],
+    "limitations": [
+      "Same factual coefficient source; not an independent confirmation of original BSW2003 transcription.",
+      "Different-model external comparisons are recorded separately.",
+      "No fresh Steam97Web numerical responses obtained."
+    ]
+  },
+  "external": {
+    "source": "CoolProp 8.0.0 CP0MOLAR (ideal term evaluated at fixed dilute molar density with gas phase forced), pinned offline snapshot",
+    "cases": 80,
+    "max_absolute_relative_difference": {
+      "N2": 0.00006348898802375747,
+      "O2": 0.006043648359728481,
+      "Ar": 0.0000045703234465136186,
+      "Ne": 0.0000014673232289200365,
+      "CO": 0.0025408692596317786,
+      "CO2": 0.004491388264276458,
+      "SO2": 0.006503375172231986,
+      "H2O": 0.022718239834951158
+    },
+    "meaning": "Model-spread diagnostic, not BSW fit accuracy or Steam97Web parity."
+  },
+  "reference_parity_accepted": false
+}

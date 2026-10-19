@@ -3,7 +3,7 @@
   "updated": "2026-10-19",
   "baseline_version": "1.35.4",
   "baseline_commit": "9c87d171d093ee2a4f7ec7a92e3c10d1de95f123",
-  "status": "p07_bounded_delivery_reference_acceptance_open",
+  "status": "p03_bounded_delivery_reference_acceptance_open",
   "reference_url": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
   "requirements_file": "STEAMTABLES_PARITY_MATRIX.json",
   "details_file": "STEAMTABLES_PARITY_SPRINTS_UK.md",
@@ -12,7 +12,7 @@
   "ownership_rule": "Each current requirement has exactly one delivery owner; P01 inventories and P09 accepts every mandatory requirement.",
   "prerequisites_rule": "Module evidence and contracts must be ready before dependent implementation. P01 may finish preparation with blockers, but final parity cannot pass with unresolved mandatory requirements.",
   "completion_rule": "Direct reference evidence, independent validation, predefined tolerances and a complete user scenario are required; implementation presence alone does not establish parity.",
-  "planning_estimates": "Calendar and effort follow P01; P03/P04 may split into child sprints while parents remain open.",
+  "planning_estimates": "Calendar and effort follow ready contracts; P03 delivered as one bounded sprint. Full reference acceptance remains open.",
   "sprints": [
     {
       "id": "P01",
@@ -112,7 +112,7 @@
     {
       "id": "P03",
       "title": "Газові таблиці та суміші фіксованого складу",
-      "status": "planned",
+      "status": "bounded_delivery_complete_reference_acceptance_blocked",
       "depends_on": [
         "P01"
       ],
@@ -123,7 +123,16 @@
       ],
       "result": "Підтверджена модель газів, базиси складу й відліку, усі потрібні входи та виходи",
       "acceptance": "Властивості й інверсії перевірено для потрібних компонентів і сумішей; попередня NASA7 відтворюється.",
-      "readiness": "model-data contract blocked; research can continue"
+      "readiness": "Secondary technical coefficient data, explicit local references and full workflow implemented. Primary-paper coefficient confirmation and direct site conventions remain B01/B03/B04.",
+      "release_version": "1.35.11",
+      "report": "STEAMTABLES_P03_UK.md",
+      "acceptance_file": "STEAMTABLES_P03_ACCEPTANCE.json",
+      "blocked_by": [
+        "B01",
+        "B03",
+        "B04"
+      ],
+      "full_sprint_accepted": false
     },
     {
       "id": "P04",

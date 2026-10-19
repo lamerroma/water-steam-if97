@@ -1,3 +1,4 @@
+import {gasTableRows,gasCompositionRows} from './gas-table-rows.js';
 import {resultExportRows} from './export.js';
 import {saturationCell,SATURATION_COLUMNS} from './saturation-grid.js';
 import {processExportRows} from './project.js';
@@ -76,4 +77,9 @@ export function batchTabular(records,context={}){
  const rows=[['name','status','message'],...records.map(r=>[r.input.name,r.error?'error':'ok',r.error||''])];
  const properties=[['name','state','property','value','unit'],...states.flatMap(q=>completeStateRows({state:q},context.energy||'kJ',null,context.system||'si',context).slice(1).map(row=>[q.name,...row]))];
  return tabularDocument('batch',[{name:'Batch',rows},{name:'Properties',rows:properties}],context);
+}
+
+export function gasTabular(q,inputs={},context={},preferences=null){
+ if(q?.modelId!=='BSW2003-technical')throw Error('Calculate a BSW2003 state before exporting.');
+ return tabularDocument('gas',[{name:'Properties',rows:[['property','value','unit'],...gasTableRows(q,context.system||'si',preferences)]},{name:'Composition',rows:[['component','mole [%]','mass [%]'],...gasCompositionRows(q)]},{name:'Inputs',rows:[['field','value'],...Object.entries(inputs)]}],{...context,model:q.model,composition_basis:q.inputBasis,T0_K:q.reference.T0,p0_MPa:q.reference.p0,reference:q.reference.definition,dissociation_applied:false});
 }

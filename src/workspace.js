@@ -17,7 +17,7 @@ const fields={'custom-cycle':['cc-data'],'water-process':['wp-fluid','wp-n','wp-
  flash:['process-mode','process-pressure','process-temperature','process-mass','process-p1','process-t1','process-p2','process-flow'],
  engineering:['eng-mode','eng-pressure','eng-temperature','eng-mass','eng-power-unit','eng-p1','eng-t1','eng-p2','eng-eta','eng-flow','eng-pc1','eng-tc1','eng-pc2','eng-coldflow','eng-power'],
  batch:['batch-mode','batch-vary','batch-ua','batch-ub','batch-start','batch-end','batch-count','batch-fixed','batch-text'],
- gases:['gas-model','gas-fluid','gas-mode','gas-p','gas-b','gas-basis','gas-preset',...species.map(s=>'fraction-'+s)],
+ gases:['gas-model','gas-fluid','gas-mode','gas-p','gas-b','gas-basis','gas-fraction-scale','gas-preset',...species.map(s=>'fraction-'+s)],
  humid:['ha-p','ha-t','ha-mode','ha-rh'],
  cycles:['cycle-kind','cycle-low','cycle-high','cycle-mid','cycle-tmin','cycle-tmax','cycle-tmid','cycle-et','cycle-ec','cycle-flow'],
  ice:['ice-t','ice-p'],d2o:['d2o-mode','d2o-p','d2o-t'],seawater:['sw-s','sw-t','sw-p'],
@@ -29,7 +29,7 @@ const choices={'wp-fluid':['water',...PROCESS_GASES],'wp-model':PROCESS_MODELS,'
  'flow-hydraulics':['off','on'],'flow-length-unit':['m','ft'],'flow-roughness-unit':['m','mm','inch'],'flow-pressure-difference-unit':['Pa','kPa','MPa','bar','psi'],'flow-source':['manual','water','real','gas'],'flow-fluid':['N2','O2','CO2','CO','H2','H2O','CH4','Ar','He','SO2','Ne'],'flow-rho-unit':['kgm3','lbft3'],'flow-visc-kind':['dynamic','kinematic'],'flow-visc-unit':['Pas','mPas','cP','m2s','mm2s','cSt'],'flow-kind':['mass','volume','velocity','standard'],'flow-unit':['kgs','kgh','lbs','lbh','m3s','m3h','ls','lmin','ft3min','ms','fts'],'flow-diameter-unit':['m','mm','inch'],'flow-standard':['off','normal','room','custom'],
  'process-pressure':['MPa','bar','kPa','psi'],'process-temperature':['C','K','F'],'process-mass':['kgs','kgh','lbs','lbh'],'process-power-unit':['kW','MW','Btuh'],
  'eng-mode':['pump','compressor','heat-exchanger'],'eng-pressure':['MPa','kPa','Pa','bar','atm','psi'],'eng-temperature':['C','K','F'],'eng-mass':['kgs','kgh','lbs','lbh'],'eng-power-unit':['kW','Btuh'],
- 'batch-mode':modes,'batch-vary':['a','b'],'gas-model':['real','mixture','ideal'],'gas-fluid':species.filter(s=>s!=='NO'),'gas-mode':['pt','ph','ps'],'gas-basis':['mole','mass'],'gas-preset':['air','flue','custom',...species],
+ 'batch-mode':modes,'batch-vary':['a','b'],'gas-model':['real','mixture','ideal','bsw2003'],'gas-fluid':species.filter(s=>s!=='NO'),'gas-mode':['pt','ph','ps'],'gas-basis':['mole','mass'],'gas-fraction-scale':['fraction','percent'],'gas-preset':['air','flue','custom',...species],
  'ha-mode':['R','W','D','B'],'cycle-kind':['rankine','rankine-reheat','rankine-regen','brayton'],'d2o-mode':['pt','sat'],
  'phase-substance':['H2O','D2O','seawater'],'phase-kind':['melt','subl','freeze','boil'],'phase-ice':['Ih','III','V','VI','VII'],'compare-mode':['pt','ph','ps','px','tx']
 };

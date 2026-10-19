@@ -1,0 +1,338 @@
+{
+  "schema_version": 1,
+  "sprint": "P03",
+  "version": "1.35.11",
+  "build": {
+    "version": "1.35.11",
+    "id": "37d045d705ac"
+  },
+  "baseline": "1b7047810057f62d3e4614fee3218c7d0091a955",
+  "status": "bounded_delivery_passed",
+  "local_implementation_complete": true,
+  "full_sprint_accepted": false,
+  "full_reference_parity_verified": false,
+  "scope": "Eight-species technical ideal-gas fit with explicit local reference and complete UI/worker/project/export/offline workflow. Primary coefficient confirmation and direct site acceptance remain open.",
+  "verification": {
+    "releaseStatus": "passed_after_environment_retry",
+    "initialReleaseStatus": "failed",
+    "environmentRetry": {
+      "check": "browser-reactor-course",
+      "status": "passed",
+      "reason": "Managed Chromium rejects file:///tmp/reactor-thermal-report-*/report.html. Retry reads exactly those saved bytes through loopback; existing standalone fallback remains explicit in its log."
+    },
+    "releaseChecks": 82,
+    "unitTests": 1687,
+    "numericalCases": 528,
+    "inverseCases": 264,
+    "independentChecks": 6896,
+    "externalModelComparisons": 80,
+    "browsers": {
+      "chromium": {
+        "status": "passed",
+        "version": "154.0.8037.57",
+        "playwright": "1.64.1",
+        "groups": [
+          "All eight pure components at both closed temperature endpoints in the actual worker/UI",
+          "BSW2003 works with unavailable CoolProp; eight-component result, typed four-format exports and independent Decimal controls",
+          "Mass/mole and percent/fraction conversions; local reload and JSON import recompute inputs and retain composition units",
+          "P-h/P-s inversions and independent pressure/temperature input units",
+          "Invalid totals/bounds clear results; cancellation, retry and navigation discard stale worker replies",
+          "English results/preferences, translated controls and 320/390 px layout",
+          "Legacy NASA7 calculation import remains functional without a composition-scale field",
+          "Standalone offline: worker, numerical results and all four exports",
+          "Installed PWA offline reload: full BSW2003 calculation and four exports"
+        ],
+        "numericalChecks": 341,
+        "files": 20,
+        "readerChecks": 376,
+        "standaloneMode": "managed-file-policy-loopback-then-offline",
+        "rawReport": ".release/steam97-p03/chromium/report.json",
+        "rawReportSha256": "3d6fc4778f9450c12163a90a0b67315a0cecc8f80722189f61f27efd062cd933"
+      },
+      "firefox": {
+        "status": "passed",
+        "version": "157.0",
+        "playwright": "1.64.1",
+        "groups": [
+          "All eight pure components at both closed temperature endpoints in the actual worker/UI",
+          "BSW2003 works with unavailable CoolProp; eight-component result, typed four-format exports and independent Decimal controls",
+          "Mass/mole and percent/fraction conversions; local reload and JSON import recompute inputs and retain composition units",
+          "P-h/P-s inversions and independent pressure/temperature input units",
+          "Invalid totals/bounds clear results; cancellation, retry and navigation discard stale worker replies",
+          "English results/preferences, translated controls and 320/390 px layout",
+          "Legacy NASA7 calculation import remains functional without a composition-scale field",
+          "Standalone offline: worker, numerical results and all four exports",
+          "Installed PWA offline reload: full BSW2003 calculation and four exports"
+        ],
+        "numericalChecks": 341,
+        "files": 20,
+        "readerChecks": 376,
+        "standaloneMode": "file-offline",
+        "rawReport": ".release/steam97-p03/firefox/report.json",
+        "rawReportSha256": "402e62dd617a602411c67db943f1ce7408d19b9a46cc209cb01aa0ae0c5e5c29"
+      }
+    }
+  },
+  "environment": {
+    "node": "22.20.0 (CI major)",
+    "managedChromiumFilePolicy": "P03 records its explicit loopback-then-offline fallback; Firefox uses real file offline. Some legacy browser tests used the retained P07 managed-file harness.",
+    "legacyChecksUsingManagedFileFallback": [
+      "browser-steam97-p08",
+      "browser-steam97-p07",
+      "browser-steam97-p06",
+      "browser-steam97-p05",
+      "browser-steam97-p02",
+      "browser-input-sensitivity",
+      "browser-navigation",
+      "browser-smart-input",
+      "browser-calculator-workspace",
+      "browser-state-comparison",
+      "browser-study-workflow",
+      "browser-task-ui",
+      "browser-diagram",
+      "browser-diagram-guides",
+      "browser-diagram-quality",
+      "browser-process-paths",
+      "browser-study-workspace",
+      "browser-hydraulics",
+      "browser-study",
+      "browser-full-sprint",
+      "browser-laboratory",
+      "browser-coursework",
+      "browser-usability",
+      "browser-reactor-validation"
+    ]
+  },
+  "reference": {
+    "newSteam97WebNumericalCases": 0,
+    "primaryPaperAcquired": false,
+    "secondaryCoefficientsAcquired": true,
+    "originalPdfTablesVisuallyVerified": false,
+    "siteCompositionBasisConfirmed": false,
+    "siteReferenceZerosConfirmed": false,
+    "sitePressureBoundsConfirmed": false,
+    "SO2SignPrimaryConfirmation": false,
+    "openBlockers": [
+      "B01",
+      "B03",
+      "B04"
+    ],
+    "sourceRegister": "steam97-p03/sources.json"
+  },
+  "publication": {
+    "pushed": false,
+    "published": false
+  },
+  "evidence": [
+    {
+      "path": "docs/steam97-p03/numerical-audit.json",
+      "sha256": "4ae1ef83f65891119578dfb6c0a62d54f18b92723099c0da68be3ff5d3fcf325"
+    },
+    {
+      "path": "docs/steam97-p03/release-report.json",
+      "sha256": "840045f2958f5f8d9e5be5d4526a7fbe20de5e8ec8508fa368bf0d224af31554"
+    },
+    {
+      "path": "docs/steam97-p03/environment-retry.json",
+      "sha256": "8076f922a719ff5cadfd30f641e4dce6da1776f4bbe78f65a5d4736758d14978"
+    },
+    {
+      "path": "docs/steam97-p03/reactor-course-retry.txt",
+      "sha256": "9dde5f897800539bb189b742752e0c6f2b63914db0ebe8984193752760364a44"
+    },
+    {
+      "path": "docs/steam97-p03/reactor-course-initial-denial.txt",
+      "sha256": "95c318076512a1c09a37508a73cbe748dd6198df120994dcbeaecc105672492b"
+    },
+    {
+      "path": "docs/steam97-p03/managed-report-harness.cjs",
+      "sha256": "370ea6d844d238c705a791e42299eafb025a9fa0b25dc3567d217117493667d5"
+    },
+    {
+      "path": "docs/steam97-p03/retry-environment.mjs",
+      "sha256": "5edecfca21dade223b1e8dfee2837147a12136ba67c01e826a3f058d8640c005"
+    },
+    {
+      "path": "docs/steam97-p03/verification-points.json",
+      "sha256": "f1e4f8fa94b3ab38edbb968c9d8a45811d53f4d518f1c71a8d718638d7b86b7e"
+    },
+    {
+      "path": "docs/steam97-p03/chromium-readers.json",
+      "sha256": "15eb238ef6822847a8945c08b4ab454041e1796fe77dbfeb1f33c2cda40c5443"
+    },
+    {
+      "path": "docs/steam97-p03/firefox-readers.json",
+      "sha256": "15eb238ef6822847a8945c08b4ab454041e1796fe77dbfeb1f33c2cda40c5443"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "package.json",
+      "sha256": "e68fc57380775270f11b6ee004e8bad31674de6d0690817b0983c4f87ae3f390"
+    },
+    {
+      "path": "src/gas-bsw2003-data.js",
+      "sha256": "d582aec7ab6627cec04025e92a2d5a67f34468e1dce4c9f65393a81d87c8adc8"
+    },
+    {
+      "path": "src/gas-bsw2003.js",
+      "sha256": "500f316e0eb47a5854d928debbda6a298cda80640bde6b8679962c85871599f5"
+    },
+    {
+      "path": "src/gas-table-rows.js",
+      "sha256": "c2735957682ee9146e3806affc0062d460b4fa640e0d97e575cd021c8af452cd"
+    },
+    {
+      "path": "src/gas-tables-ui.js",
+      "sha256": "e7617a8f7fcf61707854ba3e955229a4aac024744cc892dfc4c0ead965ddbe5f"
+    },
+    {
+      "path": "src/learning-ui.js",
+      "sha256": "df6f30db4aac3b8a5247ad5ff285bad8a7df435efb1d7a42c6661cef9cdc8f53"
+    },
+    {
+      "path": "src/learning-export.js",
+      "sha256": "61b555214c8f0aa741708f249215fc4ded65806d18e43133880e265c4990c8f2"
+    },
+    {
+      "path": "src/calculator-worker.js",
+      "sha256": "f3048c060291abcc6996184e80fa07fc8aca0a4dd3c196ddd21fb7828861e365"
+    },
+    {
+      "path": "src/calculator-runner.js",
+      "sha256": "34a532ebdb19c6065f63d457334bc5b9712f017fc3109cf321f6e0750e728065"
+    },
+    {
+      "path": "src/app.js",
+      "sha256": "6338b7e85b93b831834b01fc26671b68b93f775bdf5652e105afb8997364e1e6"
+    },
+    {
+      "path": "src/tabular-data.js",
+      "sha256": "66b9b136f2fab8265818698ff8ae44bb811d97851d261100784def0ac7802d1c"
+    },
+    {
+      "path": "src/workspace.js",
+      "sha256": "53ff3dbcc74db05e704087b7e39126160b8dd1f3c953818422db34531d8aa390"
+    },
+    {
+      "path": "src/locales/uk.json",
+      "sha256": "448f36cbe19b89fab0f4c493e5aa609f76769b65e1a38b94320862ed86a1b63a"
+    },
+    {
+      "path": "src/locales/en.json",
+      "sha256": "42cb9287e435defe227fca8e94a9c749ba817de0fa7dcf6df9055d5c834691d1"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "sha256": "9da1a696210cc05f1794bf9241d00b4745bd30fa22b74b197953c4f516b6a8ce"
+    },
+    {
+      "path": "scripts/verify-release.mjs",
+      "sha256": "14d37ee72e8e61414ee5e5c3635ab8572f4cb3b33b7990c8700d0447af1ae29b"
+    },
+    {
+      "path": "scripts/audit-steam97-p03.mjs",
+      "sha256": "4434c8ae9accf7124aeb0fa2415ce85b4730b13e055f8b35a0027907aede8ae2"
+    },
+    {
+      "path": "scripts/reference/bsw2003_reference.py",
+      "sha256": "1ca926803cf2b5cc4389b62301a6a4649d9391437af21c3cb467cc87b6d8389a"
+    },
+    {
+      "path": "scripts/check-steam97-p03-browser.cjs",
+      "sha256": "9d3dc7a0570a367b6d44a9401e4a023b028df1a16df0cef55038e7e2c27d378e"
+    },
+    {
+      "path": "scripts/finalize-steam97-p03.mjs",
+      "sha256": "12ee3439688c4a3cd08b8e15ce7f8778358a995593923e3e3665764ccc6be2ef"
+    },
+    {
+      "path": "scripts/verify-steam97-p03.mjs",
+      "sha256": "3fa5c8ba22dc1737287983159815854d2b2fbb47506adb5d76e6eaa7ecd9651b"
+    },
+    {
+      "path": "tests/gas-bsw2003.test.mjs",
+      "sha256": "4afc6d371a0b3eeb95d143c9451d22e095ec61611dfec2ce193b2123504f31a5"
+    },
+    {
+      "path": "tests/calculator-runner.test.mjs",
+      "sha256": "def5e3bd2a84090b43c6d93bbbcfc9cca7dc889efd135af7dcb4a14f62c7dfe8"
+    },
+    {
+      "path": "docs/steam97-p03/sources.json",
+      "sha256": "db281998a91f282e89f52ee851d56fc7cfecee92106d837ae0fc3896994559fe"
+    },
+    {
+      "path": "docs/steam97-p03/coefficients.json",
+      "sha256": "ab6a6a0e66fbf9b82a641495c43ae892fbf0f3e3ab71536f78abc15120f9247e"
+    },
+    {
+      "path": "docs/steam97-p03/external-cp-controls.json",
+      "sha256": "0800daa17a7f50da10f46f85d521446999476d2a0356d6c0ad42a3a675f00f81"
+    },
+    {
+      "path": "docs/STEAMTABLES_P03_UK.md",
+      "sha256": "fe2bddfeaed8356587286d18f5a484e86584a97fc07f66459dcda8876eeba4aa"
+    },
+    {
+      "path": "docs/STEAMTABLES_PARITY_MATRIX.json",
+      "sha256": "a277e3b690eaab5a2e1ba1dcf4e00d8dd774a291c68416cbe16896f3215519ef"
+    },
+    {
+      "path": "docs/STEAMTABLES_PARITY_SPRINTS.json",
+      "sha256": "bc5769320291c57119a604eee7dd4358ea0924505f8da070a45215512a397d47"
+    },
+    {
+      "path": "docs/STEAMTABLES_PARITY_SPRINTS_UK.md",
+      "sha256": "8a24fb92d25635856ec09267118f4cb75ee3554a83dab827184b799643ee3b94"
+    },
+    {
+      "path": "docs/steam97-p01/blockers.json",
+      "sha256": "8dd5b96b56e48be96e3c1a23a22b1ccae78bd215f7c636b791ca56aad25f2c6b"
+    },
+    {
+      "path": "README.md",
+      "sha256": "5682c5740139b33f3f0dca500536e28909f312eb1e7edc0d3939f4ebae0d2b41"
+    },
+    {
+      "path": "docs/QUICK_START_UK.md",
+      "sha256": "5ee823177cebe80aac886c39db87e503821052cc099f75d0014846a2bb1b10f1"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "2a838b6ba9194f1ef3a331489c89e98d3ce337c3f4304914a8e3319758263ef8"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "90951f2e752c663857162de0ed98bcd83ef9525a8b3eccf86e6692abb51ee12a"
+    },
+    {
+      "path": "index.html",
+      "sha256": "f4541a10e494b627d1caa35b99c707f38cb514a9f62c832de54e946e3d20c285"
+    },
+    {
+      "path": "standalone.html",
+      "sha256": "572bb9652026d6c2ad72de7a61c57e9ed1760c3191a642394ef472e1d073c6b6"
+    },
+    {
+      "path": "assets/app.js",
+      "sha256": "fa8af0f3ce1cbc5f10c451ea4b1f27933d96864bb983cbe63f750682090cdd16"
+    },
+    {
+      "path": "assets/calculator-worker.js",
+      "sha256": "1f9b9b74048be28bd559e3950be13cfb25696688538850204f1c564d4aac3d29"
+    },
+    {
+      "path": "service-worker.js",
+      "sha256": "484a83128ad7e7eb8fd9ad3815cff14fde2d8980163552c4c3d49084189f49da"
+    },
+    {
+      "path": "dist/index.html",
+      "sha256": "f4541a10e494b627d1caa35b99c707f38cb514a9f62c832de54e946e3d20c285"
+    },
+    {
+      "path": "dist/standalone.html",
+      "sha256": "572bb9652026d6c2ad72de7a61c57e9ed1760c3191a642394ef472e1d073c6b6"
+    }
+  ]
+}

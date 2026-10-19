@@ -1,0 +1,29 @@
+{
+  "sourceReport": ".release/2026-10-19T07-38-51-244Z/report.json",
+  "build": {
+    "version": "1.35.11",
+    "id": "37d045d705ac"
+  },
+  "check": "browser-reactor-course",
+  "status": "passed",
+  "exitCode": 0,
+  "durationMs": 9049,
+  "log": ".release/steam97-p03/reactor-course-retry.log",
+  "sha256": "9dde5f897800539bb189b742752e0c6f2b63914db0ebe8984193752760364a44",
+  "productionArtifacts": {
+    "assets/app.js": "fa8af0f3ce1cbc5f10c451ea4b1f27933d96864bb983cbe63f750682090cdd16",
+    "assets/calculator-worker.js": "1f9b9b74048be28bd559e3950be13cfb25696688538850204f1c564d4aac3d29",
+    "index.html": "f4541a10e494b627d1caa35b99c707f38cb514a9f62c832de54e946e3d20c285",
+    "standalone.html": "572bb9652026d6c2ad72de7a61c57e9ed1760c3191a642394ef472e1d073c6b6",
+    "service-worker.js": "484a83128ad7e7eb8fd9ad3815cff14fde2d8980163552c4c3d49084189f49da"
+  },
+  "initialFailure": {
+    "name": "browser-reactor-course",
+    "status": "failed",
+    "exitCode": 1,
+    "durationMs": 2032,
+    "log": ".release/2026-10-19T07-38-51-244Z/browser-reactor-course.log",
+    "logSha256": "95c318076512a1c09a37508a73cbe748dd6198df120994dcbeaecc105672492b"
+  },
+  "reason": "Managed Chromium rejects file:///tmp/reactor-thermal-report-*/report.html. Retry reads exactly those saved bytes through loopback; existing standalone fallback remains explicit in its log."
+}

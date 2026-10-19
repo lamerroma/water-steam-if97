@@ -90,3 +90,7 @@ Python iapws 1.5.5 (GPL-3.0, Juan José Gómez Romera) використано л
 Еталони регенерації `tests/fixtures/rankine-regeneration-reference.json` згенеровані власною обгорткою `scripts/generate-regeneration-reference.py` через зовнішній Python iapws 1.5.5 (GPL-3.0). Код iapws, SciPy і NumPy не включений до застосунку.
 
 Еталонна сітка тиску відбору `tests/fixtures/rankine-sweep-reference.json` отримана тією самою власною обгорткою з аргументом `--sweep` через окремий Python iapws 1.5.5 (GPL-3.0). Застосунок не використовується для генерації; iapws, SciPy та NumPy до runtime не входять.
+
+## BSW2003 technical ideal-gas correlation data
+
+The eight-species decimal parameters in `src/gas-bsw2003-data.js` and `docs/steam97-p03/coefficients.json` are factual correlation data transcribed from Afonso (UFJF, 2021), Tables 2/5/6 and Appendix B, attributed there to Buecker, Span and Wagner (2003), DOI 10.1115/1.1520154. The numerical algorithm and mixture implementation were independently written; no third-party program code or publication prose is included. Source access limitations, conflicting data and the exact-zero reference convention are documented in [the source register](docs/steam97-p03/sources.json). This attribution does not imply endorsement or completed verification against the primary paper or Steam97Web.

@@ -4,7 +4,7 @@
   "baseline_version": "1.35.0",
   "baseline_commit": "2c3bfe83d6b3f772018334074bdfa6df0abaa215",
   "goal": "All calculations available in the referenced Steam97Web calculator must be covered before further capability expansion.",
-  "status": "p09_transport_units_delivered_full_acceptance_blocked",
+  "status": "p03_bsw2003_bounded_delivery_full_acceptance_blocked",
   "scope": {
     "target": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
     "include": "All calculator tabs and available model/phase/input/units/domain variants, including features marked as requiring registration. Workflow parity tracked separately.",
@@ -3013,12 +3013,19 @@
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/gases.js",
-        "src/gas-data.js"
+        "src/gas-data.js",
+        "src/gas-bsw2003.js",
+        "src/gas-bsw2003-data.js",
+        "src/gas-tables-ui.js",
+        "docs/STEAMTABLES_P03_UK.md"
       ],
       "existing_checks": [
-        "tests/gas-primary-controls.test.mjs"
+        "tests/gas-primary-controls.test.mjs",
+        "tests/gas-bsw2003.test.mjs",
+        "scripts/audit-steam97-p03.mjs",
+        "scripts/check-steam97-p03-browser.cjs"
       ],
-      "notes": "Reference components: Ar, CO, CO2, H2O, N2, Ne, O2, SO2. Our NASA7 model differs from the reference Buecker/Span/Wagner model; reference h/s basis, temperature limits and composition basis must be verified. Official documented range is 200–3300 K; DOI 10.1115/1.1520154 identified; coefficient data and fraction/reference basis remain blocked.",
+      "notes": "1.35.11 implements the eight-component technical BSW2003 fit from a secondary table, mass/mole fractions/percentages, explicit 273.15 K / 0.101325 MPa pure-species zeros with mixing entropy, P-T/P-h/P-s, worker, projects and four-format exports. NASA7 remains separate. Primary coefficient/SO2-sign confirmation and actual site reference/basis/pressure conventions remain B01/B03/B04; no direct numerical parity claimed.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "gas-fixed",
