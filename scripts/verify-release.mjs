@@ -52,6 +52,7 @@ async function serve(){
 try{
  if(!await check('build',['scripts/build.mjs']))throw Error('Build failed; dependent checks skipped.');
  report.build=JSON.parse((await readFile(path.join(root,'assets/app.js'),'utf8')).match(/const APP_BUILD = ([^\n]+);/)[1]);
+ await check('documentation',['scripts/check-docs-links.mjs']);
  const initial=await snapshot();
  if(mode!=='browser'){
   await check('fluids-pipe-reference',['scripts/reference-fluids-pipe.py','--check'],{},process.env.REACTOR_PYTHON||'python3');

@@ -1,0 +1,57 @@
+{
+  "generatedAt": "2026-10-20T11:15:18.8646572Z",
+  "url": "https://lamerroma.github.io/water-steam-if97/",
+  "commit": "a5d8a0759c4a0c10c803679b7818fb33af31332c",
+  "version": "1.39.0",
+  "build": "0268d327cdad",
+  "ci": {
+    "conclusion": "success",
+    "headSha": "a5d8a0759c4a0c10c803679b7818fb33af31332c",
+    "url": "https://github.com/lamerroma/water-steam-if97/actions/runs/39411317750"
+  },
+  "pages": {
+    "conclusion": "success",
+    "headSha": "a5d8a0759c4a0c10c803679b7818fb33af31332c",
+    "url": "https://github.com/lamerroma/water-steam-if97/actions/runs/39411317742"
+  },
+  "releaseChecks": 94,
+  "unitTests": 1720,
+  "browsers": [
+    {
+      "browser": "chromium",
+      "status": "passed",
+      "version": "1.39.0",
+      "build": "0268d327cdad",
+      "groups": 10,
+      "numericChecks": 1867,
+      "validCases": 100,
+      "invalidCases": 16,
+      "networkBlocked": true,
+      "errors": [],
+      "externalRequests": []
+    },
+    {
+      "browser": "firefox",
+      "status": "passed",
+      "version": "1.39.0",
+      "build": "0268d327cdad",
+      "groups": 10,
+      "numericChecks": 1867,
+      "validCases": 100,
+      "invalidCases": 16,
+      "networkBlocked": true,
+      "errors": [],
+      "externalRequests": []
+    }
+  ],
+  "upgrade": {
+    "phase": "upgrade",
+    "url": "https://lamerroma.github.io/water-steam-if97/",
+    "status": "passed",
+    "before": "1.36.1",
+    "version": "1.39.0",
+    "build": "0268d327cdad",
+    "offline": true
+  },
+  "testCorrection": "Offline guide scenario now uses an independent browser context, preserving the four-guide assertion. Shared-context pagehide autosave race reproduced before the fix; isolated scenario passed under the same timing control."
+}

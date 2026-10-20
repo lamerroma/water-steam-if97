@@ -1,4 +1,7 @@
-# Бібліотеки ht / fluids — локальна інтеграція 1.38.0
+# Бібліотеки ht / fluids
+
+Інтеграцію додано у 1.38.0; вона входить до опублікованої 1.39.0.
+[Онлайн-протокол публікації](https://github.com/lamerroma/water-steam-if97/blob/main/docs/RELEASE_STATUS_UK.md).
 
 ## Що підключено
 

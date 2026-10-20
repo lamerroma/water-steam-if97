@@ -84,4 +84,8 @@ Python-залежності: iapws 1.5.5, CoolProp 8.0.0, mpmath, matplotlib. П
 
 Контрольні суми й сирі результати — [NUMERICAL_PRECISION_FOLLOWUP_ACCEPTANCE.json](NUMERICAL_PRECISION_FOLLOWUP_ACCEPTANCE.json). Підсумковий статус: **passed-with-model-limits**.
 
-Для локального збереження цієї роботи створено [архів вихідних змін](/workspace/water-steam-if97/.release/accuracy-followup/source-backup.zip). Він накладається на опублікований коміт `934113f`; після розпакування потрібно виконати `npm run build`. Архів не містить великих згенерованих HTML/JS-файлів — вони відтворюються збіркою.
+У початковому середовищі для локального збереження цієї роботи створювався
+архів .release/accuracy-followup/source-backup.zip, який накладався на коміт
+934113f. Цей тимчасовий архів не входить до репозиторію й не є доступним
+завантаженням. Відстежувані вихідні файли та зміни збережені в Git-історії;
+готові ресурси відтворюються командою npm run build.

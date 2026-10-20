@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test tests/*.test.mjs",
+    "check:docs": "node scripts/check-docs-links.mjs",
     "build": "node scripts/build.mjs",
     "package": "node scripts/package-release.mjs",
     "serve": "python scripts/serve-pwa.py",

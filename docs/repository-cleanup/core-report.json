@@ -1,0 +1,161 @@
+{
+  "started": "2026-10-20T11:38:32.348Z",
+  "mode": "core",
+  "version": "1.39.0",
+  "build": {
+    "version": "1.39.0",
+    "id": "0268d327cdad"
+  },
+  "status": "passed",
+  "checks": [
+    {
+      "name": "build",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5483,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\build.log"
+    },
+    {
+      "name": "documentation",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 443,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\documentation.log"
+    },
+    {
+      "name": "fluids-pipe-reference",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 1088,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\fluids-pipe-reference.log"
+    },
+    {
+      "name": "unit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 70995,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\unit.log"
+    },
+    {
+      "name": "water",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 37580,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\water.log"
+    },
+    {
+      "name": "transport",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 381,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\transport.log"
+    },
+    {
+      "name": "steam97-p09-units",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 362,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\steam97-p09-units.log"
+    },
+    {
+      "name": "steam97-p03",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 17345,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\steam97-p03.log"
+    },
+    {
+      "name": "steam97-p04",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 768,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\steam97-p04.log"
+    },
+    {
+      "name": "reactor",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 1257,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\reactor.log"
+    },
+    {
+      "name": "reactor-thermal",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 220,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\reactor-thermal.log"
+    },
+    {
+      "name": "reactor-validation",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 809,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\reactor-validation.log"
+    },
+    {
+      "name": "reactor-cell-audit",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 134,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\reactor-cell-audit.log"
+    },
+    {
+      "name": "rebuild",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 3147,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\rebuild.log"
+    },
+    {
+      "name": "deterministic-build",
+      "status": "passed"
+    },
+    {
+      "name": "package",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 3462,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\package.log"
+    },
+    {
+      "name": "package-integrity",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 511,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\package-integrity.log"
+    },
+    {
+      "name": "repackage",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 3577,
+      "log": ".release\\2026-10-20T11-38-32-302Z\\repackage.log"
+    },
+    {
+      "name": "deterministic-package",
+      "status": "passed"
+    }
+  ],
+  "artifacts": {
+    "index.html": "e40912356dcee0a2b4d73f4bfd3e7b910e273589872d78f09e2b9d00f587ec18",
+    "assets/app.js": "e119d1d2c2be3f5e4c764cad3bafa6e52d4cdcfcdb7b1c06720bd0e52cf1a61d",
+    "assets/calculator-worker.js": "e32ddc6ee8162240d58c832992dd0a7f00eba5c585a41a38a258acdf86b6efaf",
+    "assets/python-worker.js": "d0bdbefd8893976e66782c0fa6bd3f9f7789b926eae2331d0919fd2409715820",
+    "assets/python-package.json": "b91498d7a5363a08e075adb4c1ea9fc64b9a4ce4886466b85c252ebdffaa8763",
+    "assets/sheetjs.js": "cc015130aa8521e7f088f88898eba949ccdcbfb38df0bd129b44b7273c3a6f41",
+    "assets/styles.css": "581ffe30e92d0d424405c34c8a33ad2a27a061fd2dddd698298d23b517b97aa8",
+    "assets/coolprop.wasm": "28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307",
+    "service-worker.js": "3e4579746ab674d94013df932e847c87a29d2ee356b2f7e950c16bc7042fa56a",
+    "manifest.webmanifest": "63130e8f1083e12602ca499f9de40ad3d97d64b457c005ce570215966f783056",
+    "dist/water-steam-calculator.zip": {
+      "sha256": "fe4b58a8b878ebfad9c6c163cfa2847291ef00f70b6f438e0f0f87ef499d2d52",
+      "bytes": 30323025
+    }
+  },
+  "scope": "Software acceptance only; passing does not validate every physical model or device.",
+  "physicalValidation": {
+    "reactorCell": "physical-screening-failed",
+    "scope": "Independent cell screening; failure blocks claims of neutron-model physical validation, separately from software acceptance."
+  },
+  "completed": "2026-10-20T11:41:00.066Z"
+}
