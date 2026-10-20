@@ -49,7 +49,7 @@ async function main(){
  const resources=JSON.parse(worker.match(/const RESOURCES=(\[[^;]+\]);/)[1]);
  const names=[...new Set(resources.map(path=>path.split('?')[0])),'service-worker.js'];
  const entries=await Promise.all(names.map(async name=>[name,await read('dist/'+name)]));
- for(const [name,source] of [['LICENSE','LICENSE'],['THIRD_PARTY_NOTICES.md','THIRD_PARTY_NOTICES.md'],['QUICK_START_UK.md','docs/QUICK_START_UK.md'],['PWA_UK.md','docs/PWA_UK.md'],['PWA_ARCHITECTURE_UK.md','docs/PWA_ARCHITECTURE_UK.md'],['serve.py','scripts/serve-pwa.py']])entries.push([name,await read(source)]);
+ for(const [name,source] of [['LICENSE','LICENSE'],['THIRD_PARTY_NOTICES.md','THIRD_PARTY_NOTICES.md'],['QUICK_START_UK.md','docs/QUICK_START_UK.md'],['PWA_UK.md','docs/PWA_UK.md'],['PWA_ARCHITECTURE_UK.md','docs/PWA_ARCHITECTURE_UK.md'],['CALCULATION_MODULES_UK.md','docs/CALCULATION_MODULES_UK.md'],['serve.py','scripts/serve-pwa.py']])entries.push([name,await read(source)]);
  entries.push(['README.txt',Buffer.from(README)],['BUILD_INFO.json',Buffer.from(JSON.stringify(build,null,2)+'\n')]);
  const zipPath=new URL('dist/water-steam-calculator.zip',root);
  await writeFile(zipPath,archive(entries));

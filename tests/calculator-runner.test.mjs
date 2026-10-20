@@ -1,10 +1,11 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {createCalculationRunner} from '../src/calculator-runner.js';
+import {calculationReplyIdentity} from '../src/calculation-protocol.js';
 function harness(timeout=1000){
  const workers=[];
  const runner=createCalculationRunner(()=>{const w={terminated:false,postMessage(message){this.request=message;},terminate(){this.terminated=true;}};workers.push(w);return w;},timeout);
- return {runner,workers,answer:(w,result)=>w.onmessage({data:{id:w.request.id,result}})};
+ return {runner,workers,answer:(w,result)=>w.onmessage({data:{...calculationReplyIdentity(w.request),status:'ok',result}})};
 }
 test('Cancellation terminates the search, ignores late replies, and permits another calculation',async()=>{
  const {runner,workers,answer}=harness();const first=runner.calculate('hv',3000,.1,'IAPWS-95'),cancelled=assert.rejects(first,{code:'cancelled'});
@@ -25,9 +26,34 @@ test('Timeout and worker failure terminate the operation and allow a fresh execu
 });
 test('A numerical error preserves the warm worker; a startup exception remains retryable',async()=>{
  const {runner,workers,answer}=harness();const result=runner.calculate('pt',-1,0,'IF97'),rejected=assert.rejects(result,{code:'calculation',message:'Invalid pressure'});
- workers[0].onmessage({data:{id:workers[0].request.id,error:'Invalid pressure'}});await rejected;
+ workers[0].onmessage({data:{...calculationReplyIdentity(workers[0].request),status:'error',error:{code:'calculation',message:'Invalid pressure',details:{}}}});await rejected;
  const next=runner.calculate('pt',1,300,'IF97');assert.equal(workers.length,1);answer(workers[0],'valid');assert.equal(await next,'valid');
  let attempts=0;const startup=createCalculationRunner(()=>{attempts++;throw Error('Blocked');});for(let i=0;i<2;i++)await assert.rejects(startup.calculate('pt',1,300,'IF97'),{code:'unavailable'});assert.equal(attempts,2);
+});
+
+test('Generic module calls return metadata; AbortSignal terminates computation and is detached after completion',async()=>{
+ const {runner,workers}=harness(),controller=new AbortController();
+ const pending=runner.run('water','calculate',{mode:'pt',a:30,b:100,model:'IF97'},{inputUnits:{a:'bar',b:'C'},signal:controller.signal});
+ assert.equal(workers[0].request.moduleId,'water');assert.deepEqual(workers[0].request.inputUnits,{a:'bar',b:'C'});
+ const rejected=assert.rejects(pending,{code:'cancelled'});controller.abort();await rejected;assert.equal(workers[0].terminated,true);
+ const completed=new AbortController(),next=runner.run('water','calculate',{mode:'pt',a:3,b:373.15},{signal:completed.signal});
+ const reply={...calculationReplyIdentity(workers[1].request),status:'ok',result:{state:{h:421}},quantities:{'state.h':{value:421,unit:'kJ/kg'}},warnings:[]};workers[1].onmessage({data:reply});assert.deepEqual(await next,reply);
+ const following=runner.calculate('pt',3,400);completed.abort();assert.equal(runner.busy,true);assert.equal(workers[1].terminated,false);
+ workers[1].onmessage({data:{...calculationReplyIdentity(workers[1].request),status:'ok',result:{state:'following'}}});assert.deepEqual(await following,{state:'following'});
+});
+
+test('Invalid units and already-aborted requests do not start workers; mismatched response versions are rejected',async()=>{
+ const {runner,workers}=harness();
+ await assert.rejects(runner.run('water','calculate',{mode:'pt',a:3,b:300},{inputUnits:{a:'K',b:'MPa'}}),{code:'invalid-units'});assert.equal(workers.length,0);
+ await assert.rejects(runner.run('water','calculate',{mode:'pt',a:3,b:300},{signal:{}}),{code:'invalid-input'});assert.equal(runner.busy,false);assert.equal(workers.length,0);
+ const abort=new AbortController();abort.abort();await assert.rejects(runner.run('water','calculate',{mode:'pt',a:3,b:300},{signal:abort.signal}),{code:'cancelled'});assert.equal(workers.length,0);
+ const bad=runner.calculate('pt',3,300),rejected=assert.rejects(bad,{code:'protocol'});
+ workers[0].onmessage({data:{...calculationReplyIdentity(workers[0].request),engineVersion:'different',status:'ok',result:{}}});await rejected;assert.equal(workers[0].terminated,true);
+});
+
+test('Nontransferable arguments release the runner and permit a fresh worker',async()=>{
+ const workers=[];const runner=createCalculationRunner(()=>{const worker={postMessage(){throw new DOMException('Cannot clone','DataCloneError');},terminate(){this.terminated=true;}};workers.push(worker);return worker;});
+ for(let i=0;i<2;i++){await assert.rejects(runner.run('workflows','project',{text:'project',extra:()=>{}}),{code:'invalid-input'});assert.equal(runner.busy,false);assert.equal(workers[i].terminated,true);}
 });
 test('Input spelling and canonical rounding increments reach the background executor unchanged',async()=>{
  const {runner,workers,answer}=harness(),options={inputRounding:[{text:'3.000',unit:'MPa',halfWidth:.0005},{text:'100.0',unit:'C',halfWidth:.05}]};

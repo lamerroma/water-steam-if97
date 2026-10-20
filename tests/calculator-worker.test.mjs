@@ -7,12 +7,15 @@ import {buildLibraryCycle,compareLibraryCycles} from '../src/cycle-library.js';
 import {solveRankineSweep} from '../src/rankine-sweep.js';
 import {studyReportHTML} from '../src/study-report.js';
 import {readProject} from '../src/project.js';
+import {createLegacyCalculationRequest,createCalculationRequest,validateCalculationReply} from '../src/calculation-protocol.js';
 await initialize(await readFile(new URL('../vendor/seuif97_bg.wasm',import.meta.url)));
 const source=await readFile(new URL('../assets/calculator-worker.js',import.meta.url),'utf8');
+const implementationRevision=JSON.parse(source.match(/const CALCULATION_IMPLEMENTATION_REVISION = ([^\n]+);/)[1]);
 test('Built background kernel preserves all 20 modes for both water models',async()=>{
  const worker=new Worker("const {parentPort}=require('node:worker_threads');globalThis.self=globalThis;self.postMessage=data=>parentPort.postMessage(data);parentPort.on('message',data=>self.onmessage({data}));\n"+source,{eval:true});
  let id=0;
- const execute=(type,payload)=>new Promise((resolve,reject)=>{const onError=e=>{worker.off('message',onMessage);reject(e);};const onMessage=data=>{worker.off('error',onError);if(data.error)reject(Error(data.error));else resolve(data.result);};worker.once('error',onError);worker.once('message',onMessage);worker.postMessage({id:++id,type,payload});});
+ const send=request=>new Promise((resolve,reject)=>{request={...request,implementationRevision:request.implementationRevision??implementationRevision};const onError=e=>{worker.off('message',onMessage);reject(e);};const onMessage=data=>{worker.off('error',onError);try{validateCalculationReply(request,data);resolve(data);}catch(error){reject(error);}};worker.once('error',onError);worker.once('message',onMessage);worker.postMessage(request);});
+ const execute=async(type,payload)=>{const reply=await send(createLegacyCalculationRequest(++id,type,payload));if(reply.status==='error')throw Object.assign(Error(reply.error.message),reply.error);return reply.result;};
  try{
   const pairs={pt:['p','T'],ph:['p','h'],ps:['p','s'],hs:['h','s'],prho:['p','rho'],trho:['T','rho'],pv:['p','v'],pu:['p','u'],tv:['T','v'],tu:['T','u'],us:['u','s'],vs:['v','s'],hv:['h','v'],uv:['u','v'],th:['T','h'],ts:['T','s'],px:['p','x'],tx:['T','x'],satp:['p'],satt:['T']};
   let count=0;
@@ -43,5 +46,9 @@ test('Built background kernel preserves all 20 modes for both water models',asyn
   const text=JSON.stringify(project);assert.deepEqual(await execute('project',{text}),structuredClone(readProject(text)));
   await assert.rejects(execute('calculate',{mode:'pt',a:-1,b:300,model:'IF97'}),/Тиск/);
   await assert.rejects(execute('project',{text:'{"format":"invalid","version":99}'}),/формат|версія/);
+  const converted=await send(createCalculationRequest({id:++id,moduleId:'water',methodId:'calculate',payload:{mode:'pt',a:30,b:100,model:'IF97'},inputUnits:{a:'bar',b:'C'}}));
+  assert.equal(converted.status,'ok');assert.deepEqual(converted.result,structuredClone(calculate('pt',3,373.15)));assert.equal(converted.quantities['state.h'].unit,'kJ/kg');assert.equal(converted.units.pressureBasis,'absolute');
+  const unsupported=await send(createCalculationRequest({id:++id,moduleId:'water',methodId:'calculate',engineVersion:'future',payload:{mode:'pt',a:3,b:373.15}}));assert.equal(unsupported.error.code,'version-mismatch');
+  const stale=await send({...createCalculationRequest({id:++id,moduleId:'water',methodId:'calculate',payload:{mode:'pt',a:3,b:373.15}}),implementationRevision:'old-worker'});assert.equal(stale.error.code,'version-mismatch');
  }finally{await worker.terminate();}
 });

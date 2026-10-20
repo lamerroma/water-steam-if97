@@ -64,5 +64,5 @@ test('Worker payload retains correction assumptions and cancellation invalidates
  const task=runner.gasTable('pt',1,1600,mixture,'mole',options),reject=assert.rejects(task,{code:'cancelled'});
  assert.deepEqual(workers[0].request.payload.options,options);runner.cancel();await reject;assert.ok(workers[0].stopped);
  const retry=runner.gasTable('pt',1,1600,mixture,'mole',options);workers[0].onmessage({data:{id:workers[0].request.id,result:{stale:true}}});assert.ok(runner.busy);
- workers[1].onmessage({data:{id:workers[1].request.id,result:{fresh:true}}});assert.deepEqual(await retry,{fresh:true});
+ const request=workers[1].request;workers[1].onmessage({data:{protocolVersion:request.protocolVersion,id:request.id,moduleId:request.moduleId,engineVersion:request.engineVersion,implementationRevision:request.implementationRevision,methodId:request.methodId,status:'ok',result:{fresh:true}}});assert.deepEqual(await retry,{fresh:true});
 });

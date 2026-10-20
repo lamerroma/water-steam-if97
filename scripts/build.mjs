@@ -27,9 +27,15 @@ async function collectWorkerModules(file){
  }
 }
 await collectWorkerModules('src/calculator-worker.js');
-const workerFiles=[...files.filter(file=>workerModules.has(file)),'src/calculator-worker.js'];
+// Protocol follows units; adapters follow all numerical dependencies in this deterministic bundle.
+files.splice(files.indexOf('src/units.js')+1,0,'src/calculation-protocol.js');
+const workerFiles=[...files.filter(file=>workerModules.has(file)),'src/calculation-modules.js','src/calculator-worker.js'];
 for(const file of workerModules)if(!workerFiles.includes(file))throw Error('Missing worker module: '+file);
-let calculatorWorkerCode='"use strict";\n(async()=>{\nconst WASM_BASE64 = '+JSON.stringify((await readFile(new URL('vendor/seuif97_bg.wasm',root))).toString('base64'))+';\n';
+const implementationHash=createHash('sha256');
+for(const file of workerFiles)implementationHash.update(file).update('\0').update(await read(file)).update('\0');
+implementationHash.update(await readFile(new URL('vendor/seuif97_bg.wasm',root)));
+const implementationRevision=implementationHash.digest('hex');
+let calculatorWorkerCode='"use strict";\n(async()=>{\nconst CALCULATION_IMPLEMENTATION_REVISION = '+JSON.stringify(implementationRevision)+';\nconst WASM_BASE64 = '+JSON.stringify((await readFile(new URL('vendor/seuif97_bg.wasm',root))).toString('base64'))+';\n';
 for(const file of workerFiles){
  calculatorWorkerCode+='\n// '+file+'\n'+(await read(file)).replace(/^import .*?;\r?\n/gm,'').replace(/^export \{.*?\};\r?\n/gm,'').replace(/^export /gm,'').replace(/import\.meta\.url/g,"'file:///unused'")+'\n';
  if(file==='vendor/seuif97.js')calculatorWorkerCode+='const init=__wbg_init;\n';
@@ -44,8 +50,9 @@ async function buildCode() {
  for(const file of ['src/i18n.js','src/i18n-ui.js'])code+='\n'+(await read(file)).replace(/^import .*?;\r?\n/gm,'').replace(/^export /gm,'')+'\n';
  code+='const WASM_BASE64 = '+JSON.stringify((await readFile(new URL('vendor/seuif97_bg.wasm',root))).toString('base64'))+';\n';
  code+='const CALCULATOR_WORKER_URL = '+JSON.stringify(calculatorWorkerPath)+';\n';
+ code+='const CALCULATION_IMPLEMENTATION_REVISION = '+JSON.stringify(implementationRevision)+';\n';
  for(const file of files) {
-  if(file==='src/app.js')code+='\n'+(await read('src/calculator-runner.js')).replace(/^export /gm,'')+'\n';
+  if(file==='src/app.js')code+='\n'+(await read('src/calculator-runner.js')).replace(/^import .*?;\r?\n/gm,'').replace(/^export /gm,'')+'\n';
   let s=await read(file);
   if(file==='vendor/coolprop.js')s=(await staticCoolProp(s)).replace('async function Module(', 'async function createCoolProp(').replace('export default Module;','');
   s=s.replace(/^import .*?;\r?\n/gm,'').replace(/^export \{.*?\};\r?\n/gm,'').replace(/^export /gm,'').replace(/import\.meta\.url/g,"'file:///unused'");
