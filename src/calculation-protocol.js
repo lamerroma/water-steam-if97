@@ -30,7 +30,7 @@ export const CALCULATION_MODULES=calculationFreeze([
    dissociation:{experimental:true,temperature:{unit:'K',min:1200,max:2000},pressure:{unit:'MPa',min:.01,max:5},conditions:['Complete combustion in ordinary air; explicit lambda > 1.05.','Initial mole fractions: N2 > 0, O2 >= 0.01, CO = 0.'],unavailableOutputs:['w','isentropic'],composition:'initial-frozen',equilibriumCompositionComputed:false},steam97WebParityVerified:false}},
  {id:'workflows',engineVersion:'1.0.0',runtime:'javascript-wasm',methods:['project','rankine-sweep','study-report-html','water-process','custom-cycle','library-cycle','cycle-comparison','cycle-preset'],resultFormat:'native',
   validity:{authority:'Each existing workflow validates its own input and physical model.',units:'Native method-specific schemas are preserved; no generic numeric-unit inference.'}},
- ...[['ht','1.2.0'],['fluids','1.3.1']].map(([id,engineVersion])=>({id,engineVersion,runtime:'pyodide',methods:['catalog','describe','call','get','release'],resultFormat:'python-json',
+ ...[['ht','1.2.0'],['fluids','1.3.1']].map(([id,engineVersion])=>({id,engineVersion,runtime:'pyodide',methods:['catalog','describe','call','get','release',...(id==='fluids'?['pipe-hydraulics']:[])],resultFormat:'python-json',
   validity:{authority:'Pinned, unmodified upstream package. Consult the selected function documentation and its correlation domain.',units:'Upstream documented units; no automatic conversion.',numericalAcceptance:'pending',optionalDependencies:'Numba, Pint, plotting and other extras are not bundled.'}}))
 ]);
 export class CalculationModuleError extends Error{

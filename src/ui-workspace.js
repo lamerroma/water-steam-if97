@@ -109,7 +109,7 @@ function uiConvertTables(){
  // Convert explicit value/unit rows and explicit unit-bearing columns. Store the
  // original displayed values to make repeated preference changes reversible.
  for(const table of $('process-view').querySelectorAll('table')){
-  if(table.closest('form')||table.classList.contains('thermal-evidence')||table.closest('#cw-steps-detail,#cw-node-detail'))continue;
+  if(table.hasAttribute('data-canonical-units')||table.closest('form')||table.classList.contains('thermal-evidence')||table.closest('#cw-steps-detail,#cw-node-detail'))continue;
   if(!uiTableSources.has(table)){
    const heads=[...table.querySelectorAll('thead th')],rows=[...table.querySelectorAll('tbody tr')];
    const units=heads.map(h=>{const s=h.textContent,m=s.match(/\[([^\]]+)\]|,\s*(.+)$/);return m?uiUnitFromLabel(m[1]||m[2]):null;});

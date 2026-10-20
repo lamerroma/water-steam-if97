@@ -1,0 +1,40 @@
+{
+  "started": "2026-10-20T10:19:55.582Z",
+  "version": "1.39.0",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "hydraulics",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4709,
+      "log": ".release/fluids-pipe-ui-regression/hydraulics-chromium.log"
+    },
+    {
+      "name": "hydraulics",
+      "browser": "firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4579,
+      "log": ".release/fluids-pipe-ui-regression/hydraulics-firefox.log"
+    },
+    {
+      "name": "ui-workspace",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4732,
+      "log": ".release/fluids-pipe-ui-regression/ui-workspace-chromium.log"
+    },
+    {
+      "name": "ui-workspace",
+      "browser": "firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4593,
+      "log": ".release/fluids-pipe-ui-regression/ui-workspace-firefox.log"
+    }
+  ],
+  "finished": "2026-10-20T10:20:14.216Z"
+}

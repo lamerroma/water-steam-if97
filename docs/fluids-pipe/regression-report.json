@@ -1,0 +1,88 @@
+{
+  "started": "2026-10-20T10:13:46.624Z",
+  "version": "1.39.0",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "hydraulics",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4682,
+      "log": ".release/fluids-pipe-regression/hydraulics-chromium.log"
+    },
+    {
+      "name": "hydraulics",
+      "browser": "firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4578,
+      "log": ".release/fluids-pipe-regression/hydraulics-firefox.log"
+    },
+    {
+      "name": "python-libraries",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 29136,
+      "log": ".release/fluids-pipe-regression/python-libraries-chromium.log"
+    },
+    {
+      "name": "python-libraries",
+      "browser": "firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 103305,
+      "log": ".release/fluids-pipe-regression/python-libraries-firefox.log"
+    },
+    {
+      "name": "pwa",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 17311,
+      "log": ".release/fluids-pipe-regression/pwa-chromium.log"
+    },
+    {
+      "name": "pwa",
+      "browser": "firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 40287,
+      "log": ".release/fluids-pipe-regression/pwa-firefox.log"
+    },
+    {
+      "name": "pwa-package",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 10991,
+      "log": ".release/fluids-pipe-regression/pwa-package-chromium.log"
+    },
+    {
+      "name": "pwa-package",
+      "browser": "firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 14316,
+      "log": ".release/fluids-pipe-regression/pwa-package-firefox.log"
+    },
+    {
+      "name": "project-safety",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 3839,
+      "log": ".release/fluids-pipe-regression/project-safety-chromium.log"
+    },
+    {
+      "name": "study",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6254,
+      "log": ".release/fluids-pipe-regression/study-chromium.log"
+    }
+  ],
+  "finished": "2026-10-20T10:17:41.352Z"
+}

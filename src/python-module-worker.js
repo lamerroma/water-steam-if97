@@ -1,3 +1,4 @@
+import {PIPE_VERIFICATION_UNITS,PIPE_VERIFICATION_INPUT_UNITS} from './pipe-verification.js';
 import {normalizeCalculationRequest,CalculationModuleError,calculationReplyIdentity,calculationErrorReply} from './calculation-protocol.js';
 import {createPythonPackageManager} from './python-package.js';
 
@@ -32,9 +33,10 @@ self.onmessage=async({data:request})=>{
   const response=JSON.parse(backend.execute(JSON.stringify({module:request.moduleId,method:request.methodId,payload})));
   if(!response.ok)throw new CalculationModuleError(response.code,response.message);
   const outputs=response.description?.documentedUnits?.Returns??[];
-  const quantities=typeof response.result==='number'?{result:{value:response.result,unit:outputs.length===1?outputs[0].unit:null,status:'available',unitSource:'upstream-documentation'}}:{};
+  const pipe=request.methodId==='pipe-hydraulics';
+  const quantities=pipe?Object.fromEntries(Object.entries(PIPE_VERIFICATION_UNITS).map(([key,unit])=>[key,{value:response.result[key],unit,status:response.result[key]===null?'unavailable':'available'}])):typeof response.result==='number'?{result:{value:response.result,unit:outputs.length===1?outputs[0].unit:null,status:'available',unitSource:'upstream-documentation'}}:{};
   self.postMessage({...calculationReplyIdentity(request),status:'ok',result:response.result,model:request.moduleId+' '+descriptor.engineVersion,quantities,
-   units:{convention:'Upstream documented units (generally SI); no automatic conversion.',inputs:response.description?.documentedUnits?.Parameters??[],outputs},
+   units:pipe?{convention:'Canonical SI; explicit pipe workflow contract, no implicit unit conversion.',inputs:PIPE_VERIFICATION_INPUT_UNITS,outputs:PIPE_VERIFICATION_UNITS}:{convention:'Upstream documented units (generally SI); no automatic conversion.',inputs:response.description?.documentedUnits?.Parameters??[],outputs},
    warnings:[{code:'integration-only',message:'Library connected; comprehensive independent numerical acceptance is pending.'}],
    validity:descriptor.validity,...(response.description?{description:response.description}:{})});
  }catch(error){self.postMessage(calculationErrorReply(request,error));}

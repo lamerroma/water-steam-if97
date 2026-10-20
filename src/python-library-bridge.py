@@ -167,6 +167,8 @@ def _thermocalc_library_json(text):
         if package not in ('ht', 'fluids'):
             raise ValueError('Unsupported library.')
         _library_active_package = package
+        if package == 'fluids' and method == 'pipe-hydraulics':
+            return json.dumps({'ok': True, 'result': _thermocalc_pipe(payload)}, allow_nan=False)
         if method == 'catalog':
             return json.dumps({'ok': True, 'result': _library_catalog(package)}, allow_nan=False)
         if method == 'release':

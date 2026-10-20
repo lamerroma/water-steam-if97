@@ -13,7 +13,9 @@ export function pipeFlow({kind,value,diameter,rho,viscosity,viscosityKind='dynam
  if(kind==='standard'&&standardDensity==null)throw Error('Задайте стандартні умови газу.');
  const area=Math.PI*diameter**2/4,mu=viscosityKind==='dynamic'?viscosity:viscosity*rho,nu=mu/rho;
  const mass=kind==='mass'?value:kind==='volume'?value*rho:kind==='standard'?value*standardDensity:value*area*rho;
- const volume=mass/rho,velocity=volume/area,Re=velocity*diameter/nu;
+ // Keep a directly specified velocity exact. Reconstructing it through m/rho/A
+ // can move an exact regime boundary (e.g. Re=4000) to the other side by one ULP.
+ const volume=mass/rho,velocity=kind==='velocity'?value:volume/area,Re=velocity*diameter/nu;
  const standardVolume=standardDensity==null?null:mass/standardDensity;
  const Mach=soundSpeed!=null&&soundSpeed>0?velocity/soundSpeed:null;
  const values={area,mu,nu,mass,volume,velocity,Re,standardVolume,Mach};

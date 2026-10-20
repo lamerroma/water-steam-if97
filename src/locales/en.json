@@ -1844,5 +1844,21 @@
   "tool.libraries.name": "ht / fluids libraries",
   "tool.libraries.description": "Heat transfer, hydraulics and correlations from ht and fluids.",
   "tool.libraries.limits": "Experimental integration of the complete base packages. Functions, classes and data are accessible through the catalog; comprehensive independent numerical acceptance is pending. Use the units documented by each function (generally SI: Pa, K, m, kg, s). The main calculator unit preferences do not apply here.",
-  "libraries.licenses": "Licenses and source code"
+  "libraries.licenses": "Licenses and source code",
+  "flow.verify.label": "Compare with fluids",
+  "flow.verify.off": "No fluids comparison",
+  "flow.verify.scope": "Check Reynolds number, friction, local losses and head through fluids. Prepare the separate Python package (~32 MB). The primary column and study report use the native JS engine.",
+  "flow.verify.prepare": "Open library package preparation",
+  "flow.verify.cancel": "Cancel fluids comparison",
+  "flow.verify.cancelled": "Fluids comparison cancelled.",
+  "flow.verify.running": "Calculating through fluids…",
+  "flow.verify.starting": "Starting Python: {stage}…",
+  "flow.verify.missing": "Prepare the package in ht / fluids Libraries first, or turn off comparison.",
+  "flow.verify.matched": "Results agree within the numerical tolerance.",
+  "flow.verify.mismatch": "Numerical differences exceed tolerance; review the values.",
+  "flow.verify.policy": "Form policy: Re < 2300 uses 64/Re; 2300 ≤ Re < 4000 leaves friction and total losses unavailable, except known local losses at L=0; Re ≥ 4000 uses the selected method. This explicitly differs from the automatic fluids threshold of 2040. Constant properties, single-phase incompressible liquid, round pipe, ε/D ≤ 0.05.",
+  "flow.verify.quantity": "Quantity",
+  "flow.verify.unit": "SI unit",
+  "flow.verify.tolerance": "Agreement tolerance |fluids − JS| ≤",
+  "flow.verify.report": "This panel’s CSV and JSON contain both results, units, method and differences. The study report recomputes only the native JS calculation."
 }

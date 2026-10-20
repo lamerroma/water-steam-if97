@@ -1,6 +1,6 @@
 {
   "name": "water-steam-if97-uk",
-  "version": "1.38.1",
+  "version": "1.39.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -79,7 +79,9 @@
     "test:python-libraries": "node scripts/check-python-libraries-browser.cjs",
     "vendor:python": "python scripts/sync-python-libraries.py",
     "test:lazy-assets": "node scripts/check-lazy-assets-browser.cjs",
-    "benchmark:startup": "node scripts/benchmark-startup.cjs"
+    "benchmark:startup": "node scripts/benchmark-startup.cjs",
+    "audit:fluids:pipe": "python scripts/reference-fluids-pipe.py --check",
+    "test:fluids-pipe": "node scripts/check-fluids-pipe-browser.cjs"
   },
   "engines": {
     "node": ">=20"
