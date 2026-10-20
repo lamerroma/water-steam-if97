@@ -7,6 +7,7 @@
 *.gif -text
 *.ico -text
 *.zip -text
+*.whl -text
 *.pdf -text
 *.woff -text
 *.woff2 -text
@@ -15,3 +16,9 @@
 *.ods -text
 # Downloaded CSV evidence retains its original UTF-8 BOM and CRLF bytes.
 docs/steam97-p08/samples/*.csv -text whitespace=cr-at-eol
+# Preserve upstream license bytes, including their original whitespace.
+vendor/python/licenses/*.txt whitespace=-blank-at-eof,-blank-at-eol
+assets/python/*/licenses/*.txt whitespace=-blank-at-eof,-blank-at-eol
+dist/assets/python/*/licenses/*.txt whitespace=-blank-at-eof,-blank-at-eol
+# The generated worker retains the bundler's separators between source files.
+**/python-worker.js whitespace=-blank-at-eof

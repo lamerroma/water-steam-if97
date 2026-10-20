@@ -45,6 +45,17 @@ self.addEventListener('message',event=>{
 self.addEventListener('fetch',event=>{
  const request=event.request,u=new URL(request.url),scope=new URL(self.registration.scope);
  if(request.method!=='GET'||u.origin!==scope.origin||!u.pathname.startsWith(scope.pathname))return;
+ // Scientific packages have immutable versioned paths and an independent
+ // completion marker. Old open tabs may still use a previous package revision.
+ const python=u.pathname.slice(scope.pathname.length).match(/^assets\/python\/([a-f0-9]{16})\//);
+ if(python){event.respondWith((async()=>{
+  const name='thermocalc-python:'+scope.pathname+'|'+python[1];
+  if((await caches.keys()).includes(name)){
+   const cache=await caches.open(name),marker=await cache.match(new URL('assets/python/'+python[1]+'/complete',scope).href);
+   if(marker&&(await marker.text())===python[1]){const response=await cache.match(request);if(response)return response;}
+  }
+  return fetch(request);
+ })());return;}
  const navigation=request.mode==='navigate'&&(u.pathname===scope.pathname||u.pathname===scope.pathname+'index.html');
  if(!navigation&&!RESOURCES.some(path=>url(path)===u.href)&&!['assets/app.js','assets/styles.css','assets/coolprop.wasm','assets/calculator-worker.js'].some(path=>u.pathname===scope.pathname+path))return;
  event.respondWith((async()=>{

@@ -206,7 +206,7 @@ $('history-undo').onclick=()=>{if(!historyUndo)return;historyStates.splice(0,his
 window.addEventListener('beforeunload',e=>{if(unsavedProject){e.preventDefault();e.returnValue='';}});
 
 function selectView(view) {
- cancelStudyRender();cancelCustomCycle();cancelWaterProcess();cancelGasTables();capturePanel();activeSection=view==='panel'?'general':view;currentPanelKind=null;learningResult=null;
+ cancelStudyRender();cancelCustomCycle();cancelWaterProcess();cancelGasTables();cancelPythonLibraries();capturePanel();activeSection=view==='panel'?'general':view;currentPanelKind=null;learningResult=null;
  leaveDiagram();
  for(const b of document.querySelectorAll('[role="tab"]'))b.setAttribute('aria-selected','false');$('process-view').hidden=true;$('calculator-view').hidden=view==='help';$('help-view').hidden=view!=='help';
  for(const name of ['general','saturation','help'])$('tab-'+name).setAttribute('aria-selected',String(name===view));
@@ -316,7 +316,7 @@ document.addEventListener('click',event=>{
  if(action==='batch')showBatch();
  if(action==='satgrid')showSaturationGrid();
  if(action==='engineering')showEngineering();
- if(action==='flow')showFlow();
+ if(action==='flow')showFlow();if(action==='libraries')showPythonLibraries();
  if(action==='water-process')showWaterProcess();
  if(action==='custom-cycle')showCustomCycle();
  if(action==='coursework')showCoursework();if(action==='laboratory')showLaboratory();if(action==='tutorials')showTutorials();if(action==='npp')showNuclear();if(action==='study')showStudyReport();if(action==='research')showResearch();if(action==='exchanger')showExchanger();if(action==='projects')showProjectLibrary();
@@ -609,7 +609,7 @@ function restorePanelResult(kind,form,ready=Promise.resolve()){
  const record=panelRecords[kind];if(!record?.calculated)return;
  ready.then(()=>{if(!form.isConnected||activeSection!==kind)return;if(form.id==='batch-form'&&record.source==='csv')$('batch-import').click();else form.requestSubmit();}).catch(()=>{});
 }
-function openSection(kind){if(['general','saturation','help'].includes(kind))selectView(kind);else if(['ts','hsdiagram','phdiagram','turbine','flash'].includes(kind))showProcess(kind);else if(kind==='batch')showBatch();else if(kind==='satgrid')showSaturationGrid();else if(kind==='engineering')showEngineering();else if(kind==='flow')showFlow();else if(kind==='water-process')showWaterProcess();else if(kind==='custom-cycle')showCustomCycle();else if(kind==='npp')showNuclear();else if(kind==='study')showStudyReport();else if(kind==='research')showResearch();else if(kind==='exchanger')showExchanger();else if(kind==='projects')showProjectLibrary();else if(kind==='coursework')showCoursework();else if(kind==='laboratory')showLaboratory();else if(kind==='tutorials')showTutorials();else if(['boundaries','comparison'].includes(kind))scientificPanel(kind);else learningPanel(kind);}
+function openSection(kind){if(['general','saturation','help'].includes(kind))selectView(kind);else if(['ts','hsdiagram','phdiagram','turbine','flash'].includes(kind))showProcess(kind);else if(kind==='batch')showBatch();else if(kind==='satgrid')showSaturationGrid();else if(kind==='engineering')showEngineering();else if(kind==='flow')showFlow();else if(kind==='libraries')showPythonLibraries();else if(kind==='water-process')showWaterProcess();else if(kind==='custom-cycle')showCustomCycle();else if(kind==='npp')showNuclear();else if(kind==='study')showStudyReport();else if(kind==='research')showResearch();else if(kind==='exchanger')showExchanger();else if(kind==='projects')showProjectLibrary();else if(kind==='coursework')showCoursework();else if(kind==='laboratory')showLaboratory();else if(kind==='tutorials')showTutorials();else if(['boundaries','comparison'].includes(kind))scientificPanel(kind);else learningPanel(kind);}
 const STORAGE_KEY='water-steam-if97-project-v1';
 let importedProjectMetadata=null,recoveryProjectText=null,recoveryNeedsBackup=false,projectImportSequence=0;
 const RECOVERY_KEY=STORAGE_KEY+'-recovery';

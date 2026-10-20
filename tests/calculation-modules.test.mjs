@@ -9,11 +9,12 @@ await initialize(await readFile(new URL('../vendor/seuif97_bg.wasm',import.meta.
 const water=(payload={mode:'pt',a:3,b:373.15},extra={})=>createCalculationRequest({id:1,moduleId:'water',methodId:'calculate',payload,...extra});
 const gas=(payload,extra={})=>createCalculationRequest({id:2,moduleId:'gas-tables',methodId:'calculate',payload,...extra});
 
-test('Immutable module catalog names existing adapters and does not claim optional Python libraries',()=>{
- assert.deepEqual(CALCULATION_MODULES.map(module=>module.id),['water','gas-tables','workflows']);
+test('Immutable module catalog names pinned adapters; Python functions retain pending numerical acceptance',()=>{
+ assert.deepEqual(CALCULATION_MODULES.map(module=>module.id),['water','gas-tables','workflows','ht','fluids']);
  assert.throws(()=>CALCULATION_MODULES[0].models.push('other'),TypeError);
  assert.equal(CALCULATION_MODULES[1].validity.steam97WebParityVerified,false);
  assert.equal(CALCULATION_MODULES[2].resultFormat,'native');
+ assert.equal(CALCULATION_MODULES[3].validity.numericalAcceptance,'pending');
 });
 
 test('Water quantity conversion agrees exactly with the native kernel and preserves input spelling metadata',async()=>{
@@ -63,7 +64,7 @@ test('VDI4670 metadata carries experimental bounds and unavailable acoustic outp
 
 test('Protocol, module, adapter version, method and model failures have distinct stable codes',async()=>{
  const request=water();
- for(const [mutation,code] of [[{protocolVersion:99},'protocol'],[{id:0},'protocol'],[{moduleId:'ht'},'unsupported-module'],[{engineVersion:'future'},'version-mismatch'],[{methodId:'unknown'},'unsupported-method'],[{payload:{mode:'pt',a:3,b:300,model:'unknown'}},'unsupported-model']]){
+ for(const [mutation,code] of [[{protocolVersion:99},'protocol'],[{id:0},'protocol'],[{moduleId:'unknown'},'unsupported-module'],[{engineVersion:'future'},'version-mismatch'],[{methodId:'unknown'},'unsupported-method'],[{payload:{mode:'pt',a:3,b:300,model:'unknown'}},'unsupported-model']]){
   const reply=await dispatchCalculation({...request,...mutation});assert.equal(reply.status,'error');assert.equal(reply.error.code,code);assert.equal(typeof reply.error.message,'string');
  }
 });

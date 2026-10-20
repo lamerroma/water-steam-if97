@@ -5,6 +5,11 @@ import {createHash} from 'node:crypto';
 const root=new URL('../',import.meta.url);
 const read=path=>readFile(new URL(path,root),'utf8');
 const assetVersion=content=>createHash('sha256').update(content).digest('hex').slice(0,16);
+const pythonVendor=JSON.parse(await read('vendor/python/manifest.json'));
+const pythonRevision=assetVersion(JSON.stringify(pythonVendor));
+const pythonBase='assets/python/'+pythonRevision+'/';
+const pythonPackage={revision:pythonRevision,base:pythonBase,pyodide:pythonVendor.pyodide,python:pythonVendor.python,packages:pythonVendor.packages,
+ files:pythonVendor.files.map(file=>({url:pythonBase+file.path,sha256:file.sha256,bytes:file.bytes})),bytes:pythonVendor.files.reduce((sum,file)=>sum+file.bytes,0)};
 const catalogs={};
 for(const file of (await readdir(new URL('src/locales/',root))).filter(file=>/^[a-z]{2}(?:-[A-Z]{2})?\.json$/.test(file)).sort()){
  const language=file.slice(0,-5),catalog=JSON.parse(await read('src/locales/'+file));
@@ -28,13 +33,19 @@ async function collectWorkerModules(file){
 }
 await collectWorkerModules('src/calculator-worker.js');
 // Protocol follows units; adapters follow all numerical dependencies in this deterministic bundle.
-files.splice(files.indexOf('src/units.js')+1,0,'src/calculation-protocol.js');
+files.splice(files.indexOf('src/units.js')+1,0,'src/calculation-protocol.js','src/python-package.js');
+files.push('src/python-libraries-ui.js');
 const workerFiles=[...files.filter(file=>workerModules.has(file)),'src/calculation-modules.js','src/calculator-worker.js'];
 for(const file of workerModules)if(!workerFiles.includes(file))throw Error('Missing worker module: '+file);
 const implementationHash=createHash('sha256');
 for(const file of workerFiles)implementationHash.update(file).update('\0').update(await read(file)).update('\0');
 implementationHash.update(await readFile(new URL('vendor/seuif97_bg.wasm',root)));
+for(const file of ['src/python-package.js','src/python-module-worker.js','src/python-library-bridge.py'])implementationHash.update(file).update(await read(file));
+implementationHash.update(JSON.stringify(pythonVendor));
 const implementationRevision=implementationHash.digest('hex');
+let pythonWorkerCode='"use strict";\nconst CALCULATION_IMPLEMENTATION_REVISION = '+JSON.stringify(implementationRevision)+';\nconst PYTHON_PACKAGE = '+JSON.stringify(pythonPackage)+';\nconst PYTHON_BRIDGE_SOURCE = '+JSON.stringify(await read('src/python-library-bridge.py'))+';\n';
+for(const file of ['src/units.js','src/calculation-protocol.js','src/python-package.js','src/python-module-worker.js'])pythonWorkerCode+='\n'+(await read(file)).replace(/^import .*?;\r?\n/gm,'').replace(/^export /gm,'')+'\n';
+const pythonWorkerPath='assets/python-worker.js?v='+assetVersion(pythonWorkerCode);
 let calculatorWorkerCode='"use strict";\n(async()=>{\nconst CALCULATION_IMPLEMENTATION_REVISION = '+JSON.stringify(implementationRevision)+';\nconst WASM_BASE64 = '+JSON.stringify((await readFile(new URL('vendor/seuif97_bg.wasm',root))).toString('base64'))+';\n';
 for(const file of workerFiles){
  calculatorWorkerCode+='\n// '+file+'\n'+(await read(file)).replace(/^import .*?;\r?\n/gm,'').replace(/^export \{.*?\};\r?\n/gm,'').replace(/^export /gm,'').replace(/import\.meta\.url/g,"'file:///unused'")+'\n';
@@ -50,6 +61,7 @@ async function buildCode() {
  for(const file of ['src/i18n.js','src/i18n-ui.js'])code+='\n'+(await read(file)).replace(/^import .*?;\r?\n/gm,'').replace(/^export /gm,'')+'\n';
  code+='const WASM_BASE64 = '+JSON.stringify((await readFile(new URL('vendor/seuif97_bg.wasm',root))).toString('base64'))+';\n';
  code+='const CALCULATOR_WORKER_URL = '+JSON.stringify(calculatorWorkerPath)+';\n';
+ code+='const PYTHON_WORKER_URL = '+JSON.stringify(pythonWorkerPath)+';\nconst PYTHON_PACKAGE = '+JSON.stringify(pythonPackage)+';\n';
  code+='const CALCULATION_IMPLEMENTATION_REVISION = '+JSON.stringify(implementationRevision)+';\n';
  for(const file of files) {
   if(file==='src/app.js')code+='\n'+(await read('src/calculator-runner.js')).replace(/^import .*?;\r?\n/gm,'').replace(/^export /gm,'')+'\n';
@@ -77,20 +89,28 @@ const licenses='<!--\n'+await read('vendor/MODELICA-LICENSE')+'\n'+await read('L
 const page=versionedTemplate.replace('</head>', '<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#125a88"><link rel="apple-touch-icon" href="assets/icon-192.png"></head>')
  .replace('<style>/* STYLES */</style>',`<link rel="stylesheet" href="assets/styles.css?v=${assetVersion(styles)}">`)
  .replace('<script>/* APPLICATION */</script>',`<script src="assets/app.js?v=${assetVersion(codeMultiFile)}" defer></script>`);
-const resources=['index.html',`assets/app.js?v=${assetVersion(codeMultiFile)}`,`assets/styles.css?v=${assetVersion(styles)}`,`assets/coolprop.wasm?v=${buildId}`,'manifest.webmanifest','assets/icon-192.png','assets/icon-512.png',calculatorWorkerPath];
+const resources=['index.html',`assets/app.js?v=${assetVersion(codeMultiFile)}`,`assets/styles.css?v=${assetVersion(styles)}`,`assets/coolprop.wasm?v=${buildId}`,'manifest.webmanifest','assets/icon-192.png','assets/icon-512.png',calculatorWorkerPath,pythonWorkerPath,'assets/python-package.json'];
 const manifest=JSON.stringify({id:'./',name:'Навчальний теплофізичний калькулятор',short_name:'ThermoCalc',lang:'uk',start_url:'./',scope:'./',display:'standalone',background_color:'#eef4f8',theme_color:'#125a88',icons:[192,512].map(size=>({src:`assets/icon-${size}.png`,sizes:`${size}x${size}`,type:'image/png',purpose:'any'}))},null,2);
 const coolpropWasm=await readFile(new URL('vendor/coolprop.wasm',root));
 const resourceData={'index.html':licenses+page,[resources[1]]:codeMultiFile,[resources[2]]:styles,[resources[3]]:coolpropWasm,'manifest.webmanifest':manifest};
 resourceData[calculatorWorkerPath]=calculatorWorkerCode;
+resourceData[pythonWorkerPath]=pythonWorkerCode;
+resourceData['assets/python-package.json']=JSON.stringify(pythonPackage,null,2)+'\n';
 for(const size of [192,512])resourceData[`assets/icon-${size}.png`]=await readFile(new URL(`src/icons/icon-${size}.png`,root));
 const digests=Object.fromEntries(Object.entries(resourceData).map(([path,content])=>[path,createHash('sha256').update(content).digest('hex')]));
-const worker=(await read('src/service-worker.js')).replace('/* PWA_CONFIG */',`const BUILD=${JSON.stringify({version,id:buildId})};const RESOURCES=${JSON.stringify(resources)};const DIGESTS=${JSON.stringify(digests)};`);
+const worker=(await read('src/service-worker.js')).replace('/* PWA_CONFIG */',`const BUILD=${JSON.stringify({version,id:buildId})};const RESOURCES=${JSON.stringify(resources)};const DIGESTS=${JSON.stringify(digests)};const PYTHON_PACKAGE=${JSON.stringify(pythonPackage)};`);
 for(const prefix of ['', 'dist/']) {
  await mkdir(new URL(prefix+'assets/',root),{recursive:true});
  await writeFile(new URL(prefix+'index.html',root),licenses+page);
  await writeFile(new URL(prefix+'assets/styles.css',root),styles);
  await writeFile(new URL(prefix+'assets/app.js',root),codeMultiFile);
  await writeFile(new URL(prefix+'assets/calculator-worker.js',root),calculatorWorkerCode);
+ await writeFile(new URL(prefix+'assets/python-worker.js',root),pythonWorkerCode);
+ await writeFile(new URL(prefix+'assets/python-package.json',root),resourceData['assets/python-package.json']);
+ for(const file of pythonVendor.files){
+  const data=await readFile(new URL('vendor/python/'+file.path,root));if(data.length!==file.bytes||createHash('sha256').update(data).digest('hex')!==file.sha256)throw Error('Python vendor checksum mismatch: '+file.path);
+  const target=new URL(prefix+pythonBase+file.path,root);await mkdir(new URL('./',target),{recursive:true});await writeFile(target,data);
+ }
  await writeFile(new URL(prefix+'assets/coolprop.wasm',root),coolpropWasm);
  // Remove only the obsolete generated page, including after upgrading an old checkout.
  await rm(new URL(prefix+'standalone.html',root),{force:true});

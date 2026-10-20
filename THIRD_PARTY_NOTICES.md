@@ -45,7 +45,7 @@ MIT дозволяє використання, модифікацію та ро�
 
 ## Незалежний інструмент перевірки
 
-Python iapws 1.5.5 (Juan José Gómez Romera, GPL-3.0, https://github.com/jjgomera/iapws) використано лише в окремому тимчасовому Python-середовищі для числової звірки. Його код, SciPy та NumPy не включені до репозиторію або HTML. tests/fixtures/independent-iapws.json містить згенеровані числові результати з метаданими; scripts/reference-iapws.py — власна обгортка. Звичайна збірка та тести не потребують цього інструменту.
+Python iapws 1.5.5 (Juan José Gómez Romera, GPL-3.0, https://github.com/jjgomera/iapws) використано лише в окремому тимчасовому Python-середовищі для числової звірки. Його GPL-код не включено до застосунку. Окремі NumPy/SciPy тепер входять до Python-пакета ht/fluids за власними ліцензіями. tests/fixtures/independent-iapws.json містить згенеровані числові результати з метаданими; scripts/reference-iapws.py — власна обгортка. Звичайна збірка та тести не потребують цього інструменту.
 
 ## Власне ядро IAPWS-95
 
@@ -61,7 +61,7 @@ https://raw.githubusercontent.com/Cantera/cantera/e906c2f9341413412ab4d455d1e397
 
 SHA-256 джерела: `4de6199d65d2d3db782e30573720c723130953707336add59713b02d8667e4db`. Header посилається на McBride, Gordon, Reno, NASA TM-4513 (1993), https://ntrs.nasa.gov/citations/19940013151. Відібрано лише погоджені 11 компонентів; значення коефіцієнтів збережені. Молярні маси — Cantera 3.2.0. Алгоритм NASA7: https://cantera.org/stable/reference/thermo/species-thermo.html.
 
-Cantera: BSD-3-Clause; повний notice `vendor/CANTERA-LICENSE` включено також у готовий HTML. Авторські права Caltech, Sandia National Laboratories, Cantera Developers. Власна реалізація рівнянь у `src/gases.js`; Cantera, PyYAML та NumPy у runtime не входять. Відтворення даних/контролів — власний `scripts/reference-cantera.py`, який перевіряє SHA-256 перед читанням зовнішнього YAML. Дані описують ідеальні гази, не рівняння стану реальних газів.
+Cantera: BSD-3-Clause; повний notice `vendor/CANTERA-LICENSE` включено також у готовий HTML. Авторські права Caltech, Sandia National Laboratories, Cantera Developers. Власна реалізація рівнянь у `src/gases.js`; Cantera та PyYAML у runtime не входять; NumPy використовується лише окремим Python-пакетом ht/fluids. Відтворення даних/контролів — власний `scripts/reference-cantera.py`, який перевіряє SHA-256 перед читанням зовнішнього YAML. Дані описують ідеальні гази, не рівняння стану реальних газів.
 
 ## CoolProp audit
 
@@ -98,3 +98,34 @@ The eight-species decimal parameters in `src/gas-bsw2003-data.js` and `docs/stea
 ## P04 · VDI4670 reaction coefficients / Modelica reference
 
 Modelica Association and contributors, BSD-3-Clause; notice `vendor/MODELICA-LICENSE` is embedded in the HTML distributions. Coefficient reference: Modelica/Media/Air/ReferenceMoistAir.mo at commit `64d9bd4a625cc6f28c18c0398bbf4082ef460625`, https://github.com/modelica/ModelicaStandardLibrary/blob/64d9bd4a625cc6f28c18c0398bbf4082ef460625/Modelica/Media/Air/ReferenceMoistAir.mo. `src/gas-dissociation.js` independently implements the empirical caloric equations; Modelica runtime and its helper derivatives are not embedded. The CO/CO2 branch is derived from mass action with separately attributed empirical constants. This experimental extension is not verified as identical to Steam97Web. Source/version limitations: docs/steam97-p04. Cantera 3.2.0 / GRI30 is used separately for equilibrium diagnostics only; no new runtime dependency.
+
+
+## Додатковий Python-пакет ht / fluids (1.38.0)
+
+Пакети включено без модифікації upstream-коду. Версії, URL походження,
+SHA-256 та розміри всіх файлів: `vendor/python/manifest.json`.
+Відтворення комплекту: `python scripts/sync-python-libraries.py`.
+
+- **ht 1.2.0**, Copyright Caleb Bell and contributors, **MIT**.
+  https://github.com/CalebBell/ht — `vendor/python/licenses/ht-LICENSE.txt`.
+- **fluids 1.3.1**, Copyright Caleb Bell and contributors, **MIT**.
+  https://github.com/CalebBell/fluids — `vendor/python/licenses/fluids-LICENSE.txt`.
+- **Pyodide 314.0.7**, **MPL-2.0**, окремий незмінений runtime.
+  Текст: `vendor/python/licenses/pyodide-LICENSE.txt`. Відповідний вихідний код:
+  https://github.com/pyodide/pyodide/tree/314.0.7 ; архів джерел:
+  https://github.com/pyodide/pyodide/archive/refs/tags/314.0.7.tar.gz .
+  Цей runtime не перелiцензовується під MIT застосунку.
+- **CPython 3.14.2**, **PSF-2.0 та вкладені повідомлення**:
+  `vendor/python/licenses/cpython-LICENSE.txt`, https://github.com/python/cpython/tree/v3.14.2 .
+- **Emscripten 5.0.3**, **MIT / LLVM exceptions та вкладені повідомлення**:
+  `vendor/python/licenses/emscripten-LICENSE.txt`, https://github.com/emscripten-core/emscripten/tree/5.0.3 .
+- **NumPy 2.4.6** та **SciPy 1.18.0** — BSD-3-Clause і повідомлення вкладених
+  компонентів у незмінених Pyodide wheels. Повні license-файли збережені всередині
+  wheels (`*.dist-info/licenses/`), які розповсюджуються разом із пакетом і ZIP.
+  Джерела: https://github.com/numpy/numpy/tree/v2.4.6 та
+  https://github.com/scipy/scipy/tree/v1.18.0 ; параметри WASM-збірок:
+  https://github.com/pyodide/pyodide/tree/314.0.7/packages .
+
+Під час розрахунку всі ці файли завантажуються лише з локального походження
+застосунку. Їхня наявність і ліцензія не означають перевірки застосовності кожної
+кореляції або повної числової відповідності іншому калькулятору.

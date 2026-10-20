@@ -1,0 +1,40 @@
+{
+  "started": "2026-10-20T08:45:13.895Z",
+  "version": "1.38.0",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "steam97-p03",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 20147,
+      "log": ".release/python-regression-retry/steam97-p03-chromium.log"
+    },
+    {
+      "name": "steam97-p03",
+      "browser": "firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 25549,
+      "log": ".release/python-regression-retry/steam97-p03-firefox.log"
+    },
+    {
+      "name": "steam97-p04",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 13847,
+      "log": ".release/python-regression-retry/steam97-p04-chromium.log"
+    },
+    {
+      "name": "steam97-p04",
+      "browser": "firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 20902,
+      "log": ".release/python-regression-retry/steam97-p04-firefox.log"
+    }
+  ],
+  "finished": "2026-10-20T08:46:34.362Z"
+}

@@ -38,7 +38,7 @@ const record=x=>x&&typeof x==='object'&&!Array.isArray(x);
 // when their panel is opened, including modules whose WASM is loaded on demand.
 export function readWorkspace(value){
  if(value==null)return {active:'general',panels:{}};
- if(!record(value)||!record(value.panels)||!['general','saturation','help','ts','hsdiagram','phdiagram','tutorials','study','research','projects',...WORKSPACE_PANELS].includes(value.active))throw Error('Некоректний робочий простір проєкту.');
+ if(!record(value)||!record(value.panels)||!['general','saturation','help','ts','hsdiagram','phdiagram','tutorials','study','research','projects','libraries',...WORKSPACE_PANELS].includes(value.active))throw Error('Некоректний робочий простір проєкту.');
  const panels={};
  for(const [kind,p] of Object.entries(value.panels)){
   if(!WORKSPACE_PANELS.includes(kind)||!record(p)||!record(p.inputs)||typeof p.calculated!=='boolean'||(p.model!=null&&!(['water-process','custom-cycle'].includes(kind)?PROCESS_MODELS:['IF97','IAPWS-95']).includes(p.model)))throw Error('Некоректна вкладка проєкту.');

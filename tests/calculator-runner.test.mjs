@@ -7,6 +7,22 @@ function harness(timeout=1000){
  const runner=createCalculationRunner(()=>{const w={terminated:false,postMessage(message){this.request=message;},terminate(){this.terminated=true;}};workers.push(w);return w;},timeout);
  return {runner,workers,answer:(w,result)=>w.onmessage({data:{...calculationReplyIdentity(w.request),status:'ok',result}})};
 }
+
+test('Identified progress preserves the active request and callback exceptions do not break completion',async()=>{
+ const {runner,workers,answer}=harness(),stages=[];
+ const pending=runner.run('ht','catalog',{}, {onProgress:value=>{stages.push(value.stage);throw Error('UI callback');}});
+ const worker=workers[0];worker.onmessage({data:{...calculationReplyIdentity(worker.request),status:'progress',progress:{stage:'runtime'}}});
+ assert.equal(runner.busy,true);assert.deepEqual(stages,['runtime']);
+ worker.onmessage({data:{...calculationReplyIdentity(worker.request),id:999,status:'progress',progress:{stage:'stale'}}});
+ assert.deepEqual(stages,['runtime']);answer(worker,{entries:[]});assert.deepEqual((await pending).result,{entries:[]});
+});
+
+test('Reset releases a warm Python executor and rejects an active one before a fresh retry',async()=>{
+ const {runner,workers,answer}=harness();const first=runner.run('ht','catalog',{});answer(workers[0],{});await first;
+ runner.reset();assert.equal(workers[0].terminated,true);
+ const second=runner.run('fluids','catalog',{}),rejected=assert.rejects(second,{code:'cancelled'});runner.reset();await rejected;
+ assert.equal(workers[1].terminated,true);const retry=runner.run('ht','catalog',{});answer(workers[2],{ready:true});assert.equal((await retry).result.ready,true);
+});
 test('Cancellation terminates the search, ignores late replies, and permits another calculation',async()=>{
  const {runner,workers,answer}=harness();const first=runner.calculate('hv',3000,.1,'IAPWS-95'),cancelled=assert.rejects(first,{code:'cancelled'});
  assert.equal(runner.cancel(),true);await cancelled;assert.equal(workers[0].terminated,true);assert.equal(runner.busy,false);

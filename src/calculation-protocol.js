@@ -29,7 +29,9 @@ export const CALCULATION_MODULES=calculationFreeze([
   validity:{authority:'Existing BSW2003 and VDI4670 domain checks are authoritative.',temperature:{unit:'K',min:200,max:3300},pressure:{unit:'MPa',minExclusive:0},
    dissociation:{experimental:true,temperature:{unit:'K',min:1200,max:2000},pressure:{unit:'MPa',min:.01,max:5},conditions:['Complete combustion in ordinary air; explicit lambda > 1.05.','Initial mole fractions: N2 > 0, O2 >= 0.01, CO = 0.'],unavailableOutputs:['w','isentropic'],composition:'initial-frozen',equilibriumCompositionComputed:false},steam97WebParityVerified:false}},
  {id:'workflows',engineVersion:'1.0.0',runtime:'javascript-wasm',methods:['project','rankine-sweep','study-report-html','water-process','custom-cycle','library-cycle','cycle-comparison','cycle-preset'],resultFormat:'native',
-  validity:{authority:'Each existing workflow validates its own input and physical model.',units:'Native method-specific schemas are preserved; no generic numeric-unit inference.'}}
+  validity:{authority:'Each existing workflow validates its own input and physical model.',units:'Native method-specific schemas are preserved; no generic numeric-unit inference.'}},
+ ...[['ht','1.2.0'],['fluids','1.3.1']].map(([id,engineVersion])=>({id,engineVersion,runtime:'pyodide',methods:['catalog','describe','call','get','release'],resultFormat:'python-json',
+  validity:{authority:'Pinned, unmodified upstream package. Consult the selected function documentation and its correlation domain.',units:'Upstream documented units; no automatic conversion.',numericalAcceptance:'pending',optionalDependencies:'Numba, Pint, plotting and other extras are not bundled.'}}))
 ]);
 export class CalculationModuleError extends Error{
  constructor(code,message,details={}){super(message);this.name='CalculationModuleError';this.code=code;this.details=details;}
@@ -92,7 +94,8 @@ export function calculationErrorReply(request,error){
  return {...calculationReplyIdentity(request),status:'error',error:{code:known?error.code:'calculation',message:typeof error?.message==='string'?error.message:'Calculation failed.',details:known?error.details:{}}};
 }
 export function validateCalculationReply(request,reply){
- if(!calculationObject(reply)||Object.entries(calculationReplyIdentity(request)).some(([key,value])=>reply[key]!==value)||!['ok','error'].includes(reply.status))throw new CalculationModuleError('protocol','Invalid calculation response.');
+ if(!calculationObject(reply)||Object.entries(calculationReplyIdentity(request)).some(([key,value])=>reply[key]!==value)||!['ok','error','progress'].includes(reply.status))throw new CalculationModuleError('protocol','Invalid calculation response.');
+ if(reply.status==='progress'&&(!calculationObject(reply.progress)||typeof reply.progress.stage!=='string'))throw new CalculationModuleError('protocol','Invalid calculation progress.');
  if(reply.status==='error'&&(!calculationObject(reply.error)||typeof reply.error.code!=='string'||typeof reply.error.message!=='string'))throw new CalculationModuleError('protocol','Invalid calculation error response.');
  if(reply.status==='ok'&&!Object.hasOwn(reply,'result'))throw new CalculationModuleError('protocol','Missing calculation result.');
  return reply;

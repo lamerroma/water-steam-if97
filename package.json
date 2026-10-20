@@ -1,6 +1,6 @@
 {
   "name": "water-steam-if97-uk",
-  "version": "1.37.0",
+  "version": "1.38.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -75,7 +75,9 @@
     "audit:steam97:p03": "node scripts/audit-steam97-p03.mjs",
     "test:steam97:p03": "node scripts/check-steam97-p03-browser.cjs",
     "audit:steam97:p04": "node scripts/audit-steam97-p04.mjs",
-    "test:steam97:p04": "node scripts/check-steam97-p04-browser.cjs"
+    "test:steam97:p04": "node scripts/check-steam97-p04-browser.cjs",
+    "test:python-libraries": "node scripts/check-python-libraries-browser.cjs",
+    "vendor:python": "python scripts/sync-python-libraries.py"
   },
   "engines": {
     "node": ">=20"

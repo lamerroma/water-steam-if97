@@ -9,6 +9,7 @@ class PWAHandler(SimpleHTTPRequestHandler):
     extensions_map = {
         **SimpleHTTPRequestHandler.extensions_map,
         '.js': 'text/javascript',
+        '.mjs': 'text/javascript',
         '.wasm': 'application/wasm',
         '.webmanifest': 'application/manifest+json',
     }

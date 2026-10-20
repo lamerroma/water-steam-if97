@@ -8,13 +8,13 @@ export function createCalculationRunner(createWorker,timeoutMs=60000){
  const finish=(failure,value)=>{const task=pending;if(!task)return;pending=null;clearTimeout(task.timer);task.signal?.removeEventListener('abort',task.abort);if(failure)task.reject(failure);else task.resolve(value);};
  const stop=()=>{worker?.terminate();worker=null;};
  const fail=(code,message)=>{stop();finish(error(code,message));};
- function execute(makeRequest,{signal}={}){
+ function execute(makeRequest,{signal,onProgress}={}){
   if(pending)return Promise.reject(error('busy','A calculation is already running.'));
   if(signal!=null&&(typeof signal.aborted!=='boolean'||typeof signal.addEventListener!=='function'||typeof signal.removeEventListener!=='function'))return Promise.reject(error('invalid-input','A valid AbortSignal is required.'));
   if(signal?.aborted)return Promise.reject(error('cancelled','Calculation cancelled.'));
   let request;try{request=makeRequest(++sequence);normalizeCalculationRequest(request);}catch(failure){return Promise.reject(failure);}
   return new Promise((resolve,reject)=>{
-   pending={id:request.id,request,resolve,reject,signal,abort:()=>fail('cancelled','Calculation cancelled.'),timer:setTimeout(()=>fail('timeout','Calculation time limit exceeded.'),timeoutMs)};
+   pending={id:request.id,request,resolve,reject,signal,onProgress,abort:()=>fail('cancelled','Calculation cancelled.'),timer:setTimeout(()=>fail('timeout','Calculation time limit exceeded.'),timeoutMs)};
    signal?.addEventListener('abort',pending.abort,{once:true});
    try{
     if(!worker){
@@ -22,6 +22,7 @@ export function createCalculationRunner(createWorker,timeoutMs=60000){
      current.onmessage=event=>{
       if(worker!==current||event.data?.id!==pending?.id)return;
       let reply;try{reply=validateCalculationReply(pending.request,event.data);}catch(failure){stop();finish(failure);return;}
+      if(reply.status==='progress'){try{pending.onProgress?.(reply.progress);}catch{}return;}
       if(reply.status==='error')finish(error(reply.error.code,reply.error.message,reply.error.details));else finish(null,reply);
      };
      current.onerror=event=>{event.preventDefault?.();if(worker===current)fail('unavailable','Background calculation could not start.');};
@@ -44,6 +45,7 @@ export function createCalculationRunner(createWorker,timeoutMs=60000){
   compareCycles:input=>legacy('cycle-comparison',{input}),
   cyclePreset:(name,model)=>legacy('cycle-preset',{name,model}),
   waterProcess:(input,model)=>legacy('water-process',{input,model}),
+  reset(){stop();finish(error('cancelled','Calculation cancelled.'));},
   cancel(){if(!pending)return false;stop();finish(error('cancelled','Calculation cancelled.'));return true;},
   get busy(){return pending!==null;}
  };

@@ -1,0 +1,152 @@
+{
+  "started": "2026-10-20T08:43:35.164Z",
+  "version": "1.38.0",
+  "status": "failed",
+  "checks": [
+    {
+      "name": "calculator-async",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6619,
+      "log": ".release/python-regression/calculator-async-chromium.log"
+    },
+    {
+      "name": "calculator-async",
+      "browser": "firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 12069,
+      "log": ".release/python-regression/calculator-async-firefox.log"
+    },
+    {
+      "name": "steam97-p03",
+      "browser": "chromium",
+      "status": "failed",
+      "exitCode": 1,
+      "durationMs": 18473,
+      "log": ".release/python-regression/steam97-p03-chromium.log"
+    },
+    {
+      "name": "steam97-p03",
+      "browser": "firefox",
+      "status": "failed",
+      "exitCode": 1,
+      "durationMs": 24234,
+      "log": ".release/python-regression/steam97-p03-firefox.log"
+    },
+    {
+      "name": "steam97-p04",
+      "browser": "chromium",
+      "status": "failed",
+      "exitCode": 1,
+      "durationMs": 12347,
+      "log": ".release/python-regression/steam97-p04-chromium.log"
+    },
+    {
+      "name": "steam97-p04",
+      "browser": "firefox",
+      "status": "failed",
+      "exitCode": 1,
+      "durationMs": 19649,
+      "log": ".release/python-regression/steam97-p04-firefox.log"
+    },
+    {
+      "name": "pwa",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 19083,
+      "log": ".release/python-regression/pwa-chromium.log"
+    },
+    {
+      "name": "pwa",
+      "browser": "firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 44750,
+      "log": ".release/python-regression/pwa-firefox.log"
+    },
+    {
+      "name": "pwa-package",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 11826,
+      "log": ".release/python-regression/pwa-package-chromium.log"
+    },
+    {
+      "name": "pwa-package",
+      "browser": "firefox",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 15735,
+      "log": ".release/python-regression/pwa-package-firefox.log"
+    },
+    {
+      "name": "navigation",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4679,
+      "log": ".release/python-regression/navigation-chromium.log"
+    },
+    {
+      "name": "usability",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4377,
+      "log": ".release/python-regression/usability-chromium.log"
+    },
+    {
+      "name": "water-process",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6326,
+      "log": ".release/python-regression/water-process-chromium.log"
+    },
+    {
+      "name": "custom-cycle",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 23199,
+      "log": ".release/python-regression/custom-cycle-chromium.log"
+    },
+    {
+      "name": "cycle-library",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 5378,
+      "log": ".release/python-regression/cycle-library-chromium.log"
+    },
+    {
+      "name": "rankine-sweep",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 8766,
+      "log": ".release/python-regression/rankine-sweep-chromium.log"
+    },
+    {
+      "name": "project-safety",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 4116,
+      "log": ".release/python-regression/project-safety-chromium.log"
+    },
+    {
+      "name": "study",
+      "browser": "chromium",
+      "status": "passed",
+      "exitCode": 0,
+      "durationMs": 6525,
+      "log": ".release/python-regression/study-chromium.log"
+    }
+  ],
+  "finished": "2026-10-20T08:47:43.354Z"
+}

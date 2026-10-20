@@ -1,0 +1,10 @@
+{
+  "build": {
+    "version": "1.38.0",
+    "id": "aabf7be9a9ba"
+  },
+  "hashes": {
+    "assets/python-worker.js": "1c6f7dde0b243d5c328c9e21a1ba82ecef901d864740982abee7b2dc1334dc07",
+    "assets/python-package.json": "b91498d7a5363a08e075adb4c1ea9fc64b9a4ce4886466b85c252ebdffaa8763"
+  }
+}

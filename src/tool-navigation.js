@@ -2,7 +2,7 @@ import {TOOL_CATALOG,toolMatches,toolStatus} from './tool-catalog.js';
 export const TOOL_GROUPS=[
  {id:'properties',key:'nav.properties',actions:['general','saturation','satgrid','gases','humid','ice','d2o','seawater','boundaries','comparison']},
  {id:'processes',key:'nav.processes',actions:['custom-cycle','water-process','turbine','flash','engineering','cycles','ts','hsdiagram','phdiagram']},
- {id:'heat',key:'nav.heat',actions:['flow','exchanger']},
+ {id:'heat',key:'nav.heat',actions:['flow','exchanger','libraries']},
  {id:'learning',key:'nav.learning',actions:['tutorials','laboratory','coursework','npp','research','help']},
  {id:'projects',key:'nav.projects',actions:['projects','study','batch']}
 ];
