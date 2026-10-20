@@ -5,6 +5,14 @@ import vm from 'node:vm';
 import crypto from 'node:crypto';
 const root=new URL('../',import.meta.url),read=p=>fs.readFileSync(new URL(p,root));
 
+test('Spreadsheet backend is an exact local asset, separately versioned and prepared offline',()=>{
+ const bytes=read('assets/sheetjs.js'),code=read('assets/app.js').toString(),worker=read('service-worker.js').toString();
+ assert.deepEqual(bytes,read('vendor/sheetjs.cjs'));assert.deepEqual(bytes,read('dist/assets/sheetjs.js'));
+ const url='assets/sheetjs.js?v='+crypto.createHash('sha256').update(bytes).digest('hex').slice(0,16);
+ assert.ok(code.includes(JSON.stringify(url)));assert.ok(worker.includes(JSON.stringify(url)));
+ assert.equal(code.includes(bytes.toString()),false);new vm.Script(bytes.toString());
+});
+
 test('PWA release is complete, syntactically valid and includes licenses',()=>{
  const html=read('index.html').toString(),code=read('assets/app.js').toString();
  assert.equal(html,read('dist/index.html').toString());

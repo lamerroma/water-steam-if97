@@ -1,4 +1,11 @@
-import SheetJS from '../vendor/sheetjs.cjs';
+import DefaultSheetJS from '../vendor/sheetjs.cjs';
+import {createScriptAssetLoader} from './script-assets.js';
+
+// Node callers retain the synchronous API. The browser build supplies a lazy,
+// versioned script URL instead of embedding and executing the backend at startup.
+let SheetJS=DefaultSheetJS;
+const loadSpreadsheetLibrary=createScriptAssetLoader(typeof SPREADSHEET_LIBRARY_URL==='undefined'?null:SPREADSHEET_LIBRARY_URL,()=>globalThis.XLSX);
+export async function prepareSpreadsheet(format){if(format!=='csv'&&!SheetJS)SheetJS=await loadSpreadsheetLibrary();}
 
 export const SPREADSHEET_FORMATS={xlsx:{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',bookType:'xlsx'},ods:{type:'application/vnd.oasis.opendocument.spreadsheet',bookType:'ods'},xls:{type:'application/vnd.ms-excel',bookType:'biff8'},csv:{type:'text/csv;charset=utf-8'}};
 const spreadsheetCRCTable=Array.from({length:256},(_,n)=>{for(let k=0;k<8;k++)n=n&1?0xedb88320^(n>>>1):n>>>1;return n>>>0;});
@@ -35,6 +42,7 @@ export function writeTabular(document,format='xlsx'){
   const cell=v=>'"'+String(typeof v==='string'&&/^[\s\u0000-\u001f]*[=+\-@]/.test(v)?"'"+v:v??'').replaceAll('"','""')+'"';
   return '\ufeff'+document.sheets.flatMap(s=>[['worksheet',s.name],...s.rows,[]]).map(r=>r.map(cell).join(';')).join('\r\n');
  }
+ if(!SheetJS)throw Error('Prepare the spreadsheet library before binary export.');
  const book=SheetJS.utils.book_new();
  book.Props={Title:'Water and steam calculated results',Author:'water-steam-if97',CreatedDate:new Date('2000-01-01T00:00:00Z'),ModifiedDate:new Date('2000-01-01T00:00:00Z')};
  for(const s of document.sheets){

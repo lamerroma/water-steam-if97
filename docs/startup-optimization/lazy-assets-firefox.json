@@ -1,0 +1,14 @@
+{
+  "browser": "firefox",
+  "status": "passed",
+  "checks": [
+    "Normal startup prepares the asset in cache without executing SheetJS",
+    "Restarted offline profile calculates and exports CSV without loading SheetJS",
+    "Missing cached script fails clearly and re-enables export for retry",
+    "First offline binary export initializes the cached backend once; XLSX, ODS and XLS download"
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "version": "1.38.1",
+  "build": "f4e75effb80a"
+}

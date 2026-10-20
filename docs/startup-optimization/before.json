@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-20T09:03:46.565Z",
+  "browser": "151.0.7922.34",
+  "root": "baseline 52f445c dist snapshot",
+  "runs": 7,
+  "appBytes": 3178239,
+  "median": {
+    "readyMs": 449.39999997615814,
+    "domContentLoadedMs": 395.5,
+    "scriptDurationMs": 107.147,
+    "jsHeapUsedBytes": 9039896
+  },
+  "samples": [
+    {
+      "ready": 473.5,
+      "domContentLoaded": 418.60000002384186,
+      "sheetjsExecuted": true,
+      "appVersion": "1.38.0",
+      "build": "aabf7be9a9ba",
+      "scriptDurationMs": 108.926,
+      "jsHeapUsedBytes": 14036164
+    },
+    {
+      "ready": 386.39999997615814,
+      "domContentLoaded": 333.39999997615814,
+      "sheetjsExecuted": true,
+      "appVersion": "1.38.0",
+      "build": "aabf7be9a9ba",
+      "scriptDurationMs": 109.154,
+      "jsHeapUsedBytes": 9022348
+    },
+    {
+      "ready": 460.10000002384186,
+      "domContentLoaded": 402.30000001192093,
+      "sheetjsExecuted": true,
+      "appVersion": "1.38.0",
+      "build": "aabf7be9a9ba",
+      "scriptDurationMs": 103.984,
+      "jsHeapUsedBytes": 9043356
+    },
+    {
+      "ready": 389.0999999642372,
+      "domContentLoaded": 334.89999997615814,
+      "sheetjsExecuted": true,
+      "appVersion": "1.38.0",
+      "build": "aabf7be9a9ba",
+      "scriptDurationMs": 107.147,
+      "jsHeapUsedBytes": 9039896
+    },
+    {
+      "ready": 449.39999997615814,
+      "domContentLoaded": 395.5,
+      "sheetjsExecuted": true,
+      "appVersion": "1.38.0",
+      "build": "aabf7be9a9ba",
+      "scriptDurationMs": 106.85,
+      "jsHeapUsedBytes": 9039880
+    },
+    {
+      "ready": 468.39999997615814,
+      "domContentLoaded": 411.69999998807907,
+      "sheetjsExecuted": true,
+      "appVersion": "1.38.0",
+      "build": "aabf7be9a9ba",
+      "scriptDurationMs": 107.186,
+      "jsHeapUsedBytes": 9039064
+    },
+    {
+      "ready": 375.39999997615814,
+      "domContentLoaded": 325.30000001192093,
+      "sheetjsExecuted": true,
+      "appVersion": "1.38.0",
+      "build": "aabf7be9a9ba",
+      "scriptDurationMs": 106.36,
+      "jsHeapUsedBytes": 9042128
+    }
+  ],
+  "scope": "Fresh browser contexts on loopback, no CPU/network throttling. Timing includes scheduling and local PWA activity; no universal speedup inferred."
+}
