@@ -99,6 +99,14 @@ export async function checkManagedLibraryRegistry(){
  const controls=await read('docs/library-registry/controls.json');
  validateLibraryControls(controls,surface);
  validateReviewedLibraryContracts(await read('docs/library-registry/reviewed-contracts.json'),surface);
+ const acceptance=await read('docs/library-registry/acceptance.json');
+ requireValue(acceptance.registrySHA256===sha(await readFile(path.join(root,'docs/library-registry/surface.json'))),'Stale inventory acceptance evidence');
+ for(const key of ['bridgeSHA256','collectorSHA256','vendorManifestSHA256'])requireValue(acceptance.inputs[key]===surface.inputs[key],'Stale acceptance input: '+key);
+ for(const [name,identity] of Object.entries(acceptance.evidence)){
+  requireValue(path.basename(name)===name,'Evidence must be a direct child file');
+  const raw=await readFile(path.join(root,'docs/library-registry/evidence',name));
+  requireValue(raw.length===identity.bytes&&sha(raw)===identity.sha256,'Changed inventory evidence: '+name);
+ }
  return result;
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))checkManagedLibraryRegistry().then(result=>console.log('Library registry integrity PASS '+JSON.stringify(result))).catch(error=>{console.error(error.message);process.exitCode=1;});
