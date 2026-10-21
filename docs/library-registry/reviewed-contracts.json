@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scope": "First five partial scalar/object contracts. Types/units are upstream declarations in the stated scope, not implicit runtime coercion or global physical validity. Remaining registry entries stay unreviewed.",
+  "scope": "Seven partial scalar/object/datetime contracts. Reviewed subsets and wire behavior are separate from unreviewed geometry/domain branches and independent numerical acceptance.",
   "records": [
     {
       "id": "ht@1.2.0:ht.core.LMTD",
@@ -155,6 +155,78 @@
       },
       "notes": [
         "Handles are ephemeral references, not project serialization. Restart invalidates the object store; recipes for reconstructing objects remain R16/R26 work."
+      ],
+      "numericalAcceptance": "not_granted"
+    },
+    {
+      "id": "fluids@1.3.1:fluids.atmosphere.solar_position",
+      "sourceSHA256": "0e6e266d52ca2e3d45b7d53bd8424ba7b8412aa9dc77b3b62ef081c66353687d",
+      "reviewStatus": "partial_review",
+      "scope": "Datetime transport subset, not a reviewed complete astronomical model.",
+      "types": {
+        "moment": "datetime.datetime via explicit $datetime tag",
+        "latitude": "real",
+        "longitude": "real",
+        "return": "six real values"
+      },
+      "units": {
+        "latitude": "degree",
+        "longitude": "degree",
+        "Z": "m",
+        "T": "K",
+        "P": "Pa",
+        "atmos_refract": "degree",
+        "returnOrder": [
+          "degree",
+          "degree",
+          "degree",
+          "degree",
+          "degree",
+          "s"
+        ]
+      },
+      "geometry": "Geographic latitude/longitude; atmosphere and refraction belong to the selected upstream model.",
+      "domain": {
+        "reviewedSubset": "2018-01-01 UTC and equivalent +02:00 instant, latitude=50 degree, longitude=30 degree; remaining defaults unchanged.",
+        "remaining": "Astronomical validity, refraction model, polar/extreme-time domains and NaN boundaries remain unreviewed."
+      },
+      "dependencies": {
+        "direct": "fluids.atmosphere, bundled fluids.optional.spa and Python datetime",
+        "network": "No network in tested controls. solar_irradiation/design_climate require separate dependency reviews."
+      },
+      "notes": [
+        "argument-codec.json defines the wire contract. CPython/Pyodide agreement checks integration, not independent physical accuracy."
+      ],
+      "numericalAcceptance": "not_granted"
+    },
+    {
+      "id": "fluids@1.3.1:fluids.atmosphere.sunrise_sunset",
+      "sourceSHA256": "0e6e266d52ca2e3d45b7d53bd8424ba7b8412aa9dc77b3b62ef081c66353687d",
+      "reviewStatus": "partial_review",
+      "scope": "Datetime transport subset, not a reviewed complete astronomical model.",
+      "types": {
+        "moment": "datetime.datetime via explicit $datetime tag",
+        "latitude": "real",
+        "longitude": "real",
+        "return": "three typed datetime records"
+      },
+      "units": {
+        "latitude": "degree",
+        "longitude": "degree",
+        "return": "ISO datetime; no numeric unit"
+      },
+      "geometry": "Geographic latitude/longitude; atmosphere and refraction belong to the selected upstream model.",
+      "domain": {
+        "reviewedSubset": "Explicitly naive 2018-01-01 returns three naive datetimes. Upstream documentation assigns them UTC; wire metadata states naive.",
+        "knownDifference": "datetime.timezone fixed-offset aware inputs including UTC raise ValueError: fromutc: dt.tzinfo is not self. No automatic naive substitution.",
+        "remaining": "Physical sunrise validity, polar dates, arbitrary named timezones, calendars and geographic boundaries unreviewed."
+      },
+      "dependencies": {
+        "direct": "fluids.atmosphere, bundled fluids.optional.spa and Python datetime",
+        "network": "No network in tested controls. solar_irradiation/design_climate require separate dependency reviews."
+      },
+      "notes": [
+        "argument-codec.json defines the wire contract. CPython/Pyodide agreement checks integration, not independent physical accuracy."
       ],
       "numericalAcceptance": "not_granted"
     }

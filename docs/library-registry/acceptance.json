@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-21",
-  "stage": "R16.1",
-  "status": "local_inventory_and_UI_accepted_R16_2_open",
+  "stage": "R16.2a",
+  "status": "local_codec_and_UI_accepted_full_contracts_open",
   "candidate": {
     "version": "1.41.0",
-    "build": "6dad6820c40a",
+    "build": "4717efbc3288",
     "published": false,
-    "baseCommit": "b9632751fd1530aea5b0a05b6d546fa5780b8345"
+    "baseCommit": "38f0b5b33c5e1bede3d676cd6e2580263993cb34"
   },
-  "scope": "Available recursive public surface and inventory integrity; no global library numerical or physical acceptance. R16.2 remains open.",
+  "scope": "Recursive inventory, documented argument-codec subset, object-session/owner guards and error transport/export. No global library numerical acceptance. Remaining R16.2 work stays open.",
   "summary": {
     "catalogPaths": 3494,
     "globalNumericalCoveragePercent": null,
@@ -23,7 +23,7 @@
     "records": 2966
   },
   "inputs": {
-    "bridgeSHA256": "8277286a1550c950c79175f916d6f4f0fe9a067989eb2bca9cbe642b181d150c",
+    "bridgeSHA256": "7f6c0de6c1b5e28b90c268a5a390685cb6b69240b2b115694aa8ced479452e2b",
     "collectorSHA256": "861e6f4774656da365bef293c73aed506be5a812f18610f9058c5f56ca4c683d",
     "vendorManifestSHA256": "030543a03dd496c621f998923b5e35762d555d40c51d7168cde0f38cf5d5ffee",
     "verifiedInstalledPackageFiles": {
@@ -43,65 +43,60 @@
       }
     }
   },
-  "registrySHA256": "5784f088913ddd8ca729cbe3f481202a71dcf0272a61767978740051470da99b",
+  "registrySHA256": "c93e3b5d48d15000b0c83769ffc6cb4d0f23e3f9ccb879ba87b0b32acc6e873b",
   "observations": {
     "publicPaths": 3494,
     "registryRecords": 2966,
-    "additionalFluidsPaths": 394,
-    "exactDuplicateFluidsPathsRemoved": 10,
-    "baseObjectFamilies": 1133,
-    "pinnedPythonFiles": 71,
-    "verifiedInstalledPackageFiles": 93,
+    "knownDiscrepancyRecordsIncludingVectorizedLinks": 5,
+    "distinctKnownIssueCodes": 3,
+    "partialReviewedContracts": 7,
     "unavailableOptionalModules": 6,
-    "staticInstanceAttributeCandidates": 424,
-    "partialReviewedContracts": 5,
-    "runtimeSignatureDifferences": 11,
-    "elementaryDeterminantControls": {
-      "matched": 3,
-      "knownDiscrepancy": 1,
-      "knownInput": [
-        [
-          7
-        ]
-      ],
-      "reference": 7,
-      "observedUpstream": [
-        7
-      ],
-      "referenceChanged": false
-    },
+    "optionalExportDenominator": null,
     "globalNumericalCoveragePercent": null
   },
   "checks": {
-    "nativeRegeneration": "exact frozen registry and native profile match",
     "nativeBridgeTests": {
-      "passed": 4,
-      "total": 4
+      "passed": 9,
+      "total": 9
     },
     "unitNode22": {
-      "passed": 1813,
-      "total": 1813,
+      "passed": 1815,
+      "total": 1815,
+      "skipped": 0
+    },
+    "unitNode24": {
+      "passed": 1815,
+      "total": 1815,
       "skipped": 0
     },
     "browserCollector": {
       "chromium": "passed",
       "firefox": "passed",
-      "qualification": "Same collector, identical pinned package observations; integration rather than independent physical validation."
+      "qualification": "Same collector and fixed package sources, not independent model validation."
     },
     "actualApplicationUI": {
       "chromium": {
-        "passedGroups": 11
+        "passedGroups": 13,
+        "build": "4717efbc3288"
       },
       "firefox": {
-        "passedGroups": 11
+        "passedGroups": 13,
+        "build": "4717efbc3288"
       },
-      "qualification": "Actual form/Worker, source build 6dad6820c40a; includes nested target, warning, class, arrays, export, cancellation, cache corruption and closed-profile offline restart."
-    },
-    "unitNode24": {
-      "passed": 1813,
-      "total": 1813,
-      "skipped": 0
+      "qualification": "Actual UI/Worker and new closed-profile offline Worker. Includes known error export with engine/revision, explicit datetime offsets/naive output, owner release and previous-session handle rejection.",
+      "transportTolerance": {
+        "absolute": 1e-09,
+        "units": "degree for the first five solar_position outputs; s for equation_of_time",
+        "qualification": "Pinned native/Pyodide integration control only, not claimed physical accuracy."
+      }
     }
+  },
+  "historicalCI": {
+    "commit": "38f0b5b33c5e1bede3d676cd6e2580263993cb34",
+    "run": 39655834729,
+    "passed": 109,
+    "total": 109,
+    "qualification": "Accepts the earlier R16.1 commit only; does not accept current code."
   },
   "evidence": {
     "browser-r17-preflight-summary.json": {
@@ -144,23 +139,77 @@
       "sha256": "f941876623d1e1a73b389a1eac2e3c3dbcf84071334e3c88e99c95ba5d3c13ba",
       "bytes": 2359
     },
+    "r16-1-acceptance.json": {
+      "sha256": "0f28b058230050a2e93d5e1a86ac0a64dd524b72fd9819f731d8ab105a0d41d8",
+      "bytes": 5680
+    },
+    "r16-1-ci-report.json": {
+      "sha256": "210bfc064e75cf2d39ca5c9b9988715e32a2a582e27278720bd6e1a89cda2d68",
+      "bytes": 23757
+    },
+    "r16-1-ci-summary.json": {
+      "sha256": "41c3018cfe8b1a5da43dbe5161654cf8497226c8e934fe990d8e06c946a98113",
+      "bytes": 582
+    },
+    "r16-2-chromium-libraries.png": {
+      "sha256": "65d8e010da376b20fc725af33e4587b840aac5e270ad9b7bcec6b2a3263f925d",
+      "bytes": 185192
+    },
+    "r16-2-chromium-offline.png": {
+      "sha256": "24e959941a814a8f2a2c962abec3fcad793049e7d043a5e3ac67a2bcde6916cb",
+      "bytes": 174120
+    },
+    "r16-2-chromium-registry.json": {
+      "sha256": "188219f025ae70836dd76fe5b4951207384e34acddcdeaf4cb6fe342de62f570",
+      "bytes": 18904
+    },
+    "r16-2-chromium-ui.json": {
+      "sha256": "28abe851f2121cad372d042a982a58436217a5ce6655d81df31fae4c7931ec6c",
+      "bytes": 9681
+    },
+    "r16-2-firefox-libraries.png": {
+      "sha256": "ad845e923f4bd2ce78dce02c67416e867327a501938281e57fd303a6ce78b7eb",
+      "bytes": 165969
+    },
+    "r16-2-firefox-offline.png": {
+      "sha256": "6d179760ec1d79a0bb57489a7579767cad514aa2083ff613997d3477679bf8bf",
+      "bytes": 155016
+    },
+    "r16-2-firefox-registry.json": {
+      "sha256": "289613c6102bcb91137ba12fa3d2e3a2e376b4d6f7777a34e21dc6202e733ffc",
+      "bytes": 18895
+    },
+    "r16-2-firefox-ui.json": {
+      "sha256": "15c553b05ac73597527bc4fb77232235ea961dc24541bdb99766d6369295b065",
+      "bytes": 9680
+    },
+    "r16-2-native-tests.json": {
+      "sha256": "0586c5dd3d00197880a11632ffbee6857d262cf86c65b3100e7191c09e0b58f5",
+      "bytes": 474
+    },
+    "r16-2-pre-change-observations.json": {
+      "sha256": "c256b555ac17839ef5e24b7375ab912db23837aab4b4950819a4024e7daa3cea",
+      "bytes": 23413
+    },
+    "r16-2-sunrise-upstream-observation.json": {
+      "sha256": "19989d50b92f3a88dcba531777334225ec0bc43c4cc6a59317ba82db865f6e53",
+      "bytes": 432
+    },
     "r17-lmtd-preflight.json": {
       "sha256": "145acb81be7999450d5f78043f21f8e41317caaa97ed228ab2bb66f6251ff9c6",
       "bytes": 4788
     }
   },
-  "localLogSHA256": {
-    "native-generation.log": "e8e98712c3205322d4b75bcd5241fa88f48ef0a5e66a8e50afc802d71bfbe96d",
-    "native-tests.log": "dccd1f333a02b8d1cd2bcaa5cb32e1553fa06329eab9b885fe8c3dad749a0738",
-    "unit-node22.log": "ce6e59cecad497974a5c5622af80987b0c156b2a8f9c6bd09167b258daa1a883",
-    "unit-node24.log": "6ec79a72779ce9ad95bf35596c9a2ac38b32dc6fd73bd2fcbb4c9d44bce256b2"
-  },
   "open": [
-    "R16.2 full reviewed contracts and per-case links",
-    "Optional units/Numba dynamic export inventory",
-    "Dynamic instance state and callable argument/serialization contracts",
-    "R21/R26 reestimate after classified scenarios and first measured methods",
-    "Full ht/fluids numerical, physical and subject-UI acceptance",
-    "Separate Firefox 153 publication export crash observation remains cause-unknown under R13"
-  ]
+    "Complete reviewed per-symbol types/units/geometry/domains/dependencies and case links",
+    "Native optional dynamic-export enumeration and feasibility decisions",
+    "Class reconstruction recipes and dynamic instance-state contracts",
+    "R21/R26 measured reestimate after first classified workflows",
+    "Independent physical/numerical model acceptance and original Steam97 parity"
+  ],
+  "localLogSHA256": {
+    "unit-node22.log": "34333e31093412d4311efc221bfa05bdf0a5791b6858d78b63587cd3dc53b9bb",
+    "unit-node24.log": "bd03089fc048195f9833eac9f9713de9dd10f5f2eefcb6101870b678f9d4c96b",
+    "native-tests.log": "f994c0b92747097677d7b5d785e043d0af3a04673ea468ef29d2377951668e8f"
+  }
 }

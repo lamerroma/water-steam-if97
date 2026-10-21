@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "stage": "R16.1",
+  "status": "local_inventory_and_UI_accepted_R16_2_open",
+  "candidate": {
+    "version": "1.41.0",
+    "build": "6dad6820c40a",
+    "published": false,
+    "baseCommit": "b9632751fd1530aea5b0a05b6d546fa5780b8345"
+  },
+  "scope": "Available recursive public surface and inventory integrity; no global library numerical or physical acceptance. R16.2 remains open.",
+  "summary": {
+    "catalogPaths": 3494,
+    "globalNumericalCoveragePercent": null,
+    "kinds": {
+      "class": 35,
+      "class-member": 382,
+      "data": 678,
+      "function": 1871
+    },
+    "qualification": "Inventory is distinct from typed/domain/numerical/UI/offline acceptance.",
+    "records": 2966
+  },
+  "inputs": {
+    "bridgeSHA256": "8277286a1550c950c79175f916d6f4f0fe9a067989eb2bca9cbe642b181d150c",
+    "collectorSHA256": "861e6f4774656da365bef293c73aed506be5a812f18610f9058c5f56ca4c683d",
+    "vendorManifestSHA256": "030543a03dd496c621f998923b5e35762d555d40c51d7168cde0f38cf5d5ffee",
+    "verifiedInstalledPackageFiles": {
+      "fluids": 62,
+      "ht": 31
+    },
+    "wheels": {
+      "fluids": {
+        "file": "wheels/fluids-1.3.1-py3-none-any.whl",
+        "sha256": "d9097efe57c910ac14b89a1984d5e7062ee9df1afc84e089d944fdd85404e361",
+        "version": "1.3.1"
+      },
+      "ht": {
+        "file": "wheels/ht-1.2.0-py3-none-any.whl",
+        "sha256": "a4716bc3c8a9ef5e3dfff68d552232ba6f05c0edd3caa07fb72bee2306975ace",
+        "version": "1.2.0"
+      }
+    }
+  },
+  "registrySHA256": "5784f088913ddd8ca729cbe3f481202a71dcf0272a61767978740051470da99b",
+  "observations": {
+    "publicPaths": 3494,
+    "registryRecords": 2966,
+    "additionalFluidsPaths": 394,
+    "exactDuplicateFluidsPathsRemoved": 10,
+    "baseObjectFamilies": 1133,
+    "pinnedPythonFiles": 71,
+    "verifiedInstalledPackageFiles": 93,
+    "unavailableOptionalModules": 6,
+    "staticInstanceAttributeCandidates": 424,
+    "partialReviewedContracts": 5,
+    "runtimeSignatureDifferences": 11,
+    "elementaryDeterminantControls": {
+      "matched": 3,
+      "knownDiscrepancy": 1,
+      "knownInput": [
+        [
+          7
+        ]
+      ],
+      "reference": 7,
+      "observedUpstream": [
+        7
+      ],
+      "referenceChanged": false
+    },
+    "globalNumericalCoveragePercent": null
+  },
+  "checks": {
+    "nativeRegeneration": "exact frozen registry and native profile match",
+    "nativeBridgeTests": {
+      "passed": 4,
+      "total": 4
+    },
+    "unitNode22": {
+      "passed": 1813,
+      "total": 1813,
+      "skipped": 0
+    },
+    "browserCollector": {
+      "chromium": "passed",
+      "firefox": "passed",
+      "qualification": "Same collector, identical pinned package observations; integration rather than independent physical validation."
+    },
+    "actualApplicationUI": {
+      "chromium": {
+        "passedGroups": 11
+      },
+      "firefox": {
+        "passedGroups": 11
+      },
+      "qualification": "Actual form/Worker, source build 6dad6820c40a; includes nested target, warning, class, arrays, export, cancellation, cache corruption and closed-profile offline restart."
+    },
+    "unitNode24": {
+      "passed": 1813,
+      "total": 1813,
+      "skipped": 0
+    }
+  },
+  "evidence": {
+    "browser-r17-preflight-summary.json": {
+      "sha256": "0e797b59657124013c46226c9f51bdca1b0795c654fcf0bad1187b944ebc03be",
+      "bytes": 6332
+    },
+    "chromium-libraries.png": {
+      "sha256": "693003b72d11703cd9f0d87258387d15bee422978e7566e2f58c93acb4c08777",
+      "bytes": 179583
+    },
+    "chromium-offline.png": {
+      "sha256": "4634d6c708239cf8cb839dd90a8588b9cb92dcac21d7b44eaa774e21b0e14408",
+      "bytes": 165285
+    },
+    "chromium-registry.json": {
+      "sha256": "be2fb45c4a224b628d01209a98a20f9ff7c63ad191f31dc01ed524997a3ac1b6",
+      "bytes": 18904
+    },
+    "chromium-ui.json": {
+      "sha256": "8b5f87dceb71b001d5f2f5e18d04c25ce4325737995934badff843bc3f9a8b53",
+      "bytes": 2361
+    },
+    "firefox-libraries.png": {
+      "sha256": "8b95d9ef72d134a64a7f29a4946909df5e4d438aae20f161d696e6c0c32c24b6",
+      "bytes": 160675
+    },
+    "firefox-offline.png": {
+      "sha256": "44827521edfb7771ca89a489164a809adbb33779345fb08a5b09deaa83db4101",
+      "bytes": 147029
+    },
+    "firefox-registry.json": {
+      "sha256": "8cbfac9685deb655c10cdd4ccc0f12a4cc5383dc87f0e785e584d577d14da079",
+      "bytes": 18895
+    },
+    "firefox-ui.json": {
+      "sha256": "44bcff4d601da97b4c87421a098d0a9ef8d65d35525dccfbd179225fa7d0f017",
+      "bytes": 2360
+    },
+    "lmtd-preflight.py": {
+      "sha256": "f941876623d1e1a73b389a1eac2e3c3dbcf84071334e3c88e99c95ba5d3c13ba",
+      "bytes": 2359
+    },
+    "r17-lmtd-preflight.json": {
+      "sha256": "145acb81be7999450d5f78043f21f8e41317caaa97ed228ab2bb66f6251ff9c6",
+      "bytes": 4788
+    }
+  },
+  "localLogSHA256": {
+    "native-generation.log": "e8e98712c3205322d4b75bcd5241fa88f48ef0a5e66a8e50afc802d71bfbe96d",
+    "native-tests.log": "dccd1f333a02b8d1cd2bcaa5cb32e1553fa06329eab9b885fe8c3dad749a0738",
+    "unit-node22.log": "ce6e59cecad497974a5c5622af80987b0c156b2a8f9c6bd09167b258daa1a883",
+    "unit-node24.log": "6ec79a72779ce9ad95bf35596c9a2ac38b32dc6fd73bd2fcbb4c9d44bce256b2"
+  },
+  "open": [
+    "R16.2 full reviewed contracts and per-case links",
+    "Optional units/Numba dynamic export inventory",
+    "Dynamic instance state and callable argument/serialization contracts",
+    "R21/R26 reestimate after classified scenarios and first measured methods",
+    "Full ht/fluids numerical, physical and subject-UI acceptance",
+    "Separate Firefox 153 publication export crash observation remains cause-unknown under R13"
+  ]
+}

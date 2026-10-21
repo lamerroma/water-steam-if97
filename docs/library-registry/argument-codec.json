@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "codecVersion": 2,
+  "bridgeSHA256": "7f6c0de6c1b5e28b90c268a5a390685cb6b69240b2b115694aa8ced479452e2b",
+  "scope": "Reviewed wire representations and lifecycle only. JSON Schema fragments describe the documented subset; calendar validity, live handle/catalog resolution and NumPy/upstream behavior need runtime checks. This is not numerical or physical acceptance.",
+  "schemaDialect": "https://json-schema.org/draft/2020-12/schema",
+  "inputTags": {
+    "$datetime": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "$datetime"
+          ],
+          "properties": {
+            "$datetime": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]{1,6})?(?:Z|[+-](?:[01][0-9]|2[0-3]):[0-5][0-9])$"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "$datetime",
+            "$naive"
+          ],
+          "properties": {
+            "$datetime": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]{1,6})?$"
+            },
+            "$naive": {
+              "const": true
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "$object": {
+      "type": "object",
+      "required": [
+        "$object"
+      ],
+      "properties": {
+        "$object": {
+          "type": "string",
+          "pattern": "^object-[a-f0-9]{32}-[1-9][0-9]*$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "$function": {
+      "type": "object",
+      "required": [
+        "$function"
+      ],
+      "properties": {
+        "$function": {
+          "type": "string",
+          "pattern": "^(ht|fluids)\\.[A-Za-z][A-Za-z0-9_.]*$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "$complex": {
+      "type": "object",
+      "required": [
+        "$complex"
+      ],
+      "properties": {
+        "$complex": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "additionalProperties": false
+    },
+    "$array": {
+      "type": "object",
+      "required": [
+        "$array"
+      ],
+      "properties": {
+        "$array": {}
+      },
+      "additionalProperties": false
+    }
+  },
+  "semanticChecks": {
+    "datetime": [
+      "Valid Python calendar date, seconds and fixed UTC offset.",
+      "At most six fractional digits; no silent truncation.",
+      "-00:00 (unknown offset) is rejected.",
+      "No named/IANA timezone, leap-second or timezone inference.",
+      "Without offset, $naive must be explicitly true. Plain strings stay strings."
+    ],
+    "object": [
+      "Opaque session-scoped reference; new random 128-bit session identity for each bridge instance.",
+      "get/call member and release check the creating package.",
+      "Passing an object as a $object argument between ht and fluids in the same Worker is permitted.",
+      "A released or previous-session handle cannot resolve to a newly created object.",
+      "release of a missing string handle returns released:false; malformed or foreign-owner releases fail.",
+      "No object-state serialization or automatic replay across Workers."
+    ],
+    "array": [
+      "NumPy.asarray inference, nested tags decoded recursively; dtype/shape acceptance is function-specific."
+    ],
+    "function": [
+      "Must resolve to a callable in the installed recursive public catalog; private/import targets are rejected."
+    ]
+  },
+  "outputKinds": {
+    "datetime": {
+      "type": "object",
+      "required": [
+        "kind",
+        "iso8601",
+        "timezone"
+      ],
+      "properties": {
+        "kind": {
+          "const": "datetime"
+        },
+        "iso8601": {
+          "type": "string"
+        },
+        "timezone": {
+          "enum": [
+            "naive",
+            "fixed-offset"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "object": {
+      "required": [
+        "kind",
+        "handle",
+        "scope",
+        "class",
+        "members"
+      ],
+      "properties": {
+        "kind": {
+          "const": "object"
+        },
+        "scope": {
+          "const": "worker-session"
+        }
+      }
+    }
+  },
+  "outputQualification": "Datetime values carry an ISO string and offset-awareness classification; no IANA timezone identity/fold serialization is promised. Ordinary upstream dictionaries can also contain kind fields; output tags are not automatically decoded into future inputs.",
+  "failureExport": {
+    "format": "thermocalc-library-result",
+    "version": 1,
+    "replyStatus": "error",
+    "preserves": [
+      "module",
+      "method",
+      "payload",
+      "error.code",
+      "error.message",
+      "error.details.description when target was resolved",
+      "error.details.engineVersion",
+      "error.details.implementationRevision"
+    ]
+  },
+  "caseLinks": [
+    {
+      "target": "fluids.geometry.TANK",
+      "nativeTest": "scripts/reference/test_library_registry.py",
+      "browserTest": "scripts/check-python-libraries-browser.cjs"
+    },
+    {
+      "target": "fluids.atmosphere.solar_position",
+      "nativeTest": "scripts/reference/test_library_registry.py",
+      "browserTest": "scripts/check-python-libraries-browser.cjs"
+    },
+    {
+      "target": "fluids.atmosphere.sunrise_sunset",
+      "nativeTest": "scripts/reference/test_library_registry.py",
+      "browserTest": "scripts/check-python-libraries-browser.cjs"
+    }
+  ]
+}

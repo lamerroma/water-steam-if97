@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "tests": [
+    9,
+    9
+  ],
+  "bridgeSHA256": "7f6c0de6c1b5e28b90c268a5a390685cb6b69240b2b115694aa8ced479452e2b",
+  "testSourceSHA256": "02f52425c48c5f90ff57bd70dfdf8b64dcffa9f3716ddc01d39da01ddb179557",
+  "rawLog": ".........\n----------------------------------------------------------------------\nRan 9 tests in 1.222s\n\nOK\n",
+  "scope": "Native wire/lifecycle regression and integration tests; no global physical or numerical acceptance."
+}

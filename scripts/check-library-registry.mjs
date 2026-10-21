@@ -85,6 +85,29 @@ export function validateReviewedLibraryContracts(contracts,surface){
  }
 }
 
+export function validateLibraryCodec(codec,surface,bridgeSHA256){
+ requireValue(codec.schemaVersion===1&&codec.codecVersion===2,'Unsupported argument codec contract');
+ requireValue(codec.bridgeSHA256===bridgeSHA256,'Stale argument codec source');
+ requireValue(Object.keys(codec.inputTags).sort().join('|')===['$array','$complex','$datetime','$function','$object'].sort().join('|'),'Incomplete input codec inventory');
+ requireValue(codec.outputKinds.object.properties.scope.const==='worker-session','Object lifetime scope cannot be persistent');
+ requireValue(codec.outputKinds.datetime.properties.timezone.enum.join('|')==='naive|fixed-offset','Datetime timezone scope changed');
+ requireValue(codec.caseLinks.length>0,'Missing codec case links');
+ for(const link of codec.caseLinks)requireValue(surface.pathIndex[link.target]&&link.nativeTest&&link.browserTest,'Missing codec target/test link');
+ return {codecVersion:codec.codecVersion,linkedTargets:codec.caseLinks.length};
+}
+
+export function validateOptionalLibraryPolicy(policy,surface){
+ requireValue(policy.schemaVersion===1&&policy.globalOptionalExportCount===null,'Optional export denominator remains unresolved');
+ const blocked=new Map(surface.packages.flatMap(p=>p.unavailableModules).map(item=>[item.module,item]));
+ requireValue(policy.records.length===blocked.size,'Optional variants cannot disappear from scope');
+ const seen=new Set();
+ for(const record of policy.records){
+  const source=blocked.get(record.module);requireValue(source&&!seen.has(record.module),'Unknown/duplicate optional module');seen.add(record.module);
+  requireValue(record.sourceSHA256===source.sha256&&record.sourcePath===source.path,'Stale optional variant source');
+  requireValue(record.status==='blocked_missing_dependency'&&record.completeExportCount===null&&record.remainingWork,'Unjustified optional variant acceptance');
+ }
+}
+
 export async function checkManagedLibraryRegistry(){
  const read=async file=>JSON.parse(await readFile(path.join(root,file),'utf8'));
  const surface=await read('docs/library-registry/surface.json');
@@ -99,6 +122,10 @@ export async function checkManagedLibraryRegistry(){
  const controls=await read('docs/library-registry/controls.json');
  validateLibraryControls(controls,surface);
  validateReviewedLibraryContracts(await read('docs/library-registry/reviewed-contracts.json'),surface);
+ const codec=await read('docs/library-registry/argument-codec.json');
+ validateLibraryCodec(codec,surface,surface.inputs.bridgeSHA256);
+ validateOptionalLibraryPolicy(await read('docs/library-registry/optional-policy.json'),surface);
+ for(const link of codec.caseLinks)for(const key of ['nativeTest','browserTest'])await readFile(path.join(root,link[key]));
  const acceptance=await read('docs/library-registry/acceptance.json');
  requireValue(acceptance.registrySHA256===sha(await readFile(path.join(root,'docs/library-registry/surface.json'))),'Stale inventory acceptance evidence');
  for(const key of ['bridgeSHA256','collectorSHA256','vendorManifestSHA256'])requireValue(acceptance.inputs[key]===surface.inputs[key],'Stale acceptance input: '+key);

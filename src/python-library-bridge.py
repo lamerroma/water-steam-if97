@@ -8,6 +8,8 @@ import numbers
 import pkgutil
 import re
 import sys
+import datetime
+import uuid
 import numpy as np
 
 _library_catalogs = {}
@@ -15,10 +17,41 @@ _library_targets = {}
 _library_objects = {}
 _library_next_object = 0
 _library_active_package = None
+_library_session = uuid.uuid4().hex
+
+
+def _library_object(handle, owner=None):
+    stored = _library_objects.get(handle) if isinstance(handle, str) else None
+    if stored is None:
+        raise KeyError('Object handle is stale; construct it again after cancellation or restart.')
+    if owner is not None and stored[0] != owner:
+        raise ValueError('Object belongs to another library; select its owning package.')
+    return stored[1]
+
+
+def _library_datetime(value):
+    if set(value) not in ({'$datetime'}, {'$datetime', '$naive'}):
+        raise ValueError('Datetime accepts only $datetime and an explicit $naive: true flag.')
+    text = value['$datetime']
+    if not isinstance(text, str) or not re.fullmatch(
+            r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|[+-](?:[01]\d|2[0-3]):[0-5]\d)?', text):
+        raise ValueError('Datetime requires an ISO date/time with seconds and at most six fractional digits.')
+    if text.endswith('-00:00'):
+        raise ValueError('Unknown UTC offset -00:00 is unsupported; specify a known offset or explicit naive time.')
+    moment = datetime.datetime.fromisoformat(text.replace('Z', '+00:00'))
+    naive = '$naive' in value
+    if naive and value['$naive'] is not True:
+        raise ValueError('$naive must be true when present.')
+    if naive != (moment.tzinfo is None):
+        raise ValueError('Specify a UTC offset or Z; a time without offset requires $naive: true.')
+    return moment
 
 # Pinned upstream behavior, observed independently in CPython and Pyodide.
 # Preserve the raw API and report discrepancies rather than relabeling them valid.
 _library_known_issues = {
+    'fluids.atmosphere.sunrise_sunset': [{
+        'code': 'fluids-sunrise-fixed-offset', 'scope': 'Timezone-aware datetime with Python datetime.timezone, including UTC.',
+        'message': 'fluids 1.3.1 sunrise_sunset raises ValueError: fromutc: dt.tzinfo is not self for fixed-offset aware datetime. An explicitly naive datetime follows a separate upstream UTC convention; it is not substituted automatically.'}],
     'fluids.numerics.arrays.det': [{
         'code': 'fluids-det-rank2-1x1', 'scope': 'Rank-2 one-by-one input, for example [[7]].',
         'message': 'fluids 1.3.1 det([[7]]) returns [7], rather than the scalar determinant 7. This input shape is not numerically accepted.'}],
@@ -33,6 +66,9 @@ def _library_encode(value, depth=0):
         raise ValueError('Result nesting exceeds the JSON bridge limit.')
     if value is None or isinstance(value, (str, bool)):
         return value
+    if isinstance(value, datetime.datetime):
+        return {'kind': 'datetime', 'iso8601': value.isoformat(),
+                'timezone': 'naive' if value.utcoffset() is None else 'fixed-offset'}
     if isinstance(value, numbers.Integral):
         n = int(value)
         return n if abs(n) <= 9007199254740991 else {'kind': 'integer', 'decimal': str(n)}
@@ -52,21 +88,24 @@ def _library_encode(value, depth=0):
     if isinstance(value, dict):
         return {str(key): _library_encode(item, depth + 1) for key, item in value.items()}
     _library_next_object += 1
-    handle = 'object-' + str(_library_next_object)
+    handle = 'object-' + _library_session + '-' + str(_library_next_object)
     _library_objects[handle] = (_library_active_package, value)
-    return {'kind': 'object', 'handle': handle, 'class': type(value).__module__ + '.' + type(value).__name__,
+    return {'kind': 'object', 'handle': handle, 'scope': 'worker-session',
+            'class': type(value).__module__ + '.' + type(value).__name__,
             'members': [name for name in dir(value) if not name.startswith('_')]}
 
 def _library_decode(value):
     if isinstance(value, list):
         return [_library_decode(item) for item in value]
     if isinstance(value, dict):
+        if '$datetime' in value:
+            return _library_datetime(value)
         if set(value) == {'$array'}:
             return np.asarray(_library_decode(value['$array']))
         if set(value) == {'$complex'}:
             return complex(*value['$complex'])
         if set(value) == {'$object'}:
-            return _library_objects[value['$object']][1]
+            return _library_object(value['$object'])
         if set(value) == {'$function'}:
             path = value['$function']
             package = path.split('.', 1)[0]
@@ -173,12 +212,7 @@ def _library_catalog(package):
 
 def _library_resolve(package, payload):
     if 'handle' in payload:
-        stored = _library_objects.get(payload['handle'])
-        if stored is None:
-            raise KeyError('Object handle is stale; construct it again after cancellation or restart.')
-        owner, obj = stored
-        if owner != package:
-            raise ValueError('Object belongs to another library; select its owning package.')
+        obj = _library_object(payload['handle'], package)
         name = payload.get('member', '')
         if not isinstance(name, str) or not name or name.startswith('_') or '.' in name:
             raise ValueError('Specify a public object member.')
@@ -191,6 +225,7 @@ def _library_resolve(package, payload):
 
 def _thermocalc_library_json(text):
     global _library_active_package
+    description = None
     try:
         request = json.loads(text)
         package, method, payload = request['module'], request['method'], request['payload']
@@ -202,7 +237,12 @@ def _thermocalc_library_json(text):
         if method == 'catalog':
             return json.dumps({'ok': True, 'result': _library_catalog(package)}, allow_nan=False)
         if method == 'release':
-            removed = _library_objects.pop(payload.get('handle'), None) is not None
+            handle = payload.get('handle')
+            if not isinstance(handle, str):
+                raise ValueError('Specify an object handle string.')
+            if handle in _library_objects:
+                _library_object(handle, package)
+            removed = _library_objects.pop(handle, None) is not None
             return json.dumps({'ok': True, 'result': {'released': removed}})
         target, name = _library_resolve(package, payload)
         description = _library_describe(target, name)
@@ -223,4 +263,5 @@ def _thermocalc_library_json(text):
             raise ValueError('Unsupported library operation.')
         return json.dumps({'ok': True, 'result': _library_encode(value), 'description': description}, allow_nan=False)
     except Exception as exc:
-        return json.dumps({'ok': False, 'code': 'library-error', 'message': type(exc).__name__ + ': ' + str(exc)})
+        return json.dumps({'ok': False, 'code': 'library-error', 'message': type(exc).__name__ + ': ' + str(exc),
+                           **({'description': description} if description is not None else {})})

@@ -1,0 +1,18 @@
+{
+  "commit": "38f0b5b33c5e1bede3d676cd6e2580263993cb34",
+  "run": 39655834729,
+  "url": "https://github.com/lamerroma/water-steam-if97/actions/runs/39655834729",
+  "status": "passed",
+  "checks": [
+    109,
+    109
+  ],
+  "build": {
+    "version": "1.41.0",
+    "id": "6dad6820c40a"
+  },
+  "reportSHA256": "210bfc064e75cf2d39ca5c9b9988715e32a2a582e27278720bd6e1a89cda2d68",
+  "nativeRegistryJob": "success",
+  "inverseFullJob": "skipped_on_branch",
+  "scope": "Historical R16.1 full software acceptance, not acceptance of subsequent source changes or physical-model validation."
+}

@@ -1,0 +1,469 @@
+{
+  "commit": "38f0b5b33c5e1bede3d676cd6e2580263993cb34",
+  "scope": "Native pre-change JSON bridge observations; no browser or physical-model validity claim. Separate runpy namespaces simulate independent Worker object stores.",
+  "oldObject": {
+    "ok": true,
+    "result": {
+      "kind": "object",
+      "handle": "object-1",
+      "class": "fluids.geometry.TANK",
+      "members": [
+        "A",
+        "A_cross_sectional",
+        "A_lateral",
+        "A_sideA",
+        "A_sideA_extra",
+        "A_sideB",
+        "A_sideB_extra",
+        "D",
+        "L",
+        "L_over_D",
+        "R",
+        "SA_from_h",
+        "V",
+        "V_from_h",
+        "V_lateral",
+        "V_sideA",
+        "V_sideB",
+        "V_total",
+        "add_thickness",
+        "angle",
+        "chebyshev",
+        "from_two_specs",
+        "h_from_V",
+        "h_max",
+        "horizontal",
+        "model_inputs",
+        "orientation",
+        "set_chebyshev_approximators",
+        "set_misc",
+        "set_table",
+        "sideA",
+        "sideA_a",
+        "sideA_a_ratio",
+        "sideA_f",
+        "sideA_k",
+        "sideB",
+        "sideB_a",
+        "sideB_a_ratio",
+        "sideB_f",
+        "sideB_k",
+        "table",
+        "vertical"
+      ]
+    },
+    "description": {
+      "path": "fluids.geometry.TANK",
+      "kind": "class",
+      "signature": "(D: 'float | None' = None, L: 'float | None' = None, horizontal: 'bool' = True, sideA: 'str | None' = None, sideB: 'str | None' = None, sideA_a: 'float | None' = None, sideB_a: 'float | None' = None, sideA_f: 'float | None' = None, sideA_k: 'float | None' = None, sideB_f: 'float | None' = None, sideB_k: 'float | None' = None, sideA_a_ratio: 'float | None' = None, sideB_a_ratio: 'float | None' = None, L_over_D: 'float | None' = None, V: 'int | None' = None) -> 'None'",
+      "parameters": [
+        {
+          "name": "D",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "L",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "horizontal",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "True"
+        },
+        {
+          "name": "sideA",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideB",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideA_a",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideB_a",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideA_f",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideA_k",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideB_f",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideB_k",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideA_a_ratio",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideB_a_ratio",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "L_over_D",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "V",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        }
+      ],
+      "summary": "Class representing tank volumes and levels. All parameters are also\nattributes.",
+      "documentation": "Class representing tank volumes and levels. All parameters are also\nattributes.\n\nParameters\n----------\nD : float\n    Diameter of the cylindrical section of the tank, [m]\nL : float\n    Length of the main cylindrical section of the tank, [m]\nhorizontal : bool, optional\n    Whether or not the tank is a horizontal or vertical tank\nsideA : string, optional\n    The left (or bottom for vertical) head of the tank's type; one of\n    [None, 'conical', 'ellipsoidal', 'torispherical', 'guppy', 'spherical',\n    'same'].\nsideB : string, optional\n    The right (or top for vertical) head of the tank's type; one of\n    [None, 'conical', 'ellipsoidal', 'torispherical', 'guppy', 'spherical',\n    'same'].\nsideA_a : float, optional\n    The distance the head as specified by sideA extends down or to the left\n    from the main cylindrical section, [m]\nsideB_a : float, optional\n    The distance the head as specified by sideB extends up or to the right\n    from the main cylindrical section, [m]\nsideA_f : float, optional\n    Dimensionless dish-radius parameter for side A; also commonly given as\n    the product of `f` and `D` (`fD`), which is called dish radius and\n    has units of length, [-]\nsideA_k : float, optional\n    Dimensionless knuckle-radius parameter for side A; also commonly given\n    as the product of `k` and `D` (`kD`), which is called the knuckle\n    radius and has units of length, [-]\nsideB_f : float, optional\n    Dimensionless dish-radius parameter for side B; also commonly given as\n    the product of `f` and `D` (`fD`), which is called dish radius and\n    has units of length, [-]\nsideB_k : float, optional\n    Dimensionless knuckle-radius parameter for side B; also commonly given\n    as the product of `k` and `D` (`kD`), which is called the knuckle\n    radius and has units of length, [-]\nsideA_a_ratio : float, optional\n    Ratio for `a` parameter; can be used instead of specifying an absolute\n    value, [-]\nsideB_a_ratio : float, optional\n    Ratio for `a` parameter; can be used instead of specifying an absolute\n    value, [-]\nL_over_D : float, optional\n    Ratio of length over diameter, used only when D and L are both\n    unspecified but V is, [-]\nV : float, optional\n    Volume of the tank; solved for if specified, using\n    sideA_a_ratio/sideB_a_ratio, sideA, sideB, horizontal, and one\n    of L_over_D, L, or D, [m^3]\n\nAttributes\n----------\nh_max : float\n    Height of the tank, [m]\nV_total : float\n    Total volume of the tank as calculated [m^3]\nsideA_V : float\n    Volume of only `sideA` [m^3]\nsideB_V : float\n    Volume of only `sideB` [m^3]\nlateral_V : float\n    Volume of cylindrical section of tank [m^3]\nA : float\n    Total surface area of the tank, [m^2]\nA_sideA : float\n    Surface area of sideA, [m^2]\nA_sideB : float\n    Surface area of sideB, [m^2]\nA_lateral : float\n    Surface area of the lateral side, [m^2]\nA_sideA_extra : float\n    Additional surface area of sideA beyond that of a flat disk, [m^2]\nA_sideB_extra : float\n    Additional surface area of sideB beyond that of a flat disk, [m^2]\ntable : bool\n    Whether or not a table of heights-volumes has been generated\nheights : ndarray\n    Array of heights between 0 and h_max, [m]\nvolumes : ndarray\n    Array of volumes calculated from the heights, [m^3]\nc_forward : ndarray\n    Coefficients for the Chebyshev approximations in calculating V from h,\n    [-]\nc_backward : ndarray\n    Coefficients for the Chebyshev approximations in calculating h from V,\n    [-]\n\nNotes\n-----\nFor torispherical tank heads, the following `f` and `k` parameters are used\nin standards. The default is ASME F&D.\n\n\n+----------------------+-----+-------+\n|                      | f   | k     |\n+======================+=====+=======+\n|  2:1 semi-elliptical | 0.9 | 0.17  |\n+----------------------+-----+-------+\n|  ASME F&D            | 1   | 0.06  |\n+----------------------+-----+-------+\n|  ASME 80/6           | 0.8 | 0.06  |\n+----------------------+-----+-------+\n|  ASME 80/10 F&D      | 0.8 | 0.1   |\n+----------------------+-----+-------+\n|  DIN 28011           | 1   | 0.1   |\n+----------------------+-----+-------+\n|  DIN 28013           | 0.8 | 0.154 |\n+----------------------+-----+-------+\n\nFor the following cases, numerical integrals are used.\n\nV_horiz_spherical\nV_horiz_torispherical\nSA_partial_horiz_spherical_head\nSA_partial_horiz_ellipsoidal_head\nSA_partial_horiz_guppy_head\nSA_partial_horiz_torispherical_head\n\n\n\nExamples\n--------\nTotal volume of a tank:\n\n>>> TANK(D=1.2, L=4, horizontal=False).V_total\n4.523893421169302\n\nVolume of a tank at a given height:\n\n>>> TANK(D=1.2, L=4, horizontal=False).V_from_h(.5)\n0.5654866776461628\n\nHeight of liquid for a given volume:\n\n>>> TANK(D=1.2, L=4, horizontal=False).h_from_V(.5)\n0.442097064\n\nSurface area of a tank with a conical head:\n\n>>> T1 = TANK(V=10, L_over_D=0.7, sideB='conical', sideB_a=0.5)\n>>> T1.A, T1.A_sideA, T1.A_sideB, T1.A_lateral\n(24.94775907, 5.118555, 5.497246, 14.331956)\n\nSolving for tank volumes, first horizontal, then vertical:\n\n>>> TANK(D=10., horizontal=True, sideA='conical', sideB='conical', V=500).L\n4.699531\n>>> TANK(L=4.69953105701, horizontal=True, sideA='conical', sideB='conical', V=500).D\n9.9999999\n>>> TANK(L_over_D=0.469953105701, horizontal=True, sideA='conical', sideB='conical', V=500).L\n4.6995310\n\n>>> TANK(D=10., horizontal=False, sideA='conical', sideB='conical', V=500).L\n4.699531\n>>> TANK(L=4.69953105701, horizontal=False, sideA='conical', sideB='conical', V=500).D\n9.99999999\n>>> TANK(L_over_D=0.469953105701, horizontal=False, sideA='conical', sideB='conical', V=500).L\n4.699531057",
+      "documentedUnits": {
+        "Parameters": [
+          {
+            "name": "D",
+            "unit": "m"
+          },
+          {
+            "name": "L",
+            "unit": "m"
+          },
+          {
+            "name": "horizontal",
+            "unit": null
+          },
+          {
+            "name": "sideA",
+            "unit": null
+          },
+          {
+            "name": "sideB",
+            "unit": null
+          },
+          {
+            "name": "sideA_a",
+            "unit": "m"
+          },
+          {
+            "name": "sideB_a",
+            "unit": "m"
+          },
+          {
+            "name": "sideA_f",
+            "unit": "1"
+          },
+          {
+            "name": "sideA_k",
+            "unit": "1"
+          },
+          {
+            "name": "sideB_f",
+            "unit": "1"
+          },
+          {
+            "name": "sideB_k",
+            "unit": "1"
+          },
+          {
+            "name": "sideA_a_ratio",
+            "unit": "1"
+          },
+          {
+            "name": "sideB_a_ratio",
+            "unit": "1"
+          },
+          {
+            "name": "L_over_D",
+            "unit": "1"
+          },
+          {
+            "name": "V",
+            "unit": "m^3"
+          }
+        ],
+        "Returns": []
+      },
+      "unitSource": "Unmodified upstream docstring; not an independently verified unit schema.",
+      "knownIssues": []
+    }
+  },
+  "newObject": {
+    "ok": true,
+    "result": {
+      "kind": "object",
+      "handle": "object-1",
+      "class": "fluids.geometry.TANK",
+      "members": [
+        "A",
+        "A_cross_sectional",
+        "A_lateral",
+        "A_sideA",
+        "A_sideA_extra",
+        "A_sideB",
+        "A_sideB_extra",
+        "D",
+        "L",
+        "L_over_D",
+        "R",
+        "SA_from_h",
+        "V",
+        "V_from_h",
+        "V_lateral",
+        "V_sideA",
+        "V_sideB",
+        "V_total",
+        "add_thickness",
+        "angle",
+        "chebyshev",
+        "from_two_specs",
+        "h_from_V",
+        "h_max",
+        "horizontal",
+        "model_inputs",
+        "orientation",
+        "set_chebyshev_approximators",
+        "set_misc",
+        "set_table",
+        "sideA",
+        "sideA_a",
+        "sideA_a_ratio",
+        "sideA_f",
+        "sideA_k",
+        "sideB",
+        "sideB_a",
+        "sideB_a_ratio",
+        "sideB_f",
+        "sideB_k",
+        "table",
+        "vertical"
+      ]
+    },
+    "description": {
+      "path": "fluids.geometry.TANK",
+      "kind": "class",
+      "signature": "(D: 'float | None' = None, L: 'float | None' = None, horizontal: 'bool' = True, sideA: 'str | None' = None, sideB: 'str | None' = None, sideA_a: 'float | None' = None, sideB_a: 'float | None' = None, sideA_f: 'float | None' = None, sideA_k: 'float | None' = None, sideB_f: 'float | None' = None, sideB_k: 'float | None' = None, sideA_a_ratio: 'float | None' = None, sideB_a_ratio: 'float | None' = None, L_over_D: 'float | None' = None, V: 'int | None' = None) -> 'None'",
+      "parameters": [
+        {
+          "name": "D",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "L",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "horizontal",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "True"
+        },
+        {
+          "name": "sideA",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideB",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideA_a",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideB_a",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideA_f",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideA_k",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideB_f",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideB_k",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideA_a_ratio",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "sideB_a_ratio",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "L_over_D",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "V",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "None"
+        }
+      ],
+      "summary": "Class representing tank volumes and levels. All parameters are also\nattributes.",
+      "documentation": "Class representing tank volumes and levels. All parameters are also\nattributes.\n\nParameters\n----------\nD : float\n    Diameter of the cylindrical section of the tank, [m]\nL : float\n    Length of the main cylindrical section of the tank, [m]\nhorizontal : bool, optional\n    Whether or not the tank is a horizontal or vertical tank\nsideA : string, optional\n    The left (or bottom for vertical) head of the tank's type; one of\n    [None, 'conical', 'ellipsoidal', 'torispherical', 'guppy', 'spherical',\n    'same'].\nsideB : string, optional\n    The right (or top for vertical) head of the tank's type; one of\n    [None, 'conical', 'ellipsoidal', 'torispherical', 'guppy', 'spherical',\n    'same'].\nsideA_a : float, optional\n    The distance the head as specified by sideA extends down or to the left\n    from the main cylindrical section, [m]\nsideB_a : float, optional\n    The distance the head as specified by sideB extends up or to the right\n    from the main cylindrical section, [m]\nsideA_f : float, optional\n    Dimensionless dish-radius parameter for side A; also commonly given as\n    the product of `f` and `D` (`fD`), which is called dish radius and\n    has units of length, [-]\nsideA_k : float, optional\n    Dimensionless knuckle-radius parameter for side A; also commonly given\n    as the product of `k` and `D` (`kD`), which is called the knuckle\n    radius and has units of length, [-]\nsideB_f : float, optional\n    Dimensionless dish-radius parameter for side B; also commonly given as\n    the product of `f` and `D` (`fD`), which is called dish radius and\n    has units of length, [-]\nsideB_k : float, optional\n    Dimensionless knuckle-radius parameter for side B; also commonly given\n    as the product of `k` and `D` (`kD`), which is called the knuckle\n    radius and has units of length, [-]\nsideA_a_ratio : float, optional\n    Ratio for `a` parameter; can be used instead of specifying an absolute\n    value, [-]\nsideB_a_ratio : float, optional\n    Ratio for `a` parameter; can be used instead of specifying an absolute\n    value, [-]\nL_over_D : float, optional\n    Ratio of length over diameter, used only when D and L are both\n    unspecified but V is, [-]\nV : float, optional\n    Volume of the tank; solved for if specified, using\n    sideA_a_ratio/sideB_a_ratio, sideA, sideB, horizontal, and one\n    of L_over_D, L, or D, [m^3]\n\nAttributes\n----------\nh_max : float\n    Height of the tank, [m]\nV_total : float\n    Total volume of the tank as calculated [m^3]\nsideA_V : float\n    Volume of only `sideA` [m^3]\nsideB_V : float\n    Volume of only `sideB` [m^3]\nlateral_V : float\n    Volume of cylindrical section of tank [m^3]\nA : float\n    Total surface area of the tank, [m^2]\nA_sideA : float\n    Surface area of sideA, [m^2]\nA_sideB : float\n    Surface area of sideB, [m^2]\nA_lateral : float\n    Surface area of the lateral side, [m^2]\nA_sideA_extra : float\n    Additional surface area of sideA beyond that of a flat disk, [m^2]\nA_sideB_extra : float\n    Additional surface area of sideB beyond that of a flat disk, [m^2]\ntable : bool\n    Whether or not a table of heights-volumes has been generated\nheights : ndarray\n    Array of heights between 0 and h_max, [m]\nvolumes : ndarray\n    Array of volumes calculated from the heights, [m^3]\nc_forward : ndarray\n    Coefficients for the Chebyshev approximations in calculating V from h,\n    [-]\nc_backward : ndarray\n    Coefficients for the Chebyshev approximations in calculating h from V,\n    [-]\n\nNotes\n-----\nFor torispherical tank heads, the following `f` and `k` parameters are used\nin standards. The default is ASME F&D.\n\n\n+----------------------+-----+-------+\n|                      | f   | k     |\n+======================+=====+=======+\n|  2:1 semi-elliptical | 0.9 | 0.17  |\n+----------------------+-----+-------+\n|  ASME F&D            | 1   | 0.06  |\n+----------------------+-----+-------+\n|  ASME 80/6           | 0.8 | 0.06  |\n+----------------------+-----+-------+\n|  ASME 80/10 F&D      | 0.8 | 0.1   |\n+----------------------+-----+-------+\n|  DIN 28011           | 1   | 0.1   |\n+----------------------+-----+-------+\n|  DIN 28013           | 0.8 | 0.154 |\n+----------------------+-----+-------+\n\nFor the following cases, numerical integrals are used.\n\nV_horiz_spherical\nV_horiz_torispherical\nSA_partial_horiz_spherical_head\nSA_partial_horiz_ellipsoidal_head\nSA_partial_horiz_guppy_head\nSA_partial_horiz_torispherical_head\n\n\n\nExamples\n--------\nTotal volume of a tank:\n\n>>> TANK(D=1.2, L=4, horizontal=False).V_total\n4.523893421169302\n\nVolume of a tank at a given height:\n\n>>> TANK(D=1.2, L=4, horizontal=False).V_from_h(.5)\n0.5654866776461628\n\nHeight of liquid for a given volume:\n\n>>> TANK(D=1.2, L=4, horizontal=False).h_from_V(.5)\n0.442097064\n\nSurface area of a tank with a conical head:\n\n>>> T1 = TANK(V=10, L_over_D=0.7, sideB='conical', sideB_a=0.5)\n>>> T1.A, T1.A_sideA, T1.A_sideB, T1.A_lateral\n(24.94775907, 5.118555, 5.497246, 14.331956)\n\nSolving for tank volumes, first horizontal, then vertical:\n\n>>> TANK(D=10., horizontal=True, sideA='conical', sideB='conical', V=500).L\n4.699531\n>>> TANK(L=4.69953105701, horizontal=True, sideA='conical', sideB='conical', V=500).D\n9.9999999\n>>> TANK(L_over_D=0.469953105701, horizontal=True, sideA='conical', sideB='conical', V=500).L\n4.6995310\n\n>>> TANK(D=10., horizontal=False, sideA='conical', sideB='conical', V=500).L\n4.699531\n>>> TANK(L=4.69953105701, horizontal=False, sideA='conical', sideB='conical', V=500).D\n9.99999999\n>>> TANK(L_over_D=0.469953105701, horizontal=False, sideA='conical', sideB='conical', V=500).L\n4.699531057",
+      "documentedUnits": {
+        "Parameters": [
+          {
+            "name": "D",
+            "unit": "m"
+          },
+          {
+            "name": "L",
+            "unit": "m"
+          },
+          {
+            "name": "horizontal",
+            "unit": null
+          },
+          {
+            "name": "sideA",
+            "unit": null
+          },
+          {
+            "name": "sideB",
+            "unit": null
+          },
+          {
+            "name": "sideA_a",
+            "unit": "m"
+          },
+          {
+            "name": "sideB_a",
+            "unit": "m"
+          },
+          {
+            "name": "sideA_f",
+            "unit": "1"
+          },
+          {
+            "name": "sideA_k",
+            "unit": "1"
+          },
+          {
+            "name": "sideB_f",
+            "unit": "1"
+          },
+          {
+            "name": "sideB_k",
+            "unit": "1"
+          },
+          {
+            "name": "sideA_a_ratio",
+            "unit": "1"
+          },
+          {
+            "name": "sideB_a_ratio",
+            "unit": "1"
+          },
+          {
+            "name": "L_over_D",
+            "unit": "1"
+          },
+          {
+            "name": "V",
+            "unit": "m^3"
+          }
+        ],
+        "Returns": []
+      },
+      "unitSource": "Unmodified upstream docstring; not an independently verified unit schema.",
+      "knownIssues": []
+    }
+  },
+  "oldHandleInNewSession": {
+    "ok": true,
+    "result": 6.283185307179586,
+    "description": {
+      "path": "fluids.geometry.TANK.V_total",
+      "kind": "data",
+      "signature": null,
+      "parameters": [],
+      "summary": "Convert a string or number to a floating-point number, if possible.",
+      "documentation": "Convert a string or number to a floating-point number, if possible.",
+      "documentedUnits": {
+        "Parameters": [],
+        "Returns": []
+      },
+      "unitSource": "Unmodified upstream docstring; not an independently verified unit schema.",
+      "knownIssues": []
+    }
+  },
+  "releaseFromDifferentModule": {
+    "ok": true,
+    "result": {
+      "released": true
+    }
+  },
+  "untaggedISODateCall": {
+    "ok": false,
+    "code": "library-error",
+    "message": "AttributeError: 'str' object has no attribute 'utctimetuple'"
+  }
+}

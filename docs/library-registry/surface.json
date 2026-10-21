@@ -1,6 +1,6 @@
 {
   "inputs": {
-    "bridgeSHA256": "8277286a1550c950c79175f916d6f4f0fe9a067989eb2bca9cbe642b181d150c",
+    "bridgeSHA256": "7f6c0de6c1b5e28b90c268a5a390685cb6b69240b2b115694aa8ced479452e2b",
     "collectorSHA256": "861e6f4774656da365bef293c73aed506be5a812f18610f9058c5f56ca4c683d",
     "vendorManifestSHA256": "030543a03dd496c621f998923b5e35762d555d40c51d7168cde0f38cf5d5ffee",
     "verifiedInstalledPackageFiles": {
@@ -8853,7 +8853,13 @@
       "evidence": [],
       "id": "fluids@1.3.1:fluids.atmosphere.sunrise_sunset",
       "kind": "function",
-      "knownIssues": [],
+      "knownIssues": [
+        {
+          "code": "fluids-sunrise-fixed-offset",
+          "message": "fluids 1.3.1 sunrise_sunset raises ValueError: fromutc: dt.tzinfo is not self for fixed-offset aware datetime. An explicitly naive datetime follows a separate upstream UTC convention; it is not substituted automatically.",
+          "scope": "Timezone-aware datetime with Python datetime.timezone, including UTC."
+        }
+      ],
       "package": "fluids",
       "signature": {
         "parameters": [
@@ -8893,7 +8899,7 @@
         "domain": "unreviewed",
         "exports": "unreviewed",
         "geometry": "unreviewed",
-        "numerical": "unreviewed",
+        "numerical": "known_discrepancy",
         "persistence": "unreviewed",
         "types": "unreviewed",
         "units": "unreviewed"
@@ -187674,7 +187680,13 @@
       "evidence": [],
       "id": "fluids@1.3.1:fluids.vectorized.sunrise_sunset",
       "kind": "function",
-      "knownIssues": [],
+      "knownIssues": [
+        {
+          "code": "fluids-sunrise-fixed-offset",
+          "message": "fluids 1.3.1 sunrise_sunset raises ValueError: fromutc: dt.tzinfo is not self for fixed-offset aware datetime. An explicitly naive datetime follows a separate upstream UTC convention; it is not substituted automatically.",
+          "scope": "Timezone-aware datetime with Python datetime.timezone, including UTC."
+        }
+      ],
       "package": "fluids",
       "signature": {
         "parameters": [
@@ -187708,7 +187720,7 @@
         "domain": "unreviewed",
         "exports": "unreviewed",
         "geometry": "unreviewed",
-        "numerical": "unreviewed",
+        "numerical": "known_discrepancy",
         "persistence": "unreviewed",
         "types": "unreviewed",
         "units": "unreviewed"

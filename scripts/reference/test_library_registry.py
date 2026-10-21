@@ -4,6 +4,7 @@ import json
 import math
 import runpy
 import unittest
+import datetime
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 
@@ -64,6 +65,79 @@ class LibraryRegistryTests(unittest.TestCase):
         self.assertFalse(self.request('ht', 'get', {'handle': handle, 'member': 'V_total'})['ok'])
         self.assertTrue(self.request('fluids', 'release', {'handle': handle})['ok'])
         self.assertFalse(self.request('fluids', 'get', {'handle': handle, 'member': 'V_total'})['ok'])
+
+    def test_old_handle_never_addresses_a_new_session_object(self):
+        old_namespace = runpy.run_path(str(ROOT / 'src/python-library-bridge.py'))
+        new_namespace = runpy.run_path(str(ROOT / 'src/python-library-bridge.py'))
+        def invoke(namespace, method, payload):
+            return json.loads(namespace['_thermocalc_library_json'](json.dumps(
+                {'module': 'fluids', 'method': method, 'payload': payload})))
+        old = invoke(old_namespace, 'call', {'target': 'fluids.geometry.TANK', 'kwargs': {'D': 1, 'L': 2}})['result']
+        new = invoke(new_namespace, 'call', {'target': 'fluids.geometry.TANK', 'kwargs': {'D': 2, 'L': 2}})['result']
+        self.assertNotEqual(old['handle'], new['handle'])
+        self.assertEqual(new['scope'], 'worker-session')
+        stale = invoke(new_namespace, 'get', {'handle': old['handle'], 'member': 'V_total'})
+        self.assertFalse(stale['ok'])
+        self.assertIn('stale', stale['message'])
+        with self.assertRaisesRegex(KeyError, 'stale'):
+            new_namespace['_library_decode']({'$object': old['handle']})
+
+    def test_release_from_another_package_cannot_remove_the_object(self):
+        made = self.request('fluids', 'call', {'target': 'fluids.geometry.TANK', 'kwargs': {'D': 1, 'L': 2}})
+        handle = made['result']['handle']
+        self.assertFalse(self.request('ht', 'release', {'handle': handle})['ok'])
+        self.assertTrue(self.request('fluids', 'get', {'handle': handle, 'member': 'V_total'})['ok'])
+        self.assertEqual(self.request('fluids', 'release', {'handle': handle})['result'], {'released': True})
+        self.assertEqual(self.request('fluids', 'release', {'handle': handle})['result'], {'released': False})
+
+    def test_datetime_tag_preserves_offset_microseconds_and_explicit_naive_time(self):
+        decode = self.namespace['_library_decode']
+        self.assertEqual(decode({'$datetime': '2018-01-01T00:00:00Z'}),
+                         datetime.datetime(2018, 1, 1, tzinfo=datetime.timezone.utc))
+        self.assertEqual(decode({'$datetime': '2018-01-01T02:00:00.123456+02:00'}).utcoffset(),
+                         datetime.timedelta(hours=2))
+        self.assertEqual(decode({'$datetime': '2018-01-01T02:00:00.123456+02:00'}).microsecond, 123456)
+        self.assertIsNone(decode({'$datetime': '2018-01-01T00:00:00', '$naive': True}).tzinfo)
+        self.assertEqual(decode('2018-01-01T00:00:00Z'), '2018-01-01T00:00:00Z')
+
+    def test_datetime_tag_rejects_ambiguous_or_silently_lossy_values(self):
+        bad = [
+            {'$datetime': '2018-01-01T00:00:00'},
+            {'$datetime': '2018-01-01T00:00:00Z', '$naive': True},
+            {'$datetime': '2018-01-01T00:00:00', '$naive': False},
+            {'$datetime': '2018-01-01T00:00:00', '$naive': 1},
+            {'$datetime': '2018-01-01T00:00:00Z', 'extra': 1},
+            {'$datetime': '2018-01-01T00:00:00.1234567Z'},
+            {'$datetime': '2018-01-01T00:00:00-00:00'},
+            {'$datetime': '2018-01-01T00:00:00+00:60'},
+            {'$datetime': '2018-01-01T00:00:00+24:00'},
+            {'$datetime': '2018-02-30T00:00:00Z'},
+            {'$datetime': '2018-01-01T00:00:60Z'},
+            {'$datetime': '2018-01-01'}, {'$datetime': 0}]
+        for value in bad:
+            with self.subTest(value=value), self.assertRaises((ValueError, TypeError)):
+                self.namespace['_library_decode'](value)
+
+    def test_datetime_calls_and_outputs_use_the_public_JSON_path(self):
+        import fluids.atmosphere
+        utc = {'$datetime': '2018-01-01T00:00:00Z'}
+        offset = {'$datetime': '2018-01-01T02:00:00+02:00'}
+        expected = fluids.atmosphere.solar_position(datetime.datetime(2018, 1, 1, tzinfo=datetime.timezone.utc), 50, 30)
+        for moment in [utc, offset]:
+            reply = self.request('fluids', 'call', {'target': 'fluids.atmosphere.solar_position', 'args': [moment, 50, 30]})
+            self.assertTrue(reply['ok'], reply)
+            self.assertEqual(reply['result'], expected)
+        sunrise = self.request('fluids', 'call', {'target': 'fluids.atmosphere.sunrise_sunset', 'args': [utc, 50, 30]})
+        self.assertFalse(sunrise['ok'], sunrise)
+        self.assertEqual(sunrise['message'], 'ValueError: fromutc: dt.tzinfo is not self')
+        self.assertIn('fluids-sunrise-fixed-offset', [i['code'] for i in sunrise['description']['knownIssues']])
+        naive = self.request('fluids', 'call', {'target': 'fluids.atmosphere.sunrise_sunset',
+            'args': [{'$datetime': '2018-01-01T00:00:00', '$naive': True}, 50, 30]})
+        self.assertTrue(naive['ok'], naive)
+        self.assertEqual(len(naive['result']), 3)
+        self.assertTrue(all(v['kind'] == 'datetime' and v['timezone'] == 'naive' for v in naive['result']))
+        plain = self.namespace['_library_encode'](datetime.datetime(2018, 1, 1))
+        self.assertEqual(plain, {'kind': 'datetime', 'iso8601': '2018-01-01T00:00:00', 'timezone': 'naive'})
 
 
 if __name__ == '__main__':

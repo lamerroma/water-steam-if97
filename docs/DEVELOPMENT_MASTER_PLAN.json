@@ -646,12 +646,13 @@
       ],
       "execution_evidence": "library-registry/acceptance.json",
       "completed_substages": [
-        "R16.1: available recursive public surface, identity deduplication, source hashes, runtime profiles, integrity and browser gates"
+        "R16.1: available recursive public surface, identity deduplication, source hashes, runtime profiles, integrity and browser gates",
+        "R16.2a: datetime wire contract, owner/session-safe handles, error export and six explicit optional blockers"
       ],
       "remaining_substages": [
-        "R16.2: complete reviewed type/unit/geometry/domain contracts and case links",
-        "Optional NumPy/Numba/Pint variants and dynamic instance state",
-        "Reestimate R21/R26 from classified scenarios and measured acceptance work"
+        "R16.2b: complete reviewed unit/type/domain/geometry/dependency contracts and case links",
+        "Native optional-variant inventory, dynamic instance state and reconstruction recipes",
+        "Reestimate R21/R26 after classified and measured acceptance workflows"
       ]
     },
     {
@@ -1907,7 +1908,7 @@
     ],
     "latest_local_candidate": {
       "version": "1.41.0",
-      "build": "6dad6820c40a",
+      "build": "4717efbc3288",
       "published": false,
       "evidence": "library-registry/acceptance.json"
     },
@@ -1934,6 +1935,13 @@
       "build": "20fd3cb17a71",
       "commit": "b9632751fd1530aea5b0a05b6d546fa5780b8345",
       "evidence": "release-1.40.0/publish-summary.json"
+    },
+    "previous_candidate_CI": {
+      "commit": "38f0b5b33c5e1bede3d676cd6e2580263993cb34",
+      "run": 39655834729,
+      "passed": 109,
+      "total": 109,
+      "evidence": "library-registry/evidence/r16-1-ci-summary.json"
     }
   }
 }

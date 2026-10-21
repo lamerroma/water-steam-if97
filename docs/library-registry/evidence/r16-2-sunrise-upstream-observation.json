@@ -1,0 +1,17 @@
+{
+  "scope": "Direct unchanged pinned fluids 1.3.1; integration research only.",
+  "records": [
+    {
+      "input": "2018-01-01T00:00:00",
+      "directNativeResult": [
+        "2018-01-01T05:58:31.126520",
+        "2018-01-01T14:08:42.993191",
+        "2018-01-01T10:03:31.625967"
+      ]
+    },
+    {
+      "input": "2018-01-01T00:00:00+00:00",
+      "directNativeError": "ValueError: fromutc: dt.tzinfo is not self"
+    }
+  ]
+}

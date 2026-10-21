@@ -1854,7 +1854,7 @@
   "libraries.documentation": "Selected function documentation",
   "libraries.operation": "Operation",
   "libraries.arguments": "JSON request: target, positional and keyword arguments",
-  "libraries.jsonHelp": "call invokes a function or constructor; get reads data or an object property. args is an array; kwargs is an object. For a constructed object provide handle and member; recreate it after cancellation or restart.",
+  "libraries.jsonHelp": "call invokes a function or constructor; get reads data or an object property. args is an array; kwargs is an object. A date/time uses {\"$datetime\":\"2018-01-01T00:00:00Z\"}; a time without an offset also requires \"$naive\":true. Plain strings are not converted. For objects provide handle and member; recreate the object after cancellation or restart. Failed library calls can also be exported as JSON.",
   "libraries.run": "Calculate",
   "libraries.cancel": "Cancel calculation",
   "libraries.export": "Export request and result JSON",

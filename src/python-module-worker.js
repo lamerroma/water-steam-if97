@@ -31,7 +31,7 @@ self.onmessage=async({data:request})=>{
   pythonBackend??=initializePythonBackend(request).catch(error=>{pythonBackend=null;throw error;});
   const backend=await pythonBackend;
   const response=JSON.parse(backend.execute(JSON.stringify({module:request.moduleId,method:request.methodId,payload})));
-  if(!response.ok)throw new CalculationModuleError(response.code,response.message);
+  if(!response.ok)throw new CalculationModuleError(response.code,response.message,{engineVersion:descriptor.engineVersion,implementationRevision:request.implementationRevision,...(response.description?{description:response.description}:{})});
   const outputs=response.description?.documentedUnits?.Returns??[];
   const pipe=request.methodId==='pipe-hydraulics';
   const quantities=pipe?Object.fromEntries(Object.entries(PIPE_VERIFICATION_UNITS).map(([key,unit])=>[key,{value:response.result[key],unit,status:response.result[key]===null?'unavailable':'available'}])):typeof response.result==='number'?{result:{value:response.result,unit:outputs.length===1?outputs[0].unit:null,status:'available',unitSource:'upstream-documentation'}}:{};

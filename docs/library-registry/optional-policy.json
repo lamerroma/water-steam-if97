@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "scope": "Six explicitly unavailable optional variants. None is removed from the product goal; exports still need native optional-environment enumeration and scenario review. No extra packages or alternative numerical models are installed by this change.",
+  "globalOptionalExportCount": null,
+  "records": [
+    {
+      "module": "ht.numba",
+      "sourcePath": "ht/numba.py",
+      "sourceSHA256": "21a51e6dae2ffa68498ff77e3f01b88b03a369e5fd186e9c4ee69fa06cc8ee47",
+      "observedImportError": "ModuleNotFoundError: No module named 'numba'",
+      "status": "blocked_missing_dependency",
+      "dependency": "numba",
+      "declaredLiteralExports": [],
+      "completeExportCount": null,
+      "currentBehavior": "Import failure is shown in UI unavailableModules. The missing target cannot be selected; explicit target resolution fails. No fallback model or silent unit conversion.",
+      "remainingWork": "Separate dependency/license/size/browser feasibility decision and complete export contract inventory. Core same-name/vectorized targets do not automatically count as acceptance of this variant.",
+      "priority": "After original Steam97 parity requirements and currently deliverable raw/base workflows."
+    },
+    {
+      "module": "ht.numba_vectorized",
+      "sourcePath": "ht/numba_vectorized.py",
+      "sourceSHA256": "b0856461febaecd9d36959815242ffababb86d10ac5a77aed201ad7a296a0a18",
+      "observedImportError": "ModuleNotFoundError: No module named 'numba'",
+      "status": "blocked_missing_dependency",
+      "dependency": "numba",
+      "declaredLiteralExports": [],
+      "completeExportCount": null,
+      "currentBehavior": "Import failure is shown in UI unavailableModules. The missing target cannot be selected; explicit target resolution fails. No fallback model or silent unit conversion.",
+      "remainingWork": "Separate dependency/license/size/browser feasibility decision and complete export contract inventory. Core same-name/vectorized targets do not automatically count as acceptance of this variant.",
+      "priority": "After original Steam97 parity requirements and currently deliverable raw/base workflows."
+    },
+    {
+      "module": "ht.units",
+      "sourcePath": "ht/units.py",
+      "sourceSHA256": "f11c16170d60458432f563090cb5fb733e729dc2648feae4a38f8ddc24afd77c",
+      "observedImportError": "ImportError: The unit handling in fluids requires the installation of the package pint, available on pypi or from https://github.com/hgrecco/pint",
+      "status": "blocked_missing_dependency",
+      "dependency": "pint",
+      "declaredLiteralExports": [
+        "u",
+        "wraps_numpydoc"
+      ],
+      "completeExportCount": null,
+      "currentBehavior": "Import failure is shown in UI unavailableModules. The missing target cannot be selected; explicit target resolution fails. No fallback model or silent unit conversion.",
+      "remainingWork": "Separate dependency/license/size/browser feasibility decision and complete export contract inventory. Core same-name/vectorized targets do not automatically count as acceptance of this variant.",
+      "priority": "After original Steam97 parity requirements and currently deliverable raw/base workflows."
+    },
+    {
+      "module": "fluids.numba",
+      "sourcePath": "fluids/numba.py",
+      "sourceSHA256": "8d3a832fa1ca82c48156ba2317f034eed98eda2f8d911b1f36dfa5bec181ba7d",
+      "observedImportError": "ModuleNotFoundError: No module named 'numba'",
+      "status": "blocked_missing_dependency",
+      "dependency": "numba",
+      "declaredLiteralExports": [],
+      "completeExportCount": null,
+      "currentBehavior": "Import failure is shown in UI unavailableModules. The missing target cannot be selected; explicit target resolution fails. No fallback model or silent unit conversion.",
+      "remainingWork": "Separate dependency/license/size/browser feasibility decision and complete export contract inventory. Core same-name/vectorized targets do not automatically count as acceptance of this variant.",
+      "priority": "After original Steam97 parity requirements and currently deliverable raw/base workflows."
+    },
+    {
+      "module": "fluids.numba_vectorized",
+      "sourcePath": "fluids/numba_vectorized.py",
+      "sourceSHA256": "814659e16fb5b120b0d652e8cd7c6a733d19c3d89441cf78460a1781f4c07860",
+      "observedImportError": "ModuleNotFoundError: No module named 'numba'",
+      "status": "blocked_missing_dependency",
+      "dependency": "numba",
+      "declaredLiteralExports": [],
+      "completeExportCount": null,
+      "currentBehavior": "Import failure is shown in UI unavailableModules. The missing target cannot be selected; explicit target resolution fails. No fallback model or silent unit conversion.",
+      "remainingWork": "Separate dependency/license/size/browser feasibility decision and complete export contract inventory. Core same-name/vectorized targets do not automatically count as acceptance of this variant.",
+      "priority": "After original Steam97 parity requirements and currently deliverable raw/base workflows."
+    },
+    {
+      "module": "fluids.units",
+      "sourcePath": "fluids/units.py",
+      "sourceSHA256": "07debfef188cc9b72e0726b1bb2f3fdd919f93ffd9616d55d274f5a383cd3e73",
+      "observedImportError": "ImportError: The unit handling in fluids requires the installation of the package pint, available on pypi or from https://github.com/hgrecco/pint",
+      "status": "blocked_missing_dependency",
+      "dependency": "pint",
+      "declaredLiteralExports": [
+        "u",
+        "wraps_numpydoc"
+      ],
+      "completeExportCount": null,
+      "currentBehavior": "Import failure is shown in UI unavailableModules. The missing target cannot be selected; explicit target resolution fails. No fallback model or silent unit conversion.",
+      "remainingWork": "Separate dependency/license/size/browser feasibility decision and complete export contract inventory. Core same-name/vectorized targets do not automatically count as acceptance of this variant.",
+      "priority": "After original Steam97 parity requirements and currently deliverable raw/base workflows."
+    }
+  ]
+}

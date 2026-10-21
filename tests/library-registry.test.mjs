@@ -1,12 +1,12 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {checkManagedLibraryRegistry,validateLibraryRegistry,validateLibraryControls,validateReviewedLibraryContracts} from '../scripts/check-library-registry.mjs';
+import {checkManagedLibraryRegistry,validateLibraryRegistry,validateLibraryControls,validateReviewedLibraryContracts,validateLibraryCodec,validateOptionalLibraryPolicy} from '../scripts/check-library-registry.mjs';
 const load=async name=>JSON.parse(await readFile(new URL('../docs/library-registry/'+name,import.meta.url),'utf8'));
 const surface=await load('surface.json'),profiles=await Promise.all(['native','pyodide'].map(name=>load('runtime-signatures-'+name+'.json')));
 
 test('Pinned recursive inventory has explicit scope, source identities and both runtime signature profiles',async()=>{
- assert.deepEqual(await checkManagedLibraryRegistry(),{records:2966,paths:3494,knownDiscrepancyRecords:3});
+ assert.deepEqual(await checkManagedLibraryRegistry(),{records:2966,paths:3494,knownDiscrepancyRecords:5});
  assert.equal(Object.keys(surface.sourceFiles).length,71);
  assert.equal(surface.packages.reduce((n,p)=>n+p.unavailableModules.length,0),6);
 });
@@ -45,4 +45,22 @@ test('A partial reviewed contract is invalidated by a new upstream source or a f
  assert.throws(()=>validateReviewedLibraryContracts(forged,surface),/source changed/);
  forged.records[0].sourceSHA256=contracts.records[0].sourceSHA256;forged.records[0].numericalAcceptance='complete';
  assert.throws(()=>validateReviewedLibraryContracts(forged,surface),/cannot grant/);
+});
+test('Datetime and object-lifetime contracts require current bridge source and real case links',async()=>{
+ const codec=await load('argument-codec.json');assert.deepEqual(validateLibraryCodec(codec,surface,surface.inputs.bridgeSHA256),{codecVersion:2,linkedTargets:3});
+ const forged=structuredClone(codec);forged.bridgeSHA256='0'.repeat(64);
+ assert.throws(()=>validateLibraryCodec(forged,surface,surface.inputs.bridgeSHA256),/Stale argument codec/);
+ forged.bridgeSHA256=codec.bridgeSHA256;forged.outputKinds.object.properties.scope.const='persistent';
+ assert.throws(()=>validateLibraryCodec(forged,surface,surface.inputs.bridgeSHA256),/lifetime/);
+ forged.outputKinds.object.properties.scope.const='worker-session';forged.caseLinks[0].target='fluids.absent';
+ assert.throws(()=>validateLibraryCodec(forged,surface,surface.inputs.bridgeSHA256),/target\/test/);
+});
+test('Optional variants cannot be dropped, silently accepted or assigned a fabricated export denominator',async()=>{
+ const policy=await load('optional-policy.json');validateOptionalLibraryPolicy(policy,surface);
+ const forged=structuredClone(policy);forged.records.pop();
+ assert.throws(()=>validateOptionalLibraryPolicy(forged,surface),/disappear/);
+ forged.records=structuredClone(policy.records);forged.records[0].status='accepted';
+ assert.throws(()=>validateOptionalLibraryPolicy(forged,surface),/Unjustified/);
+ forged.records[0].status='blocked_missing_dependency';forged.globalOptionalExportCount=0;
+ assert.throws(()=>validateOptionalLibraryPolicy(forged,surface),/unresolved/);
 });
