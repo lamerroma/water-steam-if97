@@ -53,6 +53,7 @@ try{
  if(!await check('build',['scripts/build.mjs']))throw Error('Build failed; dependent checks skipped.');
  report.build=JSON.parse((await readFile(path.join(root,'assets/app.js'),'utf8')).match(/const APP_BUILD = ([^\n]+);/)[1]);
  await check('documentation',['scripts/check-docs-links.mjs']);
+ await check('library-registry',['scripts/check-library-registry.mjs']);
  const initial=await snapshot();
  if(mode!=='browser'){
   await check('fluids-pipe-reference',['scripts/reference-fluids-pipe.py','--check'],{},process.env.REACTOR_PYTHON||'python3');
@@ -76,6 +77,7 @@ try{
   for(const name of ['steam97-p04','steam97-p03','steam97-p09-units','steam97-p08','steam97-p07','steam97-p06','steam97-p05','steam97-p02','input-sensitivity','inverse-boundaries','rankine-sweep','rankine-regeneration','rankine-efficiency','rankine-library','cycle-library','custom-cycle','processes-extended','water-process','calculator-async','navigation','smart-input','calculator-workspace','state-comparison','study-workflow','task-ui','diagram','diagram-guides','diagram-quality','process-paths','chart-layout','study-workspace','hydraulics','study','full-sprint','laboratory','coursework','usability','reactor-course','reactor-validation','provenance','project-safety','pwa','pwa-package','lazy-assets','python-libraries','fluids-pipe','ui-workspace'])await check('browser-'+name,[`scripts/check-${name}-browser.cjs`],env);
   await check('browser-cross-browser',['scripts/check-cross-browser.cjs'],{...env,UI_EVIDENCE_DIR:path.join(dir,'ui')});
   for(const browser of ['chromium','firefox']){
+   await check('browser-library-registry-'+browser,['scripts/check-library-registry-browser.cjs'],{...env,BROWSER_NAME:browser,LIBRARY_REGISTRY_EVIDENCE:path.join(dir,'library-registry',browser)});
    await check('browser-water-heos-'+browser,['scripts/check-water-heos-browser.cjs'],{...env,BROWSER_NAME:browser});
    await check('browser-water-heos-workspace-'+browser,['scripts/check-water-heos-workspace-browser.cjs'],{...env,BROWSER_NAME:browser,HEOS_WORKSPACE_EVIDENCE:path.join(dir,'heos-workspace',browser)});
    await check('browser-water-heos-fault-'+browser,['scripts/check-water-heos-fault-browser.cjs'],{...env,BROWSER_NAME:browser,HEOS_FAULT_EVIDENCE:path.join(dir,'heos-fault',browser)});

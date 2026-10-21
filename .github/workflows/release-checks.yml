@@ -4,6 +4,26 @@ on:
 permissions:
   contents: read
 jobs:
+  library-registry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned native reference packages
+        run: python -m pip install -r scripts/reference/requirements-library-registry.txt
+      - name: Verify regenerated inventory and public JSON access
+        run: |
+          python scripts/generate-library-registry.py
+          python scripts/reference/test_library_registry.py
+          npm run verify:library-registry
   acceptance:
     runs-on: ubuntu-latest
     # Includes cold/offline HEOS, fault recovery and both Worker UI suites in

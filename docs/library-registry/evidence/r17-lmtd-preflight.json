@@ -1,0 +1,137 @@
+{
+  "date": "2026-10-21",
+  "stage": "R17 preparation only",
+  "source": "Pinned ht 1.2.0 / ht.core.LMTD; native CPython",
+  "sourceSHA256": "316de9dd2d5821780b050bc54030e3a75af4deda86f6ad8f5d6c56fd8389d6ac",
+  "reference": "Independent Python Decimal, 100-digit log-mean formula on exact binary inputs. Equal positive differences use the continuous mathematical limit. No model or UI modifications.",
+  "qualification": "These are raw upstream observations and proposed contract inputs, not accepted engineering workflows or a new release. Zero-duty, reversed-flow and zero-approach behavior require an explicit product policy.",
+  "records": [
+    {
+      "id": "counterflow-normal",
+      "inputs": {
+        "Thi": 100.0,
+        "Tho": 60.0,
+        "Tci": 30.0,
+        "Tco": 40.0,
+        "counterflow": true
+      },
+      "temperatureScale": "consistent Celsius values; differences in K",
+      "upstreamResult": 43.2808512266689,
+      "exactBinaryInputTerminalDifferences": [
+        "60",
+        "30"
+      ],
+      "decimalLogMeanReference": "43.28085122666890222079774043005676412279937862458957802406348220793327657543555239656579868680519034",
+      "absoluteErrorAgainstDecimal": "1.49883663192805619382555816768708957802406348220793327657543555239656579868680519034E-15"
+    },
+    {
+      "id": "parallel-normal",
+      "inputs": {
+        "Thi": 100.0,
+        "Tho": 60.0,
+        "Tci": 30.0,
+        "Tco": 40.0,
+        "counterflow": false
+      },
+      "temperatureScale": "consistent Celsius values; differences in K",
+      "upstreamResult": 39.9117800073964,
+      "exactBinaryInputTerminalDifferences": [
+        "70",
+        "20"
+      ],
+      "decimalLogMeanReference": "39.91178000739640440376653845747998795723093077001698369680670447800286427116330351079140415948638917",
+      "absoluteErrorAgainstDecimal": "2.43351216472080043397163522764501698369680670447800286427116330351079140415948638917E-15"
+    },
+    {
+      "id": "counterflow-equal-approaches",
+      "inputs": {
+        "Thi": 100.0,
+        "Tho": 60.0,
+        "Tci": 20.0,
+        "Tco": 60.0,
+        "counterflow": true
+      },
+      "temperatureScale": "consistent Celsius values; differences in K",
+      "upstreamResult": 40.0,
+      "exactBinaryInputTerminalDifferences": [
+        "40",
+        "40"
+      ],
+      "decimalLogMeanReference": "40",
+      "absoluteErrorAgainstDecimal": "0"
+    },
+    {
+      "id": "parallel-zero-duty",
+      "inputs": {
+        "Thi": 100.0,
+        "Tho": 100.0,
+        "Tci": 30.0,
+        "Tco": 30.0,
+        "counterflow": false
+      },
+      "temperatureScale": "consistent Celsius values; differences in K",
+      "upstreamResult": 0.0,
+      "exactBinaryInputTerminalDifferences": [
+        "70",
+        "70"
+      ],
+      "decimalLogMeanReference": "70",
+      "absoluteErrorAgainstDecimal": "70"
+    },
+    {
+      "id": "counterflow-opposite-sign-approaches",
+      "inputs": {
+        "Thi": 100.0,
+        "Tho": 60.0,
+        "Tci": 80.0,
+        "Tco": 40.0,
+        "counterflow": true
+      },
+      "temperatureScale": "consistent Celsius values; differences in K",
+      "upstreamResult": 60.0,
+      "exactBinaryInputTerminalDifferences": [
+        "60",
+        "-20"
+      ],
+      "domainQualification": "Not two strictly positive driving temperature differences; dedicated-form policy still needs review."
+    },
+    {
+      "id": "counterflow-one-zero-approach",
+      "inputs": {
+        "Thi": 100.0,
+        "Tho": 60.0,
+        "Tci": 30.0,
+        "Tco": 100.0,
+        "counterflow": true
+      },
+      "temperatureScale": "consistent Celsius values; differences in K",
+      "upstreamError": {
+        "type": "ZeroDivisionError",
+        "message": "float division by zero"
+      },
+      "exactBinaryInputTerminalDifferences": [
+        "0",
+        "30"
+      ],
+      "domainQualification": "Not two strictly positive driving temperature differences; dedicated-form policy still needs review."
+    },
+    {
+      "id": "counterflow-nearly-equal-approaches",
+      "inputs": {
+        "Thi": 100.0,
+        "Tho": 99.999999999,
+        "Tci": 30.0,
+        "Tco": 30.000000002,
+        "counterflow": true
+      },
+      "temperatureScale": "consistent Celsius values; differences in K",
+      "upstreamResult": 70.00040412254486,
+      "exactBinaryInputTerminalDifferences": [
+        "69.99999999799999983451925800181925296783447265625",
+        "69.9999999989999963645459502004086971282958984375"
+      ],
+      "decimalLogMeanReference": "69.99999999849999809953141363318530022239637453632421989103762045850447674578380274631190277684850462",
+      "absoluteErrorAgainstDecimal": "0.00040412404486644959552807752522529029893796367578010896237954149552325421619725368809722315149538"
+    }
+  ]
+}

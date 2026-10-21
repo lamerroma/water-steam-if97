@@ -1,0 +1,285 @@
+{
+  "status": "passed",
+  "dateUTC": "2026-10-21T17:41:48.326266+00:00",
+  "url": "https://lamerroma.github.io/water-steam-if97/",
+  "commit": "b9632751fd1530aea5b0a05b6d546fa5780b8345",
+  "build": {
+    "version": "1.40.0",
+    "id": "20fd3cb17a71"
+  },
+  "scope": "Live HTTP bytes compared with immutable accepted Git commit and its core/optional digest manifests. No browser cache or numerical parity claim.",
+  "resources": [
+    {
+      "resource": "service-worker.js",
+      "bytes": 11445,
+      "sha256": "6af6db9d76659714b10ec0da9ca8d70f7e94b9c9da5f0a3d57dd800ed20cf9ce",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/service-worker.js",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-2cb5\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "index.html",
+      "bytes": 47418,
+      "sha256": "c19f5335893eb5d4866adcd4cd75000d0da43f17f7f14817dbb6ed2d744ecd87",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/index.html",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-b93a\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/app.js?v=38ce49cc9ad2ad07",
+      "bytes": 2282449,
+      "sha256": "38ce49cc9ad2ad07eb990d9a12d7739277fec2b4c0b652854374a7c1fcb53cde",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/app.js?v=38ce49cc9ad2ad07",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-22d3d1\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/styles.css?v=581ffe30e92d0d42",
+      "bytes": 69703,
+      "sha256": "581ffe30e92d0d424405c34c8a33ad2a27a061fd2dddd698298d23b517b97aa8",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/styles.css?v=581ffe30e92d0d42",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-11047\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/coolprop.wasm?v=28a83d839ab69c7e",
+      "bytes": 9196512,
+      "sha256": "28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/coolprop.wasm?v=28a83d839ab69c7e",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-8c53e0\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "manifest.webmanifest",
+      "bytes": 539,
+      "sha256": "63130e8f1083e12602ca499f9de40ad3d97d64b457c005ce570215966f783056",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/manifest.webmanifest",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-21b\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/icon-192.png",
+      "bytes": 602,
+      "sha256": "50dd8b5abc44230597dddc0391c9bc50237ac356a824b7a52139e0b4364b0689",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/icon-192.png",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-25a\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/icon-512.png",
+      "bytes": 2498,
+      "sha256": "8f42bcec7ab744311e58bac643f0473846582e36193fc162f328e3640204a88a",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/icon-512.png",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-9c2\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/calculator-worker.js?v=6f12513e3e5164e5",
+      "bytes": 859496,
+      "sha256": "6f12513e3e5164e5eeb6f5cdbdbb705f1197bd6c294483daf0783988b6e5754a",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/calculator-worker.js?v=6f12513e3e5164e5",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-d1d68\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+      "bytes": 1066298,
+      "sha256": "d90e5f36713687fe30078124dc6468aa458199a136c338d528731f3a47d6ca55",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-10453a\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/python-worker.js?v=51c2e3b8b26c714f",
+      "bytes": 42452,
+      "sha256": "51c2e3b8b26c714f5ffd0d4a9d90e8775e5451d3d769e2df6a6ad73a6bdbd91d",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/python-worker.js?v=51c2e3b8b26c714f",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-a5d4\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/python-package.json",
+      "bytes": 3419,
+      "sha256": "b91498d7a5363a08e075adb4c1ea9fc64b9a4ce4886466b85c252ebdffaa8763",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/python-package.json",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-d5b\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/sheetjs.js?v=cc015130aa8521e7",
+      "bytes": 951904,
+      "sha256": "cc015130aa8521e7f088f88898eba949ccdcbfb38df0bd129b44b7273c3a6f41",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/sheetjs.js?v=cc015130aa8521e7",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-e8660\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/python/71ea1664738eb516/licenses/cpython-LICENSE.txt",
+      "bytes": 13804,
+      "sha256": "b0e25a78cffb43f4d92de8b61ccfa1f1f98ecbc22330b54b5251e7b6ba010231",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/python/71ea1664738eb516/licenses/cpython-LICENSE.txt",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-35ec\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/python/71ea1664738eb516/licenses/emscripten-LICENSE.txt",
+      "bytes": 5093,
+      "sha256": "620a78084fc7ca97c0b5dea9abf891f3ffcadfdbf305276f099c9c4e12fc1d86",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/python/71ea1664738eb516/licenses/emscripten-LICENSE.txt",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-13e5\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/python/71ea1664738eb516/licenses/fluids-LICENSE.txt",
+      "bytes": 1090,
+      "sha256": "89e1ac506f4cae373e1f5c20700c73d69892cef189f6de8dd26301acaa0710aa",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/python/71ea1664738eb516/licenses/fluids-LICENSE.txt",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-442\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/python/71ea1664738eb516/licenses/ht-LICENSE.txt",
+      "bytes": 1085,
+      "sha256": "0066a88479661eb03701a3e1f9c32be428779a5f4ad7b6bbed7d6bc1fa36f7c4",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/python/71ea1664738eb516/licenses/ht-LICENSE.txt",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-43d\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/python/71ea1664738eb516/licenses/pyodide-LICENSE.txt",
+      "bytes": 16725,
+      "sha256": "1f256ecad192880510e84ad60474eab7589218784b9a50bc7ceee34c2b91f1d5",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/python/71ea1664738eb516/licenses/pyodide-LICENSE.txt",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-4155\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/python/71ea1664738eb516/pyodide/numpy-2.4.6-cp314-cp314-pyemscripten_2026_0_wasm32.whl",
+      "bytes": 2960568,
+      "sha256": "a292c1f5d7d8a2208cd5e94fc467604c131cabcd2fc14fed6eefde121e7fabdf",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/python/71ea1664738eb516/pyodide/numpy-2.4.6-cp314-cp314-pyemscripten_2026_0_wasm32.whl",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-2d2cb8\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/python/71ea1664738eb516/pyodide/pyodide-lock.json",
+      "bytes": 119077,
+      "sha256": "5dc2fc119108bc148c7457dc86e7675b5c87e1cafd420b9c34c1eaef7b36c010",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/python/71ea1664738eb516/pyodide/pyodide-lock.json",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-1d125\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/python/71ea1664738eb516/pyodide/pyodide.asm.mjs",
+      "bytes": 1250344,
+      "sha256": "f7cdc8ece80678ceb712f8e65ebe6d3a83203a180c399865f49612a051693635",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/python/71ea1664738eb516/pyodide/pyodide.asm.mjs",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-131428\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/python/71ea1664738eb516/pyodide/pyodide.asm.wasm",
+      "bytes": 9598218,
+      "sha256": "cc36e3cab04fdfc9a63ff13eb52eae2b911bf46c025cc7b281f394bd3de1d5e6",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/python/71ea1664738eb516/pyodide/pyodide.asm.wasm",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-92750a\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/python/71ea1664738eb516/pyodide/pyodide.mjs",
+      "bytes": 17931,
+      "sha256": "6f1d60f7bf529beb300f0f47983c921d3982363640ba20af0e38efdddbc66109",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/python/71ea1664738eb516/pyodide/pyodide.mjs",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-460b\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/python/71ea1664738eb516/pyodide/python_stdlib.zip",
+      "bytes": 2545637,
+      "sha256": "fa1957e5777068fc4f7437f96d860ae2fbe9c19732ba06c84e004ec16dd7dd7a",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/python/71ea1664738eb516/pyodide/python_stdlib.zip",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-26d7e5\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/python/71ea1664738eb516/pyodide/scipy-1.18.0-cp314-cp314-pyemscripten_2026_0_wasm32.whl",
+      "bytes": 14029750,
+      "sha256": "17ee329a957863516d1bb6a6aaa0c60576fac027e9cd3d43de27f58b5b599b50",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/python/71ea1664738eb516/pyodide/scipy-1.18.0-cp314-cp314-pyemscripten_2026_0_wasm32.whl",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-d613b6\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/python/71ea1664738eb516/wheels/fluids-1.3.1-py3-none-any.whl",
+      "bytes": 608795,
+      "sha256": "d9097efe57c910ac14b89a1984d5e7062ee9df1afc84e089d944fdd85404e361",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/python/71ea1664738eb516/wheels/fluids-1.3.1-py3-none-any.whl",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-94a1b\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    },
+    {
+      "resource": "assets/python/71ea1664738eb516/wheels/ht-1.2.0-py3-none-any.whl",
+      "bytes": 805152,
+      "sha256": "a4716bc3c8a9ef5e3dfff68d552232ba6f05c0edd3caa07fb72bee2306975ace",
+      "matchesAcceptedCommit": true,
+      "url": "https://lamerroma.github.io/water-steam-if97/assets/python/71ea1664738eb516/wheels/ht-1.2.0-py3-none-any.whl",
+      "HTTPStatus": 200,
+      "etag": "\"6ad8f911-c4920\"",
+      "lastModified": "Wed, 21 Oct 2026 17:40:33 GMT"
+    }
+  ],
+  "count": 27,
+  "allHashesMatch": true
+}

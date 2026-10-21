@@ -1,0 +1,1823 @@
+{
+  "browser": "chromium",
+  "version": "1.40.0",
+  "status": "passed",
+  "groups": [
+    "State, all three water models and four formats",
+    "History, saturation invalidation, turbine, flash and diagram",
+    "English and 320/390px layout",
+    "PWA offline, all three water models and four formats",
+    "Installed PWA offline reload, all three water models and four formats"
+  ],
+  "files": [
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\state-IF97.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.571027259653
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923259254971663
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\state-IF97.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.571027259653
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923259254971663
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\state-IF97.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.571027259653
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923259254971663
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\state-IF97.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.571027259653
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923259254971663
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\state-IAPWS-95.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\state-IAPWS-95.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\state-IAPWS-95.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\state-IAPWS-95.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\state-HEOS--Water.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\state-HEOS--Water.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\state-HEOS--Water.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\state-HEOS--Water.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\history.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "=1+1 Україна",
+            "state",
+            "h"
+          ],
+          "column": 3,
+          "value": 3231.571027259653
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\history.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "=1+1 Україна",
+            "state",
+            "h"
+          ],
+          "column": 3,
+          "value": 3231.571027259653
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\history.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "=1+1 Україна",
+            "state",
+            "h"
+          ],
+          "column": 3,
+          "value": 3231.571027259653
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\history.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "=1+1 Україна",
+            "state",
+            "h"
+          ],
+          "column": 3,
+          "value": 3231.571027259653
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\saturation.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Saturation",
+          "prefix": [
+            50
+          ],
+          "column": 0,
+          "value": 50
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\saturation.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Saturation",
+          "prefix": [
+            50
+          ],
+          "column": 0,
+          "value": 50
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\saturation.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Saturation",
+          "prefix": [
+            50
+          ],
+          "column": 0,
+          "value": 50
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\saturation.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Saturation",
+          "prefix": [
+            50
+          ],
+          "column": 0,
+          "value": 50
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\turbine.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            1,
+            "state",
+            "h"
+          ],
+          "column": 3,
+          "value": 3231.571027259653
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\turbine.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            1,
+            "state",
+            "h"
+          ],
+          "column": 3,
+          "value": 3231.571027259653
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\turbine.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            1,
+            "state",
+            "h"
+          ],
+          "column": 3,
+          "value": 3231.571027259653
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\turbine.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            1,
+            "state",
+            "h"
+          ],
+          "column": 3,
+          "value": 3231.571027259653
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\flash.xlsx",
+      "format": "xlsx",
+      "checks": []
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\flash.ods",
+      "format": "ods",
+      "checks": []
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\flash.xls",
+      "format": "xls",
+      "checks": []
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\flash.csv",
+      "format": "csv",
+      "checks": []
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\batch.xlsx",
+      "format": "xlsx",
+      "checks": []
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\batch.ods",
+      "format": "ods",
+      "checks": []
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\batch.xls",
+      "format": "xls",
+      "checks": []
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\batch.csv",
+      "format": "csv",
+      "checks": []
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\diagram.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "=1+1 Україна",
+            "state",
+            "h"
+          ],
+          "column": 3,
+          "value": 3231.571027259653
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\diagram.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "=1+1 Україна",
+            "state",
+            "h"
+          ],
+          "column": 3,
+          "value": 3231.571027259653
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\diagram.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "=1+1 Україна",
+            "state",
+            "h"
+          ],
+          "column": 3,
+          "value": 3231.571027259653
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\diagram.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "=1+1 Україна",
+            "state",
+            "h"
+          ],
+          "column": 3,
+          "value": 3231.571027259653
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\offline-IF97.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.571027259653
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923259254971663
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\offline-IF97.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.571027259653
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923259254971663
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\offline-IF97.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.571027259653
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923259254971663
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\offline-IF97.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.571027259653
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923259254971663
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\offline-IAPWS-95.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\offline-IAPWS-95.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\offline-IAPWS-95.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\offline-IAPWS-95.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\offline-HEOS--Water.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\offline-HEOS--Water.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\offline-HEOS--Water.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\offline-HEOS--Water.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\pwa-offline-IF97.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.571027259653
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923259254971663
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\pwa-offline-IF97.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.571027259653
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923259254971663
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\pwa-offline-IF97.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.571027259653
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923259254971663
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\pwa-offline-IF97.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.571027259653
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923259254971663
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\pwa-offline-IAPWS-95.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\pwa-offline-IAPWS-95.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\pwa-offline-IAPWS-95.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\pwa-offline-IAPWS-95.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\pwa-offline-HEOS--Water.xlsx",
+      "format": "xlsx",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\pwa-offline-HEOS--Water.ods",
+      "format": "ods",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\pwa-offline-HEOS--Water.xls",
+      "format": "xls",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\development-r02\\publication-1.40.0\\live-p08-utf8\\chromium\\pwa-offline-HEOS--Water.csv",
+      "format": "csv",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 3
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 673.15
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 3231.6862979807393
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "s"
+          ],
+          "column": 2,
+          "value": 6.923448666758736
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "offlineMode": "pwa-offline-reload",
+  "buildId": "20fd3cb17a71",
+  "independentReaders": {
+    "status": "passed",
+    "files": 60,
+    "checks": 160,
+    "version": "1.40.0"
+  }
+}

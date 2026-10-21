@@ -1,6 +1,6 @@
 {
   "name": "water-steam-if97-uk",
-  "version": "1.40.0",
+  "version": "1.41.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -85,7 +85,10 @@
     "test:fluids-pipe": "node scripts/check-fluids-pipe-browser.cjs",
     "test:water-heos": "node scripts/check-water-heos-browser.cjs",
     "test:water-heos-workspace": "node scripts/check-water-heos-workspace-browser.cjs",
-    "audit:water-heos": "node scripts/audit-water-heos.mjs"
+    "audit:water-heos": "node scripts/audit-water-heos.mjs",
+    "verify:library-registry": "node scripts/check-library-registry.mjs",
+    "generate:library-registry": "python scripts/generate-library-registry.py --write",
+    "test:library-registry:browser": "node scripts/check-library-registry-browser.cjs"
   },
   "engines": {
     "node": ">=20"

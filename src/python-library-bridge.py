@@ -7,6 +7,7 @@ import math
 import numbers
 import pkgutil
 import re
+import sys
 import numpy as np
 
 _library_catalogs = {}
@@ -14,6 +15,17 @@ _library_targets = {}
 _library_objects = {}
 _library_next_object = 0
 _library_active_package = None
+
+# Pinned upstream behavior, observed independently in CPython and Pyodide.
+# Preserve the raw API and report discrepancies rather than relabeling them valid.
+_library_known_issues = {
+    'fluids.numerics.arrays.det': [{
+        'code': 'fluids-det-rank2-1x1', 'scope': 'Rank-2 one-by-one input, for example [[7]].',
+        'message': 'fluids 1.3.1 det([[7]]) returns [7], rather than the scalar determinant 7. This input shape is not numerically accepted.'}],
+    'ht.core.LMTD': [{
+        'code': 'ht-lmtd-nearly-equal', 'scope': 'Nearly equal positive terminal temperature differences.',
+        'message': 'ht 1.2.0 LMTD can lose precision for nearly equal temperature differences. A recorded 100/99.999999999/30/30.000000002 counterflow case differs from a high-precision log-mean by about 0.000404124 K.'}]
+}
 
 def _library_encode(value, depth=0):
     global _library_next_object
@@ -101,23 +113,35 @@ def _library_describe(target, name):
         signature = str(signature)
     except (TypeError, ValueError):
         signature = None
+    source_target = target.pyfunc if isinstance(target, np.vectorize) else target
+    definition = getattr(source_target, '__module__', '') + '.' + getattr(source_target, '__qualname__', '')
     return {'path': name, 'kind': 'class' if inspect.isclass(target) else 'function' if callable(target) else 'data',
             'signature': signature, 'parameters': parameters, 'summary': doc.split('\n\n', 1)[0][:500],
             'documentation': doc, 'documentedUnits': _library_doc_units(doc),
-            'unitSource': 'Unmodified upstream docstring; not an independently verified unit schema.'}
+            'unitSource': 'Unmodified upstream docstring; not an independently verified unit schema.',
+            'knownIssues': _library_known_issues.get(definition, [])}
 
 def _library_catalog(package):
     if package in _library_catalogs:
         return _library_catalogs[package]
     root = importlib.import_module(package)
-    names = [package] + [package + '.' + item.name for item in pkgutil.iter_modules(root.__path__) if not item.name.startswith('_')]
-    entries, unavailable = [], []
+    unavailable = {}
+
+    def discovery_error(name):
+        error = sys.exc_info()[1]
+        unavailable[name] = {'module': name, 'reason': type(error).__name__ + ': ' + str(error)}
+
+    names = [package] + [item.name for item in pkgutil.walk_packages(
+        root.__path__, package + '.', onerror=discovery_error)
+        if not any(part.startswith('_') for part in item.name.split('.'))]
+    entries = {}
     targets = {}
-    for module_name in names:
+    duplicates = 0
+    for module_name in sorted(set(names)):
         try:
             module = importlib.import_module(module_name)
         except Exception as exc:
-            unavailable.append({'module': module_name, 'reason': type(exc).__name__ + ': ' + str(exc)})
+            unavailable[module_name] = {'module': module_name, 'reason': type(exc).__name__ + ': ' + str(exc)}
             continue
         public = getattr(module, '__all__', [name for name in vars(module) if not name.startswith('_')])
         for name in public:
@@ -130,13 +154,19 @@ def _library_catalog(package):
             if inspect.ismodule(value):
                 continue
             path = module_name + '.' + name
+            if path in targets:
+                duplicates += 1
+                continue
             targets[path] = value
             info = _library_describe(value, path)
             info.pop('documentation')
-            entries.append(info)
+            entries[path] = info
     _library_targets[package] = targets
     result = {'package': package, 'version': importlib.metadata.version(package),
-              'entries': sorted(entries, key=lambda item: item['path']), 'unavailableModules': unavailable,
+              'entries': [entries[name] for name in sorted(entries)],
+              'unavailableModules': [unavailable[name] for name in sorted(unavailable)],
+              'publicSurface': {'discovery': 'recursive', 'modules': sorted(set(names)),
+                                'duplicatePathsRemoved': duplicates},
               'validation': 'Integration inventory only; numerical acceptance remains pending.'}
     _library_catalogs[package] = result
     return result

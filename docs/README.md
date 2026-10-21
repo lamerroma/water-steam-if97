@@ -15,7 +15,7 @@
 
 Актуальна програма — багатофайлова PWA. Номер версії задає
 [`package.json`](../package.json), запущену збірку видно внизу сторінки.
-[Підтверджений стан публікації 1.39.0](RELEASE_STATUS_UK.md).
+[Підтверджений стан публікації 1.40.0](RELEASE_STATUS_UK.md).
 
 ## Користування
 
@@ -44,6 +44,7 @@
 - [Структура репозиторію, команди й правила прибирання](DEVELOPMENT_UK.md).
 - [Архітектура PWA](PWA_ARCHITECTURE_UK.md),
   [протокол обчислювальних модулів](CALCULATION_MODULES_UK.md).
+- [R16.1: реєстр ht/fluids, відомі розбіжності та залишок контрактів](library-registry/README_UK.md).
 - [План повного покриття ht / fluids](HT_FLUIDS_INTEGRATION_UK.md).
 - [План відкритих обчислювальних модулів](OPEN_LIBRARY_MODULES_PLAN_UK.md)
   та [пілот води через CoolProp](WATER_HEOS_UK.md).

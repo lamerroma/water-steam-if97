@@ -1,0 +1,220 @@
+{
+  "commit": "b9632751fd1530aea5b0a05b6d546fa5780b8345",
+  "CI": 39641072874,
+  "reports": [
+    {
+      "path": "inverse-precision/full.json",
+      "sha256": "2760160b459722d74b14448d07ec6bb999b2475ea8f12a38de6312cf94bb56fd",
+      "summary": {
+        "complete": true,
+        "profile": "full",
+        "states": 2200,
+        "queries": 4657,
+        "passed": 4657,
+        "different": 0,
+        "failed": 0,
+        "byModel": {
+          "IF97": {
+            "queries": 3439,
+            "passed": 3439,
+            "different": 0,
+            "failed": 0
+          },
+          "IAPWS-95": {
+            "queries": 1218,
+            "passed": 1218,
+            "different": 0,
+            "failed": 0
+          }
+        },
+        "byMode": {
+          "ph": {
+            "queries": 370,
+            "passed": 370,
+            "different": 0,
+            "failed": 0
+          },
+          "ps": {
+            "queries": 370,
+            "passed": 370,
+            "different": 0,
+            "failed": 0
+          },
+          "pu": {
+            "queries": 355,
+            "passed": 355,
+            "different": 0,
+            "failed": 0
+          },
+          "pv": {
+            "queries": 370,
+            "passed": 370,
+            "different": 0,
+            "failed": 0
+          },
+          "prho": {
+            "queries": 370,
+            "passed": 370,
+            "different": 0,
+            "failed": 0
+          },
+          "th": {
+            "queries": 370,
+            "passed": 370,
+            "different": 0,
+            "failed": 0
+          },
+          "ts": {
+            "queries": 370,
+            "passed": 370,
+            "different": 0,
+            "failed": 0
+          },
+          "tu": {
+            "queries": 355,
+            "passed": 355,
+            "different": 0,
+            "failed": 0
+          },
+          "tv": {
+            "queries": 370,
+            "passed": 370,
+            "different": 0,
+            "failed": 0
+          },
+          "trho": {
+            "queries": 370,
+            "passed": 370,
+            "different": 0,
+            "failed": 0
+          },
+          "hs": {
+            "queries": 250,
+            "passed": 250,
+            "different": 0,
+            "failed": 0
+          },
+          "us": {
+            "queries": 184,
+            "passed": 184,
+            "different": 0,
+            "failed": 0
+          },
+          "vs": {
+            "queries": 184,
+            "passed": 184,
+            "different": 0,
+            "failed": 0
+          },
+          "hv": {
+            "queries": 184,
+            "passed": 184,
+            "different": 0,
+            "failed": 0
+          },
+          "uv": {
+            "queries": 185,
+            "passed": 185,
+            "different": 0,
+            "failed": 0
+          }
+        },
+        "durationMs": 91927
+      },
+      "sourceHashesVerified": 136
+    },
+    {
+      "path": "steam97-p02/current.json",
+      "sha256": "1f9379436a681ec7b34b1fcfa6ff06c2e619c61f7da616e36a31ef8e71df7bcf",
+      "summary": {
+        "queries": 745,
+        "passed": 745,
+        "failed": 0,
+        "groups": {
+          "P01": {
+            "queries": 217,
+            "passed": 217,
+            "failed": 0
+          },
+          "P02-dense": {
+            "queries": 528,
+            "passed": 528,
+            "failed": 0
+          }
+        },
+        "byModel": {
+          "IF97": {
+            "queries": 413,
+            "passed": 413,
+            "failed": 0
+          },
+          "IAPWS-95": {
+            "queries": 332,
+            "passed": 332,
+            "failed": 0
+          }
+        }
+      },
+      "sourceHashesVerified": 136
+    },
+    {
+      "path": "steam97-p05/numeric.json",
+      "sha256": "d977363736f40c5f567c1841d8b95109620b561d434a9fe7e94b25bf443897ba",
+      "summary": {
+        "total": 435,
+        "passed": 435,
+        "failed": 0,
+        "byKind": {
+          "forward": {
+            "total": 259,
+            "passed": 259,
+            "failed": 0
+          },
+          "domain": {
+            "total": 26,
+            "passed": 26,
+            "failed": 0
+          },
+          "inverse": {
+            "total": 150,
+            "passed": 150,
+            "failed": 0
+          }
+        }
+      },
+      "sourceHashesVerified": 136
+    },
+    {
+      "path": "steam97-p06/numeric.json",
+      "sha256": "33b07e9a778ff7b6b5f971b7f29df2c52c4c1b934929f3dc48436a6d43f631c6",
+      "summary": {
+        "queries": 97,
+        "passed": 97,
+        "failed": 0
+      },
+      "sourceHashesVerified": 136
+    },
+    {
+      "path": "steam97-p07/numeric.json",
+      "sha256": "880611c60ac51c2b2b4445825e04f3b66986960de011fbbb853178071ec485f9",
+      "summary": {
+        "queries": 184,
+        "passed": 184,
+        "failed": 0,
+        "states": 172,
+        "background_controls": 108,
+        "drawing_controls": 12
+      },
+      "sourceHashesVerified": 136
+    }
+  ],
+  "scope": "Main-job numerical reference audit, fixture-defined policies unchanged. Source identities match exact immutable release commit; no Steam97 direct numerical parity claim.",
+  "independentSpreadsheetReaders": {
+    "path": "main-inverse-evidence/steam97-p08/files/reader-report.json",
+    "status": "passed",
+    "files": 91,
+    "cells": 33138,
+    "exportFileHashesVerified": 91,
+    "reportSHA256": "403bddb5c3b2973e3012934a76766967712978599d8e6c04858923c344b26a05"
+  }
+}

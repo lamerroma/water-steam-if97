@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "scope": "First five partial scalar/object contracts. Types/units are upstream declarations in the stated scope, not implicit runtime coercion or global physical validity. Remaining registry entries stay unreviewed.",
+  "records": [
+    {
+      "id": "ht@1.2.0:ht.core.LMTD",
+      "sourceSHA256": "0917046e990b6714e68532eac9a9ce8ddd876ec4afdd50a826cc0717232250e5",
+      "reviewStatus": "partial_review",
+      "scope": "Raw scalar API documentation and explicitly named workflow/control subsets; this does not add runtime validation or grant full numerical acceptance.",
+      "types": {
+        "Thi": "real",
+        "Tho": "real",
+        "Tci": "real",
+        "Tco": "real",
+        "counterflow": "boolean"
+      },
+      "units": {
+        "Thi": "K",
+        "Tho": "K",
+        "Tci": "K",
+        "Tco": "K",
+        "return": "K temperature difference"
+      },
+      "geometry": "counter-current when counterflow=True; co-current otherwise",
+      "domain": {
+        "rawBranches": "d1=Thi-Tco,d2=Tho-Tci for counter-current; otherwise d1=Thi-Tci,d2=Tho-Tco. ratio=d2/d1. For ratio<=0 or ratio==1: counter-current returns d1, co-current returns 0. Otherwise logarithmic mean. d1=0 raises division by zero before the branch.",
+        "dedicatedFormValidity": "pending R17; sign consistency, zero-duty and zero-approach policy are not enforced by the raw bridge."
+      },
+      "dependencies": {
+        "direct": "Python scalar arithmetic and the upstream log function",
+        "transitiveReview": "pending"
+      },
+      "notes": [
+        "Coherent offset changes of all four temperatures preserve differences; the upstream declared input unit is K. No implicit Fahrenheit conversion.",
+        "Known precision discrepancy ht-lmtd-nearly-equal remains visible. Parallel zero-duty upstream convention can differ from the continuous positive log-mean limit."
+      ],
+      "numericalAcceptance": "not_granted"
+    },
+    {
+      "id": "fluids@1.3.1:fluids.core.Reynolds",
+      "sourceSHA256": "4d947467f453d52d606acdbfd562759c3f6f6a083dfa9f0434e009b6c26b9a29",
+      "reviewStatus": "partial_review",
+      "scope": "Raw scalar API documentation and explicitly named workflow/control subsets; this does not add runtime validation or grant full numerical acceptance.",
+      "types": {
+        "V": "real",
+        "D": "real",
+        "rho": "real or null",
+        "mu": "real or null",
+        "nu": "real or null"
+      },
+      "units": {
+        "V": "m/s",
+        "D": "m",
+        "rho": "kg/m^3",
+        "mu": "Pa*s",
+        "nu": "m^2/s",
+        "return": "1"
+      },
+      "geometry": "Characteristic length D; round-pipe interpretation belongs to the pipe workflow.",
+      "domain": {
+        "alternativeInputs": "If rho and mu are both non-null, nu=mu/rho overrides any supplied nu. Otherwise a non-null nu is required. Re=V*D/nu.",
+        "rawValidation": "The raw function does not enforce positive density, length or viscosity; zero denominators may raise."
+      },
+      "dependencies": {
+        "direct": "Python scalar arithmetic",
+        "workflowValidation": "src/python-pipe.py"
+      },
+      "notes": [
+        "The accepted pipe workflow has separate positive-input and Reynolds transition policy. Its evidence does not validate every raw Reynolds invocation."
+      ],
+      "numericalAcceptance": "not_granted"
+    },
+    {
+      "id": "fluids@1.3.1:fluids.core.dP_from_K",
+      "sourceSHA256": "4d947467f453d52d606acdbfd562759c3f6f6a083dfa9f0434e009b6c26b9a29",
+      "reviewStatus": "partial_review",
+      "scope": "Raw scalar API documentation and explicitly named workflow/control subsets; this does not add runtime validation or grant full numerical acceptance.",
+      "types": {
+        "K": "real",
+        "rho": "real",
+        "V": "real"
+      },
+      "units": {
+        "K": "1",
+        "rho": "kg/m^3",
+        "V": "m/s",
+        "return": "Pa"
+      },
+      "geometry": "Loss coefficient formulation; specific fitting/geometry is encoded by caller-supplied K.",
+      "domain": {
+        "rawFormula": "K*0.5*rho*V*V",
+        "rawValidation": "No positivity or physical fitting validity is enforced by the raw function."
+      },
+      "dependencies": {
+        "direct": "Python scalar arithmetic",
+        "workflowValidation": "src/python-pipe.py"
+      },
+      "notes": [
+        "K correlation validity, incompressibility and total-system boundaries belong to the selected engineering workflow."
+      ],
+      "numericalAcceptance": "not_granted"
+    },
+    {
+      "id": "fluids@1.3.1:fluids.numerics.arrays.det",
+      "sourceSHA256": "32c1dafef8d33d1970e857b96a2eee740dddf2e46a4f84458012fe41c01d966e",
+      "reviewStatus": "partial_review",
+      "scope": "Raw scalar API documentation and explicitly named workflow/control subsets; this does not add runtime validation or grant full numerical acceptance.",
+      "types": {
+        "matrix": "nested numeric sequence for the reviewed rank-2 controls"
+      },
+      "units": {
+        "reviewedControls": "dimensionless entries and result only",
+        "generalAPI": "not established; no default dimensionless claim"
+      },
+      "geometry": "Algebraic square-matrix primitive, no engineering geometry.",
+      "domain": {
+        "reviewedSubset": "2x2 nonsingular/singular and diagonal 3x3 controls. Other sizes and numeric domains remain unreviewed.",
+        "knownDifference": "For rank-2 [[7]], raw fluids 1.3.1 returns [7] whereas the scalar mathematical reference remains 7."
+      },
+      "dependencies": {
+        "reviewedSubset": "Python scalar arithmetic; other branches require separate review"
+      },
+      "notes": [
+        "Known issue fluids-det-rank2-1x1 blocks a general numerical acceptance claim. Native/Pyodide comparison preserves the mismatch."
+      ],
+      "numericalAcceptance": "not_granted"
+    },
+    {
+      "id": "fluids@1.3.1:fluids.geometry.TANK",
+      "sourceSHA256": "8af5772ccd13593f0b62bc046c9908e31c64148aa7f9680a05774dcf8c298f64",
+      "reviewStatus": "partial_review",
+      "scope": "Raw scalar API documentation and explicitly named workflow/control subsets; this does not add runtime validation or grant full numerical acceptance.",
+      "types": {
+        "constructorSubset": {
+          "D": "real",
+          "L": "real",
+          "horizontal": "boolean"
+        },
+        "return": "opaque Worker-local object handle",
+        "V_total": "real in the reviewed cylindrical control"
+      },
+      "units": {
+        "D": "m",
+        "L": "m",
+        "V_total": "m^3"
+      },
+      "geometry": "Reviewed control only: straight cylinder D=1 m, L=2 m, horizontal=False, default head configuration.",
+      "domain": {
+        "reviewedControl": "V_total=pi/2 m^3",
+        "remainingScope": "All head shapes, constructor alternatives and remaining properties/methods require dedicated cases."
+      },
+      "dependencies": {
+        "transport": "Python object store in the current Worker",
+        "geometryDependencies": "See source-module import inventory; transitive requirements unreviewed."
+      },
+      "notes": [
+        "Handles are ephemeral references, not project serialization. Restart invalidates the object store; recipes for reconstructing objects remain R16/R26 work."
+      ],
+      "numericalAcceptance": "not_granted"
+    }
+  ]
+}

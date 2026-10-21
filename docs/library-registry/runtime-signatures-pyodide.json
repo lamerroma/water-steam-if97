@@ -1,0 +1,1716 @@
+{
+  "environment": {
+    "python": "3.14.2",
+    "ht": "1.2.0",
+    "fluids": "1.3.1",
+    "numpy": "2.4.6",
+    "scipy": "1.18.0"
+  },
+  "signatures": {
+    "fluids@1.3.1:fluids.numerics.acos": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "x",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.asinh": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "x",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.atan2": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "y",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "x",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.cacos": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "z",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.catan": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "z",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.catanh": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "z",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.cbrt": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "x",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.clog": {
+      "status": "unavailable",
+      "parameters": [],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.comb": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "n",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "k",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.csqrt": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "z",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.erf": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "x",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.factorial": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "n",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.gamma": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "x",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.isclose": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "a",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "b",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "rel_tol",
+          "kind": "KEYWORD_ONLY",
+          "required": false,
+          "annotation": null,
+          "default": 1e-9
+        },
+        {
+          "name": "abs_tol",
+          "kind": "KEYWORD_ONLY",
+          "required": false,
+          "annotation": null,
+          "default": 0
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.irradiance.cos": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "x",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.irradiance.degrees": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "x",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.irradiance.exp": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "x",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.irradiance.isnan": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "x",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.irradiance.radians": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "x",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.irradiance.sin": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "x",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.wraps": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "wrapped",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "assigned",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": {
+            "kind": "tuple",
+            "items": [
+              "__module__",
+              "__name__",
+              "__qualname__",
+              "__doc__",
+              "__annotate__",
+              "__type_params__"
+            ]
+          }
+        },
+        {
+          "name": "updated",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": {
+            "kind": "tuple",
+            "items": [
+              "__dict__"
+            ]
+          }
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "coef",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "window",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "symbol",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": "x"
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.cheb2poly": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "c",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "coef",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "window",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "symbol",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": "x"
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.func": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "x",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "out",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "where",
+          "kind": "KEYWORD_ONLY",
+          "required": false,
+          "annotation": null,
+          "default": true
+        },
+        {
+          "name": "casting",
+          "kind": "KEYWORD_ONLY",
+          "required": false,
+          "annotation": null,
+          "default": "same_kind"
+        },
+        {
+          "name": "order",
+          "kind": "KEYWORD_ONLY",
+          "required": false,
+          "annotation": null,
+          "default": "K"
+        },
+        {
+          "name": "dtype",
+          "kind": "KEYWORD_ONLY",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "subok",
+          "kind": "KEYWORD_ONLY",
+          "required": false,
+          "annotation": null,
+          "default": true
+        },
+        {
+          "name": "signature",
+          "kind": "KEYWORD_ONLY",
+          "required": false,
+          "annotation": null,
+          "default": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.NoSolutionError.add_note": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "note",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.NoSolutionError.with_traceback": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "tb",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.NotBoundedError.add_note": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "note",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.NotBoundedError.with_traceback": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "tb",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.OscillationError.add_note": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "note",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.OscillationError.with_traceback": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "tb",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.SamePointError.add_note": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "note",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.SamePointError.with_traceback": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "tb",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.UnconvergedError.add_note": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "note",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.numerics.UnconvergedError.with_traceback": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "tb",
+          "kind": "POSITIONAL_ONLY",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.basis": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "cls",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "deg",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "window",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "symbol",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": "x"
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.cast": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "cls",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "series",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "window",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.convert": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "kind",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "window",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.copy": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.cutdeg": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "deg",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.degree": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.deriv": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "m",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": 1
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.fit": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "cls",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "x",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "y",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "deg",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "rcond",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "full",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": false
+        },
+        {
+          "name": "w",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "window",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "symbol",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": "x"
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.fromroots": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "cls",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "roots",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": {
+            "kind": "list",
+            "items": []
+          }
+        },
+        {
+          "name": "window",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "symbol",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": "x"
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.has_samecoef": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "other",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.has_samedomain": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "other",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.has_sametype": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "other",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.has_samewindow": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "other",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.identity": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "cls",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "window",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "symbol",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": "x"
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.integ": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "m",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": 1
+        },
+        {
+          "name": "k",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": {
+            "kind": "list",
+            "items": []
+          }
+        },
+        {
+          "name": "lbnd",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.interpolate": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "cls",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "func",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "deg",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "args",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": {
+            "kind": "tuple",
+            "items": []
+          }
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.linspace": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "n",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": 100
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.mapparms": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.roots": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.symbol": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.trim": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "tol",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": 0
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Chebyshev.truncate": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "size",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.basis": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "cls",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "deg",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "window",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "symbol",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": "x"
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.cast": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "cls",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "series",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "window",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.convert": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "kind",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "window",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.copy": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.cutdeg": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "deg",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.degree": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.deriv": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "m",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": 1
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.fit": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "cls",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "x",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "y",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "deg",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "rcond",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "full",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": false
+        },
+        {
+          "name": "w",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "window",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "symbol",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": "x"
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.fromroots": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "cls",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "roots",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": {
+            "kind": "list",
+            "items": []
+          }
+        },
+        {
+          "name": "window",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "symbol",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": "x"
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.has_samecoef": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "other",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.has_samedomain": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "other",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.has_sametype": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "other",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.has_samewindow": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "other",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.identity": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "cls",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "window",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        },
+        {
+          "name": "symbol",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": "x"
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.integ": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "m",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": 1
+        },
+        {
+          "name": "k",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": {
+            "kind": "list",
+            "items": []
+          }
+        },
+        {
+          "name": "lbnd",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.linspace": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "n",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": 100
+        },
+        {
+          "name": "domain",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.mapparms": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.roots": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.symbol": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.trim": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "tol",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "annotation": null,
+          "default": 0
+        }
+      ],
+      "returnAnnotation": null
+    },
+    "fluids@1.3.1:fluids.optional.pychebfun.Polynomial.truncate": {
+      "status": "observed",
+      "parameters": [
+        {
+          "name": "self",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        },
+        {
+          "name": "size",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "annotation": null
+        }
+      ],
+      "returnAnnotation": null
+    }
+  },
+  "qualification": "Runtime/dependency signatures in pinned Pyodide; review status remains unreviewed."
+}

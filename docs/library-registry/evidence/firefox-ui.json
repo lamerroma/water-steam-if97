@@ -1,0 +1,53 @@
+{
+  "browser": "firefox",
+  "status": "passed",
+  "checks": [
+    "Cold runtime cancellation terminates Worker and permits retry",
+    "Optional package is separate; all resources prepared with complete marker",
+    "Catalog discovery with responsive UI and explicit unavailable extras",
+    "Pinned ht / fluids calls and JSON export",
+    "Recursive public target calculates; the 1x1 upstream shape discrepancy stays explicit in result warnings and documentation",
+    "Class construction and public property handles",
+    "NumPy array arguments and JSON array results",
+    "Server disconnected, profile restarted: Python, both libraries and the recursive public target initialize from cache and calculate",
+    "Evicted optional cache is detected without deleting project data",
+    "Missing package can be downloaded again",
+    "Corrupt optional resource rejects installation, deletes partial cache and permits retry"
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "package": {
+    "revision": "71ea1664738eb516",
+    "bytes": 31973269,
+    "files": 14,
+    "packages": {
+      "numpy": {
+        "version": "2.4.6",
+        "file": "pyodide/numpy-2.4.6-cp314-cp314-pyemscripten_2026_0_wasm32.whl"
+      },
+      "scipy": {
+        "version": "1.18.0",
+        "file": "pyodide/scipy-1.18.0-cp314-cp314-pyemscripten_2026_0_wasm32.whl"
+      },
+      "ht": {
+        "version": "1.2.0",
+        "file": "wheels/ht-1.2.0-py3-none-any.whl"
+      },
+      "fluids": {
+        "version": "1.3.1",
+        "file": "wheels/fluids-1.3.1-py3-none-any.whl"
+      }
+    }
+  },
+  "catalog": {
+    "count": 858,
+    "unavailable": "ht.numba: ModuleNotFoundError: No module named 'numba'\nht.numba_vectorized: ModuleNotFoundError: No module named 'numba'\nht.units: ImportError: The unit handling in fluids requires the installation of the package pint, available on pypi or from https://github.com/hgrecco/pint"
+  },
+  "ht": 183.71057902604906,
+  "fluids": 0.01851386607747165,
+  "recursiveDeterminant": -2,
+  "fluidsCatalog": {
+    "count": 2636,
+    "unavailable": "fluids.numba: ModuleNotFoundError: No module named 'numba'\nfluids.numba_vectorized: ModuleNotFoundError: No module named 'numba'\nfluids.units: ImportError: The unit handling in fluids requires the installation of the package pint, available on pypi or from https://github.com/hgrecco/pint"
+  }
+}

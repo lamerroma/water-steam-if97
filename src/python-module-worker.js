@@ -37,7 +37,7 @@ self.onmessage=async({data:request})=>{
   const quantities=pipe?Object.fromEntries(Object.entries(PIPE_VERIFICATION_UNITS).map(([key,unit])=>[key,{value:response.result[key],unit,status:response.result[key]===null?'unavailable':'available'}])):typeof response.result==='number'?{result:{value:response.result,unit:outputs.length===1?outputs[0].unit:null,status:'available',unitSource:'upstream-documentation'}}:{};
   self.postMessage({...calculationReplyIdentity(request),status:'ok',result:response.result,model:request.moduleId+' '+descriptor.engineVersion,quantities,
    units:pipe?{convention:'Canonical SI; explicit pipe workflow contract, no implicit unit conversion.',inputs:PIPE_VERIFICATION_INPUT_UNITS,outputs:PIPE_VERIFICATION_UNITS}:{convention:'Upstream documented units (generally SI); no automatic conversion.',inputs:response.description?.documentedUnits?.Parameters??[],outputs},
-   warnings:[{code:'integration-only',message:'Library connected; comprehensive independent numerical acceptance is pending.'}],
+   warnings:[{code:'integration-only',message:'Library connected; comprehensive independent numerical acceptance is pending.'},...(response.description?.knownIssues??[])],
    validity:descriptor.validity,...(response.description?{description:response.description}:{})});
  }catch(error){self.postMessage(calculationErrorReply(request,error));}
 };

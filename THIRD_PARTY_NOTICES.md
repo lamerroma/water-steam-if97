@@ -130,3 +130,11 @@ SHA-256 та розміри всіх файлів: `vendor/python/manifest.json`
 Під час розрахунку всі ці файли завантажуються лише з локального походження
 застосунку. Їхня наявність і ліцензія не означають перевірки застосовності кожної
 кореляції або повної числової відповідності іншому калькулятору.
+
+
+## Документація реєстру ht / fluids
+
+Згенеровані сигнатури й docstring у `docs/library-registry/` походять із
+зафіксованих wheels. Окремі вкладені повідомлення fluids.optional.pychebfun
+(BSD-3-Clause, Olivier Verdier) та fluids.nrlmsise00 (MIT, Joshua Milas)
+збережено в [реєстрі ліцензій](docs/library-registry/UPSTREAM_NOTICES.md).

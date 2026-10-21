@@ -1,0 +1,173 @@
+{
+  "scope": "R17 raw bridge research. Decimal is same-formula numerical control, not experimental validation. No tolerances were set and no product changes made.",
+  "results": [
+    {
+      "browser": "chromium",
+      "lmtd": [
+        {
+          "id": "counterflow-normal",
+          "result": 43.2808512266689,
+          "error": null,
+          "sameResultOrErrorTypeAsNative": true,
+          "absoluteErrorAgainstDecimal": "1.4988366319280561938255581676870895780240634822079332765754355523965657986868051903349099255492895763276E-15"
+        },
+        {
+          "id": "parallel-normal",
+          "result": 39.9117800073964,
+          "error": null,
+          "sameResultOrErrorTypeAsNative": true,
+          "absoluteErrorAgainstDecimal": "2.4335121647208004339716352276450169836968067044780028642711633035107914041594863891525529729119215609368E-15"
+        },
+        {
+          "id": "counterflow-equal-approaches",
+          "result": 40,
+          "error": null,
+          "sameResultOrErrorTypeAsNative": true,
+          "absoluteErrorAgainstDecimal": "0"
+        },
+        {
+          "id": "parallel-zero-duty",
+          "result": 0,
+          "error": null,
+          "sameResultOrErrorTypeAsNative": true,
+          "absoluteErrorAgainstDecimal": "70"
+        },
+        {
+          "id": "counterflow-opposite-sign-approaches",
+          "result": 60,
+          "error": null,
+          "sameResultOrErrorTypeAsNative": true,
+          "absoluteErrorAgainstDecimal": null
+        },
+        {
+          "id": "counterflow-one-zero-approach",
+          "result": null,
+          "error": "ZeroDivisionError: division by zero",
+          "sameResultOrErrorTypeAsNative": true,
+          "absoluteErrorAgainstDecimal": null
+        },
+        {
+          "id": "counterflow-nearly-equal-approaches",
+          "result": 70.00040412254486,
+          "error": null,
+          "sameResultOrErrorTypeAsNative": true,
+          "absoluteErrorAgainstDecimal": "0.0004041240448664495955280775252252902989379636757801089623795414955232542161972536880973383758811005321204942800302842"
+        }
+      ],
+      "ntuForwardControls": 36,
+      "ntuInverseControls": 31,
+      "maxForwardAbsError": "5.0559846687332076242005155351999564626020805326038490546563166151109822074523772075790056877280463230365E-17",
+      "maxInverseAbsError": "1.209784881573385483095104394212196047563815547448463733336278328666652128382457164348666303442503977640445726E-10",
+      "nativeBrowserBitValueDifferences": [
+        {
+          "index": 3,
+          "inputs": {
+            "NTU": 1e-08,
+            "Cr": 0,
+            "subtype": "counterflow"
+          },
+          "nativeForward": 1.0000000050247593e-08,
+          "browserForward": 9.99999993922529e-09,
+          "nativeInverse": 1.0000000100247594e-08,
+          "browserInverse": 9.99999998922529e-09
+        },
+        {
+          "index": 21,
+          "inputs": {
+            "NTU": 1e-08,
+            "Cr": 0,
+            "subtype": "parallel"
+          },
+          "nativeForward": 1.0000000050247593e-08,
+          "browserForward": 9.99999993922529e-09,
+          "nativeInverse": 1.0000000100247594e-08,
+          "browserInverse": 9.99999998922529e-09
+        }
+      ]
+    },
+    {
+      "browser": "firefox",
+      "lmtd": [
+        {
+          "id": "counterflow-normal",
+          "result": 43.2808512266689,
+          "error": null,
+          "sameResultOrErrorTypeAsNative": true,
+          "absoluteErrorAgainstDecimal": "1.4988366319280561938255581676870895780240634822079332765754355523965657986868051903349099255492895763276E-15"
+        },
+        {
+          "id": "parallel-normal",
+          "result": 39.9117800073964,
+          "error": null,
+          "sameResultOrErrorTypeAsNative": true,
+          "absoluteErrorAgainstDecimal": "2.4335121647208004339716352276450169836968067044780028642711633035107914041594863891525529729119215609368E-15"
+        },
+        {
+          "id": "counterflow-equal-approaches",
+          "result": 40,
+          "error": null,
+          "sameResultOrErrorTypeAsNative": true,
+          "absoluteErrorAgainstDecimal": "0"
+        },
+        {
+          "id": "parallel-zero-duty",
+          "result": 0,
+          "error": null,
+          "sameResultOrErrorTypeAsNative": true,
+          "absoluteErrorAgainstDecimal": "70"
+        },
+        {
+          "id": "counterflow-opposite-sign-approaches",
+          "result": 60,
+          "error": null,
+          "sameResultOrErrorTypeAsNative": true,
+          "absoluteErrorAgainstDecimal": null
+        },
+        {
+          "id": "counterflow-one-zero-approach",
+          "result": null,
+          "error": "ZeroDivisionError: division by zero",
+          "sameResultOrErrorTypeAsNative": true,
+          "absoluteErrorAgainstDecimal": null
+        },
+        {
+          "id": "counterflow-nearly-equal-approaches",
+          "result": 70.00040412254486,
+          "error": null,
+          "sameResultOrErrorTypeAsNative": true,
+          "absoluteErrorAgainstDecimal": "0.0004041240448664495955280775252252902989379636757801089623795414955232542161972536880973383758811005321204942800302842"
+        }
+      ],
+      "ntuForwardControls": 36,
+      "ntuInverseControls": 31,
+      "maxForwardAbsError": "5.0559846687332076242005155351999564626020805326038490546563166151109822074523772075790056877280463230365E-17",
+      "maxInverseAbsError": "1.209784881573385483095104394212196047563815547448463733336278328666652128382457164348666303442503977640445726E-10",
+      "nativeBrowserBitValueDifferences": [
+        {
+          "index": 3,
+          "inputs": {
+            "NTU": 1e-08,
+            "Cr": 0,
+            "subtype": "counterflow"
+          },
+          "nativeForward": 1.0000000050247593e-08,
+          "browserForward": 9.99999993922529e-09,
+          "nativeInverse": 1.0000000100247594e-08,
+          "browserInverse": 9.99999998922529e-09
+        },
+        {
+          "index": 21,
+          "inputs": {
+            "NTU": 1e-08,
+            "Cr": 0,
+            "subtype": "parallel"
+          },
+          "nativeForward": 1.0000000050247593e-08,
+          "browserForward": 9.99999993922529e-09,
+          "nativeInverse": 1.0000000100247594e-08,
+          "browserInverse": 9.99999998922529e-09
+        }
+      ]
+    }
+  ]
+}

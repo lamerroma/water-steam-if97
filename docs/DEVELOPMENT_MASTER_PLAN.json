@@ -77,7 +77,8 @@
       "source": "../STEAM97_REFERENCE_REPORT_UK.md",
       "collected_before_this_turn": true,
       "managed_source": "steam97-reference/STEAM97_REFERENCE_REPORT_UK.md"
-    }
+    },
+    "qualification": "Historical planning baseline from 2026-10-20; see execution for current publication/candidate. Original estimates below are retained, not newly measured remaining effort."
   },
   "estimation": {
     "label": "proposed",
@@ -85,7 +86,7 @@
     "productive_hours_per_day": 6,
     "work_days_per_week": 5,
     "staffing": "one experienced engineer including numerical validation, UI and release work; no assumed parallel team",
-    "remaining_only": true,
+    "remaining_only": false,
     "reserve_fraction": 0.25,
     "pert_formula": "(optimistic + 4 * likely + pessimistic) / 6",
     "statistical_confidence_claim": false,
@@ -97,7 +98,8 @@
       "нові вимоги після фіксації інвентарів",
       "окремий ядерний транспортний рушій та нові нейтронні моделі"
     ],
-    "caveat": "Сценарні оцінки, не верхня межа і не ймовірнісний прогноз. E04/E05/E06 можуть вимагати нового рішення й переоцінки."
+    "caveat": "Сценарні оцінки, не верхня межа і не ймовірнісний прогноз. E04/E05/E06 можуть вимагати нового рішення й переоцінки.",
+    "qualification": "Original remaining-work estimate at plan creation; completed work is now tracked separately. Reestimate awaits R16.2 and first measured workflows."
   },
   "tasks": [
     {
@@ -162,7 +164,7 @@
       "id": "R02",
       "phase": "A",
       "title": "Повний релізний кандидат HEOS",
-      "status": "in_progress",
+      "status": "complete",
       "estimate_days": {
         "optimistic": 2,
         "likely": 4,
@@ -185,8 +187,8 @@
         "Повний програмний релізний набір і локальна офлайн-перевірка пройдені на узгодженому кандидатові.",
         "Після окремо виконаної публікації CI/Pages та перевірка живого сайту прив’язані до того самого build; паритет не заявлено."
       ],
-      "execution_evidence": "development-r02/acceptance.json",
-      "local_status": "local_coverage_accepted_after_corrected_driver_recheck"
+      "execution_evidence": "release-1.40.0/publish-summary.json",
+      "local_status": "published_and_live_verified_with_open_R13_observation"
     },
     {
       "id": "R03",
@@ -544,6 +546,13 @@
       "acceptance": [
         "390 px та емуляція не записані як фізичний пристрій; фактична матриця й пропуски оприлюднені.",
         "Пройдені доступність клавіатурою, підписи/фокус, українська/англійська локалізація та відновлення після збою."
+      ],
+      "observations": [
+        {
+          "status": "cause_unknown_not_reproduced_in_isolated_recheck",
+          "evidence": "release-1.40.0/firefox-export-crash.json",
+          "observation": "Firefox 153 Target crashed after 48 P08 exports in one parallel attempt; unchanged isolated full recheck passed 60 exports/160 reader checks."
+        }
       ]
     },
     {
@@ -609,7 +618,7 @@
       "id": "R16",
       "phase": "H",
       "title": "Зафіксувати повний реєстр ht/fluids",
-      "status": "planned_remaining_work",
+      "status": "in_progress",
       "estimate_days": {
         "optimistic": 4,
         "likely": 8,
@@ -634,6 +643,15 @@
       "acceptance": [
         "Є поелементний JSON-реєстр з трасуванням до документації/тестів/UI та окремими статусами.",
         "Визначено обсяг решти R21/R26; невідомі залежності не виключені мовчки; оцінки плану перераховано."
+      ],
+      "execution_evidence": "library-registry/acceptance.json",
+      "completed_substages": [
+        "R16.1: available recursive public surface, identity deduplication, source hashes, runtime profiles, integrity and browser gates"
+      ],
+      "remaining_substages": [
+        "R16.2: complete reviewed type/unit/geometry/domain contracts and case links",
+        "Optional NumPy/Numba/Pint variants and dynamic instance state",
+        "Reestimate R21/R26 from classified scenarios and measured acceptance work"
       ]
     },
     {
@@ -782,7 +800,14 @@
       "acceptance": [
         "Жодна обов’язкова розрахункова можливість ht у зафіксованій версії не має статусу unsupported/unreviewed.",
         "Кожний унікальний метод має типізований предметний інтерфейс, прийняті числа/помилки, проєкт/експорт/офлайн; відомі обмеження не приховані."
-      ]
+      ],
+      "reestimate_status": "required_after_R16_2_and_first_20_measured_methods",
+      "inventory_basis": {
+        "source": "library-registry/surface.json",
+        "scope": "Available public surface only; optional variants and dynamic class state remain unclosed. Counts are not independent algorithms.",
+        "package": "ht"
+      },
+      "estimate_qualification": "Original broad scenario reserve retained. No new calibrated day estimate or global coverage percent follows from callable identity counts."
     },
     {
       "id": "R22",
@@ -930,7 +955,14 @@
       "acceptance": [
         "Нуль неприйнятих обов’язкових розрахункових можливостей за замороженим реєстром.",
         "Повне покриття показується окремо для доступу, чисел, UI, збереження й офлайн; відомі фізичні межі залишаються явними."
-      ]
+      ],
+      "reestimate_status": "required_after_R16_2_and_first_20_measured_methods",
+      "inventory_basis": {
+        "source": "library-registry/surface.json",
+        "scope": "Available public surface only; optional variants and dynamic class state remain unclosed. Counts are not independent algorithms.",
+        "package": "fluids"
+      },
+      "estimate_qualification": "Original broad scenario reserve retained. No new calibrated day estimate or global coverage percent follows from callable identity counts."
     },
     {
       "id": "R27",
@@ -1836,10 +1868,11 @@
     "started": "2026-10-20",
     "completed_tasks": [
       "R00",
-      "R01"
+      "R01",
+      "R02"
     ],
     "in_progress_tasks": [
-      "R02"
+      "R16"
     ],
     "evidence": [
       "development-r00/acceptance.json",
@@ -1849,7 +1882,9 @@
       "development-r01/memory-acceptance.json",
       "development-r02/acceptance.json",
       "development-r02/ci-first-recheck.json",
-      "development-r02/ci-second-recheck.json"
+      "development-r02/ci-second-recheck.json",
+      "release-1.40.0/publish-summary.json",
+      "library-registry/acceptance.json"
     ],
     "note": "Original scenario estimates retained; execution status is separate from scientific parity and release acceptance.",
     "updated": "2026-10-21",
@@ -1866,15 +1901,15 @@
       "Current desktop architecture: 15 view transitions, 10 cancel/restore cycles, qualified cold-start/memory criteria in Chromium/Firefox; test ElementHandle retention corrected"
     ],
     "next_work": [
-      "R02: uninterrupted full CI for the exact commit, then separate publication/Pages/live-build acceptance",
-      "Physical mobile/Safari acceptance tracked by R13",
-      "R16 ht/fluids inventory is available after release acceptance while Steam97 original numeric access remains blocked"
+      "R16.2: reviewed contracts, optional exports and dynamic state; then reestimate R21/R26",
+      "R17: scoped LMTD/epsilon-NTU subject forms and independent cases after their contract is ready",
+      "Steam97 original numerical reference remains unavailable; R13 physical mobile/Safari and Firefox observation remain open"
     ],
     "latest_local_candidate": {
-      "version": "1.40.0",
-      "build": "20fd3cb17a71",
+      "version": "1.41.0",
+      "build": "6dad6820c40a",
       "published": false,
-      "evidence": "development-r02/acceptance.json"
+      "evidence": "library-registry/acceptance.json"
     },
     "first_candidate_CI": {
       "run": 39589852625,
@@ -1893,6 +1928,12 @@
       "failed": "browser-steam97-p07",
       "correctedDriverRecheck": "passed",
       "evidence": "development-r02/ci-second-recheck.json"
+    },
+    "latest_publication": {
+      "version": "1.40.0",
+      "build": "20fd3cb17a71",
+      "commit": "b9632751fd1530aea5b0a05b6d546fa5780b8345",
+      "evidence": "release-1.40.0/publish-summary.json"
     }
   }
 }

@@ -1,0 +1,551 @@
+{
+  "phase": "verify",
+  "browser": "firefox",
+  "url": "https://lamerroma.github.io/water-steam-if97/",
+  "status": "passed",
+  "checks": [
+    "Actual installed core update preserves project, typed units, canonical history and language",
+    "Previously prepared optional package survives the live release update",
+    "New deployed HEOS Worker computes the independent 1 MPa / 500 K control",
+    "Closed-profile restart: dead proxy and offline network, HEOS and previously cached ht.LMTD both calculate"
+  ],
+  "errors": [],
+  "scope": "Real GitHub Pages origin, persistent disposable profile, old installed 1.39.0 -> deployed 1.40.0, prepared Python package and cold offline restart. No full Steam97 parity claim.",
+  "browserVersion": "153.0",
+  "profile": "C:\\Users\\coyotl\\AppData\\Local\\Temp\\pwa-140-upgrade-8nWnz6",
+  "after": {
+    "project": {
+      "savedWith": {
+        "appVersion": "1.39.0",
+        "buildId": "0268d327cdad",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "importedFrom": {
+        "appVersion": "1.39.0",
+        "buildId": "0268d327cdad",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "research": {
+        "variants": [],
+        "sweep": null
+      },
+      "study": {
+        "author": "",
+        "assignment": "",
+        "intro": "",
+        "entries": []
+      },
+      "format": "water-steam-if97",
+      "version": 1,
+      "uiUnits": {
+        "temperature": "C",
+        "pressure": "MPa",
+        "mass": "kgs",
+        "power": "kW",
+        "length": "m",
+        "energy": "kJkg",
+        "dynamicViscosity": "auto",
+        "kinematicViscosity": "auto",
+        "surfaceTension": "auto"
+      },
+      "uiInputDefaults": false,
+      "digits": 8,
+      "diagram": {
+        "tools": {
+          "crosshair": true,
+          "regions": true,
+          "isotherms": false,
+          "qualities": false,
+          "temperatureUnit": "C",
+          "temperatures": [
+            373.15,
+            473.15,
+            573.15,
+            673.15
+          ],
+          "dryness": [
+            0.1,
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ]
+        },
+        "views": {},
+        "connectHistory": false,
+        "numbers": true,
+        "order": [
+          0
+        ],
+        "excluded": [],
+        "pointSets": {},
+        "series": [],
+        "drawingStyle": {
+          "radius": 6,
+          "pointColor": "phase",
+          "width": 2.3,
+          "lineColor": "#8b4599"
+        }
+      },
+      "pressure": {
+        "basis": "absolute",
+        "atmosphere": 0.101325
+      },
+      "title": "Live upgrade 1.39 to 1.40 firefox",
+      "history": [
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        }
+      ],
+      "workspace": {
+        "active": "general",
+        "panels": {}
+      },
+      "process": null,
+      "form": {
+        "calculated": true,
+        "roundingDisplay": false,
+        "inputStyle": "advanced",
+        "inputOrder": "canonical",
+        "model": "IF97",
+        "mode": "pt",
+        "a": "10",
+        "b": "226.85",
+        "ua": "bar",
+        "ub": "C"
+      },
+      "drafts": {},
+      "ambient": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "system": "si",
+      "energy": "kJ",
+      "gray": false,
+      "scale": "1",
+      "hints": true
+    },
+    "language": "en",
+    "version": "1.40.0",
+    "build": "20fd3cb17a71"
+  },
+  "heosOnline": {
+    "project": {
+      "savedWith": {
+        "appVersion": "1.40.0",
+        "buildId": "20fd3cb17a71",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "importedFrom": {
+        "appVersion": "1.39.0",
+        "buildId": "0268d327cdad",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "research": {
+        "variants": [],
+        "sweep": null
+      },
+      "study": {
+        "author": "",
+        "assignment": "",
+        "intro": "",
+        "entries": []
+      },
+      "format": "water-steam-if97",
+      "version": 1,
+      "uiUnits": {
+        "temperature": "C",
+        "pressure": "MPa",
+        "mass": "kgs",
+        "power": "kW",
+        "length": "m",
+        "energy": "kJkg",
+        "dynamicViscosity": "auto",
+        "kinematicViscosity": "auto",
+        "surfaceTension": "auto"
+      },
+      "uiInputDefaults": false,
+      "digits": 8,
+      "diagram": {
+        "tools": {
+          "crosshair": true,
+          "regions": true,
+          "isotherms": false,
+          "qualities": false,
+          "temperatureUnit": "C",
+          "temperatures": [
+            373.15,
+            473.15,
+            573.15,
+            673.15
+          ],
+          "dryness": [
+            0.1,
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ]
+        },
+        "views": {},
+        "connectHistory": false,
+        "numbers": true,
+        "order": [
+          1,
+          0
+        ],
+        "excluded": [],
+        "pointSets": {},
+        "series": [],
+        "drawingStyle": {
+          "radius": 6,
+          "pointColor": "phase",
+          "width": 2.3,
+          "lineColor": "#8b4599"
+        }
+      },
+      "pressure": {
+        "basis": "absolute",
+        "atmosphere": 0.101325
+      },
+      "title": "Live upgrade 1.39 to 1.40 firefox",
+      "history": [
+        {
+          "p": 1,
+          "h": 2891.218298958905,
+          "model": "HEOS::Water",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        }
+      ],
+      "workspace": {
+        "active": "general",
+        "panels": {}
+      },
+      "process": null,
+      "form": {
+        "calculated": true,
+        "roundingDisplay": false,
+        "inputStyle": "advanced",
+        "inputOrder": "canonical",
+        "model": "HEOS::Water",
+        "mode": "pt",
+        "a": "10",
+        "b": "226.85",
+        "ua": "bar",
+        "ub": "C"
+      },
+      "drafts": {},
+      "ambient": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "system": "si",
+      "energy": "kJ",
+      "gray": false,
+      "scale": "1",
+      "hints": true
+    },
+    "language": "en",
+    "version": "1.40.0",
+    "build": "20fd3cb17a71"
+  },
+  "offline": {
+    "project": {
+      "savedWith": {
+        "appVersion": "1.40.0",
+        "buildId": "20fd3cb17a71",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "importedFrom": {
+        "appVersion": "1.39.0",
+        "buildId": "0268d327cdad",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "research": {
+        "variants": [],
+        "sweep": null
+      },
+      "study": {
+        "author": "",
+        "assignment": "",
+        "intro": "",
+        "entries": []
+      },
+      "format": "water-steam-if97",
+      "version": 1,
+      "uiUnits": {
+        "temperature": "C",
+        "pressure": "MPa",
+        "mass": "kgs",
+        "power": "kW",
+        "length": "m",
+        "energy": "kJkg",
+        "dynamicViscosity": "auto",
+        "kinematicViscosity": "auto",
+        "surfaceTension": "auto"
+      },
+      "uiInputDefaults": false,
+      "digits": 8,
+      "diagram": {
+        "tools": {
+          "crosshair": true,
+          "regions": true,
+          "isotherms": false,
+          "qualities": false,
+          "temperatureUnit": "C",
+          "temperatures": [
+            373.15,
+            473.15,
+            573.15,
+            673.15
+          ],
+          "dryness": [
+            0.1,
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ]
+        },
+        "views": {},
+        "connectHistory": false,
+        "numbers": true,
+        "order": [
+          1,
+          0
+        ],
+        "excluded": [],
+        "pointSets": {},
+        "series": [],
+        "drawingStyle": {
+          "radius": 6,
+          "pointColor": "phase",
+          "width": 2.3,
+          "lineColor": "#8b4599"
+        }
+      },
+      "pressure": {
+        "basis": "absolute",
+        "atmosphere": 0.101325
+      },
+      "title": "Live upgrade 1.39 to 1.40 firefox",
+      "history": [
+        {
+          "p": 1,
+          "h": 2891.218298958905,
+          "model": "HEOS::Water",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        }
+      ],
+      "workspace": {
+        "active": "general",
+        "panels": {}
+      },
+      "process": null,
+      "form": {
+        "calculated": true,
+        "roundingDisplay": false,
+        "inputStyle": "advanced",
+        "inputOrder": "canonical",
+        "model": "HEOS::Water",
+        "mode": "pt",
+        "a": "10",
+        "b": "226.85",
+        "ua": "bar",
+        "ub": "C"
+      },
+      "drafts": {},
+      "ambient": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "system": "si",
+      "energy": "kJ",
+      "gray": false,
+      "scale": "1",
+      "hints": true
+    },
+    "language": "en",
+    "version": "1.40.0",
+    "build": "20fd3cb17a71"
+  },
+  "networkProbeBlocked": true,
+  "htOffline": {
+    "protocolVersion": 1,
+    "id": 1,
+    "moduleId": "ht",
+    "engineVersion": "1.2.0",
+    "implementationRevision": "1264aca494cb22209c384547b1f580899dd923e9cf5bd412a23d0392e9ffed90",
+    "methodId": "call",
+    "status": "ok",
+    "result": 43.2808512266689,
+    "model": "ht 1.2.0",
+    "quantities": {
+      "result": {
+        "value": 43.2808512266689,
+        "unit": "K",
+        "status": "available",
+        "unitSource": "upstream-documentation"
+      }
+    },
+    "units": {
+      "convention": "Upstream documented units (generally SI); no automatic conversion.",
+      "inputs": [
+        {
+          "name": "Thi",
+          "unit": "K"
+        },
+        {
+          "name": "Tho",
+          "unit": "K"
+        },
+        {
+          "name": "Tci",
+          "unit": "K"
+        },
+        {
+          "name": "Tco",
+          "unit": "K"
+        },
+        {
+          "name": "counterflow",
+          "unit": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LMTD",
+          "unit": "K"
+        }
+      ]
+    },
+    "warnings": [
+      {
+        "code": "integration-only",
+        "message": "Library connected; comprehensive independent numerical acceptance is pending."
+      }
+    ],
+    "validity": {
+      "authority": "Pinned, unmodified upstream package. Consult the selected function documentation and its correlation domain.",
+      "units": "Upstream documented units; no automatic conversion.",
+      "numericalAcceptance": "pending",
+      "optionalDependencies": "Numba, Pint, plotting and other extras are not bundled."
+    },
+    "description": {
+      "path": "ht.LMTD",
+      "kind": "function",
+      "signature": "(Thi: 'float', Tho: 'float', Tci: 'float', Tco: 'float', counterflow: 'bool' = True) -> 'float'",
+      "parameters": [
+        {
+          "name": "Thi",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "Tho",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "Tci",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "Tco",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "counterflow",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "True"
+        }
+      ],
+      "summary": "Returns the log-mean temperature difference of an ideal counterflow\nor co-current heat exchanger.",
+      "documentation": "Returns the log-mean temperature difference of an ideal counterflow\nor co-current heat exchanger.\n\n.. math::\n    \\Delta T_{LMTD}=\\frac{\\Delta T_1-\\Delta T_2}{\\ln(\\Delta T_1/\\Delta T_2)}\n\n.. math::\n    \\text{For countercurrent:      } \\\\\n    \\Delta T_1=T_{h,i}-T_{c,o}\\\\\n    \\Delta T_2=T_{h,o}-T_{c,i}\n\n.. math::\n    \\text{Parallel Flow Only:} \\\\\n    {\\Delta T_1=T_{h,i}-T_{c,i}}\\\\\n    {\\Delta T_2=T_{h,o}-T_{c,o}}\n\nParameters\n----------\nThi : float\n    Inlet temperature of hot fluid, [K]\nTho : float\n    Outlet temperature of hot fluid, [K]\nTci : float\n    Inlet temperature of cold fluid, [K]\nTco : float\n    Outlet temperature of cold fluid, [K]\ncounterflow : bool, optional\n    Whether the exchanger is counterflow or co-current\n\nReturns\n-------\nLMTD : float\n    Log-mean temperature difference [K]\n\nNotes\n-----\nAny consistent set of units produces a consistent output.\n\nFor the case where the temperature difference is the same in counterflow,\nthe arithmeric mean difference (either difference in that case) is the\ncorrect result following evaluation of the limit.\n\nFor the same problem with the co-current case, the limit evaluates to a\ntemperature difference of zero.\n\nExamples\n--------\nExample 11.1 in [1]_.\n\n>>> LMTD(100., 60., 30., 40.2)\n43.200409294131525\n>>> LMTD(100., 60., 30., 40.2, counterflow=False)\n39.75251118049003\n>>> LMTD(100., 60., 20., 60)\n40.0\n>>> LMTD(100., 60., 20., 60, counterflow=False)\n0.0\n\nReferences\n----------\n.. [1] Bergman, Theodore L., Adrienne S. Lavine, Frank P. Incropera, and\n   David P. DeWitt. Introduction to Heat Transfer. 6E. Hoboken, NJ:\n   Wiley, 2011.",
+      "documentedUnits": {
+        "Parameters": [
+          {
+            "name": "Thi",
+            "unit": "K"
+          },
+          {
+            "name": "Tho",
+            "unit": "K"
+          },
+          {
+            "name": "Tci",
+            "unit": "K"
+          },
+          {
+            "name": "Tco",
+            "unit": "K"
+          },
+          {
+            "name": "counterflow",
+            "unit": null
+          }
+        ],
+        "Returns": [
+          {
+            "name": "LMTD",
+            "unit": "K"
+          }
+        ]
+      },
+      "unitSource": "Unmodified upstream docstring; not an independently verified unit schema."
+    }
+  }
+}

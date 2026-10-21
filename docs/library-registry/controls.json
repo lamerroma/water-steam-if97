@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "scope": "Independent elementary determinant controls only. Dimensionless entries in these cases; no general scientific or full-library acceptance.",
+  "cases": [
+    {"id": "det-1x1", "module": "fluids", "target": "fluids.numerics.arrays.det", "args": [[[7]]], "expected": 7, "disposition": "known_upstream_discrepancy", "observedUpstream": [7], "issueCode": "fluids-det-rank2-1x1"},
+    {"id": "det-2x2", "module": "fluids", "target": "fluids.numerics.arrays.det", "args": [[[1, 2], [3, 4]]], "expected": -2},
+    {"id": "det-3x3-diagonal", "module": "fluids", "target": "fluids.numerics.arrays.det", "args": [[[2, 0, 0], [0, 3, 0], [0, 0, 4]]], "expected": 24},
+    {"id": "det-singular", "module": "fluids", "target": "fluids.numerics.arrays.det", "args": [[[1, 2], [2, 4]]], "expected": 0}
+  ]
+}
