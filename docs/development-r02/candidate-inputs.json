@@ -85,7 +85,7 @@
     "scripts/check-study-workflow-browser.cjs": "fc5c73cfe897b4085887b977ef864205f1bbf124b798a0ddb8628a79c41aceb6",
     "scripts/check-study-workspace-browser.cjs": "caa5d7f9537cd0d90c9d68842c8a98f61f86ab035c223be30d98fcef104cb101",
     "scripts/check-task-ui-browser.cjs": "911c261a0a281685c5339549b1dec01ecdac1d79d3eeedd6373b1d73e206102d",
-    "scripts/check-ui-workspace-browser.cjs": "0c333ebf2967cb1d7e444e1106c7f86e06c6db7d5632b78bcb8c7062cbe502fe",
+    "scripts/check-ui-workspace-browser.cjs": "f5834b577ebf9baaf41523547e902c5c37703d73148fb1e00cca9467773ea790",
     "scripts/check-usability-browser.cjs": "b1448fe7b8846a6f16ec784c3438b3ffd3879da34aa428ce998a95630e10fc7b",
     "scripts/check-water-heos-browser.cjs": "b5bf0f352d2f6de2945f5cd21674ab9005b8b52172d1b557df37c6405447cc10",
     "scripts/check-water-heos-fault-browser.cjs": "7aee43909b3f5189e94472de9c68578af0cf8fbf34b54dee77e74eb6a37ac708",

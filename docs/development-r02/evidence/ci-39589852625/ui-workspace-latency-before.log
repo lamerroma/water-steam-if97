@@ -1,0 +1,12 @@
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok((await p.locator('#process-result').textContent()).includes('°F'))
+
+    at C:\Users\coyotl\Documents\ChatGPT\калькулятор\water-steam-if97\.release\development-r02\ui-workspace-latency-before.cjs:7:527 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

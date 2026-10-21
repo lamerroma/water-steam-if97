@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-21",
+  "kind": "first_CI_and_corrected_driver_recheck",
+  "CI": {
+    "run": 39589852625,
+    "url": "https://github.com/lamerroma/water-steam-if97/actions/runs/39589852625",
+    "commit": "72851b1998ea4e0b312b3ca67c76f4d28d903aec",
+    "status": "failed",
+    "passed": 105,
+    "total": 106,
+    "failedCheck": "browser-ui-workspace"
+  },
+  "build": {
+    "version": "1.40.0",
+    "id": "20fd3cb17a71",
+    "changedByCorrection": false
+  },
+  "correction": {
+    "file": "scripts/check-ui-workspace-browser.cjs",
+    "change": "Wait for visible process CSV after each of the three asynchronous turbine submissions before reading/comparing output. Preserve unit, equality and persistence assertions.",
+    "latencyMs": 200,
+    "before": "failed at the same Fahrenheit-result assertion",
+    "after": "passed",
+    "unmodifiedNetwork": "passed"
+  },
+  "ZIPByteIdenticalWindowsAndLinux": true,
+  "sourceSHA256": "f5834b577ebf9baaf41523547e902c5c37703d73148fb1e00cca9467773ea790",
+  "evidence": {
+    "browser-ui-workspace.log": "f94ab2065fffde678873ff79b34821c02a8b5bfbd246a6969817d63116829f68",
+    "package-integrity.log": "e8e6b31d11bf9646134f0c4dc6c9e955de0684902f576d64ef6aef95c6c53003",
+    "report.json": "5d1a2859c3a456d238e385351cdc795016b54fa963c8b68ab15ebabc88c0dff6",
+    "ui-workspace-latency-after.log": "c5a32bc579040247c9fbc4123473c8f3bc1bb13e174c83185fee29e7b266d0b8",
+    "ui-workspace-latency-before.log": "e8b804d9732b99312335810f922090630b6f3b7c6909b3a307cdbd9653b1f8da",
+    "ui-workspace-recheck.log": "c5a32bc579040247c9fbc4123473c8f3bc1bb13e174c83185fee29e7b266d0b8",
+    "unit.log": "8ccae504494acf5a628a9cc52624bafce64dc2fb7f96d3aec27956ca12016f88"
+  },
+  "fullCIForCorrection": "not_yet_run_at_collection",
+  "publicationPerformed": false
+}

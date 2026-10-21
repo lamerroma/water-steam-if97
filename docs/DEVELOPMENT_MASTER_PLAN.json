@@ -1847,7 +1847,8 @@
       "development-r01/steam-process-acceptance.json",
       "development-r01/auxiliary-acceptance.json",
       "development-r01/memory-acceptance.json",
-      "development-r02/acceptance.json"
+      "development-r02/acceptance.json",
+      "development-r02/ci-first-recheck.json"
     ],
     "note": "Original scenario estimates retained; execution status is separate from scientific parity and release acceptance.",
     "updated": "2026-10-21",
@@ -1873,6 +1874,15 @@
       "build": "20fd3cb17a71",
       "published": false,
       "evidence": "development-r02/acceptance.json"
+    },
+    "first_candidate_CI": {
+      "run": 39589852625,
+      "commit": "72851b1998ea4e0b312b3ca67c76f4d28d903aec",
+      "passed": 105,
+      "total": 106,
+      "failed": "browser-ui-workspace",
+      "correctedDriverRecheck": "passed",
+      "evidence": "development-r02/ci-first-recheck.json"
     }
   }
 }

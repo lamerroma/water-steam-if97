@@ -1,0 +1,12 @@
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok((await p.locator('#process-result').textContent()).includes('°F'))
+
+    at /home/runner/work/water-steam-if97/water-steam-if97/scripts/check-ui-workspace-browser.cjs:7:515 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
