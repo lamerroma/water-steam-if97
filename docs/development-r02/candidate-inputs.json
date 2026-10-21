@@ -75,7 +75,7 @@
     "scripts/check-steam97-p05-browser.cjs": "060caac8553980b4db24629d48229d7f9fb7be69c1aeed4762b8ceb61de47dd1",
     "scripts/check-steam97-p06-browser.cjs": "1ca7706df72a2801efd3a8827834e45b158a41b4c52450ab8fbc8d71a6e93a07",
     "scripts/check-steam97-p06-regression.mjs": "923dd30cc0265a023f9a89aa45a4afa8d8b88600b5b989e1371395dd474b3978",
-    "scripts/check-steam97-p07-browser.cjs": "9216f1ed9b0023c861336158a0bdac3793a717b92dd53e5a4b8820a81a3a9a97",
+    "scripts/check-steam97-p07-browser.cjs": "e554c38c1a7afe3182433e2c457776becbc579f2e7bd43887aa115eaf4c76e34",
     "scripts/check-steam97-p07-regression.mjs": "06996ad1d1e3adfa9e2c4fbf90a18bb48a473b840553042582fa0da97a12f068",
     "scripts/check-steam97-p08-browser.cjs": "01141650411f161c340c4969defd0b47d543396b9e0d410647ed0ed35fee21bf",
     "scripts/check-steam97-p08-legacy.mjs": "8c70e4ab84a24c58b2b6e6c63be82cb3670834fd56bc48da86bcd9501c223679",

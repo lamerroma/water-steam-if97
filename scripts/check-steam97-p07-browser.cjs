@@ -39,10 +39,22 @@ function csvRows(text){text=text.replace(/^\ufeff/,'');const rows=[];let row=[],
   for(let i=0;i<4;i++){assert.equal(rows[i][1],['A','B','C','D'][i]);for(const [j,k]of [[4,'p'],[5,'T'],[6,'h'],[7,'s']]){
    let value=Number(rows[i][j]);if(english)value=k==='p'?value*psi/1e6:k==='T'?(value-32)/1.8+273.15:value*btu/(1000*lb)*(k==='s'?1.8:1);else if(k==='T')value+=273.15;near(value,current[i].expected[k],k);
   }}assert.ok(csv.some(r=>r[0]==='drawing_interpolation'));assert.equal(csv.filter(r=>r[0]==='Цикл <α>'||r[0]==='Крива & β').length,2);
+  // Observe after the application's synchronous SVG handler, in the same
+  // click task. Later resize/refinement frames must not change this snapshot.
+  await page.locator('#diagram-save').evaluate(button=>{window.p07ExportFrame=null;button.addEventListener('click',()=>{
+   const c=Chart.getChart('steam-diagram');window.p07ExportFrame=structuredClone({width:c.width,height:c.height,range:{xmin:c.scales.x.min,xmax:c.scales.x.max,ymin:c.scales.y.min,ymax:c.scales.y.max},datasets:c.data.datasets.map((d,i)=>({role:d.role,name:d.seriesName,kind:d.seriesKind,color:d.borderColor,width:d.borderWidth,radius:d.pointRadius,pointColors:d.pointBackgroundColor,hidden:!c.isDatasetVisible(i),data:d.data,points:c.getDatasetMeta(i).data.map(p=>({x:p.x,y:p.y,skip:p.skip}))}))});
+  },{once:true});});
   const svg=await download(()=>page.click('#diagram-save')),data=await page.evaluate(s=>{const d=new DOMParser().parseFromString(s,'image/svg+xml');return {errors:d.querySelectorAll('parsererror').length,markers:[...d.querySelectorAll('[data-point]')].map(n=>({position:n.getAttribute('transform').match(/[-+]?\d+(?:\.\d+)?/g).map(Number),radius:Number(n.querySelector('circle').getAttribute('r'))})),series:[...d.querySelectorAll('path[data-role="series"]')].map(n=>({index:Number(n.getAttribute('data-dataset')),name:n.getAttribute('data-series-name'),points:[...n.getAttribute('d').matchAll(/[ML](-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/g)].map(m=>({x:Number(m[1]),y:Number(m[2])}))}))};},svg);
+  // SVG export intentionally stops animation and updates the Canvas. Compare
+  // with that settled Canvas, rather than an earlier animation frame.
+  const exportedChart=await page.evaluate(()=>window.p07ExportFrame);assert.ok(exportedChart,'Capture the Canvas in the export click task');const exportedStates=exportedChart.datasets.find(d=>d.role==='states');
+  const physicalData=scene=>scene.datasets.filter(d=>['states','series'].includes(d.role)).map(({role,name,kind,data})=>({role,name,kind,data}));
+  assert.deepEqual(physicalData(exportedChart),physicalData(c),'Export must not change scientific points or named-series data');
+  const compact=scene=>({width:scene.width,height:scene.height,range:scene.range,datasets:scene.datasets.filter(d=>['states','series'].includes(d.role))});
+  await fs.writeFile(dir+'/geometry-'+current[0].model+'-'+kind+'-'+(english?'english':'si')+'.json',JSON.stringify({build:report.build,pixelTolerance:.0011,before:compact(c),after:compact(exportedChart),svg:data},null,2)+'\n');
   assert.equal(data.errors,0);assert.equal(data.series.length,2);assert.equal(data.markers.length,4);
-  for(let i=0;i<4;i++){assert.equal(data.markers[i].radius,9);for(const [k,j]of [['x',0],['y',1]])assert.ok(Math.abs(data.markers[i].position[j]-states.points[i][k])<.0011);}
-  for(const s of data.series){const d=c.datasets[s.index];assert.equal(s.points.length,d.points.length);assert.equal(d.width,3.2);assert.equal(d.color,'#005533');for(let i=0;i<s.points.length;i++)for(const k of ['x','y'])assert.ok(Math.abs(s.points[i][k]-d.points[i][k])<.0011);}
+  for(let i=0;i<4;i++){assert.equal(data.markers[i].radius,9);for(const [k,j]of [['x',0],['y',1]])assert.ok(Math.abs(data.markers[i].position[j]-exportedStates.points[i][k])<.0011);}
+  for(const s of data.series){const d=exportedChart.datasets[s.index];assert.equal(d.role,'series');assert.equal(d.name,s.name);assert.equal(s.points.length,d.points.length);assert.equal(d.width,3.2);assert.equal(d.color,'#005533');for(let i=0;i<s.points.length;i++)for(const k of ['x','y'])assert.ok(Math.abs(s.points[i][k]-d.points[i][k])<.0011,`${kind} ${s.name} point ${i} ${k}: SVG ${s.points[i][k]} vs settled Canvas ${d.points[i][k]}`);}
   const html=await download(()=>page.click('#diagram-report'));assert.ok(html.includes('Іменовані серії')||html.includes('Named series'));assert.ok(html.includes('Цикл &lt;α&gt;'));assert.ok(!html.includes('<canvas'));assert.ok(c.titles.join(' ').includes(english?'Btu':'kJ')||!english&&c.titles.join(' ').includes('кДж'));report.records.push({model:current[0].model,kind,system:english?'English':'SI',points:4,series:2});
  }
  async function check(label,fn){await fn();report.checks.push({label,status:'passed'});console.log(browserName,label,'passed');}

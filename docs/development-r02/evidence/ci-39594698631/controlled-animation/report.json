@@ -1,0 +1,120 @@
+{
+  "browser": "chromium",
+  "status": "passed",
+  "checks": [
+    {
+      "label": "Two models, three diagrams, units, named lines/splines, SVG/CSV/print",
+      "status": "passed"
+    },
+    {
+      "label": "Atomic guards and label edits preserve existing series references",
+      "status": "passed"
+    },
+    {
+      "label": "Steam viewport, isobar visibility, exact project import and restart",
+      "status": "passed"
+    },
+    {
+      "label": "Series deletion and clearing displayed points leave history intact",
+      "status": "passed"
+    },
+    {
+      "label": "Mobile 320/390 px and English controls",
+      "status": "passed"
+    },
+    {
+      "label": "Offline PWA: both models, labels and spline exports",
+      "status": "passed"
+    }
+  ],
+  "records": [
+    {
+      "model": "IF97",
+      "kind": "ts",
+      "system": "SI",
+      "points": 4,
+      "series": 2
+    },
+    {
+      "model": "IF97",
+      "kind": "ts",
+      "system": "English",
+      "points": 4,
+      "series": 2
+    },
+    {
+      "model": "IF97",
+      "kind": "hsdiagram",
+      "system": "SI",
+      "points": 4,
+      "series": 2
+    },
+    {
+      "model": "IF97",
+      "kind": "hsdiagram",
+      "system": "English",
+      "points": 4,
+      "series": 2
+    },
+    {
+      "model": "IF97",
+      "kind": "phdiagram",
+      "system": "SI",
+      "points": 4,
+      "series": 2
+    },
+    {
+      "model": "IF97",
+      "kind": "phdiagram",
+      "system": "English",
+      "points": 4,
+      "series": 2
+    },
+    {
+      "model": "IAPWS-95",
+      "kind": "ts",
+      "system": "SI",
+      "points": 4,
+      "series": 2
+    },
+    {
+      "model": "IAPWS-95",
+      "kind": "ts",
+      "system": "English",
+      "points": 4,
+      "series": 2
+    },
+    {
+      "model": "IAPWS-95",
+      "kind": "hsdiagram",
+      "system": "SI",
+      "points": 4,
+      "series": 2
+    },
+    {
+      "model": "IAPWS-95",
+      "kind": "hsdiagram",
+      "system": "English",
+      "points": 4,
+      "series": 2
+    },
+    {
+      "model": "IAPWS-95",
+      "kind": "phdiagram",
+      "system": "SI",
+      "points": 4,
+      "series": 2
+    },
+    {
+      "model": "IAPWS-95",
+      "kind": "phdiagram",
+      "system": "English",
+      "points": 4,
+      "series": 2
+    }
+  ],
+  "errors": [],
+  "version": "1.40.0",
+  "build": "20fd3cb17a71",
+  "offlineMode": "pwa-offline-reload"
+}

@@ -1,0 +1,15 @@
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok(Math.abs(s.points[i][k]-d.points[i][k])<.0011)
+
+    at verifyExports (C:\Users\coyotl\Documents\ChatGPT\калькулятор\water-steam-if97\.release\development-r02\p07-animation-before.cjs:45:229)
+    at async C:\Users\coyotl\Documents\ChatGPT\калькулятор\water-steam-if97\.release\development-r02\p07-animation-before.cjs:54:228
+    at async check (C:\Users\coyotl\Documents\ChatGPT\калькулятор\water-steam-if97\.release\development-r02\p07-animation-before.cjs:48:33)
+    at async C:\Users\coyotl\Documents\ChatGPT\калькулятор\water-steam-if97\.release\development-r02\p07-animation-before.cjs:51:3 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

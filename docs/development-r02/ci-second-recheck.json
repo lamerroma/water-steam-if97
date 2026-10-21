@@ -1,0 +1,230 @@
+{
+  "date": "2026-10-21",
+  "kind": "second_CI_and_same_frame_geometry_recheck",
+  "CI": {
+    "run": 39594698631,
+    "url": "https://github.com/lamerroma/water-steam-if97/actions/runs/39594698631",
+    "commit": "6a0a6c2cd6280f1b12e18dbffcbcd55f1499f942",
+    "status": "failed",
+    "passed": 105,
+    "total": 106,
+    "failedCheck": "browser-steam97-p07",
+    "previousWorkspaceCorrection": "passed"
+  },
+  "build": {
+    "version": "1.40.0",
+    "id": "20fd3cb17a71",
+    "changedByCorrection": false
+  },
+  "correction": {
+    "file": "scripts/check-steam97-p07-browser.cjs",
+    "change": "Observe the settled Canvas in a one-time click listener immediately after the native SVG handler, in the same event task. Require scientific state/series data to remain identical. Compare all SVG geometry with the observed frame at the original pixel tolerance.",
+    "numericalTolerancesRelaxed": false,
+    "pixelTolerance": 0.0011,
+    "controlledAnimation": {
+      "controlledAnimationMilliseconds": 1000,
+      "initialSeriesPixelOffset": 20,
+      "frames": 12,
+      "maxObservedMovingVsSettledShift_px": 19.920119920020056,
+      "maxSVGvsSameTaskCanvasError_px": 0.0004988131410641472,
+      "unchangedPixelTolerance_px": 0.0011,
+      "scientificStateAndSeriesDataUnchanged": true,
+      "scope": "Controlled test-only animation; not a modification to shipped numerical or rendering code."
+    },
+    "normalChromium": "passed",
+    "normalFirefox": "passed"
+  },
+  "sourceSHA256": "e554c38c1a7afe3182433e2c457776becbc579f2e7bd43887aa115eaf4c76e34",
+  "evidence": {
+    "browser-steam97-p07.log": {
+      "sha256": "158c60a5c88a84f08bfb2b8ea973a1b16e72ec22a567804a299ed08038768bc6",
+      "bytes": 716
+    },
+    "browser-ui-workspace.log": {
+      "sha256": "718321e75eb656181b7b78183804932ac09f70a4449004d53cd60607a5107cd6",
+      "bytes": 160
+    },
+    "p07-animation-after-same-frame.log": {
+      "sha256": "55c92de7f876f06318c5bc4f645f673ad64a03ce1481e2475c619bc0732800b5",
+      "bytes": 464
+    },
+    "p07-animation-before.log": {
+      "sha256": "138f271048f95ad50c3fe84e0f59895850cc45d0f7c944cd562d44591783bb3c",
+      "bytes": 867
+    },
+    "p07-frame-recheck-summary.json": {
+      "sha256": "40d3899f5835588a14e0e23ed30c494d80c3ac21638dc29617f398f5b0ffe3e1",
+      "bytes": 409
+    },
+    "p07-same-frame-chromium.log": {
+      "sha256": "55c92de7f876f06318c5bc4f645f673ad64a03ce1481e2475c619bc0732800b5",
+      "bytes": 464
+    },
+    "p07-same-frame-firefox.log": {
+      "sha256": "ce801f9a1cba8cc390dede44838128e17941eaf09a8e5e44c4782816a456be7c",
+      "bytes": 458
+    },
+    "report.json": {
+      "sha256": "51d40169c978419a4375d5179587a535c04d181b10e726ec40ccff8d30d438d1",
+      "bytes": 23110
+    },
+    "chromium/geometry-IAPWS-95-hsdiagram-english.json": {
+      "sha256": "bb040549c786d423578f2a58e7af1fb943540ac8aa863715897a366569692708",
+      "bytes": 24421
+    },
+    "chromium/geometry-IAPWS-95-hsdiagram-si.json": {
+      "sha256": "50dc222859afa5c570dbb5b4ff4ee4221620a8053470169238d9cdcc90c56d94",
+      "bytes": 24411
+    },
+    "chromium/geometry-IAPWS-95-phdiagram-english.json": {
+      "sha256": "4dcf1034cf1541fd8edc2fedda86fcc7cd0f6cb218eaa94dcc60f72f8059eb63",
+      "bytes": 25189
+    },
+    "chromium/geometry-IAPWS-95-phdiagram-si.json": {
+      "sha256": "6ebbe3cfd60035ab7685814f25f5933a4c12fcdebcfcf1ae347bc20a316f6d78",
+      "bytes": 25189
+    },
+    "chromium/geometry-IAPWS-95-ts-english.json": {
+      "sha256": "f461e68c27c9b4970f004f8a8b65b7650e981a33dc13504804ad4d2f21b56a7c",
+      "bytes": 29608
+    },
+    "chromium/geometry-IAPWS-95-ts-si.json": {
+      "sha256": "f0644ccb3c3ff01f98d936ab61b6178c8c07cc60c704e7be9ee86392a62700d0",
+      "bytes": 30113
+    },
+    "chromium/geometry-IF97-hsdiagram-english.json": {
+      "sha256": "bad2d1344bd9630ba8c0c9996c2f910c9b6b496298383b71b2d38dfd7e22dd76",
+      "bytes": 24392
+    },
+    "chromium/geometry-IF97-hsdiagram-si.json": {
+      "sha256": "820b4d6f51703f8e45a502d19c51ff4dd7529128db20786a71761709cf53b5d8",
+      "bytes": 24367
+    },
+    "chromium/geometry-IF97-phdiagram-english.json": {
+      "sha256": "bc7d1391f7a35bd68de603f3950027e8b5942b9e92c3f69fe190199d708cc888",
+      "bytes": 25167
+    },
+    "chromium/geometry-IF97-phdiagram-si.json": {
+      "sha256": "d0866b6057b72cba18c3d68dc2f08066b24820d119b72d29c0e3ebeb80e510d5",
+      "bytes": 25163
+    },
+    "chromium/geometry-IF97-ts-english.json": {
+      "sha256": "46306cfd46534b56463f65ce073db7ba6e5da3bc6374d62eb98ec894bd302ac4",
+      "bytes": 29610
+    },
+    "chromium/geometry-IF97-ts-si.json": {
+      "sha256": "9c9ffea62a613404066db2eec0db34e9532a7fd917676a6cf4dd61c595501aa0",
+      "bytes": 30107
+    },
+    "chromium/report.json": {
+      "sha256": "a9a0306456d33619af7a2ec7401cb62faf2e7ea27cd34cc663741f6077e8bf31",
+      "bytes": 2380
+    },
+    "controlled-animation/geometry-IAPWS-95-hsdiagram-english.json": {
+      "sha256": "7fb4ec4c8261d8e8834f49877295ce139918b69587af174d3eefc9981e9ecf5c",
+      "bytes": 24424
+    },
+    "controlled-animation/geometry-IAPWS-95-hsdiagram-si.json": {
+      "sha256": "e7d0335f5f46291390ad5dcea2c7a70e78e700e96772959654e9a8df93d4c3e3",
+      "bytes": 24410
+    },
+    "controlled-animation/geometry-IAPWS-95-phdiagram-english.json": {
+      "sha256": "a989288e114c7a984f63948adeff53639eff7e0109934da026373bd8ae13d83b",
+      "bytes": 25192
+    },
+    "controlled-animation/geometry-IAPWS-95-phdiagram-si.json": {
+      "sha256": "38c091df505d57270d6b892ba9d9b1e4f9bad06c0f764a375a18551cc4bf25c7",
+      "bytes": 25188
+    },
+    "controlled-animation/geometry-IAPWS-95-ts-english.json": {
+      "sha256": "4a30f6a4cf58664921813548d70ad648875625e0c98b0675cb85e0590c31a05a",
+      "bytes": 29612
+    },
+    "controlled-animation/geometry-IAPWS-95-ts-si.json": {
+      "sha256": "f3fb5d09c2ce4403a71481bc4bd74943b3c10586848bae7f20599752e1f0e507",
+      "bytes": 30113
+    },
+    "controlled-animation/geometry-IF97-hsdiagram-english.json": {
+      "sha256": "69cfaad28380832bf532610a5b896a87d846e6dae052a6b32d88f5a514d682d0",
+      "bytes": 24395
+    },
+    "controlled-animation/geometry-IF97-hsdiagram-si.json": {
+      "sha256": "04afa0d6089404ca8a95f9eaddaee20c7bcf8d243f4f0ea57f71f0b75d3bca71",
+      "bytes": 24363
+    },
+    "controlled-animation/geometry-IF97-phdiagram-english.json": {
+      "sha256": "4edbd541dc4a9da9bf6c77d88f0e33d5dee36895cb29893e1e90360f4dc2fe60",
+      "bytes": 25165
+    },
+    "controlled-animation/geometry-IF97-phdiagram-si.json": {
+      "sha256": "e5fd8bf9ab3ebc51159ffaf8e62316d378a14b9402c5503f757567b5314cdddb",
+      "bytes": 25165
+    },
+    "controlled-animation/geometry-IF97-ts-english.json": {
+      "sha256": "815b413d6b5d1415adae4e1dfeaf54ae24e71c54f6c6b402403c66254896d1d0",
+      "bytes": 29605
+    },
+    "controlled-animation/geometry-IF97-ts-si.json": {
+      "sha256": "c1c1b750585147b8213658210c0bcb0fb4150ecd49e4c86f370dcd10209eb8d4",
+      "bytes": 30104
+    },
+    "controlled-animation/report.json": {
+      "sha256": "a9a0306456d33619af7a2ec7401cb62faf2e7ea27cd34cc663741f6077e8bf31",
+      "bytes": 2380
+    },
+    "firefox/geometry-IAPWS-95-hsdiagram-english.json": {
+      "sha256": "f10a85773051ff5eb32e429fe5ff6fe34d76443534a5b6f4345ce02506a2c931",
+      "bytes": 24397
+    },
+    "firefox/geometry-IAPWS-95-hsdiagram-si.json": {
+      "sha256": "4d06af443ecf21a714683b6a3948dca3478191ade456b1d6029cd3af6db8f0a3",
+      "bytes": 24415
+    },
+    "firefox/geometry-IAPWS-95-phdiagram-english.json": {
+      "sha256": "15a21879b3b8c15831dea288c060cd1642225eb9e78b6e89615947fb150ee43e",
+      "bytes": 25159
+    },
+    "firefox/geometry-IAPWS-95-phdiagram-si.json": {
+      "sha256": "6ba3fec1a66990ac2d0bd7dc8267a961cf614c0564a401a730b7d8bcf8335368",
+      "bytes": 25173
+    },
+    "firefox/geometry-IAPWS-95-ts-english.json": {
+      "sha256": "8426a3cf7e0c064ce2dcea33bbdb09006d8cd408ec795e9ea38dcc6f3c3ddb65",
+      "bytes": 29608
+    },
+    "firefox/geometry-IAPWS-95-ts-si.json": {
+      "sha256": "b0e27f23be3cc4043fe054ab1dd42064340e58b36d23bbd5c5e830342be8e5ae",
+      "bytes": 30118
+    },
+    "firefox/geometry-IF97-hsdiagram-english.json": {
+      "sha256": "c2f289dbc99132d55be5410902c630f7c5dfff06224cd9637945d4e58641d7d1",
+      "bytes": 24391
+    },
+    "firefox/geometry-IF97-hsdiagram-si.json": {
+      "sha256": "0297353606cbf86c3cc7a855620b3211dc97e7dc672176048f291687e13775dc",
+      "bytes": 24385
+    },
+    "firefox/geometry-IF97-phdiagram-english.json": {
+      "sha256": "8adbc3c9722f5df2ce24849851ccdcf5828ec157645489e65b1b9a5e0e274531",
+      "bytes": 25161
+    },
+    "firefox/geometry-IF97-phdiagram-si.json": {
+      "sha256": "825be16e9d36a5c3a0aa8ef080667346ceb1f0acdd51aadacc41d008c8ea8616",
+      "bytes": 25174
+    },
+    "firefox/geometry-IF97-ts-english.json": {
+      "sha256": "723f2894fd7ef4693e1bb87c1ec7d7478962ed2d15bc2835d2f499efd78bdf33",
+      "bytes": 29604
+    },
+    "firefox/geometry-IF97-ts-si.json": {
+      "sha256": "16ff69ea1881c26bf3cb434f70d52233e654beb5a37ad241b1838e9659154f45",
+      "bytes": 30129
+    },
+    "firefox/report.json": {
+      "sha256": "df7a4555488c631b277513f555aa6b3bce3df5b7c28f538954855d4e7ffe7424",
+      "bytes": 2379
+    }
+  },
+  "fullCIForCorrection": "not_yet_run_at_collection",
+  "publicationPerformed": false
+}

@@ -1,0 +1,10 @@
+{
+  "controlledAnimationMilliseconds": 1000,
+  "initialSeriesPixelOffset": 20,
+  "frames": 12,
+  "maxObservedMovingVsSettledShift_px": 19.920119920020056,
+  "maxSVGvsSameTaskCanvasError_px": 0.0004988131410641472,
+  "unchangedPixelTolerance_px": 0.0011,
+  "scientificStateAndSeriesDataUnchanged": true,
+  "scope": "Controlled test-only animation; not a modification to shipped numerical or rendering code."
+}

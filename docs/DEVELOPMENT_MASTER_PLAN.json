@@ -1848,7 +1848,8 @@
       "development-r01/auxiliary-acceptance.json",
       "development-r01/memory-acceptance.json",
       "development-r02/acceptance.json",
-      "development-r02/ci-first-recheck.json"
+      "development-r02/ci-first-recheck.json",
+      "development-r02/ci-second-recheck.json"
     ],
     "note": "Original scenario estimates retained; execution status is separate from scientific parity and release acceptance.",
     "updated": "2026-10-21",
@@ -1883,6 +1884,15 @@
       "failed": "browser-ui-workspace",
       "correctedDriverRecheck": "passed",
       "evidence": "development-r02/ci-first-recheck.json"
+    },
+    "second_candidate_CI": {
+      "run": 39594698631,
+      "commit": "6a0a6c2cd6280f1b12e18dbffcbcd55f1499f942",
+      "passed": 105,
+      "total": 106,
+      "failed": "browser-steam97-p07",
+      "correctedDriverRecheck": "passed",
+      "evidence": "development-r02/ci-second-recheck.json"
     }
   }
 }

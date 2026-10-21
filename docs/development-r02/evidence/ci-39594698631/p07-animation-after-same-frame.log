@@ -1,0 +1,6 @@
+chromium Two models, three diagrams, units, named lines/splines, SVG/CSV/print passed
+chromium Atomic guards and label edits preserve existing series references passed
+chromium Steam viewport, isobar visibility, exact project import and restart passed
+chromium Series deletion and clearing displayed points leave history intact passed
+chromium Mobile 320/390 px and English controls passed
+chromium Offline PWA: both models, labels and spline exports passed

@@ -1,0 +1,6 @@
+firefox Two models, three diagrams, units, named lines/splines, SVG/CSV/print passed
+firefox Atomic guards and label edits preserve existing series references passed
+firefox Steam viewport, isobar visibility, exact project import and restart passed
+firefox Series deletion and clearing displayed points leave history intact passed
+firefox Mobile 320/390 px and English controls passed
+firefox Offline PWA: both models, labels and spline exports passed
