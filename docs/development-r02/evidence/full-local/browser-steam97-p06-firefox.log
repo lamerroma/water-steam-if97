@@ -1,0 +1,7 @@
+firefox Three turbine modes; both models and unit systems; MW input passed
+firefox Superheated and supercritical exits; temperature difference and null reasons passed
+firefox Saturated/subcooled condensate and legacy vapor throttle; both systems passed
+firefox MW conversion, stale outputs and input guards passed
+firefox Exact JSON/project reload and history for all modes; printable fields passed
+firefox Gauge pressure, English interface and mobile width passed
+firefox Offline PWA with both models passed

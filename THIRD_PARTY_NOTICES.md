@@ -23,7 +23,7 @@
 - `src/coefficients.js` — транскрипція таблиць коефіцієнтів з атрибуцією. Власний JS-код обчислює основні рівняння та похідні. WASM використовується для початкових наближень густини області 3, T(p,h), T(p,s) та тиску h–s, після чого перевіряються й уточнюються корені основних рівнянь.
 - Під час локального пакування ES module exports/imports перетворюються на одну замкнену область видимості; WASM включається як base64. Згенерований HTML містить повні MIT license notices.
 
-MIT дозволяє використання, модифікацію та розповсюдження, зокрема комерційне, за умови збереження повідомлення про авторські права і тексту дозволу. Жодних copyleft-залежностей у runtime немає.
+MIT дозволяє використання, модифікацію та розповсюдження, зокрема комерційне, за умови збереження повідомлення про авторські права і тексту дозволу. Окремий Python-пакет також містить Pyodide під MPL-2.0; його ліцензію й повідомлення наведено нижче та включено до пакета.
 
 ## IAPWS
 
@@ -66,7 +66,7 @@ Cantera: BSD-3-Clause; повний notice `vendor/CANTERA-LICENSE` включе
 
 ## CoolProp audit
 
-CoolProp 8.0.0, MIT (https://github.com/CoolProp/CoolProp/blob/master/LICENSE), використовується як зовнішній оракул водяних моделей; локальну JS/WASM-збірку 8.0.0 включено для психрометрії. `scripts/reference-coolprop.py` — власна обгортка; `tests/fixtures/coolprop.json` — отримані числові значення. Це другий інструмент водяної перевірки поряд із Python iapws, водяне ядро залишається власним; психрометрія використовує локальний CoolProp.
+CoolProp 8.0.0, MIT (https://github.com/CoolProp/CoolProp/blob/master/LICENSE), використовується як зовнішній оракул водяних моделей і локальний JS/WASM runtime для психрометрії, реальних речовин та пілота Water HEOS. `scripts/reference-coolprop.py` — власна обгортка; `tests/fixtures/coolprop.json` — отримані числові значення. Чинні основні водяні моделі залишаються власними; окремий адаптер `src/water-heos.js` виконує IAPWS-95 через CoolProp без перенесення upstream-формул.
 
 Наукові транспортні поправки: власна транскрипція R12-08 Eqs. (14)–(21), R15-11 Eqs. (18)–(23), з опорною похідною IAPWS-95. Офіційні контрольні значення таблиць 5 обох Releases використано з атрибуцією IAPWS.
 
@@ -78,9 +78,9 @@ CoolProp 8.0.0, MIT (https://github.com/CoolProp/CoolProp/blob/master/LICENSE), 
 
 `tests/fixtures/water-conformance.json` згенеровано зовнішніми CoolProp 8.0.0 (MIT) та Python iapws 1.5.5 (GPL-3.0) як числовими оракулами. Код Python iapws не включено й не перенесено до застосунку. Генератор scripts/reference-water-conformance.py потребує цих пакетів тільки під час створення контрольних даних; runtime та звичайні тести залишаються автономними. Метадані та початкові результати CoolProp P–T збережено у наборі.
 
-## CoolProp runtime для вологого повітря
+## CoolProp runtime
 
-Офіційні файли CoolProp 8.0.0: https://sourceforge.net/projects/coolprop/files/CoolProp/8.0.0/Javascript/ . MIT, повний текст у vendor/COOLPROP-LICENSE. JS і WASM закріплені SHA256. scripts/coolprop-static-bindings.mjs перетворює фабрики bindings на статичні функції під час збірки; математичний WASM не змінюється. WASM вбудовано в обидва формати, без runtime мережевих завантажень. Розробники CoolProp зберігають авторство власного коду.
+Офіційні файли CoolProp 8.0.0: https://sourceforge.net/projects/coolprop/files/CoolProp/8.0.0/Javascript/ . MIT, повний текст у vendor/COOLPROP-LICENSE. JS і WASM закріплені SHA256. scripts/coolprop-static-bindings.mjs перетворює фабрики bindings на статичні функції під час збірки; математичний WASM не змінюється. WASM постачається окремим локальним ресурсом PWA та її ZIP; сторінка й Worker завантажують його за потреби з того самого origin або підготовленого офлайн-кешу. Розробники CoolProp зберігають авторство власного коду.
 
 ## Еталони Ренкіна
 

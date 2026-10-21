@@ -1,0 +1,13 @@
+﻿state;p [MPa];T [K];h [kJ/kg];s [kJ/(kg K)];x [-];"export_app_version";"export_build_id";"export_method";"export_model"
+Вхід;0.1;293.15;84.00605394279428;0.2964631107344179;;"1.39.0";"d6ed1ea111e3";"engineering";"HEOS::Water"
+Ізоентропний вихід;10;293.2994838851703;93.90169301987684;0.29646311073443515;;"1.39.0";"d6ed1ea111e3";"engineering";"HEOS::Water"
+Вихід;10;293.8950085363645;96.37560278924995;0.30488931589025703;;"1.39.0";"d6ed1ea111e3";"engineering";"HEOS::Water"
+
+process;pump;"1.39.0";"d6ed1ea111e3";"engineering";"HEOS::Water"
+model;HEOS::Water;"1.39.0";"d6ed1ea111e3";"engineering";"HEOS::Water"
+pressure_basis;absolute;"1.39.0";"d6ed1ea111e3";"engineering";"HEOS::Water"
+quantity;value;unit;"1.39.0";"d6ed1ea111e3";"engineering";"HEOS::Water"
+power;24.73909769270641;kW;"1.39.0";"d6ed1ea111e3";"engineering";"HEOS::Water"
+flow;2;kg/s;"1.39.0";"d6ed1ea111e3";"engineering";"HEOS::Water"
+work;12.369548846353204;kJ/kg;"1.39.0";"d6ed1ea111e3";"engineering";"HEOS::Water"
+eta;0.8;-;"1.39.0";"d6ed1ea111e3";"engineering";"HEOS::Water"

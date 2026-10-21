@@ -1,0 +1,12 @@
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+5 !== 4
+
+    at C:\Users\coyotl\Documents\ChatGPT\калькулятор\water-steam-if97\scripts\check-custom-cycle-browser.cjs:31:399 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 5,
+  expected: 4,
+  operator: 'strictEqual',
+  diff: 'simple'
+}

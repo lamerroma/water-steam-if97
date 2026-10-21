@@ -1,0 +1,305 @@
+{
+  "date": "2026-10-21T09:49:12.469Z",
+  "status": "interrupted_for_driver_correction",
+  "browser": "firefox",
+  "cycles": 10,
+  "views": 15,
+  "machine": {
+    "node": "v24.18.1",
+    "platform": "win32",
+    "cpu": "AMD Ryzen 7 5700G with Radeon Graphics         "
+  },
+  "measurements": [
+    {
+      "label": "select HEOS",
+      "elapsedMs": 630,
+      "heartbeatMaxGapMs": 49,
+      "ticks": 27
+    },
+    {
+      "label": "first general result",
+      "elapsedMs": 13598,
+      "heartbeatMaxGapMs": 40,
+      "ticks": 656
+    },
+    {
+      "label": "first auxiliary result",
+      "elapsedMs": 13908,
+      "heartbeatMaxGapMs": 39,
+      "ticks": 671
+    },
+    {
+      "label": "first diagram",
+      "elapsedMs": 8256,
+      "heartbeatMaxGapMs": 219,
+      "ticks": 386
+    },
+    {
+      "label": "restore-1",
+      "elapsedMs": 13404,
+      "heartbeatMaxGapMs": 44,
+      "ticks": 645
+    },
+    {
+      "label": "restore-2",
+      "elapsedMs": 13882,
+      "heartbeatMaxGapMs": 33,
+      "ticks": 669
+    },
+    {
+      "label": "restore-3",
+      "elapsedMs": 13936,
+      "heartbeatMaxGapMs": 44,
+      "ticks": 674
+    }
+  ],
+  "samples": [
+    {
+      "label": "fresh page",
+      "mainWasmBytes": [
+        1114112
+      ],
+      "workers": [],
+      "mainJsHeapUsedBytes": null,
+      "processPrivateBytesSum": null,
+      "totalWasmCapacity": 1114112
+    },
+    {
+      "label": "selected HEOS, no native main Water query",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [],
+      "mainJsHeapUsedBytes": null,
+      "processPrivateBytesSum": null,
+      "totalWasmCapacity": 23658496
+    },
+    {
+      "label": "general Worker warm",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [
+        {
+          "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ],
+      "mainJsHeapUsedBytes": null,
+      "processPrivateBytesSum": null,
+      "totalWasmCapacity": 81133568
+    },
+    {
+      "label": "auxiliary Worker warm",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [
+        {
+          "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        },
+        {
+          "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ],
+      "mainJsHeapUsedBytes": null,
+      "processPrivateBytesSum": null,
+      "totalWasmCapacity": 138608640
+    },
+    {
+      "label": "diagram refined",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [
+        {
+          "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        },
+        {
+          "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ],
+      "mainJsHeapUsedBytes": null,
+      "processPrivateBytesSum": null,
+      "totalWasmCapacity": 138608640
+    },
+    {
+      "label": "settled view 5",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [
+        {
+          "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        },
+        {
+          "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ],
+      "mainJsHeapUsedBytes": null,
+      "processPrivateBytesSum": null,
+      "totalWasmCapacity": 138608640
+    },
+    {
+      "label": "settled view 10",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [
+        {
+          "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        },
+        {
+          "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ],
+      "mainJsHeapUsedBytes": null,
+      "processPrivateBytesSum": null,
+      "totalWasmCapacity": 138608640
+    },
+    {
+      "label": "settled view 15",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [
+        {
+          "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        },
+        {
+          "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ],
+      "mainJsHeapUsedBytes": null,
+      "processPrivateBytesSum": null,
+      "totalWasmCapacity": 138608640
+    }
+  ],
+  "cancellations": [
+    {
+      "type": "pending engineering",
+      "wasBusy": true,
+      "cancelMs": 1,
+      "stillBusy": false,
+      "stale": false
+    },
+    {
+      "type": "in-flight diagram base after 50 ms",
+      "wasBusy": true,
+      "cancelMs": 1,
+      "stillBusy": false,
+      "stale": false
+    },
+    {
+      "type": "pending engineering",
+      "wasBusy": true,
+      "cancelMs": 0,
+      "stillBusy": false,
+      "stale": false
+    },
+    {
+      "type": "in-flight diagram base after 50 ms",
+      "wasBusy": true,
+      "cancelMs": 1,
+      "stillBusy": false,
+      "stale": false
+    }
+  ],
+  "workerEvents": [
+    {
+      "event": "create",
+      "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    }
+  ],
+  "errors": [],
+  "scope": "One headless desktop, actual UI. Read-only named WASM-memory hooks; SW blocked. Capacity is not live allocation; CDP main JS heap excludes Worker JS. Windows private bytes are commit, not physical RAM. Samples are not exhaustive peaks; bounded repetition does not prove absence of leaks.",
+  "browserVersion": "153.0",
+  "build": "d6ed1ea111e3",
+  "interruptionReason": "Chromium follow-up established remote canvas handles retained by the test driver; restart both browsers with Locator.waitFor. This is not a product hang."
+}

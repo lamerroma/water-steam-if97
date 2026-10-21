@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-21",
+  "reports": [
+    {
+      "manifest": "docs/steam97-reference/manifest.json",
+      "files": 70,
+      "allHashesMatched": true
+    },
+    {
+      "manifest": "docs/development-r01/acceptance.json",
+      "files": 28,
+      "allHashesMatched": true
+    },
+    {
+      "manifest": "docs/development-r01/steam-process-acceptance.json",
+      "files": 61,
+      "allHashesMatched": true
+    },
+    {
+      "manifest": "docs/development-r01/auxiliary-acceptance.json",
+      "files": 84,
+      "allHashesMatched": true
+    },
+    {
+      "manifest": "docs/development-r01/memory-acceptance.json",
+      "files": 32,
+      "allHashesMatched": true
+    }
+  ],
+  "scope": "Only archived evidence payloads, not current source hashes in historical snapshots."
+}

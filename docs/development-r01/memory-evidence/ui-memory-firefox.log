@@ -1,0 +1,26 @@
+firefox SAMPLE fresh page / 0 workers / 1114112 WASM bytes
+firefox MEASURE select HEOS 572 ms / gap 54
+firefox SAMPLE selected HEOS, no native main Water query / 0 workers / 23658496 WASM bytes
+firefox MEASURE first general result 13779 ms / gap 49
+firefox SAMPLE general Worker warm / 1 workers / 81133568 WASM bytes
+firefox MEASURE first auxiliary result 13854 ms / gap 39
+firefox SAMPLE auxiliary Worker warm / 2 workers / 138608640 WASM bytes
+firefox MEASURE first diagram 8043 ms / gap 220
+firefox SAMPLE diagram refined / 2 workers / 138608640 WASM bytes
+firefox SAMPLE settled view 5 / 2 workers / 138608640 WASM bytes
+firefox SAMPLE settled view 10 / 2 workers / 138608640 WASM bytes
+firefox SAMPLE settled view 15 / 2 workers / 138608640 WASM bytes
+firefox MEASURE restore-1 13920 ms / gap 47
+firefox MEASURE restore-2 13405 ms / gap 30
+firefox MEASURE restore-3 13432 ms / gap 40
+firefox MEASURE restore-4 13405 ms / gap 35
+firefox MEASURE restore-5 13869 ms / gap 45
+firefox SAMPLE cancel/restore 5 / 2 workers / 138608640 WASM bytes
+firefox MEASURE restore-6 13953 ms / gap 41
+firefox MEASURE restore-7 13882 ms / gap 34
+firefox MEASURE restore-8 13887 ms / gap 43
+firefox MEASURE restore-9 13923 ms / gap 36
+firefox MEASURE restore-10 13309 ms / gap 35
+firefox SAMPLE cancel/restore 10 / 2 workers / 138608640 WASM bytes
+firefox SAMPLE leave auxiliaries / 2 workers / 138608640 WASM bytes
+firefox COMPLETED {"wasmCapacity":138608640,"mainJsHeapAfterGC":null,"privateCommit":null,"settledWorkers":2,"cancelMs":1,"heartbeatMaxGapMs":220}

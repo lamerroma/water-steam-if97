@@ -1,0 +1,796 @@
+{
+  "date": "2026-10-21T09:54:05.095Z",
+  "status": "completed",
+  "browser": "chromium",
+  "cycles": 10,
+  "views": 15,
+  "machine": {
+    "node": "v24.18.1",
+    "platform": "win32",
+    "cpu": "AMD Ryzen 7 5700G with Radeon Graphics         "
+  },
+  "measurements": [
+    {
+      "label": "select HEOS",
+      "elapsedMs": 366.2000000476837,
+      "heartbeatMaxGapMs": 75.80000001192093,
+      "ticks": 14
+    },
+    {
+      "label": "first general result",
+      "elapsedMs": 2590.900000035763,
+      "heartbeatMaxGapMs": 54.09999996423721,
+      "ticks": 128
+    },
+    {
+      "label": "first auxiliary result",
+      "elapsedMs": 2981.699999988079,
+      "heartbeatMaxGapMs": 30.19999998807907,
+      "ticks": 148
+    },
+    {
+      "label": "first diagram",
+      "elapsedMs": 2324.300000011921,
+      "heartbeatMaxGapMs": 237.5999999642372,
+      "ticks": 105
+    },
+    {
+      "label": "restore-1",
+      "elapsedMs": 3015.399999976158,
+      "heartbeatMaxGapMs": 24.899999976158142,
+      "ticks": 150
+    },
+    {
+      "label": "restore-2",
+      "elapsedMs": 2998.199999988079,
+      "heartbeatMaxGapMs": 21.599999964237213,
+      "ticks": 149
+    },
+    {
+      "label": "restore-3",
+      "elapsedMs": 2996.300000011921,
+      "heartbeatMaxGapMs": 22,
+      "ticks": 149
+    },
+    {
+      "label": "restore-4",
+      "elapsedMs": 3007.800000011921,
+      "heartbeatMaxGapMs": 21.400000035762787,
+      "ticks": 150
+    },
+    {
+      "label": "restore-5",
+      "elapsedMs": 3001.199999988079,
+      "heartbeatMaxGapMs": 27.299999952316284,
+      "ticks": 150
+    },
+    {
+      "label": "restore-6",
+      "elapsedMs": 2986.399999976158,
+      "heartbeatMaxGapMs": 29.69999998807907,
+      "ticks": 149
+    },
+    {
+      "label": "restore-7",
+      "elapsedMs": 2488.399999976158,
+      "heartbeatMaxGapMs": 21.30000001192093,
+      "ticks": 124
+    },
+    {
+      "label": "restore-8",
+      "elapsedMs": 2992.899999976158,
+      "heartbeatMaxGapMs": 28.200000047683716,
+      "ticks": 149
+    },
+    {
+      "label": "restore-9",
+      "elapsedMs": 2968.2999999523163,
+      "heartbeatMaxGapMs": 27.700000047683716,
+      "ticks": 148
+    },
+    {
+      "label": "restore-10",
+      "elapsedMs": 2978.5,
+      "heartbeatMaxGapMs": 24.5,
+      "ticks": 148
+    }
+  ],
+  "samples": [
+    {
+      "label": "fresh page",
+      "mainWasmBytes": [
+        1114112
+      ],
+      "workers": [],
+      "mainJsHeapUsedBytes": 3707880,
+      "processPrivateBytesSum": 107040768,
+      "totalWasmCapacity": 1114112,
+      "processes": [
+        {
+          "Id": 1928,
+          "PrivateMemorySize64": 20692992
+        },
+        {
+          "Id": 7804,
+          "PrivateMemorySize64": 15220736
+        },
+        {
+          "Id": 16364,
+          "PrivateMemorySize64": 20041728
+        },
+        {
+          "Id": 20884,
+          "PrivateMemorySize64": 51085312
+        }
+      ]
+    },
+    {
+      "label": "selected HEOS, no native main Water query",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [],
+      "mainJsHeapUsedBytes": 4759848,
+      "processPrivateBytesSum": 168239104,
+      "totalWasmCapacity": 23658496,
+      "processes": [
+        {
+          "Id": 1928,
+          "PrivateMemorySize64": 20717568
+        },
+        {
+          "Id": 7804,
+          "PrivateMemorySize64": 15228928
+        },
+        {
+          "Id": 16364,
+          "PrivateMemorySize64": 20250624
+        },
+        {
+          "Id": 20884,
+          "PrivateMemorySize64": 112041984
+        }
+      ]
+    },
+    {
+      "label": "general Worker warm",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ],
+      "mainJsHeapUsedBytes": 5047960,
+      "processPrivateBytesSum": 277405696,
+      "totalWasmCapacity": 81133568,
+      "processes": [
+        {
+          "Id": 1928,
+          "PrivateMemorySize64": 20963328
+        },
+        {
+          "Id": 7804,
+          "PrivateMemorySize64": 16400384
+        },
+        {
+          "Id": 16364,
+          "PrivateMemorySize64": 19722240
+        },
+        {
+          "Id": 20884,
+          "PrivateMemorySize64": 220319744
+        }
+      ]
+    },
+    {
+      "label": "auxiliary Worker warm",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        },
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ],
+      "mainJsHeapUsedBytes": 5343576,
+      "processPrivateBytesSum": 374079488,
+      "totalWasmCapacity": 138608640,
+      "processes": [
+        {
+          "Id": 1928,
+          "PrivateMemorySize64": 21307392
+        },
+        {
+          "Id": 7804,
+          "PrivateMemorySize64": 16461824
+        },
+        {
+          "Id": 16364,
+          "PrivateMemorySize64": 21630976
+        },
+        {
+          "Id": 20884,
+          "PrivateMemorySize64": 314679296
+        }
+      ]
+    },
+    {
+      "label": "diagram refined",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        },
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ],
+      "mainJsHeapUsedBytes": 9613596,
+      "processPrivateBytesSum": 393531392,
+      "totalWasmCapacity": 138608640,
+      "processes": [
+        {
+          "Id": 1928,
+          "PrivateMemorySize64": 21385216
+        },
+        {
+          "Id": 7804,
+          "PrivateMemorySize64": 16461824
+        },
+        {
+          "Id": 16364,
+          "PrivateMemorySize64": 21311488
+        },
+        {
+          "Id": 20884,
+          "PrivateMemorySize64": 334372864
+        }
+      ]
+    },
+    {
+      "label": "settled view 5",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        },
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ],
+      "mainJsHeapUsedBytes": 10954268,
+      "processPrivateBytesSum": 426823680,
+      "totalWasmCapacity": 138608640,
+      "processes": [
+        {
+          "Id": 1928,
+          "PrivateMemorySize64": 21389312
+        },
+        {
+          "Id": 7804,
+          "PrivateMemorySize64": 16461824
+        },
+        {
+          "Id": 16364,
+          "PrivateMemorySize64": 21372928
+        },
+        {
+          "Id": 20884,
+          "PrivateMemorySize64": 367599616
+        }
+      ]
+    },
+    {
+      "label": "settled view 10",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        },
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ],
+      "mainJsHeapUsedBytes": 11159052,
+      "processPrivateBytesSum": 459911168,
+      "totalWasmCapacity": 138608640,
+      "processes": [
+        {
+          "Id": 1928,
+          "PrivateMemorySize64": 21499904
+        },
+        {
+          "Id": 7804,
+          "PrivateMemorySize64": 16404480
+        },
+        {
+          "Id": 16364,
+          "PrivateMemorySize64": 21413888
+        },
+        {
+          "Id": 20884,
+          "PrivateMemorySize64": 400592896
+        }
+      ]
+    },
+    {
+      "label": "settled view 15",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        },
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ],
+      "mainJsHeapUsedBytes": 11244764,
+      "processPrivateBytesSum": 460357632,
+      "totalWasmCapacity": 138608640,
+      "processes": [
+        {
+          "Id": 1928,
+          "PrivateMemorySize64": 21508096
+        },
+        {
+          "Id": 7804,
+          "PrivateMemorySize64": 16404480
+        },
+        {
+          "Id": 16364,
+          "PrivateMemorySize64": 21381120
+        },
+        {
+          "Id": 20884,
+          "PrivateMemorySize64": 401063936
+        }
+      ]
+    },
+    {
+      "label": "cancel/restore 5",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        },
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ],
+      "mainJsHeapUsedBytes": 10194716,
+      "processPrivateBytesSum": 387256320,
+      "totalWasmCapacity": 138608640,
+      "processes": [
+        {
+          "Id": 1928,
+          "PrivateMemorySize64": 20832256
+        },
+        {
+          "Id": 7804,
+          "PrivateMemorySize64": 16437248
+        },
+        {
+          "Id": 16364,
+          "PrivateMemorySize64": 21966848
+        },
+        {
+          "Id": 20884,
+          "PrivateMemorySize64": 328019968
+        }
+      ]
+    },
+    {
+      "label": "cancel/restore 10",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        },
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ],
+      "mainJsHeapUsedBytes": 10310032,
+      "processPrivateBytesSum": 401653760,
+      "totalWasmCapacity": 138608640,
+      "processes": [
+        {
+          "Id": 1928,
+          "PrivateMemorySize64": 20729856
+        },
+        {
+          "Id": 7804,
+          "PrivateMemorySize64": 16478208
+        },
+        {
+          "Id": 16364,
+          "PrivateMemorySize64": 23052288
+        },
+        {
+          "Id": 20884,
+          "PrivateMemorySize64": 341393408
+        }
+      ]
+    },
+    {
+      "label": "leave auxiliaries",
+      "mainWasmBytes": [
+        1114112,
+        22544384
+      ],
+      "workers": [
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        },
+        {
+          "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ],
+      "mainJsHeapUsedBytes": 10310792,
+      "processPrivateBytesSum": 401440768,
+      "totalWasmCapacity": 138608640,
+      "processes": [
+        {
+          "Id": 1928,
+          "PrivateMemorySize64": 21217280
+        },
+        {
+          "Id": 7804,
+          "PrivateMemorySize64": 16478208
+        },
+        {
+          "Id": 16364,
+          "PrivateMemorySize64": 23101440
+        },
+        {
+          "Id": 20884,
+          "PrivateMemorySize64": 340643840
+        }
+      ]
+    }
+  ],
+  "cancellations": [
+    {
+      "type": "pending engineering",
+      "wasBusy": true,
+      "cancelMs": 1.800000011920929,
+      "stillBusy": false,
+      "stale": false
+    },
+    {
+      "type": "in-flight diagram base after 50 ms",
+      "wasBusy": true,
+      "cancelMs": 1.5,
+      "stillBusy": false,
+      "stale": false
+    },
+    {
+      "type": "pending engineering",
+      "wasBusy": true,
+      "cancelMs": 1.199999988079071,
+      "stillBusy": false,
+      "stale": false
+    },
+    {
+      "type": "in-flight diagram base after 50 ms",
+      "wasBusy": true,
+      "cancelMs": 1.4000000357627869,
+      "stillBusy": false,
+      "stale": false
+    },
+    {
+      "type": "pending engineering",
+      "wasBusy": true,
+      "cancelMs": 1,
+      "stillBusy": false,
+      "stale": false
+    },
+    {
+      "type": "in-flight diagram base after 50 ms",
+      "wasBusy": true,
+      "cancelMs": 1.5,
+      "stillBusy": false,
+      "stale": false
+    },
+    {
+      "type": "pending engineering",
+      "wasBusy": true,
+      "cancelMs": 1.2999999523162842,
+      "stillBusy": false,
+      "stale": false
+    },
+    {
+      "type": "in-flight diagram base after 50 ms",
+      "wasBusy": true,
+      "cancelMs": 1.199999988079071,
+      "stillBusy": false,
+      "stale": false
+    },
+    {
+      "type": "pending engineering",
+      "wasBusy": true,
+      "cancelMs": 1.300000011920929,
+      "stillBusy": false,
+      "stale": false
+    },
+    {
+      "type": "in-flight diagram base after 50 ms",
+      "wasBusy": true,
+      "cancelMs": 1.100000023841858,
+      "stillBusy": false,
+      "stale": false
+    }
+  ],
+  "workerEvents": [
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "create",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    },
+    {
+      "event": "close",
+      "url": "http://127.0.0.1:53054/assets/heos-calculator-worker.js?v=d90e5f36713687fe"
+    }
+  ],
+  "errors": [],
+  "scope": "One headless desktop, actual UI. Read-only named WASM-memory hooks; SW blocked. Capacity is not live allocation; CDP main JS heap excludes Worker JS. Windows private bytes are commit, not physical RAM. Samples are not exhaustive peaks; bounded repetition does not prove absence of leaks.",
+  "browserVersion": "151.0.7922.34",
+  "build": "0e0860132fb6",
+  "maxima": {
+    "wasmCapacity": 138608640,
+    "mainJsHeapAfterGC": 11244764,
+    "privateCommit": 460357632,
+    "settledWorkers": 2,
+    "cancelMs": 1.800000011920929,
+    "heartbeatMaxGapMs": 237.5999999642372
+  },
+  "postGcGrowthBytes": 697196,
+  "proposedDesktopAcceptance": {
+    "limits": {
+      "heartbeatMaxGapMs": 1000,
+      "coldGeneralMs": 30000,
+      "coldAuxiliaryMs": 30000,
+      "wasmCapacityBytes": 268435456,
+      "mainJsAfterGcBytes": 67108864,
+      "mainJsGrowthBytes": 16777216,
+      "privateCommitBytes": 1073741824,
+      "settledWorkers": 2,
+      "cancelMs": 250
+    },
+    "findings": {
+      "responsive": true,
+      "coldGeneral": true,
+      "coldAuxiliary": true,
+      "wasm": true,
+      "workers": true,
+      "cancel": true,
+      "mainJs": true,
+      "mainJsGrowth": true,
+      "privateCommit": true
+    },
+    "availableCriteriaMet": true,
+    "unavailable": [],
+    "scope": "Qualified acceptance only for this desktop/runtime/workload; null criteria remain unavailable, not passed. Cold means fresh app/runtime with loopback assets, not a cold network/disk cache."
+  }
+}

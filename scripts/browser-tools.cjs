@@ -8,6 +8,9 @@ exports.openTool=async(page,action)=>{
   await page.locator(`[role=tab][data-action="${action}"]`).click();
   await page.fill('#tool-search','');
  }
+ // Locator.waitFor returns no remote ElementHandle. Keeping a canvas handle
+ // alive also keeps its detached event closures and old diagram scenes alive.
+ if(['ts','hsdiagram','phdiagram'].includes(action))await page.locator('#steam-diagram').waitFor({timeout:180000});
 };
 
 // Follow the compact menu/search paths used by mobile users.
@@ -16,7 +19,7 @@ exports.openToolFinder=async page=>{if(!await page.locator('#tool-catalog-toggle
 
 exports.openUnits=async page=>{if(!await page.locator('.setup-pane').isVisible())await page.click('#ui-units-toggle');};
 exports.closeUnits=async page=>{if(await page.locator('.setup-pane').isVisible())await page.locator('.setup-pane [data-action=toggle-setup]').evaluate(e=>e.click());};
-exports.chooseModel=async(page,model)=>{await exports.openUnits(page);await page.locator('input[name=formulation][value="'+model+'"]').check();await exports.closeUnits(page);};
+exports.chooseModel=async(page,model)=>{await exports.openUnits(page);await page.locator('input[name=formulation][value="'+model+'"]').click();await page.waitForFunction(model=>document.querySelector('input[name=formulation]:checked')?.value===model,model,{timeout:120000});await exports.closeUnits(page);};
 
 // Exercise a fresh navigation through the real, verified service-worker cache.
 // Callers must allow service workers in this disposable test context. Start with

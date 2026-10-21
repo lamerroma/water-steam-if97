@@ -1,0 +1,357 @@
+{
+  "date_archived": "2026-10-20",
+  "collection_date": "2026-10-19",
+  "scope": "Historical original Registration Required evidence plus our published 1.35.12 outputs; no original numerical data.",
+  "files": [
+    {
+      "path": "STEAM97_REFERENCE_REPORT_UK.md",
+      "bytes": 14308,
+      "sha256": "007931595752ea04f2479626fd70808a45aa4a7fc71ef59957dc8888e78a5e3c"
+    },
+    {
+      "path": "steam97-reference-cases.json",
+      "bytes": 130441,
+      "sha256": "d43e7c5cc592d359b8255d61df6a906f24f5f7cef62fa5a0baa300ad458038c5"
+    },
+    {
+      "path": "steam97-evidence/input-audit.json",
+      "bytes": 2337,
+      "sha256": "392c26e74056b7c742793cf9376a26e2983c3b0dc69aabd6e7501294d6c97a46"
+    },
+    {
+      "path": "steam97-evidence/login-handoff-2026-10-19.png",
+      "bytes": 199573,
+      "sha256": "3a53e432d46c3e1d46d5d3a92ea988872a8e112bc5d6e7d7ad72799196a88b78"
+    },
+    {
+      "path": "steam97-evidence/original-Ar-dom.txt",
+      "bytes": 35990,
+      "sha256": "8705ea6bb2476d12e36a31893deb48ebdaf6930e610d08755a3c140f4d3c10b1"
+    },
+    {
+      "path": "steam97-evidence/original-Ar-registration.png",
+      "bytes": 197575,
+      "sha256": "31e0411f927d23bab8cbb17f8e44dd891bf9c7f391a1439b53adb1f1eadf696d"
+    },
+    {
+      "path": "steam97-evidence/original-help.txt",
+      "bytes": 36364,
+      "sha256": "5433eab622574a6d4b498b77387bd53ecafcdee83da01e116e6ef71fc1092585"
+    },
+    {
+      "path": "steam97-evidence/original-mix-1200K-1MPa-off.png",
+      "bytes": 190346,
+      "sha256": "a77aedb92e7ae94e6dd713b3c657833d3d2fa9686d7b696fe0c552051fedf735"
+    },
+    {
+      "path": "steam97-evidence/original-mix-1200K-1MPa-off.txt",
+      "bytes": 35996,
+      "sha256": "9f74510329402a0cb9474ac0bdb4a09d189e742f79c6ff6d0c4fdc2440306818"
+    },
+    {
+      "path": "steam97-evidence/original-mix-1200K-1MPa-on.png",
+      "bytes": 190763,
+      "sha256": "884e91949f28d7076cce448671ba95a8d28bd04f68a36cf8c57ec9bfdf4067b5"
+    },
+    {
+      "path": "steam97-evidence/original-mix-1200K-1MPa-on.txt",
+      "bytes": 36006,
+      "sha256": "a216096dd663085635305b8677d9fdd9a61ad27ab11845177e657a7ba0353154"
+    },
+    {
+      "path": "steam97-evidence/original-mix-1600K-0.01MPa-off.png",
+      "bytes": 190760,
+      "sha256": "afe3d3eff280ef674b3183605873321042e280786b5bcc4999883c75822da7c7"
+    },
+    {
+      "path": "steam97-evidence/original-mix-1600K-0.01MPa-off.txt",
+      "bytes": 35998,
+      "sha256": "bcce72a4aefdde192bb4357fa80fa33aab462d3e30256a582e7af11fd1c07433"
+    },
+    {
+      "path": "steam97-evidence/original-mix-1600K-0.01MPa-on.png",
+      "bytes": 190740,
+      "sha256": "ba68a00979335c3a63617ed09f97a85fcf800980c82eed579c15d8a4353306fc"
+    },
+    {
+      "path": "steam97-evidence/original-mix-1600K-0.01MPa-on.txt",
+      "bytes": 36008,
+      "sha256": "4ff66e5c6af4314d422ad40dfa706a50f250a5eea0b9a7e073998efe0d6514ed"
+    },
+    {
+      "path": "steam97-evidence/original-mix-1600K-1MPa-off.png",
+      "bytes": 190687,
+      "sha256": "1aaa470e5121b45a515392ae5277a7bdfd895d3cbe19dcdd1b66c04ded4c1e42"
+    },
+    {
+      "path": "steam97-evidence/original-mix-1600K-1MPa-off.txt",
+      "bytes": 35997,
+      "sha256": "d7a97d68dc57f5d520f9e0fcb454f5df5b5e603dc451e3ca2935616efc4472fb"
+    },
+    {
+      "path": "steam97-evidence/original-mix-1600K-1MPa-on.png",
+      "bytes": 190792,
+      "sha256": "ae78dfab015d0b312dc389a2f3c37d30b1f7b8d6895e04796d1d7602e42ef687"
+    },
+    {
+      "path": "steam97-evidence/original-mix-1600K-1MPa-on.txt",
+      "bytes": 36007,
+      "sha256": "4df420e6bc739b1ba0d7e1b7f0e13eae9b46ad3b851ba77e4dd95693993b3b5c"
+    },
+    {
+      "path": "steam97-evidence/original-mix-1600K-5MPa-off.png",
+      "bytes": 199126,
+      "sha256": "68ba04c69a82b307ffc928b82d5f9c01655dd9ef1e9a797ef60003c6ebd37107"
+    },
+    {
+      "path": "steam97-evidence/original-mix-1600K-5MPa-off.txt",
+      "bytes": 35997,
+      "sha256": "06acc6cc7fa36da847707f7225d50d3b26de2bb9fc5da356572da2eff09b1019"
+    },
+    {
+      "path": "steam97-evidence/original-mix-1600K-5MPa-on.png",
+      "bytes": 190774,
+      "sha256": "c8c8756619ce366ea02e181e6e45ddfa6933ef956a878a5576af5abd3d9e0712"
+    },
+    {
+      "path": "steam97-evidence/original-mix-1600K-5MPa-on.txt",
+      "bytes": 36007,
+      "sha256": "84fb39c5b7f842b33dd9cbeaa9640c72717314673ee56e1eacdfcd1325aa8432"
+    },
+    {
+      "path": "steam97-evidence/original-mix-2000.001K-1MPa-off.png",
+      "bytes": 190814,
+      "sha256": "7f046f2b7c2bafe805183d600d0eb5e48a9798445e3ecf5cb536f1b2cea40184"
+    },
+    {
+      "path": "steam97-evidence/original-mix-2000.001K-1MPa-off.txt",
+      "bytes": 35998,
+      "sha256": "f14a8fcf6697f76f254ed9196ce7850e6dda1eb1a944a39758912a764167e32c"
+    },
+    {
+      "path": "steam97-evidence/original-mix-2000.001K-1MPa-on.png",
+      "bytes": 190825,
+      "sha256": "594f443cbad1eb28039b5dbd77fc37ad220f029ef47f08758f5bd4efee83cd94"
+    },
+    {
+      "path": "steam97-evidence/original-mix-2000.001K-1MPa-on.txt",
+      "bytes": 36008,
+      "sha256": "623d7282f6e5410c85f46c5d6087cf143551b2dde9411898a725aea8cb51b09e"
+    },
+    {
+      "path": "steam97-evidence/original-mix-2000K-1MPa-off.png",
+      "bytes": 199072,
+      "sha256": "cbd74b204cb75ab5871855aa4210c365e5458f1973c33fdb81ca3a2a4c31f26f"
+    },
+    {
+      "path": "steam97-evidence/original-mix-2000K-1MPa-off.txt",
+      "bytes": 35997,
+      "sha256": "4e7f3ddbfc5325cf654369f15f0f5b26f53c7802f7820050859e852d98c2daa3"
+    },
+    {
+      "path": "steam97-evidence/original-mix-2000K-1MPa-on.png",
+      "bytes": 190793,
+      "sha256": "8a4b52d46cb0ee7c0fa46086bbd7504c00f859a0aadb550c8a6ddd96d08a6ecf"
+    },
+    {
+      "path": "steam97-evidence/original-mix-2000K-1MPa-on.txt",
+      "bytes": 36007,
+      "sha256": "d454751e640606438e0cd7c03dcf1a69c3ce85f088a8fb2e0ace4b575f621332"
+    },
+    {
+      "path": "steam97-evidence/original-pure-Ar.png",
+      "bytes": 198293,
+      "sha256": "134e2b84bb2880d7d84a8f0fbbe23e38c4e0bbe791bbb148023d72b16c0c649c"
+    },
+    {
+      "path": "steam97-evidence/original-pure-Ar.txt",
+      "bytes": 35990,
+      "sha256": "8705ea6bb2476d12e36a31893deb48ebdaf6930e610d08755a3c140f4d3c10b1"
+    },
+    {
+      "path": "steam97-evidence/original-pure-CO.png",
+      "bytes": 190008,
+      "sha256": "f820b30d40ac385d7df71f7c644d3d4af9ced7987ba49ced8b8f207623b300cf"
+    },
+    {
+      "path": "steam97-evidence/original-pure-CO.txt",
+      "bytes": 35990,
+      "sha256": "3c82abe736329c4db398f047fb631bb0c522fd5c85dade2b3dd3a286ba143d01"
+    },
+    {
+      "path": "steam97-evidence/original-pure-CO2.png",
+      "bytes": 189977,
+      "sha256": "dfe0e35e205ecebee43a7dcddce66d506b3298200b790a1dd91e9c840747893b"
+    },
+    {
+      "path": "steam97-evidence/original-pure-CO2.txt",
+      "bytes": 35990,
+      "sha256": "1932f2aaab2d05e56404172a7dc4f4a07df24faf4c079d7cd5b14f8764a141da"
+    },
+    {
+      "path": "steam97-evidence/original-pure-H2O.png",
+      "bytes": 189948,
+      "sha256": "bb8f03e6e452fe3876c2b9669ce121019d86c1e46023792daff9a5fe8ddfa6d5"
+    },
+    {
+      "path": "steam97-evidence/original-pure-H2O.txt",
+      "bytes": 35990,
+      "sha256": "c176a7d75b3bc57c38dbeaca987d6a36e09d4954fb36a8c1861a270e6c7482b5"
+    },
+    {
+      "path": "steam97-evidence/original-pure-N2.png",
+      "bytes": 189983,
+      "sha256": "e0e49312b93e923b127547e404a10fec1b67bfd37463a6f44ac75ebe1446aa41"
+    },
+    {
+      "path": "steam97-evidence/original-pure-N2.txt",
+      "bytes": 35990,
+      "sha256": "960aa5bbcc22ef1a77ea8b4119b3d421106df61dcfa119a3e8c51318b8a9b7a1"
+    },
+    {
+      "path": "steam97-evidence/original-pure-Ne.png",
+      "bytes": 190042,
+      "sha256": "603338b6207790b45d930a9ceb2e18fdd053c68f08252507f4ebbbb285b70b14"
+    },
+    {
+      "path": "steam97-evidence/original-pure-Ne.txt",
+      "bytes": 35990,
+      "sha256": "97fa0e19f30fa5d131368d1d5bd15636681991f5eaee064ea19cef160c0629f9"
+    },
+    {
+      "path": "steam97-evidence/original-pure-O2.png",
+      "bytes": 189923,
+      "sha256": "5cfe6296a49fa0461981859f42d4773fe88e24e111e87ec203ce4590a9a80040"
+    },
+    {
+      "path": "steam97-evidence/original-pure-O2.txt",
+      "bytes": 35990,
+      "sha256": "17bd33c067576dbed5371719fd96c5f5299e0415dc4766b8b755fe5374d28e8b"
+    },
+    {
+      "path": "steam97-evidence/original-pure-SO2.png",
+      "bytes": 189921,
+      "sha256": "58b09940e670f9dece1637c00167fbcd16cff97c7688c529180fb3c3a814d6c4"
+    },
+    {
+      "path": "steam97-evidence/original-pure-SO2.txt",
+      "bytes": 35990,
+      "sha256": "d67a2952c30c8be5ff0be351fdc29fd9d730fa5086848c71026be6b773cfb79d"
+    },
+    {
+      "path": "steam97-evidence/ours-boundary-error.png",
+      "bytes": 154374,
+      "sha256": "430b7fbf94525bb8a92dec9aeba9ed8af39ece82d139c8400310925010e804c3"
+    },
+    {
+      "path": "steam97-evidence/ours-mix-1200K-1MPa-off.txt",
+      "bytes": 10075,
+      "sha256": "398cf2fe3fedbe377f15580d7118708c7e27094d8441a8955052056b993951f0"
+    },
+    {
+      "path": "steam97-evidence/ours-mix-1200K-1MPa-on.txt",
+      "bytes": 11330,
+      "sha256": "b27a782f5c70c365d338269221f2f044858aa08992a925605403b782d13a38a7"
+    },
+    {
+      "path": "steam97-evidence/ours-mix-1600K-0.01MPa-off.txt",
+      "bytes": 10096,
+      "sha256": "4cc245fdd4227b10c7cf71f024eb41201f1f2a79ce45b50ee2137f758c90bb23"
+    },
+    {
+      "path": "steam97-evidence/ours-mix-1600K-0.01MPa-on.txt",
+      "bytes": 11352,
+      "sha256": "cd8297476fbf5de450408253ccc35d40626c79cfbff1f71713a289a29d94db9d"
+    },
+    {
+      "path": "steam97-evidence/ours-mix-1600K-1MPa-off.txt",
+      "bytes": 10085,
+      "sha256": "5d592dc3856265b02959907a21a0d51fce494b2ad710f795ab79ed3e049ea599"
+    },
+    {
+      "path": "steam97-evidence/ours-mix-1600K-1MPa-on.txt",
+      "bytes": 11339,
+      "sha256": "246ac8c575c093d4bc798bf668ebe731ba1440ef3b8fde1259cf2c5386067a14"
+    },
+    {
+      "path": "steam97-evidence/ours-mix-1600K-5MPa-off.txt",
+      "bytes": 10087,
+      "sha256": "20121acab91ebbb1bbeb645a17e56920a052cd7ba3c1cdab748e9d27c7e4f37e"
+    },
+    {
+      "path": "steam97-evidence/ours-mix-1600K-5MPa-on.txt",
+      "bytes": 11345,
+      "sha256": "30e1ccb8f8641873bd6c9292fecb9794c777311ba08ded67b8de22991945228e"
+    },
+    {
+      "path": "steam97-evidence/ours-mix-2000.001K-1MPa-off.txt",
+      "bytes": 10091,
+      "sha256": "83da148c66e4686fa138b21e5779a497f66218afcae5f909ff494a6000997251"
+    },
+    {
+      "path": "steam97-evidence/ours-mix-2000.001K-1MPa-on.txt",
+      "bytes": 5848,
+      "sha256": "9320f9fd1486dc1aa609f2a409cf51673ceab2017984745b8ed91ef993b09820"
+    },
+    {
+      "path": "steam97-evidence/ours-mix-2000K-1MPa-off.txt",
+      "bytes": 10085,
+      "sha256": "90f1dd0a7490d57ca235ab52d7855d5b3433529b37f0fa454803b0d1f367ba7f"
+    },
+    {
+      "path": "steam97-evidence/ours-mix-2000K-1MPa-on.txt",
+      "bytes": 11341,
+      "sha256": "a1ac0ca453e0100de9d2ae96f5c9d042b20d2240da44d9ed089f787da8c7f7de"
+    },
+    {
+      "path": "steam97-evidence/ours-parsed.json",
+      "bytes": 38124,
+      "sha256": "d130826ab1b0bc323a4fd3c5ebdb9afbb14e1fac147970d38dbc9c8cd3f1f958"
+    },
+    {
+      "path": "steam97-evidence/ours-pure-Ar.txt",
+      "bytes": 9932,
+      "sha256": "a1b294fea18c2624fa41e29173915d6ad39a5595ff50310af37b4037d4c1ec38"
+    },
+    {
+      "path": "steam97-evidence/ours-pure-CO.txt",
+      "bytes": 9932,
+      "sha256": "f0de92c50b95629109d4575a210ccc0dac106ef6686b33a17556c6bb5c826a74"
+    },
+    {
+      "path": "steam97-evidence/ours-pure-CO2.txt",
+      "bytes": 9928,
+      "sha256": "183d3f775d19ccd73d1bb1a58f641e2cb76504b96d97299b010bd27eadbc1085"
+    },
+    {
+      "path": "steam97-evidence/ours-pure-H2O.txt",
+      "bytes": 9934,
+      "sha256": "0cf3d5861fe47f5f3199ac8bbf7528514ef9c8522eb620de81824fe70871ce3d"
+    },
+    {
+      "path": "steam97-evidence/ours-pure-N2.txt",
+      "bytes": 9932,
+      "sha256": "da72c806f2b936150e7c04ac48f369868185ee89b7a53dd66937d7416beedf6b"
+    },
+    {
+      "path": "steam97-evidence/ours-pure-Ne.txt",
+      "bytes": 9932,
+      "sha256": "98ad87f4b4a35b876549aabba4e59a52a987a970a114725a4e687a8e27560e39"
+    },
+    {
+      "path": "steam97-evidence/ours-pure-O2.txt",
+      "bytes": 9934,
+      "sha256": "02fc61da20fdb45a62ba4aa3e403b583bab0b07550e7fc5b8c0f3e010ab0405a"
+    },
+    {
+      "path": "steam97-evidence/ours-pure-SO2.txt",
+      "bytes": 9926,
+      "sha256": "b9162f76dffab127354adf4efec026dd622e55f022dcff4489eab5bc9a0005a0"
+    },
+    {
+      "path": "steam97-evidence/session-raw.json",
+      "bytes": 23858,
+      "sha256": "da6182166bffca328ea6bb66d53aa49fbc4afdcb54b0bc96dda525002b2ea1be"
+    }
+  ]
+}

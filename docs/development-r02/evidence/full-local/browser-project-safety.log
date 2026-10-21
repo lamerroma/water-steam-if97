@@ -1,0 +1,4 @@
+Malformed, unsupported, invalid-state/report and oversized imports preserve current project PASS
+Changes made during asynchronous import are preserved PASS
+Storage quota failure retains memory and original data; JSON export and subsequent save work PASS
+Corrupt startup record survives failed backup; exact recovery download, backup and reload PASS

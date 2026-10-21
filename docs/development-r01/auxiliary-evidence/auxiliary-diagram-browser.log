@@ -1,0 +1,15 @@
+phdiagram history/isobars/selection PASS
+ts history/isobars/selection PASS
+hsdiagram history/isobars/selection PASS
+Overlapping selection and native tooltip PASS
+Keyboard/wheel/drag PASS
+Persistence and English units PASS
+PNG/SVG/CSV/HTML exports PASS
+Turbine and transfer PASS
+Throttling vertical line PASS
+Model isolation PASS
+Saturation table → P–h PASS
+JSON export/import PASS
+Mobile layout and real touch pinch PASS
+Offline PWA three charts PASS
+Reduced motion PASS

@@ -1,0 +1,11 @@
+chromium: Missing optional package is explicit; native-only operation remains available
+chromium: 100 Decimal reference cases, 18 quantities each, and 16 invalid inputs checked in the Python Worker
+chromium: Public Reynolds, local-loss, friction and one_phase_dP controls; upstream 2040 policy difference recorded
+chromium: Cold UI cancellation, retry and turbulent comparison with exact JSON export
+chromium: All 18 displayed quantities and differences retain canonical SI despite psi/kW preferences
+chromium: m3/h, mm, ft and metre roughness inputs retain the same SI result
+chromium: IF97 liquid properties feed fluids with explicit SI units and source model
+chromium: Steam rejected; laminar, transitional unavailable outputs and zero flow retained
+chromium: Comparison CSV includes inputs and exact values; mobile layout stays within 390 px
+chromium: Server disconnected and profile restarted: project restores and both engines calculate offline
+chromium: fluids pipe 10 groups PASS, 1867 numerical checks

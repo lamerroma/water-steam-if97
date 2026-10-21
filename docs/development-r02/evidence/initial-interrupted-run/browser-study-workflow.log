@@ -1,0 +1,14 @@
+Empty report reminders and nonblocking HTML export PASS
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'false' !== 'true'
+
+    at journey (C:\Users\coyotl\Documents\ChatGPT\калькулятор\water-steam-if97\scripts\check-study-workflow-browser.cjs:8:108)
+    at async C:\Users\coyotl\Documents\ChatGPT\калькулятор\water-steam-if97\scripts\check-study-workflow-browser.cjs:11:2 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'false',
+  expected: 'true',
+  operator: 'strictEqual',
+  diff: 'simple'
+}

@@ -7,7 +7,8 @@ const {openTool}=require('./browser-tools.cjs');
  const dir=path.resolve(process.env.P08_BROWSER_DIR||'.release/steam97-p08/'+name);await fs.mkdir(dir,{recursive:true});
  const version=JSON.parse(await fs.readFile('package.json')).version,report={browser:name,version,status:'running',groups:[],files:[],errors:[],offlineMode:null};
  const fixture=JSON.parse(await fs.readFile('tests/fixtures/steam97-p07-reference.json'));
- const sample=model=>fixture.records.find(c=>c.model===model&&c.mode==='pt'&&c.a===3&&c.b===673.15);
+ const testedModels=['IF97','IAPWS-95','HEOS::Water'],modelTag=model=>model.replaceAll(':','-');
+ const sample=model=>fixture.records.find(c=>c.model===(model==='HEOS::Water'?'IAPWS-95':model)&&c.mode==='pt'&&c.a===3&&c.b===673.15);
  const ready=()=>page.waitForFunction(()=>document.querySelector('#calculate')?.disabled===false,{},{timeout:120000});
  const listen=()=>page.on('pageerror',e=>report.errors.push(e.message));listen();
  async function prepare(model){const c=sample(model);await page.locator('input[type=file][accept=".json,application/json"]').setInputFiles({name:'p08.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({format:'water-steam-if97',version:1,title:'P08',history:[{p:c.expected.p,h:c.expected.h,model,name:'=1+1 Україна',source:{mode:'pt',a:3,b:673.15}}],form:{model,mode:'pt',a:'3',b:'673.15',ua:'MPa',ub:'K',calculated:false},workspace:{active:'general',panels:{}},system:'si'}))});await page.waitForFunction(()=>document.querySelector('input[type=file][accept=".json,application/json"]').value===''&&document.querySelector('#result-status').textContent.includes('Проєкт імпортовано'));await page.click('#calculate');await page.waitForSelector('#state-spreadsheet-save');return c;}
@@ -20,8 +21,8 @@ const {openTool}=require('./browser-tools.cjs');
  const properties=c=>['p','T','h','s'].map(k=>({sheet:'Properties',prefix:['state',k],column:2,value:c.expected[k]}));
  try{
   await page.goto(process.env.CALCULATOR_URL||'http://127.0.0.1:8080/index.html');await ready();report.buildId=await page.locator('#app-build-value').textContent();
-  for(const model of ['IF97','IAPWS-95']){const c=await prepare(model);await download('state-spreadsheet',properties(c),'state-'+model);}
-  report.groups.push('State, both models and four formats');
+  for(const model of testedModels){const c=await prepare(model);await download('state-spreadsheet',properties(c),'state-'+modelTag(model));}
+  report.groups.push('State, all three water models and four formats');
   const c=await prepare('IF97');
   await download('history-spreadsheet',[{sheet:'Properties',prefix:['=1+1 Україна','state','h'],column:3,value:c.expected.h}],'history');
   await openTool(page,'satgrid');await page.locator('#satgrid-form button[type=submit]').click();await page.waitForSelector('#saturation-spreadsheet-save');
@@ -41,14 +42,14 @@ const {openTool}=require('./browser-tools.cjs');
   report.groups.push('English and 320/390px layout');
   await context.close();context=await browser.newContext({viewport:{width:1280,height:900},serviceWorkers:'allow',acceptDownloads:true});page=await context.newPage();listen();
   await require('./browser-tools.cjs').openOfflineApp(page);report.offlineMode='pwa-offline-reload';
-  await ready();for(const model of ['IF97','IAPWS-95']){const c=await prepare(model);await download('state-spreadsheet',properties(c),'offline-'+model);}
-  report.groups.push('PWA offline, both models and four formats');
+  await ready();for(const model of testedModels){const c=await prepare(model);await download('state-spreadsheet',properties(c),'offline-'+modelTag(model));}
+  report.groups.push('PWA offline, all three water models and four formats');
   await context.close();context=await browser.newContext({viewport:{width:1280,height:900},acceptDownloads:true});page=await context.newPage();listen();
   await page.goto(process.env.CALCULATOR_URL||'http://127.0.0.1:8080/index.html');await ready();
   await page.waitForFunction(()=>/готова|ready offline/.test(document.querySelector('#pwa-status')?.textContent||''),{},{timeout:120000});
   await page.waitForFunction(()=>!!navigator.serviceWorker.controller);await context.setOffline(true);await page.reload();await ready();
-  for(const model of ['IF97','IAPWS-95']){const c=await prepare(model);await download('state-spreadsheet',properties(c),'pwa-offline-'+model);}
-  report.groups.push('Installed PWA offline reload, both models and four formats');
+  for(const model of testedModels){const c=await prepare(model);await download('state-spreadsheet',properties(c),'pwa-offline-'+modelTag(model));}
+  report.groups.push('Installed PWA offline reload, all three water models and four formats');
   const manifest=path.join(dir,'manifest.json');await fs.writeFile(manifest,JSON.stringify({browser:name,version,buildId:report.buildId,files:report.files},null,2));
   const r=spawnSync(process.env.P08_PYTHON||'python3',['scripts/reference/spreadsheet_readers.py',manifest],{encoding:'utf8',timeout:120000});assert.equal(r.status,0,r.stderr);report.independentReaders=JSON.parse(await fs.readFile(path.join(dir,'reader-report.json')));
   assert.deepEqual(report.errors,[]);report.status='passed';console.log(JSON.stringify({browser:name,status:report.status,groups:report.groups.length,files:report.files.length,offlineMode:report.offlineMode,independent:report.independentReaders}));

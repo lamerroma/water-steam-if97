@@ -1,7 +1,7 @@
 import {BSW2003_SPECIES,BSW2003_DATA,bswComposition} from './gas-bsw2003.js';
 import {gasTableRows,gasCompositionRows} from './gas-table-rows.js';
 // This panel uses the shared cancellable worker and canonical input-unit adapters.
-const gasTablesRunner=createCalculationRunner(createCalculatorWorker);
+const gasTablesRunner=createAppCalculationRunner();
 let gasTablesSequence=0;
 function cancelGasTables(){++gasTablesSequence;gasTablesRunner.cancel();const f=$('learn-form');if(f){f.removeAttribute('aria-busy');const b=f.querySelector('button[type=submit]');if(b&&$('gas-model')?.value==='bsw2003')b.disabled=false;}if($('gas-cancel'))$('gas-cancel').hidden=true;}
 window.addEventListener('pagehide',()=>gasTablesRunner.cancel());

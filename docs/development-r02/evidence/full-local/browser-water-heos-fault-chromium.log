@@ -1,0 +1,8 @@
+PASS Editing ambient inputs while a reference is pending preserves the applied environment and exergy
+PASS Cancelling an ambient reference leaves no stale environment or exergy update
+PASS First HEOS result and changed ambient match independent exergy controls without a main-thread property query
+PASS Actual native exception quarantines water, humid air, real gases and initialization without further native calls
+PASS Actual calculator shows the page-reload recovery instruction
+PASS Quarantined calculations preserve history and show the English recovery instruction
+PASS Independent IF97 calculator remains usable while shared CoolProp is quarantined
+PASS A new page/WASM restores the same HEOS result and the actual calculator

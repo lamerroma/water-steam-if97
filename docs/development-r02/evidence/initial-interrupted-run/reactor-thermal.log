@@ -1,0 +1,5 @@
+PASS: 103 checks across 51 thermal component cases. Max relative error 3.4878679162643615e-14.
+clad: guide rise 48.19802 K; conductivity-integral rise 48.20481 K; difference -0.00680 K.
+gap: guide rise 446.32753 K; conductivity-integral rise 448.77701 K; difference -2.44949 K.
+fuel: guide rise 1552.34507 K; conductivity-integral rise 1405.21389 K; difference 147.13118 K.
+Analytical / component arithmetic verification; not experimental physical validation

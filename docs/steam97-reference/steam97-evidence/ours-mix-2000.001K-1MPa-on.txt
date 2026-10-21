@@ -1,0 +1,144 @@
+- generic "☰ Мова Українська Масштаб 100%":
+  - text: ☰
+  - text: Мова
+  - combobox "Мова інтерфейсу":
+    - option "English"
+    - option "Українська" [selected]
+  - text: Масштаб
+  - combobox "Масштаб інтерфейсу":
+    - option "100%" [selected]
+    - option "115%"
+    - option "130%"
+- generic "Файл"
+- generic "Тема"
+- generic "Діаграми"
+- button "Довідка"
+- button "Панель налаштувань"
+- button "Історія розрахунків"
+- button "Підказки" [pressed]
+- button "Повний екран":
+  - text: Повний екран
+- button "Очистити результати":
+- button "Зберегти CSV":
+- button "Друк":
+- button "Загальні властивості":
+- button "Насичення":
+- button "Довідка":
+- button "Додати до звіту"
+- generic: IF97 / IAPWS-95 · вода та водяна пара
+- generic: 🇺🇦
+- button "Одиниці"
+- generic "Встановлення та офлайн · Повна версія 1.35.12 готова до роботи офлайн"
+- main:
+  - region "Інструменти калькулятора":
+    - button "Властивості" [pressed]
+    - button "Процеси й цикли"
+    - button "Теплообмін і гідравліка"
+    - button "Навчання"
+    - button "Проєкти та звіти"
+    - generic: Пошук інструмента
+    - searchbox "Пошук інструмента"
+    - button "Обрати інструмент"
+  - tablist "Розділи калькулятора":
+    - tab "Вода та пара"
+    - tab "Насичення"
+    - tab "Гази та суміші" [selected]
+    - tab "Вологе повітря"
+    - tab "Лід"
+    - tab "Важка вода"
+    - tab "Морська вода"
+    - tab "Фазові межі"
+    - tab "Порівняння моделей"
+    - tab "Таблиці насичення"
+  - paragraph:
+    - generic: Залежить від режиму
+    - text: Реальні чисті гази, ідеальні гази та дослідні суміші.
+  - generic "Про цей розрахунок"
+  - heading "Гази · BSW2003 / CoolProp HEOS / NASA7" [level=2]
+  - generic "Методика та припущення"
+  - text: Модель
+  - combobox "Модель":
+    - option "Реальна речовина · CoolProp HEOS"
+    - option "Реальна суміш · HEOS · лише P–T (дослідний)"
+    - option "Ідеальний газ / суміш · NASA7"
+    - option "Ідеальний газ / суміш · BSW2003" [selected]
+  - text: Режим
+  - combobox "Режим":
+    - option "P–T" [selected]
+    - option "P–h"
+    - option "P–s"
+  - text: Абсолютний тиск
+  - textbox "Абсолютний тиск MPa": "1"
+  - combobox "Одиниця для gas-p":
+    - option "MPa" [selected]
+    - option "kPa"
+    - option "Pa"
+    - option "bar"
+    - option "atm"
+    - option "psi"
+  - generic: Температура, K
+  - textbox "Температура, K K": "2000.001"
+  - combobox "Одиниця для gas-b":
+    - option "°C"
+    - option "K" [selected]
+    - option "°F"
+  - text: Базис складу
+  - combobox "Базис складу":
+    - option "Молярні частки" [selected]
+    - option "Масові частки"
+  - generic: Одиниці складу
+  - combobox "Одиниці складу":
+    - option "Частки 0…1"
+    - option "Відсотки 0…100" [selected]
+  - text: Готовий склад
+  - combobox "Готовий склад":
+    - option "Сухе повітря"
+    - option "Приклад димових газів"
+    - option "N2"
+    - option "O2"
+    - option "CO2"
+    - option "CO"
+    - option "H2" [disabled]
+    - option "H2O"
+    - option "CH4" [disabled]
+    - option "Ar"
+    - option "He" [disabled]
+    - option "NO" [disabled]
+    - option "SO2"
+    - option "Ne"
+    - option "Власна суміш" [selected]
+  - paragraph: Відсотки; сума = 100 %. Зміна базису перераховує склад.
+  - paragraph: "BSW2003: 8 компонентів, 200…3300 K, сталий склад. h і s чистих компонентів дорівнюють нулю при 273,15 K і 0,101325 МПа; ентропія суміші містить внесок змішування."
+  - text: N2
+  - textbox "N2": "72.633612"
+  - text: O2
+  - textbox "O2": "3.219575"
+  - text: CO2
+  - textbox "CO2": "8.048938"
+  - text: CO
+  - textbox "CO": "0"
+  - text: H2O
+  - textbox "H2O": "16.097875"
+  - text: Ar
+  - textbox "Ar": "0"
+  - text: SO2
+  - textbox "SO2": "0"
+  - text: Ne
+  - textbox "Ne": "0"
+  - text: Дисоціація
+  - combobox "Дисоціація":
+    - option "Не враховувати"
+    - option "Калорична поправка VDI4670 · дослідна" [selected]
+  - paragraph
+  - generic: Умови утворення газу
+  - combobox "Умови утворення газу":
+    - option "Не задано"
+    - option "Повне згоряння у звичайному повітрі" [selected]
+  - generic: Коефіцієнт надлишку повітря λ
+  - textbox "Коефіцієнт надлишку повітря λ": "1.2"
+  - button "Розрахувати газ" [active]
+  - alert: "VDI4670: локальний дослідний діапазон 1200…2000 K, 0,01…5 МПа. / Local experimental range: 1200…2000 K, 0.01…5 MPa."
+- contentinfo:
+  - generic: "Модель води й пари: IF97"
+  - status: Готово до розрахунку
+  - generic: Версія 1.35.12 · збірка 8976baaf14e1

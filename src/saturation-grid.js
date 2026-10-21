@@ -1,14 +1,16 @@
+import {isScientificWater} from './water-models.js';
+import {WATER_MODELS} from './water-models.js';
 import {calculate,TC,PC,PMIN_SAT} from './engine.js';
 import {toCanonical,englishProperty} from './units.js';
 
 export function saturationGrid({basis,unit,start,end,step},model='IF97'){
  const units=basis==='temperature'?['C','K','F']:basis==='pressure'?['MPa','kPa','Pa','bar','atm','psi']:[];
- if(!units.includes(unit)||!['IF97','IAPWS-95'].includes(model))throw Error('Невірний параметр, одиниця або модель таблиці насичення.');
+ if(!units.includes(unit)||!WATER_MODELS.includes(model))throw Error('Невірний параметр, одиниця або модель таблиці насичення.');
  if(![start,end,step].every(Number.isFinite)||end<start||step<=0)throw Error('Потрібні скінченні числа, кінець ≥ початок і додатний крок.');
  const a=toCanonical(start,unit),b=toCanonical(end,unit);
  const minimum=basis==='temperature'?(model==='IF97'?273.15:273.16):(model==='IF97'?PMIN_SAT:calculate('satt',273.16,undefined,model).saturation.p);
  const maximum=basis==='temperature'?TC:PC;
- if(a<minimum-1e-10||b>maximum+1e-10||(model==='IAPWS-95'&&b>=maximum))throw Error('Діапазон має бути в межах насичення обраної моделі. Критична точка IAPWS-95 виключена.');
+ if(a<minimum-1e-10||b>maximum+1e-10||(isScientificWater(model)&&b>=maximum))throw Error('Діапазон має бути в межах насичення обраної моделі. Критична точка IAPWS-95 виключена.');
  const count=Math.floor((end-start)/step+1e-10)+1;
  if(!Number.isFinite(count)||count>500)throw Error('Таблиця має містити не більше 500 рядків — збільште крок.');
  return Array.from({length:count},(_,i)=>{

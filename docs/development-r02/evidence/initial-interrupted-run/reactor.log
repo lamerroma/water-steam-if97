@@ -1,0 +1,2 @@
+PASS: 4077 comparisons across 51 cases (45 variants plus custom methods, layouts and IAPWS-95). Maximum relative error: 6.025050355228277e-15.
+Scope: independent Python arithmetic; shared water boundary data. Does not establish physical accuracy or missing square-lattice formula.

@@ -1,3 +1,4 @@
+import {WATER_MODELS} from './water-models.js';
 import {calculate} from './engine.js';
 import {REACTOR_FIELDS,REACTOR_DEFAULT,reactorCourse,reactorInput} from './reactor-course.js';
 import {attachReactorNeutronics} from './reactor-neutronics.js';
@@ -29,7 +30,7 @@ function courseStep(key,uk,en,formula,substitution,value,unit){return {key,label
 function courseNote(uk,en){return [uk,en];}
 export function coursework(value,model='IF97'){
  if(value?.kind==='reactor')return attachReactorNeutronics(reactorCourse(value,model));
- const a=courseworkInput(value);courseRequire(['IF97','IAPWS-95'].includes(model),'Невідома модель води. / Unknown water model.');
+ const a=courseworkInput(value);courseRequire(WATER_MODELS.includes(model),'Невідома модель води. / Unknown water model.');
  const q=a.kind==='rankine'?courseRankine(a,model):a.kind==='stage'?courseStage(a,model):courseCore(a,model);
  courseRequire(Object.values(q.metrics).every(Number.isFinite)&&(!q.profile||q.profile.every(r=>Object.values(r).every(Number.isFinite))),'Результат виходить за числовий діапазон. / Result exceeds the numeric range.');return q;
 }

@@ -76,5 +76,11 @@ test('CoolProp WASM ships as an exact local asset without base64 duplication',()
  assert.ok(code.includes('coolpropStaticFunction'));
  assert.deepEqual(read('assets/coolprop.wasm'),read('vendor/coolprop.wasm'));
  assert.deepEqual(read('assets/coolprop.wasm'),read('dist/assets/coolprop.wasm'));
- assert.ok(code.includes("fetch('assets/coolprop.wasm?v='+APP_BUILD.id)"));
+ assert.ok(code.includes('fetch(COOLPROP_WASM_URL)'));
+ const pageURL=code.match(/const COOLPROP_WASM_URL = "(assets\/coolprop.wasm\?v=[a-f0-9]{16})";/)?.[1];
+ assert.ok(pageURL);
+ const worker=read('assets/heos-calculator-worker.js').toString();
+ assert.ok(worker.includes('const COOLPROP_WASM_URL = "'+pageURL.replace('assets/','./')+'";'));
+ assert.doesNotMatch(worker,/new Function\(/);
+ assert.doesNotMatch(read('assets/calculator-worker.js').toString(),/coolpropStaticFunction|function calculateWaterHeos/);
 });

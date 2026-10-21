@@ -1,3 +1,4 @@
+import {WATER_MODELS} from './water-models.js';
 import {reactorBoiling,reactorCHF} from './reactor-methods.js';
 import {calculate} from './engine.js';
 import {reactorVariant} from './reactor-variants.js';
@@ -52,7 +53,7 @@ export function reactorAnnulusFactor(inner,outer){
  return 1+(1-y)*Math.log1p(-y)/y;
 }
 export function reactorCourse(value,model='IF97'){
- const a=reactorInput(value);rcRequire(['IF97','IAPWS-95'].includes(model),'Невідома модель води. / Unknown water model.');
+ const a=reactorInput(value);rcRequire(WATER_MODELS.includes(model),'Невідома модель води. / Unknown water model.');
  for(const k of ['electricalMW','plantEfficiency','pIn','rodDiameter','cladThickness','pitchRatio','volumeHeat','heightRatio','radialPeak','hotFactor','heatFactor','conductionFactor','cladConductivity','gapConductivity','fuelConductivity','contactConductance','fuelDensity','zirconiumDensity','bellFactor','chfLimit'])rcRequire(a[k]>0,k+': потрібно > 0. / Require > 0.');
  for(const k of ['variant','layers','guides','centralTubes','gridCount','points','reloadZones','controlAssemblies','rodsPerCluster'])rcRequire(Number.isInteger(a[k])&&a[k]>=0,k+': потрібне невід’ємне ціле. / Require nonnegative integer.');
  rcRequire(a.variant<=45&&a.layers>=2&&a.layers<=30&&a.points>=7&&a.points<=201&&a.points%2===1,'Ряди 2…30, непарна кількість точок 7…201. / Rows 2…30, odd point count 7…201.');

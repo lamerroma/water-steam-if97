@@ -6,7 +6,9 @@ permissions:
 jobs:
   acceptance:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # Includes cold/offline HEOS, fault recovery and both Worker UI suites in
+    # Chromium and Firefox. The full Windows run now exceeds the old 30m budget.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

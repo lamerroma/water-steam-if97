@@ -12,6 +12,7 @@ function csvRows(text){text=text.replace(/^\ufeff/,'');const rows=[];let row=[],
  const ref=JSON.parse(await fs.readFile('tests/fixtures/steam97-p06-reference.json')),report={browser:name,status:'running',checks:[],records:[],errors:[]};
  let page=await context.newPage(),gauge=false;page.on('pageerror',e=>report.errors.push(e.message));
  const ready=()=>page.waitForFunction(()=>!document.querySelector('#calculate').disabled,{},{timeout:120000});
+ const processSettled=()=>page.waitForFunction(()=>document.querySelector('#process-form')?.getAttribute('aria-busy')!=='true',null,{timeout:120000});
  const near=(actual,wanted,key)=>assert.ok(Math.abs(actual-wanted)<=Math.max(key==='T'?ref.policy.temperature_absolute:key==='s'?ref.policy.entropy_absolute:ref.policy.energy_absolute,Math.abs(wanted)*ref.policy.relative),`${key}: ${actual} != ${wanted}`);
  const selectCase=(model,kind,p1,T1)=>ref.records.find(c=>c.model===model&&c.kind===kind&&c.input.p1===p1&&c.input.T1===T1);
  const lb=.45359237,btu=1055.05585262,psi=lb*9.80665/(.3048/12)**2;
@@ -49,7 +50,7 @@ function csvRows(text){text=text.replace(/^\ufeff/,'');const rows=[];let row=[],
    if(mode!=='efficiency')await page.fill('#process-eta',String(i.eta*100));
    if(mode!=='power')await page.fill('#process-power',String(c.expected.power/1000));
   }
-  await page.click('#process-form button[type=submit]');assert.equal(await page.locator('#process-error').textContent(),'');
+  await page.click('#process-form button[type=submit]');await processSettled();assert.equal(await page.locator('#process-error').textContent(),'');
   const csv=await readCSV(c,en);report.records.push({id:c.id,mode,system:en?'English':'SI',surface});return csv;
  }
  const projectExport=()=>download(()=>page.getByRole('button',{name:'Експорт проєкту JSON',exact:true,includeHidden:true}).evaluate(e=>e.click()));
@@ -70,8 +71,8 @@ function csvRows(text){text=text.replace(/^\ufeff/,'');const rows=[];let row=[],
   await check('MW conversion, stale outputs and input guards',async()=>{
    const c=selectCase('IF97','turbine',6,773.15);await run(c,'flow');const base=Number(await page.locator('#process-power').inputValue());
    await page.selectOption('#process-power-unit','kW');near(Number(await page.locator('#process-power').inputValue()),base*1000,'power');assert.equal(await page.locator('#process-result').textContent(),'');await page.selectOption('#process-power-unit','Btuh');await page.selectOption('#process-power-unit','MW');near(Number(await page.locator('#process-power').inputValue()),base,'power');
-   await page.fill('#process-eta','0');await page.click('#process-form button[type=submit]');assert((await page.locator('#process-error').textContent()).length>0);assert.equal(await page.locator('#process-csv').count(),0);
-   const f=selectCase('IF97','flash',3,450);await run(f);await page.fill('#process-t1','400');await page.click('#process-form button[type=submit]');assert.match(await page.locator('#process-error').textContent(),/конденсату/);assert.equal(await page.locator('#process-csv').count(),0);
+   await page.fill('#process-eta','0');await page.click('#process-form button[type=submit]');await processSettled();assert((await page.locator('#process-error').textContent()).length>0);assert.equal(await page.locator('#process-csv').count(),0);
+   const f=selectCase('IF97','flash',3,450);await run(f);await page.fill('#process-t1','400');await page.click('#process-form button[type=submit]');await processSettled();assert.match(await page.locator('#process-error').textContent(),/конденсату/);assert.equal(await page.locator('#process-csv').count(),0);
   });
   await check('Exact JSON/project reload and history for all modes; printable fields',async()=>{
    const cases=[...['power','flow','efficiency'].map(m=>[selectCase('IAPWS-95','turbine',6,773.15),m]),...[1,2].map(flag=>[ref.records.find(c=>c.kind==='flash'&&c.model==='IAPWS-95'&&c.input.p1===3&&c.input.flag===flag),flag===1?'saturated':'condensate'])];

@@ -1,0 +1,13 @@
+firefox: IF97 critical-label th PASS
+firefox: IF97 B23 pv PASS
+firefox: IF97 region5-maxP th PASS
+firefox: IF97 endpoint-0.1-1 pv PASS
+firefox: IF97 region25 hs PASS
+firefox: IF97 triple-0.5 us PASS
+firefox: IAPWS-95 critical-T-highP ph PASS
+firefox: IAPWS-95 upper-T ps PASS
+firefox: IAPWS-95 upper-P hs PASS
+firefox: exact critical IAPWS-95 error preserves history PASS
+firefox: IF97 critical-label th PASS
+firefox: IAPWS-95 critical-T-highP ph PASS
+firefox: independent boundary inputs in offline PWA worker PASS

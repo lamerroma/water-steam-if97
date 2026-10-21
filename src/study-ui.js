@@ -26,7 +26,7 @@ async function studyRender(action){
  try{
   let html;
   if(studyReport.entries.some(e=>e.kind==='rankine-sweep')){
-   studyRenderRunner??=createCalculationRunner(createCalculatorWorker,120000);for(const id of ['study-export','study-preview','study-print'])if($(id))$(id).disabled=true;if($('study-render-cancel'))$('study-render-cancel').hidden=false;studyMessage(language==='en'?'Calculating report in background…':'Фоновий розрахунок звіту…');
+   studyRenderRunner??=createAppCalculationRunner(120000);for(const id of ['study-export','study-preview','study-print'])if($(id))$(id).disabled=true;if($('study-render-cancel'))$('study-render-cancel').hidden=false;studyMessage(language==='en'?'Calculating report in background…':'Фоновий розрахунок звіту…');
    html=await studyRenderRunner.studyReport(title,studyReport,options);
   }else html=studyReportHTML(title,studyReport,options);
   if(current()){action(html);studyMessage(language==='en'?'Report ready.':'Звіт готовий.');}

@@ -41,7 +41,7 @@ function openTutorialDiagram(id,kind){
  capturePanel();const r=tutorialDiagram(id);if(['rankine-study','reheat-study','npp-study'].includes(id))diagramPlan.connectHistory=false;selectModel('IF97');diagramCache=null;
  if(r.process){const {type,args,model,result}=r.process;storedProcess={type,args,model};plottedProcess={kind:type==='turbine'?'Навчальна турбіна':'Навчальне дроселювання',result};}
  else{plottedProcess=null;storedProcess=null;for(const q of r.states)if(!historyStates.some(s=>s.name===q.name&&s.p===q.p&&Math.abs(s.h-q.h)<1e-8))historyStates.unshift(q);historyStates.splice(500);renderHistory();}
- showProcess(kind);if(r.process)$('diagram-fit-process').click();else $('diagram-fit').click();saveProject();
+ showProcess(kind,r.process?'process':'all');saveProject();
 }
 function showTutorials(){
  selectView('panel');activeSection='tutorials';$('calculator-view').hidden=true;$('process-view').hidden=false;document.querySelector('[role=tab][data-action=tutorials]').setAttribute('aria-selected','true');

@@ -1,0 +1,766 @@
+{
+  "date": "2026-10-21",
+  "task": "R01/auxiliary-worker",
+  "status": "bounded_subtask_verified",
+  "parentTaskStatus": "in_progress",
+  "build": {
+    "version": "1.39.0",
+    "id": "d6ed1ea111e3",
+    "published": false
+  },
+  "baseCommit": "65e9199068659ec5c183081d5e5908244bb2beea",
+  "uncommitted": true,
+  "previousSnapshot": "steam-process-acceptance.json",
+  "unitTests": {
+    "node22": {
+      "version": "22.23.3",
+      "passed": 1806,
+      "total": 1806,
+      "failed": 0,
+      "skipped": 0
+    },
+    "node24": {
+      "version": "24.18.1",
+      "passed": 1806,
+      "total": 1806,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "independentReference": {
+    "implementation": "Python iapws 1.5.5 and scipy brentq, bracketed single-phase inversion",
+    "experimentalValidation": false,
+    "Steam97WebNumericalCases": 0,
+    "engineeringCases": 3,
+    "diagramAnnotationCases": 3,
+    "comparisonModels": [
+      "IAPWS-95",
+      "HEOS::Water"
+    ],
+    "IF97": "Own conservation checks; no imposed equality to IAPWS-95",
+    "tolerances": {
+      "state_native": 2e-06,
+      "s_kJkgK": 2e-08,
+      "metrics_native": 2e-06
+    }
+  },
+  "browsers": {
+    "chromium": {
+      "version": "151.0.7922.34",
+      "onlineIntermediate": {
+        "build": "ba491efebede",
+        "status": "passed",
+        "measurements": 6,
+        "additionalChecks": 16
+      },
+      "finalOffline": {
+        "build": "d6ed1ea111e3",
+        "status": "passed",
+        "measurements": 6,
+        "additionalChecks": 22,
+        "offlineBeforeHeosSelection": true
+      },
+      "identicalNumericalCSVs": 3,
+      "identicalFullDiagramSnapshots": 3
+    },
+    "firefox": {
+      "version": "153.0",
+      "onlineIntermediate": {
+        "build": "ba491efebede",
+        "status": "passed",
+        "measurements": 6,
+        "additionalChecks": 16
+      },
+      "finalOffline": {
+        "build": "d6ed1ea111e3",
+        "status": "passed",
+        "measurements": 6,
+        "additionalChecks": 22,
+        "offlineBeforeHeosSelection": true
+      },
+      "identicalNumericalCSVs": 3,
+      "identicalFullDiagramSnapshots": 3
+    }
+  },
+  "existingDiagramDrivers": {
+    "status": "passed",
+    "build": "ba491efebede",
+    "scripts": [
+      "check-diagram-browser.cjs",
+      "check-diagram-guides-browser.cjs",
+      "check-diagram-quality-browser.cjs"
+    ],
+    "scope": "Canvas/SVG geometry, critical IF97, exports, gestures, reduced motion, 4x throttling, offline. Final d6ed1ea111e3 adds engineering status text only; numerical/diagram implementations are unchanged."
+  },
+  "timings": [
+    {
+      "browser": "chromium",
+      "label": "compressor",
+      "before": {
+        "label": "compressor",
+        "elapsedMs": 2370.300000011921,
+        "heartbeatMaxGapMs": 2245.7999999523163,
+        "heartbeatTicks": 7
+      },
+      "afterIntermediate": {
+        "label": "compressor",
+        "elapsedMs": 3016.800000011921,
+        "heartbeatMaxGapMs": 29.19999998807907,
+        "heartbeatTicks": 150
+      },
+      "finalOffline": {
+        "label": "compressor",
+        "elapsedMs": 6700.900000035763,
+        "heartbeatMaxGapMs": 73.10000002384186,
+        "heartbeatTicks": 331
+      }
+    },
+    {
+      "browser": "chromium",
+      "label": "pump",
+      "before": {
+        "label": "pump",
+        "elapsedMs": 2384.100000023842,
+        "heartbeatMaxGapMs": 2284.099999964237,
+        "heartbeatTicks": 6
+      },
+      "afterIntermediate": {
+        "label": "pump",
+        "elapsedMs": 3028.900000035763,
+        "heartbeatMaxGapMs": 38,
+        "heartbeatTicks": 151
+      },
+      "finalOffline": {
+        "label": "pump",
+        "elapsedMs": 5286.800000011921,
+        "heartbeatMaxGapMs": 69.59999996423721,
+        "heartbeatTicks": 261
+      }
+    },
+    {
+      "browser": "chromium",
+      "label": "heat-exchanger",
+      "before": {
+        "label": "heat-exchanger",
+        "elapsedMs": 2404.899999976158,
+        "heartbeatMaxGapMs": 2279.300000011921,
+        "heartbeatTicks": 7
+      },
+      "afterIntermediate": {
+        "label": "heat-exchanger",
+        "elapsedMs": 3006.600000023842,
+        "heartbeatMaxGapMs": 40.90000003576279,
+        "heartbeatTicks": 149
+      },
+      "finalOffline": {
+        "label": "heat-exchanger",
+        "elapsedMs": 6993.699999988079,
+        "heartbeatMaxGapMs": 99.10000002384186,
+        "heartbeatTicks": 344
+      }
+    },
+    {
+      "browser": "chromium",
+      "label": "diagram-cold",
+      "before": {
+        "label": "diagram-cold",
+        "elapsedMs": 4679.799999952316,
+        "heartbeatMaxGapMs": 3411,
+        "heartbeatTicks": 61
+      },
+      "afterIntermediate": {
+        "label": "diagram-cold",
+        "elapsedMs": 4656.899999976158,
+        "heartbeatMaxGapMs": 229.19999998807907,
+        "heartbeatTicks": 222
+      },
+      "finalOffline": {
+        "label": "diagram-cold",
+        "elapsedMs": 10307.100000023842,
+        "heartbeatMaxGapMs": 251.39999997615814,
+        "heartbeatTicks": 500
+      }
+    },
+    {
+      "browser": "chromium",
+      "label": "diagram-isotherms",
+      "before": {
+        "label": "diagram-isotherms",
+        "elapsedMs": 2834.099999964237,
+        "heartbeatMaxGapMs": 47.39999997615814,
+        "heartbeatTicks": 138
+      },
+      "afterIntermediate": {
+        "label": "diagram-isotherms",
+        "elapsedMs": 2106.600000023842,
+        "heartbeatMaxGapMs": 40.69999998807907,
+        "heartbeatTicks": 104
+      },
+      "finalOffline": {
+        "label": "diagram-isotherms",
+        "elapsedMs": 4564.699999988079,
+        "heartbeatMaxGapMs": 37.19999998807907,
+        "heartbeatTicks": 228
+      }
+    },
+    {
+      "browser": "chromium",
+      "label": "diagram-zoom",
+      "before": {
+        "label": "diagram-zoom",
+        "elapsedMs": 4907.900000035763,
+        "heartbeatMaxGapMs": 167.5,
+        "heartbeatTicks": 236
+      },
+      "afterIntermediate": {
+        "label": "diagram-zoom",
+        "elapsedMs": 3465.600000023842,
+        "heartbeatMaxGapMs": 167.19999998807907,
+        "heartbeatTicks": 166
+      },
+      "finalOffline": {
+        "label": "diagram-zoom",
+        "elapsedMs": 7457,
+        "heartbeatMaxGapMs": 192.9000000357628,
+        "heartbeatTicks": 364
+      }
+    },
+    {
+      "browser": "firefox",
+      "label": "compressor",
+      "before": {
+        "label": "compressor",
+        "elapsedMs": 12902,
+        "heartbeatMaxGapMs": 12716,
+        "heartbeatTicks": 10
+      },
+      "afterIntermediate": {
+        "label": "compressor",
+        "elapsedMs": 14064,
+        "heartbeatMaxGapMs": 38,
+        "heartbeatTicks": 682
+      },
+      "finalOffline": {
+        "label": "compressor",
+        "elapsedMs": 27161,
+        "heartbeatMaxGapMs": 175,
+        "heartbeatTicks": 738
+      }
+    },
+    {
+      "browser": "firefox",
+      "label": "pump",
+      "before": {
+        "label": "pump",
+        "elapsedMs": 13275,
+        "heartbeatMaxGapMs": 13092,
+        "heartbeatTicks": 9
+      },
+      "afterIntermediate": {
+        "label": "pump",
+        "elapsedMs": 15466,
+        "heartbeatMaxGapMs": 48,
+        "heartbeatTicks": 737
+      },
+      "finalOffline": {
+        "label": "pump",
+        "elapsedMs": 17092,
+        "heartbeatMaxGapMs": 76,
+        "heartbeatTicks": 719
+      }
+    },
+    {
+      "browser": "firefox",
+      "label": "heat-exchanger",
+      "before": {
+        "label": "heat-exchanger",
+        "elapsedMs": 13149,
+        "heartbeatMaxGapMs": 12959,
+        "heartbeatTicks": 10
+      },
+      "afterIntermediate": {
+        "label": "heat-exchanger",
+        "elapsedMs": 13912,
+        "heartbeatMaxGapMs": 56,
+        "heartbeatTicks": 666
+      },
+      "finalOffline": {
+        "label": "heat-exchanger",
+        "elapsedMs": 13925,
+        "heartbeatMaxGapMs": 30,
+        "heartbeatTicks": 674
+      }
+    },
+    {
+      "browser": "firefox",
+      "label": "diagram-cold",
+      "before": {
+        "label": "diagram-cold",
+        "elapsedMs": 20718,
+        "heartbeatMaxGapMs": 16886,
+        "heartbeatTicks": 65
+      },
+      "afterIntermediate": {
+        "label": "diagram-cold",
+        "elapsedMs": 21226,
+        "heartbeatMaxGapMs": 220,
+        "heartbeatTicks": 1013
+      },
+      "finalOffline": {
+        "label": "diagram-cold",
+        "elapsedMs": 21046,
+        "heartbeatMaxGapMs": 235,
+        "heartbeatTicks": 1003
+      }
+    },
+    {
+      "browser": "firefox",
+      "label": "diagram-isotherms",
+      "before": {
+        "label": "diagram-isotherms",
+        "elapsedMs": 8939,
+        "heartbeatMaxGapMs": 139,
+        "heartbeatTicks": 162
+      },
+      "afterIntermediate": {
+        "label": "diagram-isotherms",
+        "elapsedMs": 8242,
+        "heartbeatMaxGapMs": 33,
+        "heartbeatTicks": 397
+      },
+      "finalOffline": {
+        "label": "diagram-isotherms",
+        "elapsedMs": 8573,
+        "heartbeatMaxGapMs": 44,
+        "heartbeatTicks": 408
+      }
+    },
+    {
+      "browser": "firefox",
+      "label": "diagram-zoom",
+      "before": {
+        "label": "diagram-zoom",
+        "elapsedMs": 15754,
+        "heartbeatMaxGapMs": 194,
+        "heartbeatTicks": 318
+      },
+      "afterIntermediate": {
+        "label": "diagram-zoom",
+        "elapsedMs": 14817,
+        "heartbeatMaxGapMs": 192,
+        "heartbeatTicks": 706
+      },
+      "finalOffline": {
+        "label": "diagram-zoom",
+        "elapsedMs": 14522,
+        "heartbeatMaxGapMs": 184,
+        "heartbeatTicks": 695
+      }
+    }
+  ],
+  "measurementLimits": [
+    "Single-run headless desktop observations; concurrent checks may add scheduling noise.",
+    "Intermediate online measurements retain their exact build identity; final offline evidence is d6ed1ea111e3.",
+    "Cold HEOS preparation still takes seconds. No claim of complete memory/cold-start acceptance or all scientific-panel responsiveness."
+  ],
+  "sourceHashes": {
+    ".gitattributes": "d4cf40cc5255a389ccf079375476da9a0a997a8164057a944ebc375131dd8b86",
+    "src/app.js": "78841393e21885039853da225599195f3a390b7ea55f2ee2810055c8bf9c5048",
+    "src/engineering.js": "cb8f587f4bdaf5e4616c86ef7b83b722fc06a0044495df0e7e22b0096c2880bb",
+    "src/calculation-modules.js": "9c9e54b93948c5a98a28ea16ebf996ecd7a30dce372dbc7db82489c3c10f2229",
+    "src/calculation-protocol.js": "bb1fd1eabe46e5cdd23a5d68926291caf33fcfb7921fbe34695771ef670defee",
+    "src/calculator-runner.js": "96178311a54e50a82eb6dde5ef134540bd4fc9b14643181ea7be411075fac477",
+    "src/water-models.js": "8e085a7deb8c4129413e20647bcb50fa2a8ab9d6d425d6e3c1973193b8fa1c20",
+    "src/processes.js": "292f550ec196f2b231e56488f373393ccacc801b3bedfbed4c9178bf34a07144",
+    "src/diagram-guides.js": "8e0a3cf46def0d2575f074fd10b0ad45f19bf939644a62cdb1afff0959be8f28",
+    "src/diagram-refinement.js": "f8b0d7b9747f0acedac1fe9b4269bcdbc10e8112776a200160b18b21d439e143",
+    "src/diagram-chart-data.js": "475f1577a40a85efa3d8012b85267847de3bdc450f6d3f1d0f5c4445a1d4182d",
+    "src/saturation-grid-ui.js": "eca802c117ce3ed9f1686cb621f5f8f0accf79f4a98e020abee2ba518a2e3a78",
+    "src/tutorials.js": "02275fbea444f3cc9e490a559e43a04eaf13b38a4190cb63c2fea0d64ee9133c",
+    "scripts/browser-tools.cjs": "57da14af45666ccfe5915512ac6b08007429462d6eb46f35c61d04c0bb0de79e",
+    "scripts/check-auxiliary-worker-browser.cjs": "2606bde7fc5206b30fbbe50ca53ff2b468d0c877f93b8c2bc734ff5b63e07a2e",
+    "scripts/check-diagram-browser.cjs": "6af9d9df26375bb3cbad8afcfafa975417821118db919042d51192648efcb736",
+    "scripts/check-diagram-quality-browser.cjs": "96ec01ad596c52dfcdea71436f5162b3080b0b124bd67c2dcd5a5e85be5d3cef",
+    "scripts/verify-release.mjs": "43f65e69dbf6899bbaf2f5cc5ddc1dfbe8c0433543654433a15e0b132555c408",
+    "scripts/reference/generate-engineering-reference.py": "0f1a72b564a7296e42e95452bf9c5881c4cf9e22879f74bc62b258ae5a6b9221",
+    "scripts/reference/requirements-water-heos.txt": "1bce371003964f0ea4cccf17865b76ccc25aaf242a0a76d6a0e0f2ee0df41ff1",
+    "tests/auxiliary-worker.test.mjs": "3bc867178e7df5d91e729e223ee54191e92c68ae4d51853613bbb8e2f629f338",
+    "tests/fixtures/engineering-reference.json": "4f81b1331f10c08d65d4f885eb83e252c2415c369f46c66bf68098a0ea418750"
+  },
+  "artifactHashes": {
+    "index.html": {
+      "sha256": "606556b513235a73fdee40058268086407d9c447412760ec95f911f880a76576",
+      "bytes": 47418
+    },
+    "assets/app.js": {
+      "sha256": "52ef7a80e4629fc1d25877d6952bf6954ece75a8d2d0d02339baf720fbbaa618",
+      "bytes": 2282303
+    },
+    "assets/calculator-worker.js": {
+      "sha256": "6f12513e3e5164e5eeb6f5cdbdbb705f1197bd6c294483daf0783988b6e5754a",
+      "bytes": 859496
+    },
+    "assets/heos-calculator-worker.js": {
+      "sha256": "d90e5f36713687fe30078124dc6468aa458199a136c338d528731f3a47d6ca55",
+      "bytes": 1066298
+    },
+    "assets/python-worker.js": {
+      "sha256": "51c2e3b8b26c714f5ffd0d4a9d90e8775e5451d3d769e2df6a6ad73a6bdbd91d",
+      "bytes": 42452
+    },
+    "service-worker.js": {
+      "sha256": "6a609a2952e124d4667cbe35e64e3619e8ea4a32fa013bb79fffcfc8aa463df9",
+      "bytes": 11445
+    },
+    "dist/water-steam-calculator.zip": {
+      "sha256": "0029ecc0654be72ba6d61d2dd0ba7235873a5aff305fc4f2fd712a86c76dbdd2",
+      "bytes": 30695370
+    }
+  },
+  "evidenceBase": "auxiliary-evidence",
+  "evidenceManifest": {
+    "chromium/before/compressor.csv": {
+      "bytes": 1084,
+      "sha256": "9a271b49df4bc7b8e72f67d08eaba859c85539db6651103edde67fc154c38e43"
+    },
+    "chromium/before/compressor.png": {
+      "bytes": 99004,
+      "sha256": "8fa3e68c44d5bcc101f76f57ae3674225d5a03376b3353a65e0cf0d306760514"
+    },
+    "chromium/before/diagram-base.json": {
+      "bytes": 89351,
+      "sha256": "89f31f8194af92f1248c7cc98031cb607ae8332f5bafc3a9d3532b3a990f09a1"
+    },
+    "chromium/before/diagram-base.svg": {
+      "bytes": 11716,
+      "sha256": "56f21e3f4c6b7c8a8a89be9e58e8eb576b31486a3fefb66c073d131d273b0b61"
+    },
+    "chromium/before/diagram-guides.json": {
+      "bytes": 119520,
+      "sha256": "7e24589807605db264f8c0d07c6ee901ab1478780ab131291d770b4b73550610"
+    },
+    "chromium/before/diagram-zoom.json": {
+      "bytes": 119258,
+      "sha256": "e095cb6c99d149ed162e59e8a7a1f2d266fbe16e31f47d17ecc9535df5acf263"
+    },
+    "chromium/before/diagram-zoom.svg": {
+      "bytes": 31365,
+      "sha256": "37aabf2703fe4e78e0d31ca7a66cf07d08cb1b9dcbe07cc636aee13f5bb76a9d"
+    },
+    "chromium/before/diagram.png": {
+      "bytes": 124610,
+      "sha256": "e543a207892f51a528ee8b928db484d6793fd1d52eb9665b0c439f02a388e5ae"
+    },
+    "chromium/before/heat-exchanger.csv": {
+      "bytes": 1122,
+      "sha256": "6d9bf408b94a74db65d78614f4be0679f659d2e0b7b3dc3203fb8a74f6906204"
+    },
+    "chromium/before/heat-exchanger.png": {
+      "bytes": 110081,
+      "sha256": "3794e372ab6cb7f8579994d71d28ab16a48f9bb8f9f81f6dcb0ef997d2a3c657"
+    },
+    "chromium/before/pump.csv": {
+      "bytes": 1086,
+      "sha256": "b92111e873e870399f978adc3cbd9dd776caf0e43142a7a9c6650d7138159f8d"
+    },
+    "chromium/before/pump.png": {
+      "bytes": 98889,
+      "sha256": "b3da1602a8888a3c8472a7b843cabb887b880f578825c07884f6137b69b5f29d"
+    },
+    "chromium/before/report.json": {
+      "bytes": 1423,
+      "sha256": "d041cc7278e27194a30d5ccb0894db2571a1c3fbc694ae0fbe8938be131b9bc6"
+    },
+    "chromium/after/compressor.csv": {
+      "bytes": 1084,
+      "sha256": "5f3bbb95f6083cb184d8d4c2279f9ad585c9b612a4a504a0476c5e9f8d15a8d1"
+    },
+    "chromium/after/compressor.png": {
+      "bytes": 97984,
+      "sha256": "c2925a7d23ca2c641a185e92e279f7fb48c22559d4c4af5b4a0dd19b88734677"
+    },
+    "chromium/after/diagram-base.json": {
+      "bytes": 89351,
+      "sha256": "89f31f8194af92f1248c7cc98031cb607ae8332f5bafc3a9d3532b3a990f09a1"
+    },
+    "chromium/after/diagram-base.svg": {
+      "bytes": 11716,
+      "sha256": "56f21e3f4c6b7c8a8a89be9e58e8eb576b31486a3fefb66c073d131d273b0b61"
+    },
+    "chromium/after/diagram-guides.json": {
+      "bytes": 119520,
+      "sha256": "7e24589807605db264f8c0d07c6ee901ab1478780ab131291d770b4b73550610"
+    },
+    "chromium/after/diagram-zoom.json": {
+      "bytes": 119258,
+      "sha256": "e095cb6c99d149ed162e59e8a7a1f2d266fbe16e31f47d17ecc9535df5acf263"
+    },
+    "chromium/after/diagram-zoom.svg": {
+      "bytes": 31365,
+      "sha256": "37aabf2703fe4e78e0d31ca7a66cf07d08cb1b9dcbe07cc636aee13f5bb76a9d"
+    },
+    "chromium/after/diagram.png": {
+      "bytes": 195253,
+      "sha256": "80ff649adcb98b0efe84dac4e49f3a7afc1aff3d3167885cb3a426ecd89f3618"
+    },
+    "chromium/after/heat-exchanger.csv": {
+      "bytes": 1122,
+      "sha256": "ba471521f7ab938877fce8adbf50ac2c90df7cc6448a1c563eda1ec58cee2150"
+    },
+    "chromium/after/heat-exchanger.png": {
+      "bytes": 108796,
+      "sha256": "ded96219a98954091fd1710c1884aa37b65328badeb87502a09bffb86be14c9e"
+    },
+    "chromium/after/pump.csv": {
+      "bytes": 1086,
+      "sha256": "9313f3a25a0fc230d4cdf92bd8309a2f13bab8b69e5a6a41cd7c10b0184caf81"
+    },
+    "chromium/after/pump.png": {
+      "bytes": 97738,
+      "sha256": "ab532b1ad6000ee917cd0b68e0fb7b0315fac5386112788d2c4d6195b75e1a18"
+    },
+    "chromium/after/report.json": {
+      "bytes": 3965,
+      "sha256": "d8c234613778d3f3216701cb95d7adb8abf778723930db93539158512cba4493"
+    },
+    "chromium/offline/compressor.csv": {
+      "bytes": 1084,
+      "sha256": "fef19bf8d74b1a95c03c775f8ea0a854b6a73153677de011387c3198a528df6a"
+    },
+    "chromium/offline/compressor.png": {
+      "bytes": 98193,
+      "sha256": "681ea9a8595a3802fea840e1bb4a812cc71d25495e686d5ad6964b82e4ff0105"
+    },
+    "chromium/offline/diagram-base.json": {
+      "bytes": 89351,
+      "sha256": "89f31f8194af92f1248c7cc98031cb607ae8332f5bafc3a9d3532b3a990f09a1"
+    },
+    "chromium/offline/diagram-base.svg": {
+      "bytes": 11716,
+      "sha256": "56f21e3f4c6b7c8a8a89be9e58e8eb576b31486a3fefb66c073d131d273b0b61"
+    },
+    "chromium/offline/diagram-guides.json": {
+      "bytes": 119520,
+      "sha256": "7e24589807605db264f8c0d07c6ee901ab1478780ab131291d770b4b73550610"
+    },
+    "chromium/offline/diagram-zoom.json": {
+      "bytes": 119258,
+      "sha256": "e095cb6c99d149ed162e59e8a7a1f2d266fbe16e31f47d17ecc9535df5acf263"
+    },
+    "chromium/offline/diagram-zoom.svg": {
+      "bytes": 31365,
+      "sha256": "37aabf2703fe4e78e0d31ca7a66cf07d08cb1b9dcbe07cc636aee13f5bb76a9d"
+    },
+    "chromium/offline/diagram.png": {
+      "bytes": 124426,
+      "sha256": "1183182ab20eaf0f196af448022d7c70822ec9fe9e51b476bc215643b699cbbc"
+    },
+    "chromium/offline/heat-exchanger.csv": {
+      "bytes": 1122,
+      "sha256": "86870fd5f597dd1748d35bdfcd2f4ff77afc7578b65e05753fa9015776d2c074"
+    },
+    "chromium/offline/heat-exchanger.png": {
+      "bytes": 107034,
+      "sha256": "65d90055feb49baa29b00402f32f4168c7559dfe4cafc8e7287e42ac9425eeb2"
+    },
+    "chromium/offline/pump.csv": {
+      "bytes": 1086,
+      "sha256": "c85c59131bdd4fc643c6c26f5c71801aca145d07128b42edb32f68a1ae74793b"
+    },
+    "chromium/offline/pump.png": {
+      "bytes": 97653,
+      "sha256": "f2016fa560570f8137d8c3ec6683fab5d1f605ff642829eb11ac98010ffd7078"
+    },
+    "chromium/offline/report.json": {
+      "bytes": 5462,
+      "sha256": "229b09013202e08853e295388601dd1fdb39b17548d67f7fb4a83dfc8ecca997"
+    },
+    "firefox/before/compressor.csv": {
+      "bytes": 1084,
+      "sha256": "9a271b49df4bc7b8e72f67d08eaba859c85539db6651103edde67fc154c38e43"
+    },
+    "firefox/before/compressor.png": {
+      "bytes": 88930,
+      "sha256": "fd062d60edbc2d665e3fc82119e0ce61deafd32daba750266f2ea062154bee86"
+    },
+    "firefox/before/diagram-base.json": {
+      "bytes": 89351,
+      "sha256": "89f31f8194af92f1248c7cc98031cb607ae8332f5bafc3a9d3532b3a990f09a1"
+    },
+    "firefox/before/diagram-base.svg": {
+      "bytes": 11629,
+      "sha256": "75351bde70a41435e70469d0501ba38938c04bad8fb43cb97b6b9fdc9e69ac99"
+    },
+    "firefox/before/diagram-guides.json": {
+      "bytes": 119520,
+      "sha256": "7e24589807605db264f8c0d07c6ee901ab1478780ab131291d770b4b73550610"
+    },
+    "firefox/before/diagram-zoom.json": {
+      "bytes": 119258,
+      "sha256": "e095cb6c99d149ed162e59e8a7a1f2d266fbe16e31f47d17ecc9535df5acf263"
+    },
+    "firefox/before/diagram-zoom.svg": {
+      "bytes": 31336,
+      "sha256": "bc88b4f405072396dfb0b7a272e958b24f5a938391ef65d56a6a36c185660948"
+    },
+    "firefox/before/diagram.png": {
+      "bytes": 130942,
+      "sha256": "65f2393e93a2c652b1e68f225da762410ff2ffa372eabd835e28d575b04fd90d"
+    },
+    "firefox/before/heat-exchanger.csv": {
+      "bytes": 1122,
+      "sha256": "6d9bf408b94a74db65d78614f4be0679f659d2e0b7b3dc3203fb8a74f6906204"
+    },
+    "firefox/before/heat-exchanger.png": {
+      "bytes": 100012,
+      "sha256": "399851bf444ae37dd8aac35d5e542239d13db994934e71de55f0f50c70d51f58"
+    },
+    "firefox/before/pump.csv": {
+      "bytes": 1086,
+      "sha256": "b92111e873e870399f978adc3cbd9dd776caf0e43142a7a9c6650d7138159f8d"
+    },
+    "firefox/before/pump.png": {
+      "bytes": 88930,
+      "sha256": "e0fe9bd57e0f5a89130822342d503ef962d4b489999134b7d6f54b6d28e0daa4"
+    },
+    "firefox/before/report.json": {
+      "bytes": 1291,
+      "sha256": "a2caa4240d93e7c850911b53f97b113813a72d1e6e07d6e6477fc4a2b0b0c2b1"
+    },
+    "firefox/after/compressor.csv": {
+      "bytes": 1084,
+      "sha256": "5f3bbb95f6083cb184d8d4c2279f9ad585c9b612a4a504a0476c5e9f8d15a8d1"
+    },
+    "firefox/after/compressor.png": {
+      "bytes": 88442,
+      "sha256": "6e1c39f8b08fa3a150299a1b771b8fc4dc0504dfe2ee497a95a4b508dc127851"
+    },
+    "firefox/after/diagram-base.json": {
+      "bytes": 89351,
+      "sha256": "89f31f8194af92f1248c7cc98031cb607ae8332f5bafc3a9d3532b3a990f09a1"
+    },
+    "firefox/after/diagram-base.svg": {
+      "bytes": 11629,
+      "sha256": "75351bde70a41435e70469d0501ba38938c04bad8fb43cb97b6b9fdc9e69ac99"
+    },
+    "firefox/after/diagram-guides.json": {
+      "bytes": 119520,
+      "sha256": "7e24589807605db264f8c0d07c6ee901ab1478780ab131291d770b4b73550610"
+    },
+    "firefox/after/diagram-zoom.json": {
+      "bytes": 119258,
+      "sha256": "e095cb6c99d149ed162e59e8a7a1f2d266fbe16e31f47d17ecc9535df5acf263"
+    },
+    "firefox/after/diagram-zoom.svg": {
+      "bytes": 31336,
+      "sha256": "bc88b4f405072396dfb0b7a272e958b24f5a938391ef65d56a6a36c185660948"
+    },
+    "firefox/after/diagram.png": {
+      "bytes": 168019,
+      "sha256": "31fa0a91ea5915946ad8e39795eee453f386bec1021cb705d31b2bd54a8253b6"
+    },
+    "firefox/after/heat-exchanger.csv": {
+      "bytes": 1122,
+      "sha256": "ba471521f7ab938877fce8adbf50ac2c90df7cc6448a1c563eda1ec58cee2150"
+    },
+    "firefox/after/heat-exchanger.png": {
+      "bytes": 99467,
+      "sha256": "31da666dcdfc0376bfbbb8ff908f09f4cc3211eda41842e38387efcda88a646c"
+    },
+    "firefox/after/pump.csv": {
+      "bytes": 1086,
+      "sha256": "9313f3a25a0fc230d4cdf92bd8309a2f13bab8b69e5a6a41cd7c10b0184caf81"
+    },
+    "firefox/after/pump.png": {
+      "bytes": 88372,
+      "sha256": "dcbd1de2b77ec14ac78309cf8d023a0921e5003ecc566aac33f6d04339fc4b36"
+    },
+    "firefox/after/report.json": {
+      "bytes": 3809,
+      "sha256": "4daf46707ac26c84c3700133aeff962fd675d540c560720d3f806d29964b4afb"
+    },
+    "firefox/offline/compressor.csv": {
+      "bytes": 1084,
+      "sha256": "fef19bf8d74b1a95c03c775f8ea0a854b6a73153677de011387c3198a528df6a"
+    },
+    "firefox/offline/compressor.png": {
+      "bytes": 85333,
+      "sha256": "a68b9f5ca04e2a7aa97ebc609978cb13f55263aad0596e7240e976120fc909d4"
+    },
+    "firefox/offline/diagram-base.json": {
+      "bytes": 89351,
+      "sha256": "89f31f8194af92f1248c7cc98031cb607ae8332f5bafc3a9d3532b3a990f09a1"
+    },
+    "firefox/offline/diagram-base.svg": {
+      "bytes": 11629,
+      "sha256": "75351bde70a41435e70469d0501ba38938c04bad8fb43cb97b6b9fdc9e69ac99"
+    },
+    "firefox/offline/diagram-guides.json": {
+      "bytes": 119520,
+      "sha256": "7e24589807605db264f8c0d07c6ee901ab1478780ab131291d770b4b73550610"
+    },
+    "firefox/offline/diagram-zoom.json": {
+      "bytes": 119258,
+      "sha256": "e095cb6c99d149ed162e59e8a7a1f2d266fbe16e31f47d17ecc9535df5acf263"
+    },
+    "firefox/offline/diagram-zoom.svg": {
+      "bytes": 31336,
+      "sha256": "bc88b4f405072396dfb0b7a272e958b24f5a938391ef65d56a6a36c185660948"
+    },
+    "firefox/offline/diagram.png": {
+      "bytes": 130539,
+      "sha256": "354103eba14de6be5202dc23d070c42e028728697fd7593094d7d60cda1bfbc4"
+    },
+    "firefox/offline/heat-exchanger.csv": {
+      "bytes": 1122,
+      "sha256": "86870fd5f597dd1748d35bdfcd2f4ff77afc7578b65e05753fa9015776d2c074"
+    },
+    "firefox/offline/heat-exchanger.png": {
+      "bytes": 94625,
+      "sha256": "e30e22d12f8ea91abe9f2b91bb1adb32208de1d72d13455d0e905511f172c533"
+    },
+    "firefox/offline/pump.csv": {
+      "bytes": 1086,
+      "sha256": "c85c59131bdd4fc643c6c26f5c71801aca145d07128b42edb32f68a1ae74793b"
+    },
+    "firefox/offline/pump.png": {
+      "bytes": 85132,
+      "sha256": "fc35bf5cf6ead277d1da60a73dd7a7f8843c427da6666baa25b8decfff4f17b0"
+    },
+    "firefox/offline/report.json": {
+      "bytes": 5305,
+      "sha256": "957b335bfc7580ae102d275d3315f1a2d084185e0de224c52a2011070dcaf150"
+    },
+    "unit-node22.log": {
+      "bytes": 337514,
+      "sha256": "8827b0d71e55cc3ca9b53434cb9f6533b310d4116297f0c7ae3c8e28e037caa2"
+    },
+    "unit-node24.log": {
+      "bytes": 129977,
+      "sha256": "700b46a0a494e3838a56447abdc60c41193bc1e29637851bfd3c268c8d590cf0"
+    },
+    "auxiliary-diagram-browser.log": {
+      "bytes": 490,
+      "sha256": "1e2092f0d1b1a00b79b7f80a272dc3cf5ad68e5bc925cc869324e36288876dd3"
+    },
+    "auxiliary-diagram-guides.log": {
+      "bytes": 357,
+      "sha256": "4124369efb031737f6f8f71e114216b72a0462ea06385afef1a05ccb8a35e933"
+    },
+    "auxiliary-diagram-quality.log": {
+      "bytes": 623,
+      "sha256": "219480163aabaf5eaa8146c61746304a8b598a7290534ba1149c8de6382eb522"
+    },
+    "engineering-reference.json": {
+      "bytes": 3492,
+      "sha256": "4f81b1331f10c08d65d4f885eb83e252c2415c369f46c66bf68098a0ea418750"
+    }
+  },
+  "fullReleaseRun": false,
+  "CIOrPagesPublished": false,
+  "remaining": [
+    "R01 current-architecture memory, long-run and cold-start acceptance",
+    "Other scientific panels with direct CoolProp calls",
+    "R02 complete release/update/export and deployed acceptance"
+  ]
+}

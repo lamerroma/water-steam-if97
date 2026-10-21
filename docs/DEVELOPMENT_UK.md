@@ -52,10 +52,13 @@ verify:release:core; браузерний режим — npm run verify:release 
 
 ```powershell
 $env:REACTOR_PYTHON = (Get-Command python).Source
+$env:PYTHONUTF8 = '1'
 ```
 
 Для незалежних аудиторів можна також задати P03_PYTHON, P04_PYTHON,
 P08_PYTHON і P09_PYTHON шляхом до того самого підготовленого Python.
+PYTHONUTF8=1 потрібний у Windows для читання JSON-контролів із символами
+одиниць μ, · та ² у скриптах, що використовують стандартне кодування Python.
 Нестандартний шлях Playwright передається через PLAYWRIGHT_MODULE_PATH.
 Канонічні команди CI містяться в
 [release-checks.yml](../.github/workflows/release-checks.yml).

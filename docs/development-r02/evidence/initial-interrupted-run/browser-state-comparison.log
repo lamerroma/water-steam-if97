@@ -1,0 +1,3 @@
+Named copy retains original; selected states, affine deltas, reference, CSV and frozen report PASS
+Report JSON round trip, mixed models, 5-state limit, mobile scroll, A4 report/PDF, clearing and undo PASS
+Offline PWA calculation → comparison → study report PASS

@@ -1,3 +1,4 @@
+import {WATER_MODELS} from './water-models.js';
 import {readRankineSweepWorkspace} from './rankine-sweep.js';
 import {RANKINE_LIBRARY_TYPES,readRankineLibraryConfig,buildRankineLibraryCycle,rankineCycleDetails,rankineCycleNotes} from './rankine-library.js';
 import {processGas,PROCESS_GASES,PROCESS_MODELS} from './process-gas.js';
@@ -8,7 +9,7 @@ export const LIBRARY_CYCLE_TYPES=['carnot','otto','diesel','brayton','rankine','
 export function libraryCycleName(kind,en=false){return ({'rankine-regenerative':['Ренкіна з відкритим підігрівачем','Rankine with open feedwater heater'],rankine:['Ренкіна','Rankine'],'rankine-reheat':['Ренкіна з перегрівом','Rankine with reheat'],carnot:['Карно','Carnot'],otto:['Отто','Otto'],diesel:['Дізеля','Diesel'],brayton:['Брайтона','Brayton']})[kind]?.[en?1:0]??kind;}
 export function defaultCycleBuilder(){return {kind:'otto',fluid:'air',model:'IDEAL-CP',p1:'.1',T1:'300',mass:'1',ratio:'8',heatMode:'temperature',Tmax:'1500',heat:'800',Tlow:'200',pLow:'.01',pHigh:'10',pReheat:'2',Tsteam:'773.15',Treheat:'773.15',steamMode:'superheated',equipment:'ideal',etaPump:'.85',etaHP:'.85',etaLP:'.85',pBleed:'1',etaPumpHigh:'.85'};}
 export function readCycleBuilderDraft(value){
- const d=value==null?defaultCycleBuilder():{pLow:'.01',pHigh:'10',pReheat:'2',Tsteam:'773.15',Treheat:'773.15',steamMode:'superheated',equipment:'ideal',etaPump:'.85',etaHP:'.85',etaLP:'.85',pBleed:'1',etaPumpHigh:'.85',...value};if(!d||!LIBRARY_CYCLE_TYPES.includes(d.kind)||!(RANKINE_LIBRARY_TYPES.includes(d.kind)?d.fluid==='water'&&['IF97','IAPWS-95'].includes(d.model):PROCESS_GASES.includes(d.fluid)&&['IDEAL-CP','IDEAL-NASA7'].includes(d.model))||!['ideal','actual'].includes(d.equipment)||!['superheated','saturated'].includes(d.steamMode)||!['temperature','heat'].includes(d.heatMode)||!['p1','T1','mass','ratio','Tmax','heat','Tlow','pLow','pHigh','pReheat','Tsteam','Treheat','etaPump','etaHP','etaLP','pBleed','etaPumpHigh'].every(k=>typeof d[k]==='string'&&d[k].length<=80))throw Error('Некоректна чернетка шаблону. / Invalid cycle builder draft.');
+ const d=value==null?defaultCycleBuilder():{pLow:'.01',pHigh:'10',pReheat:'2',Tsteam:'773.15',Treheat:'773.15',steamMode:'superheated',equipment:'ideal',etaPump:'.85',etaHP:'.85',etaLP:'.85',pBleed:'1',etaPumpHigh:'.85',...value};if(!d||!LIBRARY_CYCLE_TYPES.includes(d.kind)||!(RANKINE_LIBRARY_TYPES.includes(d.kind)?d.fluid==='water'&&WATER_MODELS.includes(d.model):PROCESS_GASES.includes(d.fluid)&&['IDEAL-CP','IDEAL-NASA7'].includes(d.model))||!['ideal','actual'].includes(d.equipment)||!['superheated','saturated'].includes(d.steamMode)||!['temperature','heat'].includes(d.heatMode)||!['p1','T1','mass','ratio','Tmax','heat','Tlow','pLow','pHigh','pReheat','Tsteam','Treheat','etaPump','etaHP','etaLP','pBleed','etaPumpHigh'].every(k=>typeof d[k]==='string'&&d[k].length<=80))throw Error('Некоректна чернетка шаблону. / Invalid cycle builder draft.');
  return Object.fromEntries(['kind','fluid','model','p1','T1','mass','ratio','heatMode','Tmax','heat','Tlow','pLow','pHigh','pReheat','Tsteam','Treheat','steamMode','equipment','etaPump','etaHP','etaLP','pBleed','etaPumpHigh'].map(k=>[k,d[k]]));
 }
 export function readLibraryCycleConfig(a){
@@ -43,7 +44,7 @@ export function buildLibraryCycle(value){
 }
 export function readCycleTemplate(value){
  if(!value||typeof value.name!=='string'||!value.name.trim()||value.name.length>60||!PROCESS_MODELS.includes(value.model))throw Error('Шаблон: назва 1…60 символів та відома модель. / Template requires a name (1–60 characters) and known model.');
- const input=readCustomCycleInput(value.input);if(!input.closed||(input.fluid==='water')!==['IF97','IAPWS-95'].includes(value.model))throw Error('Шаблон потребує замкненого циклу й сумісної моделі. / Template requires a closed cycle and matching model.');
+ const input=readCustomCycleInput(value.input);if(!input.closed||(input.fluid==='water')!==WATER_MODELS.includes(value.model))throw Error('Шаблон потребує замкненого циклу й сумісної моделі. / Template requires a closed cycle and matching model.');
  return {name:value.name.trim(),model:value.model,input};
 }
 export function readCycleLibraryWorkspace(value){

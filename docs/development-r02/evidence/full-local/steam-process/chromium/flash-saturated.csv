@@ -1,0 +1,12 @@
+﻿process;state;p [MPa];T [K];h [kJ/kg];s [kJ/(kg K)];x [-];phase;"export_app_version";"export_build_id";"export_method";"export_model"
+flash;inlet;3;507.0031066722174;1008.3446136242185;2.645548638913147;0;Насичена рідина;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+flash;outlet;0.1;372.75592889710526;1008.3446136242185;2.887818616716384;0.26172997596801684;Двофазна суміш;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+
+model;HEOS::Water;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+pressure_basis;absolute;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+quantity;value;unit;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+flow;1;kg/s;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+vaporFlow;0.26172997596801684;kg/s;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+liquidFlow;0.7382700240319832;kg/s;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+vaporFraction;0.26172997596801684;-;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+inlet_mode;saturated;;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"

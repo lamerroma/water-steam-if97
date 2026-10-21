@@ -1,0 +1,13 @@
+﻿state;p [MPa];T [K];h [kJ/kg];s [kJ/(kg K)];x [-];"export_app_version";"export_build_id";"export_method";"export_model"
+Вхід;1;423.15;632.5027142125547;1.8412161034061858;;"1.40.0";"20fd3cb17a71";"engineering";"HEOS::Water"
+Вихід;1;399.7727068942206;532.5027142125434;1.5981285515219934;;"1.40.0";"20fd3cb17a71";"engineering";"HEOS::Water"
+Холодний вхід;0.1;293.15;84.00605394279428;0.2964631107344179;;"1.40.0";"20fd3cb17a71";"engineering";"HEOS::Water"
+Холодний вихід;0.1;309.09611337649665;150.67272060943904;0.517909393012559;;"1.40.0";"20fd3cb17a71";"engineering";"HEOS::Water"
+
+process;heat-exchanger;"1.40.0";"20fd3cb17a71";"engineering";"HEOS::Water"
+model;HEOS::Water;"1.40.0";"20fd3cb17a71";"engineering";"HEOS::Water"
+pressure_basis;absolute;"1.40.0";"20fd3cb17a71";"engineering";"HEOS::Water"
+quantity;value;unit;"1.40.0";"20fd3cb17a71";"engineering";"HEOS::Water"
+power;200;kW;"1.40.0";"20fd3cb17a71";"engineering";"HEOS::Water"
+flow;2;kg/s;"1.40.0";"20fd3cb17a71";"engineering";"HEOS::Water"
+coldFlow;3;kg/s;"1.40.0";"20fd3cb17a71";"engineering";"HEOS::Water"

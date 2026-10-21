@@ -1,0 +1,12 @@
+Critical isobar contains exact IF97 critical coordinates PASS
+Visible critical isobar gains detail on close zoom PASS
+Refinement cancellation and export readiness PASS
+hsdiagram SVG matches Canvas ticks, clip, styles and points PASS
+ts SVG matches Canvas ticks, clip, styles and points PASS
+phdiagram SVG matches Canvas ticks, clip, styles and points PASS
+HTML uses the same exported geometry PASS
+Turbine endpoint connection and computed isentrope PASS
+Throttling computed constant enthalpy path PASS
+Mobile layout and 4× CPU slowdown PASS
+IAPWS-95 refinement PASS
+Offline refinement and chart lifecycle PASS

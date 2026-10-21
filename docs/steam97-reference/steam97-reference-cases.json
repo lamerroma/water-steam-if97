@@ -1,0 +1,4951 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-10-19",
+  "timezone": "Europe/Kiev",
+  "method": "Connected Chrome; UI inputs and rendered DOM tables. Outputs retain exact displayed strings; no hidden calculation values inferred.",
+  "original": {
+    "url": "https://www.steamtablesonline.com/steam97web.aspx?lang=ru",
+    "observed_model_label": "Gas Tables v1.0 - Powered by GasTables ActiveX Dll from MegaWatSoft",
+    "selected_sidebar_formulation": "IAPWS-IF97",
+    "gas_model_equivalence_to_BSW2003": "unverified",
+    "units": {
+      "pressure": "bar absolute",
+      "temperature": "°C",
+      "composition": "%"
+    },
+    "composition_basis": "not identified by visible UI; molar interpretation unverified",
+    "lambda": "no visible input or output; internal determination unverified",
+    "session_status": "You are not logged in.",
+    "registration_error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+    "visible_result_columns": [
+      "p [bar]",
+      "t [°C]",
+      "h [kJ/kg]",
+      "s [kJ/(kg·K)]",
+      "cp [kJ/(kg·K)]",
+      "cv [kJ/(kg·K)]",
+      "kapa [-]",
+      "Dissociation",
+      "Ar [%]",
+      "CO [%]",
+      "CO2 [%]",
+      "H2O [%]",
+      "N2 [%]",
+      "Ne [%]",
+      "O2 [%]",
+      "SO2 [%]"
+    ],
+    "density_and_sound": "not present in gas result columns",
+    "dissociation_column_semantics": "unverified; cannot identify as numerical degree from empty table",
+    "composition_precision": "Observed rounding to two decimal places after focus loss: CO2=8.05, H2O=16.1, N2=72.63, O2=3.22. Exact internal server input unverified."
+  },
+  "ours": {
+    "url": "https://lamerroma.github.io/water-steam-if97/",
+    "version": "1.35.12",
+    "build": "8976baaf14e1",
+    "model": "BSW2003 · technical ideal gas",
+    "mode": "P–T",
+    "composition_basis": "molar",
+    "composition_units": "percent",
+    "dissociation_model": "Калорична поправка VDI4670 · дослідна",
+    "formation_when_enabled": "Повне згоряння у звичайному повітрі",
+    "lambda_when_enabled": "1.2",
+    "reference_zero": "Pure component h=s=0 at 273.15 K and 0.101325 MPa; mixture entropy includes mixing contribution."
+  },
+  "cases": [
+    {
+      "id": "pure-Ar",
+      "T_K": 1000,
+      "p_MPa": 0.101325,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 100,
+        "CO": 0,
+        "CO2": 0,
+        "H2O": 0,
+        "N2": 0,
+        "Ne": 0,
+        "O2": 0,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-pure-Ar.txt",
+        "screenshot": "steam97-evidence/original-pure-Ar.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 100,
+            "CO": 0,
+            "CO2": 0,
+            "H2O": 0,
+            "N2": 0,
+            "Ne": 0,
+            "O2": 0,
+            "SO2": 0
+          },
+          "pressure_bar": "1.01325",
+          "temperature_C": "726.850",
+          "include_dissociation": false,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "100",
+            "CO": "0",
+            "CO2": "0",
+            "H2O": "0",
+            "N2": "0",
+            "Ne": "0",
+            "O2": "0",
+            "SO2": "0"
+          },
+          "pressure_bar": "1.01325",
+          "temperature_C": "726.85",
+          "include_dissociation": false
+        },
+        "input_precision_note": "100% pure component unaffected by composition rounding."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 100,
+            "CO": 0,
+            "CO2": 0,
+            "H2O": 0,
+            "N2": 0,
+            "Ne": 0,
+            "O2": 0,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "0.101325",
+          "temperature_K": "1000",
+          "dissociation": "off",
+          "lambda": null,
+          "formation": null
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "0,101325",
+            "numeric_value": 0.101325,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "726,85",
+            "numeric_value": 726.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "39,95",
+            "numeric_value": 39.95,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,20812195",
+            "numeric_value": 0.20812195,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "378,1836",
+            "numeric_value": 378.1836,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "0,67521743",
+            "numeric_value": 0.67521743,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "170,06165",
+            "numeric_value": 170.06165,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "0,48685398",
+            "numeric_value": 0.48685398,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "2,054004",
+            "numeric_value": 2.054004,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "0,52030488",
+            "numeric_value": 0.52030488,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "0,31218293",
+            "numeric_value": 0.31218293,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "588,95664",
+            "numeric_value": 588.95664,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "1,6666667",
+            "numeric_value": 1.6666667,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0",
+            "numeric_value": 0,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "0",
+            "0"
+          ],
+          [
+            "O2",
+            "0",
+            "0"
+          ],
+          [
+            "Ar",
+            "100",
+            "100"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "0",
+            "0"
+          ],
+          [
+            "CO2",
+            "0",
+            "0"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-pure-Ar.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": true
+      }
+    },
+    {
+      "id": "pure-CO",
+      "T_K": 1000,
+      "p_MPa": 0.101325,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 100,
+        "CO2": 0,
+        "H2O": 0,
+        "N2": 0,
+        "Ne": 0,
+        "O2": 0,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-pure-CO.txt",
+        "screenshot": "steam97-evidence/original-pure-CO.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 100,
+            "CO2": 0,
+            "H2O": 0,
+            "N2": 0,
+            "Ne": 0,
+            "O2": 0,
+            "SO2": 0
+          },
+          "pressure_bar": "1.01325",
+          "temperature_C": "726.850",
+          "include_dissociation": false,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "100",
+            "CO2": "0",
+            "H2O": "0",
+            "N2": "0",
+            "Ne": "0",
+            "O2": "0",
+            "SO2": "0"
+          },
+          "pressure_bar": "1.01325",
+          "temperature_C": "726.85",
+          "include_dissociation": false
+        },
+        "input_precision_note": "100% pure component unaffected by composition rounding."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 100,
+            "CO2": 0,
+            "H2O": 0,
+            "N2": 0,
+            "Ne": 0,
+            "O2": 0,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "0.101325",
+          "temperature_K": "1000",
+          "dissociation": "off",
+          "lambda": null,
+          "formation": null
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "0,101325",
+            "numeric_value": 0.101325,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "726,85",
+            "numeric_value": 726.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "28,01",
+            "numeric_value": 28.01,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,29683941",
+            "numeric_value": 0.29683941,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "800,24314",
+            "numeric_value": 800.24314,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "1,4076099",
+            "numeric_value": 1.4076099,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "503,40373",
+            "numeric_value": 503.40373,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "0,34134618",
+            "numeric_value": 0.34134618,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "2,9295772",
+            "numeric_value": 2.9295772,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "1,1847975",
+            "numeric_value": 1.1847975,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "0,88795804",
+            "numeric_value": 0.88795804,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "629,34186",
+            "numeric_value": 629.34186,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "1,3342944",
+            "numeric_value": 1.3342944,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0",
+            "numeric_value": 0,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "0",
+            "0"
+          ],
+          [
+            "O2",
+            "0",
+            "0"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "0",
+            "0"
+          ],
+          [
+            "CO2",
+            "0",
+            "0"
+          ],
+          [
+            "CO",
+            "100",
+            "100"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-pure-CO.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": true
+      }
+    },
+    {
+      "id": "pure-CO2",
+      "T_K": 1000,
+      "p_MPa": 0.101325,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 100,
+        "H2O": 0,
+        "N2": 0,
+        "Ne": 0,
+        "O2": 0,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-pure-CO2.txt",
+        "screenshot": "steam97-evidence/original-pure-CO2.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 100,
+            "H2O": 0,
+            "N2": 0,
+            "Ne": 0,
+            "O2": 0,
+            "SO2": 0
+          },
+          "pressure_bar": "1.01325",
+          "temperature_C": "726.850",
+          "include_dissociation": false,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "100",
+            "H2O": "0",
+            "N2": "0",
+            "Ne": "0",
+            "O2": "0",
+            "SO2": "0"
+          },
+          "pressure_bar": "1.01325",
+          "temperature_C": "726.85",
+          "include_dissociation": false
+        },
+        "input_precision_note": "100% pure component unaffected by composition rounding."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 100,
+            "H2O": 0,
+            "N2": 0,
+            "Ne": 0,
+            "O2": 0,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "0.101325",
+          "temperature_K": "1000",
+          "dissociation": "off",
+          "lambda": null,
+          "formation": null
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "0,101325",
+            "numeric_value": 0.101325,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "726,85",
+            "numeric_value": 726.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "44,009",
+            "numeric_value": 44.009,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,18892663",
+            "numeric_value": 0.18892663,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "779,82515",
+            "numeric_value": 779.82515,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "1,334272",
+            "numeric_value": 1.334272,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "590,89852",
+            "numeric_value": 590.89852,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "0,53631931",
+            "numeric_value": 0.53631931,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "1,8645609",
+            "numeric_value": 1.8645609,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "1,234207",
+            "numeric_value": 1.234207,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "1,0452804",
+            "numeric_value": 1.0452804,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "472,30679",
+            "numeric_value": 472.30679,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "1,1807425",
+            "numeric_value": 1.1807425,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0",
+            "numeric_value": 0,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "0",
+            "0"
+          ],
+          [
+            "O2",
+            "0",
+            "0"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "0",
+            "0"
+          ],
+          [
+            "CO2",
+            "100",
+            "100"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-pure-CO2.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": true
+      }
+    },
+    {
+      "id": "pure-H2O",
+      "T_K": 1000,
+      "p_MPa": 0.101325,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 0,
+        "H2O": 100,
+        "N2": 0,
+        "Ne": 0,
+        "O2": 0,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-pure-H2O.txt",
+        "screenshot": "steam97-evidence/original-pure-H2O.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 0,
+            "H2O": 100,
+            "N2": 0,
+            "Ne": 0,
+            "O2": 0,
+            "SO2": 0
+          },
+          "pressure_bar": "1.01325",
+          "temperature_C": "726.850",
+          "include_dissociation": false,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "0",
+            "H2O": "100",
+            "N2": "0",
+            "Ne": "0",
+            "O2": "0",
+            "SO2": "0"
+          },
+          "pressure_bar": "1.01325",
+          "temperature_C": "726.85",
+          "include_dissociation": false
+        },
+        "input_precision_note": "100% pure component unaffected by composition rounding."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 0,
+            "H2O": 100,
+            "N2": 0,
+            "Ne": 0,
+            "O2": 0,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "0.101325",
+          "temperature_K": "1000",
+          "dissociation": "off",
+          "lambda": null,
+          "formation": null
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "0,101325",
+            "numeric_value": 0.101325,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "726,85",
+            "numeric_value": 726.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "18,015",
+            "numeric_value": 18.015,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,4615305",
+            "numeric_value": 0.4615305,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "1 489,9459",
+            "numeric_value": 1489.9459,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "2,6002321",
+            "numeric_value": 2.6002321,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "1 028,4154",
+            "numeric_value": 1028.4154,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "0,21954129",
+            "numeric_value": 0.21954129,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "4,5549519",
+            "numeric_value": 4.5549519,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "2,2922684",
+            "numeric_value": 2.2922684,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "1,8307379",
+            "numeric_value": 1.8307379,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "760,18597",
+            "numeric_value": 760.18597,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "1,2521008",
+            "numeric_value": 1.2521008,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0",
+            "numeric_value": 0,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "0",
+            "0"
+          ],
+          [
+            "O2",
+            "0",
+            "0"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "100",
+            "100"
+          ],
+          [
+            "CO2",
+            "0",
+            "0"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-pure-H2O.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": true
+      }
+    },
+    {
+      "id": "pure-N2",
+      "T_K": 1000,
+      "p_MPa": 0.101325,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 0,
+        "H2O": 0,
+        "N2": 100,
+        "Ne": 0,
+        "O2": 0,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-pure-N2.txt",
+        "screenshot": "steam97-evidence/original-pure-N2.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 0,
+            "H2O": 0,
+            "N2": 100,
+            "Ne": 0,
+            "O2": 0,
+            "SO2": 0
+          },
+          "pressure_bar": "1.01325",
+          "temperature_C": "726.850",
+          "include_dissociation": false,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "0",
+            "H2O": "0",
+            "N2": "100",
+            "Ne": "0",
+            "O2": "0",
+            "SO2": "0"
+          },
+          "pressure_bar": "1.01325",
+          "temperature_C": "726.85",
+          "include_dissociation": false
+        },
+        "input_precision_note": "100% pure component unaffected by composition rounding."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 0,
+            "H2O": 0,
+            "N2": 100,
+            "Ne": 0,
+            "O2": 0,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "0.101325",
+          "temperature_K": "1000",
+          "dissociation": "off",
+          "lambda": null,
+          "formation": null
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "0,101325",
+            "numeric_value": 0.101325,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "726,85",
+            "numeric_value": 726.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "28,014",
+            "numeric_value": 28.014,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,29679703",
+            "numeric_value": 0.29679703,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "792,11899",
+            "numeric_value": 792.11899,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "1,3961368",
+            "numeric_value": 1.3961368,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "495,32196",
+            "numeric_value": 495.32196,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "0,34139493",
+            "numeric_value": 0.34139493,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "2,9291589",
+            "numeric_value": 2.9291589,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "1,167215",
+            "numeric_value": 1.167215,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "0,87041799",
+            "numeric_value": 0.87041799,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "630,87204",
+            "numeric_value": 630.87204,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "1,3409822",
+            "numeric_value": 1.3409822,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0",
+            "numeric_value": 0,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "100",
+            "100"
+          ],
+          [
+            "O2",
+            "0",
+            "0"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "0",
+            "0"
+          ],
+          [
+            "CO2",
+            "0",
+            "0"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-pure-N2.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": true
+      }
+    },
+    {
+      "id": "pure-Ne",
+      "T_K": 1000,
+      "p_MPa": 0.101325,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 0,
+        "H2O": 0,
+        "N2": 0,
+        "Ne": 100,
+        "O2": 0,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-pure-Ne.txt",
+        "screenshot": "steam97-evidence/original-pure-Ne.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 0,
+            "H2O": 0,
+            "N2": 0,
+            "Ne": 100,
+            "O2": 0,
+            "SO2": 0
+          },
+          "pressure_bar": "1.01325",
+          "temperature_C": "726.850",
+          "include_dissociation": false,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "0",
+            "H2O": "0",
+            "N2": "0",
+            "Ne": "100",
+            "O2": "0",
+            "SO2": "0"
+          },
+          "pressure_bar": "1.01325",
+          "temperature_C": "726.85",
+          "include_dissociation": false
+        },
+        "input_precision_note": "100% pure component unaffected by composition rounding."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 0,
+            "H2O": 0,
+            "N2": 0,
+            "Ne": 100,
+            "O2": 0,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "0.101325",
+          "temperature_K": "1000",
+          "dissociation": "off",
+          "lambda": null,
+          "formation": null
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "0,101325",
+            "numeric_value": 0.101325,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "726,85",
+            "numeric_value": 726.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "20,18",
+            "numeric_value": 20.18,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,41201546",
+            "numeric_value": 0.41201546,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "748,68359",
+            "numeric_value": 748.68359,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "1,3367164",
+            "numeric_value": 1.3367164,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "336,66813",
+            "numeric_value": 336.66813,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "0,24592524",
+            "numeric_value": 0.24592524,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "4,0662764",
+            "numeric_value": 4.0662764,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "1,0300387",
+            "numeric_value": 1.0300387,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "0,61802319",
+            "numeric_value": 0.61802319,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "828,66907",
+            "numeric_value": 828.66907,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "1,6666667",
+            "numeric_value": 1.6666667,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0",
+            "numeric_value": 0,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "0",
+            "0"
+          ],
+          [
+            "O2",
+            "0",
+            "0"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "100",
+            "100"
+          ],
+          [
+            "H2O",
+            "0",
+            "0"
+          ],
+          [
+            "CO2",
+            "0",
+            "0"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-pure-Ne.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": true
+      }
+    },
+    {
+      "id": "pure-O2",
+      "T_K": 1000,
+      "p_MPa": 0.101325,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 0,
+        "H2O": 0,
+        "N2": 0,
+        "Ne": 0,
+        "O2": 100,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-pure-O2.txt",
+        "screenshot": "steam97-evidence/original-pure-O2.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 0,
+            "H2O": 0,
+            "N2": 0,
+            "Ne": 0,
+            "O2": 100,
+            "SO2": 0
+          },
+          "pressure_bar": "1.01325",
+          "temperature_C": "726.850",
+          "include_dissociation": false,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "0",
+            "H2O": "0",
+            "N2": "0",
+            "Ne": "0",
+            "O2": "100",
+            "SO2": "0"
+          },
+          "pressure_bar": "1.01325",
+          "temperature_C": "726.85",
+          "include_dissociation": false
+        },
+        "input_precision_note": "100% pure component unaffected by composition rounding."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 0,
+            "H2O": 0,
+            "N2": 0,
+            "Ne": 0,
+            "O2": 100,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "0.101325",
+          "temperature_K": "1000",
+          "dissociation": "off",
+          "lambda": null,
+          "formation": null
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "0,101325",
+            "numeric_value": 0.101325,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "726,85",
+            "numeric_value": 726.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "31,998",
+            "numeric_value": 31.998,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,25984349",
+            "numeric_value": 0.25984349,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "732,51651",
+            "numeric_value": 732.51651,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "1,2814284",
+            "numeric_value": 1.2814284,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "472,67302",
+            "numeric_value": 472.67302,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "0,38994627",
+            "numeric_value": 0.38994627,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "2,5644559",
+            "numeric_value": 2.5644559,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "1,0900672",
+            "numeric_value": 1.0900672,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "0,83022371",
+            "numeric_value": 0.83022371,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "584,09702",
+            "numeric_value": 584.09702,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "1,3129801",
+            "numeric_value": 1.3129801,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0",
+            "numeric_value": 0,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "0",
+            "0"
+          ],
+          [
+            "O2",
+            "100",
+            "100"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "0",
+            "0"
+          ],
+          [
+            "CO2",
+            "0",
+            "0"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-pure-O2.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": true
+      }
+    },
+    {
+      "id": "pure-SO2",
+      "T_K": 1000,
+      "p_MPa": 0.101325,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 0,
+        "H2O": 0,
+        "N2": 0,
+        "Ne": 0,
+        "O2": 0,
+        "SO2": 100
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-pure-SO2.txt",
+        "screenshot": "steam97-evidence/original-pure-SO2.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 0,
+            "H2O": 0,
+            "N2": 0,
+            "Ne": 0,
+            "O2": 0,
+            "SO2": 100
+          },
+          "pressure_bar": "1.01325",
+          "temperature_C": "726.850",
+          "include_dissociation": false,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "0",
+            "H2O": "0",
+            "N2": "0",
+            "Ne": "0",
+            "O2": "0",
+            "SO2": "100"
+          },
+          "pressure_bar": "1.01325",
+          "temperature_C": "726.85",
+          "include_dissociation": false
+        },
+        "input_precision_note": "100% pure component unaffected by composition rounding."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 0,
+            "H2O": 0,
+            "N2": 0,
+            "Ne": 0,
+            "O2": 0,
+            "SO2": 100
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "0.101325",
+          "temperature_K": "1000",
+          "dissociation": "off",
+          "lambda": null,
+          "formation": null
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "0,101325",
+            "numeric_value": 0.101325,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "726,85",
+            "numeric_value": 726.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "64,058",
+            "numeric_value": 64.058,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,129796",
+            "numeric_value": 0.129796,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "551,5189",
+            "numeric_value": 551.5189,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "0,950316",
+            "numeric_value": 0.950316,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "421,7229",
+            "numeric_value": 421.7229,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "0,78064811",
+            "numeric_value": 0.78064811,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "1,2809869",
+            "numeric_value": 1.2809869,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "0,84748733",
+            "numeric_value": 0.84748733,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "0,71769133",
+            "numeric_value": 0.71769133,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "391,49697",
+            "numeric_value": 391.49697,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "1,1808521",
+            "numeric_value": 1.1808521,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0",
+            "numeric_value": 0,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "0",
+            "0"
+          ],
+          [
+            "O2",
+            "0",
+            "0"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "0",
+            "0"
+          ],
+          [
+            "CO2",
+            "0",
+            "0"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "100",
+            "100"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-pure-SO2.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": true
+      }
+    },
+    {
+      "id": "mix-1200K-1MPa-off",
+      "T_K": 1200,
+      "p_MPa": 1,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-mix-1200K-1MPa-off.txt",
+        "screenshot": "steam97-evidence/original-mix-1200K-1MPa-off.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "pressure_bar": "10",
+          "temperature_C": "926.850",
+          "include_dissociation": false,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "8.05",
+            "H2O": "16.1",
+            "N2": "72.63",
+            "Ne": "0",
+            "O2": "3.22",
+            "SO2": "0"
+          },
+          "pressure_bar": "10",
+          "temperature_C": "926.85",
+          "include_dissociation": false
+        },
+        "input_precision_note": "Composition displayed rounded to 2 decimals after blur/calculation. Internal value sent to server not inspected."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "1",
+          "temperature_K": "1200",
+          "dissociation": "off",
+          "lambda": null,
+          "formation": null
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "926,85",
+            "numeric_value": 926.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "27,820069",
+            "numeric_value": 27.820069,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,29886597",
+            "numeric_value": 0.29886597,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "1 124,125",
+            "numeric_value": 1124.125,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "1,3159053",
+            "numeric_value": 1.3159053,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "765,48584",
+            "numeric_value": 765.48584,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "2,7883179",
+            "numeric_value": 2.7883179,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "0,35863917",
+            "numeric_value": 0.35863917,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "1,3386061",
+            "numeric_value": 1.3386061,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "1,0397401",
+            "numeric_value": 1.0397401,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "679,50531",
+            "numeric_value": 679.50531,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "1,287443",
+            "numeric_value": 1.287443,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0,25095504",
+            "numeric_value": 0.25095504,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "72,633612",
+            "73,139934"
+          ],
+          [
+            "O2",
+            "3,219575",
+            "3,7030807"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "16,097875",
+            "10,424245"
+          ],
+          [
+            "CO2",
+            "8,048938",
+            "12,73274"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-mix-1200K-1MPa-off.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": false
+      }
+    },
+    {
+      "id": "mix-1200K-1MPa-on",
+      "T_K": 1200,
+      "p_MPa": 1,
+      "dissociation": true,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-mix-1200K-1MPa-on.txt",
+        "screenshot": "steam97-evidence/original-mix-1200K-1MPa-on.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "pressure_bar": "10",
+          "temperature_C": "926.850",
+          "include_dissociation": true,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "8.05",
+            "H2O": "16.1",
+            "N2": "72.63",
+            "Ne": "0",
+            "O2": "3.22",
+            "SO2": "0"
+          },
+          "pressure_bar": "10",
+          "temperature_C": "926.85",
+          "include_dissociation": true
+        },
+        "input_precision_note": "Composition displayed rounded to 2 decimals after blur/calculation. Internal value sent to server not inspected."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "1",
+          "temperature_K": "1200",
+          "dissociation": "VDI4670",
+          "lambda": "1.2",
+          "formation": "complete combustion in ordinary air"
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "926,85",
+            "numeric_value": 926.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "27,820069",
+            "numeric_value": 27.820069,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,29886597",
+            "numeric_value": 0.29886597,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "1 124,378",
+            "numeric_value": 1124.378,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "1,316116",
+            "numeric_value": 1.316116,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "765,73879",
+            "numeric_value": 765.73879,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "2,7883179",
+            "numeric_value": 2.7883179,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "0,35863917",
+            "numeric_value": 0.35863917,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "1,3405821",
+            "numeric_value": 1.3405821,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "1,0417162",
+            "numeric_value": 1.0417162,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "—",
+            "numeric_value": null,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "—",
+            "numeric_value": null,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0,25095504",
+            "numeric_value": 0.25095504,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "cp/cv",
+            "display_value": "1,2868977",
+            "numeric_value": 1.2868977,
+            "unit": "–"
+          },
+          {
+            "name": "λ",
+            "display_value": "1,2",
+            "numeric_value": 1.2,
+            "unit": "–"
+          },
+          {
+            "name": "Δh (dissociation)",
+            "display_value": "0,25295138",
+            "numeric_value": 0.25295138,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "Δs (dissociation)",
+            "display_value": "0,00021079281",
+            "numeric_value": 0.00021079281,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Δcp (dissociation)",
+            "display_value": "0,0019760618",
+            "numeric_value": 0.0019760618,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "72,633612",
+            "73,139934"
+          ],
+          [
+            "O2",
+            "3,219575",
+            "3,7030807"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "16,097875",
+            "10,424245"
+          ],
+          [
+            "CO2",
+            "8,048938",
+            "12,73274"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-mix-1200K-1MPa-on.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": false
+      }
+    },
+    {
+      "id": "mix-1600K-1MPa-off",
+      "T_K": 1600,
+      "p_MPa": 1,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-mix-1600K-1MPa-off.txt",
+        "screenshot": "steam97-evidence/original-mix-1600K-1MPa-off.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "pressure_bar": "10",
+          "temperature_C": "1326.850",
+          "include_dissociation": false,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "8.05",
+            "H2O": "16.1",
+            "N2": "72.63",
+            "Ne": "0",
+            "O2": "3.22",
+            "SO2": "0"
+          },
+          "pressure_bar": "10",
+          "temperature_C": "1326.85",
+          "include_dissociation": false
+        },
+        "input_precision_note": "Composition displayed rounded to 2 decimals after blur/calculation. Internal value sent to server not inspected."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "1",
+          "temperature_K": "1600",
+          "dissociation": "off",
+          "lambda": null,
+          "formation": null
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "1 326,85",
+            "numeric_value": 1326.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "27,820069",
+            "numeric_value": 27.820069,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,29886597",
+            "numeric_value": 0.29886597,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "1 674,8344",
+            "numeric_value": 1674.8344,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "1,7114868",
+            "numeric_value": 1.7114868,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "1 196,6488",
+            "numeric_value": 1196.6488,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "2,0912384",
+            "numeric_value": 2.0912384,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "0,47818556",
+            "numeric_value": 0.47818556,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "1,4098901",
+            "numeric_value": 1.4098901,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "1,1110241",
+            "numeric_value": 1.1110241,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "778,98503",
+            "numeric_value": 778.98503,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "1,2690004",
+            "numeric_value": 1.2690004,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0,25095504",
+            "numeric_value": 0.25095504,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "72,633612",
+            "73,139934"
+          ],
+          [
+            "O2",
+            "3,219575",
+            "3,7030807"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "16,097875",
+            "10,424245"
+          ],
+          [
+            "CO2",
+            "8,048938",
+            "12,73274"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-mix-1600K-1MPa-off.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": false
+      }
+    },
+    {
+      "id": "mix-1600K-1MPa-on",
+      "T_K": 1600,
+      "p_MPa": 1,
+      "dissociation": true,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-mix-1600K-1MPa-on.txt",
+        "screenshot": "steam97-evidence/original-mix-1600K-1MPa-on.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "pressure_bar": "10",
+          "temperature_C": "1326.850",
+          "include_dissociation": true,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "8.05",
+            "H2O": "16.1",
+            "N2": "72.63",
+            "Ne": "0",
+            "O2": "3.22",
+            "SO2": "0"
+          },
+          "pressure_bar": "10",
+          "temperature_C": "1326.85",
+          "include_dissociation": true
+        },
+        "input_precision_note": "Composition displayed rounded to 2 decimals after blur/calculation. Internal value sent to server not inspected."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "1",
+          "temperature_K": "1600",
+          "dissociation": "VDI4670",
+          "lambda": "1.2",
+          "formation": "complete combustion in ordinary air"
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "1 326,85",
+            "numeric_value": 1326.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "27,820069",
+            "numeric_value": 27.820069,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,29886597",
+            "numeric_value": 0.29886597,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "1 677,7631",
+            "numeric_value": 1677.7631,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "1,7133173",
+            "numeric_value": 1.7133173,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "1 199,5776",
+            "numeric_value": 1199.5776,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "2,0912384",
+            "numeric_value": 2.0912384,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "0,47818556",
+            "numeric_value": 0.47818556,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "1,42445",
+            "numeric_value": 1.42445,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "1,1255841",
+            "numeric_value": 1.1255841,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "—",
+            "numeric_value": null,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "—",
+            "numeric_value": null,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0,25095504",
+            "numeric_value": 0.25095504,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "cp/cv",
+            "display_value": "1,2655208",
+            "numeric_value": 1.2655208,
+            "unit": "–"
+          },
+          {
+            "name": "λ",
+            "display_value": "1,2",
+            "numeric_value": 1.2,
+            "unit": "–"
+          },
+          {
+            "name": "Δh (dissociation)",
+            "display_value": "2,9287889",
+            "numeric_value": 2.9287889,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "Δs (dissociation)",
+            "display_value": "0,0018304931",
+            "numeric_value": 0.0018304931,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Δcp (dissociation)",
+            "display_value": "0,014559959",
+            "numeric_value": 0.014559959,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "72,633612",
+            "73,139934"
+          ],
+          [
+            "O2",
+            "3,219575",
+            "3,7030807"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "16,097875",
+            "10,424245"
+          ],
+          [
+            "CO2",
+            "8,048938",
+            "12,73274"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-mix-1600K-1MPa-on.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": false
+      }
+    },
+    {
+      "id": "mix-2000K-1MPa-off",
+      "T_K": 2000,
+      "p_MPa": 1,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-mix-2000K-1MPa-off.txt",
+        "screenshot": "steam97-evidence/original-mix-2000K-1MPa-off.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "pressure_bar": "10",
+          "temperature_C": "1726.850",
+          "include_dissociation": false,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "8.05",
+            "H2O": "16.1",
+            "N2": "72.63",
+            "Ne": "0",
+            "O2": "3.22",
+            "SO2": "0"
+          },
+          "pressure_bar": "10",
+          "temperature_C": "1726.85",
+          "include_dissociation": false
+        },
+        "input_precision_note": "Composition displayed rounded to 2 decimals after blur/calculation. Internal value sent to server not inspected."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "1",
+          "temperature_K": "2000",
+          "dissociation": "off",
+          "lambda": null,
+          "formation": null
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "1 726,85",
+            "numeric_value": 1726.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "27,820069",
+            "numeric_value": 27.820069,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,29886597",
+            "numeric_value": 0.29886597,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "2 248,8212",
+            "numeric_value": 2248.8212,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "2,0314955",
+            "numeric_value": 2.0314955,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "1 651,0892",
+            "numeric_value": 1651.0892,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "1,6729907",
+            "numeric_value": 1.6729907,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "0,59773195",
+            "numeric_value": 0.59773195,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "1,4569342",
+            "numeric_value": 1.4569342,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "1,1580682",
+            "numeric_value": 1.1580682,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "867,17376",
+            "numeric_value": 867.17376,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "1,2580729",
+            "numeric_value": 1.2580729,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0,25095504",
+            "numeric_value": 0.25095504,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "72,633612",
+            "73,139934"
+          ],
+          [
+            "O2",
+            "3,219575",
+            "3,7030807"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "16,097875",
+            "10,424245"
+          ],
+          [
+            "CO2",
+            "8,048938",
+            "12,73274"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-mix-2000K-1MPa-off.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": false
+      }
+    },
+    {
+      "id": "mix-2000K-1MPa-on",
+      "T_K": 2000,
+      "p_MPa": 1,
+      "dissociation": true,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-mix-2000K-1MPa-on.txt",
+        "screenshot": "steam97-evidence/original-mix-2000K-1MPa-on.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "pressure_bar": "10",
+          "temperature_C": "1726.850",
+          "include_dissociation": true,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "8.05",
+            "H2O": "16.1",
+            "N2": "72.63",
+            "Ne": "0",
+            "O2": "3.22",
+            "SO2": "0"
+          },
+          "pressure_bar": "10",
+          "temperature_C": "1726.85",
+          "include_dissociation": true
+        },
+        "input_precision_note": "Composition displayed rounded to 2 decimals after blur/calculation. Internal value sent to server not inspected."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "1",
+          "temperature_K": "2000",
+          "dissociation": "VDI4670",
+          "lambda": "1.2",
+          "formation": "complete combustion in ordinary air"
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "1 726,85",
+            "numeric_value": 1726.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "27,820069",
+            "numeric_value": 27.820069,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,29886597",
+            "numeric_value": 0.29886597,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "2 266,6064",
+            "numeric_value": 2266.6064,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "2,0403881",
+            "numeric_value": 2.0403881,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "1 668,8744",
+            "numeric_value": 1668.8744,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "1,6729907",
+            "numeric_value": 1.6729907,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "0,59773195",
+            "numeric_value": 0.59773195,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "1,5329982",
+            "numeric_value": 1.5329982,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "1,2341322",
+            "numeric_value": 1.2341322,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "—",
+            "numeric_value": null,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "—",
+            "numeric_value": null,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0,25095504",
+            "numeric_value": 0.25095504,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "cp/cv",
+            "display_value": "1,2421669",
+            "numeric_value": 1.2421669,
+            "unit": "–"
+          },
+          {
+            "name": "λ",
+            "display_value": "1,2",
+            "numeric_value": 1.2,
+            "unit": "–"
+          },
+          {
+            "name": "Δh (dissociation)",
+            "display_value": "17,785186",
+            "numeric_value": 17.785186,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "Δs (dissociation)",
+            "display_value": "0,008892593",
+            "numeric_value": 0.008892593,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Δcp (dissociation)",
+            "display_value": "0,076064006",
+            "numeric_value": 0.076064006,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "72,633612",
+            "73,139934"
+          ],
+          [
+            "O2",
+            "3,219575",
+            "3,7030807"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "16,097875",
+            "10,424245"
+          ],
+          [
+            "CO2",
+            "8,048938",
+            "12,73274"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-mix-2000K-1MPa-on.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": false
+      }
+    },
+    {
+      "id": "mix-1600K-0.01MPa-off",
+      "T_K": 1600,
+      "p_MPa": 0.01,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-mix-1600K-0.01MPa-off.txt",
+        "screenshot": "steam97-evidence/original-mix-1600K-0.01MPa-off.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "pressure_bar": "0.1",
+          "temperature_C": "1326.850",
+          "include_dissociation": false,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "8.05",
+            "H2O": "16.1",
+            "N2": "72.63",
+            "Ne": "0",
+            "O2": "3.22",
+            "SO2": "0"
+          },
+          "pressure_bar": "0.1",
+          "temperature_C": "1326.85",
+          "include_dissociation": false
+        },
+        "input_precision_note": "Composition displayed rounded to 2 decimals after blur/calculation. Internal value sent to server not inspected."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "0.01",
+          "temperature_K": "1600",
+          "dissociation": "off",
+          "lambda": null,
+          "formation": null
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "0,01",
+            "numeric_value": 0.01,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "1 326,85",
+            "numeric_value": 1326.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "27,820069",
+            "numeric_value": 27.820069,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,29886597",
+            "numeric_value": 0.29886597,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "1 674,8344",
+            "numeric_value": 1674.8344,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "3,0878155",
+            "numeric_value": 3.0878155,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "1 196,6488",
+            "numeric_value": 1196.6488,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "0,020912384",
+            "numeric_value": 0.020912384,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "47,818556",
+            "numeric_value": 47.818556,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "1,4098901",
+            "numeric_value": 1.4098901,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "1,1110241",
+            "numeric_value": 1.1110241,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "778,98503",
+            "numeric_value": 778.98503,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "1,2690004",
+            "numeric_value": 1.2690004,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0,25095504",
+            "numeric_value": 0.25095504,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "72,633612",
+            "73,139934"
+          ],
+          [
+            "O2",
+            "3,219575",
+            "3,7030807"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "16,097875",
+            "10,424245"
+          ],
+          [
+            "CO2",
+            "8,048938",
+            "12,73274"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-mix-1600K-0.01MPa-off.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": false
+      }
+    },
+    {
+      "id": "mix-1600K-0.01MPa-on",
+      "T_K": 1600,
+      "p_MPa": 0.01,
+      "dissociation": true,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-mix-1600K-0.01MPa-on.txt",
+        "screenshot": "steam97-evidence/original-mix-1600K-0.01MPa-on.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "pressure_bar": "0.1",
+          "temperature_C": "1326.850",
+          "include_dissociation": true,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "8.05",
+            "H2O": "16.1",
+            "N2": "72.63",
+            "Ne": "0",
+            "O2": "3.22",
+            "SO2": "0"
+          },
+          "pressure_bar": "0.1",
+          "temperature_C": "1326.85",
+          "include_dissociation": true
+        },
+        "input_precision_note": "Composition displayed rounded to 2 decimals after blur/calculation. Internal value sent to server not inspected."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "0.01",
+          "temperature_K": "1600",
+          "dissociation": "VDI4670",
+          "lambda": "1.2",
+          "formation": "complete combustion in ordinary air"
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "0,01",
+            "numeric_value": 0.01,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "1 326,85",
+            "numeric_value": 1326.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "27,820069",
+            "numeric_value": 27.820069,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,29886597",
+            "numeric_value": 0.29886597,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "1 679,2673",
+            "numeric_value": 1679.2673,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "3,090586",
+            "numeric_value": 3.090586,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "1 201,0817",
+            "numeric_value": 1201.0817,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "0,020912384",
+            "numeric_value": 0.020912384,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "47,818556",
+            "numeric_value": 47.818556,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "1,4383217",
+            "numeric_value": 1.4383217,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "1,1394557",
+            "numeric_value": 1.1394557,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "—",
+            "numeric_value": null,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "—",
+            "numeric_value": null,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0,25095504",
+            "numeric_value": 0.25095504,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "cp/cv",
+            "display_value": "1,2622884",
+            "numeric_value": 1.2622884,
+            "unit": "–"
+          },
+          {
+            "name": "λ",
+            "display_value": "1,2",
+            "numeric_value": 1.2,
+            "unit": "–"
+          },
+          {
+            "name": "Δh (dissociation)",
+            "display_value": "4,4329067",
+            "numeric_value": 4.4329067,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "Δs (dissociation)",
+            "display_value": "0,0027705667",
+            "numeric_value": 0.0027705667,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Δcp (dissociation)",
+            "display_value": "0,028431594",
+            "numeric_value": 0.028431594,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "72,633612",
+            "73,139934"
+          ],
+          [
+            "O2",
+            "3,219575",
+            "3,7030807"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "16,097875",
+            "10,424245"
+          ],
+          [
+            "CO2",
+            "8,048938",
+            "12,73274"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-mix-1600K-0.01MPa-on.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": false
+      }
+    },
+    {
+      "id": "mix-1600K-5MPa-off",
+      "T_K": 1600,
+      "p_MPa": 5,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-mix-1600K-5MPa-off.txt",
+        "screenshot": "steam97-evidence/original-mix-1600K-5MPa-off.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "pressure_bar": "50",
+          "temperature_C": "1326.850",
+          "include_dissociation": false,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "8.05",
+            "H2O": "16.1",
+            "N2": "72.63",
+            "Ne": "0",
+            "O2": "3.22",
+            "SO2": "0"
+          },
+          "pressure_bar": "50",
+          "temperature_C": "1326.85",
+          "include_dissociation": false
+        },
+        "input_precision_note": "Composition displayed rounded to 2 decimals after blur/calculation. Internal value sent to server not inspected."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "5",
+          "temperature_K": "1600",
+          "dissociation": "off",
+          "lambda": null,
+          "formation": null
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "5",
+            "numeric_value": 5,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "1 326,85",
+            "numeric_value": 1326.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "27,820069",
+            "numeric_value": 27.820069,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,29886597",
+            "numeric_value": 0.29886597,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "1 674,8344",
+            "numeric_value": 1674.8344,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "1,2304806",
+            "numeric_value": 1.2304806,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "1 196,6488",
+            "numeric_value": 1196.6488,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "10,456192",
+            "numeric_value": 10.456192,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "0,095637112",
+            "numeric_value": 0.095637112,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "1,4098901",
+            "numeric_value": 1.4098901,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "1,1110241",
+            "numeric_value": 1.1110241,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "778,98503",
+            "numeric_value": 778.98503,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "1,2690004",
+            "numeric_value": 1.2690004,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0,25095504",
+            "numeric_value": 0.25095504,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "72,633612",
+            "73,139934"
+          ],
+          [
+            "O2",
+            "3,219575",
+            "3,7030807"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "16,097875",
+            "10,424245"
+          ],
+          [
+            "CO2",
+            "8,048938",
+            "12,73274"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-mix-1600K-5MPa-off.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": false
+      }
+    },
+    {
+      "id": "mix-1600K-5MPa-on",
+      "T_K": 1600,
+      "p_MPa": 5,
+      "dissociation": true,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-mix-1600K-5MPa-on.txt",
+        "screenshot": "steam97-evidence/original-mix-1600K-5MPa-on.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "pressure_bar": "50",
+          "temperature_C": "1326.850",
+          "include_dissociation": true,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "8.05",
+            "H2O": "16.1",
+            "N2": "72.63",
+            "Ne": "0",
+            "O2": "3.22",
+            "SO2": "0"
+          },
+          "pressure_bar": "50",
+          "temperature_C": "1326.85",
+          "include_dissociation": true
+        },
+        "input_precision_note": "Composition displayed rounded to 2 decimals after blur/calculation. Internal value sent to server not inspected."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "5",
+          "temperature_K": "1600",
+          "dissociation": "VDI4670",
+          "lambda": "1.2",
+          "formation": "complete combustion in ordinary air"
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "5",
+            "numeric_value": 5,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "1 326,85",
+            "numeric_value": 1326.85,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "27,820069",
+            "numeric_value": 27.820069,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,29886597",
+            "numeric_value": 0.29886597,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "1 677,5785",
+            "numeric_value": 1677.5785,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "1,2321957",
+            "numeric_value": 1.2321957,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "1 199,3929",
+            "numeric_value": 1199.3929,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "10,456192",
+            "numeric_value": 10.456192,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "0,095637112",
+            "numeric_value": 0.095637112,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "1,4228948",
+            "numeric_value": 1.4228948,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "1,1240288",
+            "numeric_value": 1.1240288,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "—",
+            "numeric_value": null,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "—",
+            "numeric_value": null,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0,25095504",
+            "numeric_value": 0.25095504,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "cp/cv",
+            "display_value": "1,2658882",
+            "numeric_value": 1.2658882,
+            "unit": "–"
+          },
+          {
+            "name": "λ",
+            "display_value": "1,2",
+            "numeric_value": 1.2,
+            "unit": "–"
+          },
+          {
+            "name": "Δh (dissociation)",
+            "display_value": "2,7441366",
+            "numeric_value": 2.7441366,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "Δs (dissociation)",
+            "display_value": "0,0017150854",
+            "numeric_value": 0.0017150854,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Δcp (dissociation)",
+            "display_value": "0,013004693",
+            "numeric_value": 0.013004693,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "72,633612",
+            "73,139934"
+          ],
+          [
+            "O2",
+            "3,219575",
+            "3,7030807"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "16,097875",
+            "10,424245"
+          ],
+          [
+            "CO2",
+            "8,048938",
+            "12,73274"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-mix-1600K-5MPa-on.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": false
+      }
+    },
+    {
+      "id": "mix-2000.001K-1MPa-off",
+      "T_K": 2000.001,
+      "p_MPa": 1,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-mix-2000.001K-1MPa-off.txt",
+        "screenshot": "steam97-evidence/original-mix-2000.001K-1MPa-off.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "pressure_bar": "10",
+          "temperature_C": "1726.851",
+          "include_dissociation": false,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "8.05",
+            "H2O": "16.1",
+            "N2": "72.63",
+            "Ne": "0",
+            "O2": "3.22",
+            "SO2": "0"
+          },
+          "pressure_bar": "10",
+          "temperature_C": "1726.851",
+          "include_dissociation": false
+        },
+        "input_precision_note": "Composition displayed rounded to 2 decimals after blur/calculation. Internal value sent to server not inspected."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "1",
+          "temperature_K": "2000.001",
+          "dissociation": "off",
+          "lambda": null,
+          "formation": null
+        },
+        "status": "success",
+        "error": null,
+        "properties": [
+          {
+            "name": "P",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "MPa"
+          },
+          {
+            "name": "T",
+            "display_value": "1 726,851",
+            "numeric_value": 1726.851,
+            "unit": "°C"
+          },
+          {
+            "name": "M",
+            "display_value": "27,820069",
+            "numeric_value": 27.820069,
+            "unit": "kg/kmol"
+          },
+          {
+            "name": "R",
+            "display_value": "0,29886597",
+            "numeric_value": 0.29886597,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "h",
+            "display_value": "2 248,8226",
+            "numeric_value": 2248.8226,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "s",
+            "display_value": "2,0314962",
+            "numeric_value": 2.0314962,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "u",
+            "display_value": "1 651,0904",
+            "numeric_value": 1651.0904,
+            "unit": "kJ/kg"
+          },
+          {
+            "name": "ρ",
+            "display_value": "1,6729899",
+            "numeric_value": 1.6729899,
+            "unit": "kg/m³"
+          },
+          {
+            "name": "v",
+            "display_value": "0,59773225",
+            "numeric_value": 0.59773225,
+            "unit": "m³/kg"
+          },
+          {
+            "name": "Cp",
+            "display_value": "1,4569343",
+            "numeric_value": 1.4569343,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "Cv",
+            "display_value": "1,1580683",
+            "numeric_value": 1.1580683,
+            "unit": "kJ/(kg K)"
+          },
+          {
+            "name": "w",
+            "display_value": "867,17397",
+            "numeric_value": 867.17397,
+            "unit": "m/s"
+          },
+          {
+            "name": "κ",
+            "display_value": "1,2580728",
+            "numeric_value": 1.2580728,
+            "unit": "–"
+          },
+          {
+            "name": "Z",
+            "display_value": "1",
+            "numeric_value": 1,
+            "unit": "–"
+          },
+          {
+            "name": "Ентропія змішування",
+            "display_value": "0,25095504",
+            "numeric_value": 0.25095504,
+            "unit": "kJ/(kg K)"
+          }
+        ],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [
+          [
+            "N2",
+            "72,633612",
+            "73,139934"
+          ],
+          [
+            "O2",
+            "3,219575",
+            "3,7030807"
+          ],
+          [
+            "Ar",
+            "0",
+            "0"
+          ],
+          [
+            "Ne",
+            "0",
+            "0"
+          ],
+          [
+            "H2O",
+            "16,097875",
+            "10,424245"
+          ],
+          [
+            "CO2",
+            "8,048938",
+            "12,73274"
+          ],
+          [
+            "CO",
+            "0",
+            "0"
+          ],
+          [
+            "SO2",
+            "0",
+            "0"
+          ]
+        ],
+        "snapshot": "steam97-evidence/ours-mix-2000.001K-1MPa-off.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": false
+      }
+    },
+    {
+      "id": "mix-2000.001K-1MPa-on",
+      "T_K": 2000.001,
+      "p_MPa": 1,
+      "dissociation": true,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      },
+      "requested_composition_basis": "molar",
+      "original": {
+        "status": "registration_required",
+        "error": "Registration Required\nThis functionality is available only to registered users!\nTo access this functionality, first register and create account,\nand then Login with your newly registered account.",
+        "results": null,
+        "snapshot": "steam97-evidence/original-mix-2000.001K-1MPa-on.txt",
+        "screenshot": "steam97-evidence/original-mix-2000.001K-1MPa-on.png",
+        "attempted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "pressure_bar": "10",
+          "temperature_C": "1726.851",
+          "include_dissociation": true,
+          "composition_basis": "unspecified by original UI"
+        },
+        "observed_fields_after_calculate": {
+          "composition_percent": {
+            "Ar": "0",
+            "CO": "0",
+            "CO2": "8.05",
+            "H2O": "16.1",
+            "N2": "72.63",
+            "Ne": "0",
+            "O2": "3.22",
+            "SO2": "0"
+          },
+          "pressure_bar": "10",
+          "temperature_C": "1726.851",
+          "include_dissociation": true
+        },
+        "input_precision_note": "Composition displayed rounded to 2 decimals after blur/calculation. Internal value sent to server not inspected."
+      },
+      "ours": {
+        "submitted_input": {
+          "composition_percent": {
+            "Ar": 0,
+            "CO": 0,
+            "CO2": 8.048938,
+            "H2O": 16.097875,
+            "N2": 72.633612,
+            "Ne": 0,
+            "O2": 3.219575,
+            "SO2": 0
+          },
+          "composition_basis": "molar",
+          "pressure_MPa": "1",
+          "temperature_K": "2000.001",
+          "dissociation": "VDI4670",
+          "lambda": "1.2",
+          "formation": "complete combustion in ordinary air"
+        },
+        "status": "range_error",
+        "error": "VDI4670: локальний дослідний діапазон 1200…2000 K, 0,01…5 МПа. / Local experimental range: 1200…2000 K, 0.01…5 MPa.",
+        "properties": [],
+        "composition_output_columns": [
+          "component",
+          "molar_percent",
+          "mass_percent"
+        ],
+        "composition_output": [],
+        "snapshot": "steam97-evidence/ours-mix-2000.001K-1MPa-on.txt"
+      },
+      "comparison": {
+        "status": "unavailable_original_requires_login",
+        "difference": null,
+        "identical_effective_inputs_confirmed": false
+      }
+    }
+  ],
+  "dissociation_deltas": [
+    {
+      "T_K": 1200,
+      "p_MPa": 1,
+      "original": null,
+      "original_status": "registration_required",
+      "ours_status": "success",
+      "ours_displayed_corrections": [
+        {
+          "name": "Δh (dissociation)",
+          "display_value": "0,25295138",
+          "numeric_value": 0.25295138,
+          "unit": "kJ/kg"
+        },
+        {
+          "name": "Δs (dissociation)",
+          "display_value": "0,00021079281",
+          "numeric_value": 0.00021079281,
+          "unit": "kJ/(kg K)"
+        },
+        {
+          "name": "Δcp (dissociation)",
+          "display_value": "0,0019760618",
+          "numeric_value": 0.0019760618,
+          "unit": "kJ/(kg K)"
+        }
+      ],
+      "ours_on_minus_off_from_displayed": {
+        "P": {
+          "value": 0,
+          "unit": "MPa"
+        },
+        "T": {
+          "value": 0,
+          "unit": "°C"
+        },
+        "M": {
+          "value": 0,
+          "unit": "kg/kmol"
+        },
+        "R": {
+          "value": 0,
+          "unit": "kJ/(kg K)"
+        },
+        "h": {
+          "value": 0.25299999999992906,
+          "unit": "kJ/kg"
+        },
+        "s": {
+          "value": 0.0002107000000000081,
+          "unit": "kJ/(kg K)"
+        },
+        "u": {
+          "value": 0.2529499999999416,
+          "unit": "kJ/kg"
+        },
+        "ρ": {
+          "value": 0,
+          "unit": "kg/m³"
+        },
+        "v": {
+          "value": 0,
+          "unit": "m³/kg"
+        },
+        "Cp": {
+          "value": 0.0019759999999999778,
+          "unit": "kJ/(kg K)"
+        },
+        "Cv": {
+          "value": 0.001976100000000036,
+          "unit": "kJ/(kg K)"
+        },
+        "Z": {
+          "value": 0,
+          "unit": "–"
+        },
+        "Ентропія змішування": {
+          "value": 0,
+          "unit": "kJ/(kg K)"
+        }
+      }
+    },
+    {
+      "T_K": 1600,
+      "p_MPa": 1,
+      "original": null,
+      "original_status": "registration_required",
+      "ours_status": "success",
+      "ours_displayed_corrections": [
+        {
+          "name": "Δh (dissociation)",
+          "display_value": "2,9287889",
+          "numeric_value": 2.9287889,
+          "unit": "kJ/kg"
+        },
+        {
+          "name": "Δs (dissociation)",
+          "display_value": "0,0018304931",
+          "numeric_value": 0.0018304931,
+          "unit": "kJ/(kg K)"
+        },
+        {
+          "name": "Δcp (dissociation)",
+          "display_value": "0,014559959",
+          "numeric_value": 0.014559959,
+          "unit": "kJ/(kg K)"
+        }
+      ],
+      "ours_on_minus_off_from_displayed": {
+        "P": {
+          "value": 0,
+          "unit": "MPa"
+        },
+        "T": {
+          "value": 0,
+          "unit": "°C"
+        },
+        "M": {
+          "value": 0,
+          "unit": "kg/kmol"
+        },
+        "R": {
+          "value": 0,
+          "unit": "kJ/(kg K)"
+        },
+        "h": {
+          "value": 2.9286999999999352,
+          "unit": "kJ/kg"
+        },
+        "s": {
+          "value": 0.0018304999999998461,
+          "unit": "kJ/(kg K)"
+        },
+        "u": {
+          "value": 2.9288000000001375,
+          "unit": "kJ/kg"
+        },
+        "ρ": {
+          "value": 0,
+          "unit": "kg/m³"
+        },
+        "v": {
+          "value": 0,
+          "unit": "m³/kg"
+        },
+        "Cp": {
+          "value": 0.01455990000000007,
+          "unit": "kJ/(kg K)"
+        },
+        "Cv": {
+          "value": 0.014559999999999906,
+          "unit": "kJ/(kg K)"
+        },
+        "Z": {
+          "value": 0,
+          "unit": "–"
+        },
+        "Ентропія змішування": {
+          "value": 0,
+          "unit": "kJ/(kg K)"
+        }
+      }
+    },
+    {
+      "T_K": 2000,
+      "p_MPa": 1,
+      "original": null,
+      "original_status": "registration_required",
+      "ours_status": "success",
+      "ours_displayed_corrections": [
+        {
+          "name": "Δh (dissociation)",
+          "display_value": "17,785186",
+          "numeric_value": 17.785186,
+          "unit": "kJ/kg"
+        },
+        {
+          "name": "Δs (dissociation)",
+          "display_value": "0,008892593",
+          "numeric_value": 0.008892593,
+          "unit": "kJ/(kg K)"
+        },
+        {
+          "name": "Δcp (dissociation)",
+          "display_value": "0,076064006",
+          "numeric_value": 0.076064006,
+          "unit": "kJ/(kg K)"
+        }
+      ],
+      "ours_on_minus_off_from_displayed": {
+        "P": {
+          "value": 0,
+          "unit": "MPa"
+        },
+        "T": {
+          "value": 0,
+          "unit": "°C"
+        },
+        "M": {
+          "value": 0,
+          "unit": "kg/kmol"
+        },
+        "R": {
+          "value": 0,
+          "unit": "kJ/(kg K)"
+        },
+        "h": {
+          "value": 17.78520000000026,
+          "unit": "kJ/kg"
+        },
+        "s": {
+          "value": 0.008892599999999806,
+          "unit": "kJ/(kg K)"
+        },
+        "u": {
+          "value": 17.78520000000003,
+          "unit": "kJ/kg"
+        },
+        "ρ": {
+          "value": 0,
+          "unit": "kg/m³"
+        },
+        "v": {
+          "value": 0,
+          "unit": "m³/kg"
+        },
+        "Cp": {
+          "value": 0.07606399999999991,
+          "unit": "kJ/(kg K)"
+        },
+        "Cv": {
+          "value": 0.07606399999999991,
+          "unit": "kJ/(kg K)"
+        },
+        "Z": {
+          "value": 0,
+          "unit": "–"
+        },
+        "Ентропія змішування": {
+          "value": 0,
+          "unit": "kJ/(kg K)"
+        }
+      }
+    },
+    {
+      "T_K": 1600,
+      "p_MPa": 0.01,
+      "original": null,
+      "original_status": "registration_required",
+      "ours_status": "success",
+      "ours_displayed_corrections": [
+        {
+          "name": "Δh (dissociation)",
+          "display_value": "4,4329067",
+          "numeric_value": 4.4329067,
+          "unit": "kJ/kg"
+        },
+        {
+          "name": "Δs (dissociation)",
+          "display_value": "0,0027705667",
+          "numeric_value": 0.0027705667,
+          "unit": "kJ/(kg K)"
+        },
+        {
+          "name": "Δcp (dissociation)",
+          "display_value": "0,028431594",
+          "numeric_value": 0.028431594,
+          "unit": "kJ/(kg K)"
+        }
+      ],
+      "ours_on_minus_off_from_displayed": {
+        "P": {
+          "value": 0,
+          "unit": "MPa"
+        },
+        "T": {
+          "value": 0,
+          "unit": "°C"
+        },
+        "M": {
+          "value": 0,
+          "unit": "kg/kmol"
+        },
+        "R": {
+          "value": 0,
+          "unit": "kJ/(kg K)"
+        },
+        "h": {
+          "value": 4.432900000000018,
+          "unit": "kJ/kg"
+        },
+        "s": {
+          "value": 0.002770500000000009,
+          "unit": "kJ/(kg K)"
+        },
+        "u": {
+          "value": 4.432900000000018,
+          "unit": "kJ/kg"
+        },
+        "ρ": {
+          "value": 0,
+          "unit": "kg/m³"
+        },
+        "v": {
+          "value": 0,
+          "unit": "m³/kg"
+        },
+        "Cp": {
+          "value": 0.0284316,
+          "unit": "kJ/(kg K)"
+        },
+        "Cv": {
+          "value": 0.0284316,
+          "unit": "kJ/(kg K)"
+        },
+        "Z": {
+          "value": 0,
+          "unit": "–"
+        },
+        "Ентропія змішування": {
+          "value": 0,
+          "unit": "kJ/(kg K)"
+        }
+      }
+    },
+    {
+      "T_K": 1600,
+      "p_MPa": 5,
+      "original": null,
+      "original_status": "registration_required",
+      "ours_status": "success",
+      "ours_displayed_corrections": [
+        {
+          "name": "Δh (dissociation)",
+          "display_value": "2,7441366",
+          "numeric_value": 2.7441366,
+          "unit": "kJ/kg"
+        },
+        {
+          "name": "Δs (dissociation)",
+          "display_value": "0,0017150854",
+          "numeric_value": 0.0017150854,
+          "unit": "kJ/(kg K)"
+        },
+        {
+          "name": "Δcp (dissociation)",
+          "display_value": "0,013004693",
+          "numeric_value": 0.013004693,
+          "unit": "kJ/(kg K)"
+        }
+      ],
+      "ours_on_minus_off_from_displayed": {
+        "P": {
+          "value": 0,
+          "unit": "MPa"
+        },
+        "T": {
+          "value": 0,
+          "unit": "°C"
+        },
+        "M": {
+          "value": 0,
+          "unit": "kg/kmol"
+        },
+        "R": {
+          "value": 0,
+          "unit": "kJ/(kg K)"
+        },
+        "h": {
+          "value": 2.744100000000117,
+          "unit": "kJ/kg"
+        },
+        "s": {
+          "value": 0.0017150999999999694,
+          "unit": "kJ/(kg K)"
+        },
+        "u": {
+          "value": 2.744100000000117,
+          "unit": "kJ/kg"
+        },
+        "ρ": {
+          "value": 0,
+          "unit": "kg/m³"
+        },
+        "v": {
+          "value": 0,
+          "unit": "m³/kg"
+        },
+        "Cp": {
+          "value": 0.01300469999999998,
+          "unit": "kJ/(kg K)"
+        },
+        "Cv": {
+          "value": 0.01300469999999998,
+          "unit": "kJ/(kg K)"
+        },
+        "Z": {
+          "value": 0,
+          "unit": "–"
+        },
+        "Ентропія змішування": {
+          "value": 0,
+          "unit": "kJ/(kg K)"
+        }
+      }
+    },
+    {
+      "T_K": 2000.001,
+      "p_MPa": 1,
+      "original": null,
+      "original_status": "registration_required",
+      "ours_status": "range_error",
+      "ours_displayed_corrections": [],
+      "ours_on_minus_off_from_displayed": {}
+    }
+  ]
+}

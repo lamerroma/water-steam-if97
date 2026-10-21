@@ -1,0 +1,5 @@
+Default guide calculation, experimental status, campaign chart, report HTML and JSON/reload PASS
+Square variant, zero-gap contact, custom/comma input, invalidation, English and mobile PASS
+Ring layout, count search and invalid-layout removal PASS
+Study report source reopen, calculation JSON import and invalid-result removal PASS
+Complete local reactor draft calculation/export in PWA offline PASS

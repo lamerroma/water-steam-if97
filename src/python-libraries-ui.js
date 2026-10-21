@@ -18,6 +18,7 @@ function showPythonLibraries(){
   label('arguments','<textarea id="py-request" rows="7" spellcheck="false" maxlength="100000"></textarea>')+
   '<p data-i18n="libraries.jsonHelp">'+escapeHTML(t('jsonHelp'))+'</p><button type="submit" id="py-run" data-i18n="libraries.run">'+escapeHTML(t('run'))+'</button><button type="button" id="py-cancel" data-i18n="libraries.cancel">'+escapeHTML(t('cancel'))+'</button></form>'+
   '<p id="py-error" role="alert" hidden></p><p id="py-unsupported"></p><pre id="py-result" class="python-result" data-i18n-ignore></pre><button type="button" id="py-export" data-i18n="libraries.export" disabled>'+escapeHTML(t('export'))+'</button></section>';
+ mountWaterHeos(host);
  const section=$('python-libraries'),connected=()=>section.isConnected&&activeSection==='libraries';
  const text=(id,key,params)=>{if(connected())$(id).textContent=t(key,params);};
  function refresh(){if(!connected())return;const downloading=!!pythonLibraries.download,busy=pythonLibraries.runner.busy;

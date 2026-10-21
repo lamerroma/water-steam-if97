@@ -7,6 +7,13 @@ function harness(timeout=1000){
  const runner=createCalculationRunner(()=>{const w={terminated:false,postMessage(message){this.request=message;},terminate(){this.terminated=true;}};workers.push(w);return w;},timeout);
  return {runner,workers,answer:(w,result)=>w.onmessage({data:{...calculationReplyIdentity(w.request),status:'ok',result}})};
 }
+test('An explicit native reset request discards the executor before retry',async()=>{
+ const {runner,workers,answer}=harness();const pending=runner.run('water-heos','calculate',{mode:'pt',a:1,b:500});
+ const rejected=assert.rejects(pending,{code:'unavailable'});
+ workers[0].onmessage({data:{...calculationReplyIdentity(workers[0].request),status:'error',error:{code:'unavailable',message:'Native state failure',details:{resetWorker:true}}}});
+ await rejected;assert.equal(workers[0].terminated,true);
+ const next=runner.run('water-heos','calculate',{mode:'pt',a:1,b:500});assert.equal(workers.length,2);answer(workers[1],{state:'fresh'});assert.equal((await next).result.state,'fresh');
+});
 
 test('Identified progress preserves the active request and callback exceptions do not break completion',async()=>{
  const {runner,workers,answer}=harness(),stages=[];

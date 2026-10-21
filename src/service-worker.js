@@ -57,7 +57,7 @@ self.addEventListener('fetch',event=>{
   return fetch(request);
  })());return;}
  const navigation=request.mode==='navigate'&&(u.pathname===scope.pathname||u.pathname===scope.pathname+'index.html');
- if(!navigation&&!RESOURCES.some(path=>url(path)===u.href)&&!['assets/app.js','assets/styles.css','assets/coolprop.wasm','assets/calculator-worker.js'].some(path=>u.pathname===scope.pathname+path))return;
+ if(!navigation&&!RESOURCES.some(path=>url(path)===u.href)&&!['assets/app.js','assets/styles.css','assets/coolprop.wasm','assets/calculator-worker.js','assets/heos-calculator-worker.js'].some(path=>u.pathname===scope.pathname+path))return;
  event.respondWith((async()=>{
   const cache=await caches.open(cacheName);let response=await cache.match(navigation?url('index.html'):request);
   if(!response&&!navigation)for(const key of await caches.keys()){if(key.startsWith(cachePrefix)){response=await (await caches.open(key)).match(request);if(response)break;}}

@@ -1,0 +1,7 @@
+Build 20fd3cb17a71
+State, hydraulic, turbine and NPP snapshots PASS
+Diagram snapshot, order, comments and auto restore PASS
+Sandboxed preview, escaped text, complete HTML and offline PDF PASS
+JSON composition import PASS
+Invalid model inputs, languages and mobile PASS
+PWA NPP and report offline PASS

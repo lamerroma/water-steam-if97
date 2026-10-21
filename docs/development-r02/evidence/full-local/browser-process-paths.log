@@ -1,0 +1,5 @@
+Calculated boiler/condenser, explicit efficiency model, references, selection, CSV and report picture PASS
+Rapid switching cancels stale path generation PASS
+Regeneration mixing, NPP separation and equilibrium drain throttling PASS
+Nested-grid check, explicit apply, CSV, stale comparison removal and validation PASS
+English and PWA offline paths PASS

@@ -1,0 +1,26 @@
+chromium SAMPLE fresh page / 0 workers / 1114112 WASM bytes
+chromium MEASURE select HEOS 366.2000000476837 ms / gap 75.80000001192093
+chromium SAMPLE selected HEOS, no native main Water query / 0 workers / 23658496 WASM bytes
+chromium MEASURE first general result 2590.900000035763 ms / gap 54.09999996423721
+chromium SAMPLE general Worker warm / 1 workers / 81133568 WASM bytes
+chromium MEASURE first auxiliary result 2981.699999988079 ms / gap 30.19999998807907
+chromium SAMPLE auxiliary Worker warm / 2 workers / 138608640 WASM bytes
+chromium MEASURE first diagram 2324.300000011921 ms / gap 237.5999999642372
+chromium SAMPLE diagram refined / 2 workers / 138608640 WASM bytes
+chromium SAMPLE settled view 5 / 2 workers / 138608640 WASM bytes
+chromium SAMPLE settled view 10 / 2 workers / 138608640 WASM bytes
+chromium SAMPLE settled view 15 / 2 workers / 138608640 WASM bytes
+chromium MEASURE restore-1 3015.399999976158 ms / gap 24.899999976158142
+chromium MEASURE restore-2 2998.199999988079 ms / gap 21.599999964237213
+chromium MEASURE restore-3 2996.300000011921 ms / gap 22
+chromium MEASURE restore-4 3007.800000011921 ms / gap 21.400000035762787
+chromium MEASURE restore-5 3001.199999988079 ms / gap 27.299999952316284
+chromium SAMPLE cancel/restore 5 / 2 workers / 138608640 WASM bytes
+chromium MEASURE restore-6 2986.399999976158 ms / gap 29.69999998807907
+chromium MEASURE restore-7 2488.399999976158 ms / gap 21.30000001192093
+chromium MEASURE restore-8 2992.899999976158 ms / gap 28.200000047683716
+chromium MEASURE restore-9 2968.2999999523163 ms / gap 27.700000047683716
+chromium MEASURE restore-10 2978.5 ms / gap 24.5
+chromium SAMPLE cancel/restore 10 / 2 workers / 138608640 WASM bytes
+chromium SAMPLE leave auxiliaries / 2 workers / 138608640 WASM bytes
+chromium COMPLETED {"wasmCapacity":138608640,"mainJsHeapAfterGC":11244764,"privateCommit":460357632,"settledWorkers":2,"cancelMs":1.800000011920929,"heartbeatMaxGapMs":237.5999999642372}

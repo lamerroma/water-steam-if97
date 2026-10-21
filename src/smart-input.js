@@ -1,3 +1,4 @@
+import {isScientificWater} from './water-models.js';
 import {MIN_FLUID_T95,lowerFluidTemperature95} from './water-validity.js';
 import {PC,TC,PMIN_SAT} from './engine.js';
 import {parseNumber,fromCanonical} from './units.js';
@@ -14,7 +15,7 @@ export function validateCalculatorInput({mode,a,b,ua,ub,model='IF97',pressure={b
  for(const [i,letter,raw,unit] of [[0,'a',a,ua],[1,'b',b,ub]]){
   const property=pair[i];if(property==='sat')continue;
   try{values[letter]=pressureInput(parseNumber(raw),unit,pressure);}catch{errors[letter]={key:String(raw).trim()?'input.error.number':'input.error.required'};continue;}
-  const value=values[letter],sat=['satp','satt','px','tx'].includes(mode),is95=model==='IAPWS-95';
+  const value=values[letter],sat=['satp','satt','px','tx'].includes(mode),is95=isScientificWater(model);
   if(property==='p'){
    const min=sat?(is95?.000611654771:PMIN_SAT):0,max=sat?PC:is95?1000:100;
    if(value<min||(!sat&&value===0)||value>max)errors[letter]={key:sat?'input.error.range':'input.error.pressure',params:{min:pressureOutput(min,unit,pressure),max:pressureOutput(max,unit,pressure),unit}};
@@ -25,6 +26,6 @@ export function validateCalculatorInput({mode,a,b,ua,ub,model='IF97',pressure={b
   else if(property==='x'&&(value<0||value>1))errors[letter]={key:'input.error.range',params:{min:0,max:fromCanonical(1,unit),unit}};
  }
  if(mode==='pt'&&model==='IF97'&&values.a>50&&values.b>1073.15&&!Object.keys(errors).length)for(const letter of ['a','b'])errors[letter]={key:'input.error.region5'};
- if(mode==='pt'&&model==='IAPWS-95'&&values.a>0&&values.a<=1000&&values.b<lowerFluidTemperature95(values.a)&&!Object.keys(errors).length)errors.b={key:'input.error.range',params:{min:fromCanonical(lowerFluidTemperature95(values.a),ub),max:fromCanonical(1273,ub),unit:ub}};
+ if(mode==='pt'&&isScientificWater(model)&&values.a>0&&values.a<=1000&&values.b<lowerFluidTemperature95(values.a)&&!Object.keys(errors).length)errors.b={key:'input.error.range',params:{min:fromCanonical(lowerFluidTemperature95(values.a),ub),max:fromCanonical(1273,ub),unit:ub}};
  return {values,errors};
 }

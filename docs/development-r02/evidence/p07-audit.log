@@ -1,0 +1,11 @@
+{
+  "summary": {
+    "queries": 184,
+    "passed": 184,
+    "failed": 0,
+    "states": 172,
+    "background_controls": 108,
+    "drawing_controls": 12
+  },
+  "failures": []
+}

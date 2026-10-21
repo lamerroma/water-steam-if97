@@ -1,0 +1,271 @@
+{
+  "date": "2026-10-20",
+  "scope": "M2 numerical substage accepted with documented limits; complete M2 migration remains pending; working branch, not published",
+  "branch": "codex/open-library-modules",
+  "baseCommit": "65e9199068659ec5c183081d5e5908244bb2beea",
+  "build": {
+    "version": "1.39.0",
+    "id": "fa96d6dc2c4a"
+  },
+  "upstream": {
+    "CoolProp": "8.0.0",
+    "adapter": "1.1.0",
+    "model": "HEOS::Water"
+  },
+  "core": {
+    "node": "22.23.3",
+    "status": "passed",
+    "checks": 20,
+    "unitTests": {
+      "total": 1782,
+      "passed": 1782
+    },
+    "localEvidence": ".release/2026-10-20T17-14-51-706Z/report.json",
+    "sha256": "3944aad1d5ae66611b33a80cb963aec42677119f35f0d64b2da26cd85a148341"
+  },
+  "independentMatrix": {
+    "source": "Python iapws 1.5.5 / IAPWS95 with independent SciPy inversions; numerical reference, not experimental validation",
+    "fixtureRecords": 38,
+    "calls": 595,
+    "status": "passed-with-conditioning-limits",
+    "counts": {
+      "matched": 582,
+      "ambiguous": 6,
+      "conditioned": 7,
+      "failed": 0
+    },
+    "localEvidence": ".release/2026-10-20T17-14-51-706Z/water-heos.json",
+    "sha256": "7bca1b2b3984803a0061ebe7c09cf233f3f72bc8bec0d2f8f3fc7f5f7ce619d7",
+    "conditioningLimits": [
+      {
+        "id": "audit-0",
+        "mode": "us",
+        "pressureDeviation": -1.0082208653366953e-07,
+        "numericalPressureResponse": 6.875998678370915e-07,
+        "explanation": "Independent pressure lies inside the local propagated floating-point input floor; input residuals passed adapter diagnostics. This is not a physical error bound."
+      },
+      {
+        "id": "audit-1",
+        "mode": "us",
+        "pressureDeviation": 5.020584327164457e-07,
+        "numericalPressureResponse": 6.875805984391562e-07,
+        "explanation": "Independent pressure lies inside the local propagated floating-point input floor; input residuals passed adapter diagnostics. This is not a physical error bound."
+      },
+      {
+        "id": "audit-2",
+        "mode": "us",
+        "pressureDeviation": 1.645740242792182e-06,
+        "numericalPressureResponse": 7.654278769199223e-07,
+        "explanation": "Independent pressure lies inside the local propagated floating-point input floor; input residuals passed adapter diagnostics. This is not a physical error bound."
+      },
+      {
+        "id": "audit-3",
+        "mode": "us",
+        "pressureDeviation": 4.73333502503618e-06,
+        "numericalPressureResponse": 4.463425586389099e-06,
+        "explanation": "Independent pressure lies inside the local propagated floating-point input floor; input residuals passed adapter diagnostics. This is not a physical error bound."
+      },
+      {
+        "id": "audit-4",
+        "mode": "us",
+        "pressureDeviation": 1.3204480586101464e-06,
+        "numericalPressureResponse": 5.758202351717307e-07,
+        "explanation": "Independent pressure lies inside the local propagated floating-point input floor; input residuals passed adapter diagnostics. This is not a physical error bound."
+      },
+      {
+        "id": "audit-5",
+        "mode": "us",
+        "pressureDeviation": 1.1056686583868491e-06,
+        "numericalPressureResponse": 8.189976971713161e-07,
+        "explanation": "Independent pressure lies inside the local propagated floating-point input floor; input residuals passed adapter diagnostics. This is not a physical error bound."
+      },
+      {
+        "id": "lower-T",
+        "mode": "us",
+        "pressureDeviation": -4.473115189640442e-07,
+        "numericalPressureResponse": 2.2310169511420157e-07,
+        "explanation": "Independent pressure lies inside the local propagated floating-point input floor; input residuals passed adapter diagnostics. This is not a physical error bound."
+      }
+    ]
+  },
+  "cycles": {
+    "independentRankineVariants": 12,
+    "regenerativeNoBleedBaselineControls": 4,
+    "scope": "Explicit HEOS::Water numeric API only; ordinary cycle UI and general projects retain their previous models"
+  },
+  "nativeFailures": {
+    "testedPaths": [
+      "Low-level getter failure wrapped by a workflow",
+      "High-level PropsSI failure during extended inverse search"
+    ],
+    "method": "Actual C++ exceptions injected in separate disposable child processes",
+    "assertions": [
+      "resetWorker preserved in the error reply",
+      "Exactly one failing native call",
+      "No native calls on a subsequent request"
+    ],
+    "runnerReplacementTest": "tests/calculator-runner.test.mjs"
+  },
+  "browsers": {
+    "chromium": {
+      "version": "151.0.7922.34",
+      "status": "passed",
+      "groups": 9,
+      "exportedCases": 46,
+      "displayedQuantities": 1723,
+      "coldOfflineHeosRankineWorkflows": 1,
+      "checks": [
+        "Cold initialization cancelled and retry enabled",
+        "Actual bundled HEOS Worker, responsive UI and exact JSON export",
+        "All six audit states in P-T, P-h and P-s against independent reference",
+        "All twenty modes, independent extended inversions and two-phase unavailable outputs",
+        "Independent multiple roots, manual selection, typed rounding and exported metadata",
+        "Ice input produces visible error and disables stale export",
+        "English labels and mobile width",
+        "Profile restarted, server disconnected, fresh Worker initializes offline without Python",
+        "Cold offline HEOS Rankine workflow through shared engine and Worker protocol"
+      ],
+      "localEvidence": ".release/heos-m2/fa96d6dc2c4a/chromium/report.json",
+      "sha256": "35263f4574b523652365f2273f61bf6ece697f1fd92e58dc036b5510b538e21c",
+      "screenshots": [
+        ".release/heos-m2/fa96d6dc2c4a/chromium/online.png",
+        ".release/heos-m2/fa96d6dc2c4a/chromium/offline.png"
+      ],
+      "legacyRankine": {
+        "status": "passed",
+        "offlinePwaChecked": false,
+        "localEvidence": ".release/heos-m2/fa96d6dc2c4a/legacy-rankine-chromium-final.log"
+      },
+      "legacyAsync": {
+        "status": "passed",
+        "localEvidence": ".release/heos-m2/fa96d6dc2c4a/legacy-async-chromium-final.log"
+      }
+    },
+    "firefox": {
+      "version": "153.0",
+      "status": "passed",
+      "groups": 9,
+      "exportedCases": 46,
+      "displayedQuantities": 1723,
+      "coldOfflineHeosRankineWorkflows": 1,
+      "checks": [
+        "Cold initialization cancelled and retry enabled",
+        "Actual bundled HEOS Worker, responsive UI and exact JSON export",
+        "All six audit states in P-T, P-h and P-s against independent reference",
+        "All twenty modes, independent extended inversions and two-phase unavailable outputs",
+        "Independent multiple roots, manual selection, typed rounding and exported metadata",
+        "Ice input produces visible error and disables stale export",
+        "English labels and mobile width",
+        "Profile restarted, server disconnected, fresh Worker initializes offline without Python",
+        "Cold offline HEOS Rankine workflow through shared engine and Worker protocol"
+      ],
+      "localEvidence": ".release/heos-m2/fa96d6dc2c4a/firefox/report.json",
+      "sha256": "f5e820eecf36edc509abdbb4a3b8d668b056432de8475a48fad5a8e363df44ce",
+      "screenshots": [
+        ".release/heos-m2/fa96d6dc2c4a/firefox/online.png",
+        ".release/heos-m2/fa96d6dc2c4a/firefox/offline.png"
+      ],
+      "legacyRankine": {
+        "status": "passed",
+        "offlinePwaChecked": true,
+        "localEvidence": ".release/heos-m2/fa96d6dc2c4a/legacy-rankine-firefox-final.log"
+      },
+      "legacyAsync": {
+        "status": "passed",
+        "localEvidence": ".release/heos-m2/fa96d6dc2c4a/legacy-async-firefox-final.log"
+      }
+    }
+  },
+  "legacyFirefoxRegression": {
+    "observation": "Legacy Rankine script crashed with HEOS dependencies in the default Worker; baseline and separate-worker final builds passed. Internal browser cause remains unknown.",
+    "mitigation": "HEOS is isolated in its own Worker; optional backend registration occurs only after HEOS initialization; package test forbids CoolProp in the ordinary Worker.",
+    "historicalEvidence": [
+      ".release/heos-m2/fa96d6dc2c4a/legacy-rankine-firefox.log",
+      ".release/heos-m2/fa96d6dc2c4a/legacy-rankine-firefox-baseline.log"
+    ]
+  },
+  "node24": {
+    "version": "24.18.1",
+    "status": "failed",
+    "unitTests": {
+      "total": 1782,
+      "passed": 1781,
+      "failed": 1
+    },
+    "failure": "Independent Python iapws IAPWS-95: dry-saturated-inlet; old IAPWS-95 stable density root not found in Rankine 1 -> 2",
+    "localEvidence": ".release/heos-m2/fa96d6dc2c4a/final-node24-unit.log",
+    "sha256": "7c989f7bee7bd9ac21d56cecc3aaa3c95c2e84b69746772fd057d55d2a6b182c"
+  },
+  "limits": [
+    "Seven US inverse cases have documented conditioning limits; they are not ordinary exact pressure matches or physical error bounds.",
+    "General UI, series, history and project model migration, full performance/memory acceptance and physical mobile-device acceptance remain pending.",
+    "The complete release browser suite has not been run for this working branch. Selected HEOS and legacy regression scenarios are listed explicitly.",
+    "Node 24 still reproduces the previously confirmed old IAPWS-95 failure; the full Node 24 unit suite is not green.",
+    "No numerical Steam97Web reference results are available; parity is not established.",
+    "Independent reference implementations verify the checked numerical cases; they do not establish experimental physical accuracy."
+  ],
+  "broaderCorePhysicalValidation": {
+    "reactorCell": "physical-screening-failed",
+    "scope": "Independent cell screening; failure blocks claims of neutron-model physical validation, separately from software acceptance."
+  },
+  "evidenceManifest": {
+    "path": ".release/heos-m2/fa96d6dc2c4a/evidence-manifest.json",
+    "sha256": "6684b2b4af154c31d3c642178df34eecdd38dab4aeb019d590340ba9410bde91"
+  },
+  "artifactHashes": {
+    "index.html": "33268f5200fa6836ff94b8798e1b95075ee43f02e14fdab1654363ac38de1440",
+    "assets/app.js": "1700a16d602d89cf5a972aba4507199e81cce196a71cbf3ff1d50300b3b69d85",
+    "assets/calculator-worker.js": "501facf2713530975c3fcb2adbee0451a7e6607203a7b5e46e7011733bccc559",
+    "assets/heos-calculator-worker.js": "b93e4de2a83a02d664a4d6c265f5c080b4145ee595efee229f7e515948ce2424",
+    "assets/python-worker.js": "d56fa149841211726ee7def15d5c469a10531efaf5be43603de4dca672efa97a",
+    "assets/python-package.json": "b91498d7a5363a08e075adb4c1ea9fc64b9a4ce4886466b85c252ebdffaa8763",
+    "assets/sheetjs.js": "cc015130aa8521e7f088f88898eba949ccdcbfb38df0bd129b44b7273c3a6f41",
+    "assets/styles.css": "581ffe30e92d0d424405c34c8a33ad2a27a061fd2dddd698298d23b517b97aa8",
+    "assets/coolprop.wasm": "28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307",
+    "service-worker.js": "88e07f1173e441ad1ac9e8d3432161a9936bd9bd63348f3dfad67773b87e5936",
+    "manifest.webmanifest": "63130e8f1083e12602ca499f9de40ad3d97d64b457c005ce570215966f783056",
+    "dist/water-steam-calculator.zip": {
+      "sha256": "6d4b1e5afda29d54aa9cb14cb9a9207cd45737d4f4646631aaf4c814deae9b9b",
+      "bytes": 30683080
+    }
+  },
+  "sourceHashes": {
+    "src/water-heos.js": "fac293a897bd51cf7f134544be0938137a17a11fe81d1b1e85d06c7dad9cae07",
+    "src/water-heos-ui.js": "13dffdec15b57316c05f717f232c589edcff4db0ccc1476d8d8eef96784c9be9",
+    "src/heos-calculator-worker.js": "bb1da54f957dd72c33e7b76e8f734c2b8a2bf55f319ae4bd7b9acd26934b8124",
+    "src/calculation-adapter-registry.js": "e985be50ffa553c6959280f6d6f286c282954c40b78744817c5204d2328603a9",
+    "src/calculation-protocol.js": "7cd2bd0e6d31cd33ec0d3c039dbac820d73d7c6bf6eec0eadadc3b07b540e6ff",
+    "src/calculation-modules.js": "977cdaa178fb46fa847f3a9ba87a04f408a42c00afe094b22b71e7c1f8c12163",
+    "src/calculator-runner.js": "68df3e5e75855b92d6f429fd75dbe368b68a679ec40a3532086ec789e1983f54",
+    "src/engine.js": "07b20308a57b361947e55b20d0e68192b2f45e8741c872924163a48a3f00c205",
+    "src/extra-inputs.js": "4df5b07e97b4e0f6026f421342b71e698684b15b48893817933d91a40af187c4",
+    "src/custom-cycle.js": "1a1b59c3654ba673fb1b749fb64cc5e4f7165676b2d01406e0db7608158121b4",
+    "src/process-gas.js": "ed7aee4dd11a83af087625bcaa32e313e21753deb0575b6dd614cfd935a0eebe",
+    "src/water-process.js": "6282fbdeab7117152926c896dfa6c472ed3d9180a439bfd1f240920f663ecebe",
+    "src/adiabatic-machine.js": "d3aaf2f299a354181b6f2e1d0c7865c7a01f1975a99a21cd216f66210d8fa9d0",
+    "src/rankine-library.js": "5c7997ac338e15493b1ae7b559a50de4403ef8f631e7de6ebcbeacee8c9d8a3b",
+    "src/service-worker.js": "022bdd05e220f8d8b6179c3252dcb1ea94e4924170dbf9efe1106df14fdd9f82",
+    "src/app.js": "d3c4a3029f5337cc192695105e38f319eca8d2535cd319a0d23b63e131ed3bb7",
+    "src/python-libraries-ui.js": "a1fd50ec64b9940c0a43288041a1693ca9b8e60c1542df93e801b44ef688ac01",
+    "src/tool-catalog.js": "52d8b069aa35ae65a69d4d7aff70818f1121817efcbb3799649f3e0e5dd962a7",
+    "src/locales/en.json": "3dd6d241466289d078d88c11f923e074ca73d2c739f476d97611c7d8709fd51b",
+    "src/locales/uk.json": "bdca7abd73799255cf77dc7fd746e76824076ccf52209c2f6608c0a0af89db82",
+    "scripts/build.mjs": "fc940e165669ccbae6c02e157e3c0c2c59159e12e2c30a8d36ebfa202ef3bc43",
+    "scripts/coolprop-static-bindings.mjs": "d6a07b34a2a24aa008f79f6a4a8d703900af443b324420bd8686e15b62c39824",
+    "scripts/verify-release.mjs": "2875ab26e870a2589eaaa47d7bcdae86fa64889cd452e0ecbe7b2809a95ba0ce",
+    "scripts/audit-water-heos.mjs": "4e2fbe78086a0ae776684ede94372a412809f4eec5cb8e5f53e7cedc47dfe83c",
+    "scripts/check-water-heos-browser.cjs": "b5bf0f352d2f6de2945f5cd21674ab9005b8b52172d1b557df37c6405447cc10",
+    "scripts/reference/generate-water-heos.py": "bc4caf9b435d96628280d5a8e6917214b8a7616eaf16773d88f707607c949cc5",
+    "scripts/reference/requirements-water-heos.txt": "1bce371003964f0ea4cccf17865b76ccc25aaf242a0a76d6a0e0f2ee0df41ff1",
+    "tests/water-heos.test.mjs": "6a4286dc245a68f2e501a90f6c2cb7d76bb4693b4fdacd5fbcd2b275814dab50",
+    "tests/water-heos-inverse.test.mjs": "6b6cc4342c5331171217f12c71626c597eadf600a2370d72d9c0386f34b6480f",
+    "tests/water-heos-rankine.test.mjs": "ae56bc5e00243656982c2f29a08154344977deddde40222dd7b5bd335d205127",
+    "tests/water-heos-runtime.test.mjs": "26f56614d972a2f6f996417ec6e47480dd0a703733d0238095dad65588838757",
+    "tests/helpers/heos-native-failure.mjs": "78eb58b4b30d76d5583a50ca5f42f86210509af4b5c46b4d4060b825bd768827",
+    "tests/calculator-runner.test.mjs": "32137a7231bfac067837c34d10e5b5e7a02dd0fcd7e056a7836f1e37b917de5a",
+    "tests/package.test.mjs": "f1f9001c637d797c08651305bdc153be41d14d95c12f85fe8cfea273a38c83a8",
+    "tests/fixtures/water-heos-matrix.json": "cc553c4cb958cfdb300da14127855340107c3bee4ea5540244529dd6af4f0ecc",
+    "tests/fixtures/water-heos-regressions.json": "86e48ecb7505598a30a93fc3ae52ccbcbdb1d2b395bc3811868571707c25d4d9",
+    "vendor/coolprop.wasm": "28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307"
+  }
+}

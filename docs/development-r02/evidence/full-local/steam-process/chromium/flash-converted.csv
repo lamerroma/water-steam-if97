@@ -1,0 +1,12 @@
+﻿process;state;p [MPa];T [K];h [kJ/kg];s [kJ/(kg K)];x [-];phase;"export_app_version";"export_build_id";"export_method";"export_model"
+flash;inlet;3;473.15;852.856192097796;2.3282399608535114;;Стиснена рідина;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+flash;outlet;1;453.0280078816741;852.8561920977961;2.3374806669332293;0.04484334968540277;Двофазна суміш;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+
+model;HEOS::Water;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+pressure_basis;absolute;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+quantity;value;unit;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+flow;1;kg/s;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+vaporFlow;0.04484334968540277;kg/s;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+liquidFlow;0.9551566503145972;kg/s;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+vaporFraction;0.04484334968540277;-;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"
+inlet_mode;condensate;;"1.40.0";"20fd3cb17a71";"flash";"HEOS::Water"

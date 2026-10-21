@@ -2,7 +2,7 @@
 import {readFile,writeFile,mkdir,readdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {resolve} from 'node:path';
-import {pathToFileURL} from 'node:url';
+import {fileURLToPath,pathToFileURL} from 'node:url';
 import {Worker,isMainThread,parentPort,workerData} from 'node:worker_threads';
 const folder=process.env.INVERSE_DIR||'.release/inverse-precision';
 import {assess,assessAllRoots} from './inverse-precision-common.mjs';
@@ -14,7 +14,7 @@ if(!isMainThread){
   try{const result=engine.calculate(mode,c.expected[keys[0]],c.expected[keys[1]],c.model);Object.assign(row,assess(result,c,keys));row.rootChecks=assessAllRoots(result,keys.map(k=>c.expected[k]),keys);if(row.rootChecks.some(q=>!q.valid))row.status='different';row.rootDiagnostics=result.diagnostics;}catch(e){row.status='failed';row.error=e.message;}
   row.durationMs=performance.now()-start;rows.push(row);if(row.status!=='passed')parentPort.postMessage({failure:{id:row.id,mode,status:row.status,error:row.error,errors:row.errors}});if(rows.length%25===0)parentPort.postMessage({progress:25});
  }parentPort.postMessage({rows});
-}else if(process.argv[1]===new URL(import.meta.url).pathname){
+}else if(resolve(process.argv[1]||'')===fileURLToPath(import.meta.url)){
  const fixture=JSON.parse(await readFile('tests/fixtures/inverse-precision-reference.json')),engine=process.env.INVERSE_ENGINE||'src/engine.js',name=process.env.INVERSE_NAME||(process.argv.includes('--quick')?'quick':'full'),tasks=inverseAuditTasks(fixture,process.argv.includes('--quick')).filter(t=>(!process.env.INVERSE_FILTER||[t.c.id,t.c.group,t.mode,t.c.model].join(' ').includes(process.env.INVERSE_FILTER))&&!(process.env.INVERSE_SKIP_MIXTURE_PAIRS==='1'&&t.c.group==='mixture'&&['us','vs','hv','uv'].includes(t.mode)));
  const sha=bytes=>createHash('sha256').update(bytes).digest('hex'),sourceDir=resolve(engine,'..'),sourceManifest=Object.fromEntries(await Promise.all((await readdir(sourceDir)).filter(f=>f.endsWith('.js')).sort().map(async f=>[f,sha(await readFile(resolve(sourceDir,f)))]))),fixtureSha256=sha(await readFile('tests/fixtures/inverse-precision-reference.json'));
  const n=Number(process.env.INVERSE_WORKERS||4);if(!Number.isInteger(n)||n<1||n>16||!tasks.length)throw Error('Audit requires nonempty tasks and 1–16 workers.');let done=0;const start=Date.now();

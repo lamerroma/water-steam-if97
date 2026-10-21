@@ -26,7 +26,7 @@ export function solveWaterProcess(value,model='IF97'){
  const input=readWaterProcessInput(value),cacheKey=JSON.stringify([model,input]);
  if(waterProcessResults.has(cacheKey))return waterProcessResults.get(cacheKey);
  const gas=input.fluid!=='water'?processGas(input.fluid,model):null;
- if(!gas&&!['IF97','IAPWS-95'].includes(model))throw Error('Для води оберіть IF97 або IAPWS-95. / Select a water model.');
+ if(!gas&&!['IF97','IAPWS-95','HEOS::Water'].includes(model))throw Error('Для води оберіть IF97, IAPWS-95 або HEOS::Water. / Select a water model.');
  const get=gas?gas.get:(m,a,b)=>waterProcessState(m,a,b,model),q1=get(input.mode,input.a,input.b);
  let q2;
  if(input.kind==='polytropic'){

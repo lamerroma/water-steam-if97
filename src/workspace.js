@@ -1,3 +1,4 @@
+import {WATER_MODELS} from './water-models.js';
 import {readCustomCycleDraft} from './custom-cycle.js';
 import {PROCESS_MODELS,PROCESS_GASES} from './process-gas.js';
 import {WATER_PROCESS_ENDS} from './water-process.js';
@@ -41,7 +42,7 @@ export function readWorkspace(value){
  if(!record(value)||!record(value.panels)||!['general','saturation','help','ts','hsdiagram','phdiagram','tutorials','study','research','projects','libraries',...WORKSPACE_PANELS].includes(value.active))throw Error('Некоректний робочий простір проєкту.');
  const panels={};
  for(const [kind,p] of Object.entries(value.panels)){
-  if(!WORKSPACE_PANELS.includes(kind)||!record(p)||!record(p.inputs)||typeof p.calculated!=='boolean'||(p.model!=null&&!(['water-process','custom-cycle'].includes(kind)?PROCESS_MODELS:['IF97','IAPWS-95']).includes(p.model)))throw Error('Некоректна вкладка проєкту.');
+  if(!WORKSPACE_PANELS.includes(kind)||!record(p)||!record(p.inputs)||typeof p.calculated!=='boolean'||(p.model!=null&&!(['water-process','custom-cycle'].includes(kind)?PROCESS_MODELS:WATER_MODELS).includes(p.model)))throw Error('Некоректна вкладка проєкту.');
   const inputs={};
   for(const [id,v] of Object.entries(p.inputs)){
    const unitField=id.startsWith('ui-unit-')&&fields[kind].includes(id.slice(8));
@@ -53,7 +54,7 @@ export function readWorkspace(value){
   }
   if(kind==='custom-cycle'&&inputs['cc-data']!=null)inputs['cc-data']=JSON.stringify(readCustomCycleDraft(JSON.parse(inputs['cc-data'])));
   if(kind==='water-process'&&inputs['wp-kind']&&inputs['wp-end']&&!(WATER_PROCESS_ENDS[inputs['wp-kind']].includes(inputs['wp-end'])))throw Error('Несумісна гранична умова процесу.');
-  if(kind==='water-process'){const fluid=inputs['wp-fluid']||'water',model=inputs['wp-model']||p.model||'IF97';if((fluid==='water')!==['IF97','IAPWS-95'].includes(model)||fluid!=='water'&&(inputs['wp-mode']==='px'||inputs['wp-end']==='x'))throw Error('Несумісні речовина, модель або сухість процесу.');}
+  if(kind==='water-process'){const fluid=inputs['wp-fluid']||'water',model=inputs['wp-model']||p.model||'IF97';if((fluid==='water')!==WATER_MODELS.includes(model)||fluid!=='water'&&(inputs['wp-mode']==='px'||inputs['wp-end']==='x'))throw Error('Несумісні речовина, модель або сухість процесу.');}
   if(kind==='coursework'&&inputs['cw-kind']==='reactor'){for(const [key,fallback] of Object.entries({resonanceMethod:'given',boilingMethod:'off',rodLayout:'effective'}))if(inputs['cw-'+key]===undefined)inputs['cw-'+key]=fallback;}
   if(kind==='flow'){if(inputs['flow-kind']==='standard'&&(!inputs['flow-standard']||inputs['flow-standard']==='off')||inputs['flow-source']==='water'&&inputs['flow-standard']&&inputs['flow-standard']!=='off')throw Error('Стандартні умови не відповідають джерелу або виду витрати.');const allowed={mass:['kgs','kgh','lbs','lbh'],volume:['m3s','m3h','ls','lmin','ft3min'],standard:['m3s','m3h','ls','lmin','ft3min'],velocity:['ms','fts']};if(inputs['flow-kind']&&inputs['flow-unit']&&!allowed[inputs['flow-kind']].includes(inputs['flow-unit']))throw Error('Одиниця не відповідає виду витрати.');if(inputs['flow-visc-kind']&&inputs['flow-visc-unit']&&!(inputs['flow-visc-kind']==='dynamic'?['Pas','mPas','cP']:['m2s','mm2s','cSt']).includes(inputs['flow-visc-unit']))throw Error('Одиниця не відповідає виду в’язкості.');}
   if(kind==='satgrid'&&inputs['satgrid-basis']&&inputs['satgrid-unit']&&!(inputs['satgrid-basis']==='temperature'?['C','K','F']:['MPa','kPa','Pa','bar','atm','psi']).includes(inputs['satgrid-unit']))throw Error('Одиниці не відповідають параметру таблиці насичення.');

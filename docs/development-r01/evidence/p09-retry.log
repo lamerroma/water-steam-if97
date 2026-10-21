@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "version": "1.39.0",
+  "method": "Python Decimal precision 60; exact international pound, foot and standard gravity; independent of JS conversion factors",
+  "relative_tolerance": 2e-14,
+  "absolute_tolerance_for_nonzero": 0,
+  "checks": 600,
+  "numeric": 406,
+  "missing": 194,
+  "max_relative_error": 3.261502100453828e-16,
+  "scope": "Unit conversions of canonical program states, not a new independent EOS or Steam97Web comparison."
+}

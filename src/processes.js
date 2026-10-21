@@ -46,6 +46,19 @@ export function turbineInverse(mode,p1,T1,p2,power,known,model='IF97'){
  if(mode==='flow'){const unit=turbine(p1,T1,p2,known,1,model);return turbine(p1,T1,p2,known,power/unit.work,model);}
  const ideal=turbine(p1,T1,p2,1,known,model);const eta=power/ideal.power;return turbine(p1,T1,p2,eta,known,model);
 }
+// Native units: MPa absolute, K, kg/s, kW; efficiency is a fraction.
+// The same kernels serve the standalone UI through a cancellable Worker.
+export function steamProcess(input,model='IF97'){
+ if(!input||typeof input!=='object')throw Error('Не задано входи процесу.');
+ const {kind,mode,p1,T1,p2,eta,flow,power}=input;
+ if(kind==='turbine'){
+  if(mode==='power')return turbine(p1,T1,p2,eta,flow,model);
+  if(['flow','efficiency'].includes(mode))return turbineInverse(mode,p1,T1,p2,power,mode==='flow'?eta:flow,model);
+ }else if(kind==='flash'&&['condensate','saturated','subcooled'].includes(mode)){
+  return flash(p1,T1,p2,flow,mode==='saturated'?1:mode==='condensate'?2:0,model);
+ }
+ throw Error('Невірний тип або режим процесу.');
+}
 // Every sample is evaluated by the selected model. Renderers join samples without spline overshoot.
 export function diagramData(model='IF97'){
  const dome=[[],[]],isobars=[];

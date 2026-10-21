@@ -17,7 +17,7 @@ await mkdir(dir,{recursive:true});
 const report={started:new Date().toISOString(),mode,version:JSON.parse(await readFile(path.join(root,'package.json'),'utf8')).version,build:null,status:'running',checks:[],artifacts:{},scope:'Software acceptance only; passing does not validate every physical model or device.'};
 let server;
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
-const snapshot=async()=>Object.fromEntries(await Promise.all(['index.html','assets/app.js','assets/calculator-worker.js','assets/python-worker.js','assets/python-package.json','assets/sheetjs.js','assets/styles.css','assets/coolprop.wasm','service-worker.js','manifest.webmanifest'].map(async p=>[p,hash(await readFile(path.join(root,p)))])));
+const snapshot=async()=>Object.fromEntries(await Promise.all(['index.html','assets/app.js','assets/calculator-worker.js','assets/heos-calculator-worker.js','assets/python-worker.js','assets/python-package.json','assets/sheetjs.js','assets/styles.css','assets/coolprop.wasm','service-worker.js','manifest.webmanifest'].map(async p=>[p,hash(await readFile(path.join(root,p)))])));
 async function check(name,args,env={},executable=process.execPath){
  const start=Date.now();console.log(`Starting ${name}`);
  const log=path.join(dir,name+'.log'),logFile=await open(log,'w');
@@ -58,6 +58,7 @@ try{
   await check('fluids-pipe-reference',['scripts/reference-fluids-pipe.py','--check'],{},process.env.REACTOR_PYTHON||'python3');
   await check('unit',['--test',...(await readdir(path.join(root,'tests'))).filter(p=>p.endsWith('.test.mjs')).sort().map(p=>'tests/'+p)]);
   await check('water',['scripts/water-conformance.mjs',path.join(dir,'water.json')]);
+  await check('water-heos',['scripts/audit-water-heos.mjs',path.relative(root,path.join(dir,'water-heos.json'))]);
   await check('transport',['scripts/transport-conformance.mjs',path.join(dir,'transport.json')]);
   await check('steam97-p09-units',['scripts/audit-steam97-p09-units.mjs']);
   await check('steam97-p03',['scripts/audit-steam97-p03.mjs']);await check('steam97-p04',['scripts/audit-steam97-p04.mjs']);
@@ -74,6 +75,13 @@ try{
   const env=await serve();
   for(const name of ['steam97-p04','steam97-p03','steam97-p09-units','steam97-p08','steam97-p07','steam97-p06','steam97-p05','steam97-p02','input-sensitivity','inverse-boundaries','rankine-sweep','rankine-regeneration','rankine-efficiency','rankine-library','cycle-library','custom-cycle','processes-extended','water-process','calculator-async','navigation','smart-input','calculator-workspace','state-comparison','study-workflow','task-ui','diagram','diagram-guides','diagram-quality','process-paths','chart-layout','study-workspace','hydraulics','study','full-sprint','laboratory','coursework','usability','reactor-course','reactor-validation','provenance','project-safety','pwa','pwa-package','lazy-assets','python-libraries','fluids-pipe','ui-workspace'])await check('browser-'+name,[`scripts/check-${name}-browser.cjs`],env);
   await check('browser-cross-browser',['scripts/check-cross-browser.cjs'],{...env,UI_EVIDENCE_DIR:path.join(dir,'ui')});
+  for(const browser of ['chromium','firefox']){
+   await check('browser-water-heos-'+browser,['scripts/check-water-heos-browser.cjs'],{...env,BROWSER_NAME:browser});
+   await check('browser-water-heos-workspace-'+browser,['scripts/check-water-heos-workspace-browser.cjs'],{...env,BROWSER_NAME:browser,HEOS_WORKSPACE_EVIDENCE:path.join(dir,'heos-workspace',browser)});
+   await check('browser-water-heos-fault-'+browser,['scripts/check-water-heos-fault-browser.cjs'],{...env,BROWSER_NAME:browser,HEOS_FAULT_EVIDENCE:path.join(dir,'heos-fault',browser)});
+   await check('browser-steam-process-worker-'+browser,['scripts/check-steam-process-worker-browser.cjs'],{...env,BROWSER_NAME:browser,STEAM_PROCESS_OFFLINE:'1',STEAM_PROCESS_EVIDENCE:path.join(dir,'steam-process',browser)});
+   await check('browser-auxiliary-worker-'+browser,['scripts/check-auxiliary-worker-browser.cjs'],{...env,BROWSER_NAME:browser,AUXILIARY_OFFLINE:'1',AUXILIARY_EVIDENCE:path.join(dir,'auxiliary',browser)});
+  }
   for(const name of ['steam97-p04','steam97-p03','steam97-p09-units','steam97-p08','steam97-p07','steam97-p06','steam97-p05','steam97-p02','input-sensitivity','inverse-boundaries','rankine-sweep','rankine-regeneration','rankine-efficiency','rankine-library','cycle-library','custom-cycle','processes-extended','water-process','calculator-async','calculator-workspace','smart-input','state-comparison','study-workflow','pwa','pwa-package','lazy-assets','python-libraries','fluids-pipe'])await check('browser-'+name+'-firefox',[`scripts/check-${name}-browser.cjs`],{...env,BROWSER_NAME:'firefox'});
  }
  if(await check('rebuild',['scripts/build.mjs'])){

@@ -8,6 +8,9 @@ export async function staticCoolProp(source){
  for(const output of ['W','H','V','C','D','B','Y','R'])cp.HAPropsSI(output,'P',101325,'T',303.15,'R',.5);
  cp.get_global_param_string('version');
  cp.PropsSI('Dmass','P',101325,'T',300,'HEOS::Nitrogen');
+ const state=cp.factory('HEOS','Water');state.update(cp.input_pairs.PT_INPUTS,101325,300);
+ for(const method of ['T','p','Q','rhomass','hmass','smass','umass','cpmass','cvmass','speed_sound','isobaric_expansion_coefficient','isothermal_compressibility','viscosity','conductivity'])state[method]();
+ state.keyed_output(cp.parameters.iPhase);state.update(cp.input_pairs.PQ_INPUTS,101325,0);state.surface_tension();state.delete();
  }finally{globalThis.Function=OriginalFunction;}
  const factories=[...compiled].map(([key,fn])=>`case ${JSON.stringify(key)}: return (${fn});`).join('\n');
  return `function coolpropStaticFunction(...args){switch(JSON.stringify(args)){${factories}\ndefault:throw Error('Unsupported CoolProp binding factory');}}\n`+source.replace(/new Function\(/g,'coolpropStaticFunction(');

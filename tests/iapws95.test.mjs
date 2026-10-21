@@ -1,4 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {raw95,derivatives95,saturationT95,saturationP95,solvePT95,calculate95,meltingLimit95} from '../src/iapws95.js';
 const close=(a,b,tol=5e-9)=>assert.ok(Math.abs(a-b)<=tol*Math.max(Math.abs(b),1e-8),`${a} != ${b}`);
 // Official R6-95(2018), Tables 6-8 (9 significant digits). Source: IAPWS.
@@ -27,3 +28,16 @@ const table8=[
 for(const [T,p,rl,rv,hl,hv,sl,sv] of table8)test(`IAPWS-95 Table 8 and Maxwell equilibrium T=${T}`,()=>{const sat=saturationT95(T);close(sat.p,p,T===275?1.5e-8:1e-8);for(const [key,a,b] of [['rho',rl,rv],['h',hl,hv],['s',sl,sv]]){close(sat.liquid[key],a);close(sat.vapor[key],b);}close(sat.liquid.G,sat.vapor.G,1e-8);close(saturationP95(sat.p).T,T,1e-8);});
 test('IAPWS-95 PH/PS single-phase inversion and two-phase mass balance',()=>{for(const [p,T] of [[3,300],[.1,500],[25,700],[700,500]]){const q=solvePT95(p,T).state;for(const [mode,key] of [['ph','h'],['ps','s']])close(calculate95(mode,p,q[key]).state.T,T,1e-8);}const sat=saturationT95(450);const q=calculate95('tx',450,.4).state;close(q.v,.6*sat.liquid.v+.4*sat.vapor.v);close(q.rho,1/q.v);assert.equal(q.cp,null);close(calculate95('ph',sat.p,q.h).state.x,.4,1e-8);});
 test('IAPWS-95 rejects solid phases, critical endpoint, nonfinite and extrapolation',()=>{assert.ok(meltingLimit95(300)>900);assert.throws(()=>solvePT95(1000,300),/тверд/);for(const [p,T] of [[NaN,300],[1,270],[1001,800],[1,1274]])assert.throws(()=>solvePT95(p,T));assert.throws(()=>saturationT95(647.096));assert.throws(()=>calculate95('tx',400,1.1));});
+
+const coldLiquidControls=JSON.parse(readFileSync(new URL('fixtures/iapws95-density-boundary.json',import.meta.url)));
+test('Cold stable liquid resolves density without relaxing the pressure residual',()=>{
+ for(const {p,T,expected} of coldLiquidControls.records){
+  const q=solvePT95(p,T).state;
+  assert.ok(q.drhodp>0&&q.cp>0&&q.cv>0&&q.rho>990);
+  const residual=raw95(T,q.rho).p-p;
+  assert.ok(Math.abs(residual)<Math.max(2e-11,p*3e-14),`P=${p}, T=${T}: pressure residual ${residual}`);
+  for(const [key,tolerance] of Object.entries({rho:2e-8,h:2e-7,s:1e-9,cp:2e-8,cv:2e-8,w:1e-5})){
+   assert.ok(Math.abs(q[key]-expected[key])<=tolerance,`P=${p}, T=${T}: ${key} ${q[key]} != ${expected[key]}`);
+  }
+ }
+});

@@ -1,0 +1,843 @@
+{
+  "cases": [
+    {
+      "id": "pure-Ar",
+      "T_K": 1000,
+      "p_MPa": 0.101325,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 100,
+        "CO": 0,
+        "CO2": 0,
+        "H2O": 0,
+        "N2": 0,
+        "Ne": 0,
+        "O2": 0,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "pure-CO",
+      "T_K": 1000,
+      "p_MPa": 0.101325,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 100,
+        "CO2": 0,
+        "H2O": 0,
+        "N2": 0,
+        "Ne": 0,
+        "O2": 0,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "pure-CO2",
+      "T_K": 1000,
+      "p_MPa": 0.101325,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 100,
+        "H2O": 0,
+        "N2": 0,
+        "Ne": 0,
+        "O2": 0,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "pure-H2O",
+      "T_K": 1000,
+      "p_MPa": 0.101325,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 0,
+        "H2O": 100,
+        "N2": 0,
+        "Ne": 0,
+        "O2": 0,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "pure-N2",
+      "T_K": 1000,
+      "p_MPa": 0.101325,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 0,
+        "H2O": 0,
+        "N2": 100,
+        "Ne": 0,
+        "O2": 0,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "pure-Ne",
+      "T_K": 1000,
+      "p_MPa": 0.101325,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 0,
+        "H2O": 0,
+        "N2": 0,
+        "Ne": 100,
+        "O2": 0,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "pure-O2",
+      "T_K": 1000,
+      "p_MPa": 0.101325,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 0,
+        "H2O": 0,
+        "N2": 0,
+        "Ne": 0,
+        "O2": 100,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "pure-SO2",
+      "T_K": 1000,
+      "p_MPa": 0.101325,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 0,
+        "H2O": 0,
+        "N2": 0,
+        "Ne": 0,
+        "O2": 0,
+        "SO2": 100
+      }
+    },
+    {
+      "id": "mix-1200K-1MPa-off",
+      "T_K": 1200,
+      "p_MPa": 1,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "mix-1200K-1MPa-on",
+      "T_K": 1200,
+      "p_MPa": 1,
+      "dissociation": true,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "mix-1600K-1MPa-off",
+      "T_K": 1600,
+      "p_MPa": 1,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "mix-1600K-1MPa-on",
+      "T_K": 1600,
+      "p_MPa": 1,
+      "dissociation": true,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "mix-2000K-1MPa-off",
+      "T_K": 2000,
+      "p_MPa": 1,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "mix-2000K-1MPa-on",
+      "T_K": 2000,
+      "p_MPa": 1,
+      "dissociation": true,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "mix-1600K-0.01MPa-off",
+      "T_K": 1600,
+      "p_MPa": 0.01,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "mix-1600K-0.01MPa-on",
+      "T_K": 1600,
+      "p_MPa": 0.01,
+      "dissociation": true,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "mix-1600K-5MPa-off",
+      "T_K": 1600,
+      "p_MPa": 5,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "mix-1600K-5MPa-on",
+      "T_K": 1600,
+      "p_MPa": 5,
+      "dissociation": true,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "mix-2000.001K-1MPa-off",
+      "T_K": 2000.001,
+      "p_MPa": 1,
+      "dissociation": false,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      }
+    },
+    {
+      "id": "mix-2000.001K-1MPa-on",
+      "T_K": 2000.001,
+      "p_MPa": 1,
+      "dissociation": true,
+      "composition_percent": {
+        "Ar": 0,
+        "CO": 0,
+        "CO2": 8.048938,
+        "H2O": 16.097875,
+        "N2": 72.633612,
+        "Ne": 0,
+        "O2": 3.219575,
+        "SO2": 0
+      }
+    }
+  ],
+  "originalResults": [
+    {
+      "id": "pure-Ar",
+      "status": "registration_required"
+    },
+    {
+      "id": "pure-CO",
+      "status": "registration_required"
+    },
+    {
+      "id": "pure-CO2",
+      "status": "registration_required"
+    },
+    {
+      "id": "pure-H2O",
+      "status": "registration_required"
+    },
+    {
+      "id": "pure-N2",
+      "status": "registration_required"
+    },
+    {
+      "id": "pure-Ne",
+      "status": "registration_required"
+    },
+    {
+      "id": "pure-O2",
+      "status": "registration_required"
+    },
+    {
+      "id": "pure-SO2",
+      "status": "registration_required"
+    },
+    {
+      "id": "mix-1200K-1MPa-off",
+      "status": "registration_required"
+    },
+    {
+      "id": "mix-1200K-1MPa-on",
+      "status": "registration_required"
+    },
+    {
+      "id": "mix-1600K-1MPa-off",
+      "status": "registration_required"
+    },
+    {
+      "id": "mix-1600K-1MPa-on",
+      "status": "registration_required"
+    },
+    {
+      "id": "mix-2000K-1MPa-off",
+      "status": "registration_required"
+    },
+    {
+      "id": "mix-2000K-1MPa-on",
+      "status": "registration_required"
+    },
+    {
+      "id": "mix-1600K-0.01MPa-off",
+      "status": "registration_required"
+    },
+    {
+      "id": "mix-1600K-0.01MPa-on",
+      "status": "registration_required"
+    },
+    {
+      "id": "mix-1600K-5MPa-off",
+      "status": "registration_required"
+    },
+    {
+      "id": "mix-1600K-5MPa-on",
+      "status": "registration_required"
+    },
+    {
+      "id": "mix-2000.001K-1MPa-off",
+      "status": "registration_required"
+    },
+    {
+      "id": "mix-2000.001K-1MPa-on",
+      "status": "registration_required"
+    }
+  ],
+  "ourResults": [
+    {
+      "id": "pure-Ar",
+      "tables": [
+        "ПоказникРезультатОдиницяP 0,101325MPaT 726,85°CM 39,95kg/kmolR0,20812195kJ/(kg K)h 378,1836kJ/kgs 0,67521743kJ/(kg K)u 170,06165kJ/kgρ 0,48685398kg/m³v 2,054004m³/kgCp 0,52030488kJ/(kg K)Cv 0,31218293kJ/(kg K)w 588,95664m/sκ1,6666667–Z 1–Ентропія змішування0kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %N200O200Ar100100Ne00H2O00CO200CO00SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-pure-Ar.txt"
+    },
+    {
+      "id": "pure-CO",
+      "tables": [
+        "ПоказникРезультатОдиницяP 0,101325MPaT 726,85°CM 28,01kg/kmolR0,29683941kJ/(kg K)h 800,24314kJ/kgs 1,4076099kJ/(kg K)u 503,40373kJ/kgρ 0,34134618kg/m³v 2,9295772m³/kgCp 1,1847975kJ/(kg K)Cv 0,88795804kJ/(kg K)w 629,34186m/sκ1,3342944–Z 1–Ентропія змішування0kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %N200O200Ar00Ne00H2O00CO200CO100100SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-pure-CO.txt"
+    },
+    {
+      "id": "pure-CO2",
+      "tables": [
+        "ПоказникРезультатОдиницяP 0,101325MPaT 726,85°CM 44,009kg/kmolR0,18892663kJ/(kg K)h 779,82515kJ/kgs 1,334272kJ/(kg K)u 590,89852kJ/kgρ 0,53631931kg/m³v 1,8645609m³/kgCp 1,234207kJ/(kg K)Cv 1,0452804kJ/(kg K)w 472,30679m/sκ1,1807425–Z 1–Ентропія змішування0kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %N200O200Ar00Ne00H2O00CO2100100CO00SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-pure-CO2.txt"
+    },
+    {
+      "id": "pure-H2O",
+      "tables": [
+        "ПоказникРезультатОдиницяP 0,101325MPaT 726,85°CM 18,015kg/kmolR0,4615305kJ/(kg K)h 1 489,9459kJ/kgs 2,6002321kJ/(kg K)u 1 028,4154kJ/kgρ 0,21954129kg/m³v 4,5549519m³/kgCp 2,2922684kJ/(kg K)Cv 1,8307379kJ/(kg K)w 760,18597m/sκ1,2521008–Z 1–Ентропія змішування0kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %N200O200Ar00Ne00H2O100100CO200CO00SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-pure-H2O.txt"
+    },
+    {
+      "id": "pure-N2",
+      "tables": [
+        "ПоказникРезультатОдиницяP 0,101325MPaT 726,85°CM 28,014kg/kmolR0,29679703kJ/(kg K)h 792,11899kJ/kgs 1,3961368kJ/(kg K)u 495,32196kJ/kgρ 0,34139493kg/m³v 2,9291589m³/kgCp 1,167215kJ/(kg K)Cv 0,87041799kJ/(kg K)w 630,87204m/sκ1,3409822–Z 1–Ентропія змішування0kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %N2100100O200Ar00Ne00H2O00CO200CO00SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-pure-N2.txt"
+    },
+    {
+      "id": "pure-Ne",
+      "tables": [
+        "ПоказникРезультатОдиницяP 0,101325MPaT 726,85°CM 20,18kg/kmolR0,41201546kJ/(kg K)h 748,68359kJ/kgs 1,3367164kJ/(kg K)u 336,66813kJ/kgρ 0,24592524kg/m³v 4,0662764m³/kgCp 1,0300387kJ/(kg K)Cv 0,61802319kJ/(kg K)w 828,66907m/sκ1,6666667–Z 1–Ентропія змішування0kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %N200O200Ar00Ne100100H2O00CO200CO00SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-pure-Ne.txt"
+    },
+    {
+      "id": "pure-O2",
+      "tables": [
+        "ПоказникРезультатОдиницяP 0,101325MPaT 726,85°CM 31,998kg/kmolR0,25984349kJ/(kg K)h 732,51651kJ/kgs 1,2814284kJ/(kg K)u 472,67302kJ/kgρ 0,38994627kg/m³v 2,5644559m³/kgCp 1,0900672kJ/(kg K)Cv 0,83022371kJ/(kg K)w 584,09702m/sκ1,3129801–Z 1–Ентропія змішування0kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %N200O2100100Ar00Ne00H2O00CO200CO00SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-pure-O2.txt"
+    },
+    {
+      "id": "pure-SO2",
+      "tables": [
+        "ПоказникРезультатОдиницяP 0,101325MPaT 726,85°CM 64,058kg/kmolR0,129796kJ/(kg K)h 551,5189kJ/kgs 0,950316kJ/(kg K)u 421,7229kJ/kgρ 0,78064811kg/m³v 1,2809869m³/kgCp 0,84748733kJ/(kg K)Cv 0,71769133kJ/(kg K)w 391,49697m/sκ1,1808521–Z 1–Ентропія змішування0kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %N200O200Ar00Ne00H2O00CO200CO00SO2100100"
+      ],
+      "snapshot": "steam97-evidence/ours-pure-SO2.txt"
+    },
+    {
+      "id": "mix-1200K-1MPa-off",
+      "rows": [
+        "ПоказникРезультатОдиниця",
+        "P 1MPa",
+        "T 926,85°C",
+        "M 27,820069kg/kmol",
+        "R0,29886597kJ/(kg K)",
+        "h 1 124,125kJ/kg",
+        "s 1,3159053kJ/(kg K)",
+        "u 765,48584kJ/kg",
+        "ρ 2,7883179kg/m³",
+        "v 0,35863917m³/kg",
+        "Cp 1,3386061kJ/(kg K)",
+        "Cv 1,0397401kJ/(kg K)",
+        "w 679,50531m/s",
+        "κ1,287443–",
+        "Z 1–",
+        "Ентропія змішування0,25095504kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %",
+        "N272,63361273,139934",
+        "O23,2195753,7030807",
+        "Ar00",
+        "Ne00",
+        "H2O16,09787510,424245",
+        "CO28,04893812,73274",
+        "CO00",
+        "SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-mix-1200K-1MPa-off.txt"
+    },
+    {
+      "id": "mix-1200K-1MPa-on",
+      "rows": [
+        "ПоказникРезультатОдиниця",
+        "P 1MPa",
+        "T 926,85°C",
+        "M 27,820069kg/kmol",
+        "R0,29886597kJ/(kg K)",
+        "h 1 124,378kJ/kg",
+        "s 1,316116kJ/(kg K)",
+        "u 765,73879kJ/kg",
+        "ρ 2,7883179kg/m³",
+        "v 0,35863917m³/kg",
+        "Cp 1,3405821kJ/(kg K)",
+        "Cv 1,0417162kJ/(kg K)",
+        "w —m/s",
+        "κ—–",
+        "Z 1–",
+        "Ентропія змішування0,25095504kJ/(kg K)",
+        "cp/cv1,2868977–",
+        "λ1,2–",
+        "Δh (dissociation)0,25295138kJ/kg",
+        "Δs (dissociation)0,00021079281kJ/(kg K)",
+        "Δcp (dissociation)0,0019760618kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %",
+        "N272,63361273,139934",
+        "O23,2195753,7030807",
+        "Ar00",
+        "Ne00",
+        "H2O16,09787510,424245",
+        "CO28,04893812,73274",
+        "CO00",
+        "SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-mix-1200K-1MPa-on.txt"
+    },
+    {
+      "id": "mix-1600K-1MPa-off",
+      "rows": [
+        "ПоказникРезультатОдиниця",
+        "P 1MPa",
+        "T 1 326,85°C",
+        "M 27,820069kg/kmol",
+        "R0,29886597kJ/(kg K)",
+        "h 1 674,8344kJ/kg",
+        "s 1,7114868kJ/(kg K)",
+        "u 1 196,6488kJ/kg",
+        "ρ 2,0912384kg/m³",
+        "v 0,47818556m³/kg",
+        "Cp 1,4098901kJ/(kg K)",
+        "Cv 1,1110241kJ/(kg K)",
+        "w 778,98503m/s",
+        "κ1,2690004–",
+        "Z 1–",
+        "Ентропія змішування0,25095504kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %",
+        "N272,63361273,139934",
+        "O23,2195753,7030807",
+        "Ar00",
+        "Ne00",
+        "H2O16,09787510,424245",
+        "CO28,04893812,73274",
+        "CO00",
+        "SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-mix-1600K-1MPa-off.txt"
+    },
+    {
+      "id": "mix-1600K-1MPa-on",
+      "rows": [
+        "ПоказникРезультатОдиниця",
+        "P 1MPa",
+        "T 1 326,85°C",
+        "M 27,820069kg/kmol",
+        "R0,29886597kJ/(kg K)",
+        "h 1 677,7631kJ/kg",
+        "s 1,7133173kJ/(kg K)",
+        "u 1 199,5776kJ/kg",
+        "ρ 2,0912384kg/m³",
+        "v 0,47818556m³/kg",
+        "Cp 1,42445kJ/(kg K)",
+        "Cv 1,1255841kJ/(kg K)",
+        "w —m/s",
+        "κ—–",
+        "Z 1–",
+        "Ентропія змішування0,25095504kJ/(kg K)",
+        "cp/cv1,2655208–",
+        "λ1,2–",
+        "Δh (dissociation)2,9287889kJ/kg",
+        "Δs (dissociation)0,0018304931kJ/(kg K)",
+        "Δcp (dissociation)0,014559959kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %",
+        "N272,63361273,139934",
+        "O23,2195753,7030807",
+        "Ar00",
+        "Ne00",
+        "H2O16,09787510,424245",
+        "CO28,04893812,73274",
+        "CO00",
+        "SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-mix-1600K-1MPa-on.txt"
+    },
+    {
+      "id": "mix-2000K-1MPa-off",
+      "rows": [
+        "ПоказникРезультатОдиниця",
+        "P 1MPa",
+        "T 1 726,85°C",
+        "M 27,820069kg/kmol",
+        "R0,29886597kJ/(kg K)",
+        "h 2 248,8212kJ/kg",
+        "s 2,0314955kJ/(kg K)",
+        "u 1 651,0892kJ/kg",
+        "ρ 1,6729907kg/m³",
+        "v 0,59773195m³/kg",
+        "Cp 1,4569342kJ/(kg K)",
+        "Cv 1,1580682kJ/(kg K)",
+        "w 867,17376m/s",
+        "κ1,2580729–",
+        "Z 1–",
+        "Ентропія змішування0,25095504kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %",
+        "N272,63361273,139934",
+        "O23,2195753,7030807",
+        "Ar00",
+        "Ne00",
+        "H2O16,09787510,424245",
+        "CO28,04893812,73274",
+        "CO00",
+        "SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-mix-2000K-1MPa-off.txt"
+    },
+    {
+      "id": "mix-2000K-1MPa-on",
+      "rows": [
+        "ПоказникРезультатОдиниця",
+        "P 1MPa",
+        "T 1 726,85°C",
+        "M 27,820069kg/kmol",
+        "R0,29886597kJ/(kg K)",
+        "h 2 266,6064kJ/kg",
+        "s 2,0403881kJ/(kg K)",
+        "u 1 668,8744kJ/kg",
+        "ρ 1,6729907kg/m³",
+        "v 0,59773195m³/kg",
+        "Cp 1,5329982kJ/(kg K)",
+        "Cv 1,2341322kJ/(kg K)",
+        "w —m/s",
+        "κ—–",
+        "Z 1–",
+        "Ентропія змішування0,25095504kJ/(kg K)",
+        "cp/cv1,2421669–",
+        "λ1,2–",
+        "Δh (dissociation)17,785186kJ/kg",
+        "Δs (dissociation)0,008892593kJ/(kg K)",
+        "Δcp (dissociation)0,076064006kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %",
+        "N272,63361273,139934",
+        "O23,2195753,7030807",
+        "Ar00",
+        "Ne00",
+        "H2O16,09787510,424245",
+        "CO28,04893812,73274",
+        "CO00",
+        "SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-mix-2000K-1MPa-on.txt"
+    },
+    {
+      "id": "mix-1600K-0.01MPa-off",
+      "rows": [
+        "ПоказникРезультатОдиниця",
+        "P 0,01MPa",
+        "T 1 326,85°C",
+        "M 27,820069kg/kmol",
+        "R0,29886597kJ/(kg K)",
+        "h 1 674,8344kJ/kg",
+        "s 3,0878155kJ/(kg K)",
+        "u 1 196,6488kJ/kg",
+        "ρ 0,020912384kg/m³",
+        "v 47,818556m³/kg",
+        "Cp 1,4098901kJ/(kg K)",
+        "Cv 1,1110241kJ/(kg K)",
+        "w 778,98503m/s",
+        "κ1,2690004–",
+        "Z 1–",
+        "Ентропія змішування0,25095504kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %",
+        "N272,63361273,139934",
+        "O23,2195753,7030807",
+        "Ar00",
+        "Ne00",
+        "H2O16,09787510,424245",
+        "CO28,04893812,73274",
+        "CO00",
+        "SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-mix-1600K-0.01MPa-off.txt"
+    },
+    {
+      "id": "mix-1600K-0.01MPa-on",
+      "rows": [
+        "ПоказникРезультатОдиниця",
+        "P 0,01MPa",
+        "T 1 326,85°C",
+        "M 27,820069kg/kmol",
+        "R0,29886597kJ/(kg K)",
+        "h 1 679,2673kJ/kg",
+        "s 3,090586kJ/(kg K)",
+        "u 1 201,0817kJ/kg",
+        "ρ 0,020912384kg/m³",
+        "v 47,818556m³/kg",
+        "Cp 1,4383217kJ/(kg K)",
+        "Cv 1,1394557kJ/(kg K)",
+        "w —m/s",
+        "κ—–",
+        "Z 1–",
+        "Ентропія змішування0,25095504kJ/(kg K)",
+        "cp/cv1,2622884–",
+        "λ1,2–",
+        "Δh (dissociation)4,4329067kJ/kg",
+        "Δs (dissociation)0,0027705667kJ/(kg K)",
+        "Δcp (dissociation)0,028431594kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %",
+        "N272,63361273,139934",
+        "O23,2195753,7030807",
+        "Ar00",
+        "Ne00",
+        "H2O16,09787510,424245",
+        "CO28,04893812,73274",
+        "CO00",
+        "SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-mix-1600K-0.01MPa-on.txt"
+    },
+    {
+      "id": "mix-1600K-5MPa-off",
+      "rows": [
+        "ПоказникРезультатОдиниця",
+        "P 5MPa",
+        "T 1 326,85°C",
+        "M 27,820069kg/kmol",
+        "R0,29886597kJ/(kg K)",
+        "h 1 674,8344kJ/kg",
+        "s 1,2304806kJ/(kg K)",
+        "u 1 196,6488kJ/kg",
+        "ρ 10,456192kg/m³",
+        "v 0,095637112m³/kg",
+        "Cp 1,4098901kJ/(kg K)",
+        "Cv 1,1110241kJ/(kg K)",
+        "w 778,98503m/s",
+        "κ1,2690004–",
+        "Z 1–",
+        "Ентропія змішування0,25095504kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %",
+        "N272,63361273,139934",
+        "O23,2195753,7030807",
+        "Ar00",
+        "Ne00",
+        "H2O16,09787510,424245",
+        "CO28,04893812,73274",
+        "CO00",
+        "SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-mix-1600K-5MPa-off.txt"
+    },
+    {
+      "id": "mix-1600K-5MPa-on",
+      "rows": [
+        "ПоказникРезультатОдиниця",
+        "P 5MPa",
+        "T 1 326,85°C",
+        "M 27,820069kg/kmol",
+        "R0,29886597kJ/(kg K)",
+        "h 1 677,5785kJ/kg",
+        "s 1,2321957kJ/(kg K)",
+        "u 1 199,3929kJ/kg",
+        "ρ 10,456192kg/m³",
+        "v 0,095637112m³/kg",
+        "Cp 1,4228948kJ/(kg K)",
+        "Cv 1,1240288kJ/(kg K)",
+        "w —m/s",
+        "κ—–",
+        "Z 1–",
+        "Ентропія змішування0,25095504kJ/(kg K)",
+        "cp/cv1,2658882–",
+        "λ1,2–",
+        "Δh (dissociation)2,7441366kJ/kg",
+        "Δs (dissociation)0,0017150854kJ/(kg K)",
+        "Δcp (dissociation)0,013004693kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %",
+        "N272,63361273,139934",
+        "O23,2195753,7030807",
+        "Ar00",
+        "Ne00",
+        "H2O16,09787510,424245",
+        "CO28,04893812,73274",
+        "CO00",
+        "SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-mix-1600K-5MPa-on.txt"
+    },
+    {
+      "id": "mix-2000.001K-1MPa-off",
+      "rows": [
+        "ПоказникРезультатОдиниця",
+        "P 1MPa",
+        "T 1 726,851°C",
+        "M 27,820069kg/kmol",
+        "R0,29886597kJ/(kg K)",
+        "h 2 248,8226kJ/kg",
+        "s 2,0314962kJ/(kg K)",
+        "u 1 651,0904kJ/kg",
+        "ρ 1,6729899kg/m³",
+        "v 0,59773225m³/kg",
+        "Cp 1,4569343kJ/(kg K)",
+        "Cv 1,1580683kJ/(kg K)",
+        "w 867,17397m/s",
+        "κ1,2580728–",
+        "Z 1–",
+        "Ентропія змішування0,25095504kJ/(kg K)",
+        "КомпонентМолярні частки, %Масові частки, %",
+        "N272,63361273,139934",
+        "O23,2195753,7030807",
+        "Ar00",
+        "Ne00",
+        "H2O16,09787510,424245",
+        "CO28,04893812,73274",
+        "CO00",
+        "SO200"
+      ],
+      "snapshot": "steam97-evidence/ours-mix-2000.001K-1MPa-off.txt"
+    },
+    {
+      "id": "mix-2000.001K-1MPa-on",
+      "rows": [],
+      "snapshot": "steam97-evidence/ours-mix-2000.001K-1MPa-on.txt"
+    }
+  ]
+}

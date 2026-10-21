@@ -1,0 +1,11 @@
+chromium: Cold runtime cancellation terminates Worker and permits retry
+chromium: Optional package is separate; all resources prepared with complete marker
+chromium: Catalog discovery with responsive UI and explicit unavailable extras
+chromium: Pinned ht / fluids calls and JSON export
+chromium: Class construction and public property handles
+chromium: NumPy array arguments and JSON array results
+chromium: Server disconnected, profile restarted: Python and both libraries initialize from cache and calculate
+chromium: Evicted optional cache is detected without deleting project data
+chromium: Missing package can be downloaded again
+chromium: Corrupt optional resource rejects installation, deletes partial cache and permits retry
+chromium: Python integration 10 groups PASS

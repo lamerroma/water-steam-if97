@@ -1,0 +1,498 @@
+{
+  "date": "2026-10-21T05:12:00.845Z",
+  "status": "completed",
+  "browser": "firefox",
+  "machine": {
+    "node": "v24.18.1",
+    "platform": "win32",
+    "cpu": "AMD Ryzen 7 5700G with Radeon Graphics         "
+  },
+  "cycles": 30,
+  "observationMethod": "Direct named memory export; no enumeration of WASM functions. Earlier export-enumerating runs are invalid performance evidence.",
+  "measurements": {
+    "freshAppReadyMs": 966,
+    "mainHeosInitialization": {
+      "ms": 13632,
+      "h": 2891.218298958905,
+      "heartbeatMaxGapMs": 13112,
+      "heartbeatTicks": 26
+    },
+    "coldWorker": {
+      "ms": 14541,
+      "h": 2891.218298958905
+    },
+    "warmWorker": [
+      6,
+      7,
+      6,
+      5,
+      5,
+      5,
+      5,
+      5,
+      4,
+      6
+    ],
+    "batch100": {
+      "ms": 396,
+      "ok": 100,
+      "rows": 100,
+      "heartbeatMaxGapMs": 21,
+      "heartbeatTicks": 19
+    },
+    "batch500": {
+      "ms": 1894,
+      "ok": 500,
+      "rows": 500,
+      "heartbeatMaxGapMs": 22,
+      "heartbeatTicks": 91
+    },
+    "cancel": [
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 14290,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 14591,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 14121,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13505,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13458,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13262,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13573,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 1,
+        "recreateMs": 13305,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13808,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13361,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 1,
+        "recreateMs": 13587,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 1,
+        "recreateMs": 13182,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13373,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13594,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 1,
+        "recreateMs": 13418,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 1,
+        "recreateMs": 13192,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 1,
+        "recreateMs": 13070,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13369,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 12995,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13399,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13212,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 1,
+        "recreateMs": 13689,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 1,
+        "recreateMs": 13457,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13638,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 1,
+        "recreateMs": 13171,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13490,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13365,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13251,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13215,
+        "h": 2891.218298958905
+      },
+      {
+        "cancelled": true,
+        "reply": {
+          "code": "cancelled"
+        },
+        "cancelMs": 0,
+        "recreateMs": 13076,
+        "h": 2891.218298958905
+      }
+    ]
+  },
+  "memory": [
+    {
+      "label": "before HEOS",
+      "mainWasmBytes": [
+        1114112
+      ],
+      "workers": []
+    },
+    {
+      "label": "main HEOS before Worker",
+      "mainWasmBytes": [
+        1114112,
+        56360960
+      ],
+      "workers": []
+    },
+    {
+      "label": "warm HEOS",
+      "mainWasmBytes": [
+        1114112,
+        56360960
+      ],
+      "workers": [
+        {
+          "url": "assets/heos-calculator-worker.js?v=2eb86a70040d597d",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ]
+    },
+    {
+      "label": "after batch 100",
+      "mainWasmBytes": [
+        1114112,
+        56360960
+      ],
+      "workers": [
+        {
+          "url": "assets/heos-calculator-worker.js?v=2eb86a70040d597d",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ]
+    },
+    {
+      "label": "after batch 500",
+      "mainWasmBytes": [
+        1114112,
+        56360960
+      ],
+      "workers": [
+        {
+          "url": "assets/heos-calculator-worker.js?v=2eb86a70040d597d",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ]
+    },
+    {
+      "label": "cancel/recreate 5",
+      "mainWasmBytes": [
+        1114112,
+        56360960
+      ],
+      "workers": [
+        {
+          "url": "assets/heos-calculator-worker.js?v=2eb86a70040d597d",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ]
+    },
+    {
+      "label": "cancel/recreate 10",
+      "mainWasmBytes": [
+        1114112,
+        56360960
+      ],
+      "workers": [
+        {
+          "url": "assets/heos-calculator-worker.js?v=2eb86a70040d597d",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ]
+    },
+    {
+      "label": "cancel/recreate 15",
+      "mainWasmBytes": [
+        1114112,
+        56360960
+      ],
+      "workers": [
+        {
+          "url": "assets/heos-calculator-worker.js?v=2eb86a70040d597d",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ]
+    },
+    {
+      "label": "cancel/recreate 20",
+      "mainWasmBytes": [
+        1114112,
+        56360960
+      ],
+      "workers": [
+        {
+          "url": "assets/heos-calculator-worker.js?v=2eb86a70040d597d",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ]
+    },
+    {
+      "label": "cancel/recreate 25",
+      "mainWasmBytes": [
+        1114112,
+        56360960
+      ],
+      "workers": [
+        {
+          "url": "assets/heos-calculator-worker.js?v=2eb86a70040d597d",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ]
+    },
+    {
+      "label": "cancel/recreate 30",
+      "mainWasmBytes": [
+        1114112,
+        56360960
+      ],
+      "workers": [
+        {
+          "url": "assets/heos-calculator-worker.js?v=2eb86a70040d597d",
+          "wasmBytes": [
+            1114112,
+            56360960
+          ]
+        }
+      ]
+    }
+  ],
+  "pageErrors": [],
+  "scope": "Single desktop, headless, loopback, no CPU/network throttling. Observed WASM memory is allocated linear-memory capacity, not live allocations. JS heap is main-frame only; Windows private bytes are process commit, not physical RAM. Sampled values are not an exhaustive peak. Test hooks only; SW blocked, no offline acceptance here.",
+  "browserVersion": "153.0",
+  "build": "9c6a119917fd",
+  "maxima": {
+    "cancelMs": 1,
+    "observedMainJsHeapUsedBytes": null,
+    "observedProcessPrivateBytesSum": null
+  },
+  "proposedBudget": {
+    "mainThreadMaxGapMs": 1000,
+    "met": false
+  },
+  "functionalChecks": "passed"
+}

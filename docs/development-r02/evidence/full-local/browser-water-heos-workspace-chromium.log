@@ -1,0 +1,9 @@
+PASS Main calculator: explicit HEOS selection, canonical model identity, typed units, exergy and input-only history
+PASS Switching HEOS/IF97/IAPWS-95 selects separate Workers and preserves mixed-model history
+PASS Mixed project imports recompute results, ignore forged properties and reject incompatible history fingerprints
+PASS Batch Worker returns success/error rows; edits terminate pending work and prevent stale history
+PASS HEOS diagram view keys and named series restore with model-separated history points
+PASS Manual inverse branch persists through the general project and a full reload
+PASS HEOS water-process and Rankine forms execute and persist their explicit model
+PASS Closed profile and disconnected server: mixed history, selected root and fresh HEOS/default Workers restore offline; English/mobile layout
+chromium: HEOS main workspace 8 groups PASS

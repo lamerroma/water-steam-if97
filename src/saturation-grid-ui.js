@@ -22,6 +22,6 @@ function renderSaturationGrid(){
  $('satgrid-csv').onclick=()=>downloadFile(saturationCSV(saturationRows,$('output-system').value,$('output-energy').value,saturationModel),'saturation-table.csv','text/csv;charset=utf-8');
  function addPhases(){if(saturationAdded)return;const states=saturationRows.filter(r=>!r.error).flatMap(r=>r.saturation.critical?[r.saturation.liquid]:[r.saturation.liquid,r.saturation.vapor]);for(const q of states)historyStates.unshift({...q,source:q.critical?{mode:'pt',a:q.p,b:q.T}:{mode:'px',a:q.p,b:q.x}});historyStates.splice(500);renderHistory();saveProject();saturationAdded=true;$('satgrid-history').disabled=true;}
  $('satgrid-history').onclick=addPhases;
- $('satgrid-ph').onclick=()=>{addPhases();showProcess('phdiagram');$('diagram-fit').click();};
+ $('satgrid-ph').onclick=()=>{addPhases();showProcess('phdiagram','all');};
  $('satgrid-results').onclick=e=>{const b=e.target.closest('[data-satgrid-open]');if(!b)return;const q=saturationRows[Number(b.dataset.satgridOpen)].saturation;selectView('saturation');$('mode').value='satt';resetMode();$('unit-a').value='K';$('unit-a').dataset.previous='K';$('input-a').value=String(q.T);run();};
 }

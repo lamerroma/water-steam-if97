@@ -23,6 +23,10 @@ export function heatExchanger(pHot,THot,pHotOut,flowHot,pCold,TCold,pColdOut,flo
  return {inlet,outlet,coldInlet,coldOutlet,flow:flowHot,coldFlow:flowCold,heat,power:heat,hotDrop:inlet.h-outlet.h,coldRise:coldOutlet.h-coldInlet.h};
 }
 export function engineeringStates(result){return [['Вхід',result.inlet],...(result.ideal?[['Ізоентропний вихід',result.ideal]]:[]),['Вихід',result.outlet],...(result.coldInlet?[['Холодний вхід',result.coldInlet],['Холодний вихід',result.coldOutlet]]:[])];}
+export function engineeringProcess(kind,args,model='IF97'){
+ if(!['pump','compressor','heat-exchanger'].includes(kind)||!Array.isArray(args)||args.length!==(kind==='heat-exchanger'?9:5))throw Error('Невірний тип або входи інженерного процесу.');
+ return kind==='heat-exchanger'?heatExchanger(...args,model):compression(kind,...args,model);
+}
 export function engineeringCSV(kind,result,system='si'){
  const convert=(k,v,u)=>system==='english'?englishProperty(k,v,u):[v,u];
  const head=['state',...['p','T','h','s','x'].map(k=>`${k} [${convert(k,null,{p:'MPa',T:'K',h:'kJ/kg',s:'kJ/(kg K)',x:'-'}[k])[1]}]`)];

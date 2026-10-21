@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-21T10:37:32.954Z",
+  "url": "http://127.0.0.1:8080/",
+  "expectedBuild": "20fd3cb17a71",
+  "browser": "chromium",
+  "status": "failed",
+  "checks": [],
+  "states": [],
+  "errors": [],
+  "scope": "Published/static-origin UI smoke and persistent-profile offline restart. Independent stored IAPWS-95 control; not full Steam97 parity or all-device acceptance.",
+  "browserVersion": "151.0.7922.34",
+  "phase": "online navigation",
+  "error": "page.waitForFunction: Timeout 180000ms exceeded.\n    at ready (C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\scripts\\check-published-heos-browser.cjs:16:25)\n    at C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\scripts\\check-published-heos-browser.cjs:27:294",
+  "pages": [
+    {
+      "url": "http://127.0.0.1:8080/",
+      "status": "Не вдалося завантажити повний набір. Підключіться до мережі й повторіть.",
+      "controller": false,
+      "build": "20fd3cb17a71",
+      "error": ""
+    }
+  ]
+}

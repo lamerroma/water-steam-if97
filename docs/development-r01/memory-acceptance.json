@@ -1,0 +1,218 @@
+{
+  "date": "2026-10-21",
+  "task": "R01",
+  "status": "desktop_scope_completed",
+  "build": {
+    "version": "1.40.0",
+    "id": "0e0860132fb6",
+    "published": false
+  },
+  "baseCommit": "65e9199068659ec5c183081d5e5908244bb2beea",
+  "uncommitted": true,
+  "previousSnapshot": "auxiliary-acceptance.json",
+  "runtimeSupport": {
+    "CI": "Node 22",
+    "additionalUnitCoverage": "Node 24",
+    "desktopBrowsers": {
+      "chromium": "151.0.7922.34",
+      "firefox": "153.0"
+    },
+    "notMeasured": [
+      "Physical mobile devices",
+      "Safari",
+      "Firefox JS heap and process-private memory"
+    ]
+  },
+  "workload": {
+    "viewTransitions": 15,
+    "cancelRestoreCycles": 10,
+    "settledSamplesPerBrowser": 11,
+    "models": [
+      "IF97",
+      "HEOS::Water"
+    ],
+    "productionNumericsModifiedDuringMemoryWork": false
+  },
+  "browsers": {
+    "chromium": {
+      "maxima": {
+        "wasmCapacity": 138608640,
+        "mainJsHeapAfterGC": 11244764,
+        "privateCommit": 460357632,
+        "settledWorkers": 2,
+        "cancelMs": 1.800000011920929,
+        "heartbeatMaxGapMs": 237.5999999642372
+      },
+      "postGcGrowthBytes": 697196,
+      "measurements": [
+        {
+          "label": "select HEOS",
+          "elapsedMs": 366.2000000476837,
+          "heartbeatMaxGapMs": 75.80000001192093,
+          "ticks": 14
+        },
+        {
+          "label": "first general result",
+          "elapsedMs": 2590.900000035763,
+          "heartbeatMaxGapMs": 54.09999996423721,
+          "ticks": 128
+        },
+        {
+          "label": "first auxiliary result",
+          "elapsedMs": 2981.699999988079,
+          "heartbeatMaxGapMs": 30.19999998807907,
+          "ticks": 148
+        },
+        {
+          "label": "first diagram",
+          "elapsedMs": 2324.300000011921,
+          "heartbeatMaxGapMs": 237.5999999642372,
+          "ticks": 105
+        }
+      ],
+      "acceptance": {
+        "limits": {
+          "heartbeatMaxGapMs": 1000,
+          "coldGeneralMs": 30000,
+          "coldAuxiliaryMs": 30000,
+          "wasmCapacityBytes": 268435456,
+          "mainJsAfterGcBytes": 67108864,
+          "mainJsGrowthBytes": 16777216,
+          "privateCommitBytes": 1073741824,
+          "settledWorkers": 2,
+          "cancelMs": 250
+        },
+        "findings": {
+          "responsive": true,
+          "coldGeneral": true,
+          "coldAuxiliary": true,
+          "wasm": true,
+          "workers": true,
+          "cancel": true,
+          "mainJs": true,
+          "mainJsGrowth": true,
+          "privateCommit": true
+        },
+        "availableCriteriaMet": true,
+        "unavailable": [],
+        "scope": "Qualified acceptance only for this desktop/runtime/workload; null criteria remain unavailable, not passed. Cold means fresh app/runtime with loopback assets, not a cold network/disk cache."
+      }
+    },
+    "firefox": {
+      "maxima": {
+        "wasmCapacity": 138608640,
+        "mainJsHeapAfterGC": null,
+        "privateCommit": null,
+        "settledWorkers": 2,
+        "cancelMs": 1,
+        "heartbeatMaxGapMs": 220
+      },
+      "postGcGrowthBytes": null,
+      "measurements": [
+        {
+          "label": "select HEOS",
+          "elapsedMs": 572,
+          "heartbeatMaxGapMs": 54,
+          "ticks": 23
+        },
+        {
+          "label": "first general result",
+          "elapsedMs": 13779,
+          "heartbeatMaxGapMs": 49,
+          "ticks": 657
+        },
+        {
+          "label": "first auxiliary result",
+          "elapsedMs": 13854,
+          "heartbeatMaxGapMs": 39,
+          "ticks": 668
+        },
+        {
+          "label": "first diagram",
+          "elapsedMs": 8043,
+          "heartbeatMaxGapMs": 220,
+          "ticks": 378
+        }
+      ],
+      "acceptance": {
+        "limits": {
+          "heartbeatMaxGapMs": 1000,
+          "coldGeneralMs": 30000,
+          "coldAuxiliaryMs": 30000,
+          "wasmCapacityBytes": 268435456,
+          "mainJsAfterGcBytes": 67108864,
+          "mainJsGrowthBytes": 16777216,
+          "privateCommitBytes": 1073741824,
+          "settledWorkers": 2,
+          "cancelMs": 250
+        },
+        "findings": {
+          "responsive": true,
+          "coldGeneral": true,
+          "coldAuxiliary": true,
+          "wasm": true,
+          "workers": true,
+          "cancel": true,
+          "mainJs": null,
+          "mainJsGrowth": null,
+          "privateCommit": null
+        },
+        "availableCriteriaMet": true,
+        "unavailable": [
+          "mainJs",
+          "mainJsGrowth",
+          "privateCommit"
+        ],
+        "scope": "Qualified acceptance only for this desktop/runtime/workload; null criteria remain unavailable, not passed. Cold means fresh app/runtime with loopback assets, not a cold network/disk cache."
+      }
+    }
+  },
+  "limitsProvenance": "Proposed project desktop limits, not a vendor guarantee or all-device validation. Loopback assets and fresh app/runtime, not cold network/disk.",
+  "diagnostic": "Initial remote ElementHandles retained detached Canvas scenes in the test driver. Replaced waitForSelector with Locator.waitFor in browser-tools; no product memory fix inferred. Original failed/aborted diagnostic reports are retained separately.",
+  "scientificLimits": {
+    "Steam97OriginalNumericalResults": 0,
+    "reactorCell": "physical-screening-failed",
+    "fullHtFluidsAcceptance": false
+  },
+  "sourceHashes": {
+    "scripts/benchmark-heos-ui-memory.cjs": "b731a09565e35d230d6388090bfb1445631ce4b3908b46ed1d3a196595b7ff07",
+    "scripts/browser-tools.cjs": "875fe1dd4731f6fdf4bd9f57d4e8ee966e0a81a666a9ccd1b44ad3d415016bdb",
+    "assets/app.js": "7232f33091abc20f0e2e5616f10f2e9c580be031d6f11614f2c8acbdaf6610f4",
+    "assets/heos-calculator-worker.js": "d90e5f36713687fe30078124dc6468aa458199a136c338d528731f3a47d6ca55",
+    "package.json": "d33c2eee26ac6be09aa3e688d19d5f7f27bbdc73f2ea4e88bd0bc1c6c20ec9da"
+  },
+  "artifactHashes": {
+    "driver-diagnostic/ui-memory-chromium.json": "0123bb4098f949cf14bb8f102c68fe8ecac6ad14079cfc0a904da2bd4a426d39",
+    "driver-diagnostic/ui-memory-chromium.log": "ca0ba7b02e28c18a7ad7cf1be242b12fa558b02a15426191fdcfb28e484903cc",
+    "driver-diagnostic/ui-memory-firefox.json": "90e3ca2f8fcb5b548dc125a18114e3767b4e1d34e318cbbfc8efdba057f8da01",
+    "driver-diagnostic/ui-memory-firefox.log": "9311459a21559bb7e37e99b4c51c17a8d1ce472a8d63813e67ba623cd2020d16",
+    "ui-memory-chromium-first auxiliary result.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-chromium-restore-1.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-chromium-restore-10.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-chromium-restore-2.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-chromium-restore-3.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-chromium-restore-4.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-chromium-restore-5.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-chromium-restore-6.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-chromium-restore-7.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-chromium-restore-8.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-chromium-restore-9.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-chromium.json": "ed2e263afeb91341e84af2f3f2e3faf4c74e65f3e8ec8185205c05fad55df95c",
+    "ui-memory-chromium.log": "1a041fb8f6ce37e3513e9bc18555e4eb31a2a4fba992eab6ce800f6436d97f11",
+    "ui-memory-chromium.png": "a750f34cf80d3f48543f51dd07fd3743d9063217c600e8a9dcee55bce9afb345",
+    "ui-memory-firefox-first auxiliary result.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-firefox-restore-1.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-firefox-restore-10.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-firefox-restore-2.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-firefox-restore-3.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-firefox-restore-4.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-firefox-restore-5.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-firefox-restore-6.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-firefox-restore-7.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-firefox-restore-8.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-firefox-restore-9.csv": "4da1b4b01e3e463251fe62f232a1ba366fb131377f865ecec653ed838561d375",
+    "ui-memory-firefox.json": "53bb6c375c63d1f850eb44e22c62dbfe559fe72c4a96c647d7e884da8beb4575",
+    "ui-memory-firefox.log": "fc534f751aa65d5a81410f955f2445bce534bf94d0a0e94c3a6b1e8cc6939f07",
+    "ui-memory-firefox.png": "c7f910c8cf6a6382d94c935c40e2ac5f3780ae93a1614950d4e58c286cd3caa8"
+  }
+}

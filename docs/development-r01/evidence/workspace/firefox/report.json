@@ -1,0 +1,2599 @@
+{
+  "browser": "firefox",
+  "status": "passed",
+  "checks": [
+    "Main calculator: explicit HEOS selection, canonical model identity, typed units, exergy and input-only history",
+    "Switching HEOS/IF97/IAPWS-95 selects separate Workers and preserves mixed-model history",
+    "Mixed project imports recompute results, ignore forged properties and reject incompatible history fingerprints",
+    "Batch Worker returns success/error rows; edits terminate pending work and prevent stale history",
+    "HEOS diagram view keys and named series restore with model-separated history points",
+    "Manual inverse branch persists through the general project and a full reload",
+    "HEOS water-process and Rankine forms execute and persist their explicit model",
+    "Closed profile and disconnected server: mixed history, selected root and fresh HEOS/default Workers restore offline; English/mobile layout"
+  ],
+  "cases": [
+    {
+      "format": "water-steam-result",
+      "version": 1,
+      "build": {
+        "version": "1.39.0",
+        "id": "f16d46d30b5e"
+      },
+      "pressure_basis": "absolute",
+      "units": {
+        "p": "MPa",
+        "T": "K",
+        "rho": "кг/м³",
+        "v": "м³/кг",
+        "h": "кДж/кг",
+        "s": "кДж/(кг·K)",
+        "ex": "кДж/кг",
+        "u": "кДж/кг",
+        "cp": "кДж/(кг·K)",
+        "cv": "кДж/(кг·K)",
+        "w": "м/с",
+        "x": "–",
+        "region": "–",
+        "isentropic": "–",
+        "A": "кДж/кг",
+        "G": "кДж/кг",
+        "Z": "–",
+        "alpha": "1/K",
+        "kappa": "1/МПа",
+        "dvdt": "м³/(кг·K)",
+        "dvdp": "м³/(кг·МПа)",
+        "dpdt": "МПа/K",
+        "dpdv": "МПа·кг/м³",
+        "ijt": "кДж/(кг·МПа)",
+        "jt": "K/МПа",
+        "dc": "–",
+        "mu": "Па·с",
+        "nu": "м²/с",
+        "lambda": "Вт/(м·K)",
+        "diffusivity": "м²/с",
+        "Pr": "–",
+        "sigma": "Н/м",
+        "latentHeat": "кДж/кг"
+      },
+      "reference": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "result": {
+        "state": {
+          "model": "HEOS::Water",
+          "modelName": "CoolProp 8 · HEOS · IAPWS-95",
+          "p": 1,
+          "T": 500,
+          "rho": 4.532294271839076,
+          "v": 0.22063880675475833,
+          "h": 2891.218298958905,
+          "s": 6.824994379140873,
+          "u": 2670.5794922041464,
+          "cp": 2.279477926439576,
+          "cv": 1.6699235635634067,
+          "w": 535.7380639660735,
+          "x": null,
+          "phase": "Перегріта пара",
+          "mu": 0.000017053560479226623,
+          "lambda": 0.03847274119186433,
+          "alpha": 0.0024078981608952575,
+          "kappa": 1.0493387007739363,
+          "drhodp": 4.75591178273677,
+          "A": -741.9176973662898,
+          "G": -521.2788906115311,
+          "Z": 0.9561437813960183,
+          "gamma": 1.3650193195522418,
+          "isentropic": 1.3008376785736346,
+          "dvdt": 0.0005312757770069067,
+          "dvdp": -0.23152483882034972,
+          "dpdt": 0.002294681554315418,
+          "dpdv": -4.3191909995278905,
+          "jt": 19.740959641132036,
+          "ijt": -44.99908174869501,
+          "nu": 0.0000037626772350566666,
+          "diffusivity": 0.0000037239139763973477,
+          "Pr": 1.0104092787601984,
+          "dc": 1.0344298688125768,
+          "sigma": null,
+          "notes": [
+            "Пілот CoolProp 8 / HEOS::Water; система відліку h/s — стандартна IAPWS-95 у CoolProp.",
+            "μ та λ обмежено діапазонами IAPWS R12-08 / R15-11; пропуск означає недоступність."
+          ],
+          "inputSensitivity": {
+            "numericalResponse": {
+              "p": 2.842170943040401e-14,
+              "T": 1.4210854715202004e-11,
+              "h": 3.3672280465239143e-11,
+              "s": 7.988642503978789e-14,
+              "u": 2.5812997944269635e-11,
+              "v": 1.413021457562431e-14,
+              "rho": 2.9025850675553444e-13
+            },
+            "status": "local",
+            "reason": null,
+            "response": {
+              "p": 0.000005,
+              "T": 0.00005,
+              "h": 0.00033896930506545386,
+              "s": 0.0000028843266776784913,
+              "u": 0.0002579753558871518,
+              "v": 0.0000011841879829520939,
+              "rho": 0.000024325224065773722
+            },
+            "units": {
+              "p": "MPa",
+              "T": "K",
+              "h": "kJ/kg",
+              "s": "kJ/(kg K)",
+              "u": "kJ/kg",
+              "v": "m3/kg",
+              "rho": "kg/m3"
+            }
+          },
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          },
+          "ex": 860.906678302475
+        },
+        "diagnostics": {
+          "version": 1,
+          "mode": "pt",
+          "keys": [
+            "p",
+            "T"
+          ],
+          "targets": [
+            1,
+            500
+          ],
+          "candidates": 1,
+          "roots": 1,
+          "rejected": 0,
+          "merged": 0,
+          "selection": "stability-then-normalized-input-residual",
+          "assessments": [
+            {
+              "stable": true,
+              "normalizedResidual": 0,
+              "members": 1,
+              "candidatePressureRange": [
+                1,
+                1
+              ]
+            }
+          ],
+          "numericalFloor": "128 * Number.EPSILON * thermodynamic scale",
+          "roundingScenario": {
+            "assumption": "independent half of last typed decimal place; local linear response, not measurement uncertainty or an error bound",
+            "inputs": [
+              {
+                "key": "p",
+                "halfWidth": 0.000005,
+                "unit": "MPa",
+                "enteredUnit": "bar",
+                "enteredText": "10.0000"
+              },
+              {
+                "key": "T",
+                "halfWidth": 0.00005,
+                "unit": "K",
+                "enteredUnit": "C",
+                "enteredText": "226.8500"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "format": "water-steam-result",
+      "version": 1,
+      "build": {
+        "version": "1.39.0",
+        "id": "f16d46d30b5e"
+      },
+      "pressure_basis": "absolute",
+      "units": {
+        "p": "MPa",
+        "T": "K",
+        "rho": "кг/м³",
+        "v": "м³/кг",
+        "h": "кДж/кг",
+        "s": "кДж/(кг·K)",
+        "ex": "кДж/кг",
+        "u": "кДж/кг",
+        "cp": "кДж/(кг·K)",
+        "cv": "кДж/(кг·K)",
+        "w": "м/с",
+        "x": "–",
+        "region": "–",
+        "isentropic": "–",
+        "A": "кДж/кг",
+        "G": "кДж/кг",
+        "Z": "–",
+        "alpha": "1/K",
+        "kappa": "1/МПа",
+        "dvdt": "м³/(кг·K)",
+        "dvdp": "м³/(кг·МПа)",
+        "dpdt": "МПа/K",
+        "dpdv": "МПа·кг/м³",
+        "ijt": "кДж/(кг·МПа)",
+        "jt": "K/МПа",
+        "dc": "–",
+        "mu": "Па·с",
+        "nu": "м²/с",
+        "lambda": "Вт/(м·K)",
+        "diffusivity": "м²/с",
+        "Pr": "–",
+        "sigma": "Н/м",
+        "latentHeat": "кДж/кг"
+      },
+      "reference": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "result": {
+        "state": {
+          "p": 3,
+          "T": 300,
+          "v": 0.0010021516796866943,
+          "rho": 997.852940098482,
+          "h": 115.33127302143839,
+          "u": 112.32481798237832,
+          "s": 0.39229479240262427,
+          "cp": 4.173012184067784,
+          "cv": 4.121201603587438,
+          "w": 1507.7392096690314,
+          "drhodp": 0.4454237136455705,
+          "alpha": 0.00027735453342661365,
+          "region": 1,
+          "kappa": 0.00044638212280219354,
+          "dvdt": 2.7795131154220026e-7,
+          "dvdp": -4.4734259414833047e-7,
+          "dpdt": 0.6213388020234817,
+          "dpdv": -2235423.1702524144,
+          "jt": -0.2201686085968807,
+          "ijt": 0.9187662862240342,
+          "phase": "Стиснена рідина",
+          "x": null,
+          "mu": 0.000853492809569675,
+          "lambda": 0.6111168976215888,
+          "dc": 77.85478810795955,
+          "notes": [
+            "Діелектрична проникність: рівняння R8-97 з густиною IF97. Для P–T R8-97 рекомендує густину IAPWS-95; тут можливе відхилення від цього варіанта."
+          ],
+          "A": -5.363619738408957,
+          "G": -2.3571646993488855,
+          "Z": 0.021713872667773738,
+          "isentropic": 756.1322204519304,
+          "nu": 8.553292527107657e-7,
+          "diffusivity": 1.4676013354924076e-7,
+          "Pr": 5.82807627674846,
+          "sigma": null,
+          "inputSensitivity": {
+            "numericalResponse": {
+              "p": 8.526512829121202e-14,
+              "T": 8.526512829121202e-12,
+              "h": 3.565958064879758e-11,
+              "s": 1.186278392993475e-13,
+              "u": 3.558112749536201e-11,
+              "v": 2.4080981474158157e-18,
+              "rho": 2.397768586483649e-12
+            },
+            "status": "limited",
+            "reason": "large-perturbation",
+            "response": {
+              "p": 0.5,
+              "T": 0.5,
+              "h": 2.5458892351459093,
+              "s": 0.00709399596255074,
+              "u": 2.1271108479066863,
+              "v": 3.626469528452654e-7,
+              "rho": 0.3610913751374798
+            },
+            "units": {
+              "p": "MPa",
+              "T": "K",
+              "h": "kJ/kg",
+              "s": "kJ/(kg K)",
+              "u": "kJ/kg",
+              "v": "m3/kg",
+              "rho": "kg/m3"
+            }
+          },
+          "source": {
+            "mode": "pt",
+            "a": 3,
+            "b": 300
+          },
+          "ex": 2.9292134368471645
+        },
+        "diagnostics": {
+          "version": 1,
+          "mode": "pt",
+          "keys": [
+            "p",
+            "T"
+          ],
+          "targets": [
+            3,
+            300
+          ],
+          "candidates": 1,
+          "roots": 1,
+          "rejected": 0,
+          "merged": 0,
+          "selection": "stability-then-normalized-input-residual",
+          "assessments": [
+            {
+              "stable": true,
+              "normalizedResidual": 0,
+              "members": 1,
+              "candidatePressureRange": [
+                3,
+                3
+              ]
+            }
+          ],
+          "numericalFloor": "128 * Number.EPSILON * thermodynamic scale",
+          "roundingScenario": {
+            "assumption": "independent half of last typed decimal place; local linear response, not measurement uncertainty or an error bound",
+            "inputs": [
+              {
+                "key": "p",
+                "halfWidth": 0.5,
+                "unit": "MPa",
+                "enteredUnit": "MPa",
+                "enteredText": "3"
+              },
+              {
+                "key": "T",
+                "halfWidth": 0.5,
+                "unit": "K",
+                "enteredUnit": "K",
+                "enteredText": "300"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "format": "water-steam-result",
+      "version": 1,
+      "build": {
+        "version": "1.39.0",
+        "id": "f16d46d30b5e"
+      },
+      "pressure_basis": "absolute",
+      "units": {
+        "p": "MPa",
+        "T": "K",
+        "rho": "кг/м³",
+        "v": "м³/кг",
+        "h": "кДж/кг",
+        "s": "кДж/(кг·K)",
+        "ex": "кДж/кг",
+        "u": "кДж/кг",
+        "cp": "кДж/(кг·K)",
+        "cv": "кДж/(кг·K)",
+        "w": "м/с",
+        "x": "–",
+        "region": "–",
+        "isentropic": "–",
+        "A": "кДж/кг",
+        "G": "кДж/кг",
+        "Z": "–",
+        "alpha": "1/K",
+        "kappa": "1/МПа",
+        "dvdt": "м³/(кг·K)",
+        "dvdp": "м³/(кг·МПа)",
+        "dpdt": "МПа/K",
+        "dpdv": "МПа·кг/м³",
+        "ijt": "кДж/(кг·МПа)",
+        "jt": "K/МПа",
+        "dc": "–",
+        "mu": "Па·с",
+        "nu": "м²/с",
+        "lambda": "Вт/(м·K)",
+        "diffusivity": "м²/с",
+        "Pr": "–",
+        "sigma": "Н/м",
+        "latentHeat": "кДж/кг"
+      },
+      "reference": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "result": {
+        "state": {
+          "T": 500,
+          "rho": 4.532294271838847,
+          "v": 0.2206388067547695,
+          "p": 1,
+          "u": 2670.5794922042605,
+          "h": 2891.21829895903,
+          "s": 6.824994379141204,
+          "cv": 1.6699235635635807,
+          "cp": 2.279477926439778,
+          "w": 535.7380639660832,
+          "alpha": 0.0024078981608952493,
+          "drhodp": 4.755911782736524,
+          "region": null,
+          "model": "IAPWS-95",
+          "phase": "Перегріта пара",
+          "x": null,
+          "kappa": 1.0493387007739352,
+          "dvdt": 0.0005312757770069318,
+          "dvdp": -0.23152483882036118,
+          "dpdt": 0.0022946815543154124,
+          "dpdv": -4.3191909995276765,
+          "jt": 19.740959641130896,
+          "ijt": -44.999081748696405,
+          "A": -741.9176973663416,
+          "G": -521.278890611572,
+          "Z": 0.9561437813960667,
+          "isentropic": 1.3008376785736167,
+          "dc": 1.0344298688125748,
+          "mu": 0.000017053560479226633,
+          "nu": 0.0000037626772350568593,
+          "lambda": 0.03847274119186577,
+          "diffusivity": 0.000003723913976397346,
+          "Pr": 1.0104092787602506,
+          "sigma": null,
+          "notes": [
+            "IAPWS-95 R6-95(2018). Насичення — рівновага основного рівняння. μ та λ: наукові IAPWS 2008/2011 з критичними доданками та опорною похідною IAPWS-95; межі μ та λ перевіряються окремо за тиском і температурою (R12-08/R15-11). Області 1–5 IF97 до цієї моделі не застосовуються."
+          ],
+          "inputSensitivity": {
+            "numericalResponse": {
+              "p": 2.842170943040401e-14,
+              "T": 1.4210854715202004e-11,
+              "h": 3.367228046524205e-11,
+              "s": 7.988642503979434e-14,
+              "u": 2.5812997944272184e-11,
+              "v": 1.4130214575624991e-14,
+              "rho": 2.902585067555191e-13
+            },
+            "status": "limited",
+            "reason": "large-perturbation",
+            "response": {
+              "p": 0.5,
+              "T": 0.5,
+              "h": 23.63927983756809,
+              "s": 0.26791736642990566,
+              "u": 17.93062591626877,
+              "v": 0.11602805729868405,
+              "rho": 2.38341254288916
+            },
+            "units": {
+              "p": "MPa",
+              "T": "K",
+              "h": "kJ/kg",
+              "s": "kJ/(kg K)",
+              "u": "kJ/kg",
+              "v": "m3/kg",
+              "rho": "kg/m3"
+            }
+          },
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          },
+          "ex": 860.9066783025291
+        },
+        "diagnostics": {
+          "version": 1,
+          "mode": "pt",
+          "keys": [
+            "p",
+            "T"
+          ],
+          "targets": [
+            1,
+            500
+          ],
+          "candidates": 1,
+          "roots": 1,
+          "rejected": 0,
+          "merged": 0,
+          "selection": "stability-then-normalized-input-residual",
+          "assessments": [
+            {
+              "stable": true,
+              "normalizedResidual": 0,
+              "members": 1,
+              "candidatePressureRange": [
+                1,
+                1
+              ]
+            }
+          ],
+          "numericalFloor": "128 * Number.EPSILON * thermodynamic scale",
+          "roundingScenario": {
+            "assumption": "independent half of last typed decimal place; local linear response, not measurement uncertainty or an error bound",
+            "inputs": [
+              {
+                "key": "p",
+                "halfWidth": 0.5,
+                "unit": "MPa",
+                "enteredUnit": "MPa",
+                "enteredText": "1"
+              },
+              {
+                "key": "T",
+                "halfWidth": 0.5,
+                "unit": "K",
+                "enteredUnit": "K",
+                "enteredText": "500"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "format": "water-steam-result",
+      "version": 1,
+      "build": {
+        "version": "1.39.0",
+        "id": "f16d46d30b5e"
+      },
+      "pressure_basis": "absolute",
+      "units": {
+        "p": "MPa",
+        "T": "K",
+        "rho": "кг/м³",
+        "v": "м³/кг",
+        "h": "кДж/кг",
+        "s": "кДж/(кг·K)",
+        "ex": "кДж/кг",
+        "u": "кДж/кг",
+        "cp": "кДж/(кг·K)",
+        "cv": "кДж/(кг·K)",
+        "w": "м/с",
+        "x": "–",
+        "region": "–",
+        "isentropic": "–",
+        "A": "кДж/кг",
+        "G": "кДж/кг",
+        "Z": "–",
+        "alpha": "1/K",
+        "kappa": "1/МПа",
+        "dvdt": "м³/(кг·K)",
+        "dvdp": "м³/(кг·МПа)",
+        "dpdt": "МПа/K",
+        "dpdv": "МПа·кг/м³",
+        "ijt": "кДж/(кг·МПа)",
+        "jt": "K/МПа",
+        "dc": "–",
+        "mu": "Па·с",
+        "nu": "м²/с",
+        "lambda": "Вт/(м·K)",
+        "diffusivity": "м²/с",
+        "Pr": "–",
+        "sigma": "Н/м",
+        "latentHeat": "кДж/кг"
+      },
+      "reference": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "result": {
+        "state": {
+          "model": "HEOS::Water",
+          "modelName": "CoolProp 8 · HEOS · IAPWS-95",
+          "p": 1,
+          "T": 500,
+          "rho": 4.532294271839076,
+          "v": 0.22063880675475833,
+          "h": 2891.218298958905,
+          "s": 6.824994379140873,
+          "u": 2670.5794922041464,
+          "cp": 2.279477926439576,
+          "cv": 1.6699235635634067,
+          "w": 535.7380639660735,
+          "x": null,
+          "phase": "Перегріта пара",
+          "mu": 0.000017053560479226623,
+          "lambda": 0.03847274119186433,
+          "alpha": 0.0024078981608952575,
+          "kappa": 1.0493387007739363,
+          "drhodp": 4.75591178273677,
+          "A": -741.9176973662898,
+          "G": -521.2788906115311,
+          "Z": 0.9561437813960183,
+          "gamma": 1.3650193195522418,
+          "isentropic": 1.3008376785736346,
+          "dvdt": 0.0005312757770069067,
+          "dvdp": -0.23152483882034972,
+          "dpdt": 0.002294681554315418,
+          "dpdv": -4.3191909995278905,
+          "jt": 19.740959641132036,
+          "ijt": -44.99908174869501,
+          "nu": 0.0000037626772350566666,
+          "diffusivity": 0.0000037239139763973477,
+          "Pr": 1.0104092787601984,
+          "dc": 1.0344298688125768,
+          "sigma": null,
+          "notes": [
+            "Пілот CoolProp 8 / HEOS::Water; система відліку h/s — стандартна IAPWS-95 у CoolProp.",
+            "μ та λ обмежено діапазонами IAPWS R12-08 / R15-11; пропуск означає недоступність."
+          ],
+          "inputSensitivity": {
+            "numericalResponse": {
+              "p": 2.842170943040401e-14,
+              "T": 1.4210854715202004e-11,
+              "h": 3.3672280465239143e-11,
+              "s": 7.988642503978789e-14,
+              "u": 2.5812997944269635e-11,
+              "v": 1.413021457562431e-14,
+              "rho": 2.9025850675553444e-13
+            },
+            "status": "limited",
+            "reason": "large-perturbation",
+            "response": {
+              "p": 0.5,
+              "T": 0.5,
+              "h": 23.639279837567294,
+              "s": 0.2679173664298929,
+              "u": 17.930625916268166,
+              "v": 0.11602805729867831,
+              "rho": 2.3834125428892836
+            },
+            "units": {
+              "p": "MPa",
+              "T": "K",
+              "h": "kJ/kg",
+              "s": "kJ/(kg K)",
+              "u": "kJ/kg",
+              "v": "m3/kg",
+              "rho": "kg/m3"
+            }
+          },
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          },
+          "ex": 860.906678302475
+        },
+        "diagnostics": {
+          "version": 1,
+          "mode": "pt",
+          "keys": [
+            "p",
+            "T"
+          ],
+          "targets": [
+            1,
+            500
+          ],
+          "candidates": 1,
+          "roots": 1,
+          "rejected": 0,
+          "merged": 0,
+          "selection": "stability-then-normalized-input-residual",
+          "assessments": [
+            {
+              "stable": true,
+              "normalizedResidual": 0,
+              "members": 1,
+              "candidatePressureRange": [
+                1,
+                1
+              ]
+            }
+          ],
+          "numericalFloor": "128 * Number.EPSILON * thermodynamic scale",
+          "roundingScenario": {
+            "assumption": "independent half of last typed decimal place; local linear response, not measurement uncertainty or an error bound",
+            "inputs": [
+              {
+                "key": "p",
+                "halfWidth": 0.5,
+                "unit": "MPa",
+                "enteredUnit": "MPa",
+                "enteredText": "1"
+              },
+              {
+                "key": "T",
+                "halfWidth": 0.5,
+                "unit": "K",
+                "enteredUnit": "K",
+                "enteredText": "500"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "format": "water-steam-result",
+      "version": 1,
+      "build": {
+        "version": "1.39.0",
+        "id": "f16d46d30b5e"
+      },
+      "pressure_basis": "absolute",
+      "units": {
+        "p": "MPa",
+        "T": "K",
+        "rho": "кг/м³",
+        "v": "м³/кг",
+        "h": "кДж/кг",
+        "s": "кДж/(кг·K)",
+        "ex": "кДж/кг",
+        "u": "кДж/кг",
+        "cp": "кДж/(кг·K)",
+        "cv": "кДж/(кг·K)",
+        "w": "м/с",
+        "x": "–",
+        "region": "–",
+        "isentropic": "–",
+        "A": "кДж/кг",
+        "G": "кДж/кг",
+        "Z": "–",
+        "alpha": "1/K",
+        "kappa": "1/МПа",
+        "dvdt": "м³/(кг·K)",
+        "dvdp": "м³/(кг·МПа)",
+        "dpdt": "МПа/K",
+        "dpdv": "МПа·кг/м³",
+        "ijt": "кДж/(кг·МПа)",
+        "jt": "K/МПа",
+        "dc": "–",
+        "mu": "Па·с",
+        "nu": "м²/с",
+        "lambda": "Вт/(м·K)",
+        "diffusivity": "м²/с",
+        "Pr": "–",
+        "sigma": "Н/м",
+        "latentHeat": "кДж/кг"
+      },
+      "reference": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "result": {
+        "state": {
+          "model": "HEOS::Water",
+          "modelName": "CoolProp 8 · HEOS · IAPWS-95",
+          "p": 1,
+          "T": 500,
+          "rho": 4.532294271839076,
+          "v": 0.22063880675475833,
+          "h": 2891.218298958905,
+          "s": 6.824994379140873,
+          "u": 2670.5794922041464,
+          "cp": 2.279477926439576,
+          "cv": 1.6699235635634067,
+          "w": 535.7380639660735,
+          "x": null,
+          "phase": "Перегріта пара",
+          "mu": 0.000017053560479226623,
+          "lambda": 0.03847274119186433,
+          "alpha": 0.0024078981608952575,
+          "kappa": 1.0493387007739363,
+          "drhodp": 4.75591178273677,
+          "A": -741.9176973662898,
+          "G": -521.2788906115311,
+          "Z": 0.9561437813960183,
+          "gamma": 1.3650193195522418,
+          "isentropic": 1.3008376785736346,
+          "dvdt": 0.0005312757770069067,
+          "dvdp": -0.23152483882034972,
+          "dpdt": 0.002294681554315418,
+          "dpdv": -4.3191909995278905,
+          "jt": 19.740959641132036,
+          "ijt": -44.99908174869501,
+          "nu": 0.0000037626772350566666,
+          "diffusivity": 0.0000037239139763973477,
+          "Pr": 1.0104092787601984,
+          "dc": 1.0344298688125768,
+          "sigma": null,
+          "notes": [
+            "Пілот CoolProp 8 / HEOS::Water; система відліку h/s — стандартна IAPWS-95 у CoolProp.",
+            "μ та λ обмежено діапазонами IAPWS R12-08 / R15-11; пропуск означає недоступність."
+          ],
+          "inputSensitivity": {
+            "numericalResponse": {
+              "p": 2.842170943040401e-14,
+              "T": 1.4210854715202004e-11,
+              "h": 3.3672280465239143e-11,
+              "s": 7.988642503978789e-14,
+              "u": 2.5812997944269635e-11,
+              "v": 1.413021457562431e-14,
+              "rho": 2.9025850675553444e-13
+            },
+            "status": "limited",
+            "reason": "large-perturbation",
+            "response": {
+              "p": 0.5,
+              "T": 0.5,
+              "h": 23.639279837567294,
+              "s": 0.2679173664298929,
+              "u": 17.930625916268166,
+              "v": 0.11602805729867831,
+              "rho": 2.3834125428892836
+            },
+            "units": {
+              "p": "MPa",
+              "T": "K",
+              "h": "kJ/kg",
+              "s": "kJ/(kg K)",
+              "u": "kJ/kg",
+              "v": "m3/kg",
+              "rho": "kg/m3"
+            }
+          },
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          },
+          "ex": 860.906678302475
+        },
+        "diagnostics": {
+          "version": 1,
+          "mode": "pt",
+          "keys": [
+            "p",
+            "T"
+          ],
+          "targets": [
+            1,
+            500
+          ],
+          "candidates": 1,
+          "roots": 1,
+          "rejected": 0,
+          "merged": 0,
+          "selection": "stability-then-normalized-input-residual",
+          "assessments": [
+            {
+              "stable": true,
+              "normalizedResidual": 0,
+              "members": 1,
+              "candidatePressureRange": [
+                1,
+                1
+              ]
+            }
+          ],
+          "numericalFloor": "128 * Number.EPSILON * thermodynamic scale",
+          "roundingScenario": {
+            "assumption": "independent half of last typed decimal place; local linear response, not measurement uncertainty or an error bound",
+            "inputs": [
+              {
+                "key": "p",
+                "halfWidth": 0.5,
+                "unit": "MPa",
+                "enteredUnit": "MPa",
+                "enteredText": "1"
+              },
+              {
+                "key": "T",
+                "halfWidth": 0.5,
+                "unit": "K",
+                "enteredUnit": "K",
+                "enteredText": "500"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "format": "water-steam-result",
+      "version": 1,
+      "build": {
+        "version": "1.39.0",
+        "id": "f16d46d30b5e"
+      },
+      "pressure_basis": "absolute",
+      "units": {
+        "p": "MPa",
+        "T": "K",
+        "rho": "кг/м³",
+        "v": "м³/кг",
+        "h": "кДж/кг",
+        "s": "кДж/(кг·K)",
+        "ex": "кДж/кг",
+        "u": "кДж/кг",
+        "cp": "кДж/(кг·K)",
+        "cv": "кДж/(кг·K)",
+        "w": "м/с",
+        "x": "–",
+        "region": "–",
+        "isentropic": "–",
+        "A": "кДж/кг",
+        "G": "кДж/кг",
+        "Z": "–",
+        "alpha": "1/K",
+        "kappa": "1/МПа",
+        "dvdt": "м³/(кг·K)",
+        "dvdp": "м³/(кг·МПа)",
+        "dpdt": "МПа/K",
+        "dpdv": "МПа·кг/м³",
+        "ijt": "кДж/(кг·МПа)",
+        "jt": "K/МПа",
+        "dc": "–",
+        "mu": "Па·с",
+        "nu": "м²/с",
+        "lambda": "Вт/(м·K)",
+        "diffusivity": "м²/с",
+        "Pr": "–",
+        "sigma": "Н/м",
+        "latentHeat": "кДж/кг"
+      },
+      "reference": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "result": {
+        "state": {
+          "model": "HEOS::Water",
+          "modelName": "CoolProp 8 · HEOS · IAPWS-95",
+          "p": 0.1,
+          "T": 275.0000000010477,
+          "rho": 999.9372608888207,
+          "v": 0.0010000627430476223,
+          "h": 7.859996547405961,
+          "s": 0.02831297342091936,
+          "u": 7.759990273045696,
+          "cp": 4.213479464280271,
+          "cv": 4.212803296691021,
+          "w": 1411.5111105982746,
+          "x": null,
+          "phase": "Стиснена рідина",
+          "mu": 0.0016819472485359623,
+          "lambda": 0.5602929696045034,
+          "alpha": -0.00003513268784580175,
+          "kappa": 0.0005020284693119855,
+          "drhodp": 0.5019969724920341,
+          "A": -0.026077417736790842,
+          "G": 0.07392885662347393,
+          "Z": 0.0007879630694588413,
+          "gamma": 1.000160503005156,
+          "isentropic": 19922.38616220002,
+          "dvdt": -3.5134892177708355e-8,
+          "dvdp": -5.020599681081433e-7,
+          "dpdt": -0.06998146518254236,
+          "dpdv": -1991793.93602758,
+          "jt": -0.23964157104750622,
+          "ijt": 1.009724838396529,
+          "nu": 0.0000016820527790322754,
+          "diffusivity": 1.3298465765483222e-7,
+          "Pr": 12.648472453101473,
+          "dc": 87.16213076322349,
+          "sigma": null,
+          "notes": [
+            "Пілот CoolProp 8 / HEOS::Water; система відліку h/s — стандартна IAPWS-95 у CoolProp.",
+            "μ та λ обмежено діапазонами IAPWS R12-08 / R15-11; пропуск означає недоступність.",
+            "Вхідним значенням відповідають кілька коренів. Перевірте інші знайдені стани та виберіть потрібну фізичну гілку."
+          ],
+          "inputSensitivity": {
+            "numericalResponse": {
+              "p": 2.842170943040401e-14,
+              "T": 8.0938805657258e-10,
+              "h": 3.4103112568963226e-9,
+              "s": 1.2401235201367363e-11,
+              "u": 3.410342522738287e-9,
+              "v": 2.84234926950723e-17,
+              "rho": 2.8419926277616147e-11
+            },
+            "status": "limited",
+            "reason": "large-perturbation",
+            "response": {
+              "p": 0.05,
+              "T": 0.7144748951694234,
+              "h": 2.959939056620338,
+              "s": 0.010945244340950008,
+              "u": 3.0099421937727193,
+              "v": 5.001156845751707e-20,
+              "rho": 5e-14
+            },
+            "units": {
+              "p": "MPa",
+              "T": "K",
+              "h": "kJ/kg",
+              "s": "kJ/(kg K)",
+              "u": "kJ/kg",
+              "v": "m3/kg",
+              "rho": "kg/m3"
+            }
+          },
+          "source": {
+            "mode": "prho",
+            "a": 0.1,
+            "b": 999.9372608888243
+          },
+          "ex": 3.978937006379951
+        },
+        "alternatives": [
+          {
+            "model": "HEOS::Water",
+            "modelName": "CoolProp 8 · HEOS · IAPWS-95",
+            "p": 0.1,
+            "T": 279.30532608629227,
+            "rho": 999.937260888832,
+            "v": 0.001000062743047611,
+            "h": 25.9753033559345,
+            "s": 0.09367670640947688,
+            "u": 25.875297082000433,
+            "cp": 4.202417103924016,
+            "cv": 4.201771910433307,
+            "w": 1431.272538234922,
+            "x": null,
+            "phase": "Стиснена рідина",
+            "mu": 0.0014644322366366156,
+            "lambda": 0.570425443068145,
+            "alpha": 0.00003358275973402792,
+            "kappa": 0.0004882578708309319,
+            "drhodp": 0.48822723796609524,
+            "A": -0.28910594838837156,
+            "G": -0.18909967445430453,
+            "Z": 0.0007758170856901505,
+            "gamma": 1.00015355271644,
+            "isentropic": 20484.12555058967,
+            "dvdt": 3.358486681872082e-8,
+            "dvdp": -4.882885056177679e-7,
+            "dpdt": 0.06878078519630573,
+            "dpdv": -2047969.5681855753,
+            "jt": -0.23574107147626824,
+            "ijt": 0.9906823108692435,
+            "nu": 0.0000014645241195781619,
+            "diffusivity": 1.3574598122737714e-7,
+            "Pr": 10.788710695788895,
+            "dc": 85.46292550058556,
+            "sigma": null,
+            "notes": [
+              "Пілот CoolProp 8 / HEOS::Water; система відліку h/s — стандартна IAPWS-95 у CoolProp.",
+              "μ та λ обмежено діапазонами IAPWS R12-08 / R15-11; пропуск означає недоступність.",
+              "Вхідним значенням відповідають кілька коренів. Перевірте інші знайдені стани та виберіть потрібну фізичну гілку."
+            ],
+            "inputSensitivity": {
+              "numericalResponse": {
+                "p": 2.842170943040401e-14,
+                "T": 8.467316795565004e-10,
+                "h": 3.558347849487323e-9,
+                "s": 1.2739891057055154e-11,
+                "u": 3.5583165836453587e-9,
+                "v": 2.8423492695071985e-17,
+                "rho": 2.841992627761647e-11
+              },
+              "status": "limited",
+              "reason": "large-perturbation",
+              "response": {
+                "p": 0.05,
+                "T": 0.7269472114544565,
+                "h": 3.1044695106095386,
+                "s": 0.010935940306822042,
+                "u": 3.0544663734571578,
+                "v": 5.000627450159561e-20,
+                "rho": 5e-14
+              },
+              "units": {
+                "p": "MPa",
+                "T": "K",
+                "h": "kJ/kg",
+                "s": "kJ/(kg K)",
+                "u": "kJ/kg",
+                "v": "m3/kg",
+                "rho": "kg/m3"
+              }
+            },
+            "source": {
+              "mode": "prho",
+              "a": 0.1,
+              "b": 999.9372608888243
+            },
+            "ex": 2.6060468243700825
+          }
+        ],
+        "diagnostics": {
+          "version": 1,
+          "mode": "prho",
+          "keys": [
+            "p",
+            "rho"
+          ],
+          "targets": [
+            0.1,
+            999.9372608888243
+          ],
+          "candidates": 2,
+          "roots": 2,
+          "rejected": 0,
+          "merged": 0,
+          "selection": "stability-then-normalized-input-residual",
+          "assessments": [
+            {
+              "stable": true,
+              "normalizedResidual": 0.12800803111009565,
+              "members": 1,
+              "candidatePressureRange": [
+                0.1,
+                0.1
+              ]
+            },
+            {
+              "stable": true,
+              "normalizedResidual": 0.2720170661089502,
+              "members": 1,
+              "candidatePressureRange": [
+                0.1,
+                0.1
+              ]
+            }
+          ],
+          "numericalFloor": "128 * Number.EPSILON * thermodynamic scale",
+          "roundingScenario": {
+            "assumption": "independent half of last typed decimal place; local linear response, not measurement uncertainty or an error bound",
+            "inputs": [
+              {
+                "key": "p",
+                "halfWidth": 0.05,
+                "unit": "MPa",
+                "enteredUnit": "MPa",
+                "enteredText": "0.1"
+              },
+              {
+                "key": "rho",
+                "halfWidth": 5e-14,
+                "unit": "kg/m3",
+                "enteredUnit": "kgm3",
+                "enteredText": "999.9372608888243"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "format": "water-steam-result",
+      "version": 1,
+      "build": {
+        "version": "1.39.0",
+        "id": "f16d46d30b5e"
+      },
+      "pressure_basis": "absolute",
+      "units": {
+        "p": "MPa",
+        "T": "K",
+        "rho": "кг/м³",
+        "v": "м³/кг",
+        "h": "кДж/кг",
+        "s": "кДж/(кг·K)",
+        "ex": "кДж/кг",
+        "u": "кДж/кг",
+        "cp": "кДж/(кг·K)",
+        "cv": "кДж/(кг·K)",
+        "w": "м/с",
+        "x": "–",
+        "region": "–",
+        "isentropic": "–",
+        "A": "кДж/кг",
+        "G": "кДж/кг",
+        "Z": "–",
+        "alpha": "1/K",
+        "kappa": "1/МПа",
+        "dvdt": "м³/(кг·K)",
+        "dvdp": "м³/(кг·МПа)",
+        "dpdt": "МПа/K",
+        "dpdv": "МПа·кг/м³",
+        "ijt": "кДж/(кг·МПа)",
+        "jt": "K/МПа",
+        "dc": "–",
+        "mu": "Па·с",
+        "nu": "м²/с",
+        "lambda": "Вт/(м·K)",
+        "diffusivity": "м²/с",
+        "Pr": "–",
+        "sigma": "Н/м",
+        "latentHeat": "кДж/кг"
+      },
+      "reference": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "result": {
+        "state": {
+          "model": "HEOS::Water",
+          "modelName": "CoolProp 8 · HEOS · IAPWS-95",
+          "p": 0.1,
+          "T": 279.30532608629227,
+          "rho": 999.937260888832,
+          "v": 0.001000062743047611,
+          "h": 25.9753033559345,
+          "s": 0.09367670640947688,
+          "u": 25.875297082000433,
+          "cp": 4.202417103924016,
+          "cv": 4.201771910433307,
+          "w": 1431.272538234922,
+          "x": null,
+          "phase": "Стиснена рідина",
+          "mu": 0.0014644322366366156,
+          "lambda": 0.570425443068145,
+          "alpha": 0.00003358275973402792,
+          "kappa": 0.0004882578708309319,
+          "drhodp": 0.48822723796609524,
+          "A": -0.28910594838837156,
+          "G": -0.18909967445430453,
+          "Z": 0.0007758170856901505,
+          "gamma": 1.00015355271644,
+          "isentropic": 20484.12555058967,
+          "dvdt": 3.358486681872082e-8,
+          "dvdp": -4.882885056177679e-7,
+          "dpdt": 0.06878078519630573,
+          "dpdv": -2047969.5681855753,
+          "jt": -0.23574107147626824,
+          "ijt": 0.9906823108692435,
+          "nu": 0.0000014645241195781619,
+          "diffusivity": 1.3574598122737714e-7,
+          "Pr": 10.788710695788895,
+          "dc": 85.46292550058556,
+          "sigma": null,
+          "notes": [
+            "Пілот CoolProp 8 / HEOS::Water; система відліку h/s — стандартна IAPWS-95 у CoolProp.",
+            "μ та λ обмежено діапазонами IAPWS R12-08 / R15-11; пропуск означає недоступність.",
+            "Вхідним значенням відповідають кілька коренів. Перевірте інші знайдені стани та виберіть потрібну фізичну гілку."
+          ],
+          "inputSensitivity": {
+            "numericalResponse": {
+              "p": 2.842170943040401e-14,
+              "T": 8.467316795565004e-10,
+              "h": 3.558347849487323e-9,
+              "s": 1.2739891057055154e-11,
+              "u": 3.5583165836453587e-9,
+              "v": 2.8423492695071985e-17,
+              "rho": 2.841992627761647e-11
+            },
+            "status": "limited",
+            "reason": "large-perturbation",
+            "response": {
+              "p": 0.05,
+              "T": 0.7269472114544565,
+              "h": 3.1044695106095386,
+              "s": 0.010935940306822042,
+              "u": 3.0544663734571578,
+              "v": 5.000627450159561e-20,
+              "rho": 5e-14
+            },
+            "units": {
+              "p": "MPa",
+              "T": "K",
+              "h": "kJ/kg",
+              "s": "kJ/(kg K)",
+              "u": "kJ/kg",
+              "v": "m3/kg",
+              "rho": "kg/m3"
+            }
+          },
+          "source": {
+            "mode": "prho",
+            "a": 0.1,
+            "b": 999.9372608888243
+          },
+          "ex": 2.6060468243700825
+        },
+        "alternatives": [
+          {
+            "model": "HEOS::Water",
+            "modelName": "CoolProp 8 · HEOS · IAPWS-95",
+            "p": 0.1,
+            "T": 275.0000000010477,
+            "rho": 999.9372608888207,
+            "v": 0.0010000627430476223,
+            "h": 7.859996547405961,
+            "s": 0.02831297342091936,
+            "u": 7.759990273045696,
+            "cp": 4.213479464280271,
+            "cv": 4.212803296691021,
+            "w": 1411.5111105982746,
+            "x": null,
+            "phase": "Стиснена рідина",
+            "mu": 0.0016819472485359623,
+            "lambda": 0.5602929696045034,
+            "alpha": -0.00003513268784580175,
+            "kappa": 0.0005020284693119855,
+            "drhodp": 0.5019969724920341,
+            "A": -0.026077417736790842,
+            "G": 0.07392885662347393,
+            "Z": 0.0007879630694588413,
+            "gamma": 1.000160503005156,
+            "isentropic": 19922.38616220002,
+            "dvdt": -3.5134892177708355e-8,
+            "dvdp": -5.020599681081433e-7,
+            "dpdt": -0.06998146518254236,
+            "dpdv": -1991793.93602758,
+            "jt": -0.23964157104750622,
+            "ijt": 1.009724838396529,
+            "nu": 0.0000016820527790322754,
+            "diffusivity": 1.3298465765483222e-7,
+            "Pr": 12.648472453101473,
+            "dc": 87.16213076322349,
+            "sigma": null,
+            "notes": [
+              "Пілот CoolProp 8 / HEOS::Water; система відліку h/s — стандартна IAPWS-95 у CoolProp.",
+              "μ та λ обмежено діапазонами IAPWS R12-08 / R15-11; пропуск означає недоступність.",
+              "Вхідним значенням відповідають кілька коренів. Перевірте інші знайдені стани та виберіть потрібну фізичну гілку."
+            ],
+            "inputSensitivity": {
+              "numericalResponse": {
+                "p": 2.842170943040401e-14,
+                "T": 8.0938805657258e-10,
+                "h": 3.4103112568963226e-9,
+                "s": 1.2401235201367363e-11,
+                "u": 3.410342522738287e-9,
+                "v": 2.84234926950723e-17,
+                "rho": 2.8419926277616147e-11
+              },
+              "status": "limited",
+              "reason": "large-perturbation",
+              "response": {
+                "p": 0.05,
+                "T": 0.7144748951694234,
+                "h": 2.959939056620338,
+                "s": 0.010945244340950008,
+                "u": 3.0099421937727193,
+                "v": 5.001156845751707e-20,
+                "rho": 5e-14
+              },
+              "units": {
+                "p": "MPa",
+                "T": "K",
+                "h": "kJ/kg",
+                "s": "kJ/(kg K)",
+                "u": "kJ/kg",
+                "v": "m3/kg",
+                "rho": "kg/m3"
+              }
+            },
+            "source": {
+              "mode": "prho",
+              "a": 0.1,
+              "b": 999.9372608888243
+            },
+            "ex": 3.978937006379951
+          }
+        ],
+        "diagnostics": {
+          "version": 1,
+          "mode": "prho",
+          "keys": [
+            "p",
+            "rho"
+          ],
+          "targets": [
+            0.1,
+            999.9372608888243
+          ],
+          "candidates": 2,
+          "roots": 2,
+          "rejected": 0,
+          "merged": 0,
+          "selection": "manual",
+          "assessments": [
+            {
+              "stable": true,
+              "normalizedResidual": 0.2720170661089502,
+              "members": 1,
+              "candidatePressureRange": [
+                0.1,
+                0.1
+              ]
+            },
+            {
+              "stable": true,
+              "normalizedResidual": 0.12800803111009565,
+              "members": 1,
+              "candidatePressureRange": [
+                0.1,
+                0.1
+              ]
+            }
+          ],
+          "numericalFloor": "128 * Number.EPSILON * thermodynamic scale",
+          "roundingScenario": {
+            "assumption": "independent half of last typed decimal place; local linear response, not measurement uncertainty or an error bound",
+            "inputs": [
+              {
+                "key": "p",
+                "halfWidth": 0.05,
+                "unit": "MPa",
+                "enteredUnit": "MPa",
+                "enteredText": "0.1"
+              },
+              {
+                "key": "rho",
+                "halfWidth": 5e-14,
+                "unit": "kg/m3",
+                "enteredUnit": "kgm3",
+                "enteredText": "999.9372608888243"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "format": "water-steam-result",
+      "version": 1,
+      "build": {
+        "version": "1.39.0",
+        "id": "f16d46d30b5e"
+      },
+      "pressure_basis": "absolute",
+      "units": {
+        "p": "MPa",
+        "T": "K",
+        "rho": "кг/м³",
+        "v": "м³/кг",
+        "h": "кДж/кг",
+        "s": "кДж/(кг·K)",
+        "ex": "кДж/кг",
+        "u": "кДж/кг",
+        "cp": "кДж/(кг·K)",
+        "cv": "кДж/(кг·K)",
+        "w": "м/с",
+        "x": "–",
+        "region": "–",
+        "isentropic": "–",
+        "A": "кДж/кг",
+        "G": "кДж/кг",
+        "Z": "–",
+        "alpha": "1/K",
+        "kappa": "1/МПа",
+        "dvdt": "м³/(кг·K)",
+        "dvdp": "м³/(кг·МПа)",
+        "dpdt": "МПа/K",
+        "dpdv": "МПа·кг/м³",
+        "ijt": "кДж/(кг·МПа)",
+        "jt": "K/МПа",
+        "dc": "–",
+        "mu": "Па·с",
+        "nu": "м²/с",
+        "lambda": "Вт/(м·K)",
+        "diffusivity": "м²/с",
+        "Pr": "–",
+        "sigma": "Н/м",
+        "latentHeat": "кДж/кг"
+      },
+      "reference": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "result": {
+        "state": {
+          "model": "HEOS::Water",
+          "modelName": "CoolProp 8 · HEOS · IAPWS-95",
+          "p": 0.1,
+          "T": 279.30532608629227,
+          "rho": 999.937260888832,
+          "v": 0.001000062743047611,
+          "h": 25.9753033559345,
+          "s": 0.09367670640947688,
+          "u": 25.875297082000433,
+          "cp": 4.202417103924016,
+          "cv": 4.201771910433307,
+          "w": 1431.272538234922,
+          "x": null,
+          "phase": "Стиснена рідина",
+          "mu": 0.0014644322366366156,
+          "lambda": 0.570425443068145,
+          "alpha": 0.00003358275973402792,
+          "kappa": 0.0004882578708309319,
+          "drhodp": 0.48822723796609524,
+          "A": -0.28910594838837156,
+          "G": -0.18909967445430453,
+          "Z": 0.0007758170856901505,
+          "gamma": 1.00015355271644,
+          "isentropic": 20484.12555058967,
+          "dvdt": 3.358486681872082e-8,
+          "dvdp": -4.882885056177679e-7,
+          "dpdt": 0.06878078519630573,
+          "dpdv": -2047969.5681855753,
+          "jt": -0.23574107147626824,
+          "ijt": 0.9906823108692435,
+          "nu": 0.0000014645241195781619,
+          "diffusivity": 1.3574598122737714e-7,
+          "Pr": 10.788710695788895,
+          "dc": 85.46292550058556,
+          "sigma": null,
+          "notes": [
+            "Пілот CoolProp 8 / HEOS::Water; система відліку h/s — стандартна IAPWS-95 у CoolProp.",
+            "μ та λ обмежено діапазонами IAPWS R12-08 / R15-11; пропуск означає недоступність.",
+            "Вхідним значенням відповідають кілька коренів. Перевірте інші знайдені стани та виберіть потрібну фізичну гілку."
+          ],
+          "inputSensitivity": {
+            "numericalResponse": {
+              "p": 2.842170943040401e-14,
+              "T": 8.467316795565004e-10,
+              "h": 3.558347849487323e-9,
+              "s": 1.2739891057055154e-11,
+              "u": 3.5583165836453587e-9,
+              "v": 2.8423492695071985e-17,
+              "rho": 2.841992627761647e-11
+            },
+            "status": "limited",
+            "reason": "large-perturbation",
+            "response": {
+              "p": 0.05,
+              "T": 0.7269472114544565,
+              "h": 3.1044695106095386,
+              "s": 0.010935940306822042,
+              "u": 3.0544663734571578,
+              "v": 5.000627450159561e-20,
+              "rho": 5e-14
+            },
+            "units": {
+              "p": "MPa",
+              "T": "K",
+              "h": "kJ/kg",
+              "s": "kJ/(kg K)",
+              "u": "kJ/kg",
+              "v": "m3/kg",
+              "rho": "kg/m3"
+            }
+          },
+          "source": {
+            "mode": "prho",
+            "a": 0.1,
+            "b": 999.9372608888243
+          },
+          "ex": 2.6060468243700825
+        },
+        "alternatives": [
+          {
+            "model": "HEOS::Water",
+            "modelName": "CoolProp 8 · HEOS · IAPWS-95",
+            "p": 0.1,
+            "T": 275.0000000010477,
+            "rho": 999.9372608888207,
+            "v": 0.0010000627430476223,
+            "h": 7.859996547405961,
+            "s": 0.02831297342091936,
+            "u": 7.759990273045696,
+            "cp": 4.213479464280271,
+            "cv": 4.212803296691021,
+            "w": 1411.5111105982746,
+            "x": null,
+            "phase": "Стиснена рідина",
+            "mu": 0.0016819472485359623,
+            "lambda": 0.5602929696045034,
+            "alpha": -0.00003513268784580175,
+            "kappa": 0.0005020284693119855,
+            "drhodp": 0.5019969724920341,
+            "A": -0.026077417736790842,
+            "G": 0.07392885662347393,
+            "Z": 0.0007879630694588413,
+            "gamma": 1.000160503005156,
+            "isentropic": 19922.38616220002,
+            "dvdt": -3.5134892177708355e-8,
+            "dvdp": -5.020599681081433e-7,
+            "dpdt": -0.06998146518254236,
+            "dpdv": -1991793.93602758,
+            "jt": -0.23964157104750622,
+            "ijt": 1.009724838396529,
+            "nu": 0.0000016820527790322754,
+            "diffusivity": 1.3298465765483222e-7,
+            "Pr": 12.648472453101473,
+            "dc": 87.16213076322349,
+            "sigma": null,
+            "notes": [
+              "Пілот CoolProp 8 / HEOS::Water; система відліку h/s — стандартна IAPWS-95 у CoolProp.",
+              "μ та λ обмежено діапазонами IAPWS R12-08 / R15-11; пропуск означає недоступність.",
+              "Вхідним значенням відповідають кілька коренів. Перевірте інші знайдені стани та виберіть потрібну фізичну гілку."
+            ],
+            "inputSensitivity": {
+              "numericalResponse": {
+                "p": 2.842170943040401e-14,
+                "T": 8.0938805657258e-10,
+                "h": 3.4103112568963226e-9,
+                "s": 1.2401235201367363e-11,
+                "u": 3.410342522738287e-9,
+                "v": 2.84234926950723e-17,
+                "rho": 2.8419926277616147e-11
+              },
+              "status": "limited",
+              "reason": "large-perturbation",
+              "response": {
+                "p": 0.05,
+                "T": 0.7144748951694234,
+                "h": 2.959939056620338,
+                "s": 0.010945244340950008,
+                "u": 3.0099421937727193,
+                "v": 5.001156845751707e-20,
+                "rho": 5e-14
+              },
+              "units": {
+                "p": "MPa",
+                "T": "K",
+                "h": "kJ/kg",
+                "s": "kJ/(kg K)",
+                "u": "kJ/kg",
+                "v": "m3/kg",
+                "rho": "kg/m3"
+              }
+            },
+            "source": {
+              "mode": "prho",
+              "a": 0.1,
+              "b": 999.9372608888243
+            },
+            "ex": 3.978937006379951
+          }
+        ],
+        "diagnostics": {
+          "version": 1,
+          "mode": "prho",
+          "keys": [
+            "p",
+            "rho"
+          ],
+          "targets": [
+            0.1,
+            999.9372608888243
+          ],
+          "candidates": 2,
+          "roots": 2,
+          "rejected": 0,
+          "merged": 0,
+          "selection": "manual",
+          "assessments": [
+            {
+              "stable": true,
+              "normalizedResidual": 0.2720170661089502,
+              "members": 1,
+              "candidatePressureRange": [
+                0.1,
+                0.1
+              ]
+            },
+            {
+              "stable": true,
+              "normalizedResidual": 0.12800803111009565,
+              "members": 1,
+              "candidatePressureRange": [
+                0.1,
+                0.1
+              ]
+            }
+          ],
+          "numericalFloor": "128 * Number.EPSILON * thermodynamic scale",
+          "roundingScenario": {
+            "assumption": "independent half of last typed decimal place; local linear response, not measurement uncertainty or an error bound",
+            "inputs": [
+              {
+                "key": "p",
+                "halfWidth": 0.05,
+                "unit": "MPa",
+                "enteredUnit": "MPa",
+                "enteredText": "0.1"
+              },
+              {
+                "key": "rho",
+                "halfWidth": 5e-14,
+                "unit": "kg/m3",
+                "enteredUnit": "kgm3",
+                "enteredText": "999.9372608888243"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "format": "water-steam-result",
+      "version": 1,
+      "build": {
+        "version": "1.39.0",
+        "id": "f16d46d30b5e"
+      },
+      "pressure_basis": "absolute",
+      "units": {
+        "p": "MPa",
+        "T": "K",
+        "rho": "кг/м³",
+        "v": "м³/кг",
+        "h": "кДж/кг",
+        "s": "кДж/(кг·K)",
+        "ex": "кДж/кг",
+        "u": "кДж/кг",
+        "cp": "кДж/(кг·K)",
+        "cv": "кДж/(кг·K)",
+        "w": "м/с",
+        "x": "–",
+        "region": "–",
+        "isentropic": "–",
+        "A": "кДж/кг",
+        "G": "кДж/кг",
+        "Z": "–",
+        "alpha": "1/K",
+        "kappa": "1/МПа",
+        "dvdt": "м³/(кг·K)",
+        "dvdp": "м³/(кг·МПа)",
+        "dpdt": "МПа/K",
+        "dpdv": "МПа·кг/м³",
+        "ijt": "кДж/(кг·МПа)",
+        "jt": "K/МПа",
+        "dc": "–",
+        "mu": "Па·с",
+        "nu": "м²/с",
+        "lambda": "Вт/(м·K)",
+        "diffusivity": "м²/с",
+        "Pr": "–",
+        "sigma": "Н/м",
+        "latentHeat": "кДж/кг"
+      },
+      "reference": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "result": {
+        "state": {
+          "model": "HEOS::Water",
+          "modelName": "CoolProp 8 · HEOS · IAPWS-95",
+          "p": 0.1,
+          "T": 279.30532608629227,
+          "rho": 999.937260888832,
+          "v": 0.001000062743047611,
+          "h": 25.9753033559345,
+          "s": 0.09367670640947688,
+          "u": 25.875297082000433,
+          "cp": 4.202417103924016,
+          "cv": 4.201771910433307,
+          "w": 1431.272538234922,
+          "x": null,
+          "phase": "Стиснена рідина",
+          "mu": 0.0014644322366366156,
+          "lambda": 0.570425443068145,
+          "alpha": 0.00003358275973402792,
+          "kappa": 0.0004882578708309319,
+          "drhodp": 0.48822723796609524,
+          "A": -0.28910594838837156,
+          "G": -0.18909967445430453,
+          "Z": 0.0007758170856901505,
+          "gamma": 1.00015355271644,
+          "isentropic": 20484.12555058967,
+          "dvdt": 3.358486681872082e-8,
+          "dvdp": -4.882885056177679e-7,
+          "dpdt": 0.06878078519630573,
+          "dpdv": -2047969.5681855753,
+          "jt": -0.23574107147626824,
+          "ijt": 0.9906823108692435,
+          "nu": 0.0000014645241195781619,
+          "diffusivity": 1.3574598122737714e-7,
+          "Pr": 10.788710695788895,
+          "dc": 85.46292550058556,
+          "sigma": null,
+          "notes": [
+            "Пілот CoolProp 8 / HEOS::Water; система відліку h/s — стандартна IAPWS-95 у CoolProp.",
+            "μ та λ обмежено діапазонами IAPWS R12-08 / R15-11; пропуск означає недоступність.",
+            "Вхідним значенням відповідають кілька коренів. Перевірте інші знайдені стани та виберіть потрібну фізичну гілку."
+          ],
+          "inputSensitivity": {
+            "numericalResponse": {
+              "p": 2.842170943040401e-14,
+              "T": 8.467316795565004e-10,
+              "h": 3.558347849487323e-9,
+              "s": 1.2739891057055154e-11,
+              "u": 3.5583165836453587e-9,
+              "v": 2.8423492695071985e-17,
+              "rho": 2.841992627761647e-11
+            },
+            "status": "limited",
+            "reason": "large-perturbation",
+            "response": {
+              "p": 0.05,
+              "T": 0.7269472114544565,
+              "h": 3.1044695106095386,
+              "s": 0.010935940306822042,
+              "u": 3.0544663734571578,
+              "v": 5.000627450159561e-20,
+              "rho": 5e-14
+            },
+            "units": {
+              "p": "MPa",
+              "T": "K",
+              "h": "kJ/kg",
+              "s": "kJ/(kg K)",
+              "u": "kJ/kg",
+              "v": "m3/kg",
+              "rho": "kg/m3"
+            }
+          },
+          "source": {
+            "mode": "prho",
+            "a": 0.1,
+            "b": 999.9372608888243
+          },
+          "ex": 2.6060468243700825
+        },
+        "alternatives": [
+          {
+            "model": "HEOS::Water",
+            "modelName": "CoolProp 8 · HEOS · IAPWS-95",
+            "p": 0.1,
+            "T": 275.0000000010477,
+            "rho": 999.9372608888207,
+            "v": 0.0010000627430476223,
+            "h": 7.859996547405961,
+            "s": 0.02831297342091936,
+            "u": 7.759990273045696,
+            "cp": 4.213479464280271,
+            "cv": 4.212803296691021,
+            "w": 1411.5111105982746,
+            "x": null,
+            "phase": "Стиснена рідина",
+            "mu": 0.0016819472485359623,
+            "lambda": 0.5602929696045034,
+            "alpha": -0.00003513268784580175,
+            "kappa": 0.0005020284693119855,
+            "drhodp": 0.5019969724920341,
+            "A": -0.026077417736790842,
+            "G": 0.07392885662347393,
+            "Z": 0.0007879630694588413,
+            "gamma": 1.000160503005156,
+            "isentropic": 19922.38616220002,
+            "dvdt": -3.5134892177708355e-8,
+            "dvdp": -5.020599681081433e-7,
+            "dpdt": -0.06998146518254236,
+            "dpdv": -1991793.93602758,
+            "jt": -0.23964157104750622,
+            "ijt": 1.009724838396529,
+            "nu": 0.0000016820527790322754,
+            "diffusivity": 1.3298465765483222e-7,
+            "Pr": 12.648472453101473,
+            "dc": 87.16213076322349,
+            "sigma": null,
+            "notes": [
+              "Пілот CoolProp 8 / HEOS::Water; система відліку h/s — стандартна IAPWS-95 у CoolProp.",
+              "μ та λ обмежено діапазонами IAPWS R12-08 / R15-11; пропуск означає недоступність.",
+              "Вхідним значенням відповідають кілька коренів. Перевірте інші знайдені стани та виберіть потрібну фізичну гілку."
+            ],
+            "inputSensitivity": {
+              "numericalResponse": {
+                "p": 2.842170943040401e-14,
+                "T": 8.0938805657258e-10,
+                "h": 3.4103112568963226e-9,
+                "s": 1.2401235201367363e-11,
+                "u": 3.410342522738287e-9,
+                "v": 2.84234926950723e-17,
+                "rho": 2.8419926277616147e-11
+              },
+              "status": "limited",
+              "reason": "large-perturbation",
+              "response": {
+                "p": 0.05,
+                "T": 0.7144748951694234,
+                "h": 2.959939056620338,
+                "s": 0.010945244340950008,
+                "u": 3.0099421937727193,
+                "v": 5.001156845751707e-20,
+                "rho": 5e-14
+              },
+              "units": {
+                "p": "MPa",
+                "T": "K",
+                "h": "kJ/kg",
+                "s": "kJ/(kg K)",
+                "u": "kJ/kg",
+                "v": "m3/kg",
+                "rho": "kg/m3"
+              }
+            },
+            "source": {
+              "mode": "prho",
+              "a": 0.1,
+              "b": 999.9372608888243
+            },
+            "ex": 3.978937006379951
+          }
+        ],
+        "diagnostics": {
+          "version": 1,
+          "mode": "prho",
+          "keys": [
+            "p",
+            "rho"
+          ],
+          "targets": [
+            0.1,
+            999.9372608888243
+          ],
+          "candidates": 2,
+          "roots": 2,
+          "rejected": 0,
+          "merged": 0,
+          "selection": "manual",
+          "assessments": [
+            {
+              "stable": true,
+              "normalizedResidual": 0.2720170661089502,
+              "members": 1,
+              "candidatePressureRange": [
+                0.1,
+                0.1
+              ]
+            },
+            {
+              "stable": true,
+              "normalizedResidual": 0.12800803111009565,
+              "members": 1,
+              "candidatePressureRange": [
+                0.1,
+                0.1
+              ]
+            }
+          ],
+          "numericalFloor": "128 * Number.EPSILON * thermodynamic scale",
+          "roundingScenario": {
+            "assumption": "independent half of last typed decimal place; local linear response, not measurement uncertainty or an error bound",
+            "inputs": [
+              {
+                "key": "p",
+                "halfWidth": 0.05,
+                "unit": "MPa",
+                "enteredUnit": "MPa",
+                "enteredText": "0.1"
+              },
+              {
+                "key": "rho",
+                "halfWidth": 5e-14,
+                "unit": "kg/m3",
+                "enteredUnit": "kgm3",
+                "enteredText": "999.9372608888243"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "format": "water-steam-result",
+      "version": 1,
+      "build": {
+        "version": "1.39.0",
+        "id": "f16d46d30b5e"
+      },
+      "pressure_basis": "absolute",
+      "units": {
+        "p": "MPa",
+        "T": "K",
+        "rho": "кг/м³",
+        "v": "м³/кг",
+        "h": "кДж/кг",
+        "s": "кДж/(кг·K)",
+        "ex": "кДж/кг",
+        "u": "кДж/кг",
+        "cp": "кДж/(кг·K)",
+        "cv": "кДж/(кг·K)",
+        "w": "м/с",
+        "x": "–",
+        "region": "–",
+        "isentropic": "–",
+        "A": "кДж/кг",
+        "G": "кДж/кг",
+        "Z": "–",
+        "alpha": "1/K",
+        "kappa": "1/МПа",
+        "dvdt": "м³/(кг·K)",
+        "dvdp": "м³/(кг·МПа)",
+        "dpdt": "МПа/K",
+        "dpdv": "МПа·кг/м³",
+        "ijt": "кДж/(кг·МПа)",
+        "jt": "K/МПа",
+        "dc": "–",
+        "mu": "Па·с",
+        "nu": "м²/с",
+        "lambda": "Вт/(м·K)",
+        "diffusivity": "м²/с",
+        "Pr": "–",
+        "sigma": "Н/м",
+        "latentHeat": "кДж/кг"
+      },
+      "reference": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "result": {
+        "state": {
+          "model": "HEOS::Water",
+          "modelName": "CoolProp 8 · HEOS · IAPWS-95",
+          "p": 1,
+          "T": 500,
+          "rho": 4.532294271839076,
+          "v": 0.22063880675475833,
+          "h": 2891.218298958905,
+          "s": 6.824994379140873,
+          "u": 2670.5794922041464,
+          "cp": 2.279477926439576,
+          "cv": 1.6699235635634067,
+          "w": 535.7380639660735,
+          "x": null,
+          "phase": "Перегріта пара",
+          "mu": 0.000017053560479226623,
+          "lambda": 0.03847274119186433,
+          "alpha": 0.0024078981608952575,
+          "kappa": 1.0493387007739363,
+          "drhodp": 4.75591178273677,
+          "A": -741.9176973662898,
+          "G": -521.2788906115311,
+          "Z": 0.9561437813960183,
+          "gamma": 1.3650193195522418,
+          "isentropic": 1.3008376785736346,
+          "dvdt": 0.0005312757770069067,
+          "dvdp": -0.23152483882034972,
+          "dpdt": 0.002294681554315418,
+          "dpdv": -4.3191909995278905,
+          "jt": 19.740959641132036,
+          "ijt": -44.99908174869501,
+          "nu": 0.0000037626772350566666,
+          "diffusivity": 0.0000037239139763973477,
+          "Pr": 1.0104092787601984,
+          "dc": 1.0344298688125768,
+          "sigma": null,
+          "notes": [
+            "Пілот CoolProp 8 / HEOS::Water; система відліку h/s — стандартна IAPWS-95 у CoolProp.",
+            "μ та λ обмежено діапазонами IAPWS R12-08 / R15-11; пропуск означає недоступність."
+          ],
+          "inputSensitivity": {
+            "numericalResponse": {
+              "p": 2.842170943040401e-14,
+              "T": 1.4210854715202004e-11,
+              "h": 3.3672280465239143e-11,
+              "s": 7.988642503978789e-14,
+              "u": 2.5812997944269635e-11,
+              "v": 1.413021457562431e-14,
+              "rho": 2.9025850675553444e-13
+            },
+            "status": "limited",
+            "reason": "large-perturbation",
+            "response": {
+              "p": 0.5,
+              "T": 0.5,
+              "h": 23.639279837567294,
+              "s": 0.2679173664298929,
+              "u": 17.930625916268166,
+              "v": 0.11602805729867831,
+              "rho": 2.3834125428892836
+            },
+            "units": {
+              "p": "MPa",
+              "T": "K",
+              "h": "kJ/kg",
+              "s": "kJ/(kg K)",
+              "u": "kJ/kg",
+              "v": "m3/kg",
+              "rho": "kg/m3"
+            }
+          },
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          },
+          "ex": 860.906678302475
+        },
+        "diagnostics": {
+          "version": 1,
+          "mode": "pt",
+          "keys": [
+            "p",
+            "T"
+          ],
+          "targets": [
+            1,
+            500
+          ],
+          "candidates": 1,
+          "roots": 1,
+          "rejected": 0,
+          "merged": 0,
+          "selection": "stability-then-normalized-input-residual",
+          "assessments": [
+            {
+              "stable": true,
+              "normalizedResidual": 0,
+              "members": 1,
+              "candidatePressureRange": [
+                1,
+                1
+              ]
+            }
+          ],
+          "numericalFloor": "128 * Number.EPSILON * thermodynamic scale",
+          "roundingScenario": {
+            "assumption": "independent half of last typed decimal place; local linear response, not measurement uncertainty or an error bound",
+            "inputs": [
+              {
+                "key": "p",
+                "halfWidth": 0.5,
+                "unit": "MPa",
+                "enteredUnit": "MPa",
+                "enteredText": "1"
+              },
+              {
+                "key": "T",
+                "halfWidth": 0.5,
+                "unit": "K",
+                "enteredUnit": "K",
+                "enteredText": "500"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "format": "water-steam-result",
+      "version": 1,
+      "build": {
+        "version": "1.39.0",
+        "id": "f16d46d30b5e"
+      },
+      "pressure_basis": "absolute",
+      "units": {
+        "p": "MPa",
+        "T": "K",
+        "rho": "кг/м³",
+        "v": "м³/кг",
+        "h": "кДж/кг",
+        "s": "кДж/(кг·K)",
+        "ex": "кДж/кг",
+        "u": "кДж/кг",
+        "cp": "кДж/(кг·K)",
+        "cv": "кДж/(кг·K)",
+        "w": "м/с",
+        "x": "–",
+        "region": "–",
+        "isentropic": "–",
+        "A": "кДж/кг",
+        "G": "кДж/кг",
+        "Z": "–",
+        "alpha": "1/K",
+        "kappa": "1/МПа",
+        "dvdt": "м³/(кг·K)",
+        "dvdp": "м³/(кг·МПа)",
+        "dpdt": "МПа/K",
+        "dpdv": "МПа·кг/м³",
+        "ijt": "кДж/(кг·МПа)",
+        "jt": "K/МПа",
+        "dc": "–",
+        "mu": "Па·с",
+        "nu": "м²/с",
+        "lambda": "Вт/(м·K)",
+        "diffusivity": "м²/с",
+        "Pr": "–",
+        "sigma": "Н/м",
+        "latentHeat": "кДж/кг"
+      },
+      "reference": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "result": {
+        "state": {
+          "p": 3,
+          "T": 300,
+          "v": 0.0010021516796866943,
+          "rho": 997.852940098482,
+          "h": 115.33127302143839,
+          "u": 112.32481798237832,
+          "s": 0.39229479240262427,
+          "cp": 4.173012184067784,
+          "cv": 4.121201603587438,
+          "w": 1507.7392096690314,
+          "drhodp": 0.4454237136455705,
+          "alpha": 0.00027735453342661365,
+          "region": 1,
+          "kappa": 0.00044638212280219354,
+          "dvdt": 2.7795131154220026e-7,
+          "dvdp": -4.4734259414833047e-7,
+          "dpdt": 0.6213388020234817,
+          "dpdv": -2235423.1702524144,
+          "jt": -0.2201686085968807,
+          "ijt": 0.9187662862240342,
+          "phase": "Стиснена рідина",
+          "x": null,
+          "mu": 0.000853492809569675,
+          "lambda": 0.6111168976215888,
+          "dc": 77.85478810795955,
+          "notes": [
+            "Діелектрична проникність: рівняння R8-97 з густиною IF97. Для P–T R8-97 рекомендує густину IAPWS-95; тут можливе відхилення від цього варіанта."
+          ],
+          "A": -5.363619738408957,
+          "G": -2.3571646993488855,
+          "Z": 0.021713872667773738,
+          "isentropic": 756.1322204519304,
+          "nu": 8.553292527107657e-7,
+          "diffusivity": 1.4676013354924076e-7,
+          "Pr": 5.82807627674846,
+          "sigma": null,
+          "inputSensitivity": {
+            "numericalResponse": {
+              "p": 8.526512829121202e-14,
+              "T": 8.526512829121202e-12,
+              "h": 3.565958064879758e-11,
+              "s": 1.186278392993475e-13,
+              "u": 3.558112749536201e-11,
+              "v": 2.4080981474158157e-18,
+              "rho": 2.397768586483649e-12
+            },
+            "status": "limited",
+            "reason": "large-perturbation",
+            "response": {
+              "p": 0.5,
+              "T": 0.5,
+              "h": 2.5458892351459093,
+              "s": 0.00709399596255074,
+              "u": 2.1271108479066863,
+              "v": 3.626469528452654e-7,
+              "rho": 0.3610913751374798
+            },
+            "units": {
+              "p": "MPa",
+              "T": "K",
+              "h": "kJ/kg",
+              "s": "kJ/(kg K)",
+              "u": "kJ/kg",
+              "v": "m3/kg",
+              "rho": "kg/m3"
+            }
+          },
+          "source": {
+            "mode": "pt",
+            "a": 3,
+            "b": 300
+          },
+          "ex": 2.9292134368471645
+        },
+        "diagnostics": {
+          "version": 1,
+          "mode": "pt",
+          "keys": [
+            "p",
+            "T"
+          ],
+          "targets": [
+            3,
+            300
+          ],
+          "candidates": 1,
+          "roots": 1,
+          "rejected": 0,
+          "merged": 0,
+          "selection": "stability-then-normalized-input-residual",
+          "assessments": [
+            {
+              "stable": true,
+              "normalizedResidual": 0,
+              "members": 1,
+              "candidatePressureRange": [
+                3,
+                3
+              ]
+            }
+          ],
+          "numericalFloor": "128 * Number.EPSILON * thermodynamic scale",
+          "roundingScenario": {
+            "assumption": "independent half of last typed decimal place; local linear response, not measurement uncertainty or an error bound",
+            "inputs": [
+              {
+                "key": "p",
+                "halfWidth": 0.5,
+                "unit": "MPa",
+                "enteredUnit": "MPa",
+                "enteredText": "3"
+              },
+              {
+                "key": "T",
+                "halfWidth": 0.5,
+                "unit": "K",
+                "enteredUnit": "K",
+                "enteredText": "300"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "format": "water-steam-result",
+      "version": 1,
+      "build": {
+        "version": "1.39.0",
+        "id": "f16d46d30b5e"
+      },
+      "pressure_basis": "absolute",
+      "units": {
+        "p": "MPa",
+        "T": "K",
+        "rho": "кг/м³",
+        "v": "м³/кг",
+        "h": "кДж/кг",
+        "s": "кДж/(кг·K)",
+        "ex": "кДж/кг",
+        "u": "кДж/кг",
+        "cp": "кДж/(кг·K)",
+        "cv": "кДж/(кг·K)",
+        "w": "м/с",
+        "x": "–",
+        "region": "–",
+        "isentropic": "–",
+        "A": "кДж/кг",
+        "G": "кДж/кг",
+        "Z": "–",
+        "alpha": "1/K",
+        "kappa": "1/МПа",
+        "dvdt": "м³/(кг·K)",
+        "dvdp": "м³/(кг·МПа)",
+        "dpdt": "МПа/K",
+        "dpdv": "МПа·кг/м³",
+        "ijt": "кДж/(кг·МПа)",
+        "jt": "K/МПа",
+        "dc": "–",
+        "mu": "Па·с",
+        "nu": "м²/с",
+        "lambda": "Вт/(м·K)",
+        "diffusivity": "м²/с",
+        "Pr": "–",
+        "sigma": "Н/м",
+        "latentHeat": "кДж/кг"
+      },
+      "reference": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "result": {
+        "state": {
+          "model": "HEOS::Water",
+          "modelName": "CoolProp 8 · HEOS · IAPWS-95",
+          "p": 1,
+          "T": 500,
+          "rho": 4.532294271839076,
+          "v": 0.22063880675475833,
+          "h": 2891.218298958905,
+          "s": 6.824994379140873,
+          "u": 2670.5794922041464,
+          "cp": 2.279477926439576,
+          "cv": 1.6699235635634067,
+          "w": 535.7380639660735,
+          "x": null,
+          "phase": "Перегріта пара",
+          "mu": 0.000017053560479226623,
+          "lambda": 0.03847274119186433,
+          "alpha": 0.0024078981608952575,
+          "kappa": 1.0493387007739363,
+          "drhodp": 4.75591178273677,
+          "A": -741.9176973662898,
+          "G": -521.2788906115311,
+          "Z": 0.9561437813960183,
+          "gamma": 1.3650193195522418,
+          "isentropic": 1.3008376785736346,
+          "dvdt": 0.0005312757770069067,
+          "dvdp": -0.23152483882034972,
+          "dpdt": 0.002294681554315418,
+          "dpdv": -4.3191909995278905,
+          "jt": 19.740959641132036,
+          "ijt": -44.99908174869501,
+          "nu": 0.0000037626772350566666,
+          "diffusivity": 0.0000037239139763973477,
+          "Pr": 1.0104092787601984,
+          "dc": 1.0344298688125768,
+          "sigma": null,
+          "notes": [
+            "Пілот CoolProp 8 / HEOS::Water; система відліку h/s — стандартна IAPWS-95 у CoolProp.",
+            "μ та λ обмежено діапазонами IAPWS R12-08 / R15-11; пропуск означає недоступність."
+          ],
+          "inputSensitivity": {
+            "numericalResponse": {
+              "p": 2.842170943040401e-14,
+              "T": 1.4210854715202004e-11,
+              "h": 3.3672280465239143e-11,
+              "s": 7.988642503978789e-14,
+              "u": 2.5812997944269635e-11,
+              "v": 1.413021457562431e-14,
+              "rho": 2.9025850675553444e-13
+            },
+            "status": "limited",
+            "reason": "large-perturbation",
+            "response": {
+              "p": 0.5,
+              "T": 0.5,
+              "h": 23.639279837567294,
+              "s": 0.2679173664298929,
+              "u": 17.930625916268166,
+              "v": 0.11602805729867831,
+              "rho": 2.3834125428892836
+            },
+            "units": {
+              "p": "MPa",
+              "T": "K",
+              "h": "kJ/kg",
+              "s": "kJ/(kg K)",
+              "u": "kJ/kg",
+              "v": "m3/kg",
+              "rho": "kg/m3"
+            }
+          },
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          },
+          "ex": 860.906678302475
+        },
+        "diagnostics": {
+          "version": 1,
+          "mode": "pt",
+          "keys": [
+            "p",
+            "T"
+          ],
+          "targets": [
+            1,
+            500
+          ],
+          "candidates": 1,
+          "roots": 1,
+          "rejected": 0,
+          "merged": 0,
+          "selection": "stability-then-normalized-input-residual",
+          "assessments": [
+            {
+              "stable": true,
+              "normalizedResidual": 0,
+              "members": 1,
+              "candidatePressureRange": [
+                1,
+                1
+              ]
+            }
+          ],
+          "numericalFloor": "128 * Number.EPSILON * thermodynamic scale",
+          "roundingScenario": {
+            "assumption": "independent half of last typed decimal place; local linear response, not measurement uncertainty or an error bound",
+            "inputs": [
+              {
+                "key": "p",
+                "halfWidth": 0.5,
+                "unit": "MPa",
+                "enteredUnit": "MPa",
+                "enteredText": "1"
+              },
+              {
+                "key": "T",
+                "halfWidth": 0.5,
+                "unit": "K",
+                "enteredUnit": "K",
+                "enteredText": "500"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "workflows": [
+    {
+      "waterProcess": "HEOS form completed",
+      "rankine": "HEOS::Water · water · Станів: 4IDp [MPa (abs)]T [°C]v [m³/kg]h [kJ/kg]s [kJ/(kg K)]x10,0145,806330,0010102711191,805940,64919561021046,137640,0010060252201,877230,64919561—3105000,0328106923 375,12746,5994703—40,0145,8063311,6396322 089,68376,59947030,79340967ВеличинаЗначенняОдиницяПідведене тепло qᵢₙ3 173,2589kJ/kgВідведене тепло qₒᵤₜ1 897,8778kJ/kgСумарна робота w1 275,3743kJ/kgТехнічна робота wₜ1 275,3743kJ/kgТермічний ККД η0,4019131fractionQᵢₙ3 173,2589kJQₒᵤₜ1 897,8778kJW1 275,3743kJНев’язка енергії0,0068155935kJ/kgНев’язка потоку0,0068155935kJ/kgДопуск0,083666536kJ/kgКоординатиT–sh–sp–vp–Tp–sT–v+−Показати весь циклІзобари й ізотермиSVGПеретягніть діаграму або використайте стрілки клавіатури. +/− — масштаб, Home — весь цикл. Ctrl + колесо — масштаб. На телефоні тягніть горизонтально; вертикальний рух прокручує сторінку.T–s · HEOS::Water · water0.17317282.621.8988414.343.6243546.055.3499677.777.0755809.49s [kJ/(kg K)]T [K]T–s1: p = 0.01 MPa abs; T = 318.96 K; h = 191.81 kJ/kg; s = 0.6492 kJ/(kg K); v = 0.0010103 m³/kg12: p = 10 MPa abs; T = 319.29 K; h = 201.88 kJ/kg; s = 0.6492 kJ/(kg K); v = 0.001006 m³/kg23: p = 10 MPa abs; T = 773.15 K; h = 3375.1 kJ/kg; s = 6.5995 kJ/(kg K); v = 0.032811 m³/kg34: p = 0.01 MPa abs; T = 318.96 K; h = 2089.7 kJ/kg; s = 6.5995 kJ/(kg K); v = 11.64 m³/kg4←↑↓→Вибраний стан 1: p = 0,01 MPa abs; T = 318,95633 K; h = 191,80594 kJ/kg; s = 0,64919561 kJ/(kg K); v = 0,0010102711 m³/kgРенкін: баланс обладнання за ентальпіями та контроль інтегралівОбладнанняСтаниqₕ [kJ/kg]wₜ,ₕ [kJ/kg]δq [kJ/kg]δwₜ [kJ/kg]Насос1 → 20-10,0712884,6760762Е-13-1,7084857Е-6Котел2 → 33 173,250200,00869680770Турбіна3 → 401 285,44377,1459901Е-120,0018829227Конденсатор4 → 1-1 897,877802,6375346Е-110Ренкін: підсумок усталеного потокуВеличинаЗначенняОдиницяСпоживана робота насоса10,071288kJ/kgРобота турбіни / ЦВТ + ЦНТ1 285,4437kJ/kgqкотел / qboiler3 173,2502kJ/kgqперегрів / qreheat0kJ/kgqконденсатор / qcondenser1 897,8778kJ/kgwₕ1 275,3724kJ/kgηₕ0,4019136fractionqᵢₙ,ₕ − qₒᵤₜ,ₕ − wₕ0kJ/kgРенкін: сухість і вологість на виходах турбіниСтанp [MPa (abs)]T [°C]x [0…1]1−x [0…1]Фаза40,0145,806330,793409670,20659033Волога параПроцеси циклуПерехідЗаконn / ηₛqᵢₙ [kJ/kg]qₒᵤₜ [kJ/kg]w [kJ/kg]Точність1 → 2isentropic—7,4379986Е-107,4333225Е-10-0,021139994OK2 → 3isobaric—3 173,25890318,04667OK3 → 4isentropic—6,0813522Е-106,0098923Е-101 073,735OK4 → 1isobaric—01 897,8778-116,38621OKПеревірка замикання останнього процесуВеличинаΔДопускp06Е-8T00,0035947816h00,0059590297s02,3245978Е-5v06,0513557Е-9Формули та поясненняСтани задані незалежно; кожен шлях обчислено за вибраним законом. Останній стан з’єднується з першим лише в замкненому режимі та після перевірки узгодженості.Оборотні рівноважні процеси. q = ∫T ds; w = 1000∫p dv; wₜ = −1000∫v dp. Підведене тепло та робота від речовини додатні.qᵢₙ та qₒᵤₜ підсумовано за знаком тепла на кожному інтервалі траєкторії, а не за сумарним теплом процесу. Для циклу qᵢₙ − qₒᵤₜ = w.η = w/qᵢₙ доступний лише для чисельно перевіреного замкненого теплового двигуна. Для відкритого шляху чи циклу зі споживанням роботи ККД двигуна не визначається.qᵢₙ − qₒᵤₜ − w = 0.0068155935 kJ/kg; ε = 0.083666536 kJ/kg.Числові допуски не є фізичною невизначеністю. Для ідеального газу склад сталий, фазові переходи й реакції не враховано; сталі cp/cv беруться при 300 K, NASA7 враховує cp(T).Ренкін: стан 1 — насичена рідина після конденсатора. Насос і кожна ділянка турбіни ідеальні та ізоентропні. Котел, перегрівач і конденсатор ізобарні; втрат тиску немає.Для обладнання усталеного потоку q − wₜ = hвих − hвх. Робота від речовини додатна, тому робота насоса у компонентному балансі від’ємна. qₕ та wₜ,ₕ визначені різницями ентальпій; δq і δwₜ порівнюють незалежні інтеграли лише оборотних шляхів; для адіабатного обладнання ці клітинки порожні. Алгебраїчний нуль сумарного ентальпійного балансу не заміняє контроль інтегрування.ηₕ = (wтурбіни − wнасоса)/(qкотла + qперегріву). Для адіабатного обладнання використано ентальпійний баланс, для оборотних шляхів — інтегрування; невелика числова різниця обмежена вказаними допусками. Маса — kg замкненого циклу, не витрата kg/s; повна робота W = m·w.Сухість x та вологість 1−x визначено лише для двофазного стану й насиченої пари. Для перегрітої пари x не підміняється одиницею. Значення вологості не є критерієм допустимості конкретної турбіни. Втрати тиску та надкритичні шаблони не враховано.Додати до навчального звітуCSV",
+      "input": {
+        "fluid": "water",
+        "model": "HEOS::Water",
+        "closed": true,
+        "mass": "1",
+        "points": [
+          {
+            "name": "1",
+            "mode": "px",
+            "a": "0.01",
+            "b": "0",
+            "kind": "isentropic",
+            "n": "1.3",
+            "eta": "1"
+          },
+          {
+            "name": "2",
+            "mode": "ps",
+            "a": "10",
+            "b": "0.6491956051940285",
+            "kind": "isobaric",
+            "n": "1.3",
+            "eta": "1"
+          },
+          {
+            "name": "3",
+            "mode": "pt",
+            "a": "10",
+            "b": "773.15",
+            "kind": "isentropic",
+            "n": "1.3",
+            "eta": "1"
+          },
+          {
+            "name": "4",
+            "mode": "ps",
+            "a": "0.01",
+            "b": "6.599470303136103",
+            "kind": "isobaric",
+            "n": "1.3",
+            "eta": "1"
+          }
+        ],
+        "chart": {
+          "kind": "ts",
+          "guides": false,
+          "ranges": {},
+          "selected": 0
+        },
+        "library": {
+          "sweep": {
+            "min": ".1",
+            "max": "3",
+            "count": "11",
+            "metric": "efficiency",
+            "input": null
+          },
+          "label": "Ренкіна",
+          "builder": {
+            "kind": "rankine",
+            "fluid": "water",
+            "model": "HEOS::Water",
+            "p1": ".1",
+            "T1": "300",
+            "mass": "1",
+            "ratio": "8",
+            "heatMode": "temperature",
+            "Tmax": "1500",
+            "heat": "800",
+            "Tlow": "200",
+            "pLow": ".01",
+            "pHigh": "10",
+            "pReheat": "2",
+            "Tsteam": "773.15",
+            "Treheat": "773.15",
+            "steamMode": "superheated",
+            "equipment": "ideal",
+            "etaPump": ".85",
+            "etaHP": ".85",
+            "etaLP": ".85",
+            "pBleed": "1",
+            "etaPumpHigh": ".85"
+          },
+          "templates": [],
+          "slots": [
+            null,
+            null
+          ],
+          "kind": "ts",
+          "compared": false
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "browserVersion": "153.0",
+  "workerURLs": [
+    "assets/heos-calculator-worker.js?v=2eb86a70040d597d",
+    "assets/calculator-worker.js?v=321f81867e25425b",
+    "assets/heos-calculator-worker.js?v=2eb86a70040d597d",
+    "assets/heos-calculator-worker.js?v=2eb86a70040d597d",
+    "assets/heos-calculator-worker.js?v=2eb86a70040d597d",
+    "assets/heos-calculator-worker.js?v=2eb86a70040d597d",
+    "assets/heos-calculator-worker.js?v=2eb86a70040d597d",
+    "assets/heos-calculator-worker.js?v=2eb86a70040d597d"
+  ],
+  "build": {
+    "version": "1.39.0",
+    "id": "f16d46d30b5e"
+  }
+}

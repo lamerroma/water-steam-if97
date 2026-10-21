@@ -1,3 +1,4 @@
+import {WATER_MODELS} from './water-models.js';
 import {calculate,PC,TC,PMIN_SAT} from './engine.js';
 import {turbine} from './processes.js';
 import {parseNumber,toCanonical,fromCanonical} from './units.js';
@@ -47,7 +48,7 @@ export function readLabInput(value){
  return {kind:value.kind,rows,quantity,etaM,etaG,...text};
 }
 export function laboratory(input,model='IF97'){
- if(!['IF97','IAPWS-95'].includes(model))throw Error('Невідома модель лабораторної роботи.');const a=readLabInput(input),rows=a.rows.map((v,index)=>{
+ if(!WATER_MODELS.includes(model))throw Error('Невідома модель лабораторної роботи.');const a=readLabInput(input),rows=a.rows.map((v,index)=>{
   try{
    for(const [k,n] of Object.entries(v))if(k.startsWith('u')&&n!==null&&n<0)throw Error('Невизначеність не може бути від’ємною.');
    if(a.kind==='saturation'){

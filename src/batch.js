@@ -30,7 +30,11 @@ export function calculateBatch(inputs,model='IF97'){
  return inputs.map((input,i)=>{try{
  if(!['pt','ph','ps','satp','satt','px','tx','hs','th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'].includes(input.mode))throw Error('Невідомий режим.');
  const units=batchUnits(input.mode);if(!units.a.includes(input.ua)||(!input.mode.startsWith('sat')&&!units.b.includes(input.ub)))throw Error('Одиниці не відповідають режиму.');
- const result=calculate(input.mode,toCanonical(parseNumber(input.a),input.ua),input.mode.startsWith('sat')?undefined:toCanonical(parseNumber(input.b),input.ub),model);
+ const a=toCanonical(parseNumber(input.a),input.ua),b=input.mode.startsWith('sat')?undefined:toCanonical(parseNumber(input.b),input.ub),result=calculate(input.mode,a,b,model);
+ if(model==='HEOS::Water'){
+  for(const state of [result.state,...(result.alternatives||[])].filter(Boolean))state.source={mode:input.mode,a,b};
+  if(result.saturation)for(const state of [result.saturation.liquid,result.saturation.vapor])state.source={mode:'px',a:state.p,b:state.x};
+ }
  return {input:{...input,name:String(input.name||`Точка ${i+1}`).slice(0,80)},result};
  }catch(e){return {input:{...input,name:String(input.name||`Точка ${i+1}`).slice(0,80)},error:e.message};}});
 }

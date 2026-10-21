@@ -19,4 +19,7 @@ for(const model of ['IF97','IAPWS-95'])for(const [mode,a,b] of cases){
 }
 const dir='.release/steam97-p09';await mkdir(dir,{recursive:true});
 const version=JSON.parse(await readFile('package.json')).version;await writeFile(dir+'/unit-values.json',JSON.stringify({version,records},null,2)+'\n');
-const r=spawnSync(process.env.P09_PYTHON||'python3',['scripts/reference/transport_unit_reference.py',dir+'/unit-values.json'],{stdio:'inherit'});if(r.status!==0)throw Error('Independent conversion audit failed.');
+const python=process.env.P09_PYTHON||process.env.REFERENCE_PYTHON||process.env.REACTOR_PYTHON||'python3';
+const r=spawnSync(python,['scripts/reference/transport_unit_reference.py',dir+'/unit-values.json'],{stdio:'inherit'});
+if(r.error)throw Error('Independent conversion Python could not start: '+r.error.message);
+if(r.status!==0)throw Error('Independent conversion audit failed; Python exit '+r.status+'.');

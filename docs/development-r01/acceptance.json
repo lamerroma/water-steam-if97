@@ -1,0 +1,375 @@
+{
+  "date": "2026-10-21",
+  "task": "R01",
+  "status": "in_progress_bounded_subtasks_verified",
+  "branch": "codex/open-library-modules",
+  "baseCommit": "65e9199068659ec5c183081d5e5908244bb2beea",
+  "uncommitted": true,
+  "published": false,
+  "build": {
+    "version": "1.39.0",
+    "id": "f16d46d30b5e"
+  },
+  "unitTests": {
+    "node22": {
+      "passed": 1795,
+      "total": 1795
+    },
+    "node24": {
+      "passed": 1795,
+      "total": 1795
+    }
+  },
+  "core": {
+    "originalStatus": "failed",
+    "originalPassed": 19,
+    "originalTotal": 20,
+    "failedName": "steam97-p09-units",
+    "failureType": "Python executable configuration, not a numerical mismatch",
+    "specificRetry": {
+      "status": "passed",
+      "checks": 600,
+      "numeric": 406,
+      "missing": 194
+    },
+    "allIndividualChecksHavePassingEvidence": true,
+    "newFullGreenCoreRun": false,
+    "fullBrowserReleaseRun": false,
+    "physicalValidation": {
+      "reactorCell": "physical-screening-failed",
+      "scope": "Independent cell screening; failure blocks claims of neutron-model physical validation, separately from software acceptance."
+    }
+  },
+  "independentInverseAudit": {
+    "node": "v24.18.1",
+    "summary": {
+      "complete": true,
+      "profile": "full",
+      "states": 2200,
+      "queries": 4657,
+      "passed": 4657,
+      "different": 0,
+      "failed": 0,
+      "byModel": {
+        "IF97": {
+          "queries": 3439,
+          "passed": 3439,
+          "different": 0,
+          "failed": 0
+        },
+        "IAPWS-95": {
+          "queries": 1218,
+          "passed": 1218,
+          "different": 0,
+          "failed": 0
+        }
+      },
+      "byMode": {
+        "ph": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "ps": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "pu": {
+          "queries": 355,
+          "passed": 355,
+          "different": 0,
+          "failed": 0
+        },
+        "pv": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "prho": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "th": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "ts": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "tu": {
+          "queries": 355,
+          "passed": 355,
+          "different": 0,
+          "failed": 0
+        },
+        "tv": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "trho": {
+          "queries": 370,
+          "passed": 370,
+          "different": 0,
+          "failed": 0
+        },
+        "hs": {
+          "queries": 250,
+          "passed": 250,
+          "different": 0,
+          "failed": 0
+        },
+        "us": {
+          "queries": 184,
+          "passed": 184,
+          "different": 0,
+          "failed": 0
+        },
+        "vs": {
+          "queries": 184,
+          "passed": 184,
+          "different": 0,
+          "failed": 0
+        },
+        "hv": {
+          "queries": 184,
+          "passed": 184,
+          "different": 0,
+          "failed": 0
+        },
+        "uv": {
+          "queries": 185,
+          "passed": 185,
+          "different": 0,
+          "failed": 0
+        }
+      },
+      "durationMs": 95746
+    },
+    "sourceDifferencesSinceAudit": [
+      "app.js"
+    ],
+    "allNumericalJsSourcesUnchanged": true
+  },
+  "browsers": {
+    "chromium": {
+      "workspace": {
+        "status": "passed",
+        "groups": 8,
+        "resultSnapshots": 12,
+        "workflowGroups": 1,
+        "offlineRestart": true
+      },
+      "ambientAndNativeFault": {
+        "status": "passed",
+        "groups": 8,
+        "independentAmbientCases": 2,
+        "nativeFollowups": 0
+      }
+    },
+    "firefox": {
+      "workspace": {
+        "status": "passed",
+        "groups": 8,
+        "resultSnapshots": 12,
+        "workflowGroups": 1,
+        "offlineRestart": true
+      },
+      "ambientAndNativeFault": {
+        "status": "passed",
+        "groups": 8,
+        "independentAmbientCases": 2,
+        "nativeFollowups": 0
+      }
+    }
+  },
+  "completedSubtasks": [
+    "cold-liquid stable density fallback without tolerance relaxation",
+    "shared CoolProp quarantine and page/Worker recovery",
+    "native-path inverse audit entry point",
+    "Worker ambient reference for main result/import/restore/ambient changes",
+    "ambient-reference cancellation and edit protection",
+    "desktop UI before/after measurements and bounded Worker memory stress"
+  ],
+  "remaining": [
+    "performance/memory acceptance of other synchronous auxiliary forms and diagrams",
+    "cold Worker startup budget and profiling",
+    "complete release run and deployed acceptance in R02",
+    "physical mobile/Safari acceptance tracked by R13"
+  ],
+  "performanceQualification": {
+    "selectorIsNotFirstCalculation": true,
+    "mainHeosInitializationIncludesFirstWaterPropertyQuery": true,
+    "claimThatObserverAloneCausedAllLongPauses": "not established; actual unmodified UI reproduced the first-result pause",
+    "actualUiEvidence": "ui-before/after-*.json",
+    "singleDesktopNotStatisticalOrMobileValidation": true
+  },
+  "evidenceManifest": {
+    "core-report.json": {
+      "bytes": 5227,
+      "sha256": "8ddeba84440827e9eb1501464e2bfb1ccc556cba608a2095644441216566bdaa"
+    },
+    "node24-unit.log": {
+      "bytes": 128783,
+      "sha256": "8394330e1875b79c5cd3500b0d5279c33a2f3a1fb0605834d5f89c180774ffe4"
+    },
+    "p09-retry.log": {
+      "bytes": 477,
+      "sha256": "5e1fa3a391c824259f09ddd54bd77ab2c8c98e55cad5066b0c2579eb4b7d6e20"
+    },
+    "core-unit.log": {
+      "bytes": 323902,
+      "sha256": "7728aea696749d5fe2733d30da12ee99e8f8dc98ec15d2da7aecb59e4dfa273d"
+    },
+    "heos-matrix.json": {
+      "bytes": 9071904,
+      "sha256": "0b0cb3989e35f4539ef0469addf122dd362f78d2741aff810ddb1ae034089d75"
+    },
+    "inverse-full-node24.json": {
+      "bytes": 10592231,
+      "sha256": "bd68dce8547d23e1464b0e59c30c69436c06f5cef3c9ecfe30e76946d02285fb"
+    },
+    "cold-liquid-controls.json": {
+      "bytes": 2654,
+      "sha256": "48d6990223b273d5389b0a9fba901de2dbca65f52012efa83fab36bf7a9b39af"
+    },
+    "ambient-controls.json": {
+      "bytes": 792,
+      "sha256": "87c55fc40f39f2a6aa8f2d6126ecea124d2af983b528d6f0cff6d9221830dd61"
+    },
+    "ui-before-chromium.json": {
+      "bytes": 689,
+      "sha256": "f53633c7db54a8f6f728aa20c5e1b7ff255dd647f4696adfdecb182392e9c6f4"
+    },
+    "ui-after-chromium.json": {
+      "bytes": 712,
+      "sha256": "30d1af5fd1094ea372b6028b6b65d6d539cf8bd2433508b41a5119042be93175"
+    },
+    "direct-api-memory-chromium.json": {
+      "bytes": 18277,
+      "sha256": "77adac4e4c8a198968407f221c0afca2abc9b48c292caeab8a7ea636dfbecce5"
+    },
+    "workspace/chromium/offline.png": {
+      "bytes": 211093,
+      "sha256": "7399b02c0233f2ee1c82d7752587a71033ab8bba743b4b55a30813e97758783f"
+    },
+    "workspace/chromium/online.png": {
+      "bytes": 487250,
+      "sha256": "20c87704b5da3d414e756d844a2b3e9ac13a13943e15b040ae0e1f925c164116"
+    },
+    "workspace/chromium/project.json": {
+      "bytes": 6419,
+      "sha256": "ca8d9225816c232dd21f17c238e62ff19544fe6f86b71dd9611a32b985c2ef6e"
+    },
+    "workspace/chromium/report.json": {
+      "bytes": 90071,
+      "sha256": "e2e04952c72a5f5abae9a62022c45e89352256a925208108d367b8489c4f4be8"
+    },
+    "ambient-fault/chromium/quarantined.png": {
+      "bytes": 235809,
+      "sha256": "bb9cef4bcdf564907e0fa546cef26bff5d643460daa86b6e0f616c7d73b29f21"
+    },
+    "ambient-fault/chromium/recovered.png": {
+      "bytes": 282605,
+      "sha256": "48a083899a8d36fc2f1b7b89a69d861597a0243c0285d7384cb0d44bd23d20bd"
+    },
+    "ambient-fault/chromium/report.json": {
+      "bytes": 7345,
+      "sha256": "af40620beb6289e9aa574f8f00bdf7245b45c17e04b94c8d6e58473a1ae81100"
+    },
+    "ui-before-firefox.json": {
+      "bytes": 665,
+      "sha256": "9db70417b680a887ed1d34635c99816b16023a2a4e29de36920952637be25db5"
+    },
+    "ui-after-firefox.json": {
+      "bytes": 661,
+      "sha256": "ba16c1ea55e962cc127fde635a06501249b2245f4a700da5e3e23f182a0c9e08"
+    },
+    "direct-api-memory-firefox.json": {
+      "bytes": 10440,
+      "sha256": "f36754791a846a3ccc1192f5fb88a16d00d8cb5436fa99380aed243647f92b47"
+    },
+    "workspace/firefox/offline.png": {
+      "bytes": 183985,
+      "sha256": "19661515376cdb6dbef8fef10988127f87486a0e14a7d6d238a45b92c0a9227f"
+    },
+    "workspace/firefox/online.png": {
+      "bytes": 399950,
+      "sha256": "8b5b8e04a6bdf0472fad896fd002f69fd9b77d26c8e16f77be391b3a7988ef48"
+    },
+    "workspace/firefox/project.json": {
+      "bytes": 6419,
+      "sha256": "ca8d9225816c232dd21f17c238e62ff19544fe6f86b71dd9611a32b985c2ef6e"
+    },
+    "workspace/firefox/report.json": {
+      "bytes": 89737,
+      "sha256": "ff74165fd5b04e6a1cf49e1675ad5883abd86287c3fa7c79a4e1da025c42c54c"
+    },
+    "ambient-fault/firefox/quarantined.png": {
+      "bytes": 205373,
+      "sha256": "326763e074875835c56a032ec4f78283ad5347a48951f8626a65e1c76514e5ec"
+    },
+    "ambient-fault/firefox/recovered.png": {
+      "bytes": 231019,
+      "sha256": "96abaeb65f480f809f4dad66391dcb3f05c469b12f87ca73a4b41d179e4331bc"
+    },
+    "ambient-fault/firefox/report.json": {
+      "bytes": 7336,
+      "sha256": "6c39917b9f5aece0882d21b30f89a5b1219e233ba2bdf879a5e0badcb8c2d2b4"
+    }
+  },
+  "sourceHashes": {
+    ".gitattributes": "06b0dca5a00d8add7e712ed2ed7cc9c8514a6b06ea0c5d360242ee7bd5898574",
+    "src/app.js": "6c25cdf01e94e6b2a11b97ae69fd5823722562671cebfc7e0238ec8c44b4e239",
+    "src/iapws95.js": "984d2726dcbfa31313222b8fc820e5c5a5d5f62f7d9725aa785cd648c083575c",
+    "src/water-heos.js": "732685a6d1e0bb3d81338dec84588d6a60344dab907b5eea19e6f3ff91bbf4cd",
+    "src/humid-air-scientific.js": "ac904c74579a91591d56ed761e7bcc80503de6a5cbfb0c50b30187f36f84dd95",
+    "src/locales/uk.json": "2814c998c0e317fc1e76fafa37b7a033f032cd879880a62ff2125be829b4dd19",
+    "src/locales/en.json": "ec42353c0bbe66f8993f5b0b348dbd9e8a474a7ad60ca9910b34817eaf3e2cb4",
+    "scripts/audit-inverse-precision.mjs": "6b39b6878d036fe26648d77f7be294ae5ac3d0d7b9e09a6c8c2a10d48c90fb89",
+    "scripts/audit-steam97-p09-units.mjs": "884f71cca60200d3417dd50e26c1cffe25918aa7e465b00ba0ac99304349e18f",
+    "scripts/benchmark-water-heos.cjs": "199569a5aa9abc939c1a119c95f612dea5bac1601a3addf693845acce694d8d2",
+    "scripts/benchmark-heos-selection.cjs": "1a537566c64022331df426542cee1c2a12acd5fa0a79381438599b466fa3d2c8",
+    "scripts/check-water-heos-fault-browser.cjs": "7aee43909b3f5189e94472de9c68578af0cf8fbf34b54dee77e74eb6a37ac708",
+    "scripts/check-water-heos-workspace-browser.cjs": "a9e847b2812a89477cb20b1736a4ea74e788b9f3a22c426e2950ee98bcb21c60",
+    "scripts/verify-release.mjs": "9aeaf825b26c75ad0224f8136606b95e003678763249d98edaf809c07c2efe77",
+    "scripts/reference/generate-iapws95-density-boundary.py": "a2e1d3ba63c96ee4499a3568e5e0201af07be1ef8af09511b76eb19eee3e7c02",
+    "scripts/reference/generate-heos-ambient-reference.py": "e8766726538e47da0c23befc0499cb2915d5a849a567bfd2f5c090ddde6f51c2",
+    "tests/audit-cli.test.mjs": "13559aba6c5ed962a1ba7606230ba926730226636c30b678d33a8bc1468a37d9",
+    "tests/iapws95.test.mjs": "c65fb39212a988d2c60a311aca32997fcadff43dbdb9a7e238be31c2ddc5f7a9",
+    "tests/water-heos-runtime.test.mjs": "6a370af54e31925dd68f86e2090b58bad702918a9bbe743cc5a05f6e8b0305d8",
+    "tests/helpers/heos-native-failure.mjs": "1825018e3afacf91b3d3ac9f2b0e2f6bfc81b450eff849596c7e2dc2040bc73e",
+    "tests/fixtures/iapws95-density-boundary.json": "48d6990223b273d5389b0a9fba901de2dbca65f52012efa83fab36bf7a9b39af",
+    "tests/fixtures/heos-ambient-reference.json": "87c55fc40f39f2a6aa8f2d6126ecea124d2af983b528d6f0cff6d9221830dd61"
+  },
+  "artifactHashes": {
+    "index.html": "80cf33c16b9254c6c54f711d7c345215041fe56410925b24e5306a31208467b4",
+    "assets/app.js": "54ca5d7c285f772bcc0618597bfc6615e13a63ccbf06a149f36a0da61d6ff32c",
+    "assets/calculator-worker.js": "321f81867e25425b70120b25227caea9f4c0085d40495835f9d30fcd7ace9447",
+    "assets/heos-calculator-worker.js": "2eb86a70040d597dfdad3031043f8ad28c404b37ea20d8b7c9c91cb04699eada",
+    "assets/python-worker.js": "8a72381270c17d1cbbe20799bc8ad6bc36d18b54786d482af8c7110e15843761",
+    "assets/python-package.json": "b91498d7a5363a08e075adb4c1ea9fc64b9a4ce4886466b85c252ebdffaa8763",
+    "assets/sheetjs.js": "cc015130aa8521e7f088f88898eba949ccdcbfb38df0bd129b44b7273c3a6f41",
+    "assets/styles.css": "581ffe30e92d0d424405c34c8a33ad2a27a061fd2dddd698298d23b517b97aa8",
+    "assets/coolprop.wasm": "28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307",
+    "service-worker.js": "763cfcbc16743c20fe5f310e7960cdc7bf0a1293f32141074a5c3d647243212f",
+    "manifest.webmanifest": "63130e8f1083e12602ca499f9de40ad3d97d64b457c005ce570215966f783056",
+    "dist/water-steam-calculator.zip": {
+      "sha256": "c6d976d5d47932b8ff222f4639490643cdfd61c38b08ba735d9061b86b706c90",
+      "bytes": 30688571
+    }
+  },
+  "snapshotScope": "Historical f16d46d30b5e snapshot. Source/artifact hashes identify that candidate, not later workspace edits. See steam-process-acceptance.json for the subsequent local candidate."
+}

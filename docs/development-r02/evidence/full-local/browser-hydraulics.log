@@ -1,0 +1,9 @@
+Laminar example and Hagen–Poiseuille control PASS
+Turbulent example and pump control PASS
+Unit conversion and boundary head PASS
+JSON import and automatic project restore PASS
+English labels and CSV precision/assumptions PASS
+Transition, zero flow and invalid efficiency PASS
+Water properties, steam rejection and basic flow compatibility PASS
+Mobile layout PASS
+PWA offline hydraulics PASS

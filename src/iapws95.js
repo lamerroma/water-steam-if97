@@ -139,9 +139,32 @@ function density95(p,T,side,sat){
  if(Math.abs(T-T95C)<=.011&&Math.abs(p-P95C)<.01)return criticalDensityRoot(p,side,rho=>{const state=raw95(T,rho),error=useCriticalPrecision(T,rho)?hpValue(hpSub(preciseData95(T,rho).pressure,hpDecimal(p))):state.p-p;return {state,error,slope:1/state.drhodp};},'IAPWS-95');
  let rho=side==='liquid'?(sat?.liquid.rho||1000):p*1000/(R95*T);
  if(T>=T95C)rho=p>30?700:Math.min(600,rho);
- for(let i=0;i<90;i++){const q=raw95(T,rho),err=q.p-p;if(q.drhodp>0&&Math.abs(err)<Math.max(q.rho>500?2e-11:2e-13,p*3e-14))return q;const step=err*q.drhodp;let ok=false;for(let f=1;f>2**-25;f/=2){const r=rho-f*step;if(!(r>0&&r<1800)||(side==='liquid'&&sat&&r<sat.liquid.rho*(1-1e-7))||(side==='vapor'&&sat&&r>sat.vapor.rho*(1+1e-7)))continue;const n=raw95(T,r);if(n.drhodp>0&&Math.abs(n.p-p)<Math.abs(err)){rho=r;ok=true;break;}}if(!ok)break;}
+ let below,above;
+ const remember=q=>{
+  if(!(q.drhodp>0))return;
+  if(q.p<p&&(!below||q.rho>below.rho))below=q;
+  if(q.p>p&&(!above||q.rho<above.rho))above=q;
+ };
+ for(let i=0;i<90;i++){const q=raw95(T,rho),err=q.p-p;remember(q);if(q.drhodp>0&&Math.abs(err)<Math.max(q.rho>500?2e-11:2e-13,p*3e-14))return q;const step=err*q.drhodp;let ok=false;for(let f=1;f>2**-25;f/=2){const r=rho-f*step;if(!(r>0&&r<1800)||(side==='liquid'&&sat&&r<sat.liquid.rho*(1-1e-7))||(side==='vapor'&&sat&&r>sat.vapor.rho*(1+1e-7)))continue;const n=raw95(T,r);remember(n);if(n.drhodp>0&&Math.abs(n.p-p)<Math.abs(err)){rho=r;ok=true;break;}}if(!ok)break;}
+ // A damped Newton step can stop improving at the floating-point noise floor.
+ // Probe past that tiny correction instead of repeatedly halving it: pressure
+ // cancellation can leave every damped trial on the same side of the target.
+ if(!below||!above){
+  const anchor=raw95(T,rho),step=(anchor.p-p)*anchor.drhodp;
+  if(anchor.drhodp>0&&Math.abs(step)<=64*Number.EPSILON*rho)for(let f=2;f<=1024;f*=2){
+   const r=rho-f*step;
+   if(!(r>0&&r<1800)||(side==='liquid'&&sat&&r<sat.liquid.rho*(1-1e-7))||(side==='vapor'&&sat&&r>sat.vapor.rho*(1+1e-7)))break;
+   const q=raw95(T,r);if(!(q.drhodp>0))break;
+   if(Math.abs(q.p-p)<Math.max(q.rho>500?2e-11:2e-13,p*3e-14))return q;
+   remember(q);if(below&&above)break;
+  }
+ }
+ // Keep stable opposite-sign probes, including rejected trial steps. Below
+ // the triple point, the broad liquid bracket can cross nonphysical EOS lobes;
+ // the local bracket retains the already resolved liquid root and tolerance.
+ const local=below&&above&&below.rho<above.rho;
  // Stable phase-specific bracket; never select an unstable intermediate root.
- let lo=side==='liquid'?sat?.liquid.rho||D95C:1e-12,hi=side==='vapor'?sat?.vapor.rho||D95C:1800;
+ let lo=local?below.rho:side==='liquid'?sat?.liquid.rho||D95C:1e-12,hi=local?above.rho:side==='vapor'?sat?.vapor.rho||D95C:1800;
  for(let i=0;i<100;i++){const mid=(lo+hi)/2,q=raw95(T,mid);if(Math.abs(q.p-p)<Math.max(q.rho>500?2e-11:2e-13,p*3e-14)&&q.drhodp>0)return q;if(q.p>p)hi=mid;else lo=mid;}
  throw Error('IAPWS-95: не знайдено стабільний корінь густини.');
 }

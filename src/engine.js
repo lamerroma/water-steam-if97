@@ -238,4 +238,12 @@ function calculateRaw(mode,a,b,model='IF97') {
   }
 }
 
+// Optional engines install only in their own runtime. Default callers retain
+// the original function and dependency graph until an extension is initialized.
+const waterExtensionBackends=new Map();let waterExtensionsInstalled=false;
+export function registerWaterBackend(model,backend){
+ if(typeof model!=='string'||['IF97','IAPWS-95'].includes(model)||typeof backend!=='function')throw Error('Invalid water backend registration.');
+ waterExtensionBackends.set(model,backend);
+ if(!waterExtensionsInstalled){const native=calculate;calculate=function(mode,a,b,model='IF97',options){return waterExtensionBackends.has(model)?waterExtensionBackends.get(model)(mode,a,b,options):native(mode,a,b,model,options);};waterExtensionsInstalled=true;}
+}
 export function calculate(mode,a,b,model='IF97',options){return diagnoseCalculation(calculateRaw(mode,a,b,model),mode,a,b,options);}

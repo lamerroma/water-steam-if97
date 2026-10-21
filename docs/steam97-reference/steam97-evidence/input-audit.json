@@ -1,0 +1,122 @@
+[
+  {
+    "id": "pure-Ar",
+    "inputs_match": true,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "pure-CO",
+    "inputs_match": true,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "pure-CO2",
+    "inputs_match": true,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "pure-H2O",
+    "inputs_match": true,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "pure-N2",
+    "inputs_match": true,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "pure-Ne",
+    "inputs_match": true,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "pure-O2",
+    "inputs_match": true,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "pure-SO2",
+    "inputs_match": true,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "mix-1200K-1MPa-off",
+    "inputs_match": false,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "mix-1200K-1MPa-on",
+    "inputs_match": false,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "mix-1600K-1MPa-off",
+    "inputs_match": false,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "mix-1600K-1MPa-on",
+    "inputs_match": false,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "mix-2000K-1MPa-off",
+    "inputs_match": false,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "mix-2000K-1MPa-on",
+    "inputs_match": false,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "mix-1600K-0.01MPa-off",
+    "inputs_match": false,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "mix-1600K-0.01MPa-on",
+    "inputs_match": false,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "mix-1600K-5MPa-off",
+    "inputs_match": false,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "mix-1600K-5MPa-on",
+    "inputs_match": false,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "mix-2000.001K-1MPa-off",
+    "inputs_match": false,
+    "registration": true,
+    "checkbox_match": true
+  },
+  {
+    "id": "mix-2000.001K-1MPa-on",
+    "inputs_match": false,
+    "registration": true,
+    "checkbox_match": true
+  }
+]

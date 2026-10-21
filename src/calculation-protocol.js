@@ -24,11 +24,15 @@ export const CALCULATION_MODULES=calculationFreeze([
   validity:{authority:'Existing engine domain checks are authoritative; ranges are not rectangular guarantees.',models:{
    IF97:{temperature:{unit:'K',min:273.15,max:2273.15},pressure:{unit:'MPa',minExclusive:0,max:100},conditions:['Above 1073.15 K: pressure <= 50 MPa.','Saturation and inverse input pairs have their own domains.']},
    'IAPWS-95':{temperature:{unit:'K',min:251.165,max:1273},pressure:{unit:'MPa',minExclusive:0,max:1000},conditions:['Stable fluid above the implemented melting boundary.','Exact critical point excluded; transport properties have separate limits.']}}}},
+ {id:'water-heos',engineVersion:'1.2.0',upstreamVersion:'8.0.0',runtime:'wasm',methods:['calculate'],models:['HEOS::Water'],resultFormat:'water-state',
+  inputSchemas:{calculate:{selector:'mode',cases:Object.fromEntries(Object.entries(calculationWaterPairs).map(([mode,pair])=>[mode,Object.fromEntries(pair.map((quantity,i)=>[i===0?'a':'b',quantity]))]))}},
+  validity:{experimental:true,upstream:{library:'CoolProp',version:'8.0.0'},authority:'CoolProp HEOS::Water with explicit IAPWS fluid and transport limits.',reference:'Default CoolProp IAPWS-95 h/s reference; no user reference offsets.',steam97WebParityVerified:false,
+   temperature:{unit:'K',min:251.165,max:1273},pressure:{unit:'MPa',minExclusive:0,max:1000},conditions:['Stable fluid above melting only.','Saturation: 273.16 <= T < 647.096 K. Exact critical point excluded.','P-T coexistence band: max(1e-12 MPa, 1e-6 relative pressure); quality is not inferred.','Two-phase heat capacities, sound, derivatives and transport are unavailable.','All 20 input modes; extended inversions search bounded stable branches. Existing water and workflow models are unchanged.']}},
  {id:'gas-tables',engineVersion:'1.0.0',runtime:'javascript',methods:['calculate'],models:['BSW2003-technical','BSW2003-VDI4670-caloric-experimental'],resultFormat:'gas-state',
   inputSchemas:{calculate:{selector:'mode',cases:{pt:{p:'p',value:'T',fractions:'x'},ph:{p:'p',value:'h',fractions:'x'},ps:{p:'p',value:'s',fractions:'x'}}}},
   validity:{authority:'Existing BSW2003 and VDI4670 domain checks are authoritative.',temperature:{unit:'K',min:200,max:3300},pressure:{unit:'MPa',minExclusive:0},
    dissociation:{experimental:true,temperature:{unit:'K',min:1200,max:2000},pressure:{unit:'MPa',min:.01,max:5},conditions:['Complete combustion in ordinary air; explicit lambda > 1.05.','Initial mole fractions: N2 > 0, O2 >= 0.01, CO = 0.'],unavailableOutputs:['w','isentropic'],composition:'initial-frozen',equilibriumCompositionComputed:false},steam97WebParityVerified:false}},
- {id:'workflows',engineVersion:'1.0.0',runtime:'javascript-wasm',methods:['project','rankine-sweep','study-report-html','water-process','custom-cycle','library-cycle','cycle-comparison','cycle-preset'],resultFormat:'native',
+ {id:'workflows',engineVersion:'1.0.0',runtime:'javascript-wasm',methods:['project','rankine-sweep','study-report-html','water-process','steam-process','engineering','diagram-base','diagram-isotherm','diagram-refine','custom-cycle','library-cycle','cycle-comparison','cycle-preset','batch'],resultFormat:'native',
   validity:{authority:'Each existing workflow validates its own input and physical model.',units:'Native method-specific schemas are preserved; no generic numeric-unit inference.'}},
  ...[['ht','1.2.0'],['fluids','1.3.1']].map(([id,engineVersion])=>({id,engineVersion,runtime:'pyodide',methods:['catalog','describe','call','get','release',...(id==='fluids'?['pipe-hydraulics']:[])],resultFormat:'python-json',
   validity:{authority:'Pinned, unmodified upstream package. Consult the selected function documentation and its correlation domain.',units:'Upstream documented units; no automatic conversion.',numericalAcceptance:'pending',optionalDependencies:'Numba, Pint, plotting and other extras are not bundled.'}}))
@@ -57,7 +61,7 @@ export function createCalculationRequest({id,moduleId,methodId,payload,engineVer
   inputUnits:inputUnits??Object.fromEntries(Object.entries(schema).map(([field,quantity])=>[field,calculationUnitGroups[quantity].canonical]))};
 }
 export function createLegacyCalculationRequest(id,type,payload){
- const moduleId=type==='calculate'?'water':type==='gas-bsw2003'?'gas-tables':'workflows';
+ const moduleId=type==='calculate'?(payload.model==='HEOS::Water'?'water-heos':'water'):type==='gas-bsw2003'?'gas-tables':'workflows';
  return {...createCalculationRequest({id,moduleId,methodId:moduleId==='workflows'?type:'calculate',payload}),type};
 }
 function calculationObject(value){return value!==null&&typeof value==='object'&&!Array.isArray(value);}
@@ -85,6 +89,7 @@ export function normalizeCalculationRequest(request){
   }else payload[field]=convert(payload[field]);
  }
  if(request.moduleId==='water'&&!['IF97','IAPWS-95'].includes(payload.model??'IF97'))throw new CalculationModuleError('unsupported-model','Unknown water model.',{model:payload.model});
+ if(request.moduleId==='water-heos'&&payload.model!==undefined&&payload.model!=='HEOS::Water')throw new CalculationModuleError('unsupported-model','Unknown HEOS pilot model.',{model:payload.model});
  if(request.moduleId==='gas-tables'&&!['mole','mass'].includes(payload.basis??'mole'))throw new CalculationModuleError('invalid-input','Unknown gas composition basis.',{basis:payload.basis});
  return {descriptor,payload,canonicalUnits};
 }
@@ -126,6 +131,7 @@ export function calculationQuantities(result,format){
  if(format==='water-state'){
   collect(result.state,'state.');collect(result.saturation,'saturation.');
   collect(result.saturation?.liquid,'saturation.liquid.');collect(result.saturation?.vapor,'saturation.vapor.');
+  for(const [index,state] of (result.alternatives||[]).entries())collect(state,'alternatives.'+index+'.');
  }
  return quantities;
 }

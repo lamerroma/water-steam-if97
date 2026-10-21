@@ -1,5 +1,18 @@
 # Документація
 
+[Повний план до кінцевої мети](DEVELOPMENT_MASTER_PLAN_UK.md): 36 пакетів робіт,
+залежності, критерії приймання, три сценарії трудомісткості й зовнішні блокери.
+[Машиночитний кошторис](DEVELOPMENT_MASTER_PLAN.json).
+
+[R00: контрольна копія й відновлення](development-r00/REPORT_UK.md) ·
+[Архів прямого збору Steam97Web](steam97-reference/README_UK.md).
+
+[R01: виправлення IAPWS-95, захист WASM і ексергія у Worker](development-r01/REPORT_UK.md) ·
+[Турбіна та дроселювання у Worker](development-r01/STEAM_PROCESS_WORKER_UK.md) ·
+[Інженерні форми та діаграми у Worker](development-r01/AUXILIARY_WORKER_UK.md) ·
+[R01: приймання пам’яті та холодного запуску](development-r01/MEMORY_ACCEPTANCE_UK.md) ·
+[R02: поточне релізне приймання](development-r02/REPORT_UK.md).
+
 Актуальна програма — багатофайлова PWA. Номер версії задає
 [`package.json`](../package.json), запущену збірку видно внизу сторінки.
 [Підтверджений стан публікації 1.39.0](RELEASE_STATUS_UK.md).
@@ -32,6 +45,10 @@
 - [Архітектура PWA](PWA_ARCHITECTURE_UK.md),
   [протокол обчислювальних модулів](CALCULATION_MODULES_UK.md).
 - [План повного покриття ht / fluids](HT_FLUIDS_INTEGRATION_UK.md).
+- [План відкритих обчислювальних модулів](OPEN_LIBRARY_MODULES_PLAN_UK.md)
+  та [пілот води через CoolProp](WATER_HEOS_UK.md).
+- [Water HEOS: 20 пар, корені, діагностика й перевірка циклів](WATER_HEOS_M2_UK.md).
+- [HEOS в основному калькуляторі, історії, серіях і проєктах](WATER_HEOS_WORKSPACE_UK.md).
 - [Числове приймання трубопроводу](FLUIDS_PIPE_ACCEPTANCE_UK.md),
   [приймання Python-інтеграції](PYTHON_LIBRARIES_ACCEPTANCE_UK.md),
   [вимірювання старту](STARTUP_OPTIMIZATION_UK.md).

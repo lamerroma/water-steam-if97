@@ -1,9 +1,10 @@
+import {WATER_MODELS} from './water-models.js';
 import {solveCycle,CYCLE_DEFAULT} from './cycle-study.js';
 import {solveNuclear,NPP_DEFAULT,NPP_MSR_DEFAULT} from './nuclear.js';
 import {exchangerDesign,EXCHANGER_DEFAULT} from './exchanger-design.js';
 export const RESEARCH_PARAMETERS={cycles:['pLow','pHigh','pMid','Tmin','Tmax','Tmid','etaT','etaC','flow'],npp:['thermalMW','primaryP','coldC','hotC','steamP','condenserP','etaT','etaPump','pMid','reheatC','etaLP'],exchanger:['hotIn','hotOut','coldIn','coldOut','heatKW','U']};
 export function solveStudyModule(module,input,model='IF97'){
- if(!['IF97','IAPWS-95'].includes(model))throw Error('Невідома модель дослідження.');
+ if(!WATER_MODELS.includes(model))throw Error('Невідома модель дослідження.');
  if(module==='cycles')return solveCycle(input,model);if(module==='npp')return solveNuclear(input,model);if(module==='exchanger')return exchangerDesign(input);throw Error('Невідомий модуль дослідження.');
 }
 export function researchMetrics(module,q){return module==='exchanger'?{area:q.area,lmtd:q.lmtd}:{netKW:module==='npp'?q.netKW:q.power,efficiency:q.efficiency,outletX:module==='npp'?(q.states.find(s=>s.name===(q.mode==='msr'?'L1':'S4'))?.x??null):((q.input.type==='rankine-regen'?q.states[2]:q.states.at(-1)).x??null)};}

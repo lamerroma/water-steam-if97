@@ -1,3 +1,4 @@
+import {WATER_MODELS} from './water-models.js';
 import {selectCalculatedAlternative,sameComputationalRoot,DIAGNOSTIC_PAIRS} from './inverse-diagnostics.js';
 import {typedRounding} from './input-rounding.js';
 import {readUIUnits} from './ui-quantities.js';
@@ -21,11 +22,11 @@ export function readProject(text){
  const p=JSON.parse(text);
  if(p?.format!=='water-steam-if97'||p.version!==PROJECT_VERSION)throw Error('Непідтримуваний формат або версія проєкту.');
  if(!Array.isArray(p.history)||p.history.length>500)throw Error('Журнал має містити не більше 500 станів.');
- if(p.process?.model!=null&&!['IF97','IAPWS-95'].includes(p.process.model))throw Error('Невідома формуляція процесу.');
+ if(p.process?.model!=null&&!WATER_MODELS.includes(p.process.model))throw Error('Невідома формуляція процесу.');
  const workspace=readWorkspace(p.workspace),pressure=readPressure(p.pressure);
  const states=p.history.map(q=>{
   if(!q||!Number.isFinite(q.p)||!Number.isFinite(q.h))throw Error('Некоректний стан у журналі.');
-  if(q.model!=null&&!['IF97','IAPWS-95'].includes(q.model))throw Error('Невідома формуляція стану.');
+  if(q.model!=null&&!WATER_MODELS.includes(q.model))throw Error('Невідома формуляція стану.');
   if(q.name!=null&&(typeof q.name!=='string'||q.name.length>80))throw Error('Назва стану має бути до 80 символів.');
   let state,source;
   if(q.source){
@@ -51,7 +52,7 @@ export function readProject(text){
  });
  let process=null;
  if(p.process){const q=p.process;if(!['turbine','flash','throttle','compressor','pump','heat-exchanger'].includes(q.type)||!Array.isArray(q.args)||!(q.type==='throttle'?[3]:q.type==='heat-exchanger'?[9]:q.type==='flash'?[4,5]:[5]).includes(q.args.length)||!q.args.every(Number.isFinite))throw Error('Некоректний процес.');process={type:q.type,args:q.args,model:q.model||'IF97',result:q.type==='throttle'?throttle(...q.args,q.model||'IF97'):q.type==='turbine'?turbine(...q.args,q.model||'IF97'):q.type==='flash'?flash(...q.args,...(q.args.length===4?[0]:[]),q.model||'IF97'):q.type==='heat-exchanger'?heatExchanger(...q.args,q.model||'IF97'):compression(q.type,...q.args,q.model||'IF97')};}
- const f=p.form;if(f?.model!=null&&!['IF97','IAPWS-95'].includes(f.model))throw Error('Невідома формуляція проєкту.');if(!f||!['pt','ph','ps','satp','satt','px','tx','hs','th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'].includes(f.mode)||!['MPa','kPa','Pa','bar','atm','C','K','kJkg','Jkg'].concat(['psi','F','Btulb','m3kg','ft3lb']).includes(f.ua)||!['MPa','kPa','Pa','bar','atm','C','K','kJkg','Jkg','kJkgK','JkgK','fraction','percent'].concat(['F','Btulb','BtulbR','kgm3','lbft3','m3kg','ft3lb']).includes(f.ub)||typeof f.a!=='string'||typeof f.b!=='string'||f.a.length>80||f.b.length>80)throw Error('Некоректні параметри введення.');
+ const f=p.form;if(f?.model!=null&&!WATER_MODELS.includes(f.model))throw Error('Невідома формуляція проєкту.');if(!f||!['pt','ph','ps','satp','satt','px','tx','hs','th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'].includes(f.mode)||!['MPa','kPa','Pa','bar','atm','C','K','kJkg','Jkg'].concat(['psi','F','Btulb','m3kg','ft3lb']).includes(f.ua)||!['MPa','kPa','Pa','bar','atm','C','K','kJkg','Jkg','kJkgK','JkgK','fraction','percent'].concat(['F','Btulb','BtulbR','kgm3','lbft3','m3kg','ft3lb']).includes(f.ub)||typeof f.a!=='string'||typeof f.b!=='string'||f.a.length>80||f.b.length>80)throw Error('Некоректні параметри введення.');
  if(f.inputStyle!=null&&!['smart','advanced'].includes(f.inputStyle)||f.inputOrder!=null&&!['canonical','reverse'].includes(f.inputOrder))throw Error('Некоректний спосіб введення.');
  const {a:allowedA,b:allowedB}=batchUnits(f.mode);if(!allowedA.includes(f.ua)||!allowedB.includes(f.ub))throw Error('Одиниці не відповідають режиму.');
  if(f.calculated!=null&&typeof f.calculated!=='boolean')throw Error('Некоректний статус розрахунку.');

@@ -1,0 +1,17 @@
+chromium Three turbine modes; both models and unit systems; MW input passed
+chromium Superheated and supercritical exits; temperature difference and null reasons passed
+chromium Saturated/subcooled condensate and legacy vapor throttle; both systems passed
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert((await page.locator('#process-error').textContent()).length>0)
+
+    at C:\Users\coyotl\Documents\ChatGPT\калькулятор\water-steam-if97\scripts\check-steam97-p06-browser.cjs:73:94
+    at async check (C:\Users\coyotl\Documents\ChatGPT\калькулятор\water-steam-if97\scripts\check-steam97-p06-browser.cjs:56:119)
+    at async C:\Users\coyotl\Documents\ChatGPT\калькулятор\water-steam-if97\scripts\check-steam97-p06-browser.cjs:70:3 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

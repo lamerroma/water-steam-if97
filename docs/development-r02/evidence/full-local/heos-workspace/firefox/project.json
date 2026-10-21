@@ -1,0 +1,279 @@
+{
+  "savedWith": {
+    "appVersion": "1.40.0",
+    "buildId": "20fd3cb17a71",
+    "method": "project / multiple methods",
+    "model": "per result"
+  },
+  "importedFrom": {
+    "appVersion": "1.40.0",
+    "buildId": "20fd3cb17a71",
+    "method": "project / multiple methods",
+    "model": "per result"
+  },
+  "research": {
+    "variants": [],
+    "sweep": null
+  },
+  "study": {
+    "author": "",
+    "assignment": "",
+    "intro": "",
+    "entries": []
+  },
+  "format": "water-steam-if97",
+  "version": 1,
+  "uiUnits": {
+    "temperature": "C",
+    "pressure": "MPa",
+    "mass": "kgs",
+    "power": "kW",
+    "length": "m",
+    "energy": "kJkg",
+    "dynamicViscosity": "auto",
+    "kinematicViscosity": "auto",
+    "surfaceTension": "auto"
+  },
+  "uiInputDefaults": false,
+  "digits": 8,
+  "diagram": {
+    "tools": {
+      "crosshair": true,
+      "regions": true,
+      "isotherms": false,
+      "qualities": false,
+      "temperatureUnit": "C",
+      "temperatures": [
+        373.15,
+        473.15,
+        573.15,
+        673.15
+      ],
+      "dryness": [
+        0.1,
+        0.3,
+        0.5,
+        0.7,
+        0.9
+      ]
+    },
+    "views": {
+      "HEOS::Water:ts": {
+        "range": {
+          "xmin": 0,
+          "xmax": 11,
+          "ymin": 0,
+          "ymax": 800
+        },
+        "preset": "full",
+        "hiddenIsobars": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      }
+    },
+    "connectHistory": false,
+    "numbers": true,
+    "order": [
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "excluded": [],
+    "pointSets": {
+      "HEOS::Water": [
+        {
+          "historyIndex": 2,
+          "label": "H0"
+        },
+        {
+          "historyIndex": 3,
+          "label": "H1"
+        }
+      ]
+    },
+    "series": [
+      {
+        "name": "HEOS curve",
+        "model": "HEOS::Water",
+        "kind": "line",
+        "points": [
+          2,
+          3
+        ]
+      }
+    ],
+    "drawingStyle": {
+      "radius": 6,
+      "pointColor": "phase",
+      "width": 2.3,
+      "lineColor": "#8b4599"
+    }
+  },
+  "pressure": {
+    "basis": "absolute",
+    "atmosphere": 0.101325
+  },
+  "title": "Вода та пара",
+  "history": [
+    {
+      "p": 0.1,
+      "h": 25.9753033559345,
+      "model": "HEOS::Water",
+      "name": "",
+      "source": {
+        "mode": "prho",
+        "a": 0.1,
+        "b": 999.9372608888243
+      }
+    },
+    {
+      "p": 0.1,
+      "h": 7.859996547405961,
+      "model": "HEOS::Water",
+      "name": "",
+      "source": {
+        "mode": "prho",
+        "a": 0.1,
+        "b": 999.9372608888243
+      }
+    },
+    {
+      "p": 0.1,
+      "h": 1546.2257941512794,
+      "model": "HEOS::Water",
+      "name": "wet",
+      "source": {
+        "mode": "px",
+        "a": 0.1,
+        "b": 0.5
+      }
+    },
+    {
+      "p": 1,
+      "h": 2891.218298958905,
+      "model": "HEOS::Water",
+      "name": "steam",
+      "source": {
+        "mode": "pt",
+        "a": 1,
+        "b": 500
+      }
+    },
+    {
+      "p": 1,
+      "h": 2891.218298958905,
+      "model": "HEOS::Water",
+      "name": "",
+      "source": {
+        "mode": "pt",
+        "a": 1,
+        "b": 500
+      }
+    },
+    {
+      "p": 1,
+      "h": 2891.21829895903,
+      "model": "IAPWS-95",
+      "name": "",
+      "source": {
+        "mode": "pt",
+        "a": 1,
+        "b": 500
+      }
+    },
+    {
+      "p": 3,
+      "h": 115.33127302143839,
+      "model": "IF97",
+      "name": "",
+      "source": {
+        "mode": "pt",
+        "a": 3,
+        "b": 300
+      }
+    },
+    {
+      "p": 1,
+      "h": 2891.218298958905,
+      "model": "HEOS::Water",
+      "name": "",
+      "source": {
+        "mode": "pt",
+        "a": 1,
+        "b": 500
+      }
+    }
+  ],
+  "workspace": {
+    "active": "general",
+    "panels": {
+      "water-process": {
+        "inputs": {
+          "wp-fluid": "water",
+          "wp-model": "HEOS::Water",
+          "wp-kind": "isobaric",
+          "wp-mode": "pt",
+          "wp-a": "3",
+          "wp-b": "600",
+          "wp-end": "T",
+          "wp-value": "700",
+          "wp-mass": "1",
+          "wp-n": "1.3"
+        },
+        "calculated": true,
+        "model": "HEOS::Water"
+      },
+      "custom-cycle": {
+        "inputs": {
+          "cc-data": "{\"fluid\":\"water\",\"model\":\"HEOS::Water\",\"closed\":true,\"mass\":\"1\",\"points\":[{\"name\":\"1\",\"mode\":\"px\",\"a\":\"0.01\",\"b\":\"0\",\"kind\":\"isentropic\",\"n\":\"1.3\",\"eta\":\"1\"},{\"name\":\"2\",\"mode\":\"ps\",\"a\":\"10\",\"b\":\"0.6491956051940285\",\"kind\":\"isobaric\",\"n\":\"1.3\",\"eta\":\"1\"},{\"name\":\"3\",\"mode\":\"pt\",\"a\":\"10\",\"b\":\"773.15\",\"kind\":\"isentropic\",\"n\":\"1.3\",\"eta\":\"1\"},{\"name\":\"4\",\"mode\":\"ps\",\"a\":\"0.01\",\"b\":\"6.599470303136103\",\"kind\":\"isobaric\",\"n\":\"1.3\",\"eta\":\"1\"}],\"chart\":{\"kind\":\"ts\",\"guides\":false,\"ranges\":{},\"selected\":0},\"library\":{\"sweep\":{\"min\":\".1\",\"max\":\"3\",\"count\":\"11\",\"metric\":\"efficiency\",\"input\":null},\"label\":\"Ренкіна\",\"builder\":{\"kind\":\"rankine\",\"fluid\":\"water\",\"model\":\"HEOS::Water\",\"p1\":\".1\",\"T1\":\"300\",\"mass\":\"1\",\"ratio\":\"8\",\"heatMode\":\"temperature\",\"Tmax\":\"1500\",\"heat\":\"800\",\"Tlow\":\"200\",\"pLow\":\".01\",\"pHigh\":\"10\",\"pReheat\":\"2\",\"Tsteam\":\"773.15\",\"Treheat\":\"773.15\",\"steamMode\":\"superheated\",\"equipment\":\"ideal\",\"etaPump\":\".85\",\"etaHP\":\".85\",\"etaLP\":\".85\",\"pBleed\":\"1\",\"etaPumpHigh\":\".85\"},\"templates\":[],\"slots\":[null,null],\"kind\":\"ts\",\"compared\":false}}"
+        },
+        "calculated": true,
+        "model": "HEOS::Water"
+      }
+    }
+  },
+  "process": null,
+  "form": {
+    "calculated": true,
+    "roundingDisplay": false,
+    "selectedRoot": {
+      "p": 0.1,
+      "T": 279.30532608629227
+    },
+    "inputStyle": "advanced",
+    "inputOrder": "canonical",
+    "model": "HEOS::Water",
+    "mode": "prho",
+    "a": "0.1",
+    "b": "999.9372608888243",
+    "ua": "MPa",
+    "ub": "kgm3"
+  },
+  "drafts": {},
+  "ambient": {
+    "p": 0.101325,
+    "T": 298.15
+  },
+  "system": "si",
+  "energy": "kJ",
+  "gray": false,
+  "scale": "1",
+  "hints": true,
+  "exportedWith": {
+    "appVersion": "1.40.0",
+    "buildId": "20fd3cb17a71",
+    "method": "project / multiple methods",
+    "model": "per result"
+  }
+}

@@ -1,0 +1,16 @@
+Downloaded state-IF97: xlsx, ods, xls, csv
+Downloaded state-IAPWS-95: xlsx, ods, xls, csv
+Downloaded state-HEOS--Water: xlsx, ods, xls, csv
+Downloaded history: xlsx, ods, xls, csv
+Downloaded saturation: xlsx, ods, xls, csv
+Downloaded turbine: xlsx, ods, xls, csv
+Downloaded flash: xlsx, ods, xls, csv
+Downloaded batch: xlsx, ods, xls, csv
+Downloaded diagram: xlsx, ods, xls, csv
+Downloaded offline-IF97: xlsx, ods, xls, csv
+Downloaded offline-IAPWS-95: xlsx, ods, xls, csv
+Downloaded offline-HEOS--Water: xlsx, ods, xls, csv
+Downloaded pwa-offline-IF97: xlsx, ods, xls, csv
+Downloaded pwa-offline-IAPWS-95: xlsx, ods, xls, csv
+Downloaded pwa-offline-HEOS--Water: xlsx, ods, xls, csv
+{"browser":"firefox","status":"passed","groups":5,"files":60,"offlineMode":"pwa-offline-reload","independent":{"status":"passed","files":60,"checks":160,"version":"1.40.0"}}

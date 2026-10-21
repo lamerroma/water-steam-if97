@@ -1,0 +1,308 @@
+- generic "☰ Мова Українська Масштаб 100%":
+  - text: ☰
+  - text: Мова
+  - combobox "Мова інтерфейсу":
+    - option "English"
+    - option "Українська" [selected]
+  - text: Масштаб
+  - combobox "Масштаб інтерфейсу":
+    - option "100%" [selected]
+    - option "115%"
+    - option "130%"
+- generic "Файл"
+- generic "Тема"
+- generic "Діаграми"
+- button "Довідка"
+- button "Панель налаштувань"
+- button "Історія розрахунків"
+- button "Підказки" [pressed]
+- button "Повний екран":
+  - text: Повний екран
+- button "Очистити результати":
+- button "Зберегти CSV":
+- button "Друк":
+- button "Загальні властивості":
+- button "Насичення":
+- button "Довідка":
+- button "Додати до звіту"
+- generic: IF97 / IAPWS-95 · вода та водяна пара
+- generic: 🇺🇦
+- button "Одиниці"
+- generic "Встановлення та офлайн · Повна версія 1.35.12 готова до роботи офлайн"
+- main:
+  - region "Інструменти калькулятора":
+    - button "Властивості" [pressed]
+    - button "Процеси й цикли"
+    - button "Теплообмін і гідравліка"
+    - button "Навчання"
+    - button "Проєкти та звіти"
+    - generic: Пошук інструмента
+    - searchbox "Пошук інструмента"
+    - button "Обрати інструмент"
+  - tablist "Розділи калькулятора":
+    - tab "Вода та пара"
+    - tab "Насичення"
+    - tab "Гази та суміші" [selected]
+    - tab "Вологе повітря"
+    - tab "Лід"
+    - tab "Важка вода"
+    - tab "Морська вода"
+    - tab "Фазові межі"
+    - tab "Порівняння моделей"
+    - tab "Таблиці насичення"
+  - paragraph:
+    - generic: Залежить від режиму
+    - text: Реальні чисті гази, ідеальні гази та дослідні суміші.
+  - generic "Про цей розрахунок"
+  - heading "Гази · BSW2003 / CoolProp HEOS / NASA7" [level=2]
+  - generic "Методика та припущення"
+  - text: Модель
+  - combobox "Модель":
+    - option "Реальна речовина · CoolProp HEOS"
+    - option "Реальна суміш · HEOS · лише P–T (дослідний)"
+    - option "Ідеальний газ / суміш · NASA7"
+    - option "Ідеальний газ / суміш · BSW2003" [selected]
+  - text: Режим
+  - combobox "Режим":
+    - option "P–T" [selected]
+    - option "P–h"
+    - option "P–s"
+  - text: Абсолютний тиск
+  - textbox "Абсолютний тиск MPa": "0.01"
+  - combobox "Одиниця для gas-p":
+    - option "MPa" [selected]
+    - option "kPa"
+    - option "Pa"
+    - option "bar"
+    - option "atm"
+    - option "psi"
+  - generic: Температура, K
+  - textbox "Температура, K K": "1600"
+  - combobox "Одиниця для gas-b":
+    - option "°C"
+    - option "K" [selected]
+    - option "°F"
+  - text: Базис складу
+  - combobox "Базис складу":
+    - option "Молярні частки" [selected]
+    - option "Масові частки"
+  - generic: Одиниці складу
+  - combobox "Одиниці складу":
+    - option "Частки 0…1"
+    - option "Відсотки 0…100" [selected]
+  - text: Готовий склад
+  - combobox "Готовий склад":
+    - option "Сухе повітря"
+    - option "Приклад димових газів"
+    - option "N2"
+    - option "O2"
+    - option "CO2"
+    - option "CO"
+    - option "H2" [disabled]
+    - option "H2O"
+    - option "CH4" [disabled]
+    - option "Ar"
+    - option "He" [disabled]
+    - option "NO" [disabled]
+    - option "SO2"
+    - option "Ne"
+    - option "Власна суміш" [selected]
+  - paragraph: Відсотки; сума = 100 %. Зміна базису перераховує склад.
+  - paragraph: "BSW2003: 8 компонентів, 200…3300 K, сталий склад. h і s чистих компонентів дорівнюють нулю при 273,15 K і 0,101325 МПа; ентропія суміші містить внесок змішування."
+  - text: N2
+  - textbox "N2": "72.633612"
+  - text: O2
+  - textbox "O2": "3.219575"
+  - text: CO2
+  - textbox "CO2": "8.048938"
+  - text: CO
+  - textbox "CO": "0"
+  - text: H2O
+  - textbox "H2O": "16.097875"
+  - text: Ar
+  - textbox "Ar": "0"
+  - text: SO2
+  - textbox "SO2": "0"
+  - text: Ne
+  - textbox "Ne": "0"
+  - text: Дисоціація
+  - combobox "Дисоціація":
+    - option "Не враховувати"
+    - option "Калорична поправка VDI4670 · дослідна" [selected]
+  - paragraph
+  - generic: Умови утворення газу
+  - combobox "Умови утворення газу":
+    - option "Не задано"
+    - option "Повне згоряння у звичайному повітрі" [selected]
+  - generic: Коефіцієнт надлишку повітря λ
+  - textbox "Коефіцієнт надлишку повітря λ": "1.2"
+  - button "Розрахувати газ" [active]
+  - paragraph:
+    - strong: BSW2003 + VDI4670 · experimental caloric correction
+  - paragraph: Дослідна калорична поправка VDI4670 до BSW2003. cp/cv — калоричне відношення; швидкість звуку й ізентропний показник не підтверджені. Поправка cp апроксимована окремо від h/s. Пряме зіставлення зі Steam97Web ще не завершене.
+  - generic "Таблиця результатів — прокручування стрілками":
+    - table:
+      - rowgroup:
+        - row "Показник Результат Одиниця":
+          - columnheader "Показник"
+          - columnheader "Результат"
+          - columnheader "Одиниця"
+      - rowgroup:
+        - row "P 0,01 MPa":
+          - cell "P":
+            - button "P":
+              - text: P
+          - cell "0,01"
+          - cell "MPa"
+        - row "T 1 326,85 °C":
+          - cell "T":
+            - button "T":
+              - text: T
+          - cell "1 326,85"
+          - cell "°C"
+        - row "M 27,820069 kg/kmol":
+          - cell "M":
+            - button "M":
+              - text: M
+          - cell "27,820069"
+          - cell "kg/kmol"
+        - row "R 0,29886597 kJ/(kg K)":
+          - cell "R"
+          - cell "0,29886597"
+          - cell "kJ/(kg K)"
+        - row "h 1 679,2673 kJ/kg":
+          - cell "h":
+            - button "h":
+              - text: h
+          - cell "1 679,2673"
+          - cell "kJ/kg"
+        - row "s 3,090586 kJ/(kg K)":
+          - cell "s":
+            - button "s":
+              - text: s
+          - cell "3,090586"
+          - cell "kJ/(kg K)"
+        - row "u 1 201,0817 kJ/kg":
+          - cell "u":
+            - button "u":
+              - text: u
+          - cell "1 201,0817"
+          - cell "kJ/kg"
+        - row "ρ 0,020912384 kg/m³":
+          - cell "ρ":
+            - button "ρ":
+              - text: ρ
+          - cell "0,020912384"
+          - cell "kg/m³"
+        - row "v 47,818556 m³/kg":
+          - cell "v":
+            - button "v":
+              - text: v
+          - cell "47,818556"
+          - cell "m³/kg"
+        - row "Cp 1,4383217 kJ/(kg K)":
+          - cell "Cp":
+            - button "Cp":
+              - text: Cp
+          - cell "1,4383217"
+          - cell "kJ/(kg K)"
+        - row "Cv 1,1394557 kJ/(kg K)":
+          - cell "Cv":
+            - button "Cv":
+              - text: Cv
+          - cell "1,1394557"
+          - cell "kJ/(kg K)"
+        - row "w — m/s":
+          - cell "w":
+            - button "w":
+              - text: w
+          - cell "—"
+          - cell "m/s"
+        - row "κ — –":
+          - cell "κ"
+          - cell "—"
+          - cell "–"
+        - row "Z 1 –":
+          - cell "Z":
+            - button "Z":
+              - text: Z
+          - cell "1"
+          - cell "–"
+        - row "Ентропія змішування 0,25095504 kJ/(kg K)":
+          - cell "Ентропія змішування"
+          - cell "0,25095504"
+          - cell "kJ/(kg K)"
+        - row "cp/cv 1,2622884 –":
+          - cell "cp/cv"
+          - cell "1,2622884"
+          - cell "–"
+        - row "λ 1,2 –":
+          - cell "λ"
+          - cell "1,2"
+          - cell "–"
+        - row "Δh (dissociation) 4,4329067 kJ/kg":
+          - cell "Δh (dissociation)"
+          - cell "4,4329067"
+          - cell "kJ/kg"
+        - row "Δs (dissociation) 0,0027705667 kJ/(kg K)":
+          - cell "Δs (dissociation)"
+          - cell "0,0027705667"
+          - cell "kJ/(kg K)"
+        - row "Δcp (dissociation) 0,028431594 kJ/(kg K)":
+          - cell "Δcp (dissociation)"
+          - cell "0,028431594"
+          - cell "kJ/(kg K)"
+  - paragraph:
+    - button "CSV розрахунку"
+    - combobox "Формат таблиці":
+      - option "XLSX" [selected]
+      - option "ODS"
+      - option "XLS (97–2003)"
+      - option "CSV (UTF-8)"
+    - button "Зберегти таблицю"
+    - 'button "JSON: входи та результати"'
+  - paragraph: Нижче наведено початковий склад. Рівноважний склад і відсоток дисоціації не обчислюються; густина відповідає початковій ідеальній суміші.
+  - generic "Таблиця результатів — прокручування стрілками":
+    - table:
+      - rowgroup:
+        - row "Компонент Молярні частки, % Масові частки, %":
+          - columnheader "Компонент"
+          - columnheader "Молярні частки, %"
+          - columnheader "Масові частки, %"
+      - rowgroup:
+        - row "N2 72,633612 73,139934":
+          - cell "N2"
+          - cell "72,633612"
+          - cell "73,139934"
+        - row "O2 3,219575 3,7030807":
+          - cell "O2"
+          - cell "3,219575"
+          - cell "3,7030807"
+        - row "Ar 0 0":
+          - cell "Ar"
+          - cell "0"
+          - cell "0"
+        - row "Ne 0 0":
+          - cell "Ne"
+          - cell "0"
+          - cell "0"
+        - row "H2O 16,097875 10,424245":
+          - cell "H2O"
+          - cell "16,097875"
+          - cell "10,424245"
+        - row "CO2 8,048938 12,73274":
+          - cell "CO2"
+          - cell "8,048938"
+          - cell "12,73274"
+        - row "CO 0 0":
+          - cell "CO"
+          - cell "0"
+          - cell "0"
+        - row "SO2 0 0":
+          - cell "SO2"
+          - cell "0"
+          - cell "0"
+- contentinfo:
+  - generic: "Модель води й пари: IF97"
+  - status: Готово до розрахунку
+  - generic: Версія 1.35.12 · збірка 8976baaf14e1

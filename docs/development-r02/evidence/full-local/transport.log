@@ -1,0 +1,28 @@
+{
+  "source": "CoolProp 8.0.0 P-T and direct density-T EOS; Python iapws 1.5.5 IF97 refined roots",
+  "count": 1376,
+  "unavailable": 146,
+  "errors": [],
+  "maxima": {
+    "IF97 mu": {
+      "relative": 3.879739420212579e-13,
+      "p": 22.064,
+      "T": 647
+    },
+    "IF97 lambda": {
+      "relative": 1.691822303648958e-12,
+      "p": 22.064,
+      "T": 647
+    },
+    "IAPWS-95 mu": {
+      "relative": 4.1793218760313266e-11,
+      "p": 22.064,
+      "T": 647.1
+    },
+    "IAPWS-95 lambda": {
+      "relative": 1.9363663543661115e-10,
+      "p": 22.064,
+      "T": 647.1
+    }
+  }
+}

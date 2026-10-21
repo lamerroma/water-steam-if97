@@ -10,3 +10,7 @@ __pycache__/
 /docs/test-results.txt
 /standalone.html
 /dist/standalone.html
+
+# Managed acceptance logs are evidence, not transient run output.
+!docs/development-r01/**/*.log
+!docs/development-r02/**/*.log

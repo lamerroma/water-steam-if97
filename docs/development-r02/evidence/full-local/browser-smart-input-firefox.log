@@ -1,0 +1,12 @@
+Reversed inputs, retained pressure units and calculation PASS
+All twenty advanced modes synchronize property selectors PASS
+Advanced modes and wet steam in percent PASS
+Inline validation, focus, translation and decimal comma PASS
+Both field errors and temperature conversion PASS
+P–T saturation explanation and quality action PASS
+Project export and auto restore preserve reversed order PASS
+New and legacy JSON import PASS
+Reversed gauge pressure preserves physical input and label order PASS
+IAPWS-95 stable liquid and pressure-dependent melting bounds PASS
+Mobile layout PASS
+Offline reversed input PASS

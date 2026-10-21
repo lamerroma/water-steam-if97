@@ -6,7 +6,7 @@ const assert=require('node:assert/strict');const fs=require('node:fs/promises');
  const ctx=await browser.newContext({viewport:{width:1440,height:1000}});const p=await ctx.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
  await p.goto(process.env.DIAGRAM_URL||'http://localhost:8080/');await p.waitForFunction(()=>!document.querySelector('#calculate').disabled);
  const tab=k=>openTool(p,k);
- const ready=()=>p.waitForFunction(()=>!document.querySelector('#diagram-save').disabled,{},{timeout:60000});
+ const ready=()=>p.waitForFunction(()=>{const button=document.querySelector('#diagram-save');return button&&!button.disabled&&Chart.getChart('steam-diagram')?.$detailStats;},{},{timeout:180000});
  const chart=()=>p.evaluate(()=>{const c=Chart.getChart('steam-diagram');return {area:c.chartArea,width:c.width,height:c.height,stats:c.$detailStats,axes:Object.fromEntries(Object.entries(c.scales).map(([id,s])=>[id,{ticks:s.ticks.map(t=>t.value),labels:s.getLabelItems().map(l=>l.label),title:s.options.title.text}])),datasets:c.data.datasets.map((d,i)=>({role:d.role,hidden:!c.isDatasetVisible(i),data:d.data,dash:d.borderDash,width:d.borderWidth,color:d.borderColor,points:c.getDatasetMeta(i).data.map(p=>({x:p.x,y:p.y,skip:p.skip,r:p.options.radius}))}))};});
  const download=async id=>{const [d]=await Promise.all([p.waitForEvent('download'),p.click('#'+id)]);return fs.readFile(await d.path());};
  await p.fill('#input-a','22.064');await p.fill('#input-b','376.85');await p.click('#calculate');await p.waitForFunction(()=>!document.querySelector('#calculate').disabled&&!document.querySelector('#copy-result-json').disabled);await tab('ts');await ready();await p.click('.diagram-settings summary');await p.check('#diagram-isobars');await ready();

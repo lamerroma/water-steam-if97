@@ -1,0 +1,73 @@
+[
+  {
+    id: 'steam-diagram',
+    width: 1920,
+    chartWidth: 849,
+    chartHeight: 530,
+    ratio: 1.6018867924528302
+  },
+  {
+    id: 'steam-diagram',
+    width: 1440,
+    chartWidth: 849,
+    chartHeight: 530,
+    ratio: 1.6018867924528302
+  },
+  {
+    id: 'steam-diagram',
+    width: 1024,
+    chartWidth: 849,
+    chartHeight: 530,
+    ratio: 1.6018867924528302
+  },
+  {
+    id: 'steam-diagram',
+    width: 390,
+    chartWidth: 359,
+    chartHeight: 269,
+    ratio: 1.3345724907063197
+  },
+  {
+    id: 'steam-diagram',
+    width: 1440,
+    chartWidth: 1194,
+    chartHeight: 746,
+    ratio: 1.6005361930294906
+  },
+  {
+    id: 'cw-chart',
+    width: 1920,
+    chartWidth: 910,
+    chartHeight: 568.796875,
+    ratio: 1.5998681427354888
+  },
+  {
+    id: 'cw-chart',
+    width: 1440,
+    chartWidth: 910,
+    chartHeight: 568.796875,
+    ratio: 1.5998681427354888
+  },
+  {
+    id: 'cw-chart',
+    width: 1024,
+    chartWidth: 910,
+    chartHeight: 568.796875,
+    ratio: 1.5998681427354888
+  },
+  {
+    id: 'cw-chart',
+    width: 390,
+    chartWidth: 339,
+    chartHeight: 260,
+    ratio: 1.3038461538461539
+  },
+  {
+    id: 'cycle-chart',
+    width: 390,
+    chartWidth: 324,
+    chartHeight: 260,
+    ratio: 1.2461538461538462
+  }
+]
+Desktop/mobile proportions, resize, expansion and no page errors PASS

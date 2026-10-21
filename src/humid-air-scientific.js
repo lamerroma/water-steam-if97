@@ -1,7 +1,11 @@
 // CoolProp ASHRAE-RP1485 humid-air EOS. All units below use kg dry air.
 import createCoolProp from '../vendor/coolprop.js';
-let humidBackend,humidInitialization;
+let humidBackend,humidInitialization,coolPropFailure;
+// A native HEOS exception invalidates the shared WASM, including other fluids.
+// Keep it quarantined until the owning Worker or page is replaced.
+export function quarantineCoolPropBackend(error){coolPropFailure??=error;}
 export function initializeHumidAir(bytes){
+ if(coolPropFailure)return Promise.reject(coolPropFailure);
  if(humidBackend)return Promise.resolve(humidBackend);
  if(!bytes)throw Error('Потрібні локальні байти ядра вологого повітря.');
  if(!humidInitialization)humidInitialization=createCoolProp({wasmBinary:bytes,print:()=>{},printErr:()=>{}}).then(m=>{humidBackend=m;return m;}).catch(e=>{humidInitialization=null;throw e;});
@@ -9,6 +13,7 @@ export function initializeHumidAir(bytes){
 }
 export function humidAirScientific(p,T,rh){return humidAirInputs(p,T,'R',rh);}
 export function humidAirInputs(p,T,input,value){
+ if(coolPropFailure)throw coolPropFailure;
  if(!humidBackend)throw Error('Ядро вологого повітря ще не завантажено.');
  if(![p,T,value].every(Number.isFinite)||p<.00001||p>5||T<193||T>473||!['R','W','D','B'].includes(input))throw Error('Вологе повітря: P=0,00001…5 МПа, T=193…473 K; допустимі входи RH, W, точка роси або мокрий термометр.');
  if(input==='R'&&(value<0||value>1)||input==='W'&&value<0||['D','B'].includes(input)&&(value<193||value>T+1e-6))throw Error('Перевірте вологість: RH=0…1, W≥0; температура роси / мокрого термометра не вища за сухий термометр.');
@@ -23,4 +28,4 @@ export function humidAirInputs(p,T,input,value){
  return {model:'Вологе повітря · CoolProp 8 / ASHRAE-RP1485',p,T,rh:r,pv:y*p,W,h,dew,wet,v,rho:(1+W)/v,cp,notes:['Неідеальна суміш: віріальні коефіцієнти та поправка насичення.','h, Cp і v — на 1 кг сухого повітря; ρ — для всієї суміші.','Фазу насичення (вода / лід) визначає ядро CoolProp. Невизначені температури не наведено.','Ентальпія використовує систему відліку CoolProp/ASHRAE; вона відрізняється від навчальної моделі NASA7.']};
 }
 
-export function getCoolPropBackend(){if(!humidBackend)throw Error("Ядро CoolProp ще не завантажено.");return humidBackend;}
+export function getCoolPropBackend(){if(coolPropFailure)throw coolPropFailure;if(!humidBackend)throw Error("Ядро CoolProp ще не завантажено.");return humidBackend;}

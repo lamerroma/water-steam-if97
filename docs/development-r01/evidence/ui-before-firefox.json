@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-21T05:20:17.286Z",
+  "browser": "firefox",
+  "status": "measured",
+  "scope": "Actual formulation selection in unmodified app/worker/WASM assets, fresh context, headless desktop on loopback; service workers blocked. 20 ms timer gaps observe UI responsiveness, not user-device performance guarantees.",
+  "browserVersion": "153.0",
+  "build": "9c6a119917fd",
+  "observed": {
+    "selectionMs": 415,
+    "heartbeatMaxGapMs": 63,
+    "heartbeatTicks": 16
+  },
+  "firstCalculation": {
+    "elapsedMs": 26877,
+    "heartbeatMaxGapMs": 13114,
+    "heartbeatTicks": 666
+  },
+  "proposedBudget": {
+    "heartbeatMaxGapMs": 1000,
+    "met": false
+  }
+}

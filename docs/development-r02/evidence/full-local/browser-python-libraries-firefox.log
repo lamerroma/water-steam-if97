@@ -1,0 +1,11 @@
+firefox: Cold runtime cancellation terminates Worker and permits retry
+firefox: Optional package is separate; all resources prepared with complete marker
+firefox: Catalog discovery with responsive UI and explicit unavailable extras
+firefox: Pinned ht / fluids calls and JSON export
+firefox: Class construction and public property handles
+firefox: NumPy array arguments and JSON array results
+firefox: Server disconnected, profile restarted: Python and both libraries initialize from cache and calculate
+firefox: Evicted optional cache is detected without deleting project data
+firefox: Missing package can be downloaded again
+firefox: Corrupt optional resource rejects installation, deletes partial cache and permits retry
+firefox: Python integration 10 groups PASS

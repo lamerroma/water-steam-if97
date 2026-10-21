@@ -1,0 +1,225 @@
+{
+  "date": "2026-10-21T10:45:20.407Z",
+  "browser": "firefox",
+  "status": "passed",
+  "baseline": false,
+  "offline": true,
+  "measurements": [
+    {
+      "label": "compressor",
+      "elapsedMs": 14467,
+      "heartbeatMaxGapMs": 47,
+      "heartbeatTicks": 695
+    },
+    {
+      "label": "pump",
+      "elapsedMs": 13392,
+      "heartbeatMaxGapMs": 44,
+      "heartbeatTicks": 643
+    },
+    {
+      "label": "heat-exchanger",
+      "elapsedMs": 13889,
+      "heartbeatMaxGapMs": 46,
+      "heartbeatTicks": 668
+    },
+    {
+      "label": "diagram-cold",
+      "elapsedMs": 20507,
+      "heartbeatMaxGapMs": 211,
+      "heartbeatTicks": 981
+    },
+    {
+      "label": "diagram-isotherms",
+      "elapsedMs": 8388,
+      "heartbeatMaxGapMs": 43,
+      "heartbeatTicks": 398
+    },
+    {
+      "label": "diagram-zoom",
+      "elapsedMs": 14305,
+      "heartbeatMaxGapMs": 182,
+      "heartbeatTicks": 685
+    }
+  ],
+  "checks": [
+    "compressor: cancel prevents stale result",
+    "compressor: edit prevents stale result",
+    "compressor: navigate prevents stale result",
+    "compressor: retry and project reload",
+    "compressor: invalid input and retry",
+    "compressor: English and 390 px viewport",
+    "pump: cancel prevents stale result",
+    "pump: edit prevents stale result",
+    "pump: navigate prevents stale result",
+    "pump: retry and project reload",
+    "pump: invalid input and retry",
+    "pump: English and 390 px viewport",
+    "heat-exchanger: cancel prevents stale result",
+    "heat-exchanger: edit prevents stale result",
+    "heat-exchanger: navigate prevents stale result",
+    "heat-exchanger: retry and project reload",
+    "heat-exchanger: invalid input and retry",
+    "heat-exchanger: English and 390 px viewport",
+    "Diagram: rapid viewport changes settle and exports re-enable",
+    "Diagram: three coordinate systems and chart disposal",
+    "Diagram: project reload recomputes guides",
+    "Diagram: navigation cancels cold base before creating a chart"
+  ],
+  "errors": [],
+  "workerRequests": [
+    {
+      "module": "workflows",
+      "method": "project"
+    },
+    {
+      "module": "water-heos",
+      "method": "calculate",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "engineering",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "engineering",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "engineering",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "project"
+    },
+    {
+      "module": "water-heos",
+      "method": "calculate",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "engineering",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "engineering",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "engineering",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "project"
+    },
+    {
+      "module": "water-heos",
+      "method": "calculate",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "engineering",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "engineering",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "engineering",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "project"
+    },
+    {
+      "module": "water-heos",
+      "method": "calculate",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-base",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-isotherm",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-isotherm",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-isotherm",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-isotherm",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-refine",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-base",
+      "model": "IAPWS-95"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-base",
+      "model": "IAPWS-95"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-isotherm",
+      "model": "IAPWS-95"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-isotherm",
+      "model": "IAPWS-95"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-isotherm",
+      "model": "IAPWS-95"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-isotherm",
+      "model": "IAPWS-95"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-refine",
+      "model": "IAPWS-95"
+    }
+  ],
+  "scope": "Unmodified UI/Worker/WASM assets, headless desktop, fresh context per engineering kind and diagram; 20 ms timer; single-run measurement, not physical mobile acceptance.",
+  "browserVersion": "153.0",
+  "build": "20fd3cb17a71",
+  "proposedBudget": {
+    "maxGapMs": 1000,
+    "met": true
+  }
+}

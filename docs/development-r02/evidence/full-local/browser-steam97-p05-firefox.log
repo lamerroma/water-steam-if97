@@ -1,0 +1,5 @@
+firefox Cold stable liquid: forward/inverses, SI and English passed
+firefox Independent transport availability and CSV reasons passed
+firefox Cold input survives JSON import, reload and offline recalculation passed
+firefox Ice input fails without adding history; English property explanation passed
+firefox PWA cached Worker calculates cold liquid offline passed

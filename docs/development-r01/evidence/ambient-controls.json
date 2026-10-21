@@ -1,0 +1,42 @@
+{
+  "source": "Independent Python iapws implementation; not experimental validation.",
+  "python": "3.12.10",
+  "iapws": "1.5.5",
+  "state": {
+    "p": 1,
+    "T": 500,
+    "h": 2891.2182989588896,
+    "s": 6.824994379140851
+  },
+  "units": {
+    "p": "MPa absolute",
+    "T": "K",
+    "h": "kJ/kg",
+    "s": "kJ/(kg K)",
+    "exergy": "kJ/kg"
+  },
+  "records": [
+    {
+      "ambient": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "reference": {
+        "h": 104.92011980932352,
+        "s": 0.36719964210553485
+      },
+      "exergy": 860.9066783024864
+    },
+    {
+      "ambient": {
+        "p": 0.08,
+        "T": 310.15
+      },
+      "reference": {
+        "h": 155.05929427828025,
+        "s": 0.5321418876040066
+      },
+      "exergy": 784.4308044304573
+    }
+  ]
+}

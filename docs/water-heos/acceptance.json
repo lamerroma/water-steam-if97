@@ -1,0 +1,92 @@
+{
+  "date": "2026-10-20",
+  "scope": "M1 Water HEOS pilot only; working branch, not published",
+  "branch": "codex/open-library-modules",
+  "baseCommit": "65e9199068659ec5c183081d5e5908244bb2beea",
+  "build": {
+    "version": "1.39.0",
+    "id": "28cfe47d42c9"
+  },
+  "upstream": {
+    "CoolProp": "8.0.0",
+    "adapter": "1.0.0",
+    "model": "HEOS::Water"
+  },
+  "core": {
+    "node": "22.23.3",
+    "status": "passed",
+    "checks": 19,
+    "unitTests": {
+      "total": 1752,
+      "passed": 1752
+    },
+    "localEvidence": ".release/2026-10-20T14-15-32-105Z/report.json"
+  },
+  "browsers": {
+    "chromium": {
+      "version": "151.0.7922.34",
+      "waterHeos": {
+        "status": "passed",
+        "cases": 28,
+        "displayedQuantities": 1165,
+        "checks": [
+          "Cold initialization cancelled and retry enabled",
+          "Actual bundled HEOS Worker, responsive UI and exact JSON export",
+          "All six audit states in P-T, P-h and P-s against independent reference",
+          "All eight modes and explicit two-phase unavailable outputs",
+          "Ice input produces visible error and disables stale export",
+          "English labels and mobile width",
+          "Profile restarted, server disconnected, fresh Worker initializes offline without Python"
+        ],
+        "localEvidence": ".release/water-heos/chromium/report.json"
+      },
+      "pythonRegression": {
+        "status": "passed",
+        "groups": 10,
+        "localEvidence": ".release/python-libraries/chromium/report.json"
+      }
+    },
+    "firefox": {
+      "version": "153.0",
+      "waterHeos": {
+        "status": "passed",
+        "cases": 28,
+        "displayedQuantities": 1165,
+        "checks": [
+          "Cold initialization cancelled and retry enabled",
+          "Actual bundled HEOS Worker, responsive UI and exact JSON export",
+          "All six audit states in P-T, P-h and P-s against independent reference",
+          "All eight modes and explicit two-phase unavailable outputs",
+          "Ice input produces visible error and disables stale export",
+          "English labels and mobile width",
+          "Profile restarted, server disconnected, fresh Worker initializes offline without Python"
+        ],
+        "localEvidence": ".release/water-heos/firefox/report.json"
+      },
+      "pythonRegression": {
+        "status": "passed",
+        "groups": 10,
+        "localEvidence": ".release/python-libraries/firefox/report.json"
+      }
+    }
+  },
+  "limits": [
+    "Full 20-pair replacement, workflows, general-project persistence and mobile hardware acceptance are pending.",
+    "The complete release browser suite has not been run for this working branch.",
+    "Node 24.18.1 full unit run: 1751/1752; the previously confirmed old IAPWS-95 dry-saturated-inlet Rankine density failure remains. It is outside this pilot.",
+    "No numerical Steam97Web reference results are available; parity is not established."
+  ],
+  "sourceHashes": {
+    "src/water-heos.js": "ecd3db17d334b03a1d3caa9cf7354547d2000ee664a811213cc0452286bc81f5",
+    "src/water-heos-ui.js": "166de244127420aa0bae40a27eab2528f548b6402910d9e312700295010824d6",
+    "src/calculation-protocol.js": "96b0565868cf67a4a92b76ac6b2fcb1b53af332879703fc0e31c609a6461a7f3",
+    "src/calculation-modules.js": "91dfb6517dd0ac4f40c6cf6b80fdecc0ab60a3db61e0b1aed55dff43700fb514",
+    "scripts/build.mjs": "d4667beed6dccdb869b715a2d9a5e3258798cb0f0eb1a420f283d93240f8f02d",
+    "scripts/check-water-heos-browser.cjs": "6be5de203fd8d973f8c9058d1df26a69365c678008f78a6e8ecfe03766efabc0",
+    "tests/water-heos.test.mjs": "191de3f806227e5fc3b4f5602d0bddd613bb5c1a2ae8097ba95974d2d854c3ca",
+    "tests/fixtures/water-heos-regressions.json": "86e48ecb7505598a30a93fc3ae52ccbcbdb1d2b395bc3811868571707c25d4d9",
+    "assets/app.js": "863b404bf13bd16c5b6f92a4cc18cabb728edcd3f17ee4549cd3810b0bcee31a",
+    "assets/calculator-worker.js": "880f399794fff2dfae5fb9ea653de2f7a8bb8d1d15033e919bbec5ed16055405",
+    "vendor/coolprop.wasm": "28a83d839ab69c7e6ea480298955ce223b6507dc6ffb83349dd31f1540867307"
+  }
+}

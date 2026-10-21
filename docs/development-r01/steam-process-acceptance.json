@@ -1,0 +1,460 @@
+{
+  "date": "2026-10-21",
+  "task": "R01/steam-process-worker",
+  "status": "bounded_subtask_verified",
+  "parentTaskStatus": "in_progress",
+  "build": {
+    "version": "1.39.0",
+    "id": "73fbb518e323",
+    "published": false
+  },
+  "baseCommit": "65e9199068659ec5c183081d5e5908244bb2beea",
+  "uncommitted": true,
+  "previousSnapshot": "acceptance.json",
+  "units": {
+    "input": [
+      "MPa absolute",
+      "K",
+      "kg/s",
+      "kW",
+      "efficiency fraction"
+    ],
+    "output": "unchanged native process result"
+  },
+  "unitTests": {
+    "node22": {
+      "version": "22.23.3",
+      "passed": 1799,
+      "total": 1799,
+      "failed": 0,
+      "skipped": 0
+    },
+    "node24": {
+      "version": "24.18.1",
+      "passed": 1799,
+      "total": 1799,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "independentReference": {
+    "implementation": "Python iapws 1.5.5",
+    "experimentalValidation": false,
+    "originalSteam97Numbers": 0,
+    "cases": 6,
+    "outletMethod": "Equilibrium lever rule using independently computed saturated endpoints",
+    "comparisonModels": [
+      "IAPWS-95",
+      "HEOS::Water"
+    ],
+    "IF97": "Own conservation checks, no imposed equality with IAPWS-95",
+    "tolerances": {
+      "p_MPa": 1e-08,
+      "T_K": 3e-06,
+      "h_kJkg": 1e-05,
+      "s_kJkgK": 3e-08,
+      "metrics_native": 3e-06
+    }
+  },
+  "browsers": {
+    "chromium": {
+      "version": "151.0.7922.34",
+      "online": {
+        "status": "passed",
+        "cases": 6,
+        "measureOnly": true,
+        "proposedResponsivenessBudget": {
+          "maxGapMs": 1000,
+          "met": true
+        }
+      },
+      "offline": {
+        "status": "passed",
+        "cases": 6,
+        "additionalChecks": 14,
+        "networkDisabledBeforeHeosSelection": true
+      },
+      "normalizedCsvIdenticalBeforeAfterOffline": 6
+    },
+    "firefox": {
+      "version": "153.0",
+      "online": {
+        "status": "passed",
+        "cases": 6,
+        "measureOnly": true,
+        "proposedResponsivenessBudget": {
+          "maxGapMs": 1000,
+          "met": true
+        }
+      },
+      "offline": {
+        "status": "passed",
+        "cases": 6,
+        "additionalChecks": 14,
+        "networkDisabledBeforeHeosSelection": true
+      },
+      "normalizedCsvIdenticalBeforeAfterOffline": 6
+    }
+  },
+  "timings": [
+    {
+      "browser": "chromium",
+      "kind": "turbine",
+      "before": {
+        "elapsedMs": 2513.300000011921,
+        "heartbeatMaxGapMs": 2408.399999976158,
+        "heartbeatTicks": 6
+      },
+      "after": {
+        "elapsedMs": 2989.199999988079,
+        "heartbeatMaxGapMs": 34.60000002384186,
+        "heartbeatTicks": 149
+      }
+    },
+    {
+      "browser": "chromium",
+      "kind": "flash",
+      "before": {
+        "elapsedMs": 2388,
+        "heartbeatMaxGapMs": 2260.599999964237,
+        "heartbeatTicks": 7
+      },
+      "after": {
+        "elapsedMs": 3009.900000035763,
+        "heartbeatMaxGapMs": 25.100000023841858,
+        "heartbeatTicks": 150
+      }
+    },
+    {
+      "browser": "firefox",
+      "kind": "turbine",
+      "before": {
+        "elapsedMs": 13997,
+        "heartbeatMaxGapMs": 13814,
+        "heartbeatTicks": 9
+      },
+      "after": {
+        "elapsedMs": 13948,
+        "heartbeatMaxGapMs": 32,
+        "heartbeatTicks": 676
+      }
+    },
+    {
+      "browser": "firefox",
+      "kind": "flash",
+      "before": {
+        "elapsedMs": 13995,
+        "heartbeatMaxGapMs": 13796,
+        "heartbeatTicks": 6
+      },
+      "after": {
+        "elapsedMs": 13910,
+        "heartbeatMaxGapMs": 35,
+        "heartbeatTicks": 670
+      }
+    }
+  ],
+  "measurementLimits": [
+    "Single headless desktop run per browser/tool, not statistical or mobile acceptance.",
+    "Online before/after use fresh contexts and blocked SW. Final online measurements ran after unit and functional processes completed.",
+    "Cold Worker preparation still takes seconds. No bound on all auxiliary forms, diagrams or total RAM is established."
+  ],
+  "sourceHashes": {
+    "src/app.js": "6a318fba5ae6861d90b98d2d05a98a85c25d40e2df3256c4213e04df752be9a2",
+    "src/processes.js": "292f550ec196f2b231e56488f373393ccacc801b3bedfbed4c9178bf34a07144",
+    "src/calculation-modules.js": "79605643e856fdbc6ec26da4f36ca564da271544559e573dd918aaeff0dd82a7",
+    "src/calculation-protocol.js": "4408113139b858b12711b1f7fc4aa6ee6faebe286e417b9026d51bae66cb3c64",
+    "src/calculator-runner.js": "e1231a7d1eb40da61b2baad1c5e0f87f8369fee3d29faac9c452ca85ca366801",
+    "src/water-models.js": "8e085a7deb8c4129413e20647bcb50fa2a8ab9d6d425d6e3c1973193b8fa1c20",
+    "scripts/check-steam-process-worker-browser.cjs": "ef80efdade4ca48458567a81fb791bba7ca4f7ace93f66b61b263baba93ce545",
+    "scripts/verify-release.mjs": "6175c1614333226d693773f3ec874cc2ccd82ad049f5367ab344fcd4bfa0248d",
+    "scripts/reference/generate-steam-process-reference.py": "d0bbe1058cd22b694c3a1e6adb661458190c191c3eea45576bad04ba84cb3ae3",
+    "tests/steam-process-worker.test.mjs": "b55efed50245d14a31c85f44494a4718cac2b3fb50f971cc69fb322ac7ea5efe",
+    "tests/fixtures/steam-process-reference.json": "1df97f4c7309d04c55e3ccdf3d5c79d875aecb29e7f5aad9450b3991c0718106"
+  },
+  "artifactHashes": {
+    "index.html": {
+      "sha256": "78d56b7642fe925cb18ed851a12bcf348474d181cf390cab261699411029a956",
+      "bytes": 47418
+    },
+    "assets/app.js": {
+      "sha256": "51688926deb6315cf3cc7a0c1e3d72a07c0a35cf186c31c95ebbd54a29ed5809",
+      "bytes": 2278947
+    },
+    "assets/calculator-worker.js": {
+      "sha256": "a4758ece259091bffc4ee64433a25a327dbc547633b4b193105807997c9c98d2",
+      "bytes": 852310
+    },
+    "assets/heos-calculator-worker.js": {
+      "sha256": "1c12cb8bb8a495739e5cec56f6a63f8d96d9c058f3857f9ac503746fc9db75b4",
+      "bytes": 1059112
+    },
+    "assets/python-worker.js": {
+      "sha256": "f690b134fda2da15dc3bc41074e1c17218f741e08184814576de2b2b5e2a74af",
+      "bytes": 42387
+    },
+    "service-worker.js": {
+      "sha256": "6cab4f452d44af3c5ccfc72c2d28bfed0e28c0bf25d204c558c1da296cb2765f",
+      "bytes": 11445
+    },
+    "dist/water-steam-calculator.zip": {
+      "sha256": "fbf223e788ae7d41a962ef5873dbb97ca1dbed556b1a4a1f6ad1c5f69a10c88c",
+      "bytes": 30689858
+    }
+  },
+  "evidenceBase": "steam-process-evidence",
+  "evidenceManifest": {
+    "chromium/before/report.json": {
+      "bytes": 6134,
+      "sha256": "496869e1f6fb7412d2baf34955f3e057e906a7e8e0460c5f4b31e159c141cd8a"
+    },
+    "chromium/before/turbine.png": {
+      "bytes": 114516,
+      "sha256": "73713bafe8e8f8af4101cfa9d47e767c636b5d23c52fe7a048b7f2171b4c28f2"
+    },
+    "chromium/before/flash.png": {
+      "bytes": 106049,
+      "sha256": "dbd74c6f192a8546bada25338370d2eb4c61f6180f084f55ae7fac1e98b02fbd"
+    },
+    "chromium/before/turbine-power.csv": {
+      "bytes": 1605,
+      "sha256": "9094592a75868eb11a52b56197116f3c62d0dd3e67305834b3672d5985041c72"
+    },
+    "chromium/before/turbine-flow.csv": {
+      "bytes": 1593,
+      "sha256": "4e959787a71b2a0b9bde5b0a5f3a2d63dbc20f32820f20394d71ee4e438962f4"
+    },
+    "chromium/before/turbine-efficiency.csv": {
+      "bytes": 1559,
+      "sha256": "0a5de9ccfdc97a97f4d007fa3efee268a8312001ebbd53520d112ecd58c6e908"
+    },
+    "chromium/before/flash-condensate.csv": {
+      "bytes": 1020,
+      "sha256": "a7675c05988a7d2a60eb2fe31f5fda77e97bcfac126adf1ad9aeaba9b6ff9faa"
+    },
+    "chromium/before/flash-saturated.csv": {
+      "bytes": 1032,
+      "sha256": "9005715fe88ce797168dfd8e3abadac1a805bfc82b58a2a538baebd118172b3b"
+    },
+    "chromium/before/flash-subcooled.csv": {
+      "bytes": 1022,
+      "sha256": "00e3057485c3d0048f21099530a10a1d572935fecf5f528e65d5cc0088ee5698"
+    },
+    "chromium/after/report.json": {
+      "bytes": 6740,
+      "sha256": "066d49342b89da3a9ce3a6ba07e90f36349e720902e0cddd45deef65f0d40789"
+    },
+    "chromium/after/turbine.png": {
+      "bytes": 114388,
+      "sha256": "536a515e47e3c3de755b0e5e3dd5b01f0e0fb4c0fc2937a759b8ee0311df04eb"
+    },
+    "chromium/after/flash.png": {
+      "bytes": 105925,
+      "sha256": "d3404883e11edfffd2972037251627d4f6da81ada523ffc55145af4731df6602"
+    },
+    "chromium/after/turbine-power.csv": {
+      "bytes": 1605,
+      "sha256": "970035825e07971541f5dda36dcea3c53e831752269289c6e092465ce32271e0"
+    },
+    "chromium/after/turbine-flow.csv": {
+      "bytes": 1593,
+      "sha256": "be8b15cbcb500038effabd742568c5dcdb673f33f1e4eceee82d570ebba0aad0"
+    },
+    "chromium/after/turbine-efficiency.csv": {
+      "bytes": 1559,
+      "sha256": "e6ec151693dc68301f7bcf81bb506f1be7ee168998a3cedded5ef7f408cbc40a"
+    },
+    "chromium/after/flash-condensate.csv": {
+      "bytes": 1020,
+      "sha256": "5ba24471dcd66d37784bbc93260e19a8d13bbabe764496d240708905df51f2f4"
+    },
+    "chromium/after/flash-saturated.csv": {
+      "bytes": 1032,
+      "sha256": "caa4dcbfef883f06a4443ac643edea06339052d6163e3da66e218c89705f254f"
+    },
+    "chromium/after/flash-subcooled.csv": {
+      "bytes": 1022,
+      "sha256": "7b3d0bee6a216f6847819a6db80a26ed3f688b459864219f20507d301b2ec97a"
+    },
+    "chromium/offline/report.json": {
+      "bytes": 8060,
+      "sha256": "b8ef0d3d472d1132b839374dc09670175e6fbf75f84af1f232ff2c3e22aa4cc5"
+    },
+    "chromium/offline/turbine.png": {
+      "bytes": 86525,
+      "sha256": "deba58f0af6f9eae7209d3b8a0eacc9a94c32a134c6a692dfb9bfb84c17fbb66"
+    },
+    "chromium/offline/flash.png": {
+      "bytes": 75169,
+      "sha256": "6c7af786b45aca033b0584e5759cc0666b83e9eda26b56f605ff6958b35d73b2"
+    },
+    "chromium/offline/turbine-power.csv": {
+      "bytes": 1605,
+      "sha256": "970035825e07971541f5dda36dcea3c53e831752269289c6e092465ce32271e0"
+    },
+    "chromium/offline/turbine-flow.csv": {
+      "bytes": 1593,
+      "sha256": "be8b15cbcb500038effabd742568c5dcdb673f33f1e4eceee82d570ebba0aad0"
+    },
+    "chromium/offline/turbine-efficiency.csv": {
+      "bytes": 1559,
+      "sha256": "e6ec151693dc68301f7bcf81bb506f1be7ee168998a3cedded5ef7f408cbc40a"
+    },
+    "chromium/offline/flash-condensate.csv": {
+      "bytes": 1020,
+      "sha256": "5ba24471dcd66d37784bbc93260e19a8d13bbabe764496d240708905df51f2f4"
+    },
+    "chromium/offline/flash-saturated.csv": {
+      "bytes": 1032,
+      "sha256": "caa4dcbfef883f06a4443ac643edea06339052d6163e3da66e218c89705f254f"
+    },
+    "chromium/offline/flash-subcooled.csv": {
+      "bytes": 1022,
+      "sha256": "7b3d0bee6a216f6847819a6db80a26ed3f688b459864219f20507d301b2ec97a"
+    },
+    "chromium/offline/turbine-converted.csv": {
+      "bytes": 1583,
+      "sha256": "cefd199829f5339b3e1b47a9f2f7c221bb14d02a47573d420f5ea91bcd93c18a"
+    },
+    "chromium/offline/flash-converted.csv": {
+      "bytes": 1017,
+      "sha256": "b5c0011738e23bfebbc3ea0f99f7da7f3a80d627eefb5218510f8bbcdac081d6"
+    },
+    "firefox/before/report.json": {
+      "bytes": 5986,
+      "sha256": "3429ef3b9fea08493f927c150ce11d64df3d49676cd816cf4afc8f127815ecde"
+    },
+    "firefox/before/turbine.png": {
+      "bytes": 102959,
+      "sha256": "5575b901e6b328734eafd01d05fac69a76c3a607406e2e7fc43e116d9dfa83de"
+    },
+    "firefox/before/flash.png": {
+      "bytes": 93061,
+      "sha256": "f3c2471f2c86214a43fff15beb8af9184d26b8d915035a3c7b3cc0b75aede0d8"
+    },
+    "firefox/before/turbine-power.csv": {
+      "bytes": 1605,
+      "sha256": "9094592a75868eb11a52b56197116f3c62d0dd3e67305834b3672d5985041c72"
+    },
+    "firefox/before/turbine-flow.csv": {
+      "bytes": 1593,
+      "sha256": "4e959787a71b2a0b9bde5b0a5f3a2d63dbc20f32820f20394d71ee4e438962f4"
+    },
+    "firefox/before/turbine-efficiency.csv": {
+      "bytes": 1559,
+      "sha256": "0a5de9ccfdc97a97f4d007fa3efee268a8312001ebbd53520d112ecd58c6e908"
+    },
+    "firefox/before/flash-condensate.csv": {
+      "bytes": 1020,
+      "sha256": "a7675c05988a7d2a60eb2fe31f5fda77e97bcfac126adf1ad9aeaba9b6ff9faa"
+    },
+    "firefox/before/flash-saturated.csv": {
+      "bytes": 1032,
+      "sha256": "9005715fe88ce797168dfd8e3abadac1a805bfc82b58a2a538baebd118172b3b"
+    },
+    "firefox/before/flash-subcooled.csv": {
+      "bytes": 1022,
+      "sha256": "00e3057485c3d0048f21099530a10a1d572935fecf5f528e65d5cc0088ee5698"
+    },
+    "firefox/after/report.json": {
+      "bytes": 6446,
+      "sha256": "600253d9c7cf204427b00d640ee73b943f3be4dc428706f077d466190a01f13e"
+    },
+    "firefox/after/turbine.png": {
+      "bytes": 102862,
+      "sha256": "176a9b9764865a2a454cbc3b693ebb65596fc812e8f73e2250e8256175b80c6e"
+    },
+    "firefox/after/flash.png": {
+      "bytes": 92957,
+      "sha256": "7a8f695ad68b32367ddc8aa380e28f405709f7a2c1734044003b6e4ba04ba3b5"
+    },
+    "firefox/after/turbine-power.csv": {
+      "bytes": 1605,
+      "sha256": "970035825e07971541f5dda36dcea3c53e831752269289c6e092465ce32271e0"
+    },
+    "firefox/after/turbine-flow.csv": {
+      "bytes": 1593,
+      "sha256": "be8b15cbcb500038effabd742568c5dcdb673f33f1e4eceee82d570ebba0aad0"
+    },
+    "firefox/after/turbine-efficiency.csv": {
+      "bytes": 1559,
+      "sha256": "e6ec151693dc68301f7bcf81bb506f1be7ee168998a3cedded5ef7f408cbc40a"
+    },
+    "firefox/after/flash-condensate.csv": {
+      "bytes": 1020,
+      "sha256": "5ba24471dcd66d37784bbc93260e19a8d13bbabe764496d240708905df51f2f4"
+    },
+    "firefox/after/flash-saturated.csv": {
+      "bytes": 1032,
+      "sha256": "caa4dcbfef883f06a4443ac643edea06339052d6163e3da66e218c89705f254f"
+    },
+    "firefox/after/flash-subcooled.csv": {
+      "bytes": 1022,
+      "sha256": "7b3d0bee6a216f6847819a6db80a26ed3f688b459864219f20507d301b2ec97a"
+    },
+    "firefox/offline/report.json": {
+      "bytes": 7615,
+      "sha256": "cfbf993be80fbe3e358c6ef042b9151d854da16eb83523aff6890f71ad51e3ad"
+    },
+    "firefox/offline/turbine.png": {
+      "bytes": 78064,
+      "sha256": "d3976eef51415a17c58a8a90be52d82b291a30e916cc51f2522cc746ff20d834"
+    },
+    "firefox/offline/flash.png": {
+      "bytes": 67781,
+      "sha256": "182db6eab68eaaea16b837dbcd415a7b7e9d5f96a0af742471cb6d34e6ba2fee"
+    },
+    "firefox/offline/turbine-power.csv": {
+      "bytes": 1605,
+      "sha256": "970035825e07971541f5dda36dcea3c53e831752269289c6e092465ce32271e0"
+    },
+    "firefox/offline/turbine-flow.csv": {
+      "bytes": 1593,
+      "sha256": "be8b15cbcb500038effabd742568c5dcdb673f33f1e4eceee82d570ebba0aad0"
+    },
+    "firefox/offline/turbine-efficiency.csv": {
+      "bytes": 1559,
+      "sha256": "e6ec151693dc68301f7bcf81bb506f1be7ee168998a3cedded5ef7f408cbc40a"
+    },
+    "firefox/offline/flash-condensate.csv": {
+      "bytes": 1020,
+      "sha256": "5ba24471dcd66d37784bbc93260e19a8d13bbabe764496d240708905df51f2f4"
+    },
+    "firefox/offline/flash-saturated.csv": {
+      "bytes": 1032,
+      "sha256": "caa4dcbfef883f06a4443ac643edea06339052d6163e3da66e218c89705f254f"
+    },
+    "firefox/offline/flash-subcooled.csv": {
+      "bytes": 1022,
+      "sha256": "7b3d0bee6a216f6847819a6db80a26ed3f688b459864219f20507d301b2ec97a"
+    },
+    "firefox/offline/turbine-converted.csv": {
+      "bytes": 1583,
+      "sha256": "cefd199829f5339b3e1b47a9f2f7c221bb14d02a47573d420f5ea91bcd93c18a"
+    },
+    "firefox/offline/flash-converted.csv": {
+      "bytes": 1017,
+      "sha256": "b5c0011738e23bfebbc3ea0f99f7da7f3a80d627eefb5218510f8bbcdac081d6"
+    },
+    "unit-node22.log": {
+      "bytes": 335694,
+      "sha256": "ff53decf01e860aa3aa8e3072b7f37b6d38b58fcaee600926570e1577ed9d7ed"
+    },
+    "unit-node24.log": {
+      "bytes": 129227,
+      "sha256": "9db43adb4654d8e29f0dffa68fc2dc3f930b66389418cf7d1ef19d12fef54f97"
+    },
+    "steam-process-reference.json": {
+      "bytes": 4638,
+      "sha256": "1df97f4c7309d04c55e3ccdf3d5c79d875aecb29e7f5aad9450b3991c0718106"
+    }
+  },
+  "fullReleaseRun": false,
+  "CIOrPagesPublished": false,
+  "remaining": [
+    "Engineering forms and diagram computation responsiveness",
+    "Cold-start and memory acceptance",
+    "R02 uninterrupted complete release, update/export/deployment acceptance"
+  ],
+  "snapshotScope": "Historical 73fbb518e323 snapshot. Hashes identify that candidate; see auxiliary-acceptance.json for the subsequent candidate."
+}

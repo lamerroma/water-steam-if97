@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-21T08:38:51.124Z",
+  "browser": "firefox",
+  "status": "passed",
+  "baseline": true,
+  "offline": false,
+  "measurements": [
+    {
+      "label": "compressor",
+      "elapsedMs": 12902,
+      "heartbeatMaxGapMs": 12716,
+      "heartbeatTicks": 10
+    },
+    {
+      "label": "pump",
+      "elapsedMs": 13275,
+      "heartbeatMaxGapMs": 13092,
+      "heartbeatTicks": 9
+    },
+    {
+      "label": "heat-exchanger",
+      "elapsedMs": 13149,
+      "heartbeatMaxGapMs": 12959,
+      "heartbeatTicks": 10
+    },
+    {
+      "label": "diagram-cold",
+      "elapsedMs": 20718,
+      "heartbeatMaxGapMs": 16886,
+      "heartbeatTicks": 65
+    },
+    {
+      "label": "diagram-isotherms",
+      "elapsedMs": 8939,
+      "heartbeatMaxGapMs": 139,
+      "heartbeatTicks": 162
+    },
+    {
+      "label": "diagram-zoom",
+      "elapsedMs": 15754,
+      "heartbeatMaxGapMs": 194,
+      "heartbeatTicks": 318
+    }
+  ],
+  "checks": [],
+  "errors": [],
+  "workerRequests": [],
+  "scope": "Unmodified UI/Worker/WASM assets, headless desktop, fresh context per engineering kind and diagram; 20 ms timer; single-run measurement, not physical mobile acceptance.",
+  "browserVersion": "153.0",
+  "build": "73fbb518e323",
+  "proposedBudget": {
+    "maxGapMs": 1000,
+    "met": false
+  }
+}

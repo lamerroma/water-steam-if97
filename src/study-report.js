@@ -1,3 +1,4 @@
+import {WATER_MODELS} from './water-models.js';
 import {readRankineSweepInput,solveRankineSweep,rankineSweepTable,rankineSweepNotes,rankineSweepSVG,rankineSweepInputRows} from './rankine-sweep.js';
 import {rankineCycleTables} from './rankine-library.js';
 import {readCycleComparisonInput,compareLibraryCycles,cycleComparisonTable,cycleComparisonSVG,cycleComparisonNotes} from './cycle-library.js';
@@ -27,7 +28,7 @@ export function readStudyReport(value){
  if(!value||typeof value!=='object'||!Array.isArray(value.entries)||value.entries.length>20||JSON.stringify(value).length>1000000)throw Error('Звіт: максимум 20 блоків і 1 МБ.');
  const out={author:boundedText(value.author??'',120),assignment:boundedText(value.assignment??'',200),intro:boundedText(value.intro??'',3000),entries:[]};
  for(const e of value.entries){
-  if(!e||!['rankine-sweep','cycle-comparison','custom-cycle','water-process','comparison','state','process','flow','npp','diagram','cycle','exchanger','research','laboratory','coursework'].includes(e.kind)||!(['water-process','custom-cycle','cycle-comparison'].includes(e.kind)?PROCESS_MODELS:['IF97','IAPWS-95']).includes(e.model||'IF97'))throw Error('Некоректний блок звіту.');
+  if(!e||!['rankine-sweep','cycle-comparison','custom-cycle','water-process','comparison','state','process','flow','npp','diagram','cycle','exchanger','research','laboratory','coursework'].includes(e.kind)||!(['water-process','custom-cycle','cycle-comparison'].includes(e.kind)?PROCESS_MODELS:WATER_MODELS).includes(e.model||'IF97'))throw Error('Некоректний блок звіту.');
   const entry={kind:e.kind,model:e.model||'IF97',title:boundedText(e.title??'',120),comment:boundedText(e.comment??'',3000)};
   if(e.kind==='diagram'){
    const image=boundedText(e.image,300000);if(!/^data:image\/png;base64,[A-Za-z0-9+/]+={0,2}$/.test(image))throw Error('Діаграма має бути PNG.');

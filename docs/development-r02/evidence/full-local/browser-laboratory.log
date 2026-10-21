@@ -1,0 +1,6 @@
+Saturation comparison, uncertainties, chart and conclusion/report PASS
+CSV import/export, editable rows, strict parsing and invalid-row statistics PASS
+Turbine internal/electrical output, h–s and auto restore PASS
+Report raw measurements, recalculation, escaped metadata and source reopen PASS
+English, mobile and JSON import PASS
+PWA laboratory and report fully offline PASS

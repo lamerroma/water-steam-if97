@@ -1,5 +1,6 @@
+import {WATER_MODELS} from './water-models.js';
 import {diagramAxes,diagramPoint} from './diagram-coordinates.js';
-const diagramDrawingModels=['IF97','IAPWS-95'],diagramDrawingHas=(o,k)=>Object.hasOwn(o,k);
+const diagramDrawingModels=WATER_MODELS,diagramDrawingHas=(o,k)=>Object.hasOwn(o,k);
 const diagramDrawingObject=v=>v&&typeof v==='object'&&!Array.isArray(v);
 const diagramDrawingName=v=>typeof v==='string'&&v.trim()&&v.trim().length<=80&&!/[;\r\n]/.test(v);
 const diagramDrawingColor=v=>typeof v==='string'&&/^#[0-9a-f]{6}$/i.test(v);

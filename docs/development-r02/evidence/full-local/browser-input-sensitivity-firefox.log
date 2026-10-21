@@ -1,0 +1,13 @@
+firefox Canonical steps, independent state and compact default passed
+firefox Optional digits, property copy, Markdown and raw JSON/CSV passed
+firefox Language switch preserves values and translated scenario passed
+firefox Fahrenheit and bar increments exclude gauge offset passed
+firefox Coarse input scenario is marked limited passed
+firefox Scientific cold liquid duplicates collapse passed
+firefox Physical alternatives keep original pair and scenario when selected passed
+firefox Saturation reference states show their own pressure after a root selection passed
+firefox Mixture does not invent single-phase sensitivity or digits passed
+firefox Reload reconstructs scenario from saved input spelling passed
+firefox Mobile details stay within viewport passed
+firefox Loaded offline warm worker retains diagnostics passed
+firefox PWA reload works offline with cached worker passed

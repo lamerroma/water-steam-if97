@@ -1,10 +1,11 @@
+import {WATER_MODELS} from './water-models.js';
 import {calculate} from './engine.js';
 import {SMART_PAIRS} from './smart-input.js';
 import {readUIUnits,uiDisplayQuantity} from './ui-quantities.js';
 import {readPressure} from './pressure.js';
 export const STATE_COMPARISON_FIELDS=[['p','MPa','Тиск','Pressure'],['T','K','Температура','Temperature'],['h','kJ/kg','Ентальпія','Enthalpy'],['s','kJ/(kg K)','Ентропія','Entropy'],['rho','kg/m³','Густина','Density'],['v','m³/kg','Питомий об’єм','Specific volume'],['u','kJ/kg','Внутрішня енергія','Internal energy'],['x','–','Сухість','Quality'],['cp','kJ/(kg K)','Ізобарна теплоємність','Isobaric heat capacity'],['cv','kJ/(kg K)','Ізохорна теплоємність','Isochoric heat capacity'],['w','m/s','Швидкість звуку','Speed of sound'],['mu','Pa·s','Динамічна в’язкість','Dynamic viscosity'],['lambda','W/(m K)','Теплопровідність','Thermal conductivity']];
 export function comparisonSourceState(source){
- if(!source||!['IF97','IAPWS-95'].includes(source.model)||typeof source.name!=='string'||source.name.length>80||!SMART_PAIRS[source.mode]||source.mode.startsWith('sat')||![source.a,source.b,source.p,source.h].every(Number.isFinite))throw Error('Некоректний стан порівняння / Invalid comparison state.');
+ if(!source||!WATER_MODELS.includes(source.model)||typeof source.name!=='string'||source.name.length>80||!SMART_PAIRS[source.mode]||source.mode.startsWith('sat')||![source.a,source.b,source.p,source.h].every(Number.isFinite))throw Error('Некоректний стан порівняння / Invalid comparison state.');
  const r=calculate(source.mode,source.a,source.b,source.model),q=[r.state,...(r.alternatives||[])].find(v=>v&&Math.abs(v.p-source.p)<=Math.max(1e-10,Math.abs(source.p)*1e-7)&&Math.abs(v.h-source.h)<=Math.max(1e-7,Math.abs(source.h)*1e-7));
  if(!q)throw Error('Стан не відповідає входам / State does not match its inputs.');return {...q,name:source.name,model:source.model};
 }

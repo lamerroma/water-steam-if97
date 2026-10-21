@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "version": "1.40.0",
+  "readers": {
+    "openpyxl": "3.1.5",
+    "xlrd": "2.0.2",
+    "odfpy": "1.4.1",
+    "csv": "Python stdlib"
+  },
+  "files": 91,
+  "cells": 33138
+}

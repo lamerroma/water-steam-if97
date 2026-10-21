@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-20",
+  "task": "R00",
+  "status": "done",
+  "baseline_head": "65e9199068659ec5c183081d5e5908244bb2beea",
+  "branch": "codex/open-library-modules",
+  "checkpoint": {
+    "path": ".release/development-r00/20261020T185524Z",
+    "archive_bytes": 104363562,
+    "archive_sha256": "7e884acc27e1e4270e2d52a06d957dc8e79998ee983e6f9f972a865921901aa6",
+    "bundle_sha256": "65da620d90b69a3d657342de345df76adb797f323646a6ab4c717afa2b3c0b53",
+    "workspace_files": 834,
+    "archived_files_including_evidence": 1066,
+    "restoration_verified": true,
+    "manifest_sha256": "efe3f93980d580f565e6f23d09b10385047dc46532e2095c148f69e2875ad098"
+  },
+  "managed_reference": {
+    "path": "../steam97-reference/manifest.json",
+    "files": 70,
+    "original_numeric_results": 0,
+    "response": "Registration Required",
+    "collection_date": "2026-10-19"
+  },
+  "status_sources": {
+    "last_publication": "../RELEASE_STATUS_UK.md",
+    "local_heos": "../water-heos/acceptance-workspace.json",
+    "parity": "../STEAMTABLES_PARITY_MATRIX.json",
+    "reactor_physical_screening": "../REACTOR_CELL_VALIDATION_UK.md"
+  },
+  "limits": [
+    "Checkpoint ZIP and Git bundle are local ignored artifacts, not pushed; a portable copy must be retained separately.",
+    "Historical reports remain historical; later fixes do not retroactively change their test counts.",
+    "Reference archive has no numerical original outputs; no parity closure."
+  ]
+}

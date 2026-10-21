@@ -1,0 +1,7 @@
+chromium All 16 IF97 / 11 IAPWS-95 pairs in SI and English passed
+chromium Saturated liquid/vapor endpoints and mixture phase columns passed
+chromium Every P01 failed inverse and a cold near-Pc branch through Worker passed
+chromium Both models: exact near-Pc input, CSV and JSON project import/reload passed
+chromium Multiple physical roots retain original inputs after selection and save passed
+chromium Exact IAPWS-95 critical state remains an error without new history passed
+chromium Loaded offline Worker and PWA cached Worker passed

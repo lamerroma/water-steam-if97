@@ -1,0 +1,6 @@
+firefox turbine/power gap=32 ms
+firefox turbine/flow gap=23 ms
+firefox turbine/efficiency gap=22 ms
+firefox flash/condensate gap=45 ms
+firefox flash/saturated gap=25 ms
+firefox flash/subcooled gap=23 ms

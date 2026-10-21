@@ -16,9 +16,10 @@
 | Модуль | Методи | Формат результату |
 | --- | --- | --- |
 | `water` | `calculate` | Чинний результат IF97/IAPWS-95 і властивості з одиницями |
+| `water-heos` | `calculate` | HEOS::Water через окремий WASM Worker, усі 20 пар, альтернативні корені й одиниці |
 | `gas-tables` | `calculate` | Чинний результат BSW2003/VDI4670 і властивості з одиницями |
 | `ht`, `fluids` | `catalog`, `describe`, `call`, `get`, `release` | JSON, класи через локальні handles; upstream-документація одиниць |
-| `workflows` | `project`, `rankine-sweep`, `study-report-html`, `water-process`, `custom-cycle`, `library-cycle`, `cycle-comparison`, `cycle-preset` | Чинна схема відповідного методу |
+| `workflows` | `project`, `rankine-sweep`, `study-report-html`, `water-process`, `steam-process`, `engineering`, `diagram-base`, `diagram-isotherm`, `diagram-refine`, `batch`, `custom-cycle`, `library-cycle`, `cycle-comparison`, `cycle-preset` | Чинна схема відповідного методу |
 
 Для води підтримані всі 20 наявних вхідних пар, для газів — P–T/P–h/P–s.
 Сумісні методи runner (`calculate`, `gasTable`, `readProject` тощо) залишені
@@ -28,10 +29,25 @@
 Це реєстр адаптерів поточної збірки. Для ht 1.2.0 / fluids 1.3.1 реалізовано
 спільний локальний пакет Pyodide/NumPy/SciPy (~32 МБ) з окремим кешем.
 [Виклики та межі підтримки Python-бібліотек](PYTHON_LIBRARIES_UK.md).
-Наукові панелі з CoolProp та інші прямі допоміжні виклики поки використовують
+`water-heos / calculate` 1.2.0 додає Water HEOS через окремий HEOS Worker:
+усі 20 пар, вибір коренів, діагностика, межі та явні одиниці;
+[поточний контракт](WATER_HEOS_M2_UK.md), [початкове приймання M1](WATER_HEOS_UK.md).
+Чинний `water` зберігає IF97/IAPWS-95. Числові workflows також можуть явно
+вибрати HEOS::Water; HEOS Worker готує його перед виконанням. Звичайний Worker
+не містить CoolProp і не реєструє додатковий backend. Основна форма, історія,
+проєкти й серії підтримують явну модель HEOS; [контракт збереження](WATER_HEOS_WORKSPACE_UK.md).
+Метод workflows/batch повертає перевірені результати або помилки окремих
+рядків; його вхідні одиниці задані в кожному рядку. Зміна runtime завершує
+старий Worker відповідного runner; пізня відповідь не приймається.
+Турбіна/flash та насос/компресор/теплообмінник обчислюються у Worker.
+Діаграма передає туди початкову сітку й підписи, ізотерми та уточнення;
+Canvas/SVG залишаються в UI. [Підтверджені сценарії та межі](development-r01/AUXILIARY_WORKER_UK.md).
+Для цих workflows UI передає MPa absolute, K, kg/s, kW та частку ККД;
+сам транспорт не вгадує одиниці масивів аргументів.
+Інші наукові панелі з CoolProp та прямі допоміжні виклики поки використовують
 наявні адаптери інтерфейсу; їх перенесення в цей реєстр — наступні інтеграції.
-Спільна SHA-256 ревізія враховує Calculation Worker, SEUIF97 WASM,
-Python Worker, міст JSON та маніфест Python-пакета. Окремий CoolProp WASM перевіряє чинний маніфест ресурсів PWA.
+Спільна SHA-256 ревізія враховує Calculation Worker, SEUIF97 та CoolProp WASM,
+Python Worker, міст JSON та маніфест Python-пакета. CoolProp WASM також перевіряє чинний маніфест ресурсів PWA.
 Методи workflows мають спільний транспорт і помилки; їхні фізичні величини
 залишаються у чинних схемах. Порожня `quantities` для них не означає,
 що результат безрозмірний. Типізувати кожну таку схему потрібно окремим адаптером.

@@ -1,0 +1,6 @@
+firefox compressor: 47 ms
+firefox pump: 44 ms
+firefox heat-exchanger: 46 ms
+firefox diagram-cold: 211 ms
+firefox diagram-isotherms: 43 ms
+firefox diagram-zoom: 182 ms

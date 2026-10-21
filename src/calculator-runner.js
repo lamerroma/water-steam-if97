@@ -2,28 +2,29 @@ import {CalculationModuleError,createCalculationRequest,createLegacyCalculationR
 
 // One background operation at a time. Termination also interrupts synchronous
 // numerical searches; a cancellation message alone cannot do that.
-export function createCalculationRunner(createWorker,timeoutMs=60000){
- let worker=null,pending=null,sequence=0;
+export function createCalculationRunner(createWorker,timeoutMs=60000,selectWorkerKey=()=>null){
+ let worker=null,workerKey=null,pending=null,sequence=0;
  const error=(code,message,details)=>new CalculationModuleError(code,message,details);
  const finish=(failure,value)=>{const task=pending;if(!task)return;pending=null;clearTimeout(task.timer);task.signal?.removeEventListener('abort',task.abort);if(failure)task.reject(failure);else task.resolve(value);};
- const stop=()=>{worker?.terminate();worker=null;};
+ const stop=()=>{worker?.terminate();worker=null;workerKey=null;};
  const fail=(code,message)=>{stop();finish(error(code,message));};
  function execute(makeRequest,{signal,onProgress}={}){
   if(pending)return Promise.reject(error('busy','A calculation is already running.'));
   if(signal!=null&&(typeof signal.aborted!=='boolean'||typeof signal.addEventListener!=='function'||typeof signal.removeEventListener!=='function'))return Promise.reject(error('invalid-input','A valid AbortSignal is required.'));
   if(signal?.aborted)return Promise.reject(error('cancelled','Calculation cancelled.'));
-  let request;try{request=makeRequest(++sequence);normalizeCalculationRequest(request);}catch(failure){return Promise.reject(failure);}
+  let request,key;try{request=makeRequest(++sequence);normalizeCalculationRequest(request);key=selectWorkerKey(request);}catch(failure){return Promise.reject(failure);}
   return new Promise((resolve,reject)=>{
    pending={id:request.id,request,resolve,reject,signal,onProgress,abort:()=>fail('cancelled','Calculation cancelled.'),timer:setTimeout(()=>fail('timeout','Calculation time limit exceeded.'),timeoutMs)};
    signal?.addEventListener('abort',pending.abort,{once:true});
    try{
+    if(worker&&workerKey!==key)stop();
     if(!worker){
-     const current=worker=createWorker();
+     workerKey=key;const current=worker=createWorker(request,key);
      current.onmessage=event=>{
       if(worker!==current||event.data?.id!==pending?.id)return;
       let reply;try{reply=validateCalculationReply(pending.request,event.data);}catch(failure){stop();finish(failure);return;}
       if(reply.status==='progress'){try{pending.onProgress?.(reply.progress);}catch{}return;}
-      if(reply.status==='error')finish(error(reply.error.code,reply.error.message,reply.error.details));else finish(null,reply);
+      if(reply.status==='error'){if(reply.error.details?.resetWorker===true)stop();finish(error(reply.error.code,reply.error.message,reply.error.details));}else finish(null,reply);
      };
      current.onerror=event=>{event.preventDefault?.();if(worker===current)fail('unavailable','Background calculation could not start.');};
      current.onmessageerror=()=>{if(worker===current)fail('unavailable','Background result could not be read.');};
@@ -37,6 +38,7 @@ export function createCalculationRunner(createWorker,timeoutMs=60000){
   run:(moduleId,methodId,payload,options={})=>execute(id=>createCalculationRequest({id,moduleId,methodId,payload,engineVersion:options.engineVersion,inputUnits:options.inputUnits}),options),
   calculate:(mode,a,b,model,options)=>legacy('calculate',{mode,a,b,model,...(options?{options}:{})}),
   readProject:text=>legacy('project',{text}),
+  batch:(inputs,model)=>legacy('batch',{inputs,model}),
   gasTable:(mode,p,value,fractions,basis,options)=>legacy('gas-bsw2003',{mode,p,value,fractions,basis,...(options?{options}:{})}),
   customCycle:(input,model)=>legacy('custom-cycle',{input,model}),
   libraryCycle:input=>legacy('library-cycle',{input}),
@@ -45,6 +47,8 @@ export function createCalculationRunner(createWorker,timeoutMs=60000){
   compareCycles:input=>legacy('cycle-comparison',{input}),
   cyclePreset:(name,model)=>legacy('cycle-preset',{name,model}),
   waterProcess:(input,model)=>legacy('water-process',{input,model}),
+  steamProcess:(input,model)=>legacy('steam-process',{input,model}),
+  engineering:(kind,args,model)=>legacy('engineering',{kind,args,model}),
   reset(){stop();finish(error('cancelled','Calculation cancelled.'));},
   cancel(){if(!pending)return false;stop();finish(error('cancelled','Calculation cancelled.'));return true;},
   get busy(){return pending!==null;}

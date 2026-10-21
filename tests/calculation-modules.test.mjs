@@ -10,11 +10,11 @@ const water=(payload={mode:'pt',a:3,b:373.15},extra={})=>createCalculationReques
 const gas=(payload,extra={})=>createCalculationRequest({id:2,moduleId:'gas-tables',methodId:'calculate',payload,...extra});
 
 test('Immutable module catalog names pinned adapters; Python functions retain pending numerical acceptance',()=>{
- assert.deepEqual(CALCULATION_MODULES.map(module=>module.id),['water','gas-tables','workflows','ht','fluids']);
+ assert.deepEqual(CALCULATION_MODULES.map(module=>module.id),['water','water-heos','gas-tables','workflows','ht','fluids']);
  assert.throws(()=>CALCULATION_MODULES[0].models.push('other'),TypeError);
- assert.equal(CALCULATION_MODULES[1].validity.steam97WebParityVerified,false);
- assert.equal(CALCULATION_MODULES[2].resultFormat,'native');
- assert.equal(CALCULATION_MODULES[3].validity.numericalAcceptance,'pending');
+ assert.equal(CALCULATION_MODULES.find(m=>m.id==='gas-tables').validity.steam97WebParityVerified,false);
+ assert.equal(CALCULATION_MODULES.find(m=>m.id==='workflows').resultFormat,'native');
+ assert.equal(CALCULATION_MODULES.find(m=>m.id==='ht').validity.numericalAcceptance,'pending');
 });
 
 test('Water quantity conversion agrees exactly with the native kernel and preserves input spelling metadata',async()=>{

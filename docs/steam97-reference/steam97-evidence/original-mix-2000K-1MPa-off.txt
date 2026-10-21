@@ -1,0 +1,1413 @@
+- table:
+  - rowgroup:
+    - row "Архив Тема Диаграмм Язык Помощь Войти Установка уровня масштабирования Полноэкранный Pежим":
+      - cell "Архив Тема Диаграмм Язык Помощь Войти":
+        - table:
+          - rowgroup:
+            - row "Архив Тема Диаграмм Язык Помощь Войти":
+              - cell "Архив":
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row "Архив":
+                      - cell
+                      - cell "Архив":
+                        - emphasis:
+                          - button "Архив"
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell "Тема":
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row "Тема":
+                      - cell
+                      - cell "Тема":
+                        - emphasis:
+                          - button "Тема"
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell "Диаграмм":
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row "Диаграмм":
+                      - cell
+                      - cell "Диаграмм":
+                        - emphasis:
+                          - button "Диаграмм"
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell "Язык":
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row "Язык":
+                      - cell
+                      - cell "Язык":
+                        - emphasis:
+                          - button "Язык"
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell "Помощь":
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row "Помощь":
+                      - cell
+                      - cell "Помощь":
+                        - emphasis:
+                          - button "Помощь"
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell "Войти":
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row "Войти":
+                      - cell
+                      - cell "Войти":
+                        - emphasis:
+                          - button "Войти"
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+      - cell "Установка уровня масштабирования Полноэкранный Pежим":
+        - table:
+          - rowgroup:
+            - row "Установка уровня масштабирования Полноэкранный Pежим":
+              - cell "Установка уровня масштабирования Полноэкранный Pежим":
+                - table:
+                  - rowgroup:
+                    - row "Установка уровня масштабирования Полноэкранный Pежим":
+                      - cell "Установка уровня масштабирования":
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                            - row "Установка уровня масштабирования":
+                              - cell
+                              - cell "Установка уровня масштабирования":
+                                - emphasis:
+                                  - button "Установка уровня масштабирования"
+                              - cell
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                      - cell "Полноэкранный Pежим":
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                            - row "Полноэкранный Pежим":
+                              - cell
+                              - cell "Полноэкранный Pежим":
+                                - emphasis:
+                                  - button "Полноэкранный Pежим"
+                              - cell
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row
+- table:
+  - rowgroup:
+    - row "Войти":
+      - cell "Войти":
+        - table:
+          - rowgroup:
+            - row "Войти":
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row:
+                      - cell
+                      - cell:
+                        - emphasis:
+                          - button
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row:
+                      - cell
+                      - cell:
+                        - emphasis:
+                          - button
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row:
+                      - cell
+                      - cell:
+                        - emphasis:
+                          - button
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row:
+                      - cell
+                      - cell:
+                        - emphasis:
+                          - button
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row:
+                      - cell
+                      - cell:
+                        - emphasis:
+                          - button
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row:
+                      - cell
+                      - cell:
+                        - emphasis:
+                          - button
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row:
+                      - cell
+                      - cell:
+                        - emphasis:
+                          - button
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row:
+                      - cell
+                      - cell:
+                        - emphasis:
+                          - button
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row:
+                      - cell
+                      - cell:
+                        - emphasis:
+                          - button
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row:
+                      - cell
+                      - cell:
+                        - emphasis:
+                          - button
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row:
+                      - cell
+                      - cell:
+                        - emphasis:
+                          - button
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row:
+                      - cell
+                      - cell:
+                        - emphasis:
+                          - button
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row:
+                      - cell
+                      - cell:
+                        - emphasis:
+                          - button
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+              - cell
+              - cell "Войти":
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row "Войти":
+                      - cell
+                      - cell "Войти":
+                        - emphasis:
+                          - button "Войти"
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+      - cell:
+        - table:
+          - rowgroup:
+            - row:
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                            - row:
+                              - cell
+                              - cell:
+                                - emphasis:
+                                  - button
+                              - cell
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                      - cell:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                            - row:
+                              - cell
+                              - cell:
+                                - emphasis:
+                                  - button
+                              - cell
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                      - cell:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                            - row:
+                              - cell
+                              - cell:
+                                - emphasis:
+                                  - button
+                              - cell
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                      - cell:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                            - row:
+                              - cell
+                              - cell:
+                                - emphasis:
+                                  - button
+                              - cell
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                      - cell:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                            - row:
+                              - cell
+                              - cell:
+                                - emphasis:
+                                  - button
+                              - cell
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                      - cell:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                            - row:
+                              - cell
+                              - cell:
+                                - emphasis:
+                                  - button
+                              - cell
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                      - cell:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                            - row:
+                              - cell
+                              - cell:
+                                - emphasis:
+                                  - button
+                              - cell
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                      - cell:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                            - row:
+                              - cell
+                              - cell:
+                                - emphasis:
+                                  - button
+                              - cell
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                      - cell:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                            - row:
+                              - cell
+                              - cell:
+                                - emphasis:
+                                  - button
+                              - cell
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                      - cell:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                            - row:
+                              - cell
+                              - cell:
+                                - emphasis:
+                                  - button
+                              - cell
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                      - cell:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                            - row:
+                              - cell
+                              - cell:
+                                - emphasis:
+                                  - button
+                              - cell
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                      - cell:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+                            - row:
+                              - cell
+                              - cell:
+                                - emphasis:
+                                  - button
+                              - cell
+                            - row:
+                              - cell
+                              - cell
+                              - cell
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row
+- table:
+  - rowgroup:
+    - row:
+      - cell:
+        - table:
+          - rowgroup:
+            - row
+      - cell:
+        - table:
+          - rowgroup:
+            - row:
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row
+- list:
+  - link "1. Общие Свойства":
+    - /url: "#"
+    - emphasis:
+      - generic: 1. Общие Свойства
+  - link "2. Свойства Сатурации":
+    - /url: "#"
+    - emphasis:
+      - generic: 2. Свойства Сатурации
+  - link "3. Паровая Турбина":
+    - /url: "#"
+    - emphasis:
+      - generic: 3. Паровая Турбина
+  - link "4. Флэш Испаритель":
+    - /url: "#"
+    - emphasis:
+      - generic: 4. Флэш Испаритель
+  - link "5. T-S Диаграмм":
+    - /url: "#"
+    - emphasis:
+      - generic: 5. T-S Диаграмм
+  - link "6. H-S Диаграмм":
+    - /url: "#"
+    - emphasis:
+      - generic: 6. H-S Диаграмм
+  - link "7. H-S Диаграмм (пaрa)":
+    - /url: "#"
+    - emphasis:
+      - generic: 7. H-S Диаграмм (пaрa)
+  - link "8. Газ Таблицы":
+    - /url: "#"
+    - emphasis:
+      - generic: 8. Газ Таблицы
+- group "Gas Components":
+  - generic: Gas Components
+  - generic: "1. Argon [Ar]:"
+  - textbox: "0"
+  - generic: "%"
+  - generic: "2. Carbon Monoxide [CO]:"
+  - textbox: "0"
+  - generic: "%"
+  - generic: "3. Carbon Dioxide [CO2]:"
+  - textbox: "8.05"
+  - generic: "%"
+  - generic: "4. Water [H2O]:"
+  - textbox: "16.1"
+  - generic: "%"
+  - generic: "5. Nitrogen [N2]:"
+  - textbox: "72.63"
+  - generic: "%"
+  - generic: "6. Neon [Ne]:"
+  - textbox: "0"
+  - generic: "%"
+  - generic: "7. Oxygen [O2]:"
+  - textbox: "3.22"
+  - generic: "%"
+  - generic: "8. Sulfur Dioxide [SO2]:"
+  - textbox "1. Argon [Ar]:": "0"
+  - generic: "%"
+- group "Input Data":
+  - generic: Input Data
+  - generic: "1. Pressure (absolute):"
+  - textbox: "10"
+  - generic: bar
+  - generic: "2. Temperature:"
+  - textbox "1. Pressure (absolute):": "1726.85"
+  - generic: °C
+  - checkbox "Include dissociation"
+  - text: Include dissociation
+- table:
+  - rowgroup:
+    - row:
+      - cell
+      - cell
+      - cell
+    - row "Calculate":
+      - cell
+      - cell "Calculate":
+        - emphasis:
+          - button "Calculate"
+      - cell
+    - row:
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "p [bar] t [°C] h [kJ/kg] s [kJ/(kg·K)] cp [kJ/(kg·K)] cv [kJ/(kg·K)] kapa [-] Dissociation Ar [%] CO [%] CO2 [%] H2O [%] N2 [%] Ne [%] O2 [%] SO2 [%]":
+      - cell
+      - cell "p [bar]":
+        - generic: p [bar]
+      - cell "t [°C]":
+        - generic: t [°C]
+      - cell "h [kJ/kg]":
+        - generic: h [kJ/kg]
+      - cell "s [kJ/(kg·K)]":
+        - generic: s [kJ/(kg·K)]
+      - cell "cp [kJ/(kg·K)]":
+        - generic: cp [kJ/(kg·K)]
+      - cell "cv [kJ/(kg·K)]":
+        - generic: cv [kJ/(kg·K)]
+      - cell "kapa [-]":
+        - generic: kapa [-]
+      - cell "Dissociation":
+        - generic: Dissociation
+      - cell "Ar [%]":
+        - generic: Ar [%]
+      - cell "CO [%]":
+        - generic: CO [%]
+      - cell "CO2 [%]":
+        - generic: CO2 [%]
+      - cell "H2O [%]":
+        - generic: H2O [%]
+      - cell "N2 [%]":
+        - generic: N2 [%]
+      - cell "Ne [%]":
+        - generic: Ne [%]
+      - cell "O2 [%]":
+        - generic: O2 [%]
+      - cell "SO2 [%]":
+        - generic: SO2 [%]
+- table:
+  - rowgroup:
+    - row "1":
+      - cell "1":
+        - generic: "1"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "2":
+      - cell "2":
+        - generic: "2"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "3":
+      - cell "3":
+        - generic: "3"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "4":
+      - cell "4":
+        - generic: "4"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "5":
+      - cell "5":
+        - generic: "5"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "6":
+      - cell "6":
+        - generic: "6"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "7":
+      - cell "7":
+        - generic: "7"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "8":
+      - cell "8":
+        - generic: "8"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "9":
+      - cell "9":
+        - generic: "9"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "10":
+      - cell "10":
+        - generic: "10"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "11":
+      - cell "11":
+        - generic: "11"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "12":
+      - cell "12":
+        - generic: "12"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "13":
+      - cell "13":
+        - generic: "13"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "14":
+      - cell "14":
+        - generic: "14"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "15":
+      - cell "15":
+        - generic: "15"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "16":
+      - cell "16":
+        - generic: "16"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "17":
+      - cell "17":
+        - generic: "17"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "18":
+      - cell "18":
+        - generic: "18"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "19":
+      - cell "19":
+        - generic: "19"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "20":
+      - cell "20":
+        - generic: "20"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "21":
+      - cell "21":
+        - generic: "21"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "22":
+      - cell "22":
+        - generic: "22"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "23":
+      - cell "23":
+        - generic: "23"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "24":
+      - cell "24":
+        - generic: "24"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- table:
+  - rowgroup:
+    - row "25":
+      - cell "25":
+        - generic: "25"
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+      - cell
+- link:
+  - /url: "#"
+- generic: Установка
+- generic: Единиц
+- radio "СИ (Метрические)" [checked]
+- text: СИ (Метрические)
+- radio "Английский"
+- text: Английский
+- generic: Формулирование
+- radio "IAPWS-IF97" [checked]
+- text: IAPWS-IF97
+- radio "IAPWS-95"
+- text: IAPWS-95
+- generic: Окружающие
+- generic: "Температура:"
+- textbox: "25"
+- generic: °C
+- table:
+  - rowgroup:
+    - row:
+      - cell
+      - cell
+      - cell
+    - row "Обновление":
+      - cell
+      - cell "Обновление":
+        - emphasis:
+          - button "Обновление"
+      - cell
+    - row:
+      - cell
+      - cell
+      - cell
+- generic: Требуется для эксэргии расчет.
+- generic: КАЛЬКУЛЯТОРЫ
+- text: Посетите другие наши
+- text: "Онлайн калькулятор:"
+- link "CO2 Таблицы":
+  - /url: https://www.carbon-dioxide-properties.com/
+- link "NH3 Таблицы":
+  - /url: https://www.ammonia-properties.com/
+- link "Влажный Воздух":
+  - /url: https://www.psychrometric-calculator.com/
+- table:
+  - rowgroup:
+    - row "Gas Tables v1.0 - Powered by GasTables ActiveX Dll from MegaWatSoft You are not logged in.":
+      - cell "Gas Tables v1.0 - Powered by GasTables ActiveX Dll from MegaWatSoft":
+        - table:
+          - rowgroup:
+            - row "Gas Tables v1.0 - Powered by GasTables ActiveX Dll from MegaWatSoft":
+              - cell "Gas Tables v1.0 - Powered by GasTables ActiveX Dll from MegaWatSoft":
+                - generic: Gas Tables v1.0 - Powered by GasTables ActiveX Dll from MegaWatSoft
+      - cell "You are not logged in.":
+        - table:
+          - rowgroup:
+            - row "You are not logged in.":
+              - cell "You are not logged in.":
+                - table:
+                  - rowgroup:
+                    - row "You are not logged in.":
+                      - cell
+                      - cell "You are not logged in.":
+                        - generic: You are not logged in.
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row
+- list:
+  - link "Главная Главная":
+    - /url: ru/default_ru.aspx
+    - img "Главная"
+    - text: Главная
+  - link "Steam97Web - Калькулятор Паровые Таблицы Калькулятор":
+    - /url: steam97web.aspx?lang=ru
+    - img "Steam97Web - Калькулятор Паровые Таблицы"
+    - text: Калькулятор
+  - link "Помощь - Калькулятор Паровые Таблицы Помощь":
+    - /url: ru/help_ru.aspx
+    - img "Помощь - Калькулятор Паровые Таблицы"
+    - text: Помощь
+  - link "Контакт Контакт":
+    - /url: ru/contactus_ru.aspx
+    - img "Контакт"
+    - text: Контакт
+- textbox
+- generic: Registration Required
+- text: This functionality is available only to registered users!
+- text: To access this functionality, first register and create account,
+- text: and then Login with your newly registered account.
+- table:
+  - rowgroup:
+    - row "OK":
+      - cell "OK":
+        - table:
+          - rowgroup:
+            - row "OK":
+              - cell "OK":
+                - table:
+                  - rowgroup:
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+                    - row "OK":
+                      - cell
+                      - cell "OK":
+                        - emphasis:
+                          - button "OK" [active]
+                      - cell
+                    - row:
+                      - cell
+                      - cell
+                      - cell
+      - cell:
+        - table:
+          - rowgroup:
+            - row:
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row
+              - cell:
+                - table:
+                  - rowgroup:
+                    - row
+- link:
+  - /url: "#"

@@ -1,0 +1,5 @@
+Real IAPWS-95 h-v search keeps the event loop responsive PASS {"ticks":42,"ms":853.6999999880791}
+Cancellation, duplicate submit, input edits and model changes preserve current data PASS
+Import during computation and reload restore the saved state without stale history PASS
+English, mobile layout and cached offline worker in PWA PASS
+Worker startup failure is reported and retry succeeds PASS

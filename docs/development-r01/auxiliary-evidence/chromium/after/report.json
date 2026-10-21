@@ -1,0 +1,159 @@
+{
+  "date": "2026-10-21T08:42:25.280Z",
+  "browser": "chromium",
+  "status": "passed",
+  "baseline": false,
+  "offline": false,
+  "measurements": [
+    {
+      "label": "compressor",
+      "elapsedMs": 3016.800000011921,
+      "heartbeatMaxGapMs": 29.19999998807907,
+      "heartbeatTicks": 150
+    },
+    {
+      "label": "pump",
+      "elapsedMs": 3028.900000035763,
+      "heartbeatMaxGapMs": 38,
+      "heartbeatTicks": 151
+    },
+    {
+      "label": "heat-exchanger",
+      "elapsedMs": 3006.600000023842,
+      "heartbeatMaxGapMs": 40.90000003576279,
+      "heartbeatTicks": 149
+    },
+    {
+      "label": "diagram-cold",
+      "elapsedMs": 4656.899999976158,
+      "heartbeatMaxGapMs": 229.19999998807907,
+      "heartbeatTicks": 222
+    },
+    {
+      "label": "diagram-isotherms",
+      "elapsedMs": 2106.600000023842,
+      "heartbeatMaxGapMs": 40.69999998807907,
+      "heartbeatTicks": 104
+    },
+    {
+      "label": "diagram-zoom",
+      "elapsedMs": 3465.600000023842,
+      "heartbeatMaxGapMs": 167.19999998807907,
+      "heartbeatTicks": 166
+    }
+  ],
+  "checks": [
+    "compressor: cancel prevents stale result",
+    "compressor: edit prevents stale result",
+    "compressor: navigate prevents stale result",
+    "compressor: retry and project reload",
+    "pump: cancel prevents stale result",
+    "pump: edit prevents stale result",
+    "pump: navigate prevents stale result",
+    "pump: retry and project reload",
+    "heat-exchanger: cancel prevents stale result",
+    "heat-exchanger: edit prevents stale result",
+    "heat-exchanger: navigate prevents stale result",
+    "heat-exchanger: retry and project reload",
+    "Diagram: rapid viewport changes settle and exports re-enable",
+    "Diagram: three coordinate systems and chart disposal",
+    "Diagram: project reload recomputes guides",
+    "Diagram: navigation cancels cold base before creating a chart"
+  ],
+  "errors": [],
+  "workerRequests": [
+    {
+      "module": "workflows",
+      "method": "project"
+    },
+    {
+      "module": "water-heos",
+      "method": "calculate",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "engineering",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "project"
+    },
+    {
+      "module": "water-heos",
+      "method": "calculate",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "engineering",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "project"
+    },
+    {
+      "module": "water-heos",
+      "method": "calculate",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "engineering",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "project"
+    },
+    {
+      "module": "water-heos",
+      "method": "calculate",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-base",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-isotherm",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-isotherm",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-isotherm",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-isotherm",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-refine",
+      "model": "HEOS::Water"
+    },
+    {
+      "module": "workflows",
+      "method": "diagram-base",
+      "model": "IAPWS-95"
+    }
+  ],
+  "scope": "Unmodified UI/Worker/WASM assets, headless desktop, fresh context per engineering kind and diagram; 20 ms timer; single-run measurement, not physical mobile acceptance.",
+  "browserVersion": "151.0.7922.34",
+  "build": "ba491efebede",
+  "proposedBudget": {
+    "maxGapMs": 1000,
+    "met": true
+  }
+}

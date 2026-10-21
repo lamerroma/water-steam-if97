@@ -1,0 +1,121 @@
+{
+  "savedWith": {
+    "appVersion": "1.40.0",
+    "buildId": "20fd3cb17a71",
+    "method": "project / multiple methods",
+    "model": "per result"
+  },
+  "research": {
+    "variants": [],
+    "sweep": null
+  },
+  "study": {
+    "author": "",
+    "assignment": "",
+    "intro": "",
+    "entries": []
+  },
+  "format": "water-steam-if97",
+  "version": 1,
+  "uiUnits": {
+    "temperature": "C",
+    "pressure": "MPa",
+    "mass": "kgs",
+    "power": "kW",
+    "length": "m",
+    "energy": "kJkg",
+    "dynamicViscosity": "auto",
+    "kinematicViscosity": "auto",
+    "surfaceTension": "auto"
+  },
+  "uiInputDefaults": false,
+  "digits": 8,
+  "diagram": {
+    "tools": {
+      "crosshair": true,
+      "regions": true,
+      "isotherms": false,
+      "qualities": false,
+      "temperatureUnit": "C",
+      "temperatures": [
+        373.15,
+        473.15,
+        573.15,
+        673.15
+      ],
+      "dryness": [
+        0.1,
+        0.3,
+        0.5,
+        0.7,
+        0.9
+      ]
+    },
+    "views": {},
+    "connectHistory": false,
+    "numbers": true,
+    "order": [
+      0
+    ],
+    "excluded": [],
+    "pointSets": {},
+    "series": [],
+    "drawingStyle": {
+      "radius": 6,
+      "pointColor": "phase",
+      "width": 2.3,
+      "lineColor": "#8b4599"
+    }
+  },
+  "pressure": {
+    "basis": "absolute",
+    "atmosphere": 0.101325
+  },
+  "title": "Вода та пара",
+  "history": [
+    {
+      "p": 0.1,
+      "h": 2928.5584323608236,
+      "model": "HEOS::Water",
+      "name": "",
+      "source": {
+        "mode": "pt",
+        "a": 0.1,
+        "b": 500
+      }
+    }
+  ],
+  "workspace": {
+    "active": "general",
+    "panels": {}
+  },
+  "process": null,
+  "form": {
+    "calculated": true,
+    "roundingDisplay": false,
+    "inputStyle": "advanced",
+    "inputOrder": "canonical",
+    "model": "HEOS::Water",
+    "mode": "pt",
+    "a": "0.1",
+    "b": "500",
+    "ua": "MPa",
+    "ub": "K"
+  },
+  "drafts": {},
+  "ambient": {
+    "p": 0.101325,
+    "T": 298.15
+  },
+  "system": "si",
+  "energy": "kJ",
+  "gray": false,
+  "scale": "1",
+  "hints": true,
+  "exportedWith": {
+    "appVersion": "1.40.0",
+    "buildId": "20fd3cb17a71",
+    "method": "project / multiple methods",
+    "model": "per result"
+  }
+}

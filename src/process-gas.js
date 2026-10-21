@@ -1,7 +1,7 @@
 import {AIR,gasState,gasInverse,gasLimits,GAS_P0} from './gases.js';
 
 export const PROCESS_GASES=['air','N2','O2','CO2','He','Ar'];
-export const PROCESS_MODELS=['IF97','IAPWS-95','IDEAL-CP','IDEAL-NASA7'];
+export const PROCESS_MODELS=['IF97','IAPWS-95','HEOS::Water','IDEAL-CP','IDEAL-NASA7'];
 export function processGas(fluid,model){
  if(!PROCESS_GASES.includes(fluid)||!['IDEAL-CP','IDEAL-NASA7'].includes(model))throw Error('Несумісна речовина й модель процесу. / Incompatible fluid and process model.');
  const composition=fluid==='air'?AIR:{[fluid]:1},reference=gasState(GAS_P0,300,composition),limits=gasLimits(composition),variable=model==='IDEAL-NASA7';

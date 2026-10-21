@@ -1,0 +1,10 @@
+Full cache, scope, mobile and English PASS
+Explicit update check reports the latest version PASS
+Explicit update check reports a network failure PASS
+Browser restart, project, IAPWS-95, WASM, diagram and exports offline PASS
+Blocked unsaved update and controlled release update preserve project and language PASS
+Older open tab retains release assets PASS
+Older release caches removed once only the current release is open PASS
+Interrupted installation, atomic cache and retry PASS
+Corrupt resource is rejected PASS
+Evicted cache recovery retries without a connection, preserves project and language, and restores offline calculations PASS

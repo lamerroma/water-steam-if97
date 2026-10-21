@@ -1,0 +1,5 @@
+chromium Cold stable liquid: forward/inverses, SI and English passed
+chromium Independent transport availability and CSV reasons passed
+chromium Cold input survives JSON import, reload and offline recalculation passed
+chromium Ice input fails without adding history; English property explanation passed
+chromium PWA cached Worker calculates cold liquid offline passed

@@ -1,0 +1,7 @@
+chromium Three turbine modes; both models and unit systems; MW input passed
+chromium Superheated and supercritical exits; temperature difference and null reasons passed
+chromium Saturated/subcooled condensate and legacy vapor throttle; both systems passed
+chromium MW conversion, stale outputs and input guards passed
+chromium Exact JSON/project reload and history for all modes; printable fields passed
+chromium Gauge pressure, English interface and mobile width passed
+chromium Offline PWA with both models passed

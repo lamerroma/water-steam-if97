@@ -1,0 +1,10 @@
+P-h overlays and crosshair PASS
+Custom guides, decimal comma, units, validation PASS
+SVG/HTML guide exports and translations PASS
+Guide persistence PASS
+JSON guide round trip PASS
+T-s/h-s overlays PASS
+IAPWS-95 and mobile PASS
+Mobile tap coordinates PASS
+Overlay switches and lifecycle PASS
+Offline guide generation in an independent context PASS

@@ -1,0 +1,224 @@
+{
+  "date": "2026-10-21T05:31:59.517Z",
+  "browser": "firefox",
+  "status": "passed",
+  "checks": [
+    "Editing ambient inputs while a reference is pending preserves the applied environment and exergy",
+    "Cancelling an ambient reference leaves no stale environment or exergy update",
+    "First HEOS result and changed ambient match independent exergy controls without a main-thread property query",
+    "Actual native exception quarantines water, humid air, real gases and initialization without further native calls",
+    "Actual calculator shows the page-reload recovery instruction",
+    "Quarantined calculations preserve history and show the English recovery instruction",
+    "Independent IF97 calculator remains usable while shared CoolProp is quarantined",
+    "A new page/WASM restores the same HEOS result and the actual calculator"
+  ],
+  "pageErrors": [],
+  "scope": "Shared main-thread HEOS failure quarantine and reload recovery. Test-only closure hooks; service workers blocked; no offline or physical-device claim.",
+  "browserVersion": "153.0",
+  "build": "f16d46d30b5e",
+  "ambientWorker": [
+    {
+      "model": "HEOS::Water",
+      "modelName": "CoolProp 8 · HEOS · IAPWS-95",
+      "p": 1,
+      "T": 500,
+      "rho": 4.532294271839076,
+      "v": 0.22063880675475833,
+      "h": 2891.218298958905,
+      "s": 6.824994379140873,
+      "u": 2670.5794922041464,
+      "cp": 2.279477926439576,
+      "cv": 1.6699235635634067,
+      "w": 535.7380639660735,
+      "x": null,
+      "phase": "Перегріта пара",
+      "mu": 0.000017053560479226623,
+      "lambda": 0.03847274119186433,
+      "alpha": 0.0024078981608952575,
+      "kappa": 1.0493387007739363,
+      "drhodp": 4.75591178273677,
+      "A": -741.9176973662898,
+      "G": -521.2788906115311,
+      "Z": 0.9561437813960183,
+      "gamma": 1.3650193195522418,
+      "isentropic": 1.3008376785736346,
+      "dvdt": 0.0005312757770069067,
+      "dvdp": -0.23152483882034972,
+      "dpdt": 0.002294681554315418,
+      "dpdv": -4.3191909995278905,
+      "jt": 19.740959641132036,
+      "ijt": -44.99908174869501,
+      "nu": 0.0000037626772350566666,
+      "diffusivity": 0.0000037239139763973477,
+      "Pr": 1.0104092787601984,
+      "dc": 1.0344298688125768,
+      "sigma": null,
+      "notes": [
+        "Пілот CoolProp 8 / HEOS::Water; система відліку h/s — стандартна IAPWS-95 у CoolProp.",
+        "μ та λ обмежено діапазонами IAPWS R12-08 / R15-11; пропуск означає недоступність."
+      ],
+      "inputSensitivity": {
+        "numericalResponse": {
+          "p": 2.842170943040401e-14,
+          "T": 1.4210854715202004e-11,
+          "h": 3.3672280465239143e-11,
+          "s": 7.988642503978789e-14,
+          "u": 2.5812997944269635e-11,
+          "v": 1.413021457562431e-14,
+          "rho": 2.9025850675553444e-13
+        },
+        "status": "limited",
+        "reason": "large-perturbation",
+        "response": {
+          "p": 0.5,
+          "T": 0.5,
+          "h": 23.639279837567294,
+          "s": 0.2679173664298929,
+          "u": 17.930625916268166,
+          "v": 0.11602805729867831,
+          "rho": 2.3834125428892836
+        },
+        "units": {
+          "p": "MPa",
+          "T": "K",
+          "h": "kJ/kg",
+          "s": "kJ/(kg K)",
+          "u": "kJ/kg",
+          "v": "m3/kg",
+          "rho": "kg/m3"
+        }
+      },
+      "source": {
+        "mode": "pt",
+        "a": 1,
+        "b": 500
+      },
+      "ex": 860.906678302475
+    },
+    {
+      "model": "HEOS::Water",
+      "modelName": "CoolProp 8 · HEOS · IAPWS-95",
+      "p": 1,
+      "T": 500,
+      "rho": 4.532294271839076,
+      "v": 0.22063880675475833,
+      "h": 2891.218298958905,
+      "s": 6.824994379140873,
+      "u": 2670.5794922041464,
+      "cp": 2.279477926439576,
+      "cv": 1.6699235635634067,
+      "w": 535.7380639660735,
+      "x": null,
+      "phase": "Перегріта пара",
+      "mu": 0.000017053560479226623,
+      "lambda": 0.03847274119186433,
+      "alpha": 0.0024078981608952575,
+      "kappa": 1.0493387007739363,
+      "drhodp": 4.75591178273677,
+      "A": -741.9176973662898,
+      "G": -521.2788906115311,
+      "Z": 0.9561437813960183,
+      "gamma": 1.3650193195522418,
+      "isentropic": 1.3008376785736346,
+      "dvdt": 0.0005312757770069067,
+      "dvdp": -0.23152483882034972,
+      "dpdt": 0.002294681554315418,
+      "dpdv": -4.3191909995278905,
+      "jt": 19.740959641132036,
+      "ijt": -44.99908174869501,
+      "nu": 0.0000037626772350566666,
+      "diffusivity": 0.0000037239139763973477,
+      "Pr": 1.0104092787601984,
+      "dc": 1.0344298688125768,
+      "sigma": null,
+      "notes": [
+        "Пілот CoolProp 8 / HEOS::Water; система відліку h/s — стандартна IAPWS-95 у CoolProp.",
+        "μ та λ обмежено діапазонами IAPWS R12-08 / R15-11; пропуск означає недоступність."
+      ],
+      "inputSensitivity": {
+        "numericalResponse": {
+          "p": 2.842170943040401e-14,
+          "T": 1.4210854715202004e-11,
+          "h": 3.3672280465239143e-11,
+          "s": 7.988642503978789e-14,
+          "u": 2.5812997944269635e-11,
+          "v": 1.413021457562431e-14,
+          "rho": 2.9025850675553444e-13
+        },
+        "status": "limited",
+        "reason": "large-perturbation",
+        "response": {
+          "p": 0.5,
+          "T": 0.5,
+          "h": 23.639279837567294,
+          "s": 0.2679173664298929,
+          "u": 17.930625916268166,
+          "v": 0.11602805729867831,
+          "rho": 2.3834125428892836
+        },
+        "units": {
+          "p": "MPa",
+          "T": "K",
+          "h": "kJ/kg",
+          "s": "kJ/(kg K)",
+          "u": "kJ/kg",
+          "v": "m3/kg",
+          "rho": "kg/m3"
+        }
+      },
+      "source": {
+        "mode": "pt",
+        "a": 1,
+        "b": 500
+      },
+      "ex": 784.4308044304794
+    }
+  ],
+  "before": 2891.218298958905,
+  "fault": {
+    "failure": {
+      "code": "unavailable",
+      "message": "CoolProp: збій обчислювального ядра. Оновіть сторінку для відновлення розрахунків.",
+      "details": {
+        "resetWorker": true,
+        "reloadPage": true,
+        "upstream": "solver_rho_Tp was unable to find a solution for T=       500, p=        -1, with guess value -0.000240547 with error: The molar density of -0.000241 mol/m3 is below the minimum of 0.000000 mol/m3"
+      }
+    },
+    "faults": 1,
+    "nativeFollowups": 0,
+    "consumers": {
+      "water": {
+        "rejected": true,
+        "code": "unavailable",
+        "reloadPage": true
+      },
+      "humid": {
+        "rejected": true,
+        "code": "unavailable",
+        "reloadPage": true
+      },
+      "gas": {
+        "rejected": true,
+        "code": "unavailable",
+        "reloadPage": true
+      },
+      "backend": {
+        "rejected": true,
+        "code": "unavailable",
+        "reloadPage": true
+      },
+      "initWater": {
+        "rejected": true,
+        "code": "unavailable",
+        "reloadPage": true
+      },
+      "initHumid": {
+        "rejected": true,
+        "code": "unavailable",
+        "reloadPage": true
+      }
+    }
+  },
+  "recovered": 2891.218298958905
+}
