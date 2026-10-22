@@ -45,6 +45,12 @@ export function readWorkspace(value){
   if(!WORKSPACE_PANELS.includes(kind)||!record(p)||!record(p.inputs)||typeof p.calculated!=='boolean'||(p.model!=null&&!(['water-process','custom-cycle'].includes(kind)?PROCESS_MODELS:WATER_MODELS).includes(p.model)))throw Error('Некоректна вкладка проєкту.');
   const inputs={};
   for(const [id,v] of Object.entries(p.inputs)){
+   // Older batch snapshots accidentally included the result export selector.
+   // Accept only its known presentation values, then keep calculation inputs only.
+   if(kind==='batch'&&id==='batch-spreadsheet-format'){
+    if(!['xlsx','ods','xls','csv'].includes(v))throw Error('Невідомий формат таблиці вкладки batch.');
+    continue;
+   }
    const unitField=id.startsWith('ui-unit-')&&fields[kind].includes(id.slice(8));
    if(unitField&&!Object.values(UI_UNIT_GROUPS).some(g=>Object.hasOwn(g,v)))throw Error('Невідома локальна одиниця. / Unknown local unit.');
    if(!unitField&&!fields[kind].includes(id)||typeof v!=='string'||v.length>(id==='cc-data'?30000:id==='batch-text'?1000000:id==='lab-data'?100000:id==='cw-controlLayout'?20000:['lab-condition','lab-conclusion'].includes(id)?3000:id==='lab-source'?500:80))throw Error('Некоректні дані вкладки '+kind+'.');
