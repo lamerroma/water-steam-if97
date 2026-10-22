@@ -2,9 +2,9 @@
   "date": "2026-10-22",
   "version": "1.41.0",
   "build": "a8e94fb1e643",
-  "status": "local_unit_and_both_browser_cancellation_passed",
+  "status": "full_development_CI_passed_and_stable_release_published",
   "baseCommit": "47bf12ba20143732dc7327d406cdb55a241ebacc",
-  "releaseFixCommit": "18a0dc586075a38621d28dd88031e663e5330524",
+  "releaseFixCommit": "9a158c0cf62d1e192cc7bb8853a8405907e3c1b1",
   "releaseFixEvidence": "acceptance.json",
   "developmentUnitNode22": {
     "passed": 1833,
@@ -25,8 +25,14 @@
     "scripts/check-legacy-parity-browser.cjs": "81e2355f77d91ce9322a2d294dd3d77af03182d5458037aaf3ff99c0f233b1e8",
     "scripts/verify-release.mjs": "16984cabaff53997667ec0683793e600c2ed57f6687625bdfdd2e6eef1a2b4f0"
   },
-  "CIAtCapture": "pending after commit; previous 950a29b failed unsynchronized navigation test",
-  "publicReleaseAtCapture": "1.40.0; 1.40.1 awaits full main CI",
+  "CIAtCapture": {
+    "run": 39772585747,
+    "runtimeCommit": "cb190068656b7d0a00a23c7d23d4ee91db971fd4",
+    "passed": 116,
+    "total": 116,
+    "build": "a8e94fb1e643"
+  },
+  "publicReleaseAtCapture": "1.40.1 / 5b5173c2a5cf; CI and Pages successful, public legacy/offline checks passed",
   "priority": "Legacy restoration; new modules deferred",
   "navigation": {
     "chromium": {

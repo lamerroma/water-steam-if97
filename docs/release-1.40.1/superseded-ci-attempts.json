@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-22T11:48:53.502836+00:00",
+  "run": 39772210568,
+  "attempt": 1,
+  "commit": "18a0dc586075a38621d28dd88031e663e5330524",
+  "status": "manually_cancelled_then_acceptance_job_rerun",
+  "reason": "Browser installation took over six minutes; cancellation was requested while the observed GitHub status still named installation. Durable logs show installation completed and unit tests had started before cancellation completed. This is not an observed application-test failure.",
+  "preservedIndependentJob": {
+    "job": 119802279809,
+    "status": "success",
+    "artifact": ".release/functional-restore/accepted-inverse-18a0dc5/"
+  },
+  "nextAttempt": 2,
+  "logSHA256": "3dad2a54d8d3447d9ef8f0069485a3d3c9eb01c129d5d9a4923257dc73314c83",
+  "secondAttempt": {
+    "status": "superseded and cancelled",
+    "observedStage": "Browser dependencies installation; more than 15 minutes elapsed",
+    "replacementCommit": "9a158c0cf62d1e192cc7bb8853a8405907e3c1b1",
+    "replacementCI": 39775454457,
+    "replacementPages": 39775454320,
+    "scope": "CI mirror/time-limit and audit documentation only; identical runtime bytes/build 5b5173c2a5cf",
+    "logSHA256": "6a9171de81d78d24cf41dd291327c86f1f23fb1f810199a241888e1e0bd43ead"
+  }
+}

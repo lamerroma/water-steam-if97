@@ -1,0 +1,236 @@
+{
+  "date": "2026-10-22",
+  "status": "published_and_verified",
+  "url": "https://lamerroma.github.io/water-steam-if97/",
+  "version": "1.40.1",
+  "build": "5b5173c2a5cf",
+  "runtimeCommit": "9a158c0cf62d1e192cc7bb8853a8405907e3c1b1",
+  "runtimeImplementationCommit": "18a0dc586075a38621d28dd88031e663e5330524",
+  "CI": {
+    "run": 39775454457,
+    "url": "https://github.com/lamerroma/water-steam-if97/actions/runs/39775454457",
+    "status": "passed",
+    "passed": 110,
+    "total": 110,
+    "report": {
+      "bytes": 24016,
+      "sha256": "12863ad45cbcee205e5c5ce7fbfcbd00a25ccdfa4cd0005cf2d419964a214fce"
+    }
+  },
+  "Pages": {
+    "run": 39775454320,
+    "url": "https://github.com/lamerroma/water-steam-if97/actions/runs/39775454320",
+    "verify": "passed",
+    "build": "passed",
+    "deploy": "passed"
+  },
+  "unitTests": {
+    "node22": 1812,
+    "node24": 1812,
+    "failed": 0,
+    "skipped": 0
+  },
+  "publicResources": 27,
+  "allPublicHashesMatch": true,
+  "browsers": {
+    "chromium": {
+      "version": "151.0.7922.34",
+      "onlineCases": 42,
+      "offlineCases": 13,
+      "uniqueNumericalComparisons": 39,
+      "comparedNumbers": 3986,
+      "expectedRejections": 1,
+      "legacyPanelsRestored": 9,
+      "diagramNavigationCycles": 15,
+      "forcedPendingCancellations": [
+        {
+          "phase": "online",
+          "postedRefinementRequests": 1,
+          "terminalReplies": 1,
+          "cancelledReplies": 1,
+          "workerClosesBefore": 0,
+          "workerClosesAfter": 1
+        },
+        {
+          "phase": "offline",
+          "postedRefinementRequests": 1,
+          "terminalReplies": 1,
+          "cancelledReplies": 1,
+          "workerClosesBefore": 19,
+          "workerClosesAfter": 20
+        }
+      ],
+      "batchGroups": 5,
+      "liveUpgradeChecks": 6,
+      "liveUpgradeRecoveryRequired": true,
+      "upgradeDriverResumed": true,
+      "networkProbeBlocked": true
+    },
+    "firefox": {
+      "version": "153.0",
+      "onlineCases": 42,
+      "offlineCases": 13,
+      "uniqueNumericalComparisons": 39,
+      "comparedNumbers": 3986,
+      "expectedRejections": 1,
+      "legacyPanelsRestored": 9,
+      "diagramNavigationCycles": 15,
+      "forcedPendingCancellations": [
+        {
+          "phase": "online",
+          "postedRefinementRequests": 1,
+          "terminalReplies": 1,
+          "cancelledReplies": 1,
+          "workerClosesBefore": 0,
+          "workerClosesAfter": 1
+        },
+        {
+          "phase": "offline",
+          "postedRefinementRequests": 1,
+          "terminalReplies": 1,
+          "cancelledReplies": 1,
+          "workerClosesBefore": 46,
+          "workerClosesAfter": 47
+        }
+      ],
+      "batchGroups": 5,
+      "liveUpgradeChecks": 6,
+      "liveUpgradeRecoveryRequired": true,
+      "upgradeDriverResumed": true,
+      "networkProbeBlocked": true
+    }
+  },
+  "scope": "Named legacy workflows, differential numerical controls, migration/recovery, cancellation and cold offline replay. Not exhaustive physical validation or all devices/inputs.",
+  "recoveryCaveat": "Old installed 1.40.0 can reject its own batch autosave before updating. Preserve it using File > Download original for recovery; import that original in 1.40.1. Public tests exercised explicit recovery. First public drivers timed out on a different English success message after completed import; failures were retained and the same profiles resumed.",
+  "openLimits": [
+    "Steam97 P03/P04 direct numerical parity unconfirmed; 20 Registration Required and zero original numbers",
+    "Neutron model physical-screening-failed; experimental P04 and complete ht/fluids numerical acceptance remain open",
+    "Physical Android/iOS and Safari untested; prior separate Firefox bulk P08-export observation is not declared fixed"
+  ],
+  "evidence": {
+    "capture-public.cjs": {
+      "bytes": 1136,
+      "sha256": "7274f68d23ae8c8dd1618a30e66f54d5ef18335156e86a597957689842e55003"
+    },
+    "check-cold-legacy-before.cjs": {
+      "bytes": 2620,
+      "sha256": "0bdc525c025452fc0ce714c008b6ac3b711f0320c1ed4b12b26b92afa27ddb2d"
+    },
+    "check-live-upgrade.cjs": {
+      "bytes": 11666,
+      "sha256": "751efd655a792452e7ca8220269de91d3014ef51438c48a58a2c6651945f4a3a"
+    },
+    "chromium-batch.json": {
+      "bytes": 868,
+      "sha256": "f76390a716ed55c198dc70ccff21c7dba9c5122a04565f5717fca58339830313"
+    },
+    "chromium-legacy-full.json.gz": {
+      "bytes": 237588,
+      "sha256": "269344a24441b4f9c02f551787129a4a1178a5ec9f64267ce9a6358399a83d60"
+    },
+    "chromium-legacy.json": {
+      "bytes": 48489,
+      "sha256": "eaa9ea552261ea52323e4147fe745bd9c7c5bdb17d371722d6710aee8eaf46f2"
+    },
+    "chromium-navigation.json": {
+      "bytes": 8781,
+      "sha256": "3c79be631df37d354e52ae60075fc0199ab912615d136ff2992fa8773164fbd7"
+    },
+    "chromium-offline.png": {
+      "bytes": 187187,
+      "sha256": "3b8cd71b0346a430fd28c2fd8b4389e817e897d8af6dfc2ad315c3212de1bee2"
+    },
+    "chromium-online.png": {
+      "bytes": 295906,
+      "sha256": "788ea325d9b68dd584e7c4b2156fbb9d3f152de33981527e494e5213e09efa00"
+    },
+    "chromium-upgrade-driver-attempt1.json": {
+      "bytes": 854,
+      "sha256": "1ff6907094cc6cdb307ba5ca9d845a870804b92c68932e86bad17828996a74c8"
+    },
+    "chromium-upgrade-prepare.json": {
+      "bytes": 3974,
+      "sha256": "42187ba9e1aa0b533f4ef7ac5d16aa1dad4977c2255d86491e57afbd1833d35c"
+    },
+    "chromium-upgrade.json": {
+      "bytes": 20561,
+      "sha256": "137422652b6f689424b918f85e3ac4c5477ec63d38a3185f41f2075cf81b3754"
+    },
+    "ci-report.json": {
+      "bytes": 24016,
+      "sha256": "12863ad45cbcee205e5c5ce7fbfcbd00a25ccdfa4cd0005cf2d419964a214fce"
+    },
+    "cold-legacy-before.json": {
+      "bytes": 3840,
+      "sha256": "cb459266084af4697fb6547e7c3f10084f608cd3197e61e9ab15834a8e9d37b9"
+    },
+    "firefox-batch.json": {
+      "bytes": 859,
+      "sha256": "e0be186d370ff7dc3e1894434d2f73f40707dd0cdd727b0277a74fcbb072f506"
+    },
+    "firefox-legacy-full.json.gz": {
+      "bytes": 237640,
+      "sha256": "f900b5be07ddbd8ed3fb47763158223953fb732c33b20960aad09a3465522112"
+    },
+    "firefox-legacy.json": {
+      "bytes": 48480,
+      "sha256": "ee7eeeb9e8a045970b2ac981214e48a6641ec9e717cc265359449859a49483b6"
+    },
+    "firefox-navigation.json": {
+      "bytes": 8772,
+      "sha256": "cf4d1052441bedcff1eaebb0e5831d5ba144227d2d584c430f09a24c9608a883"
+    },
+    "firefox-offline.png": {
+      "bytes": 172463,
+      "sha256": "2c936061816f042cc68eaf03d4dd44628ecfdaa57ed2727bbaa5a8d9e28dfb81"
+    },
+    "firefox-online.png": {
+      "bytes": 261443,
+      "sha256": "15a2e54384cd70cf1ff572d4835c542acf219c0cc5c9abc649d49075107aa3f2"
+    },
+    "firefox-upgrade-driver-attempt1.json": {
+      "bytes": 845,
+      "sha256": "71c186d844400240f50e4ae7d92331fd250c706db67fcded96b3dc2a283a4a5a"
+    },
+    "firefox-upgrade-prepare.json": {
+      "bytes": 3964,
+      "sha256": "97279e729205d6af8f11560873b6362c0f079755bf143bee5a610173e6faa8ec"
+    },
+    "firefox-upgrade.json": {
+      "bytes": 20548,
+      "sha256": "e87989b6b9bbb799da34d3547f3848c44c36c3ee388df516a11262eb3a63b51f"
+    },
+    "independent-verification.json": {
+      "bytes": 5471,
+      "sha256": "e51b582a08f3cd74c86c7df6ec919c09b44096dc90d476de12fc04da662bce46"
+    },
+    "live-byte-verification.json": {
+      "bytes": 12609,
+      "sha256": "1d569731ca7d9fd805c52c38ac838ac96b08c3af3ddf7d10283209c11adf5c0f"
+    },
+    "main-ci-metadata.json": {
+      "bytes": 6573,
+      "sha256": "04530cf7638bdb5203e1ea5bbe83bc9179ffb7472bcccd5af808a2ebb271df22"
+    },
+    "manual-installed-update.json": {
+      "bytes": 651,
+      "sha256": "19e5fa8d4437f85a5d4fae8332a5405aeadf24d127e190b44d56a2090a101b96"
+    },
+    "pages-metadata.json": {
+      "bytes": 3366,
+      "sha256": "a58436cc9da3bcd44dfd9364f5bbe874aea4ba7014ef38c7a8bfce7eb4e107e9"
+    },
+    "public-calculator.png": {
+      "bytes": 127673,
+      "sha256": "377e740e4f9a914bfce0905a6d470cf3004072fba46ab77a027a02d0d53d9859"
+    },
+    "superseded-ci-attempts.json": {
+      "bytes": 1248,
+      "sha256": "6d1dfc18e8905391fcf1a50cddec3baee6f528f82eec3a5db3b13167aa6c1318"
+    },
+    "verify-publication-bytes.py": {
+      "bytes": 2168,
+      "sha256": "35028868c90538a5d91c3d17bc6d434e07b6b5c2745fe686587e7fed99ccf24b"
+    }
+  }
+}
