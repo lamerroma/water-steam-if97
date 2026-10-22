@@ -19,7 +19,23 @@ jobs:
           python-version: '3.12'
       - name: Install browser test runtime
         run: npm install --no-save --package-lock=false playwright@1.64.1
-      - run: npx playwright install --with-deps chromium firefox
+      # Some Azure mirrors stall package downloads for many minutes. Keep APT
+      # signature verification, use official Ubuntu mirrors and bound retries.
+      - name: Configure bounded Ubuntu package downloads
+        run: |
+          printf '%s\n' 'Acquire::Retries "2";' 'Acquire::http::Timeout "30";' 'Acquire::https::Timeout "30";' | sudo tee /etc/apt/apt.conf.d/99-playwright-ci > /dev/null
+          if [ -f /etc/apt/apt-mirrors.txt ]; then
+            printf '%s\n' 'https://archive.ubuntu.com/ubuntu/' | sudo tee /etc/apt/apt-mirrors.txt > /dev/null
+          fi
+          if [ -f /etc/apt/apt-mirrors-security.txt ]; then
+            printf '%s\n' 'https://security.ubuntu.com/ubuntu/' | sudo tee /etc/apt/apt-mirrors-security.txt > /dev/null
+          fi
+      - name: Install browser system dependencies
+        timeout-minutes: 8
+        run: npx playwright install-deps chromium firefox
+      - name: Install Chromium and Firefox
+        timeout-minutes: 5
+        run: npx playwright install chromium firefox
       - name: Install independent spreadsheet readers
         run: python -m pip install -r scripts/reference/requirements-p08.txt
       - name: Independent inverse reference smoke audit
