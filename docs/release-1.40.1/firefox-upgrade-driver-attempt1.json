@@ -1,0 +1,15 @@
+{
+  "phase": "verify",
+  "browser": "firefox",
+  "url": "https://lamerroma.github.io/water-steam-if97/",
+  "status": "failed",
+  "checks": [
+    "Old installed version rejects its own cold batch autosave; built-in recovery download retains the original inputs"
+  ],
+  "errors": [],
+  "scope": "Real GitHub Pages origin, persistent disposable profile, old installed 1.40.0 -> deployed 1.40.1, prepared Python package and cold offline restart. No full Steam97 parity claim.",
+  "browserVersion": "153.0",
+  "profile": "C:\\Users\\coyotl\\AppData\\Local\\Temp\\pwa-1401-upgrade-IzEJHO",
+  "recoveryRequired": true,
+  "error": "page.waitForFunction: Timeout 120000ms exceeded.\n    at C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\functional-restore\\publication-1.40.1\\check-live-upgrade.cjs:32:201"
+}

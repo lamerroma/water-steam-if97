@@ -1,0 +1,145 @@
+{
+  "scope": "Disposable copy of prepared public 1.40.0 profile; cold startup offline. No user profile modified.",
+  "profile": "C:\\Users\\coyotl\\AppData\\Local\\Temp\\cold-legacy-control-ZZPlBT",
+  "status": "passed",
+  "first": {
+    "version": "1.40.0",
+    "status": "Saved project was not restored; download the original from the File menu",
+    "title": "Вода та пара",
+    "recoveryEnabled": true,
+    "stored": {
+      "savedWith": {
+        "appVersion": "1.40.0",
+        "buildId": "20fd3cb17a71",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "research": {
+        "variants": [],
+        "sweep": null
+      },
+      "study": {
+        "author": "",
+        "assignment": "",
+        "intro": "",
+        "entries": []
+      },
+      "format": "water-steam-if97",
+      "version": 1,
+      "uiUnits": {
+        "temperature": "C",
+        "pressure": "MPa",
+        "mass": "kgs",
+        "power": "kW",
+        "length": "m",
+        "energy": "kJkg",
+        "dynamicViscosity": "auto",
+        "kinematicViscosity": "auto",
+        "surfaceTension": "auto"
+      },
+      "uiInputDefaults": false,
+      "digits": 8,
+      "diagram": {
+        "tools": {
+          "crosshair": true,
+          "regions": true,
+          "isotherms": false,
+          "qualities": false,
+          "temperatureUnit": "C",
+          "temperatures": [
+            373.15,
+            473.15,
+            573.15,
+            673.15
+          ],
+          "dryness": [
+            0.1,
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ]
+        },
+        "views": {},
+        "connectHistory": false,
+        "numbers": true,
+        "order": [
+          0
+        ],
+        "excluded": [],
+        "pointSets": {},
+        "series": [],
+        "drawingStyle": {
+          "radius": 6,
+          "pointColor": "phase",
+          "width": 2.3,
+          "lineColor": "#8b4599"
+        }
+      },
+      "pressure": {
+        "basis": "absolute",
+        "atmosphere": 0.101325
+      },
+      "title": "Live upgrade 1.40 to 1.40.1 chromium",
+      "history": [
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        }
+      ],
+      "workspace": {
+        "active": "general",
+        "panels": {
+          "batch": {
+            "inputs": {
+              "batch-mode": "pt",
+              "batch-vary": "b",
+              "batch-start": "30",
+              "batch-ub": "C",
+              "batch-end": "300",
+              "batch-count": "10",
+              "batch-fixed": "3",
+              "batch-ua": "MPa",
+              "batch-text": "mode,a,b,unit_a,unit_b,name\npt,3,300,MPa,K,Рідина\npx,0.1,0.5,MPa,fraction,Суміш",
+              "batch-spreadsheet-format": "xlsx"
+            },
+            "calculated": true,
+            "model": "IF97",
+            "source": "range"
+          }
+        }
+      },
+      "process": null,
+      "form": {
+        "calculated": true,
+        "roundingDisplay": false,
+        "inputStyle": "advanced",
+        "inputOrder": "canonical",
+        "model": "IF97",
+        "mode": "pt",
+        "a": "10",
+        "b": "226.85",
+        "ua": "bar",
+        "ub": "C"
+      },
+      "drafts": {},
+      "ambient": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "system": "si",
+      "energy": "kJ",
+      "gray": false,
+      "scale": "1",
+      "hints": true
+    }
+  },
+  "observed": "Old installed version rejects its own batch autosave on cold startup; built-in recovery download preserves original title, inputs and batch. This requires explicit recovery after updating if old startup already replaced the active project."
+}

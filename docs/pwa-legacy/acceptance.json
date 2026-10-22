@@ -2,8 +2,8 @@
   "date": "2026-10-22",
   "version": "1.40.1",
   "build": "5b5173c2a5cf",
-  "status": "local_functional_acceptance_passed",
-  "published": false,
+  "status": "software_accepted_and_publication_verified",
+  "published": true,
   "baseline": {
     "commit": "6bae91383df7085f73dd1cc2f3eb462571143867",
     "version": "1.35.12",
@@ -60,7 +60,11 @@
     "Neutron cell physical-screening-failed; experimental P04 and ht/fluids independent numerical acceptance remain restricted",
     "Physical Android/iOS/Safari untested"
   ],
-  "fullCIAtCapture": "pending rerun; previous build f52a3c42e921 failed two unsynchronized navigation checks (108/110 passed)",
+  "fullCIAtCapture": {
+    "run": 39775454457,
+    "passed": 110,
+    "total": 110
+  },
   "sources": {
     "src/app.js": "e9405269e398cd622dc58734ca30f41391bcfd7e57b8e986b7764568b4c9cb8a",
     "src/workspace.js": "4bb0bf7ab18c005afd8b6e206181610d189395987227e29eaea5bb74018d5921",
@@ -133,5 +137,7 @@
       "bytes": 14548,
       "sha256": "ef83eeac4999896f54e62fee4eac1aca04ba16f28253b2545b85ae6449f7cb58"
     }
-  }
+  },
+  "runtimeCommit": "9a158c0cf62d1e192cc7bb8853a8405907e3c1b1",
+  "publicationSummary": "../release-1.40.1/publish-summary.json"
 }

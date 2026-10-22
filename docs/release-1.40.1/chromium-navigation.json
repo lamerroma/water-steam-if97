@@ -1,0 +1,451 @@
+{
+  "browser": "chromium",
+  "status": "passed",
+  "cycles": [
+    {
+      "phase": "online",
+      "index": 0,
+      "diagrams": [
+        {
+          "action": "ts",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "hsdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "phdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "phase": "online",
+      "index": 1,
+      "diagrams": [
+        {
+          "action": "ts",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "hsdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "phdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "phase": "online",
+      "index": 2,
+      "diagrams": [
+        {
+          "action": "ts",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "hsdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "phdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "phase": "online",
+      "index": 3,
+      "diagrams": [
+        {
+          "action": "ts",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "hsdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "phdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "phase": "online",
+      "index": 4,
+      "diagrams": [
+        {
+          "action": "ts",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "hsdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "phdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "phase": "online",
+      "index": 5,
+      "diagrams": [
+        {
+          "action": "ts",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "hsdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "phdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "phase": "online",
+      "index": 6,
+      "diagrams": [
+        {
+          "action": "ts",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "hsdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "phdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "phase": "online",
+      "index": 7,
+      "diagrams": [
+        {
+          "action": "ts",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "hsdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "phdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "phase": "online",
+      "index": 8,
+      "diagrams": [
+        {
+          "action": "ts",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "hsdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "phdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "phase": "online",
+      "index": 9,
+      "diagrams": [
+        {
+          "action": "ts",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "hsdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "phdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "phase": "offline",
+      "index": 0,
+      "diagrams": [
+        {
+          "action": "ts",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "hsdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "phdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "phase": "offline",
+      "index": 1,
+      "diagrams": [
+        {
+          "action": "ts",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "hsdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "phdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "phase": "offline",
+      "index": 2,
+      "diagrams": [
+        {
+          "action": "ts",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "hsdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "phdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "phase": "offline",
+      "index": 3,
+      "diagrams": [
+        {
+          "action": "ts",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "hsdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "phdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "phase": "offline",
+      "index": 4,
+      "diagrams": [
+        {
+          "action": "ts",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "hsdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        },
+        {
+          "action": "phdiagram",
+          "dimensions": {
+            "width": 849,
+            "height": 530
+          }
+        }
+      ],
+      "status": "passed"
+    }
+  ],
+  "errors": [],
+  "workerCloses": 22,
+  "scope": "Real diagram navigation/cancellation and resumed calculator; fresh profile and cold offline restart.",
+  "browserVersion": "151.0.7922.34",
+  "build": "5b5173c2a5cf",
+  "forcedCancellations": [
+    {
+      "phase": "online",
+      "postedRefinementRequests": 1,
+      "terminalReplies": 1,
+      "cancelledReplies": 1,
+      "workerClosesBefore": 0,
+      "workerClosesAfter": 1
+    },
+    {
+      "phase": "offline",
+      "postedRefinementRequests": 1,
+      "terminalReplies": 1,
+      "cancelledReplies": 1,
+      "workerClosesBefore": 19,
+      "workerClosesAfter": 20
+    }
+  ],
+  "navigationWorkerCloses": 13,
+  "networkProbeBlocked": true
+}
