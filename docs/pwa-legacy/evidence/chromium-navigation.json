@@ -424,10 +424,28 @@
     }
   ],
   "errors": [],
-  "workerCloses": 16,
+  "workerCloses": 21,
   "scope": "Real diagram navigation/cancellation and resumed calculator; fresh profile and cold offline restart.",
   "browserVersion": "151.0.7922.34",
-  "build": "f52a3c42e921",
-  "navigationWorkerCloses": 9,
+  "build": "5b5173c2a5cf",
+  "forcedCancellations": [
+    {
+      "phase": "online",
+      "postedRefinementRequests": 1,
+      "terminalReplies": 1,
+      "cancelledReplies": 1,
+      "workerClosesBefore": 0,
+      "workerClosesAfter": 1
+    },
+    {
+      "phase": "offline",
+      "postedRefinementRequests": 1,
+      "terminalReplies": 1,
+      "cancelledReplies": 1,
+      "workerClosesBefore": 18,
+      "workerClosesAfter": 19
+    }
+  ],
+  "navigationWorkerCloses": 11,
   "networkProbeBlocked": true
 }

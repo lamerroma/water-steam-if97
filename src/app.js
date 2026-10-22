@@ -32,7 +32,7 @@ import {modeGuidance} from './input-guidance.js';
 import {turbine,turbineInverse,flash,diagramData,processSummary,processMetricReason} from './processes.js';
 import {exportCSV} from './export.js';
 import {initialize,calculate,PMIN_SAT,TC,PC} from './engine.js';
-import {createCalculationRunner} from './calculator-runner.js';
+import {createCalculationRunner,retireCalculationWorkerSafely} from './calculator-runner.js';
 import {WATER_MODELS,isScientificWater,usesWaterHeos,waterCalculationRuntime} from './water-models.js';
 import {initializeWaterHeos,waterHeosRuntimeFailure} from './water-heos.js';
 import {parseNumber,toCanonical,fromCanonical,englishProperty} from './units.js';
@@ -42,11 +42,10 @@ let uiUnitPreferences=readUIUnits(null),uiInputDefaults=false;
 const $=id=>document.getElementById(id);
 let calculationPending=false,calculationSequence=0;
 function createCalculatorWorker(request,key){
- const worker=new Worker(key==='heos'?HEOS_WORKER_URL:CALCULATOR_WORKER_URL),terminate=worker.terminate.bind(worker);
- // Retire the runner immediately, then terminate outside the current DOM event.
- // Synchronous termination while switching diagrams crashes Firefox on Windows.
- worker.terminate=()=>{setTimeout(terminate,0);};
- return worker;
+ const worker=new Worker(key==='heos'?HEOS_WORKER_URL:CALCULATOR_WORKER_URL);
+ if(key!=='heos')return retireCalculationWorkerSafely(worker,{cooperative:true});
+ // Preserve the isolated HEOS executor's existing retirement policy.
+ const terminate=worker.terminate.bind(worker);worker.terminate=()=>{setTimeout(terminate,0);};return worker;
 }
 function createAppCalculationRunner(timeout=60000){return createCalculationRunner(createCalculatorWorker,timeout,waterCalculationRuntime);}
 const calculatorRunner=createAppCalculationRunner(),projectReader=createAppCalculationRunner();

@@ -1,0 +1,21 @@
+{
+  "version": "1.40.1",
+  "build": "f52a3c42e921",
+  "commit": "14f9fcd5d4c7e2a559aad2530e4445ad1cf406a1",
+  "ci": "https://github.com/lamerroma/water-steam-if97/actions/runs/39764657814",
+  "status": "failed",
+  "passed": 108,
+  "total": 110,
+  "failedChecks": [
+    "browser-diagram-navigation-chromium",
+    "browser-diagram-navigation-firefox"
+  ],
+  "inverseFull": "passed; 4657/4657",
+  "published": false,
+  "observations": "Navigation test did not guarantee a pending request on fast Linux. Additional Windows zoom/cancellation stress exposed insufficient zero-delay termination. Replaced by cooperative refinement cancellation plus waiting for a terminal reply, with a 120 s watchdog. Failures and original evidence remain in Git history and the local raw archive.",
+  "rawFailureLog": {
+    "path": ".release/functional-restore/main-ci-first-failed.log",
+    "bytes": 131262,
+    "sha256": "788324e8fae08e2cc53fcd41ea06f81792ea0665ce317a354b3a9be82da77a1d"
+  }
+}

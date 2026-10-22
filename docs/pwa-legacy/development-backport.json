@@ -1,31 +1,81 @@
 {
   "date": "2026-10-22",
   "version": "1.41.0",
-  "build": "ea4e5744f9de",
-  "status": "local_unit_and_firefox_legacy_backport_passed",
+  "build": "a8e94fb1e643",
+  "status": "local_unit_and_both_browser_cancellation_passed",
   "baseCommit": "47bf12ba20143732dc7327d406cdb55a241ebacc",
-  "releaseFixCommit": "14f9fcd5d4c7e2a559aad2530e4445ad1cf406a1",
+  "releaseFixCommit": "18a0dc586075a38621d28dd88031e663e5330524",
   "releaseFixEvidence": "acceptance.json",
   "developmentUnitNode22": {
-    "passed": 1828,
+    "passed": 1833,
     "failed": 0,
     "skipped": 0,
-    "logSHA256": "8b3a0f8c1d9bcfb9742b5e9337c0a69f303abb07633e58ae14fbac1f7821f087"
+    "logSHA256": "1d66cc774ea263fba0b521c32debd73ae4d65a70635c7e0c958591a89e2a730d"
   },
-  "hotfixAdditionalUnitNode24": {
-    "passed": 1807,
-    "failed": 0,
-    "skipped": 0,
-    "logSHA256": "12a7665c42c533981d0308e6c41b8f61f26521c5bb2afe8190c8dbe6600c1a7e"
-  },
-  "firefoxLegacyRawSHA256": "03c6d1526d7092d3da06a79b9ef129ba939c30f09564c871a260245006e31153",
   "sources": {
-    "src/app.js": "c2301b77895019de127219ee61ff71364fe238c574f5bbbecc3d0ac8d8d3ca93",
+    "src/app.js": "e7c435dbe0d2562d84478307a6195505a195ab855d65dccbec806f7e9e187483",
     "src/workspace.js": "4bb0bf7ab18c005afd8b6e206181610d189395987227e29eaea5bb74018d5921",
     "tests/legacy-project.test.mjs": "6d747c5ba48a4dc1a8ab47c65c87e693f157bfda612e289216d27a665f2c5dbf",
-    "tests/fixtures/legacy-project-1.35.12.json": "ed821caf853541a502ae9304e5933dc4fb8f73b04c821b7e376a1df0517b6d68"
+    "tests/fixtures/legacy-project-1.35.12.json": "ed821caf853541a502ae9304e5933dc4fb8f73b04c821b7e376a1df0517b6d68",
+    "src/calculator-runner.js": "1a96742dccea1cad7365c8714ad42bbea179f6eb36a5cb1e9b0dbb374f22ca24",
+    "src/calculation-modules.js": "1cc6c2ef1d9bfb2a74aef73bdc9c2ed8506987a550092919a193d3fa8c653639",
+    "src/calculator-worker.js": "3dc5ccfca80907089093b4c4ee416252014a4c9468c12ac5947eeba56ea72c40",
+    "tests/worker-retirement.test.mjs": "bc89bfaa2d2b61db03a4232e2cf831a9d7096f03f9113fb7e96cc4fe11ba2c55",
+    "scripts/check-diagram-navigation-browser.cjs": "a132e0e20cb5ca17627cca8a10ae609c89dc5af33df388963235d09b110d16bc",
+    "scripts/check-legacy-parity-browser.cjs": "81e2355f77d91ce9322a2d294dd3d77af03182d5458037aaf3ff99c0f233b1e8",
+    "scripts/verify-release.mjs": "16984cabaff53997667ec0683793e600c2ed57f6687625bdfdd2e6eef1a2b4f0"
   },
-  "CIAtCapture": "not_started",
-  "publicReleaseAtCapture": "1.40.0; 1.40.1 waiting for release CI",
-  "priority": "Legacy restoration; new modules deferred"
+  "CIAtCapture": "pending after commit; previous 950a29b failed unsynchronized navigation test",
+  "publicReleaseAtCapture": "1.40.0; 1.40.1 awaits full main CI",
+  "priority": "Legacy restoration; new modules deferred",
+  "navigation": {
+    "chromium": {
+      "build": "a8e94fb1e643",
+      "status": "passed",
+      "cycles": 15,
+      "forcedCancellations": [
+        {
+          "phase": "online",
+          "postedRefinementRequests": 1,
+          "terminalReplies": 1,
+          "cancelledReplies": 1,
+          "workerClosesBefore": 0,
+          "workerClosesAfter": 1
+        },
+        {
+          "phase": "offline",
+          "postedRefinementRequests": 1,
+          "terminalReplies": 1,
+          "cancelledReplies": 1,
+          "workerClosesBefore": 19,
+          "workerClosesAfter": 20
+        }
+      ],
+      "rawSHA256": "5b5a000ceab21e13e49982ffb476eaa09e9faef95babd7d2ea02d619f252b747"
+    },
+    "firefox": {
+      "build": "a8e94fb1e643",
+      "status": "passed",
+      "cycles": 15,
+      "forcedCancellations": [
+        {
+          "phase": "online",
+          "postedRefinementRequests": 1,
+          "terminalReplies": 1,
+          "cancelledReplies": 1,
+          "workerClosesBefore": 0,
+          "workerClosesAfter": 1
+        },
+        {
+          "phase": "offline",
+          "postedRefinementRequests": 1,
+          "terminalReplies": 1,
+          "cancelledReplies": 1,
+          "workerClosesBefore": 46,
+          "workerClosesAfter": 47
+        }
+      ],
+      "rawSHA256": "02cfb361f2a6ee6ffcf093244118610a78e3a11e58381346e0043233756a69ed"
+    }
+  }
 }

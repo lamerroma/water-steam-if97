@@ -54,3 +54,24 @@ export function createCalculationRunner(createWorker,timeoutMs=60000,selectWorke
   get busy(){return pending!==null;}
  };
 }
+
+
+// Keep a retired native heap until its terminal reply. Some Firefox builds crash
+// if an executing WASM Worker is terminated. UI promises are cancelled by the
+// runner immediately; a cooperative refinement abort makes retirement prompt.
+export function retireCalculationWorkerSafely(worker,{cooperative=false,watchdogMs=120000,setTimer=setTimeout,clearTimer=clearTimeout}={}){
+ const post=worker.postMessage.bind(worker),terminate=worker.terminate.bind(worker);
+ let active=null,retired=false,stopped=false,queued=false,watchdog=null;
+ function stop(){if(stopped)return;stopped=true;clearTimer(watchdog);active=null;worker.removeEventListener('message',reply);worker.removeEventListener('error',failure);worker.removeEventListener('messageerror',failure);terminate();}
+ function deferStop(){if(queued||stopped)return;queued=true;setTimer(stop,0);}
+ function reply(event){if(event.data?.id!==active?.id||!['ok','error'].includes(event.data?.status))return;active=null;if(retired)deferStop();}
+ function failure(){active=null;if(retired)deferStop();}
+ worker.addEventListener('message',reply);worker.addEventListener('error',failure);worker.addEventListener('messageerror',failure);
+ worker.postMessage=(request,...args)=>{if(retired)throw Error('Calculation Worker has been retired.');active=request;try{return post(request,...args);}catch(error){active=null;throw error;}};
+ worker.terminate=()=>{
+  if(retired)return;retired=true;if(!active){deferStop();return;}
+  watchdog=setTimer(deferStop,watchdogMs);
+  if(cooperative&&active.moduleId==='workflows'&&active.methodId==='diagram-refine')try{post({type:'cancel-refinement',id:active.id});}catch{deferStop();}
+ };
+ return worker;
+}

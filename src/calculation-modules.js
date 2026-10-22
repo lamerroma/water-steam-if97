@@ -35,19 +35,21 @@ const calculationAdapters={
   engineering:p=>engineeringProcess(p.kind,p.args,p.model),
   'diagram-base':p=>{const model=diagramCalculationModel(p),cache=diagramData(model);return {...cache,annotations:diagramRegionAnnotations(cache,model)};},
   'diagram-isotherm':p=>diagramIsotherm(p.T,diagramCalculationModel(p)),
-  'diagram-refine':p=>refineDiagramScene(p.cache,p.isotherms,p.process,p.kind,p.range,p.size,diagramCalculationModel(p),new Set(p.hidden),p.dryness),
+  'diagram-refine':(p,context)=>refineDiagramScene(p.cache,p.isotherms,p.process,p.kind,p.range,p.size,diagramCalculationModel(p),new Set(p.hidden),p.dryness,context?.yieldFrame),
   'custom-cycle':p=>{const result=solveCustomCycle(p.input,p.model);return {...result,guides:cycleChartGuides(result)};},
   'library-cycle':p=>buildLibraryCycle(p.input),
   'cycle-comparison':p=>compareLibraryCycles(p.input),
   'cycle-preset':p=>customCyclePreset(p.name,p.model)
  }
 };
-export async function dispatchCalculation(request){
+export async function dispatchCalculation(request,context={}){
  try{
   const {descriptor,payload,canonicalUnits}=normalizeCalculationRequest(request);
   const execute=calculationAdapters[descriptor.id]?.[request.methodId]??optionalCalculationMethod(descriptor.id,request.methodId);
   if(typeof execute!=='function')throw new CalculationModuleError('unavailable','Calculation adapter is unavailable.');
-  const result=await execute(payload);
+  if(context.signal?.aborted)throw new CalculationModuleError('cancelled','Calculation cancelled.');
+  const result=await execute(payload,context);
+  if(context.signal?.aborted)throw new CalculationModuleError('cancelled','Calculation cancelled.');
   const runtimeFailure=optionalRuntimeFailure();if(runtimeFailure)throw runtimeFailure;
   const states=descriptor.resultFormat==='water-state'?[result.state,result.saturation?.liquid,result.saturation?.vapor]:descriptor.resultFormat==='gas-state'?[result]:[];
   const notes=[...new Set(states.flatMap(state=>state?.notes??[]))];

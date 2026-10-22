@@ -75,11 +75,14 @@ try{
  if(mode!=='core'){
   if(mode==='browser'){await check('steam97-p09-units',['scripts/audit-steam97-p09-units.mjs']);await check('steam97-p03',['scripts/audit-steam97-p03.mjs']);await check('steam97-p04',['scripts/audit-steam97-p04.mjs']);}
   const env=await serve();
+  // Fail early on the two release-blocking legacy regressions.
+  for(const browser of ['chromium','firefox']){
+   if(!await check('browser-legacy-project-'+browser,['scripts/check-legacy-project-browser.cjs'],{...env,BROWSER_NAME:browser,LEGACY_PROJECT_EVIDENCE:path.join(dir,'legacy-project',browser)}))throw Error('Legacy regression check failed; remaining browser checks skipped.');
+   if(!await check('browser-diagram-navigation-'+browser,['scripts/check-diagram-navigation-browser.cjs'],{...env,BROWSER_NAME:browser,DIAGRAM_NAV_EVIDENCE:path.join(dir,'diagram-navigation',browser)}))throw Error('Legacy regression check failed; remaining browser checks skipped.');
+  }
   for(const name of ['steam97-p04','steam97-p03','steam97-p09-units','steam97-p08','steam97-p07','steam97-p06','steam97-p05','steam97-p02','input-sensitivity','inverse-boundaries','rankine-sweep','rankine-regeneration','rankine-efficiency','rankine-library','cycle-library','custom-cycle','processes-extended','water-process','calculator-async','navigation','smart-input','calculator-workspace','state-comparison','study-workflow','task-ui','diagram','diagram-guides','diagram-quality','process-paths','chart-layout','study-workspace','hydraulics','study','full-sprint','laboratory','coursework','usability','reactor-course','reactor-validation','provenance','project-safety','pwa','pwa-package','lazy-assets','python-libraries','fluids-pipe','ui-workspace'])await check('browser-'+name,[`scripts/check-${name}-browser.cjs`],env);
   await check('browser-cross-browser',['scripts/check-cross-browser.cjs'],{...env,UI_EVIDENCE_DIR:path.join(dir,'ui')});
   for(const browser of ['chromium','firefox']){
-   await check('browser-legacy-project-'+browser,['scripts/check-legacy-project-browser.cjs'],{...env,BROWSER_NAME:browser,LEGACY_PROJECT_EVIDENCE:path.join(dir,'legacy-project',browser)});
-   await check('browser-diagram-navigation-'+browser,['scripts/check-diagram-navigation-browser.cjs'],{...env,BROWSER_NAME:browser,DIAGRAM_NAV_EVIDENCE:path.join(dir,'diagram-navigation',browser)});
    await check('browser-library-recipes-'+browser,['scripts/check-library-recipes-browser.cjs'],{...env,BROWSER_NAME:browser,LIBRARY_RECIPES_EVIDENCE:path.join(dir,'library-recipes',browser)});
    await check('browser-library-registry-'+browser,['scripts/check-library-registry-browser.cjs'],{...env,BROWSER_NAME:browser,LIBRARY_REGISTRY_EVIDENCE:path.join(dir,'library-registry',browser)});
    await check('browser-water-heos-'+browser,['scripts/check-water-heos-browser.cjs'],{...env,BROWSER_NAME:browser});

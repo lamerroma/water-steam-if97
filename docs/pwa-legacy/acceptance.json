@@ -1,7 +1,7 @@
 {
   "date": "2026-10-22",
   "version": "1.40.1",
-  "build": "f52a3c42e921",
+  "build": "5b5173c2a5cf",
   "status": "local_functional_acceptance_passed",
   "published": false,
   "baseline": {
@@ -19,7 +19,9 @@
       "expectedRejections": 1,
       "legacyPanelsRestored": 9,
       "diagramNavigationCycles": 15,
-      "batchGroups": 5
+      "batchGroups": 5,
+      "forcedPendingCancellations": 2,
+      "cancelledTerminalReplies": 2
     },
     "firefox": {
       "onlineCases": 42,
@@ -29,14 +31,27 @@
       "expectedRejections": 1,
       "legacyPanelsRestored": 9,
       "diagramNavigationCycles": 15,
-      "batchGroups": 5
+      "batchGroups": 5,
+      "forcedPendingCancellations": 2,
+      "cancelledTerminalReplies": 2
     }
   },
   "unitTests": {
     "node22": {
-      "passed": 1807,
+      "passed": 1812,
       "failed": 0,
-      "skipped": 0
+      "skipped": 0,
+      "log": ".release/functional-restore/safe-unit-node22.log",
+      "bytes": 338996,
+      "sha256": "5c7e8f71231865ed1b66cf9d3ac2d52641b6974f0a1a236ea5f224590d946806"
+    },
+    "node24": {
+      "passed": 1812,
+      "failed": 0,
+      "skipped": 0,
+      "log": ".release/functional-restore/safe-unit-node24.log",
+      "bytes": 130524,
+      "sha256": "9b9755b3dff033d8525746a9dcfb74d6fdb8f00e3e1c2501c7d5345889518e88"
     }
   },
   "scope": "Named legacy workflows, input migration, differential controls and offline replay. Baseline agreement is not independent physical validation; this is not a claim covering every input/device.",
@@ -45,56 +60,78 @@
     "Neutron cell physical-screening-failed; experimental P04 and ht/fluids independent numerical acceptance remain restricted",
     "Physical Android/iOS/Safari untested"
   ],
-  "fullCIAtCapture": "not_started",
+  "fullCIAtCapture": "pending rerun; previous build f52a3c42e921 failed two unsynchronized navigation checks (108/110 passed)",
   "sources": {
-    "src/app.js": "00f19a35be1cb676928a76f5bbf70d2ff87e19ba4e69830943c569ddc3a6491d",
+    "src/app.js": "e9405269e398cd622dc58734ca30f41391bcfd7e57b8e986b7764568b4c9cb8a",
     "src/workspace.js": "4bb0bf7ab18c005afd8b6e206181610d189395987227e29eaea5bb74018d5921",
     "tests/legacy-project.test.mjs": "6d747c5ba48a4dc1a8ab47c65c87e693f157bfda612e289216d27a665f2c5dbf",
     "tests/fixtures/legacy-project-1.35.12.json": "ed821caf853541a502ae9304e5933dc4fb8f73b04c821b7e376a1df0517b6d68",
-    "scripts/check-legacy-parity-browser.cjs": "24224c89166236f79985b51c83e890c165a574d5d7c1e07f2a57c7361fb9aa3c",
+    "scripts/check-legacy-parity-browser.cjs": "81e2355f77d91ce9322a2d294dd3d77af03182d5458037aaf3ff99c0f233b1e8",
     "scripts/check-legacy-project-browser.cjs": "5b8a363742e626485a4c323516acffd3b2455f6654ceac7a739f2a255c809af0",
-    "scripts/check-diagram-navigation-browser.cjs": "cf9b870ecce28a7912bd651cf3876e0e6e96b03472972e225b72a9a7ab83b958"
+    "scripts/check-diagram-navigation-browser.cjs": "a132e0e20cb5ca17627cca8a10ae609c89dc5af33df388963235d09b110d16bc",
+    "src/calculator-runner.js": "1a96742dccea1cad7365c8714ad42bbea179f6eb36a5cb1e9b0dbb374f22ca24",
+    "src/calculator-worker.js": "3dc5ccfca80907089093b4c4ee416252014a4c9468c12ac5947eeba56ea72c40",
+    "src/calculation-modules.js": "1cc6c2ef1d9bfb2a74aef73bdc9c2ed8506987a550092919a193d3fa8c653639",
+    "tests/worker-retirement.test.mjs": "bc89bfaa2d2b61db03a4232e2cf831a9d7096f03f9113fb7e96cc4fe11ba2c55",
+    "scripts/verify-release.mjs": "7f3f8ce2badf79ed345c798500c02b5829c38ef9ab0de676729f5089cefb1a76",
+    "docs/pwa-legacy/upgrade-legacy-batch.cjs": "526e8e989f2f0427a433d79a86b8b7edb7a96fc2dee9362abe79e8d5a4ffd21e"
   },
   "evidence": {
     "chromium-batch.json": {
       "bytes": 845,
-      "sha256": "376ea46cd9f79cd50a144de90a9ad782438821a38c4e7d5411d89de280ae876f"
+      "sha256": "66d68c8c4d9756dc126287211d6aca29bcad7150c0a9702213c76c3de0c662e5"
+    },
+    "chromium-legacy-full.json.gz": {
+      "bytes": 237563,
+      "sha256": "9481d031eb37f20fd29b6160a697d80d2412967ad18a0869a490940f9d5ab0f0"
     },
     "chromium-legacy.json": {
-      "bytes": 48529,
-      "sha256": "1ca6e7de0bab730236dc9b8b361381f231cc09bec32c91aa7d42e4cbd733b7d6"
+      "bytes": 48554,
+      "sha256": "fba7e10202e453b05d5f0de019faff8b49a6924f72da4c02249140284976391c"
     },
     "chromium-navigation.json": {
-      "bytes": 8362,
-      "sha256": "6d11638f0c2d8308525adc6d1d686a84963b33ed150dc0f2c642b550be0526ee"
+      "bytes": 8781,
+      "sha256": "366cc5ea07c3127603fc69d4768869b9dda65be01b5a07300e9e196cb8214357"
     },
     "chromium-offline.png": {
-      "bytes": 160872,
-      "sha256": "e65f304b95aacadab938c45d148e245e658df4f96e4aa6ad63a48ad8618cfd1c"
+      "bytes": 187187,
+      "sha256": "3b8cd71b0346a430fd28c2fd8b4389e817e897d8af6dfc2ad315c3212de1bee2"
     },
     "chromium-online.png": {
-      "bytes": 160959,
-      "sha256": "24d182b498bc255d71a363d6a611841cfe42009e32fba632d406e105f1b7d57e"
+      "bytes": 295906,
+      "sha256": "788ea325d9b68dd584e7c4b2156fbb9d3f152de33981527e494e5213e09efa00"
+    },
+    "chromium-upgrade.json": {
+      "bytes": 14557,
+      "sha256": "3bade40be0f5658d7fba879e83a9b16154021e2bb2e3c8cd5cff87080a212014"
     },
     "firefox-batch.json": {
       "bytes": 836,
-      "sha256": "8d99020a33bacbd032409b54698048129745911d2515c8981cb7865b5ec8ac06"
+      "sha256": "b1bf922db65008b7f2148cdfcf53678d28a77208d10fb330c072172c46942e92"
+    },
+    "firefox-legacy-full.json.gz": {
+      "bytes": 237617,
+      "sha256": "bcb6a9268e1192b6e9c817d9233a816e80d4daac8b4c79578426ce12287b34b7"
     },
     "firefox-legacy.json": {
-      "bytes": 48519,
-      "sha256": "9a72a07d7a80c6853ce0e1401e217ebdfc79634c2dbd4cd4f7a344bd1521fe01"
+      "bytes": 48544,
+      "sha256": "518ad718e2c0478b59a4d72d5dd9d7251da3ab905a434ec72fe22bb7b5c8b602"
     },
     "firefox-navigation.json": {
-      "bytes": 8354,
-      "sha256": "d71aab601fa4e6dbc9c949cdcf8843d672a9138a6dace1f025f131b750b4df7f"
+      "bytes": 8772,
+      "sha256": "cf4d1052441bedcff1eaebb0e5831d5ba144227d2d584c430f09a24c9608a883"
     },
     "firefox-offline.png": {
-      "bytes": 144209,
-      "sha256": "572e80cd521c06641f6bc54dc8c2b7b29a89ff295bd49c2d60c76d4ea1d7265e"
+      "bytes": 172941,
+      "sha256": "1c754b7f2fd21a77901642ee9f94aaf727be139916167b4e665aa2811fdd330d"
     },
     "firefox-online.png": {
-      "bytes": 144293,
-      "sha256": "c86a03373e4df215b2d3581eaad3029beb64484e7b9926f91d73d58fa97e6958"
+      "bytes": 261443,
+      "sha256": "15a2e54384cd70cf1ff572d4835c542acf219c0cc5c9abc649d49075107aa3f2"
+    },
+    "firefox-upgrade.json": {
+      "bytes": 14548,
+      "sha256": "ef83eeac4999896f54e62fee4eac1aca04ba16f28253b2545b85ae6449f7cb58"
     }
   }
 }
