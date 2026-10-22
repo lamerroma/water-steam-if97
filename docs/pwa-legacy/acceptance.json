@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-22",
+  "version": "1.40.1",
+  "build": "f52a3c42e921",
+  "status": "local_functional_acceptance_passed",
+  "published": false,
+  "baseline": {
+    "commit": "6bae91383df7085f73dd1cc2f3eb462571143867",
+    "version": "1.35.12",
+    "build": "8976baaf14e1"
+  },
+  "releaseBase": "b9632751fd1530aea5b0a05b6d546fa5780b8345",
+  "browsers": {
+    "chromium": {
+      "onlineCases": 42,
+      "offlineCases": 13,
+      "uniqueNumericalComparisons": 39,
+      "comparedNumbers": 3986,
+      "expectedRejections": 1,
+      "legacyPanelsRestored": 9,
+      "diagramNavigationCycles": 15,
+      "batchGroups": 5
+    },
+    "firefox": {
+      "onlineCases": 42,
+      "offlineCases": 13,
+      "uniqueNumericalComparisons": 39,
+      "comparedNumbers": 3986,
+      "expectedRejections": 1,
+      "legacyPanelsRestored": 9,
+      "diagramNavigationCycles": 15,
+      "batchGroups": 5
+    }
+  },
+  "unitTests": {
+    "node22": {
+      "passed": 1807,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "scope": "Named legacy workflows, input migration, differential controls and offline replay. Baseline agreement is not independent physical validation; this is not a claim covering every input/device.",
+  "openLimits": [
+    "Steam97 P03/P04 direct numerical parity unconfirmed (20 Registration Required, zero original numbers)",
+    "Neutron cell physical-screening-failed; experimental P04 and ht/fluids independent numerical acceptance remain restricted",
+    "Physical Android/iOS/Safari untested"
+  ],
+  "fullCIAtCapture": "not_started",
+  "sources": {
+    "src/app.js": "00f19a35be1cb676928a76f5bbf70d2ff87e19ba4e69830943c569ddc3a6491d",
+    "src/workspace.js": "4bb0bf7ab18c005afd8b6e206181610d189395987227e29eaea5bb74018d5921",
+    "tests/legacy-project.test.mjs": "6d747c5ba48a4dc1a8ab47c65c87e693f157bfda612e289216d27a665f2c5dbf",
+    "tests/fixtures/legacy-project-1.35.12.json": "ed821caf853541a502ae9304e5933dc4fb8f73b04c821b7e376a1df0517b6d68",
+    "scripts/check-legacy-parity-browser.cjs": "24224c89166236f79985b51c83e890c165a574d5d7c1e07f2a57c7361fb9aa3c",
+    "scripts/check-legacy-project-browser.cjs": "5b8a363742e626485a4c323516acffd3b2455f6654ceac7a739f2a255c809af0",
+    "scripts/check-diagram-navigation-browser.cjs": "cf9b870ecce28a7912bd651cf3876e0e6e96b03472972e225b72a9a7ab83b958"
+  },
+  "evidence": {
+    "chromium-batch.json": {
+      "bytes": 845,
+      "sha256": "376ea46cd9f79cd50a144de90a9ad782438821a38c4e7d5411d89de280ae876f"
+    },
+    "chromium-legacy.json": {
+      "bytes": 48529,
+      "sha256": "1ca6e7de0bab730236dc9b8b361381f231cc09bec32c91aa7d42e4cbd733b7d6"
+    },
+    "chromium-navigation.json": {
+      "bytes": 8362,
+      "sha256": "6d11638f0c2d8308525adc6d1d686a84963b33ed150dc0f2c642b550be0526ee"
+    },
+    "chromium-offline.png": {
+      "bytes": 160872,
+      "sha256": "e65f304b95aacadab938c45d148e245e658df4f96e4aa6ad63a48ad8618cfd1c"
+    },
+    "chromium-online.png": {
+      "bytes": 160959,
+      "sha256": "24d182b498bc255d71a363d6a611841cfe42009e32fba632d406e105f1b7d57e"
+    },
+    "firefox-batch.json": {
+      "bytes": 836,
+      "sha256": "8d99020a33bacbd032409b54698048129745911d2515c8981cb7865b5ec8ac06"
+    },
+    "firefox-legacy.json": {
+      "bytes": 48519,
+      "sha256": "9a72a07d7a80c6853ce0e1401e217ebdfc79634c2dbd4cd4f7a344bd1521fe01"
+    },
+    "firefox-navigation.json": {
+      "bytes": 8354,
+      "sha256": "d71aab601fa4e6dbc9c949cdcf8843d672a9138a6dace1f025f131b750b4df7f"
+    },
+    "firefox-offline.png": {
+      "bytes": 144209,
+      "sha256": "572e80cd521c06641f6bc54dc8c2b7b29a89ff295bd49c2d60c76d4ea1d7265e"
+    },
+    "firefox-online.png": {
+      "bytes": 144293,
+      "sha256": "c86a03373e4df215b2d3581eaad3029beb64484e7b9926f91d73d58fa97e6958"
+    }
+  }
+}

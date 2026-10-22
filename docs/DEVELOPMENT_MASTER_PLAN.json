@@ -1909,9 +1909,9 @@
     ],
     "latest_local_candidate": {
       "version": "1.41.0",
-      "build": "9df70046fd91",
+      "build": "ea4e5744f9de",
       "published": false,
-      "evidence": "library-recipes/acceptance.json"
+      "evidence": "pwa-legacy/development-backport.json"
     },
     "first_candidate_CI": {
       "run": 39589852625,
@@ -1951,5 +1951,11 @@
       "total": 109,
       "evidence": "library-recipes/evidence/predecessor-ci-summary.json"
     }
+  },
+  "current_priority": {
+    "requested": "2026-10-22",
+    "work": "Verify and restore the legacy calculator before adding modules",
+    "evidence": "PWA_LEGACY_CHECK_UK.md",
+    "new_modules": "deferred_until_legacy_publication_acceptance"
   }
 }

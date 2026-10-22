@@ -90,7 +90,10 @@
     "generate:library-registry": "python scripts/generate-library-registry.py --write",
     "test:library-registry:browser": "node scripts/check-library-registry-browser.cjs",
     "test:library-recipes": "node scripts/check-library-recipes-browser.cjs",
-    "verify:library-recipes": "node scripts/check-library-recipes.mjs"
+    "verify:library-recipes": "node scripts/check-library-recipes.mjs",
+    "test:legacy-project": "node scripts/check-legacy-project-browser.cjs",
+    "test:diagram-navigation": "node scripts/check-diagram-navigation-browser.cjs",
+    "audit:pwa-legacy": "node scripts/check-legacy-parity-browser.cjs"
   },
   "engines": {
     "node": ">=20"

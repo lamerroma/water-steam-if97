@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-22",
+  "version": "1.41.0",
+  "build": "ea4e5744f9de",
+  "status": "local_unit_and_firefox_legacy_backport_passed",
+  "baseCommit": "47bf12ba20143732dc7327d406cdb55a241ebacc",
+  "releaseFixCommit": "14f9fcd5d4c7e2a559aad2530e4445ad1cf406a1",
+  "releaseFixEvidence": "acceptance.json",
+  "developmentUnitNode22": {
+    "passed": 1828,
+    "failed": 0,
+    "skipped": 0,
+    "logSHA256": "8b3a0f8c1d9bcfb9742b5e9337c0a69f303abb07633e58ae14fbac1f7821f087"
+  },
+  "hotfixAdditionalUnitNode24": {
+    "passed": 1807,
+    "failed": 0,
+    "skipped": 0,
+    "logSHA256": "12a7665c42c533981d0308e6c41b8f61f26521c5bb2afe8190c8dbe6600c1a7e"
+  },
+  "firefoxLegacyRawSHA256": "03c6d1526d7092d3da06a79b9ef129ba939c30f09564c871a260245006e31153",
+  "sources": {
+    "src/app.js": "c2301b77895019de127219ee61ff71364fe238c574f5bbbecc3d0ac8d8d3ca93",
+    "src/workspace.js": "4bb0bf7ab18c005afd8b6e206181610d189395987227e29eaea5bb74018d5921",
+    "tests/legacy-project.test.mjs": "6d747c5ba48a4dc1a8ab47c65c87e693f157bfda612e289216d27a665f2c5dbf",
+    "tests/fixtures/legacy-project-1.35.12.json": "ed821caf853541a502ae9304e5933dc4fb8f73b04c821b7e376a1df0517b6d68"
+  },
+  "CIAtCapture": "not_started",
+  "publicReleaseAtCapture": "1.40.0; 1.40.1 waiting for release CI",
+  "priority": "Legacy restoration; new modules deferred"
+}

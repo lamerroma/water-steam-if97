@@ -1,0 +1,1963 @@
+{
+  "browser": "chromium",
+  "browserVersion": "151.0.7922.34",
+  "status": "passed",
+  "build": "Версія 1.40.1 · збірка f52a3c42e921",
+  "baselineCommit": "6bae91383df7085f73dd1cc2f3eb462571143867",
+  "routes": [
+    {
+      "action": "general",
+      "label": "Вода та пара"
+    },
+    {
+      "action": "saturation",
+      "label": "Насичення"
+    },
+    {
+      "action": "satgrid",
+      "label": "Таблиці насичення"
+    },
+    {
+      "action": "gases",
+      "label": "Гази та суміші"
+    },
+    {
+      "action": "humid",
+      "label": "Вологе повітря"
+    },
+    {
+      "action": "ice",
+      "label": "Лід"
+    },
+    {
+      "action": "d2o",
+      "label": "Важка вода"
+    },
+    {
+      "action": "seawater",
+      "label": "Морська вода"
+    },
+    {
+      "action": "boundaries",
+      "label": "Фазові межі"
+    },
+    {
+      "action": "comparison",
+      "label": "Порівняння моделей"
+    },
+    {
+      "action": "custom-cycle",
+      "label": "Редактор циклу"
+    },
+    {
+      "action": "water-process",
+      "label": "Прості процеси"
+    },
+    {
+      "action": "turbine",
+      "label": "Парова турбіна"
+    },
+    {
+      "action": "flash",
+      "label": "Флеш-випаровування"
+    },
+    {
+      "action": "engineering",
+      "label": "Інженерні процеси"
+    },
+    {
+      "action": "cycles",
+      "label": "Теплові цикли"
+    },
+    {
+      "action": "ts",
+      "label": "T–s діаграма"
+    },
+    {
+      "action": "hsdiagram",
+      "label": "h–s діаграма"
+    },
+    {
+      "action": "phdiagram",
+      "label": "P–h діаграма"
+    },
+    {
+      "action": "flow",
+      "label": "Витрати та гідравліка"
+    },
+    {
+      "action": "exchanger",
+      "label": "Площа теплообмінника"
+    },
+    {
+      "action": "libraries",
+      "label": "Бібліотеки CoolProp / ht / fluids"
+    },
+    {
+      "action": "tutorials",
+      "label": "Навчальні приклади"
+    },
+    {
+      "action": "laboratory",
+      "label": "Лабораторні роботи"
+    },
+    {
+      "action": "coursework",
+      "label": "Контрольні та курсові"
+    },
+    {
+      "action": "npp",
+      "label": "Схема двоконтурної АЕС"
+    },
+    {
+      "action": "research",
+      "label": "Дослідження параметрів"
+    },
+    {
+      "action": "help",
+      "label": "Довідка та джерела"
+    },
+    {
+      "action": "projects",
+      "label": "Збережені проєкти"
+    },
+    {
+      "action": "study",
+      "label": "Навчальний звіт"
+    },
+    {
+      "action": "batch",
+      "label": "Пакетні розрахунки"
+    }
+  ],
+  "baselineRoutes": [
+    {
+      "action": "general",
+      "label": "Вода та пара"
+    },
+    {
+      "action": "saturation",
+      "label": "Насичення"
+    },
+    {
+      "action": "satgrid",
+      "label": "Таблиці насичення"
+    },
+    {
+      "action": "gases",
+      "label": "Гази та суміші"
+    },
+    {
+      "action": "humid",
+      "label": "Вологе повітря"
+    },
+    {
+      "action": "ice",
+      "label": "Лід"
+    },
+    {
+      "action": "d2o",
+      "label": "Важка вода"
+    },
+    {
+      "action": "seawater",
+      "label": "Морська вода"
+    },
+    {
+      "action": "boundaries",
+      "label": "Фазові межі"
+    },
+    {
+      "action": "comparison",
+      "label": "Порівняння моделей"
+    },
+    {
+      "action": "custom-cycle",
+      "label": "Редактор циклу"
+    },
+    {
+      "action": "water-process",
+      "label": "Прості процеси"
+    },
+    {
+      "action": "turbine",
+      "label": "Парова турбіна"
+    },
+    {
+      "action": "flash",
+      "label": "Флеш-випаровування"
+    },
+    {
+      "action": "engineering",
+      "label": "Інженерні процеси"
+    },
+    {
+      "action": "cycles",
+      "label": "Теплові цикли"
+    },
+    {
+      "action": "ts",
+      "label": "T–s діаграма"
+    },
+    {
+      "action": "hsdiagram",
+      "label": "h–s діаграма"
+    },
+    {
+      "action": "phdiagram",
+      "label": "P–h діаграма"
+    },
+    {
+      "action": "flow",
+      "label": "Витрати та гідравліка"
+    },
+    {
+      "action": "exchanger",
+      "label": "Площа теплообмінника"
+    },
+    {
+      "action": "tutorials",
+      "label": "Навчальні приклади"
+    },
+    {
+      "action": "laboratory",
+      "label": "Лабораторні роботи"
+    },
+    {
+      "action": "coursework",
+      "label": "Контрольні та курсові"
+    },
+    {
+      "action": "npp",
+      "label": "Схема двоконтурної АЕС"
+    },
+    {
+      "action": "research",
+      "label": "Дослідження параметрів"
+    },
+    {
+      "action": "help",
+      "label": "Довідка та джерела"
+    },
+    {
+      "action": "projects",
+      "label": "Збережені проєкти"
+    },
+    {
+      "action": "study",
+      "label": "Навчальний звіт"
+    },
+    {
+      "action": "batch",
+      "label": "Пакетні розрахунки"
+    }
+  ],
+  "online": [
+    {
+      "id": "water-pt",
+      "action": "general",
+      "status": "passed",
+      "inputs": {
+        "mode": "pt",
+        "smart-first": "p",
+        "input-a": "3",
+        "unit-a": "MPa",
+        "smart-second": "T",
+        "input-b": "100",
+        "unit-b": "C"
+      }
+    },
+    {
+      "id": "saturation-p",
+      "action": "saturation",
+      "status": "passed",
+      "inputs": {
+        "mode": "satp",
+        "smart-first": "p",
+        "input-a": "0.101325",
+        "unit-a": "MPa",
+        "smart-second": "sat",
+        "input-b": "100",
+        "unit-b": "C"
+      }
+    },
+    {
+      "id": "saturation-table",
+      "action": "satgrid",
+      "status": "passed",
+      "inputs": {
+        "satgrid-basis": "temperature",
+        "satgrid-start": "50",
+        "satgrid-unit": "C",
+        "satgrid-end": "200",
+        "satgrid-step": "10"
+      }
+    },
+    {
+      "id": "gas-real",
+      "action": "gases",
+      "status": "passed",
+      "inputs": {
+        "gas-model": "real",
+        "gas-fluid": "N2",
+        "gas-mode": "pt",
+        "gas-p": "0.101325",
+        "ui-unit-gas-p": "MPa",
+        "gas-b": "300",
+        "ui-unit-gas-b": "K",
+        "gas-basis": "mole",
+        "gas-fraction-scale": "fraction",
+        "gas-preset": "air",
+        "fraction-N2": "0.78084",
+        "fraction-O2": "0.20946",
+        "fraction-CO2": "0.00036",
+        "fraction-CO": "0",
+        "fraction-H2": "0",
+        "fraction-H2O": "0",
+        "fraction-CH4": "0",
+        "fraction-Ar": "0.00934",
+        "fraction-He": "0",
+        "fraction-NO": "0",
+        "fraction-SO2": "0",
+        "fraction-Ne": "0",
+        "gas-dissociation": "off",
+        "gas-combustion": "unspecified",
+        "gas-excess-air": "1.2"
+      }
+    },
+    {
+      "id": "gas-ideal",
+      "action": "gases",
+      "status": "passed",
+      "inputs": {
+        "gas-model": "ideal",
+        "gas-fluid": "N2",
+        "gas-mode": "pt",
+        "gas-p": "0.101325",
+        "ui-unit-gas-p": "MPa",
+        "gas-b": "300",
+        "ui-unit-gas-b": "K",
+        "gas-basis": "mole",
+        "gas-fraction-scale": "fraction",
+        "gas-preset": "air",
+        "fraction-N2": "0.78084",
+        "fraction-O2": "0.20946",
+        "fraction-CO2": "0.00036",
+        "fraction-CO": "0",
+        "fraction-H2": "0",
+        "fraction-H2O": "0",
+        "fraction-CH4": "0",
+        "fraction-Ar": "0.00934",
+        "fraction-He": "0",
+        "fraction-NO": "0",
+        "fraction-SO2": "0",
+        "fraction-Ne": "0",
+        "gas-dissociation": "off",
+        "gas-combustion": "unspecified",
+        "gas-excess-air": "1.2"
+      }
+    },
+    {
+      "id": "gas-bsw2003",
+      "action": "gases",
+      "status": "passed",
+      "inputs": {
+        "gas-model": "bsw2003",
+        "gas-fluid": "N2",
+        "gas-mode": "pt",
+        "gas-p": "0.101325",
+        "ui-unit-gas-p": "MPa",
+        "gas-b": "1000",
+        "ui-unit-gas-b": "K",
+        "gas-basis": "mole",
+        "gas-fraction-scale": "percent",
+        "gas-preset": "air",
+        "fraction-N2": "78.084",
+        "fraction-O2": "20.946",
+        "fraction-CO2": "0.036000000000000004",
+        "fraction-CO": "0",
+        "fraction-H2": "0",
+        "fraction-H2O": "0",
+        "fraction-CH4": "0",
+        "fraction-Ar": "0.9339999999999999",
+        "fraction-He": "0",
+        "fraction-NO": "0",
+        "fraction-SO2": "0",
+        "fraction-Ne": "0",
+        "gas-dissociation": "off",
+        "gas-combustion": "unspecified",
+        "gas-excess-air": "1.2"
+      }
+    },
+    {
+      "id": "humid-R",
+      "action": "humid",
+      "status": "passed",
+      "inputs": {
+        "ha-p": "0.101325",
+        "ui-unit-ha-p": "MPa",
+        "ha-t": "30",
+        "ui-unit-ha-t": "C",
+        "ha-mode": "R",
+        "ha-rh": "50",
+        "ui-unit-ha-rh": "percent"
+      }
+    },
+    {
+      "id": "humid-W",
+      "action": "humid",
+      "status": "passed",
+      "inputs": {
+        "ha-p": "0.101325",
+        "ui-unit-ha-p": "MPa",
+        "ha-t": "30",
+        "ui-unit-ha-t": "C",
+        "ha-mode": "W",
+        "ha-rh": ".012"
+      }
+    },
+    {
+      "id": "humid-D",
+      "action": "humid",
+      "status": "passed",
+      "inputs": {
+        "ha-p": "0.101325",
+        "ui-unit-ha-p": "MPa",
+        "ha-t": "30",
+        "ui-unit-ha-t": "C",
+        "ha-mode": "D",
+        "ha-rh": "15",
+        "ui-unit-ha-rh": "C"
+      }
+    },
+    {
+      "id": "humid-B",
+      "action": "humid",
+      "status": "passed",
+      "inputs": {
+        "ha-p": "0.101325",
+        "ui-unit-ha-p": "MPa",
+        "ha-t": "30",
+        "ui-unit-ha-t": "C",
+        "ha-mode": "B",
+        "ha-rh": "20",
+        "ui-unit-ha-rh": "C"
+      }
+    },
+    {
+      "id": "ice",
+      "action": "ice",
+      "status": "passed",
+      "inputs": {
+        "ice-t": "-10",
+        "ui-unit-ice-t": "C",
+        "ice-p": "0.101325",
+        "ui-unit-ice-p": "MPa"
+      }
+    },
+    {
+      "id": "d2o-pt",
+      "action": "d2o",
+      "status": "passed",
+      "inputs": {
+        "d2o-mode": "pt",
+        "d2o-p": "10",
+        "ui-unit-d2o-p": "MPa",
+        "d2o-t": "300",
+        "ui-unit-d2o-t": "K"
+      }
+    },
+    {
+      "id": "d2o-saturation",
+      "action": "d2o",
+      "status": "passed",
+      "inputs": {
+        "d2o-mode": "sat",
+        "d2o-p": "10",
+        "ui-unit-d2o-p": "MPa",
+        "d2o-t": "300",
+        "ui-unit-d2o-t": "K"
+      }
+    },
+    {
+      "id": "seawater",
+      "action": "seawater",
+      "status": "passed",
+      "inputs": {
+        "sw-s": "35.16504",
+        "sw-t": "10",
+        "ui-unit-sw-t": "C",
+        "sw-p": "0.101325",
+        "ui-unit-sw-p": "MPa"
+      }
+    },
+    {
+      "id": "melting",
+      "action": "boundaries",
+      "status": "passed",
+      "inputs": {
+        "phase-substance": "H2O",
+        "phase-kind": "melt",
+        "phase-ice": "Ih",
+        "phase-value": "260",
+        "ui-unit-phase-value": "K",
+        "phase-s": "35.16504"
+      }
+    },
+    {
+      "id": "sublimation",
+      "action": "boundaries",
+      "status": "passed",
+      "inputs": {
+        "phase-substance": "H2O",
+        "phase-kind": "subl",
+        "phase-ice": "Ih",
+        "phase-value": "230",
+        "ui-unit-phase-value": "K",
+        "phase-s": "35.16504"
+      }
+    },
+    {
+      "id": "model-comparison",
+      "action": "comparison",
+      "status": "passed",
+      "inputs": {
+        "compare-mode": "pt",
+        "compare-a": "3",
+        "ui-unit-compare-a": "MPa",
+        "compare-b": "300",
+        "ui-unit-compare-b": "K"
+      }
+    },
+    {
+      "id": "custom-cycle",
+      "action": "custom-cycle",
+      "status": "passed",
+      "inputs": {
+        "cc-fluid": "air",
+        "cc-model": "IDEAL-CP",
+        "cc-mass": "1",
+        "cc-closed": "closed",
+        "cc-data": "{\"fluid\":\"air\",\"model\":\"IDEAL-CP\",\"closed\":true,\"mass\":\"1\",\"points\":[{\"name\":\"1\",\"mode\":\"pt\",\"a\":\"0.1\",\"b\":\"300\",\"kind\":\"isochoric\",\"n\":\"1.3\",\"eta\":\"1\"},{\"name\":\"2\",\"mode\":\"pt\",\"a\":\"0.2\",\"b\":\"600\",\"kind\":\"isobaric\",\"n\":\"1.3\",\"eta\":\"1\"},{\"name\":\"3\",\"mode\":\"pt\",\"a\":\"0.2\",\"b\":\"750\",\"kind\":\"isobaric\",\"n\":\"1.3\",\"eta\":\"1\"},{\"name\":\"4\",\"mode\":\"pt\",\"a\":\"0.2\",\"b\":\"900\",\"kind\":\"isochoric\",\"n\":\"1.3\",\"eta\":\"1\"},{\"name\":\"5\",\"mode\":\"pt\",\"a\":\"0.1\",\"b\":\"450\",\"kind\":\"isobaric\",\"n\":\"1.3\",\"eta\":\"1\"}]}"
+      }
+    },
+    {
+      "id": "water-process",
+      "action": "water-process",
+      "status": "passed",
+      "inputs": {
+        "wp-fluid": "water",
+        "wp-model": "IF97",
+        "wp-kind": "isobaric",
+        "wp-mode": "pt",
+        "wp-a": "3",
+        "wp-b": "600",
+        "wp-end": "T",
+        "wp-value": "700",
+        "wp-mass": "1",
+        "wp-n": "1.3"
+      }
+    },
+    {
+      "id": "turbine",
+      "action": "turbine",
+      "status": "passed",
+      "inputs": {
+        "process-mode": "power",
+        "process-p1": "3",
+        "process-pressure": "MPa",
+        "process-t1": "400",
+        "process-temperature": "C",
+        "process-p2": "0.1",
+        "ui-unit-process-p2": "MPa",
+        "process-eta": "85",
+        "ui-unit-process-eta": "percent",
+        "process-flow": "1",
+        "process-mass": "kgs",
+        "process-power": "600",
+        "process-power-unit": "kW"
+      }
+    },
+    {
+      "id": "flash",
+      "action": "flash",
+      "status": "passed",
+      "inputs": {
+        "process-mode": "condensate",
+        "process-p1": "3",
+        "process-pressure": "MPa",
+        "process-t1": "200",
+        "process-temperature": "C",
+        "process-p2": "0.1",
+        "ui-unit-process-p2": "MPa",
+        "process-flow": "1",
+        "process-mass": "kgs"
+      }
+    },
+    {
+      "id": "engineering-compressor",
+      "action": "engineering",
+      "status": "passed",
+      "inputs": {
+        "eng-mode": "compressor",
+        "eng-p1": "0.1",
+        "eng-pressure": "MPa",
+        "eng-t1": "150",
+        "eng-temperature": "C",
+        "eng-p2": "1",
+        "ui-unit-eng-p2": "MPa",
+        "eng-eta": "80",
+        "ui-unit-eng-eta": "percent",
+        "eng-flow": "1",
+        "eng-mass": "kgs",
+        "eng-power": "100",
+        "eng-power-unit": "kW",
+        "eng-pc1": "0.1",
+        "ui-unit-eng-pc1": "MPa",
+        "eng-tc1": "20",
+        "ui-unit-eng-tc1": "C",
+        "eng-pc2": "0.1",
+        "ui-unit-eng-pc2": "MPa",
+        "eng-coldflow": "1",
+        "ui-unit-eng-coldflow": "kgs"
+      }
+    },
+    {
+      "id": "engineering-pump",
+      "action": "engineering",
+      "status": "passed",
+      "inputs": {
+        "eng-mode": "pump",
+        "eng-p1": "0.1",
+        "eng-pressure": "MPa",
+        "eng-t1": "20",
+        "eng-temperature": "C",
+        "eng-p2": "1",
+        "ui-unit-eng-p2": "MPa",
+        "eng-eta": "80",
+        "ui-unit-eng-eta": "percent",
+        "eng-flow": "1",
+        "eng-mass": "kgs",
+        "eng-power": "100",
+        "eng-power-unit": "kW",
+        "eng-pc1": "0.1",
+        "ui-unit-eng-pc1": "MPa",
+        "eng-tc1": "20",
+        "ui-unit-eng-tc1": "C",
+        "eng-pc2": "0.1",
+        "ui-unit-eng-pc2": "MPa",
+        "eng-coldflow": "1",
+        "ui-unit-eng-coldflow": "kgs"
+      }
+    },
+    {
+      "id": "engineering-heat-exchanger",
+      "action": "engineering",
+      "status": "passed",
+      "inputs": {
+        "eng-mode": "heat-exchanger",
+        "eng-p1": "0.1",
+        "eng-pressure": "MPa",
+        "eng-t1": "150",
+        "eng-temperature": "C",
+        "eng-p2": "0.1",
+        "ui-unit-eng-p2": "MPa",
+        "eng-eta": "80",
+        "ui-unit-eng-eta": "percent",
+        "eng-flow": "1",
+        "eng-mass": "kgs",
+        "eng-power": "100",
+        "eng-power-unit": "kW",
+        "eng-pc1": "0.1",
+        "ui-unit-eng-pc1": "MPa",
+        "eng-tc1": "20",
+        "ui-unit-eng-tc1": "C",
+        "eng-pc2": "0.1",
+        "ui-unit-eng-pc2": "MPa",
+        "eng-coldflow": "1",
+        "ui-unit-eng-coldflow": "kgs"
+      }
+    },
+    {
+      "id": "pump-vapor-rejected",
+      "action": "engineering",
+      "status": "passed",
+      "inputs": {
+        "eng-mode": "pump",
+        "eng-p1": "0.1",
+        "eng-pressure": "MPa",
+        "eng-t1": "150",
+        "eng-temperature": "C",
+        "eng-p2": "1",
+        "ui-unit-eng-p2": "MPa",
+        "eng-eta": "80",
+        "ui-unit-eng-eta": "percent",
+        "eng-flow": "1",
+        "eng-mass": "kgs",
+        "eng-power": "100",
+        "eng-power-unit": "kW",
+        "eng-pc1": "0.1",
+        "ui-unit-eng-pc1": "MPa",
+        "eng-tc1": "20",
+        "ui-unit-eng-tc1": "C",
+        "eng-pc2": "0.1",
+        "ui-unit-eng-pc2": "MPa",
+        "eng-coldflow": "1",
+        "ui-unit-eng-coldflow": "kgs"
+      },
+      "errorText": "Для насоса потрібна рідина на вході."
+    },
+    {
+      "id": "cycle-rankine",
+      "action": "cycles",
+      "status": "passed",
+      "inputs": {
+        "cycle-kind": "rankine",
+        "cycle-low": ".01",
+        "ui-unit-cycle-low": "MPa",
+        "cycle-high": "10",
+        "ui-unit-cycle-high": "MPa",
+        "cycle-mid": "2",
+        "ui-unit-cycle-mid": "MPa",
+        "cycle-tmin": "300",
+        "ui-unit-cycle-tmin": "K",
+        "cycle-tmax": "773.15",
+        "ui-unit-cycle-tmax": "K",
+        "cycle-tmid": "773.15",
+        "ui-unit-cycle-tmid": "K",
+        "cycle-et": "0.85",
+        "ui-unit-cycle-et": "fraction",
+        "cycle-ec": "0.8",
+        "ui-unit-cycle-ec": "fraction",
+        "cycle-flow": "1",
+        "ui-unit-cycle-flow": "kgs"
+      }
+    },
+    {
+      "id": "cycle-rankine-reheat",
+      "action": "cycles",
+      "status": "passed",
+      "inputs": {
+        "cycle-kind": "rankine-reheat",
+        "cycle-low": ".01",
+        "ui-unit-cycle-low": "MPa",
+        "cycle-high": "10",
+        "ui-unit-cycle-high": "MPa",
+        "cycle-mid": "2",
+        "ui-unit-cycle-mid": "MPa",
+        "cycle-tmin": "300",
+        "ui-unit-cycle-tmin": "K",
+        "cycle-tmax": "773.15",
+        "ui-unit-cycle-tmax": "K",
+        "cycle-tmid": "773.15",
+        "ui-unit-cycle-tmid": "K",
+        "cycle-et": "0.85",
+        "ui-unit-cycle-et": "fraction",
+        "cycle-ec": "0.8",
+        "ui-unit-cycle-ec": "fraction",
+        "cycle-flow": "1",
+        "ui-unit-cycle-flow": "kgs"
+      }
+    },
+    {
+      "id": "cycle-rankine-regen",
+      "action": "cycles",
+      "status": "passed",
+      "inputs": {
+        "cycle-kind": "rankine-regen",
+        "cycle-low": ".01",
+        "ui-unit-cycle-low": "MPa",
+        "cycle-high": "10",
+        "ui-unit-cycle-high": "MPa",
+        "cycle-mid": "2",
+        "ui-unit-cycle-mid": "MPa",
+        "cycle-tmin": "300",
+        "ui-unit-cycle-tmin": "K",
+        "cycle-tmax": "773.15",
+        "ui-unit-cycle-tmax": "K",
+        "cycle-tmid": "773.15",
+        "ui-unit-cycle-tmid": "K",
+        "cycle-et": "0.85",
+        "ui-unit-cycle-et": "fraction",
+        "cycle-ec": "0.8",
+        "ui-unit-cycle-ec": "fraction",
+        "cycle-flow": "1",
+        "ui-unit-cycle-flow": "kgs"
+      }
+    },
+    {
+      "id": "cycle-brayton",
+      "action": "cycles",
+      "status": "passed",
+      "inputs": {
+        "cycle-kind": "brayton",
+        "cycle-low": ".101325",
+        "ui-unit-cycle-low": "MPa",
+        "cycle-high": "8",
+        "cycle-mid": "2",
+        "ui-unit-cycle-mid": "MPa",
+        "cycle-tmin": "300",
+        "ui-unit-cycle-tmin": "K",
+        "cycle-tmax": "1400",
+        "ui-unit-cycle-tmax": "K",
+        "cycle-tmid": "773.15",
+        "ui-unit-cycle-tmid": "K",
+        "cycle-et": "0.85",
+        "ui-unit-cycle-et": "fraction",
+        "cycle-ec": "0.8",
+        "ui-unit-cycle-ec": "fraction",
+        "cycle-flow": "1",
+        "ui-unit-cycle-flow": "kgs"
+      }
+    },
+    {
+      "id": "flow",
+      "action": "flow",
+      "status": "passed",
+      "inputs": {
+        "flow-source": "manual",
+        "flow-fluid": "N2",
+        "flow-p": "0.101325",
+        "ui-unit-flow-p": "MPa",
+        "flow-t": "293.15",
+        "ui-unit-flow-t": "K",
+        "flow-rho": "998.2",
+        "flow-rho-unit": "kgm3",
+        "flow-viscosity": "0.001002",
+        "flow-visc-unit": "Pas",
+        "flow-visc-kind": "dynamic",
+        "flow-kind": "mass",
+        "flow-value": "1",
+        "flow-unit": "kgs",
+        "flow-diameter": "0.05",
+        "flow-diameter-unit": "m",
+        "flow-standard": "off",
+        "flow-std-p": "0.101325",
+        "ui-unit-flow-std-p": "MPa",
+        "flow-std-t": "273.15",
+        "ui-unit-flow-std-t": "K",
+        "flow-M": "28.96546",
+        "flow-Z": "1",
+        "flow-std-Z": "1",
+        "flow-hydraulics": "on",
+        "flow-verification": "off",
+        "flow-length": "10",
+        "flow-length-unit": "m",
+        "flow-roughness": "0.045",
+        "flow-roughness-unit": "mm",
+        "flow-local-k": "0",
+        "flow-eta": "75",
+        "ui-unit-flow-eta": "percent",
+        "flow-height": "0",
+        "ui-unit-flow-height": "m",
+        "flow-pressure-difference": "0",
+        "flow-pressure-difference-unit": "kPa"
+      }
+    },
+    {
+      "id": "exchanger",
+      "action": "exchanger",
+      "status": "passed",
+      "inputs": {
+        "hx-arrangement": "counter",
+        "hx-hotIn": "423.15",
+        "ui-unit-hx-hotIn": "K",
+        "hx-hotOut": "373.15",
+        "ui-unit-hx-hotOut": "K",
+        "hx-coldIn": "293.15",
+        "ui-unit-hx-coldIn": "K",
+        "hx-coldOut": "343.15",
+        "ui-unit-hx-coldOut": "K",
+        "hx-heatKW": "100",
+        "ui-unit-hx-heatKW": "kW",
+        "hx-U": "500"
+      }
+    },
+    {
+      "id": "tutorial",
+      "action": "tutorials",
+      "status": "passed",
+      "inputs": {
+        "tutorial-id": "saturation"
+      }
+    },
+    {
+      "id": "laboratory",
+      "action": "laboratory",
+      "status": "passed",
+      "inputs": {
+        "lab-kind": "saturation",
+        "lab-pressure": "kPa",
+        "lab-temperature": "C",
+        "lab-basis": "absolute",
+        "lab-atmosphere": "101.325",
+        "lab-flow-unit": "kgs",
+        "lab-power-unit": "kW",
+        "lab-eta-unit": "percent",
+        "lab-quantity": "internal",
+        "lab-eta-m": "100",
+        "ui-unit-lab-eta-m": "percent",
+        "lab-eta-g": "100",
+        "ui-unit-lab-eta-g": "percent",
+        "lab-condition": "",
+        "lab-source": "Синтетичний навчальний приклад / Synthetic educational example",
+        "lab-data": "p;T;uP;uT\n4.20668834055;30;0.05;0.1\n12.331270434;50;0.05;0.1\n31.2006356961;70;0.05;0.1\n70.2023607448;90;0.05;0.1\n101.457977921;100;0.05;0.1",
+        "lab-conclusion": ""
+      }
+    },
+    {
+      "id": "coursework-rankine",
+      "action": "coursework",
+      "status": "passed",
+      "inputs": {
+        "cw-kind": "rankine",
+        "cw-pHigh": "9.5",
+        "ui-unit-cw-pHigh": "MPa",
+        "cw-tHigh": "500",
+        "ui-unit-cw-tHigh": "C",
+        "cw-pLow": "0.0055",
+        "ui-unit-cw-pLow": "MPa",
+        "cw-etaT": "1",
+        "ui-unit-cw-etaT": "fraction",
+        "cw-etaPump": "0.82",
+        "cw-flow": "1",
+        "ui-unit-cw-flow": "kgs",
+        "cw-pumpMethod": "volume"
+      }
+    },
+    {
+      "id": "coursework-stage",
+      "action": "coursework",
+      "status": "passed",
+      "inputs": {
+        "cw-kind": "stage",
+        "cw-pIn": "17.2",
+        "ui-unit-cw-pIn": "MPa",
+        "cw-tIn": "500",
+        "ui-unit-cw-tIn": "C",
+        "cw-pOut": "14.5",
+        "ui-unit-cw-pOut": "MPa",
+        "cw-flow": "290",
+        "ui-unit-cw-flow": "kgs",
+        "cw-speedRatio": "0.48",
+        "cw-reaction": "0.1",
+        "cw-alpha1": "13",
+        "cw-betaOffset": "5",
+        "cw-phi": "0.97",
+        "cw-psi": "0.935",
+        "cw-c0": "50",
+        "cw-frequency": "50",
+        "cw-recovery": "0"
+      }
+    },
+    {
+      "id": "coursework-core",
+      "action": "coursework",
+      "status": "passed",
+      "inputs": {
+        "cw-kind": "core",
+        "cw-thermalMW": "700",
+        "ui-unit-cw-thermalMW": "MW",
+        "cw-pIn": "16",
+        "ui-unit-cw-pIn": "MPa",
+        "cw-pressureDrop": "0.1",
+        "ui-unit-cw-pressureDrop": "MPa",
+        "cw-tIn": "290",
+        "ui-unit-cw-tIn": "C",
+        "cw-tOut": "320",
+        "ui-unit-cw-tOut": "C",
+        "cw-rodDiameter": "8",
+        "ui-unit-cw-rodDiameter": "mm",
+        "cw-pitchRatio": "1.4",
+        "cw-cladThickness": "0.5",
+        "ui-unit-cw-cladThickness": "mm",
+        "cw-gap": "0.06",
+        "ui-unit-cw-gap": "mm",
+        "cw-holeDiameter": "0.5",
+        "ui-unit-cw-holeDiameter": "mm",
+        "cw-layers": "11",
+        "cw-rods": "312",
+        "cw-guides": "19",
+        "cw-guideDiameter": "8",
+        "ui-unit-cw-guideDiameter": "mm",
+        "cw-ductThickness": "2",
+        "ui-unit-cw-ductThickness": "mm",
+        "cw-bundleGap": "2",
+        "ui-unit-cw-bundleGap": "mm",
+        "cw-volumeHeat": "107.9",
+        "cw-heightRatio": "1.117",
+        "cw-reflector": "0.1004",
+        "ui-unit-cw-reflector": "m",
+        "cw-radialPeak": "1.35",
+        "cw-hotFactor": "1.87",
+        "cw-fuelFraction": "0.96",
+        "cw-heatFactor": "1.38",
+        "cw-conductionFactor": "1.44",
+        "cw-gapConductivity": "0.323",
+        "cw-cladConductivity": "20",
+        "cw-gasPressure": "2",
+        "ui-unit-cw-gasPressure": "MPa",
+        "cw-gasInitialK": "293",
+        "ui-unit-cw-gasInitialK": "K",
+        "cw-points": "25",
+        "cw-areaMethod": "duct",
+        "cw-cladMethod": "polynomial"
+      }
+    },
+    {
+      "id": "coursework-reactor",
+      "action": "coursework",
+      "status": "passed",
+      "inputs": {
+        "cw-kind": "reactor",
+        "cw-variant": "5",
+        "cw-electricalMW": "1150",
+        "ui-unit-cw-electricalMW": "MW",
+        "cw-plantEfficiency": "0.3333333333333333",
+        "ui-unit-cw-plantEfficiency": "fraction",
+        "cw-pIn": "15.7",
+        "ui-unit-cw-pIn": "MPa",
+        "cw-pressureDrop": "0.3",
+        "ui-unit-cw-pressureDrop": "MPa",
+        "cw-tIn": "287",
+        "ui-unit-cw-tIn": "C",
+        "cw-tOut": "317",
+        "ui-unit-cw-tOut": "C",
+        "cw-lattice": "hex",
+        "cw-rodDiameter": "9.14",
+        "ui-unit-cw-rodDiameter": "mm",
+        "cw-pitchRatio": "1.27",
+        "cw-cladThickness": "0.57",
+        "ui-unit-cw-cladThickness": "mm",
+        "cw-gap": "0.08",
+        "ui-unit-cw-gap": "mm",
+        "cw-holeDiameter": "0",
+        "ui-unit-cw-holeDiameter": "mm",
+        "cw-layers": "11",
+        "cw-guides": "18",
+        "cw-centralTubes": "1",
+        "cw-guideDiameter": "9.14",
+        "ui-unit-cw-guideDiameter": "mm",
+        "cw-guideThickness": "0.57",
+        "ui-unit-cw-guideThickness": "mm",
+        "cw-ductThickness": "0",
+        "ui-unit-cw-ductThickness": "mm",
+        "cw-bundleGap": "2",
+        "ui-unit-cw-bundleGap": "mm",
+        "cw-areaMethod": "course",
+        "cw-bundleRounding": "nearest",
+        "cw-volumeHeat": "107.9",
+        "cw-heightRatio": "1.117",
+        "cw-reflector": "0.1",
+        "ui-unit-cw-reflector": "m",
+        "cw-radialPeak": "1.35",
+        "cw-hotFactor": "1.87",
+        "cw-fuelFraction": "0.96",
+        "cw-heatFactor": "1.38",
+        "cw-conductionFactor": "1.44",
+        "cw-contactConductance": "10000",
+        "cw-cladConductivity": "20",
+        "cw-gapConductivity": "0.323",
+        "cw-fuelConductivity": "3",
+        "cw-reflectorMethod": "density",
+        "cw-cladMethod": "guide",
+        "cw-gapMethod": "guide",
+        "cw-fuelMethod": "guide",
+        "cw-boilingMethod": "guide",
+        "cw-roughness": "0.001",
+        "ui-unit-cw-roughness": "mm",
+        "cw-gridCount": "15",
+        "cw-gridK": "0.9639",
+        "cw-inletK": "3.9994",
+        "cw-points": "25",
+        "cw-cladLimit": "370",
+        "ui-unit-cw-cladLimit": "C",
+        "cw-fuelLimit": "2700",
+        "ui-unit-cw-fuelLimit": "C",
+        "cw-chfLimit": "1.5",
+        "cw-chfMethod": "gidropress",
+        "cw-freshEnrichment": "4.4",
+        "cw-fuelDensity": "10.4",
+        "cw-zirconiumDensity": "6.44",
+        "cw-reloadZones": "4",
+        "cw-reloadDays": "305",
+        "cw-plutoniumShare": "0.35",
+        "cw-campaignMaxDays": "600",
+        "cw-campaignTarget": "1.05",
+        "cw-coldC": "26.85",
+        "ui-unit-cw-coldC": "C",
+        "cw-resonanceI8": "21",
+        "cw-squareBoundaryGamma": "1",
+        "cw-bellFactor": "1.27",
+        "cw-neutronMethod": "course",
+        "cw-resonanceMethod": "gp",
+        "cw-controlAssemblies": "61",
+        "cw-rodsPerCluster": "18",
+        "cw-centralRodWorth": "0.0001",
+        "cw-controlRadiusFraction": "0.5",
+        "cw-interferenceFactor": "1",
+        "cw-shutdownTarget": "0.95",
+        "cw-boronFraction10": "0.199",
+        "cw-controlRodDiameter": "9",
+        "ui-unit-cw-controlRodDiameter": "mm",
+        "cw-boronLimit": "1.5",
+        "cw-rodMethod": "course",
+        "cw-rodLayout": "effective",
+        "cw-controlLayout": ""
+      }
+    },
+    {
+      "id": "npp",
+      "action": "npp",
+      "status": "passed",
+      "inputs": {
+        "npp-mode": "simple",
+        "npp-thermalMW": "3000",
+        "ui-unit-npp-thermalMW": "MW",
+        "npp-primaryP": "15.7",
+        "ui-unit-npp-primaryP": "MPa",
+        "npp-coldC": "291",
+        "ui-unit-npp-coldC": "C",
+        "npp-hotC": "321",
+        "ui-unit-npp-hotC": "C",
+        "npp-steamP": "6.27",
+        "ui-unit-npp-steamP": "MPa",
+        "npp-condenserP": "0.005",
+        "ui-unit-npp-condenserP": "MPa",
+        "npp-etaT": "0.85",
+        "ui-unit-npp-etaT": "fraction",
+        "npp-etaPump": "0.8",
+        "ui-unit-npp-etaPump": "fraction",
+        "npp-pMid": "0.7",
+        "ui-unit-npp-pMid": "MPa",
+        "npp-reheatC": "250",
+        "ui-unit-npp-reheatC": "C",
+        "npp-etaLP": "0.85",
+        "ui-unit-npp-etaLP": "fraction"
+      }
+    },
+    {
+      "id": "research",
+      "action": "research",
+      "status": "passed",
+      "inputs": {
+        "research-parameter": "hotIn",
+        "research-start": "338.52",
+        "research-end": "507.78",
+        "research-count": "11",
+        "research-metric": "area"
+      }
+    },
+    {
+      "id": "batch",
+      "action": "batch",
+      "status": "passed",
+      "inputs": {
+        "batch-mode": "pt",
+        "batch-vary": "b",
+        "batch-start": "30",
+        "batch-ub": "C",
+        "batch-end": "300",
+        "batch-count": "10",
+        "batch-fixed": "3",
+        "batch-ua": "MPa"
+      }
+    },
+    {
+      "id": "water-pt",
+      "action": "general",
+      "status": "passed",
+      "inputs": {
+        "mode": "pt",
+        "smart-first": "p",
+        "input-a": "3",
+        "unit-a": "MPa",
+        "smart-second": "T",
+        "input-b": "100",
+        "unit-b": "C"
+      }
+    },
+    {
+      "id": "water-pt",
+      "action": "general",
+      "status": "passed",
+      "inputs": {
+        "mode": "pt",
+        "smart-first": "p",
+        "input-a": "3",
+        "unit-a": "MPa",
+        "smart-second": "T",
+        "input-b": "100",
+        "unit-b": "C"
+      }
+    }
+  ],
+  "offline": [
+    {
+      "id": "water-pt",
+      "action": "general",
+      "status": "passed",
+      "inputs": {
+        "mode": "pt",
+        "smart-first": "p",
+        "input-a": "3",
+        "unit-a": "MPa",
+        "smart-second": "T",
+        "input-b": "100",
+        "unit-b": "C"
+      }
+    },
+    {
+      "id": "saturation-p",
+      "action": "saturation",
+      "status": "passed",
+      "inputs": {
+        "mode": "satp",
+        "smart-first": "p",
+        "input-a": "0.101325",
+        "unit-a": "MPa",
+        "smart-second": "sat",
+        "input-b": "100",
+        "unit-b": "C"
+      }
+    },
+    {
+      "id": "gas-real",
+      "action": "gases",
+      "status": "passed",
+      "inputs": {
+        "gas-model": "real",
+        "gas-fluid": "N2",
+        "gas-mode": "pt",
+        "gas-p": "0.101325",
+        "ui-unit-gas-p": "MPa",
+        "gas-b": "1000",
+        "ui-unit-gas-b": "K",
+        "gas-basis": "mole",
+        "gas-fraction-scale": "percent",
+        "gas-preset": "air",
+        "fraction-N2": "78.084",
+        "fraction-O2": "20.946",
+        "fraction-CO2": "0.036000000000000004",
+        "fraction-CO": "0",
+        "fraction-H2": "0",
+        "fraction-H2O": "0",
+        "fraction-CH4": "0",
+        "fraction-Ar": "0.9339999999999999",
+        "fraction-He": "0",
+        "fraction-NO": "0",
+        "fraction-SO2": "0",
+        "fraction-Ne": "0",
+        "gas-dissociation": "off",
+        "gas-combustion": "unspecified",
+        "gas-excess-air": "1.2"
+      }
+    },
+    {
+      "id": "gas-bsw2003",
+      "action": "gases",
+      "status": "passed",
+      "inputs": {
+        "gas-model": "bsw2003",
+        "gas-fluid": "N2",
+        "gas-mode": "pt",
+        "gas-p": "0.101325",
+        "ui-unit-gas-p": "MPa",
+        "gas-b": "1000",
+        "ui-unit-gas-b": "K",
+        "gas-basis": "mole",
+        "gas-fraction-scale": "percent",
+        "gas-preset": "air",
+        "fraction-N2": "78.084",
+        "fraction-O2": "20.946",
+        "fraction-CO2": "0.036000000000000004",
+        "fraction-CO": "0",
+        "fraction-H2": "0",
+        "fraction-H2O": "0",
+        "fraction-CH4": "0",
+        "fraction-Ar": "0.9339999999999999",
+        "fraction-He": "0",
+        "fraction-NO": "0",
+        "fraction-SO2": "0",
+        "fraction-Ne": "0",
+        "gas-dissociation": "off",
+        "gas-combustion": "unspecified",
+        "gas-excess-air": "1.2"
+      }
+    },
+    {
+      "id": "humid-R",
+      "action": "humid",
+      "status": "passed",
+      "inputs": {
+        "ha-p": "0.101325",
+        "ui-unit-ha-p": "MPa",
+        "ha-t": "30",
+        "ui-unit-ha-t": "C",
+        "ha-mode": "R",
+        "ha-rh": "50",
+        "ui-unit-ha-rh": "percent"
+      }
+    },
+    {
+      "id": "ice",
+      "action": "ice",
+      "status": "passed",
+      "inputs": {
+        "ice-t": "-10",
+        "ui-unit-ice-t": "C",
+        "ice-p": "0.101325",
+        "ui-unit-ice-p": "MPa"
+      }
+    },
+    {
+      "id": "d2o-pt",
+      "action": "d2o",
+      "status": "passed",
+      "inputs": {
+        "d2o-mode": "sat",
+        "d2o-p": "10",
+        "ui-unit-d2o-p": "MPa",
+        "d2o-t": "300",
+        "ui-unit-d2o-t": "K"
+      }
+    },
+    {
+      "id": "seawater",
+      "action": "seawater",
+      "status": "passed",
+      "inputs": {
+        "sw-s": "35.16504",
+        "sw-t": "10",
+        "ui-unit-sw-t": "C",
+        "sw-p": "0.101325",
+        "ui-unit-sw-p": "MPa"
+      }
+    },
+    {
+      "id": "turbine",
+      "action": "turbine",
+      "status": "passed",
+      "inputs": {
+        "process-mode": "power",
+        "process-p1": "3",
+        "process-pressure": "MPa",
+        "process-t1": "400",
+        "process-temperature": "C",
+        "process-p2": "0.1",
+        "ui-unit-process-p2": "MPa",
+        "process-eta": "85",
+        "ui-unit-process-eta": "percent",
+        "process-flow": "1",
+        "process-mass": "kgs",
+        "process-power": "600",
+        "process-power-unit": "kW"
+      }
+    },
+    {
+      "id": "cycle-rankine",
+      "action": "cycles",
+      "status": "passed",
+      "inputs": {
+        "cycle-kind": "rankine",
+        "cycle-low": ".01",
+        "ui-unit-cycle-low": "MPa",
+        "cycle-high": "10",
+        "ui-unit-cycle-high": "MPa",
+        "cycle-mid": "2",
+        "ui-unit-cycle-mid": "MPa",
+        "cycle-tmin": "300",
+        "ui-unit-cycle-tmin": "K",
+        "cycle-tmax": "773.15",
+        "ui-unit-cycle-tmax": "K",
+        "cycle-tmid": "773.15",
+        "ui-unit-cycle-tmid": "K",
+        "cycle-et": "0.85",
+        "ui-unit-cycle-et": "fraction",
+        "cycle-ec": "0.8",
+        "ui-unit-cycle-ec": "fraction",
+        "cycle-flow": "1",
+        "ui-unit-cycle-flow": "kgs"
+      }
+    },
+    {
+      "id": "flow",
+      "action": "flow",
+      "status": "passed",
+      "inputs": {
+        "flow-source": "manual",
+        "flow-fluid": "N2",
+        "flow-p": "0.101325",
+        "ui-unit-flow-p": "MPa",
+        "flow-t": "293.15",
+        "ui-unit-flow-t": "K",
+        "flow-rho": "1000",
+        "flow-rho-unit": "kgm3",
+        "flow-viscosity": ".001",
+        "flow-visc-unit": "Pas",
+        "flow-visc-kind": "dynamic",
+        "flow-kind": "velocity",
+        "flow-value": "2",
+        "flow-unit": "ms",
+        "flow-diameter": ".05",
+        "flow-diameter-unit": "m",
+        "flow-standard": "off",
+        "flow-std-p": "0.101325",
+        "ui-unit-flow-std-p": "MPa",
+        "flow-std-t": "273.15",
+        "ui-unit-flow-std-t": "K",
+        "flow-M": "28.96546",
+        "flow-Z": "1",
+        "flow-std-Z": "1",
+        "flow-hydraulics": "on",
+        "flow-verification": "off",
+        "flow-length": "100",
+        "flow-length-unit": "m",
+        "flow-roughness": ".05",
+        "flow-roughness-unit": "mm",
+        "flow-local-k": "3",
+        "flow-eta": "80",
+        "ui-unit-flow-eta": "percent",
+        "flow-height": "0",
+        "ui-unit-flow-height": "m",
+        "flow-pressure-difference": "0",
+        "flow-pressure-difference-unit": "kPa"
+      }
+    },
+    {
+      "id": "exchanger",
+      "action": "exchanger",
+      "status": "passed",
+      "inputs": {
+        "hx-arrangement": "counter",
+        "hx-hotIn": "423.15",
+        "ui-unit-hx-hotIn": "K",
+        "hx-hotOut": "373.15",
+        "ui-unit-hx-hotOut": "K",
+        "hx-coldIn": "293.15",
+        "ui-unit-hx-coldIn": "K",
+        "hx-coldOut": "343.15",
+        "ui-unit-hx-coldOut": "K",
+        "hx-heatKW": "100",
+        "ui-unit-hx-heatKW": "kW",
+        "hx-U": "500"
+      }
+    },
+    {
+      "id": "batch",
+      "action": "batch",
+      "status": "passed",
+      "inputs": {
+        "batch-mode": "pt",
+        "batch-vary": "b",
+        "batch-start": "30",
+        "batch-ub": "C",
+        "batch-end": "300",
+        "batch-count": "10",
+        "batch-fixed": "3",
+        "batch-ua": "MPa"
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "target": "current",
+      "id": "water-pt",
+      "status": "matched",
+      "quantities": 62,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "saturation-p",
+      "status": "matched",
+      "quantities": 56,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "saturation-table",
+      "status": "matched",
+      "quantities": 160,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "gas-real",
+      "status": "matched",
+      "quantities": 25,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "gas-ideal",
+      "status": "matched",
+      "quantities": 20,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "gas-bsw2003",
+      "status": "matched",
+      "quantities": 28,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "humid-R",
+      "status": "matched",
+      "quantities": 11,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "humid-W",
+      "status": "matched",
+      "quantities": 11,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "humid-D",
+      "status": "matched",
+      "quantities": 11,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "humid-B",
+      "status": "matched",
+      "quantities": 11,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "ice",
+      "status": "matched",
+      "quantities": 14,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "d2o-pt",
+      "status": "matched",
+      "quantities": 11,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "d2o-saturation",
+      "status": "matched",
+      "quantities": 27,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "seawater",
+      "status": "matched",
+      "quantities": 14,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "melting",
+      "status": "matched",
+      "quantities": 2,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "sublimation",
+      "status": "matched",
+      "quantities": 2,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "model-comparison",
+      "status": "matched",
+      "quantities": 36,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "custom-cycle",
+      "status": "matched",
+      "quantities": 61,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "water-process",
+      "status": "matched",
+      "quantities": 28,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "turbine",
+      "status": "matched",
+      "quantities": 14,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "flash",
+      "status": "matched",
+      "quantities": 9,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "engineering-compressor",
+      "status": "matched",
+      "quantities": 12,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "engineering-pump",
+      "status": "matched",
+      "quantities": 12,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "engineering-heat-exchanger",
+      "status": "matched",
+      "quantities": 16,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "pump-vapor-rejected",
+      "status": "expected_rejection",
+      "quantities": 0,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "cycle-rankine",
+      "status": "matched",
+      "quantities": 131,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "cycle-rankine-reheat",
+      "status": "matched",
+      "quantities": 195,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "cycle-rankine-regen",
+      "status": "matched",
+      "quantities": 232,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "cycle-brayton",
+      "status": "matched",
+      "quantities": 106,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "flow",
+      "status": "matched",
+      "quantities": 28,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "exchanger",
+      "status": "matched",
+      "quantities": 5,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "tutorial",
+      "status": "matched",
+      "quantities": 2,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "laboratory",
+      "status": "matched",
+      "quantities": 58,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "coursework-rankine",
+      "status": "matched",
+      "quantities": 32,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "coursework-stage",
+      "status": "matched",
+      "quantities": 35,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "coursework-core",
+      "status": "matched",
+      "quantities": 454,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "coursework-reactor",
+      "status": "matched",
+      "quantities": 1947,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "npp",
+      "status": "matched",
+      "quantities": 41,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "research",
+      "status": "matched",
+      "quantities": 27,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "batch",
+      "status": "matched",
+      "quantities": 40,
+      "differences": [],
+      "inputDifferences": []
+    }
+  ],
+  "restoredPanels": [
+    {
+      "action": "gases",
+      "status": "matched",
+      "differences": []
+    },
+    {
+      "action": "humid",
+      "status": "matched",
+      "differences": []
+    },
+    {
+      "action": "ice",
+      "status": "matched",
+      "differences": []
+    },
+    {
+      "action": "d2o",
+      "status": "matched",
+      "differences": []
+    },
+    {
+      "action": "seawater",
+      "status": "matched",
+      "differences": []
+    },
+    {
+      "action": "turbine",
+      "status": "matched",
+      "differences": []
+    },
+    {
+      "action": "cycles",
+      "status": "matched",
+      "differences": []
+    },
+    {
+      "action": "exchanger",
+      "status": "matched",
+      "differences": []
+    },
+    {
+      "action": "coursework",
+      "status": "matched",
+      "differences": []
+    }
+  ],
+  "diagrams": [
+    {
+      "action": "ts",
+      "series": [
+        {
+          "points": 112
+        },
+        {
+          "points": 112
+        },
+        {
+          "points": 112
+        },
+        {
+          "points": 112
+        },
+        {
+          "points": 102
+        },
+        {
+          "points": 101
+        },
+        {
+          "points": 101
+        },
+        {
+          "points": 181
+        },
+        {
+          "points": 181
+        },
+        {
+          "points": 2
+        },
+        {
+          "points": 2
+        },
+        {
+          "points": 7
+        }
+      ]
+    },
+    {
+      "action": "hsdiagram",
+      "series": [
+        {
+          "points": 112
+        },
+        {
+          "points": 112
+        },
+        {
+          "points": 112
+        },
+        {
+          "points": 112
+        },
+        {
+          "points": 102
+        },
+        {
+          "points": 101
+        },
+        {
+          "points": 101
+        },
+        {
+          "points": 181
+        },
+        {
+          "points": 181
+        },
+        {
+          "points": 2
+        },
+        {
+          "points": 2
+        },
+        {
+          "points": 7
+        }
+      ]
+    },
+    {
+      "action": "phdiagram",
+      "series": [
+        {
+          "points": 112
+        },
+        {
+          "points": 112
+        },
+        {
+          "points": 112
+        },
+        {
+          "points": 112
+        },
+        {
+          "points": 102
+        },
+        {
+          "points": 101
+        },
+        {
+          "points": 101
+        },
+        {
+          "points": 181
+        },
+        {
+          "points": 181
+        },
+        {
+          "points": 2
+        },
+        {
+          "points": 2
+        },
+        {
+          "points": 7
+        }
+      ]
+    }
+  ],
+  "networkProbeBlocked": true,
+  "rawReport": {
+    "path": ".release/functional-restore/hotfix-legacy-chromium/report.json",
+    "bytes": 1200301,
+    "sha256": "e36a10518286f5b02c99b1afd55d870ebd84f4b00f442280caeba4e5a79c7f23"
+  },
+  "errors": []
+}
