@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-21",
+  "commit": "959817761e6dc19959afca1eb0c1eb327a4b5167",
+  "run": 39663737642,
+  "url": "https://github.com/lamerroma/water-steam-if97/actions/runs/39663737642",
+  "checks": [
+    109,
+    109
+  ],
+  "build": {
+    "version": "1.41.0",
+    "id": "4717efbc3288"
+  },
+  "reportSHA256": "9c1f522a1c8c897a4bccea8301674be9614f68425222ca70c74d3758b2804b16",
+  "scope": "Accepts preceding R16.2a only; current recipe code is separate.",
+  "nativeRegistryJob": "success",
+  "inverseFullJob": "skipped_on_branch"
+}

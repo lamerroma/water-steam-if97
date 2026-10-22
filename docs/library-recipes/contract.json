@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "format": "thermocalc-library-recipe",
+  "version": 1,
+  "maxSteps": 32,
+  "maxInputLength": 100000,
+  "lengthMeasure": "JavaScript UTF-16 code units",
+  "maxRetainedResultLength": 2000000,
+  "execution": "Explicit replay in a fresh isolated Python Worker; sequential commands; unconditional Worker reset on success/failure/cancellation. Import reads text without replay.",
+  "projectField": {
+    "name": "libraryRecipe",
+    "type": "string",
+    "missingDefault": "",
+    "validation": "Bounded input draft; unfinished or invalid JSON text is preserved for editing. No result or object state is restored."
+  },
+  "referenceSchema": {
+    "type": "object",
+    "required": [
+      "$ref"
+    ],
+    "properties": {
+      "$ref": {
+        "type": "string",
+        "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,31}$"
+      },
+      "path": {
+        "type": "array",
+        "maxItems": 8,
+        "items": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            }
+          ]
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "stepSchema": {
+    "type": "object",
+    "required": [
+      "id",
+      "module",
+      "method",
+      "payload"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,31}$"
+      },
+      "module": {
+        "enum": [
+          "ht",
+          "fluids"
+        ]
+      },
+      "method": {
+        "enum": [
+          "call",
+          "get",
+          "release"
+        ]
+      },
+      "payload": {
+        "type": "object"
+      }
+    },
+    "additionalProperties": false
+  },
+  "semanticRules": [
+    "Unique step IDs; references only to earlier steps. Paths traverse own properties, at most 8 components.",
+    "Public target belongs to the declared module; private paths and Python source are not recipe operations.",
+    "Pin exactly used ht/fluids packages, including $function dependencies; match the whole prepared package revision before creating any Worker.",
+    "payload.handle and $object use logical references, never imported live handle strings.",
+    "Other output references transport JSON values; typed output records require explicit compatible input tags. No automatic output-to-input coercion or unit conversion.",
+    "call accepts args/kwargs; get and release do not execute additional Python text. All executed methods still use the existing public library bridge.",
+    "Stop on first failed command. Partial results retain error/cancelled status; no later command runs.",
+    "Results retain engine and consistent Worker implementation revision; object descriptors become summaries without live handles.",
+    "Project input edits, navigation or cancellation discard a pending result. Delayed file import cannot overwrite newer edits.",
+    "The isolated scenario does not invalidate existing raw-library objects.",
+    "Version-pinned commands do not make time-dependent, random or externally dependent functions deterministic. Their dependencies and controls remain per-function review work."
+  ],
+  "modelSource": {
+    "path": "fluids/geometry.py",
+    "sha256": "8af5772ccd13593f0b62bc046c9908e31c64148aa7f9680a05774dcf8c298f64",
+    "package": "fluids",
+    "version": "1.3.1"
+  },
+  "controlledGeometry": {
+    "shape": "Vertical straight circular cylinder, default flat/no shaped heads",
+    "inputs": {
+      "D_m": [
+        1,
+        2
+      ],
+      "L_m": 2,
+      "h_m": 0.5,
+      "set_table_n": 3
+    },
+    "formula": "V(h)=pi*D^2*h/4; V_total=pi*D^2*L/4; inverse h=4*V/(pi*D^2)",
+    "controls": {
+      "totalVolume_m3": "pi*D^2/2",
+      "filledVolume_m3": "pi*D^2/8",
+      "inverseLevel_m": 0.5,
+      "tableAtD1_m3": [
+        0,
+        "pi/4",
+        "pi/2"
+      ]
+    },
+    "tolerance": "1e-10*max(1,abs(reference)) for volume/level; 1e-12 m3 for the three table points. These are integration/arithmetic control tolerances, not physical-model uncertainty."
+  },
+  "reviewedMembers": {
+    "constructor": {
+      "inputs": {
+        "D": "real, m",
+        "L": "real, m",
+        "horizontal": "boolean, false in controls"
+      }
+    },
+    "V_total": {
+      "result": "real, m3"
+    },
+    "V_from_h": {
+      "h": "real, m",
+      "method": "upstream default full",
+      "result": "real, m3"
+    },
+    "h_from_V": {
+      "V": "real, m3",
+      "method": "upstream default spline",
+      "result": "real, m"
+    },
+    "set_table": {
+      "n": "integer 3 in controls",
+      "result": "null",
+      "typeQualification": "Signature annotates n as int while the docstring says float; the controlled case uses int, without a general coercion claim."
+    },
+    "volumes": {
+      "result": "array of real, m3; three values after set_table(n=3)"
+    }
+  },
+  "fullTANKNumericalAcceptance": false,
+  "wholeLibraryNumericalAcceptance": false,
+  "remaining": [
+    "Other TANK geometries, constructor alternatives and class members",
+    "Dynamic classes and other API domain/unit/dependency contracts",
+    "Optional Pint/Numba exports and their feasibility",
+    "Physical mobile/Safari and full per-function numerical acceptance"
+  ]
+}

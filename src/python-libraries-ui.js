@@ -1,8 +1,8 @@
 import {createPythonPackageManager} from './python-package.js';
 
 const pythonLibraries={manager:createPythonPackageManager(PYTHON_PACKAGE,new URL('./',location.href)),runner:createCalculationRunner(()=>new Worker(PYTHON_WORKER_URL,{type:'module'}),180000),module:'ht',catalogs:{},download:null,controller:null,ready:false,serial:0,last:null};
-function cancelPythonLibraries(){pythonLibraries.serial++;pythonLibraries.runner.cancel();}
-window.addEventListener('pagehide',()=>{pythonLibraries.controller?.abort();pythonLibraries.runner.reset();});
+function cancelPythonLibraries(discardRecipe=true){pythonLibraries.serial++;pythonLibraries.runner.cancel();cancelPythonLibraryRecipe(discardRecipe);}
+window.addEventListener('pagehide',()=>{pythonLibraries.controller?.abort();pythonLibraries.runner.reset();cancelPythonLibraryRecipe();});
 function showPythonLibraries(){
  selectView('panel');$('calculator-view').hidden=true;activeSection='libraries';
  for(const tab of document.querySelectorAll('[role=tab]'))tab.setAttribute('aria-selected',String(tab.dataset.action==='libraries'));
@@ -21,19 +21,21 @@ function showPythonLibraries(){
  mountWaterHeos(host);
  const section=$('python-libraries'),connected=()=>section.isConnected&&activeSection==='libraries';
  const text=(id,key,params)=>{if(connected())$(id).textContent=t(key,params);};
- function refresh(){if(!connected())return;const downloading=!!pythonLibraries.download,busy=pythonLibraries.runner.busy;
+ function refresh(){if(!connected())return;const downloading=!!pythonLibraries.download,busy=pythonLibraries.runner.busy||!!pythonLibraries.recipeController;
   $('py-install').textContent=t('install',{size:(PYTHON_PACKAGE.bytes/1e6).toFixed(1)});$('py-install').disabled=downloading||pythonLibraries.ready||busy;
   $('py-download-cancel').hidden=!downloading;$('py-remove').disabled=downloading||busy||!pythonLibraries.ready;
   for(const id of ['py-catalog','py-run','py-target','py-example-ht','py-example-fluids'])$(id).disabled=!pythonLibraries.ready||busy||downloading;
-  $('py-cancel').hidden=!busy;$('py-export').disabled=!pythonLibraries.last;
+  $('py-package').disabled=busy||downloading;
+  $('py-cancel').hidden=!pythonLibraries.runner.busy;$('py-export').disabled=!pythonLibraries.last;pythonLibraries.recipeRefresh?.();
  }
+ pythonLibraries.refreshRecipeHost=refresh;
  pythonLibraries.refresh=()=>{if(connected())readiness();};
  async function readiness(){try{pythonLibraries.ready=(await pythonLibraries.manager.status()).ready;text('py-status',pythonLibraries.ready?'ready':'missing');}catch(error){$('py-error').textContent=error.message;$('py-error').hidden=false;}refresh();}
  function draft(){if(!connected())return;try{localStorage.setItem('thermocalc-library-draft',JSON.stringify({module:$('py-package').value,method:$('py-method').value,request:$('py-request').value}));}catch{}}
  try{const saved=JSON.parse(localStorage.getItem('thermocalc-library-draft')||'null');if(saved&&['ht','fluids'].includes(saved.module)&&typeof saved.request==='string'&&saved.request.length<=100000){pythonLibraries.module=saved.module;$('py-request').value=saved.request;if(['call','get','describe','release'].includes(saved.method))$('py-method').value=saved.method;}}catch{}
  $('py-package').value=pythonLibraries.module;
  async function execute(method,payload){
-  cancelPythonLibraries();const sequence=pythonLibraries.serial;pythonLibraries.last=null;$('py-error').hidden=true;$('py-result').textContent='';
+  cancelPythonLibraries(false);const sequence=pythonLibraries.serial;pythonLibraries.last=null;$('py-error').hidden=true;$('py-result').textContent='';
   const pending=pythonLibraries.runner.run(pythonLibraries.module,method,payload,{onProgress:progress=>text('py-status','starting',{stage:progress.stage})});refresh();
   try{const reply=await pending;if(sequence!==pythonLibraries.serial||!connected())return null;return reply;}
   catch(error){if(error.code==='module-missing')pythonLibraries.ready=false;if(sequence===pythonLibraries.serial&&connected()){$('py-error').textContent=error.code==='cancelled'?t('cancelled'):error.message;$('py-error').hidden=false;if(error.code==='library-error'){pythonLibraries.last={format:'thermocalc-library-result',version:1,module:pythonLibraries.module,method,payload,reply:{status:'error',error:{code:error.code,message:error.message,details:error.details??{}}}};if(error.details?.description)$('py-documentation').textContent=documentation(error.details.description);}}return null;}
@@ -44,8 +46,8 @@ function showPythonLibraries(){
  async function describe(){const target=$('py-target').value;if(!target)return;const reply=await execute('describe',{target});if(reply){$('py-documentation').textContent=documentation(reply.result);}}
  async function catalog(){const reply=await execute('catalog',{});if(reply){pythonLibraries.catalogs[pythonLibraries.module]=reply.result;filter();}}
  $('py-catalog').onclick=catalog;$('py-search').oninput=filter;$('py-target').onchange=async()=>{const target=$('py-target').value,entry=pythonLibraries.catalogs[pythonLibraries.module]?.entries.find(item=>item.path===target);if(entry){$('py-method').value=entry.kind==='data'?'get':'call';$('py-request').value=JSON.stringify({target,kwargs:Object.fromEntries(entry.parameters.filter(p=>p.required).map(p=>[p.name,null]))},null,2);draft();await describe();}};
- $('py-package').onchange=()=>{cancelPythonLibraries();pythonLibraries.module=$('py-package').value;filter();draft();refresh();};
- $('py-cancel').onclick=()=>{cancelPythonLibraries();text('py-status','cancelled');refresh();};
+ $('py-package').onchange=()=>{cancelPythonLibraries(false);pythonLibraries.module=$('py-package').value;filter();draft();refresh();};
+ $('py-cancel').onclick=()=>{cancelPythonLibraries(false);text('py-status','cancelled');refresh();};
  $('py-install').onclick=async()=>{
   pythonLibraries.controller=new AbortController();$('py-error').hidden=true;const progress=$('py-progress');progress.hidden=false;
   pythonLibraries.download=pythonLibraries.manager.install({signal:pythonLibraries.controller.signal,onProgress:value=>{if(connected()){progress.max=value.total;progress.value=value.done;text('py-status','download',{done:value.done,total:value.total});}}});refresh();
@@ -54,13 +56,13 @@ function showPythonLibraries(){
  };
  $('py-download-cancel').onclick=()=>pythonLibraries.controller?.abort();
  $('py-remove').onclick=async()=>{cancelPythonLibraries();pythonLibraries.runner.reset();await pythonLibraries.manager.remove();pythonLibraries.ready=false;pythonLibraries.last=null;await readiness();};
- function example(module){cancelPythonLibraries();pythonLibraries.module=module;$('py-package').value=module;$('py-method').value='call';$('py-request').value=JSON.stringify(module==='ht'?{target:'ht.Nu_conv_internal',kwargs:{Re:100000,Pr:.7}}:{target:'fluids.friction_factor',kwargs:{Re:100000,eD:.0001}},null,2);filter();draft();}
+ function example(module){cancelPythonLibraries(false);pythonLibraries.module=module;$('py-package').value=module;$('py-method').value='call';$('py-request').value=JSON.stringify(module==='ht'?{target:'ht.Nu_conv_internal',kwargs:{Re:100000,Pr:.7}}:{target:'fluids.friction_factor',kwargs:{Re:100000,eD:.0001}},null,2);filter();draft();}
  $('py-example-ht').onclick=()=>example('ht');$('py-example-fluids').onclick=()=>example('fluids');if(!$('py-request').value)example(pythonLibraries.module);
  $('python-library-form').oninput=draft;$('py-method').onchange=draft;
  $('python-library-form').onsubmit=async event=>{event.preventDefault();let payload;try{payload=JSON.parse($('py-request').value);if(!payload||typeof payload!=='object'||Array.isArray(payload))throw Error(t('objectRequired'));}catch(error){$('py-error').textContent=error.message;$('py-error').hidden=false;return;}
   const module=pythonLibraries.module,method=$('py-method').value;draft();const reply=await execute(method,payload);if(reply){pythonLibraries.last={format:'thermocalc-library-result',version:1,module,method,payload,reply};$('py-result').textContent=JSON.stringify(reply,null,2);if(reply.description)$('py-documentation').textContent=documentation(reply.description);refresh();}
  };
  $('py-export').onclick=()=>{if(pythonLibraries.last)downloadFile(JSON.stringify(pythonLibraries.last,null,2),'ht-fluids-result.json','application/json');};
- if(pythonLibraries.catalogs[pythonLibraries.module])filter();readiness();refresh();
+ mountLibraryRecipeUI(host);if(pythonLibraries.catalogs[pythonLibraries.module])filter();readiness();refresh();
 }
 document.addEventListener('languagechange',()=>{const section=$('python-libraries');if(!section)return;for(const node of section.querySelectorAll('[data-i18n]'))node.textContent=uiTranslator.t(node.dataset.i18n);$('py-install').textContent=uiTranslator.t('libraries.install',{size:(PYTHON_PACKAGE.bytes/1e6).toFixed(1)});});

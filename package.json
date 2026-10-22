@@ -88,7 +88,9 @@
     "audit:water-heos": "node scripts/audit-water-heos.mjs",
     "verify:library-registry": "node scripts/check-library-registry.mjs",
     "generate:library-registry": "python scripts/generate-library-registry.py --write",
-    "test:library-registry:browser": "node scripts/check-library-registry-browser.cjs"
+    "test:library-registry:browser": "node scripts/check-library-registry-browser.cjs",
+    "test:library-recipes": "node scripts/check-library-recipes-browser.cjs",
+    "verify:library-recipes": "node scripts/check-library-recipes.mjs"
   },
   "engines": {
     "node": ">=20"

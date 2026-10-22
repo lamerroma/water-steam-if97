@@ -11,6 +11,12 @@ test('invalid imported projects reject before applying',()=>{for(const change of
 test('process CSV includes energy, SI units and ideal outlet',()=>{const csv=processCSV('turbine',turbine(3,673.15,.1,.85,2));assert.ok(csv.includes('isentropic_outlet'));assert.ok(csv.includes('kW'));assert.ok(csv.includes('power;'));});
 test('project names and state labels persist without trusting extra state properties',()=>{const p=base();p.title='Котельня';p.history[0].name='Вхід';p.history[0].T=999;const q=readProject(JSON.stringify(p));assert.equal(q.title,'Котельня');assert.equal(q.states[0].name,'Вхід');assert.ok(Math.abs(q.states[0].T-300)<1e-6);p.history[0].name='x'.repeat(81);assert.throws(()=>readProject(JSON.stringify(p)));});
 test('hints (glossary) flag defaults to on and round-trips explicit off',()=>{assert.equal(readProject(JSON.stringify(base())).hints,true);const p=base();p.hints=false;assert.equal(readProject(JSON.stringify(p)).hints,false);const q=base();q.hints=true;assert.equal(readProject(JSON.stringify(q)).hints,true);});
+test('Project library scenarios preserve only bounded input text and do not execute or trust cached results',()=>{
+ const p=base();p.libraryRecipe='{unfinished recipe';p.libraryRecipeResult={status:'ok',volume:999};
+ const restored=readProject(JSON.stringify(p));assert.equal(restored.libraryRecipe,p.libraryRecipe);assert.equal(Object.hasOwn(restored,'libraryRecipeResult'),false);
+ assert.equal(readProject(JSON.stringify(base())).libraryRecipe,'');
+ for(const value of [{steps:[]},'x'.repeat(100001),false]){p.libraryRecipe=value;assert.throws(()=>readProject(JSON.stringify(p)));}
+});
 
 test('project save and export metadata survive parsing without changing schema compatibility',()=>{const p=base(),m={appVersion:'1.14.0',buildId:'old-build',method:'project / multiple methods',model:'per result'};p.savedWith=m;p.exportedWith={...m,appVersion:'1.16.5'};p.importedFrom=m;const r=readProject(JSON.stringify(p));assert.deepEqual(r.savedWith,m);assert.deepEqual(r.importedFrom,m);assert.equal(r.exportedWith.appVersion,'1.16.5');assert.equal(readProject(JSON.stringify(base())).savedWith,null);p.savedWith={...m,buildId:'x'.repeat(1000)};assert.throws(()=>readProject(JSON.stringify(p)));});
 test('Manual physical branch and typed rounding survive project reload; untrusted root values are checked',()=>{

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-21",
+  "updated": "2026-10-22",
   "status": "execution_started_estimates_provisional",
   "goal": "Спочатку повне функціональне покриття Steam97Web, потім прийняті відкриті модулі у багатофайловій офлайн-PWA.",
   "evidence_labels": {
@@ -644,14 +644,15 @@
         "Є поелементний JSON-реєстр з трасуванням до документації/тестів/UI та окремими статусами.",
         "Визначено обсяг решти R21/R26; невідомі залежності не виключені мовчки; оцінки плану перераховано."
       ],
-      "execution_evidence": "library-registry/acceptance.json",
+      "execution_evidence": "library-recipes/acceptance.json",
       "completed_substages": [
         "R16.1: available recursive public surface, identity deduplication, source hashes, runtime profiles, integrity and browser gates",
-        "R16.2a: datetime wire contract, owner/session-safe handles, error export and six explicit optional blockers"
+        "R16.2a: datetime wire contract, owner/session-safe handles, error export and six explicit optional blockers",
+        "Bounded declarative object scenarios: isolated replay, logical references, project drafts, explicit reconstruction and cold offline TANK controls"
       ],
       "remaining_substages": [
         "R16.2b: complete reviewed unit/type/domain/geometry/dependency contracts and case links",
-        "Native optional-variant inventory, dynamic instance state and reconstruction recipes",
+        "Native optional-variant inventory, remaining dynamic instance state and class-specific reconstruction contracts",
         "Reestimate R21/R26 after classified and measured acceptance workflows"
       ]
     },
@@ -1908,9 +1909,9 @@
     ],
     "latest_local_candidate": {
       "version": "1.41.0",
-      "build": "4717efbc3288",
+      "build": "9df70046fd91",
       "published": false,
-      "evidence": "library-registry/acceptance.json"
+      "evidence": "library-recipes/acceptance.json"
     },
     "first_candidate_CI": {
       "run": 39589852625,
@@ -1942,6 +1943,13 @@
       "passed": 109,
       "total": 109,
       "evidence": "library-registry/evidence/r16-1-ci-summary.json"
+    },
+    "predecessor_candidate_CI": {
+      "commit": "959817761e6dc19959afca1eb0c1eb327a4b5167",
+      "run": 39663737642,
+      "passed": 109,
+      "total": 109,
+      "evidence": "library-recipes/evidence/predecessor-ci-summary.json"
     }
   }
 }

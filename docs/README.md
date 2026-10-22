@@ -25,6 +25,7 @@
 | Установити програму, підготувати офлайн, оновити | [PWA](PWA_UK.md) |
 | Відновити пошкоджений локальний проєкт | [Відновлення проєктів](PROJECT_RECOVERY_UK.md) |
 | Підготувати ht / fluids і викликати Python API | [Бібліотеки](PYTHON_LIBRARIES_UK.md) |
+| Зберегти й відтворити послідовність бібліотечних команд | [Сценарії об’єктів](LIBRARY_RECIPES_UK.md) |
 | Порівняти втрати тиску та потужність із fluids | [Трубопровід](FLUIDS_PIPE_UK.md) |
 
 ## Моделі й межі
@@ -45,6 +46,7 @@
 - [Архітектура PWA](PWA_ARCHITECTURE_UK.md),
   [протокол обчислювальних модулів](CALCULATION_MODULES_UK.md).
 - [R16.1: реєстр ht/fluids, відомі розбіжності та залишок контрактів](library-registry/README_UK.md).
+- [R16: відтворення об’єктів у проєктах, контролі й межі](library-recipes/README_UK.md).
 - [План повного покриття ht / fluids](HT_FLUIDS_INTEGRATION_UK.md).
 - [План відкритих обчислювальних модулів](OPEN_LIBRARY_MODULES_PLAN_UK.md)
   та [пілот води через CoolProp](WATER_HEOS_UK.md).

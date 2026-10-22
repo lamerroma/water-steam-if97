@@ -16,6 +16,7 @@ import {readDisplayDigits} from './ux-display.js';
 import {readPressure,pressureInput} from './pressure.js';
 import {readDiagramWorkspace} from './diagram-workspace.js';
 import {readWorkspace} from './workspace.js';
+import {readLibraryRecipeDraft} from './library-recipe.js';
 export const PROJECT_VERSION=1;
 export function readProject(text){
  if(typeof text!=='string'||text.length>2000000)throw Error('Файл проєкту завеликий (максимум 2 МБ).');
@@ -23,7 +24,7 @@ export function readProject(text){
  if(p?.format!=='water-steam-if97'||p.version!==PROJECT_VERSION)throw Error('Непідтримуваний формат або версія проєкту.');
  if(!Array.isArray(p.history)||p.history.length>500)throw Error('Журнал має містити не більше 500 станів.');
  if(p.process?.model!=null&&!WATER_MODELS.includes(p.process.model))throw Error('Невідома формуляція процесу.');
- const workspace=readWorkspace(p.workspace),pressure=readPressure(p.pressure);
+ const workspace=readWorkspace(p.workspace),pressure=readPressure(p.pressure),libraryRecipe=readLibraryRecipeDraft(p.libraryRecipe);
  const states=p.history.map(q=>{
   if(!q||!Number.isFinite(q.p)||!Number.isFinite(q.h))throw Error('Некоректний стан у журналі.');
   if(q.model!=null&&!WATER_MODELS.includes(q.model))throw Error('Невідома формуляція стану.');
@@ -77,7 +78,7 @@ export function readProject(text){
  const drafts={};for(const type of ['turbine','flash','engineering']){const d=p.drafts?.[type];if(!d)continue;const v={};for(const k of ['p1','t1','p2','eta','flow','power','mode','pressure','temperature','mass','power-unit','pc1','tc1','pc2','coldflow'])if(typeof d[k]==='string'&&d[k].length<80)v[k]=d[k];drafts[type]=v;}
  const ambient=p.ambient||{p:.101325,T:298.15};referenceState(ambient.p,ambient.T);
  if(p.title!=null&&(typeof p.title!=='string'||p.title.length>80))throw Error('Назва проєкту має бути до 80 символів.');
- return {uiUnits:readUIUnits(p.uiUnits||(p.system==='english'?{temperature:'F',pressure:'psi',mass:'lbs',power:'Btuh',length:'ft',energy:'Btulb'}:null)),uiInputDefaults:p.uiInputDefaults===true,savedWith:readExportMetadata(p.savedWith),importedFrom:readExportMetadata(p.importedFrom),exportedWith:readExportMetadata(p.exportedWith),research:readResearch(p.research),study:readStudyReport(p.study),digits:readDisplayDigits(p.digits),diagram:readDiagramWorkspace(p.diagram,states),pressure,title:p.title||'Вода та пара',system:p.system==='english'?'english':'si',ambient,states,process,form:f,drafts,workspace,result,energy:p.energy==='J'?'J':'kJ',gray:p.gray===true,scale:['1','1.15','1.3'].includes(p.scale)?p.scale:'1',hints:p.hints!==false};
+ return {libraryRecipe,uiUnits:readUIUnits(p.uiUnits||(p.system==='english'?{temperature:'F',pressure:'psi',mass:'lbs',power:'Btuh',length:'ft',energy:'Btulb'}:null)),uiInputDefaults:p.uiInputDefaults===true,savedWith:readExportMetadata(p.savedWith),importedFrom:readExportMetadata(p.importedFrom),exportedWith:readExportMetadata(p.exportedWith),research:readResearch(p.research),study:readStudyReport(p.study),digits:readDisplayDigits(p.digits),diagram:readDiagramWorkspace(p.diagram,states),pressure,title:p.title||'Вода та пара',system:p.system==='english'?'english':'si',ambient,states,process,form:f,drafts,workspace,result,energy:p.energy==='J'?'J':'kJ',gray:p.gray===true,scale:['1','1.15','1.3'].includes(p.scale)?p.scale:'1',hints:p.hints!==false};
 }
 export function processExportRows(type,r,system='si'){
  const convert=(k,v,u='')=>system==='english'?englishProperty(k,v,u):[v,u];

@@ -154,9 +154,10 @@
         "geometryDependencies": "See source-module import inventory; transitive requirements unreviewed."
       },
       "notes": [
-        "Handles are ephemeral references, not project serialization. Restart invalidates the object store; recipes for reconstructing objects remain R16/R26 work."
+        "Handles are ephemeral references, not project serialization. Bounded command replay is implemented separately in docs/library-recipes/contract.json; its cylinder/mutating-table subset does not grant full TANK numerical acceptance."
       ],
-      "numericalAcceptance": "not_granted"
+      "numericalAcceptance": "not_granted",
+      "reconstructionContract": "docs/library-recipes/contract.json"
     },
     {
       "id": "fluids@1.3.1:fluids.atmosphere.solar_position",

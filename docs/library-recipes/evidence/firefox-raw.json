@@ -1,0 +1,202 @@
+{
+  "browser": "firefox",
+  "status": "passed",
+  "checks": [
+    "Cold runtime cancellation terminates Worker and permits retry",
+    "Optional package is separate; all resources prepared with complete marker",
+    "Catalog discovery with responsive UI and explicit unavailable extras",
+    "Pinned ht / fluids calls and JSON export",
+    "Recursive public target calculates; the 1x1 upstream shape discrepancy stays explicit in result warnings and documentation",
+    "Class construction, owner-checked release and public property handles",
+    "Isolated scenario reconstructs another object without invalidating an existing raw-library handle",
+    "Typed date/time offsets preserve instants; naive time is explicit; known upstream timezone failure and original input export together",
+    "NumPy array arguments and JSON array results",
+    "Server disconnected, profile restarted: Python, both libraries and the recursive public target initialize from cache and calculate",
+    "New offline Worker rejects the previous session handle even after constructing another first object; typed datetime also calculates offline",
+    "Evicted optional cache is detected without deleting project data",
+    "Missing package can be downloaded again",
+    "Corrupt optional resource rejects installation, deletes partial cache and permits retry"
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "build": "9df70046fd91",
+  "package": {
+    "revision": "71ea1664738eb516",
+    "bytes": 31973269,
+    "files": 14,
+    "packages": {
+      "numpy": {
+        "version": "2.4.6",
+        "file": "pyodide/numpy-2.4.6-cp314-cp314-pyemscripten_2026_0_wasm32.whl"
+      },
+      "scipy": {
+        "version": "1.18.0",
+        "file": "pyodide/scipy-1.18.0-cp314-cp314-pyemscripten_2026_0_wasm32.whl"
+      },
+      "ht": {
+        "version": "1.2.0",
+        "file": "wheels/ht-1.2.0-py3-none-any.whl"
+      },
+      "fluids": {
+        "version": "1.3.1",
+        "file": "wheels/fluids-1.3.1-py3-none-any.whl"
+      }
+    }
+  },
+  "catalog": {
+    "count": 858,
+    "unavailable": "ht.numba: ModuleNotFoundError: No module named 'numba'\nht.numba_vectorized: ModuleNotFoundError: No module named 'numba'\nht.units: ImportError: The unit handling in fluids requires the installation of the package pint, available on pypi or from https://github.com/hgrecco/pint"
+  },
+  "ht": 183.71057902604906,
+  "fluids": 0.01851386607747165,
+  "recursiveDeterminant": -2,
+  "fluidsCatalog": {
+    "count": 2636,
+    "unavailable": "fluids.numba: ModuleNotFoundError: No module named 'numba'\nfluids.numba_vectorized: ModuleNotFoundError: No module named 'numba'\nfluids.units: ImportError: The unit handling in fluids requires the installation of the package pint, available on pypi or from https://github.com/hgrecco/pint"
+  },
+  "recipeIsolation": {
+    "status": "ok",
+    "originalObjectStillReadable": true
+  },
+  "datetime": {
+    "solarPosition": [
+      [
+        144.7018102139699,
+        144.7018102139699,
+        -54.70181021396991,
+        -54.70181021396991,
+        50.91850123175567,
+        -199.58825414250896
+      ],
+      [
+        144.7018102139699,
+        144.7018102139699,
+        -54.70181021396991,
+        -54.70181021396991,
+        50.91850123175567,
+        -199.58825414250896
+      ]
+    ],
+    "scope": "Native/Pyodide transport controls, not independent physical validation.",
+    "errorExport": {
+      "format": "thermocalc-library-result",
+      "version": 1,
+      "module": "fluids",
+      "method": "call",
+      "payload": {
+        "target": "fluids.atmosphere.sunrise_sunset",
+        "args": [
+          {
+            "$datetime": "2018-01-01T00:00:00Z"
+          },
+          50,
+          30
+        ]
+      },
+      "reply": {
+        "status": "error",
+        "error": {
+          "code": "library-error",
+          "message": "ValueError: fromutc: dt.tzinfo is not self",
+          "details": {
+            "engineVersion": "1.3.1",
+            "implementationRevision": "7c3f0d10e1c2e02667842964767a11e942cdfa1af0439e1081099970b2ef157f",
+            "description": {
+              "path": "fluids.atmosphere.sunrise_sunset",
+              "kind": "function",
+              "signature": "(moment: 'datetime.datetime', latitude: 'float', longitude: 'float') -> 'tuple[datetime.datetime, datetime.datetime, datetime.datetime]'",
+              "parameters": [
+                {
+                  "name": "moment",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "required": true,
+                  "default": null
+                },
+                {
+                  "name": "latitude",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "required": true,
+                  "default": null
+                },
+                {
+                  "name": "longitude",
+                  "kind": "POSITIONAL_OR_KEYWORD",
+                  "required": true,
+                  "default": null
+                }
+              ],
+              "summary": "Calculates the times at which the sun is at sunset; sunrise; and\nhalfway between sunrise and sunset (transit).",
+              "documentation": "Calculates the times at which the sun is at sunset; sunrise; and\nhalfway between sunrise and sunset (transit).\n\nUses the Reda and Andreas (2004) model described in [1]_,\noriginally incorporated into the excellent\n`pvlib library <https://github.com/pvlib/pvlib-python>`_\n\nParameters\n----------\nmoment : datetime\n    Date for the calculation; needs to contain only the year, month, and\n    day; if it is timezone-aware, the return values will be localized to\n    this timezone [-]\nlatitude : float\n    Latitude, between -90 and 90 [degrees]\nlongitude : float\n    Longitude, between -180 and 180, [degrees]\n\nReturns\n-------\nsunrise : datetime\n    The time at the specified day when the sun rises **IN UTC IF MOMENT\n    DOES NOT HAVE A TIMEZONE, OTHERWISE THE TIMEZONE GIVEN WITH IT**, [-]\nsunset : datetime\n    The time at the specified day when the sun sets **IN UTC IF MOMENT\n    DOES NOT HAVE A TIMEZONE, OTHERWISE THE TIMEZONE GIVEN WITH IT**, [-]\ntransit : datetime\n    The time at the specified day when the sun is at solar noon - halfway\n    between sunrise and sunset **IN UTC IF MOMENT\n    DOES NOT HAVE A TIMEZONE, OTHERWISE THE TIMEZONE GIVEN WITH IT**, [-]\n\nExamples\n--------\n>>> sunrise, sunset, transit = sunrise_sunset(datetime.datetime(2018, 4, 17),\n... 51.0486, -114.07)\n>>> sunrise\ndatetime.datetime(2018, 4, 17, 12, 36, 55, 782660)\n>>> sunset\ndatetime.datetime(2018, 4, 18, 2, 34, 4, 249326)\n>>> transit\ndatetime.datetime(2018, 4, 17, 19, 35, 46, 686265)\n\nExample with time zone:\n\n>>> import pytz\n>>> sunrise_sunset(pytz.timezone('America/Edmonton').localize(datetime.datetime(2018, 4, 17)), 51.0486, -114.07)\n(datetime.datetime(2018, 4, 16, 6, 39, 1, 570479, tzinfo=<DstTzInfo 'America/Edmonton' MDT-1 day, 18:00:00 DST>), datetime.datetime(2018, 4, 16, 20, 32, 25, 778162, tzinfo=<DstTzInfo 'America/Edmonton' MDT-1 day, 18:00:00 DST>), datetime.datetime(2018, 4, 16, 13, 36, 0, 386341, tzinfo=<DstTzInfo 'America/Edmonton' MDT-1 day, 18:00:00 DST>))\n\nNote that the year/month/day as input with a timezone, is converted to UTC\ntime as well.\n\n\nNotes\n-----\nThis functions takes on the order of 2 ms per calculation.\n\nReferences\n----------\n.. [1] Reda, Ibrahim, and Afshin Andreas. \"Solar Position Algorithm for\n   Solar Radiation Applications.\" Solar Energy 76, no. 5 (January 1, 2004):\n   577-89. https://doi.org/10.1016/j.solener.2003.12.003.",
+              "documentedUnits": {
+                "Parameters": [
+                  {
+                    "name": "moment",
+                    "unit": "1"
+                  },
+                  {
+                    "name": "latitude",
+                    "unit": "degrees"
+                  },
+                  {
+                    "name": "longitude",
+                    "unit": "degrees"
+                  }
+                ],
+                "Returns": [
+                  {
+                    "name": "sunrise",
+                    "unit": "1"
+                  },
+                  {
+                    "name": "sunset",
+                    "unit": "1"
+                  },
+                  {
+                    "name": "transit",
+                    "unit": "1"
+                  }
+                ]
+              },
+              "unitSource": "Unmodified upstream docstring; not an independently verified unit schema.",
+              "knownIssues": [
+                {
+                  "code": "fluids-sunrise-fixed-offset",
+                  "scope": "Timezone-aware datetime with Python datetime.timezone, including UTC.",
+                  "message": "fluids 1.3.1 sunrise_sunset raises ValueError: fromutc: dt.tzinfo is not self for fixed-offset aware datetime. An explicitly naive datetime follows a separate upstream UTC convention; it is not substituted automatically."
+                }
+              ]
+            }
+          }
+        }
+      },
+      "exportedWith": {
+        "appVersion": "1.41.0",
+        "buildId": "9df70046fd91",
+        "method": "fluids",
+        "model": "IF97"
+      }
+    },
+    "explicitNaiveSunrise": [
+      {
+        "kind": "datetime",
+        "iso8601": "2018-01-01T05:58:31.126520",
+        "timezone": "naive"
+      },
+      {
+        "kind": "datetime",
+        "iso8601": "2018-01-01T14:08:42.993191",
+        "timezone": "naive"
+      },
+      {
+        "kind": "datetime",
+        "iso8601": "2018-01-01T10:03:31.625967",
+        "timezone": "naive"
+      }
+    ]
+  },
+  "objectSessions": {
+    "before": "object-d57412bfdd624a3698ae0d4d17607447-1",
+    "after": "object-78dc574eb6ef446eb83aa9b53f3f6563-1",
+    "staleError": "KeyError: 'Object handle is stale; construct it again after cancellation or restart.'"
+  }
+}

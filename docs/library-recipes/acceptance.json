@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "status": "local_replay_project_offline_accepted",
+  "date": "2026-10-22",
+  "version": "1.41.0",
+  "build": "9df70046fd91",
+  "baseCommit": "959817761e6dc19959afca1eb0c1eb327a4b5167",
+  "published": false,
+  "contractSHA256": "a61e7fdb06223d2384d6c267c27fb939e20b761559ff22aac4cf962bca1add6d",
+  "exampleSHA256": "ba5e4c70b1fb261863251c6f9f81c82cacbc68aaed312e95dd909a1baedccc0f",
+  "sources": {
+    "src/library-recipe.js": "4899b61e29bf2198f9a1f098f5f215e0f0b8293c6937bf008346709a928c17a7",
+    "src/library-recipe-runner.js": "a3e0950e93febe50a660a7a816fc1c1a7e277f1e45f8d0dac1afd29798b25050",
+    "src/python-library-recipes-ui.js": "4418d002a4cd63cdf4137a9d8abfbe134bdda893a87f756b94c62b53fe9c6269",
+    "src/python-libraries-ui.js": "73e6417ee380eb9130f8a88589995e090eadf1e990e24b6cc2572c4f468ce410",
+    "src/project.js": "697e34b0e994ad08060dba6d4277b48c41cc66e75309bc2229729d5ad07684ef",
+    "src/styles.css": "969ded1b6756eadb20f307be122b7c11b6e45903337fac871e2526056903e458"
+  },
+  "evidence": {
+    "build-package-summary.json": {
+      "bytes": 326,
+      "sha256": "c517177fa75f9bf2d477304a293b7f3b34acba69520491294d155ba7d3e2aaf0"
+    },
+    "chromium-offline.png": {
+      "bytes": 215446,
+      "sha256": "7fe2e269ad798eb0b83070bb701e7d37cdc89a083ffcd200c6ef9aac3e8c2272"
+    },
+    "chromium-project.png": {
+      "bytes": 195431,
+      "sha256": "af6dddae4569a3fa13fc9fc15cd968ca1e996e100c93de7dc04767164a4fa96f"
+    },
+    "chromium-raw.json": {
+      "bytes": 9874,
+      "sha256": "ea31416dc9d2b882cb85a815134c73c3034954b5928a22428e4b1d11a9d5d9b0"
+    },
+    "chromium.json": {
+      "bytes": 12948,
+      "sha256": "ea82bdcdaecfb45e32f96d66995921ed0fcb00d098c5a8beccaf55fe840e394f"
+    },
+    "firefox-offline.png": {
+      "bytes": 191265,
+      "sha256": "c529082ce60feafe5029c788832ce2ecd7042c03c71f5f202e43c82d9146e976"
+    },
+    "firefox-project.png": {
+      "bytes": 175024,
+      "sha256": "ba30c12831e37eb262172d7d5d15083bbe80808ba7bd034ec1152542b81c408f"
+    },
+    "firefox-raw.json": {
+      "bytes": 9873,
+      "sha256": "3bf8810405d02bf1628eefc212d159296dfc8ebcf35600b82bbf2598b445c5c7"
+    },
+    "firefox.json": {
+      "bytes": 12939,
+      "sha256": "49aef0b2f6155842d678d3ceac3cab1a6f3fd5c4b13df68b7983b3a95facb2c6"
+    },
+    "predecessor-ci-report.json": {
+      "bytes": 23743,
+      "sha256": "9c1f522a1c8c897a4bccea8301674be9614f68425222ca70c74d3758b2804b16"
+    },
+    "predecessor-ci-summary.json": {
+      "bytes": 531,
+      "sha256": "1af380f1a34efe2e8f67e01843e6201faec73f7cad9ce60e32b5d73b0280d431"
+    },
+    "unit-summary.json": {
+      "bytes": 742,
+      "sha256": "2f3cea78909cd1c0d3a2bef355fc4d294ac7899b0308d37ca2d5152b9272e473"
+    }
+  },
+  "checks": {
+    "recipeBrowserGroupsPerBrowser": 15,
+    "independentCylinderScalarsPerBrowser": 12,
+    "mutatingTablePointsPerBrowser": 3,
+    "rawBrowserGroupsPerBrowser": 14,
+    "rawFirefoxStatus": "passed",
+    "unitStatus": "passed",
+    "unitTestsPerNode": 1827,
+    "nodeMajors": [
+      22,
+      24
+    ]
+  },
+  "scope": "Explicit bounded command replay and project/offline integration. No live Python object state is serialized; TANK controls cover only the named cylinder and table subset.",
+  "fullR16Acceptance": false,
+  "fullTANKNumericalAcceptance": false,
+  "wholeLibraryNumericalAcceptance": false,
+  "steam97OriginalNumericalCases": 0,
+  "steam97P03P04Parity": "unconfirmed",
+  "remaining": [
+    "Complete reviewed domain, units, type, geometry and dependency contracts",
+    "Other class/state/serialization cases and optional Pint/Numba inventory",
+    "Independent numerical acceptance for remaining ht/fluids methods",
+    "Measured reestimate of R21/R26 and subject forms R17/R22"
+  ],
+  "newCommitCI": "not_started_at_local_evidence_capture"
+}

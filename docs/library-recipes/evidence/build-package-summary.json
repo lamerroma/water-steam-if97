@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "build": "9df70046fd91",
+  "buildNode24Node22Identical": true,
+  "filesCompared": 24,
+  "packageRepeatedIdentical": true,
+  "packageSHA256": "7566b5bd987102e4ab29687437d9499e6315ca33f46e87c801a5427577f18093",
+  "packageBytes": 30712848,
+  "independentZipReader": "scripts/verify-package.py passed"
+}

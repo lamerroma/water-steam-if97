@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "runs": [
+    {
+      "nodeMajor": 22,
+      "tests": 1827,
+      "passed": 1827,
+      "failed": 0,
+      "skipped": 0,
+      "rawLog": ".release/development-r16-3/unit-node22.log",
+      "bytes": 342692,
+      "sha256": "1e70ac21b684e5a81a01a23d9288c4f339b0b50b2ebcaccb903360334e973ab4"
+    },
+    {
+      "nodeMajor": 24,
+      "tests": 1827,
+      "passed": 1827,
+      "failed": 0,
+      "skipped": 0,
+      "rawLog": ".release/development-r16-3/unit-node24.log",
+      "bytes": 132109,
+      "sha256": "a86aa28ddb1904edf26323cd1f33acc94523cf5f6cb6f5558162e5234e20eefa"
+    }
+  ],
+  "scope": "All JS unit tests on the unchanged unit-test modules; final subsequent change only widens the scenario editor CSS."
+}
