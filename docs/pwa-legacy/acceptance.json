@@ -52,7 +52,7 @@
     "tests/legacy-project.test.mjs": "6d747c5ba48a4dc1a8ab47c65c87e693f157bfda612e289216d27a665f2c5dbf",
     "tests/fixtures/legacy-project-1.35.12.json": "ed821caf853541a502ae9304e5933dc4fb8f73b04c821b7e376a1df0517b6d68",
     "scripts/check-legacy-parity-browser.cjs": "24224c89166236f79985b51c83e890c165a574d5d7c1e07f2a57c7361fb9aa3c",
-    "scripts/check-legacy-project-browser.cjs": "911f89e5f94f3b79e5a02a43fc8df2fb1d233ab7bf75d4f0d2932b660096badc",
+    "scripts/check-legacy-project-browser.cjs": "5b8a363742e626485a4c323516acffd3b2455f6654ceac7a739f2a255c809af0",
     "scripts/check-diagram-navigation-browser.cjs": "cf9b870ecce28a7912bd651cf3876e0e6e96b03472972e225b72a9a7ab83b958"
   },
   "evidence": {
