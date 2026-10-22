@@ -1,0 +1,599 @@
+{
+  "date": "2026-10-22T11:36:37.283Z",
+  "browser": "firefox",
+  "status": "passed",
+  "oldBuild": {
+    "version": "1.40.0",
+    "id": "20fd3cb17a71"
+  },
+  "newBuild": {
+    "version": "1.40.1",
+    "id": "5b5173c2a5cf"
+  },
+  "checks": [
+    "Published-build baseline installed; typed-unit project, language and optional Python package prepared",
+    "Real release update preserves project title, IF97 inputs, canonical history and English",
+    "Legacy batch project survives the real update and recalculates ten rows",
+    "Prepared optional package survives the core release update",
+    "Updated core supplies the new HEOS Worker and gives the independent Water control",
+    "Closed-profile restart with disconnected server restores HEOS and calls cached ht.LMTD offline"
+  ],
+  "errors": [],
+  "scope": "Actual old/new release files on local subpath, persistent disposable profile, prepared optional Python package, same origin. No live-site/deployment claim.",
+  "profile": "C:\\Users\\coyotl\\AppData\\Local\\Temp\\upgrade-batch-cxYUlk",
+  "browserVersion": "153.0",
+  "before": {
+    "project": {
+      "savedWith": {
+        "appVersion": "1.40.0",
+        "buildId": "20fd3cb17a71",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "research": {
+        "variants": [],
+        "sweep": null
+      },
+      "study": {
+        "author": "",
+        "assignment": "",
+        "intro": "",
+        "entries": []
+      },
+      "format": "water-steam-if97",
+      "version": 1,
+      "uiUnits": {
+        "temperature": "C",
+        "pressure": "MPa",
+        "mass": "kgs",
+        "power": "kW",
+        "length": "m",
+        "energy": "kJkg",
+        "dynamicViscosity": "auto",
+        "kinematicViscosity": "auto",
+        "surfaceTension": "auto"
+      },
+      "uiInputDefaults": false,
+      "digits": 8,
+      "diagram": {
+        "tools": {
+          "crosshair": true,
+          "regions": true,
+          "isotherms": false,
+          "qualities": false,
+          "temperatureUnit": "C",
+          "temperatures": [
+            373.15,
+            473.15,
+            573.15,
+            673.15
+          ],
+          "dryness": [
+            0.1,
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ]
+        },
+        "views": {},
+        "connectHistory": false,
+        "numbers": true,
+        "order": [
+          0
+        ],
+        "excluded": [],
+        "pointSets": {},
+        "series": [],
+        "drawingStyle": {
+          "radius": 6,
+          "pointColor": "phase",
+          "width": 2.3,
+          "lineColor": "#8b4599"
+        }
+      },
+      "pressure": {
+        "basis": "absolute",
+        "atmosphere": 0.101325
+      },
+      "title": "Upgrade 1.39 project",
+      "history": [
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        }
+      ],
+      "workspace": {
+        "active": "general",
+        "panels": {
+          "batch": {
+            "inputs": {
+              "batch-mode": "pt",
+              "batch-vary": "b",
+              "batch-start": "30",
+              "batch-ub": "C",
+              "batch-end": "300",
+              "batch-count": "10",
+              "batch-fixed": "3",
+              "batch-ua": "MPa",
+              "batch-text": "mode,a,b,unit_a,unit_b,name\npt,3,300,MPa,K,Рідина\npx,0.1,0.5,MPa,fraction,Суміш",
+              "batch-spreadsheet-format": "xlsx"
+            },
+            "calculated": true,
+            "model": "IF97",
+            "source": "range"
+          }
+        }
+      },
+      "process": null,
+      "form": {
+        "calculated": true,
+        "roundingDisplay": false,
+        "inputStyle": "advanced",
+        "inputOrder": "canonical",
+        "model": "IF97",
+        "mode": "pt",
+        "a": "10",
+        "b": "226.85",
+        "ua": "bar",
+        "ub": "C"
+      },
+      "drafts": {},
+      "ambient": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "system": "si",
+      "energy": "kJ",
+      "gray": false,
+      "scale": "1",
+      "hints": true
+    },
+    "language": "en",
+    "version": "1.40.0",
+    "build": "20fd3cb17a71"
+  },
+  "after": {
+    "project": {
+      "savedWith": {
+        "appVersion": "1.40.0",
+        "buildId": "20fd3cb17a71",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "research": {
+        "variants": [],
+        "sweep": null
+      },
+      "study": {
+        "author": "",
+        "assignment": "",
+        "intro": "",
+        "entries": []
+      },
+      "format": "water-steam-if97",
+      "version": 1,
+      "uiUnits": {
+        "temperature": "C",
+        "pressure": "MPa",
+        "mass": "kgs",
+        "power": "kW",
+        "length": "m",
+        "energy": "kJkg",
+        "dynamicViscosity": "auto",
+        "kinematicViscosity": "auto",
+        "surfaceTension": "auto"
+      },
+      "uiInputDefaults": false,
+      "digits": 8,
+      "diagram": {
+        "tools": {
+          "crosshair": true,
+          "regions": true,
+          "isotherms": false,
+          "qualities": false,
+          "temperatureUnit": "C",
+          "temperatures": [
+            373.15,
+            473.15,
+            573.15,
+            673.15
+          ],
+          "dryness": [
+            0.1,
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ]
+        },
+        "views": {},
+        "connectHistory": false,
+        "numbers": true,
+        "order": [
+          0
+        ],
+        "excluded": [],
+        "pointSets": {},
+        "series": [],
+        "drawingStyle": {
+          "radius": 6,
+          "pointColor": "phase",
+          "width": 2.3,
+          "lineColor": "#8b4599"
+        }
+      },
+      "pressure": {
+        "basis": "absolute",
+        "atmosphere": 0.101325
+      },
+      "title": "Upgrade 1.39 project",
+      "history": [
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        }
+      ],
+      "workspace": {
+        "active": "general",
+        "panels": {
+          "batch": {
+            "inputs": {
+              "batch-mode": "pt",
+              "batch-vary": "b",
+              "batch-start": "30",
+              "batch-ub": "C",
+              "batch-end": "300",
+              "batch-count": "10",
+              "batch-fixed": "3",
+              "batch-ua": "MPa",
+              "batch-text": "mode,a,b,unit_a,unit_b,name\npt,3,300,MPa,K,Рідина\npx,0.1,0.5,MPa,fraction,Суміш",
+              "batch-spreadsheet-format": "xlsx"
+            },
+            "calculated": true,
+            "model": "IF97",
+            "source": "range"
+          }
+        }
+      },
+      "process": null,
+      "form": {
+        "calculated": true,
+        "roundingDisplay": false,
+        "inputStyle": "advanced",
+        "inputOrder": "canonical",
+        "model": "IF97",
+        "mode": "pt",
+        "a": "10",
+        "b": "226.85",
+        "ua": "bar",
+        "ub": "C"
+      },
+      "drafts": {},
+      "ambient": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "system": "si",
+      "energy": "kJ",
+      "gray": false,
+      "scale": "1",
+      "hints": true
+    },
+    "language": "en",
+    "version": "1.40.1",
+    "build": "5b5173c2a5cf"
+  },
+  "batchAfter": {
+    "project": {
+      "savedWith": {
+        "appVersion": "1.40.1",
+        "buildId": "5b5173c2a5cf",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "importedFrom": {
+        "appVersion": "1.40.0",
+        "buildId": "20fd3cb17a71",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "research": {
+        "variants": [],
+        "sweep": null
+      },
+      "study": {
+        "author": "",
+        "assignment": "",
+        "intro": "",
+        "entries": []
+      },
+      "format": "water-steam-if97",
+      "version": 1,
+      "uiUnits": {
+        "temperature": "C",
+        "pressure": "MPa",
+        "mass": "kgs",
+        "power": "kW",
+        "length": "m",
+        "energy": "kJkg",
+        "dynamicViscosity": "auto",
+        "kinematicViscosity": "auto",
+        "surfaceTension": "auto"
+      },
+      "uiInputDefaults": false,
+      "digits": 8,
+      "diagram": {
+        "tools": {
+          "crosshair": true,
+          "regions": true,
+          "isotherms": false,
+          "qualities": false,
+          "temperatureUnit": "C",
+          "temperatures": [
+            373.15,
+            473.15,
+            573.15,
+            673.15
+          ],
+          "dryness": [
+            0.1,
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ]
+        },
+        "views": {},
+        "connectHistory": false,
+        "numbers": true,
+        "order": [
+          0
+        ],
+        "excluded": [],
+        "pointSets": {},
+        "series": [],
+        "drawingStyle": {
+          "radius": 6,
+          "pointColor": "phase",
+          "width": 2.3,
+          "lineColor": "#8b4599"
+        }
+      },
+      "pressure": {
+        "basis": "absolute",
+        "atmosphere": 0.101325
+      },
+      "title": "Upgrade 1.39 project",
+      "history": [
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        }
+      ],
+      "workspace": {
+        "active": "batch",
+        "panels": {
+          "batch": {
+            "inputs": {
+              "batch-mode": "pt",
+              "batch-vary": "b",
+              "batch-start": "30",
+              "batch-ub": "C",
+              "batch-end": "300",
+              "batch-count": "10",
+              "batch-fixed": "3",
+              "batch-ua": "MPa",
+              "batch-text": "mode,a,b,unit_a,unit_b,name\npt,3,300,MPa,K,Рідина\npx,0.1,0.5,MPa,fraction,Суміш"
+            },
+            "calculated": true,
+            "model": "IF97",
+            "source": "range"
+          }
+        }
+      },
+      "process": null,
+      "form": {
+        "calculated": true,
+        "roundingDisplay": false,
+        "inputStyle": "advanced",
+        "inputOrder": "canonical",
+        "model": "IF97",
+        "mode": "pt",
+        "a": "10",
+        "b": "226.85",
+        "ua": "bar",
+        "ub": "C"
+      },
+      "drafts": {},
+      "ambient": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "system": "si",
+      "energy": "kJ",
+      "gray": false,
+      "scale": "1",
+      "hints": true
+    },
+    "language": "en",
+    "version": "1.40.1",
+    "build": "5b5173c2a5cf"
+  },
+  "offline": {
+    "project": {
+      "savedWith": {
+        "appVersion": "1.40.1",
+        "buildId": "5b5173c2a5cf",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "importedFrom": {
+        "appVersion": "1.40.0",
+        "buildId": "20fd3cb17a71",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "research": {
+        "variants": [],
+        "sweep": null
+      },
+      "study": {
+        "author": "",
+        "assignment": "",
+        "intro": "",
+        "entries": []
+      },
+      "format": "water-steam-if97",
+      "version": 1,
+      "uiUnits": {
+        "temperature": "C",
+        "pressure": "MPa",
+        "mass": "kgs",
+        "power": "kW",
+        "length": "m",
+        "energy": "kJkg",
+        "dynamicViscosity": "auto",
+        "kinematicViscosity": "auto",
+        "surfaceTension": "auto"
+      },
+      "uiInputDefaults": false,
+      "digits": 8,
+      "diagram": {
+        "tools": {
+          "crosshair": true,
+          "regions": true,
+          "isotherms": false,
+          "qualities": false,
+          "temperatureUnit": "C",
+          "temperatures": [
+            373.15,
+            473.15,
+            573.15,
+            673.15
+          ],
+          "dryness": [
+            0.1,
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ]
+        },
+        "views": {},
+        "connectHistory": false,
+        "numbers": true,
+        "order": [
+          1,
+          0
+        ],
+        "excluded": [],
+        "pointSets": {},
+        "series": [],
+        "drawingStyle": {
+          "radius": 6,
+          "pointColor": "phase",
+          "width": 2.3,
+          "lineColor": "#8b4599"
+        }
+      },
+      "pressure": {
+        "basis": "absolute",
+        "atmosphere": 0.101325
+      },
+      "title": "Upgrade 1.39 project",
+      "history": [
+        {
+          "p": 1,
+          "h": 2891.218298958905,
+          "model": "HEOS::Water",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        }
+      ],
+      "workspace": {
+        "active": "general",
+        "panels": {
+          "batch": {
+            "inputs": {
+              "batch-mode": "pt",
+              "batch-vary": "b",
+              "batch-start": "30",
+              "batch-ub": "C",
+              "batch-end": "300",
+              "batch-count": "10",
+              "batch-fixed": "3",
+              "batch-ua": "MPa",
+              "batch-text": "mode,a,b,unit_a,unit_b,name\npt,3,300,MPa,K,Рідина\npx,0.1,0.5,MPa,fraction,Суміш"
+            },
+            "calculated": true,
+            "model": "IF97",
+            "source": "range"
+          }
+        }
+      },
+      "process": null,
+      "form": {
+        "calculated": true,
+        "roundingDisplay": false,
+        "inputStyle": "advanced",
+        "inputOrder": "canonical",
+        "model": "HEOS::Water",
+        "mode": "pt",
+        "a": "10",
+        "b": "226.85",
+        "ua": "bar",
+        "ub": "C"
+      },
+      "drafts": {},
+      "ambient": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "system": "si",
+      "energy": "kJ",
+      "gray": false,
+      "scale": "1",
+      "hints": true
+    },
+    "language": "en",
+    "version": "1.40.1",
+    "build": "5b5173c2a5cf"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "status": "not_reproduced_in_isolated_full_recheck_cause_unknown",
+  "browser": "Firefox 153.0 / local Playwright 1.62.1",
+  "build": "20fd3cb17a71",
+  "error": "page.waitForFunction: Target crashed \n    at prepare (C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\scripts\\check-steam97-p08-browser.cjs:14:508)\n    at async C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\scripts\\check-steam97-p08-browser.cjs:51:44",
+  "groupsCompleted": [
+    "State, all three water models and four formats",
+    "History, saturation invalidation, turbine, flash and diagram",
+    "English and 320/390px layout",
+    "PWA offline, all three water models and four formats"
+  ],
+  "files": 48,
+  "pageerrors": [],
+  "rawReportSHA256": "2fddb6b173e0676e035e1f82186e8dbcb7e03350d4326e78c92f0d66ecd99905",
+  "scope": "Target crashed is observed; cause and any link to resource pressure, product code or automation/browser runtime are not established. Same exported scenario had previously reached all 60 downloads before a reader encoding error; CI and separate live HEOS/upgrade scenarios passed.",
+  "memoryObservationAfterFailedProcessExit": {
+    "totalVisibleKiB": 8388076,
+    "freePhysicalKiB": 3367492,
+    "qualification": "Observed after the failed attempt, not a peak/in-crash measurement; no cause inferred."
+  },
+  "isolatedRecheck": {
+    "status": "passed",
+    "files": 60,
+    "checks": 160,
+    "path": "live-p08-utf8/firefox-isolated/report.json",
+    "sha256": "aa332430a61b97c1f52f973a809b57e2eec263efa9484db931aaf9be760561cb"
+  }
+}

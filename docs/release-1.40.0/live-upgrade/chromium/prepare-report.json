@@ -1,0 +1,137 @@
+{
+  "phase": "prepare",
+  "browser": "chromium",
+  "url": "https://lamerroma.github.io/water-steam-if97/",
+  "status": "passed",
+  "checks": [
+    "Actual public 1.39.0 installed, IF97/bar/C project and English saved, optional Python package prepared"
+  ],
+  "errors": [],
+  "scope": "Real GitHub Pages origin, persistent disposable profile, old installed 1.39.0 -> deployed 1.40.0, prepared Python package and cold offline restart. No full Steam97 parity claim.",
+  "browserVersion": "151.0.7922.34",
+  "profile": "C:\\Users\\coyotl\\AppData\\Local\\Temp\\pwa-140-upgrade-3F25AY",
+  "before": {
+    "project": {
+      "savedWith": {
+        "appVersion": "1.39.0",
+        "buildId": "0268d327cdad",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "research": {
+        "variants": [],
+        "sweep": null
+      },
+      "study": {
+        "author": "",
+        "assignment": "",
+        "intro": "",
+        "entries": []
+      },
+      "format": "water-steam-if97",
+      "version": 1,
+      "uiUnits": {
+        "temperature": "C",
+        "pressure": "MPa",
+        "mass": "kgs",
+        "power": "kW",
+        "length": "m",
+        "energy": "kJkg",
+        "dynamicViscosity": "auto",
+        "kinematicViscosity": "auto",
+        "surfaceTension": "auto"
+      },
+      "uiInputDefaults": false,
+      "digits": 8,
+      "diagram": {
+        "tools": {
+          "crosshair": true,
+          "regions": true,
+          "isotherms": false,
+          "qualities": false,
+          "temperatureUnit": "C",
+          "temperatures": [
+            373.15,
+            473.15,
+            573.15,
+            673.15
+          ],
+          "dryness": [
+            0.1,
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ]
+        },
+        "views": {},
+        "connectHistory": false,
+        "numbers": true,
+        "order": [
+          0
+        ],
+        "excluded": [],
+        "pointSets": {},
+        "series": [],
+        "drawingStyle": {
+          "radius": 6,
+          "pointColor": "phase",
+          "width": 2.3,
+          "lineColor": "#8b4599"
+        }
+      },
+      "pressure": {
+        "basis": "absolute",
+        "atmosphere": 0.101325
+      },
+      "title": "Live upgrade 1.39 to 1.40 chromium",
+      "history": [
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        }
+      ],
+      "workspace": {
+        "active": "general",
+        "panels": {}
+      },
+      "process": null,
+      "form": {
+        "calculated": true,
+        "roundingDisplay": false,
+        "inputStyle": "advanced",
+        "inputOrder": "canonical",
+        "model": "IF97",
+        "mode": "pt",
+        "a": "10",
+        "b": "226.85",
+        "ua": "bar",
+        "ub": "C"
+      },
+      "drafts": {},
+      "ambient": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "system": "si",
+      "energy": "kJ",
+      "gray": false,
+      "scale": "1",
+      "hints": true
+    },
+    "language": "en",
+    "version": "1.39.0",
+    "build": "0268d327cdad"
+  },
+  "cacheNames": [
+    "water-steam:/water-steam-if97/|0268d327cdad",
+    "thermocalc-python:/water-steam-if97/|71ea1664738eb516"
+  ]
+}

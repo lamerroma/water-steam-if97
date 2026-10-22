@@ -13,6 +13,6 @@
   "fixtureSHA256": "ed821caf853541a502ae9304e5933dc4fb8f73b04c821b7e376a1df0517b6d68",
   "scope": "Legacy project migration, batch input capture, recalculation and cold offline persistence.",
   "browserVersion": "151.0.7922.34",
-  "build": "f52a3c42e921",
+  "build": "5b5173c2a5cf",
   "networkProbeBlocked": true
 }

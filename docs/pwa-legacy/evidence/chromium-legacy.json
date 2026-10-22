@@ -2,7 +2,7 @@
   "browser": "chromium",
   "browserVersion": "151.0.7922.34",
   "status": "passed",
-  "build": "Версія 1.40.1 · збірка f52a3c42e921",
+  "build": "Версія 1.40.1 · збірка 5b5173c2a5cf",
   "baselineCommit": "6bae91383df7085f73dd1cc2f3eb462571143867",
   "routes": [
     {
@@ -1781,6 +1781,7 @@
       "inputDifferences": []
     }
   ],
+  "comparisonFailures": 0,
   "restoredPanels": [
     {
       "action": "gases",
@@ -1955,9 +1956,9 @@
   ],
   "networkProbeBlocked": true,
   "rawReport": {
-    "path": ".release/functional-restore/hotfix-legacy-chromium/report.json",
-    "bytes": 1200301,
-    "sha256": "e36a10518286f5b02c99b1afd55d870ebd84f4b00f442280caeba4e5a79c7f23"
+    "path": ".release/functional-restore/safe-legacy-chromium/report.json",
+    "bytes": 1200328,
+    "sha256": "8a4b08db50e68fc6ea99a3ede69dcaa0bed021bd154a3916d85a035bdf0bdbfb"
   },
   "errors": []
 }

@@ -2,7 +2,7 @@
   "browser": "firefox",
   "browserVersion": "153.0",
   "status": "passed",
-  "build": "Версія 1.40.1 · збірка f52a3c42e921",
+  "build": "Версія 1.40.1 · збірка 5b5173c2a5cf",
   "baselineCommit": "6bae91383df7085f73dd1cc2f3eb462571143867",
   "routes": [
     {
@@ -1781,6 +1781,7 @@
       "inputDifferences": []
     }
   ],
+  "comparisonFailures": 0,
   "restoredPanels": [
     {
       "action": "gases",
@@ -1955,9 +1956,9 @@
   ],
   "networkProbeBlocked": true,
   "rawReport": {
-    "path": ".release/functional-restore/hotfix-legacy-firefox/report.json",
-    "bytes": 1200600,
-    "sha256": "bcc4a9dd18d31a503aaf6f21935232a3b0b2d2f018eb89ac63d12184f31589ec"
+    "path": ".release/functional-restore/safe-legacy-firefox/report.json",
+    "bytes": 1200627,
+    "sha256": "ac95ffb130a79366b28c5600b1b68364baee72239abf58d309744a3edc3cb872"
   },
   "errors": []
 }
