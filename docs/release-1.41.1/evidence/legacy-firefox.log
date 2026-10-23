@@ -1,0 +1,5 @@
+firefox: Original 1.35.12 multi-panel JSON project imports through the Worker and UI
+firefox: Legacy range inputs recalculate and new project exports exclude the result-format selector
+firefox: CSV source and exact input text survive export without derived controls
+firefox: Invalid presentation values are rejected while the current batch remains intact
+firefox: Closed profile and offline restart restore the CSV project and recalculate both rows

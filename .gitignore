@@ -14,3 +14,6 @@ __pycache__/
 # Managed acceptance logs are evidence, not transient run output.
 !docs/development-r01/**/*.log
 !docs/development-r02/**/*.log
+
+# Keep exact startup acceptance logs with their SHA-256 manifest.
+!docs/release-1.41.1/evidence/*.log

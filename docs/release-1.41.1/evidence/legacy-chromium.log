@@ -1,0 +1,5 @@
+chromium: Original 1.35.12 multi-panel JSON project imports through the Worker and UI
+chromium: Legacy range inputs recalculate and new project exports exclude the result-format selector
+chromium: CSV source and exact input text survive export without derived controls
+chromium: Invalid presentation values are rejected while the current batch remains intact
+chromium: Closed profile and offline restart restore the CSV project and recalculate both rows

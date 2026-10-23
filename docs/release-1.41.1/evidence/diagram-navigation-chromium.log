@@ -1,0 +1,17 @@
+chromium online deterministic pending-request cancellation PASS
+chromium online cycle 0 PASS
+chromium online cycle 1 PASS
+chromium online cycle 2 PASS
+chromium online cycle 3 PASS
+chromium online cycle 4 PASS
+chromium online cycle 5 PASS
+chromium online cycle 6 PASS
+chromium online cycle 7 PASS
+chromium online cycle 8 PASS
+chromium online cycle 9 PASS
+chromium offline cycle 0 PASS
+chromium offline cycle 1 PASS
+chromium offline cycle 2 PASS
+chromium offline cycle 3 PASS
+chromium offline cycle 4 PASS
+chromium offline deterministic pending-request cancellation PASS

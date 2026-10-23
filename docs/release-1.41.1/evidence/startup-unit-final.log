@@ -1,0 +1,17 @@
+✔ PWA activation waits for startup restoration before saving or replacing a live page (8.636ms)
+✔ Startup title edit keeps validated history, batch inputs and current result (16.6761ms)
+✔ Startup input edits keep the full visible pair/units as an uncalculated draft and retain old history (2.9872ms)
+✔ Startup saturation input choice can change the main route without losing inactive panels (3.8287ms)
+✔ Startup display preferences preserve a computed result; invalid units are rejected by the existing reader (2.6016ms)
+✔ Startup merging still refuses unrelated history/panel changes and never mutates either input (3.732ms)
+✔ Unchanged startup uses the original validated reply without fabricating overrides (1.8678ms)
+✔ Startup pressure convention rebases inactive process inputs without changing absolute history (3.0363ms)
+✔ A visible absolute-pressure draft keeps its convention when the saved project used gauge pressure (2.1324ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 317.1509

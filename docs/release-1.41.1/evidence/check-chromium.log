@@ -1,0 +1,12 @@
+chromium PASS passive: validated history/panels retained; genuine delayed reply applied with latest user intent
+chromium PASS latest-navigation: validated history/panels retained; genuine delayed reply applied with latest user intent
+chromium PASS desktop-navigation: validated history/panels retained; genuine delayed reply applied with latest user intent
+chromium PASS gases-navigation: validated history/panels retained; genuine delayed reply applied with latest user intent
+chromium PASS comparison-navigation: validated history/panels retained; genuine delayed reply applied with latest user intent
+chromium PASS absolute-draft-from-gauge: validated history/panels retained; genuine delayed reply applied with latest user intent
+chromium PASS draft: validated history/panels retained; genuine delayed reply applied with latest user intent
+chromium PASS incomplete-draft: validated history/panels retained; genuine delayed reply applied with latest user intent
+chromium PASS heos-draft: validated history/panels retained; genuine delayed reply applied with latest user intent
+chromium PASS during-ambient: validated history/panels retained; genuine delayed reply applied with latest user intent
+chromium PASS Actual old/new static releases: update with a delayed restore keeps the latest title/navigation, history and batch without recovery
+chromium PASS Closed persistent profile, disconnected server, dead proxy/offline: edits and batch navigation survive delayed restoration and export
