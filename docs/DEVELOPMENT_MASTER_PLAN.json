@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-22",
+  "updated": "2026-10-23",
   "status": "execution_started_estimates_provisional",
   "goal": "Спочатку повне функціональне покриття Steam97Web, потім прийняті відкриті модулі у багатофайловій офлайн-PWA.",
   "evidence_labels": {
@@ -1886,10 +1886,11 @@
       "development-r02/ci-first-recheck.json",
       "development-r02/ci-second-recheck.json",
       "release-1.40.0/publish-summary.json",
-      "library-registry/acceptance.json"
+      "library-registry/acceptance.json",
+      "release-1.41.0/publish-summary.json"
     ],
     "note": "Original scenario estimates retained; execution status is separate from scientific parity and release acceptance.",
-    "updated": "2026-10-21",
+    "updated": "2026-10-23",
     "completed_R01_subtasks": [
       "cold-liquid stable density fallback without tolerance relaxation",
       "shared CoolProp quarantine and page/Worker recovery",
@@ -1909,9 +1910,10 @@
     ],
     "latest_local_candidate": {
       "version": "1.41.0",
-      "build": "ea4e5744f9de",
-      "published": false,
-      "evidence": "pwa-legacy/development-backport.json"
+      "build": "a8e94fb1e643",
+      "commit": "5dc609c92fe80a7ffe050b4cc0696d6876628ac2",
+      "published": true,
+      "evidence": "release-1.41.0/publish-summary.json"
     },
     "first_candidate_CI": {
       "run": 39589852625,
@@ -1932,10 +1934,10 @@
       "evidence": "development-r02/ci-second-recheck.json"
     },
     "latest_publication": {
-      "version": "1.40.0",
-      "build": "20fd3cb17a71",
-      "commit": "b9632751fd1530aea5b0a05b6d546fa5780b8345",
-      "evidence": "release-1.40.0/publish-summary.json"
+      "version": "1.41.0",
+      "build": "a8e94fb1e643",
+      "commit": "5dc609c92fe80a7ffe050b4cc0696d6876628ac2",
+      "evidence": "release-1.41.0/publish-summary.json"
     },
     "previous_candidate_CI": {
       "commit": "38f0b5b33c5e1bede3d676cd6e2580263993cb34",
@@ -1950,12 +1952,25 @@
       "passed": 109,
       "total": 109,
       "evidence": "library-recipes/evidence/predecessor-ci-summary.json"
+    },
+    "previous_local_candidate_snapshot": {
+      "version": "1.41.0",
+      "build": "ea4e5744f9de",
+      "published": false,
+      "evidence": "pwa-legacy/development-backport.json"
+    },
+    "previous_publication_snapshot": {
+      "version": "1.40.0",
+      "build": "20fd3cb17a71",
+      "commit": "b9632751fd1530aea5b0a05b6d546fa5780b8345",
+      "evidence": "release-1.40.0/publish-summary.json"
     }
   },
   "current_priority": {
-    "requested": "2026-10-22",
-    "work": "Verify and restore the legacy calculator before adding modules",
-    "evidence": "PWA_LEGACY_CHECK_UK.md",
-    "new_modules": "deferred_until_legacy_publication_acceptance"
+    "requested": "2026-10-23",
+    "work": "Public acceptance of 1.41.0 and documentation refresh",
+    "status": "completed_with_reported_limits",
+    "evidence": "release-1.41.0/REPORT_UK.md",
+    "next": "Independent P03/P04 controls and reviewed R16 contracts; R17 subject forms follow their accepted contract. Full Steam97 parity remains unconfirmed."
   }
 }

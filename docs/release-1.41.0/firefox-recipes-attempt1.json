@@ -1,0 +1,12 @@
+{
+  "browser": "firefox",
+  "status": "failed",
+  "checks": [],
+  "errors": [],
+  "controls": [],
+  "scope": "Actual public GitHub Pages input/replay/project/offline integration and elementary cylinder geometry only; not full TANK or ht/fluids numerical acceptance.",
+  "url": "https://lamerroma.github.io/water-steam-if97/",
+  "build": "a8e94fb1e643",
+  "browserVersion": "153.0",
+  "error": "page.waitForFunction: Timeout 300000ms exceeded.\n    at C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\publication-1.41.0\\check-library-recipes-public.cjs:21:46"
+}

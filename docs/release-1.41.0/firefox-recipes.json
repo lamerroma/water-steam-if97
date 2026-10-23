@@ -1,0 +1,440 @@
+{
+  "browser": "firefox",
+  "status": "passed",
+  "checks": [
+    "Example/project save stores commands, logical references and package pins without starting Python",
+    "Invalid scenario import preserves the current project and does not execute",
+    "Cold replay cancellation closes the Worker and clears pending result",
+    "Constructor, member read, fill-volume method and inverse method replay; exports contain summaries and fresh results",
+    "A state-changing method is reproduced before dependent property reads",
+    "A step error retains exact diagnostics, stops following commands and closes its Worker",
+    "Package revision mismatch is rejected before any Python Worker is created",
+    "Editing while replay starts cancels it and preserves the new input",
+    "Navigation cancels replay; returning restores only the edited commands",
+    "A delayed import cannot overwrite edits made during file reading",
+    "Edited constructor inputs produce the new independent cylinder volumes, rather than cached results",
+    "Ukrainian/English scenario UI fits a 390px viewport",
+    "Whole-project import restores command text, discards cached scenario results and does not execute Python",
+    "Public GitHub Pages origin, closed profile/dead proxy/offline: project restores and a new Worker reconstructs the objects and recomputes the same controls",
+    "Evicted Python cache is reported and preparation becomes available without losing the scenario"
+  ],
+  "errors": [],
+  "controls": [
+    {
+      "id": "volume",
+      "D": 1,
+      "actual": 1.5707963267948966,
+      "expected": 1.5707963267948966,
+      "unit": "m3",
+      "reference": "Vertical straight cylinder: V=pi*D^2*h/4; L=2 m; h=0.5 m.",
+      "absoluteTolerance": 1.5707963267948967e-10
+    },
+    {
+      "id": "filled",
+      "D": 1,
+      "actual": 0.39269908169872414,
+      "expected": 0.39269908169872414,
+      "unit": "m3",
+      "reference": "Vertical straight cylinder: V=pi*D^2*h/4; L=2 m; h=0.5 m.",
+      "absoluteTolerance": 1e-10
+    },
+    {
+      "id": "level",
+      "D": 1,
+      "actual": 0.5000000000000001,
+      "expected": 0.5,
+      "unit": "m",
+      "reference": "Vertical straight cylinder: V=pi*D^2*h/4; L=2 m; h=0.5 m.",
+      "absoluteTolerance": 1e-10
+    },
+    {
+      "id": "volume",
+      "D": 1,
+      "actual": 1.5707963267948966,
+      "expected": 1.5707963267948966,
+      "unit": "m3",
+      "reference": "Vertical straight cylinder: V=pi*D^2*h/4; L=2 m; h=0.5 m.",
+      "absoluteTolerance": 1.5707963267948967e-10
+    },
+    {
+      "id": "filled",
+      "D": 1,
+      "actual": 0.39269908169872414,
+      "expected": 0.39269908169872414,
+      "unit": "m3",
+      "reference": "Vertical straight cylinder: V=pi*D^2*h/4; L=2 m; h=0.5 m.",
+      "absoluteTolerance": 1e-10
+    },
+    {
+      "id": "level",
+      "D": 1,
+      "actual": 0.5,
+      "expected": 0.5,
+      "unit": "m",
+      "reference": "Vertical straight cylinder: V=pi*D^2*h/4; L=2 m; h=0.5 m.",
+      "absoluteTolerance": 1e-10
+    },
+    {
+      "id": "volume",
+      "D": 2,
+      "actual": 6.283185307179586,
+      "expected": 6.283185307179586,
+      "unit": "m3",
+      "reference": "Vertical straight cylinder: V=pi*D^2*h/4; L=2 m; h=0.5 m.",
+      "absoluteTolerance": 6.283185307179587e-10
+    },
+    {
+      "id": "filled",
+      "D": 2,
+      "actual": 1.5707963267948966,
+      "expected": 1.5707963267948966,
+      "unit": "m3",
+      "reference": "Vertical straight cylinder: V=pi*D^2*h/4; L=2 m; h=0.5 m.",
+      "absoluteTolerance": 1.5707963267948967e-10
+    },
+    {
+      "id": "level",
+      "D": 2,
+      "actual": 0.5000000000000001,
+      "expected": 0.5,
+      "unit": "m",
+      "reference": "Vertical straight cylinder: V=pi*D^2*h/4; L=2 m; h=0.5 m.",
+      "absoluteTolerance": 1e-10
+    },
+    {
+      "id": "volume",
+      "D": 1,
+      "actual": 1.5707963267948966,
+      "expected": 1.5707963267948966,
+      "unit": "m3",
+      "reference": "Vertical straight cylinder: V=pi*D^2*h/4; L=2 m; h=0.5 m.",
+      "absoluteTolerance": 1.5707963267948967e-10
+    },
+    {
+      "id": "filled",
+      "D": 1,
+      "actual": 0.39269908169872414,
+      "expected": 0.39269908169872414,
+      "unit": "m3",
+      "reference": "Vertical straight cylinder: V=pi*D^2*h/4; L=2 m; h=0.5 m.",
+      "absoluteTolerance": 1e-10
+    },
+    {
+      "id": "level",
+      "D": 1,
+      "actual": 0.5000000000000001,
+      "expected": 0.5,
+      "unit": "m",
+      "reference": "Vertical straight cylinder: V=pi*D^2*h/4; L=2 m; h=0.5 m.",
+      "absoluteTolerance": 1e-10
+    }
+  ],
+  "scope": "Actual public GitHub Pages input/replay/project/offline integration and elementary cylinder geometry only; not full TANK or ht/fluids numerical acceptance.",
+  "preparedCompletePublicCoreCache": true,
+  "profile": "C:/Users/coyotl/AppData/Local/Temp/thermo-recipe-cNMosA",
+  "preparationProfileReuse": true,
+  "url": "https://lamerroma.github.io/water-steam-if97/",
+  "build": "a8e94fb1e643",
+  "browserVersion": "153.0",
+  "mutation": {
+    "samples": [
+      0,
+      0.7853981633974483,
+      1.5707963267948966
+    ],
+    "expected": [
+      0,
+      0.7853981633974483,
+      1.5707963267948966
+    ],
+    "unit": "m3"
+  },
+  "offline": {
+    "networkProbeBlocked": true,
+    "result": {
+      "format": "thermocalc-library-recipe-result",
+      "version": 1,
+      "recipe": {
+        "format": "thermocalc-library-recipe",
+        "version": 1,
+        "packageRevision": "71ea1664738eb516",
+        "packages": {
+          "fluids": "1.3.1"
+        },
+        "steps": [
+          {
+            "id": "tank",
+            "module": "fluids",
+            "method": "call",
+            "payload": {
+              "target": "fluids.geometry.TANK",
+              "kwargs": {
+                "D": 1,
+                "L": 2,
+                "horizontal": false
+              }
+            }
+          },
+          {
+            "id": "volume",
+            "module": "fluids",
+            "method": "get",
+            "payload": {
+              "handle": {
+                "$ref": "tank"
+              },
+              "member": "V_total"
+            }
+          },
+          {
+            "id": "filled",
+            "module": "fluids",
+            "method": "call",
+            "payload": {
+              "handle": {
+                "$ref": "tank"
+              },
+              "member": "V_from_h",
+              "kwargs": {
+                "h": 0.5
+              }
+            }
+          },
+          {
+            "id": "level",
+            "module": "fluids",
+            "method": "call",
+            "payload": {
+              "handle": {
+                "$ref": "tank"
+              },
+              "member": "h_from_V",
+              "kwargs": {
+                "V": {
+                  "$ref": "filled"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "status": "ok",
+      "steps": [
+        {
+          "id": "tank",
+          "module": "fluids",
+          "method": "call",
+          "engineVersion": "1.3.1",
+          "implementationRevision": "beb1637c5d7826c803776b8be2e2bff9ab6d5c23c62f44ca8766095a68d81348",
+          "result": {
+            "kind": "object-summary",
+            "class": "fluids.geometry.TANK",
+            "members": [
+              "A",
+              "A_cross_sectional",
+              "A_lateral",
+              "A_sideA",
+              "A_sideA_extra",
+              "A_sideB",
+              "A_sideB_extra",
+              "D",
+              "L",
+              "L_over_D",
+              "R",
+              "SA_from_h",
+              "V",
+              "V_from_h",
+              "V_lateral",
+              "V_sideA",
+              "V_sideB",
+              "V_total",
+              "add_thickness",
+              "angle",
+              "chebyshev",
+              "from_two_specs",
+              "h_from_V",
+              "h_max",
+              "horizontal",
+              "model_inputs",
+              "orientation",
+              "set_chebyshev_approximators",
+              "set_misc",
+              "set_table",
+              "sideA",
+              "sideA_a",
+              "sideA_a_ratio",
+              "sideA_f",
+              "sideA_k",
+              "sideB",
+              "sideB_a",
+              "sideB_a_ratio",
+              "sideB_f",
+              "sideB_k",
+              "table",
+              "vertical"
+            ]
+          },
+          "units": {
+            "convention": "Upstream documented units (generally SI); no automatic conversion.",
+            "inputs": [
+              {
+                "name": "D",
+                "unit": "m"
+              },
+              {
+                "name": "L",
+                "unit": "m"
+              },
+              {
+                "name": "horizontal",
+                "unit": null
+              },
+              {
+                "name": "sideA",
+                "unit": null
+              },
+              {
+                "name": "sideB",
+                "unit": null
+              },
+              {
+                "name": "sideA_a",
+                "unit": "m"
+              },
+              {
+                "name": "sideB_a",
+                "unit": "m"
+              },
+              {
+                "name": "sideA_f",
+                "unit": "1"
+              },
+              {
+                "name": "sideA_k",
+                "unit": "1"
+              },
+              {
+                "name": "sideB_f",
+                "unit": "1"
+              },
+              {
+                "name": "sideB_k",
+                "unit": "1"
+              },
+              {
+                "name": "sideA_a_ratio",
+                "unit": "1"
+              },
+              {
+                "name": "sideB_a_ratio",
+                "unit": "1"
+              },
+              {
+                "name": "L_over_D",
+                "unit": "1"
+              },
+              {
+                "name": "V",
+                "unit": "m^3"
+              }
+            ],
+            "outputs": []
+          },
+          "warnings": [
+            {
+              "code": "integration-only",
+              "message": "Library connected; comprehensive independent numerical acceptance is pending."
+            }
+          ]
+        },
+        {
+          "id": "volume",
+          "module": "fluids",
+          "method": "get",
+          "engineVersion": "1.3.1",
+          "implementationRevision": "beb1637c5d7826c803776b8be2e2bff9ab6d5c23c62f44ca8766095a68d81348",
+          "result": 1.5707963267948966,
+          "units": {
+            "convention": "Upstream documented units (generally SI); no automatic conversion.",
+            "inputs": [],
+            "outputs": []
+          },
+          "warnings": [
+            {
+              "code": "integration-only",
+              "message": "Library connected; comprehensive independent numerical acceptance is pending."
+            }
+          ]
+        },
+        {
+          "id": "filled",
+          "module": "fluids",
+          "method": "call",
+          "engineVersion": "1.3.1",
+          "implementationRevision": "beb1637c5d7826c803776b8be2e2bff9ab6d5c23c62f44ca8766095a68d81348",
+          "result": 0.39269908169872414,
+          "units": {
+            "convention": "Upstream documented units (generally SI); no automatic conversion.",
+            "inputs": [
+              {
+                "name": "h",
+                "unit": "m"
+              },
+              {
+                "name": "method",
+                "unit": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "V",
+                "unit": "m^3"
+              }
+            ]
+          },
+          "warnings": [
+            {
+              "code": "integration-only",
+              "message": "Library connected; comprehensive independent numerical acceptance is pending."
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "module": "fluids",
+          "method": "call",
+          "engineVersion": "1.3.1",
+          "implementationRevision": "beb1637c5d7826c803776b8be2e2bff9ab6d5c23c62f44ca8766095a68d81348",
+          "result": 0.5000000000000001,
+          "units": {
+            "convention": "Upstream documented units (generally SI); no automatic conversion.",
+            "inputs": [
+              {
+                "name": "V",
+                "unit": "m^3"
+              },
+              {
+                "name": "method",
+                "unit": null
+              }
+            ],
+            "outputs": [
+              {
+                "name": "h",
+                "unit": "m"
+              }
+            ]
+          },
+          "warnings": [
+            {
+              "code": "integration-only",
+              "message": "Library connected; comprehensive independent numerical acceptance is pending."
+            }
+          ]
+        }
+      ],
+      "scope": "Commands recalculated in an isolated Worker. Object summaries are not live handles or serialized object state. Units follow each upstream API.",
+      "implementationRevision": "beb1637c5d7826c803776b8be2e2bff9ab6d5c23c62f44ca8766095a68d81348"
+    }
+  }
+}

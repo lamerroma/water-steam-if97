@@ -1,0 +1,327 @@
+{
+  "browser": "chromium",
+  "version": "1.41.0",
+  "buildId": "a8e94fb1e643",
+  "files": [
+    {
+      "file": "docs/release-1.41.0/chromium-online.xlsx",
+      "format": "xlsx",
+      "sha256": "13cd10508c0a2a64fc9f1970b1430c193a7e1a711eda4217607450b49cc96414",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 1,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 500,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 2891.218298958905,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        }
+      ]
+    },
+    {
+      "file": "docs/release-1.41.0/chromium-online.ods",
+      "format": "ods",
+      "sha256": "b24e052db7ec6a134bd9d0abb945a12f5f11dcd0f88c345bbb0c23c03dc3df05",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 1,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 500,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 2891.218298958905,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        }
+      ]
+    },
+    {
+      "file": "docs/release-1.41.0/chromium-online.xls",
+      "format": "xls",
+      "sha256": "7814d5dd51d15cbd73cdea6ad9ef32424685fdd2a2c9d36cc4631e44e0a37166",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 1,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 500,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 2891.218298958905,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        }
+      ]
+    },
+    {
+      "file": "docs/release-1.41.0/chromium-online.csv",
+      "format": "csv",
+      "sha256": "a2ff0dbc47ae168ebf038c511e862acda48291b511dd15b5b547d8c8063bd923",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 1,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 500,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 2891.218298958905,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        }
+      ]
+    },
+    {
+      "file": "docs/release-1.41.0/chromium-offline.xlsx",
+      "format": "xlsx",
+      "sha256": "13cd10508c0a2a64fc9f1970b1430c193a7e1a711eda4217607450b49cc96414",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 1,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 500,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 2891.218298958905,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        }
+      ]
+    },
+    {
+      "file": "docs/release-1.41.0/chromium-offline.ods",
+      "format": "ods",
+      "sha256": "b24e052db7ec6a134bd9d0abb945a12f5f11dcd0f88c345bbb0c23c03dc3df05",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 1,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 500,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 2891.218298958905,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        }
+      ]
+    },
+    {
+      "file": "docs/release-1.41.0/chromium-offline.xls",
+      "format": "xls",
+      "sha256": "7814d5dd51d15cbd73cdea6ad9ef32424685fdd2a2c9d36cc4631e44e0a37166",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 1,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 500,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 2891.218298958905,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        }
+      ]
+    },
+    {
+      "file": "docs/release-1.41.0/chromium-offline.csv",
+      "format": "csv",
+      "sha256": "a2ff0dbc47ae168ebf038c511e862acda48291b511dd15b5b547d8c8063bd923",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 1,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 500,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 2891.218298958905,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        }
+      ]
+    }
+  ]
+}

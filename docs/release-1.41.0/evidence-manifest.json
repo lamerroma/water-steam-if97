@@ -1,0 +1,299 @@
+{
+  "date": "2026-10-23",
+  "runtimeCommit": "5dc609c92fe80a7ffe050b4cc0696d6876628ac2",
+  "scope": "Selected exact publication evidence, portable spreadsheet manifests, drivers and preserved initial failures. Browser profiles and authentication data excluded.",
+  "files": {
+    "check-diagram-navigation-public.cjs": {
+      "bytes": 7695,
+      "sha256": "74150c33a1eeefee2880166129d391915f5b36de82b5ad9109079db0ac132d19"
+    },
+    "check-legacy-parity-public.cjs": {
+      "bytes": 15338,
+      "sha256": "ed6ee273f4c7796bbf1032f761e078f414d5ef21ed8a6d17bed7f908f6b9d1d3"
+    },
+    "check-legacy-project-public.cjs": {
+      "bytes": 5878,
+      "sha256": "057e8fc427bedf5edd6c556e63b8e0e5407ffbde43ed93bb01db9e20983f7e52"
+    },
+    "check-library-recipes-public.cjs": {
+      "bytes": 14881,
+      "sha256": "435d9ed27f7af525399f865db19bf04cf4e18d388837799ea63314d8b25944b4"
+    },
+    "check-live-upgrade.cjs": {
+      "bytes": 12314,
+      "sha256": "b2a7863fd6f29ceff2afb5066366abef6055f9c19dd486378f2c65cb4a7f9726"
+    },
+    "chromium-legacy-attempt1.json": {
+      "bytes": 542659,
+      "sha256": "f331edafdebbac13cbf177ac0c7cfefa8aeb5638d33b71faa4212d80c93186b3"
+    },
+    "chromium-legacy-attempt2.json": {
+      "bytes": 1194098,
+      "sha256": "0632195ac8be6e2f8a5b877c9c9abd0f2524b1fca0f2a9795a334ef418a8bc53"
+    },
+    "chromium-legacy-full.json.gz": {
+      "bytes": 237623,
+      "sha256": "c7b6b9aa2b07befb7ea95279eb026d999c8e8f30c433ea841ff445ab3ecaa680"
+    },
+    "chromium-legacy.json": {
+      "bytes": 20242,
+      "sha256": "f381fbecc6ebb3beb4b7533a833b507a7136f14c981f393479b8fa37067790ce"
+    },
+    "chromium-navigation.json": {
+      "bytes": 8781,
+      "sha256": "7446f6e67dee56917c065cab5ee3feecf41bb99d8f3bd3e6df56ae1439beca16"
+    },
+    "chromium-offline.csv": {
+      "bytes": 4271,
+      "sha256": "a2ff0dbc47ae168ebf038c511e862acda48291b511dd15b5b547d8c8063bd923"
+    },
+    "chromium-offline.ods": {
+      "bytes": 42964,
+      "sha256": "b24e052db7ec6a134bd9d0abb945a12f5f11dcd0f88c345bbb0c23c03dc3df05"
+    },
+    "chromium-offline.png": {
+      "bytes": 207645,
+      "sha256": "145925298f781c4d3c7dcbd76720d0563d067e1fa440a5ac031c54f589e3033e"
+    },
+    "chromium-offline.xls": {
+      "bytes": 12288,
+      "sha256": "7814d5dd51d15cbd73cdea6ad9ef32424685fdd2a2c9d36cc4631e44e0a37166"
+    },
+    "chromium-offline.xlsx": {
+      "bytes": 16411,
+      "sha256": "13cd10508c0a2a64fc9f1970b1430c193a7e1a711eda4217607450b49cc96414"
+    },
+    "chromium-online.csv": {
+      "bytes": 4271,
+      "sha256": "a2ff0dbc47ae168ebf038c511e862acda48291b511dd15b5b547d8c8063bd923"
+    },
+    "chromium-online.ods": {
+      "bytes": 42964,
+      "sha256": "b24e052db7ec6a134bd9d0abb945a12f5f11dcd0f88c345bbb0c23c03dc3df05"
+    },
+    "chromium-online.xls": {
+      "bytes": 12288,
+      "sha256": "7814d5dd51d15cbd73cdea6ad9ef32424685fdd2a2c9d36cc4631e44e0a37166"
+    },
+    "chromium-online.xlsx": {
+      "bytes": 16411,
+      "sha256": "13cd10508c0a2a64fc9f1970b1430c193a7e1a711eda4217607450b49cc96414"
+    },
+    "chromium-project.json": {
+      "bytes": 868,
+      "sha256": "bb4311287bbe881995be879588cd600c16c31b794fd98415b026d5b32406b037"
+    },
+    "chromium-recipe-offline.png": {
+      "bytes": 215449,
+      "sha256": "80c9c84e99bbecc207019bb335322ff23abfdef23f2feaeaa9857d43b18b6732"
+    },
+    "chromium-recipes.json": {
+      "bytes": 13052,
+      "sha256": "3bedbd8c1079d432e282904e718029c253dc0bb8e3a263a6fb9f36065b054db2"
+    },
+    "chromium-spreadsheet-manifest.json": {
+      "bytes": 7817,
+      "sha256": "c00c812b72460b647f2ca1e2d53840ef69dd70f997fd46eb675d8c859a932d25"
+    },
+    "chromium-spreadsheet-readers.json": {
+      "bytes": 84,
+      "sha256": "d1420feabad8b22fb18a0a364fc99418663f2895c4b3836335c7d85fd6711aca"
+    },
+    "chromium-updated.png": {
+      "bytes": 300715,
+      "sha256": "8f2bb36629b751c47440a56efd35f1563f75b50b4c158000505970fa7f41a15c"
+    },
+    "chromium-upgrade-attempt1.json": {
+      "bytes": 10314,
+      "sha256": "61ea3279cb3920b428c5f816adafc7db36c6af89d52b278ddbcf863068f33de6"
+    },
+    "chromium-upgrade-attempt1.png": {
+      "bytes": 290663,
+      "sha256": "dd3efbf6ca9f41f5fcbe3c7a3774c5304319d24ccc5764c3d148770a3e8815fb"
+    },
+    "chromium-upgrade.json": {
+      "bytes": 37464,
+      "sha256": "80063789fbe987b760feac2b980ae6a5fcccf38ce9cbef31673808d71e3486d1"
+    },
+    "ci-acceptance.log.gz": {
+      "bytes": 19688,
+      "sha256": "e5b07090a25c247ec46a8d8872bbdef8ec01d495aa22e6ded826b5fd07063183"
+    },
+    "ci-artifact-metadata.json": {
+      "bytes": 212,
+      "sha256": "da6e7d91c756909dfa5be933e95cfeb70cd8316dd82473d461f6d559d53085aa"
+    },
+    "ci-checks.json": {
+      "bytes": 12475,
+      "sha256": "c2171135fd8fb3372a69bf473bbc1ac097446842f50b84dd2481ccafcca3a6af"
+    },
+    "ci-inverse.log.gz": {
+      "bytes": 9186,
+      "sha256": "a07b1f72a461487c9e5270a13f33a9070ca5177c95c706b9aac211a50bea8f84"
+    },
+    "ci-metadata.json": {
+      "bytes": 12795,
+      "sha256": "c1318bca78c878251f635aeaccfd39e12c9b97587cd3383da23eae8a72182008"
+    },
+    "ci-report.json": {
+      "bytes": 25285,
+      "sha256": "22e5f9cfe631bc6a9ec248089b7710cb5e3eb7a66babac5135ff68cc6c63491a"
+    },
+    "ci-unit.log.gz": {
+      "bytes": 50582,
+      "sha256": "fb05bda2e5b7ce8982a70363f3be5ab54c360c19bf00088bf0713fd2b4341bfb"
+    },
+    "drivers.json": {
+      "bytes": 7796,
+      "sha256": "d6be5cc6b8159b22fee37800816e3674a3d2c6f9da4df569c9a311d4c3c787b5"
+    },
+    "firefox-legacy-attempt1.json": {
+      "bytes": 1080882,
+      "sha256": "610399894b4e8355c8d2511bff66c2d5ff14cf7941a288fa4fd1a8c2c0a7f90b"
+    },
+    "firefox-legacy-full.json.gz": {
+      "bytes": 237674,
+      "sha256": "4204be03a1b126ccfd24e97ceb4651ce41978bd73077e2c78f53dd77a69088d2"
+    },
+    "firefox-legacy.json": {
+      "bytes": 20223,
+      "sha256": "916339616b2e5b0acc7aefd36d1c4d9378c3afe3a81f1d14cce878536851a31e"
+    },
+    "firefox-navigation-attempt1.json": {
+      "bytes": 6096,
+      "sha256": "79e76d90dd7a68732cd0133c7f5e82e693bed3827e5fe177ab3cd6f699a029ad"
+    },
+    "firefox-navigation.json": {
+      "bytes": 8819,
+      "sha256": "35ef15d3a65d50c497477acaaf6e869845e11b131e24529ebf3f10f8eb98ee0f"
+    },
+    "firefox-offline.csv": {
+      "bytes": 4271,
+      "sha256": "a2ff0dbc47ae168ebf038c511e862acda48291b511dd15b5b547d8c8063bd923"
+    },
+    "firefox-offline.ods": {
+      "bytes": 42964,
+      "sha256": "b24e052db7ec6a134bd9d0abb945a12f5f11dcd0f88c345bbb0c23c03dc3df05"
+    },
+    "firefox-offline.png": {
+      "bytes": 184051,
+      "sha256": "85d890b9303befe9535c11280b64f3a783bd3ca111e000155768ce7b91cb7a98"
+    },
+    "firefox-offline.xls": {
+      "bytes": 12288,
+      "sha256": "7814d5dd51d15cbd73cdea6ad9ef32424685fdd2a2c9d36cc4631e44e0a37166"
+    },
+    "firefox-offline.xlsx": {
+      "bytes": 16411,
+      "sha256": "13cd10508c0a2a64fc9f1970b1430c193a7e1a711eda4217607450b49cc96414"
+    },
+    "firefox-online.csv": {
+      "bytes": 4271,
+      "sha256": "a2ff0dbc47ae168ebf038c511e862acda48291b511dd15b5b547d8c8063bd923"
+    },
+    "firefox-online.ods": {
+      "bytes": 42964,
+      "sha256": "b24e052db7ec6a134bd9d0abb945a12f5f11dcd0f88c345bbb0c23c03dc3df05"
+    },
+    "firefox-online.xls": {
+      "bytes": 12288,
+      "sha256": "7814d5dd51d15cbd73cdea6ad9ef32424685fdd2a2c9d36cc4631e44e0a37166"
+    },
+    "firefox-online.xlsx": {
+      "bytes": 16411,
+      "sha256": "13cd10508c0a2a64fc9f1970b1430c193a7e1a711eda4217607450b49cc96414"
+    },
+    "firefox-project.json": {
+      "bytes": 859,
+      "sha256": "f0c1859704746f4fc8b279a2cb2a765314436707d7bfc17e3d3835ec2672bb94"
+    },
+    "firefox-recipe-offline.png": {
+      "bytes": 191367,
+      "sha256": "5a2912f8a40a77770190eb970f3b4c9b063edd26bfd2ffea57504652507c2618"
+    },
+    "firefox-recipes-attempt1.json": {
+      "bytes": 604,
+      "sha256": "1db49d3b1288c460ce98a9a9e7216687e603e3fd88651740a30cb7a5a6fd2c9d"
+    },
+    "firefox-recipes-profile-reuse.json": {
+      "bytes": 330,
+      "sha256": "37af8cb71560e1071c26f36242283f4f3a72d145419a39f7e27abff1abfa9726"
+    },
+    "firefox-recipes.json": {
+      "bytes": 13193,
+      "sha256": "7ccfb7ccab966741756275d8336ad86abfe7fa48b5e687071a5575dc8c1433fe"
+    },
+    "firefox-spreadsheet-manifest.json": {
+      "bytes": 7808,
+      "sha256": "76f2b31e50617b394e0d0d59199a8f9e7ab8b4bbe9790fc05b6ec75cdff7ca4b"
+    },
+    "firefox-spreadsheet-readers.json": {
+      "bytes": 84,
+      "sha256": "d1420feabad8b22fb18a0a364fc99418663f2895c4b3836335c7d85fd6711aca"
+    },
+    "firefox-updated.png": {
+      "bytes": 256149,
+      "sha256": "0eb685a35e40bdfa1210b0f26b9334f7eeef23eb66b7534fb0b47cee9ca6e29e"
+    },
+    "firefox-upgrade-attempt1.json": {
+      "bytes": 9382,
+      "sha256": "b6f846b7e54160f5217953ba620b1346d60b22a2431f3d0044b412277573b819"
+    },
+    "firefox-upgrade-attempt1.png": {
+      "bytes": 257917,
+      "sha256": "70171651af0a7921c02e8ccad1ff55acca4481e3297657f364b4200c88952215"
+    },
+    "firefox-upgrade-attempt2.json": {
+      "bytes": 13645,
+      "sha256": "69502a4ca565c8a0d3edb1ca0a7c34344bcd68d08e84a54fa0a1fdc4c4d1f5a0"
+    },
+    "firefox-upgrade-attempt2.png": {
+      "bytes": 70962,
+      "sha256": "83e9cc22f97fb8ee848700bd67e5753492e5584a4b6ad7269baef21aee0936aa"
+    },
+    "firefox-upgrade.json": {
+      "bytes": 37427,
+      "sha256": "7bfa3a67f0b4e6a4b489b56154bae6046db77b102548024d4040ee2be69d1430"
+    },
+    "live-byte-verification.json": {
+      "bytes": 12609,
+      "sha256": "7c0ff1fda2185bda2ffa2a0e900437a3cae3463895ec13b511addf486f19549e"
+    },
+    "manual-after-update.png": {
+      "bytes": 47945,
+      "sha256": "5bcee3e226e9bfa3433e73f74c864ef4c0a9408b5d2584f1ef030a3e00f83e27"
+    },
+    "manual-after-update.txt": {
+      "bytes": 22936,
+      "sha256": "fec6d87b280187f47166f563aa2e5f976bda48632c215f8432421e6674e39b0c"
+    },
+    "manual-before-update.png": {
+      "bytes": 52154,
+      "sha256": "332de77d3a19bd30774976a137eb3565e6bbd0698cdd7efb45b0937b4454148e"
+    },
+    "manual-calculator.png": {
+      "bytes": 47925,
+      "sha256": "69f865cfb9de8894df6626a0ab0fc7b1edab773c046d1397334a6b352a855511"
+    },
+    "pages-metadata.json": {
+      "bytes": 5021,
+      "sha256": "86daf974de18a3fbcaf5c32e6aca3677950560ce8153a9196a3e5c8b3bb2b846"
+    },
+    "prepare-drivers.py": {
+      "bytes": 6202,
+      "sha256": "7637a24c6e618eaff6759730b77b38b2d415bba2c19569917b28a7a982fb4205"
+    },
+    "publish-summary.json": {
+      "bytes": 8911,
+      "sha256": "382264308de9b55e0c325709683f538b450c92514a8ddb116e56c743793f1ab0"
+    },
+    "REPORT_UK.md": {
+      "bytes": 9651,
+      "sha256": "2b1a8b5a9ae491f6a30749108baf9b890f948eb14702db9b2e26d2ceb871056b"
+    },
+    "verify-publication-bytes.py": {
+      "bytes": 2149,
+      "sha256": "54f329dc1cba7b903e957f4e9e9fc87a002454ac8acea29c3c9e81fafaeb6a15"
+    }
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "acceptedCommit": "5dc609c92fe80a7ffe050b4cc0696d6876628ac2",
+  "scope": "Public-URL adapters of existing audited browser scenarios. Navigation waits use DOMContentLoaded/120s rather than local-server load/30s. Recipe offline launch also has an unreachable proxy. App/Worker calculations are unchanged.",
+  "drivers": [
+    {
+      "source": "docs/release-1.40.1/verify-publication-bytes.py",
+      "sourceSHA256": "35028868c90538a5d91c3d17bc6d434e07b6b5c2745fe686587e7fed99ccf24b",
+      "driver": "verify-publication-bytes.py",
+      "sha256": "54f329dc1cba7b903e957f4e9e9fc87a002454ac8acea29c3c9e81fafaeb6a15",
+      "changes": [
+        [
+          ".release/functional-restore/publication-1.40.1",
+          ".release/publication-1.41.0"
+        ],
+        [
+          "9a158c0cf62d1e192cc7bb8853a8405907e3c1b1",
+          "5dc609c92fe80a7ffe050b4cc0696d6876628ac2"
+        ],
+        [
+          "5b5173c2a5cf",
+          "a8e94fb1e643"
+        ]
+      ]
+    },
+    {
+      "source": "scripts/check-legacy-parity-browser.cjs",
+      "sourceSHA256": "81e2355f77d91ce9322a2d294dd3d77af03182d5458037aaf3ff99c0f233b1e8",
+      "driver": "check-legacy-parity-public.cjs",
+      "sha256": "ed6ee273f4c7796bbf1032f761e078f414d5ef21ed8a6d17bed7f908f6b9d1d3",
+      "changes": [
+        [
+          "require('./browser-tools.cjs')",
+          "require(path.join(process.cwd(),'scripts/browser-tools.cjs'))"
+        ],
+        [
+          "await page.goto(url)",
+          "await page.goto(url,{waitUntil:\"domcontentloaded\",timeout:120000})"
+        ],
+        [
+          "page.click(item.button,{timeout:20000})",
+          "page.click(item.button,{timeout:120000})"
+        ],
+        [
+          "target.build=await page.locator('#app-version').textContent();",
+          "target.build=await page.locator('#app-version').textContent();if(targetName!=='baseline'){await page.waitForFunction(()=>navigator.serviceWorker.controller&&/готова|ready offline/.test(document.querySelector('#pwa-status')?.textContent||''),null,{timeout:300000});target.waitedForCompletePublicOfflineCache=true;assert.match(target.build,/1\\.41\\.0/);}"
+        ]
+      ]
+    },
+    {
+      "source": "scripts/check-legacy-project-browser.cjs",
+      "sourceSHA256": "5b8a363742e626485a4c323516acffd3b2455f6654ceac7a739f2a255c809af0",
+      "driver": "check-legacy-project-public.cjs",
+      "sha256": "057e8fc427bedf5edd6c556e63b8e0e5407ffbde43ed93bb01db9e20983f7e52",
+      "changes": [
+        [
+          "require('./browser-tools.cjs')",
+          "require(path.join(process.cwd(),'scripts/browser-tools.cjs'))"
+        ],
+        [
+          "await page.goto(url)",
+          "await page.goto(url,{waitUntil:\"domcontentloaded\",timeout:120000})"
+        ]
+      ]
+    },
+    {
+      "source": "scripts/check-diagram-navigation-browser.cjs",
+      "sourceSHA256": "a132e0e20cb5ca17627cca8a10ae609c89dc5af33df388963235d09b110d16bc",
+      "driver": "check-diagram-navigation-public.cjs",
+      "sha256": "74150c33a1eeefee2880166129d391915f5b36de82b5ad9109079db0ac132d19",
+      "changes": [
+        [
+          "require('./browser-tools.cjs')",
+          "require(path.join(process.cwd(),'scripts/browser-tools.cjs'))"
+        ],
+        [
+          "await page.goto(url)",
+          "await page.goto(url,{waitUntil:\"domcontentloaded\",timeout:120000})"
+        ],
+        [
+          "report.build=await page.locator('#app-build-value').textContent();await forceCancellation",
+          "report.build=await page.locator('#app-build-value').textContent();await page.waitForFunction(()=>navigator.serviceWorker.controller&&/готова|ready offline/.test(document.querySelector('#pwa-status')?.textContent||''),null,{timeout:300000});report.waitedForCompletePublicOfflineCache=true;await forceCancellation"
+        ]
+      ]
+    },
+    {
+      "source": "scripts/check-library-recipes-browser.cjs",
+      "sourceSHA256": "040fb94126f025c8ad239ae61568a8bc467a8a0925d1dd7cbc0c8cf511d82c23",
+      "driver": "check-library-recipes-public.cjs",
+      "sha256": "435d9ed27f7af525399f865db19bf04cf4e18d388837799ea63314d8b25944b4",
+      "changes": [
+        [
+          "require('./browser-tools.cjs')",
+          "require(path.join(process.cwd(),'scripts/browser-tools.cjs'))"
+        ],
+        [
+          "const url='http://127.0.0.1:'+server.address().port+'/water-steam-if97/'",
+          "const url='https://lamerroma.github.io/water-steam-if97/'"
+        ],
+        [
+          "{headless:true,viewport:{width:1440,height:1000}}",
+          "{headless:true,viewport:{width:1440,height:1000},...(disconnected?{proxy:{server:'http://127.0.0.1:9'}}:{})}"
+        ],
+        [
+          "await page.goto(url)",
+          "await page.goto(url,{waitUntil:\"domcontentloaded\",timeout:120000})"
+        ],
+        [
+          "{timeout:120000}",
+          "{timeout:300000}"
+        ],
+        [
+          "await page.waitForFunction(()=>document.querySelector('#py-run')?.disabled===false,null,{timeout:300000});await page.click('#py-recipe-example');",
+          "await page.waitForFunction(()=>document.querySelector('#py-run')?.disabled===false||!document.querySelector('#py-error').hidden,null,{timeout:600000});if(await page.locator('#py-error').isVisible()){report.packagePreparationError=await page.locator('#py-error').textContent();await page.screenshot({path:path.join(out,'package-preparation-error.png'),fullPage:true});throw Error(report.packagePreparationError);}await page.click('#py-recipe-example');"
+        ],
+        [
+          "profile=await fs.mkdtemp(path.join(os.tmpdir(),'thermo-recipe-'))",
+          "profile=process.env.LIBRARY_RECIPES_PROFILE||await fs.mkdtemp(path.join(os.tmpdir(),'thermo-recipe-'))"
+        ],
+        [
+          "await ready(page);report.build=",
+          "await publicReady(page);report.profile=profile;report.preparationProfileReuse=!!process.env.LIBRARY_RECIPES_PROFILE;report.build="
+        ],
+        [
+          " try{\n  context=await launch();",
+          " async function publicReady(page){await page.waitForFunction(()=>navigator.serviceWorker.controller&&/готова|ready offline/.test(document.querySelector('#pwa-status')?.textContent||'')||!document.querySelector('#pwa-retry').hidden,null,{timeout:300000});if(!await page.evaluate(()=>navigator.serviceWorker.controller&&/готова|ready offline/.test(document.querySelector('#pwa-status')?.textContent||''))){report.coreDownloadRetry={status:await page.locator('#pwa-status').textContent()};await page.screenshot({path:path.join(out,'core-download-retry.png'),fullPage:true});if(await page.locator('#pwa-panel').getAttribute('open')===null)await page.locator('#pwa-panel summary').click();await page.click('#pwa-retry');await page.waitForFunction(()=>navigator.serviceWorker.controller&&/готова|ready offline/.test(document.querySelector('#pwa-status')?.textContent||'')||!document.querySelector('#pwa-update').hidden,null,{timeout:300000});if(await page.locator('#pwa-update').isVisible())await page.click('#pwa-update');}await ready(page);report.preparedCompletePublicCoreCache=true;}\n try{\n  context=await launch();"
+        ],
+        [
+          "report.build=await page.locator('#app-build-value').textContent();",
+          "report.url=url;report.build=await page.locator('#app-build-value').textContent();assert.equal(report.build,'a8e94fb1e643');"
+        ],
+        [
+          "Closed profile/server disconnected/offline:",
+          "Public GitHub Pages origin, closed profile/dead proxy/offline:"
+        ],
+        [
+          "Input/replay/project/offline integration and elementary cylinder geometry only;",
+          "Actual public GitHub Pages input/replay/project/offline integration and elementary cylinder geometry only;"
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,683 @@
+Browser tab: 2, Title: "Навчальний теплофізичний калькулятор", URL: "https://lamerroma.github.io/water-steam-if97/".
+1 AXWebArea Навчальний теплофізичний калькулятор, URL: lamerroma.github.io/water-steam-if97/
+	2 button (collapsed) ☰ Мова Українська Масштаб 100%, Secondary Actions: Expand
+		3 text ☰
+		4 container
+			5 text Мова
+			6 pop up button (collapsed, settable) Description: Мова інтерфейсу, Value: Українська, ID: language-select, Secondary Actions: Expand
+				7 menu
+					8 English
+					9 (selected) Українська
+		10 container
+			11 text Масштаб
+			12 pop up button (collapsed, settable) Description: Масштаб інтерфейсу, Value: 100%, ID: ui-scale, Secondary Actions: Expand
+				13 menu
+					14 (selected) 100%
+					15 115%
+					16 130%
+	17 button Довідка
+	18 button Додати до звіту, ID: study-add-current
+	19 button Одиниці, ID: ui-units-toggle
+	20 button (collapsed) Встановлення та офлайн · Основна версія 1.41.0 готова до роботи офлайн, Secondary Actions: Expand
+		21 text Встановлення та офлайн
+		22 text  · 
+		23 text Основна версія 1.41.0 готова до роботи офлайн
+	24 container
+		25 container Інструменти калькулятора
+			26 button Description: Пошук інструмента, ID: ui-search-toggle
+			27 container
+				28 text Напрямок
+				29 pop up button (collapsed, settable) Напрямок, Value: Властивості, ID: tool-group-select, Secondary Actions: Expand
+					30 menu
+						31 (selected) Властивості
+						32 Процеси й цикли
+						33 Теплообмін і гідравліка
+						34 Навчання
+						35 Проєкти та звіти
+		36 container
+			37 text Розділ
+			38 pop up button (collapsed, settable) Description: Розділ калькулятора, Value: Вода та пара, ID: section-select, Secondary Actions: Expand
+				39 menu
+					40 container Властивості
+						41 (selected) Вода та пара
+						42 Насичення
+						43 Таблиці насичення
+						44 Гази та суміші
+						45 Вологе повітря
+						46 Лід
+						47 Важка вода
+						48 Морська вода
+						49 Фазові межі
+						50 Порівняння моделей
+					51 container Процеси й цикли
+						52 Редактор циклу
+						53 Прості процеси
+						54 Парова турбіна
+						55 Флеш-випаровування
+						56 Інженерні процеси
+						57 Теплові цикли
+						58 T–s діаграма
+						59 h–s діаграма
+						60 P–h діаграма
+					61 container Теплообмін і гідравліка
+						62 Витрати та гідравліка
+						63 Площа теплообмінника
+						64 Бібліотеки CoolProp / ht / fluids
+					65 container Навчання
+						66 Навчальні приклади
+						67 Лабораторні роботи
+						68 Контрольні та курсові
+						69 Схема двоконтурної АЕС
+						70 Дослідження параметрів
+						71 Довідка та джерела
+					72 container Проєкти та звіти
+						73 Збережені проєкти
+						74 Навчальний звіт
+						75 Пакетні розрахунки
+		76 container calculator-view
+			77 container tool-context
+				78 container
+					79 text Контрольні перевірки  Стан і властивості за двома відомими параметрами.
+				80 button (collapsed) Про цей розрахунок, Secondary Actions: Expand
+					81 text Про цей розрахунок
+			82 container Вхідні дані
+				83 text Вхідні дані
+				84 container Швидкий вибір вхідних даних
+					85 button P–T
+					86 button P–h
+					87 button P–s
+					88 button Насичення
+				89 button (collapsed) Розширений режим, ID: input-style-toggle, Secondary Actions: Expand
+				90 button Description: Поміняти параметри місцями, ID: smart-swap
+				91 container input-fields
+					92 container field-a
+						93 container
+							94 text Перший відомий параметр
+							95 pop up button (collapsed, settable) Перший відомий параметр, Value: Тиск, P, ID: smart-first, Secondary Actions: Expand
+								96 menu
+									97 (selected) Тиск, P
+									98 Температура, T
+									99 Ентальпія, h
+									100 Ентропія, s
+									101 Внутрішня енергія, u
+									102 Питомий об’єм, v
+									103 Густина, ρ
+									104 Сухість, x
+						105 text field (settable) Value: 3, ID: input-a
+						106 pop up button (collapsed, settable) Description: Одиниця: Тиск, P, Value: МПа, ID: unit-a, Secondary Actions: Expand
+							107 menu
+								108 (selected) МПа
+								109 кПа
+								110 Па
+								111 бар
+								112 атм
+								113 psi
+					114 container field-b
+						115 container
+							116 text Другий відомий параметр
+							117 pop up button (collapsed, settable) Другий відомий параметр, Value: Температура, T, ID: smart-second, Secondary Actions: Expand
+								118 menu
+									119 (selected) Температура, T
+									120 Ентальпія, h
+									121 Ентропія, s
+									122 Питомий об’єм, v
+									123 Внутрішня енергія, u
+									124 Насичення — обидві фази
+									125 Сухість, x
+									126 Густина, ρ
+						127 text field (settable) Value: 100, ID: input-b
+						128 pop up button (collapsed, settable) Description: Одиниця: Температура, T, Value: °C, ID: unit-b, Secondary Actions: Expand
+							129 menu
+								130 (selected) °C
+								131 K
+								132 °F
+			133 button Розрахувати, ID: calculate
+			134 button Очистити результати
+			135 text Стиснена рідина · IF97 · Область 1
+			136 text Результат актуальний
+			137 container calculator-result-tools
+				138 container
+					139 checkbox (settable, integer) Description: Копіювати значення з одиницею, Value: 1, ID: calculator-copy-units
+					140 text Копіювати значення з одиницею
+				141 button До історії, ID: calculator-history
+				142 button На діаграму, ID: calculator-diagram
+				143 button Експорт CSV, ID: calculator-export
+				144 button До звіту, ID: calculator-add-report
+				145 button Відкрити звіт, ID: calculator-open-report
+				146 button Копіювати таблицю, ID: copy-result-table
+				147 button Копіювати JSON результату, Help: Знімок результату в канонічних одиницях SI; для відновлення роботи використайте JSON-проєкт., ID: copy-result-json
+				148 container state-spreadsheet
+					149 pop up button (collapsed, settable) Description: Формат таблиці, Value: XLSX, ID: state-spreadsheet-format, Secondary Actions: Expand
+						150 menu
+							151 (selected) XLSX
+							152 ODS
+							153 XLS (97–2003)
+							154 CSV (UTF-8)
+					155 button Зберегти таблицю, ID: state-spreadsheet-save
+			156 container results
+				157 button (collapsed) Чутливість до округлення входів · велика зміна входів, Secondary Actions: Expand
+					158 text Чутливість до округлення входів · велика зміна входів
+				159 table
+					160 row
+						161 cell
+							162 button (expanded) ⊟ 1. Термодинамічні властивості — основні, Secondary Actions: Collapse
+					163 row
+						164 cell
+							165 text Тиск (абсолютний) 
+						166 cell
+							167 text p
+						168 cell
+							169 button Копіювати: Тиск (абсолютний)
+						170 cell
+							171 text 3
+						172 cell
+							173 text MPa
+					174 row
+						175 cell
+							176 text Температура 
+						177 cell
+							178 text t
+						179 cell
+							180 button Копіювати: Температура
+						181 cell
+							182 text 100
+						183 cell
+							184 text °C
+					185 row
+						186 cell
+							187 text Густина 
+						188 cell
+							189 text ρ
+						190 cell
+							191 button Копіювати: Густина
+						192 cell
+							193 text 959,70762
+						194 cell
+							195 text кг/м³
+					196 row
+						197 cell
+							198 text Питомий об’єм 
+						199 cell
+							200 text v
+						201 cell
+							202 button Копіювати: Питомий об’єм
+						203 cell
+							204 text 0,001041984
+						205 cell
+							206 text м³/кг
+					207 row
+						208 cell
+							209 text Питома ентальпія 
+						210 cell
+							211 text h
+						212 cell
+							213 button Копіювати: Питома ентальпія
+						214 cell
+							215 text 421,27741
+						216 cell
+							217 text kJ/kg
+					218 row
+						219 cell
+							220 text Питома ентропія 
+						221 cell
+							222 text s
+						223 cell
+							224 button Копіювати: Питома ентропія
+						225 cell
+							226 text 1,3047521
+						227 cell
+							228 text kJ/(kg K)
+					229 row
+						230 cell
+							231 text Фізична ексергія потоку 
+						232 cell
+							233 text ex
+						234 cell
+							235 button Копіювати: Фізична ексергія потоку
+						236 cell
+							237 text 36,826204
+						238 cell
+							239 text kJ/kg
+					240 row
+						241 cell
+							242 text Питома внутрішня енергія 
+						243 cell
+							244 text u
+						245 cell
+							246 button Копіювати: Питома внутрішня енергія
+						247 cell
+							248 text 418,15146
+						249 cell
+							250 text kJ/kg
+					251 row
+						252 cell
+							253 text Питома ізобарна теплоємність 
+						254 cell
+							255 text cp
+						256 cell
+							257 button Копіювати: Питома ізобарна теплоємність
+						258 cell
+							259 text 4,2100155
+						260 cell
+							261 text kJ/(kg K)
+					262 row
+						263 cell
+							264 text Питома ізохорна теплоємність 
+						265 cell
+							266 text cv
+						267 cell
+							268 button Копіювати: Питома ізохорна теплоємність
+						269 cell
+							270 text 3,7634635
+						271 cell
+							272 text kJ/(kg K)
+					273 row
+						274 cell
+							275 text Швидкість звуку 
+						276 cell
+							277 text w
+						278 cell
+							279 button Копіювати: Швидкість звуку
+						280 cell
+							281 text 1 551,0102
+						282 cell
+							283 text м/с
+					284 row
+						285 cell
+							286 button (expanded) ⊟ 2. Термодинамічні властивості — стан, Secondary Actions: Collapse
+					287 row
+						288 cell
+							289 text Ступінь сухості (масова частка пари) 
+						290 cell
+							291 text x
+						292 cell
+							293 button (disabled) Копіювати: Ступінь сухості (масова частка пари)
+						294 cell
+							295 text —
+							296 text Сухість визначається для рівноваги рідина–пара.
+						297 cell
+							298 text –
+					299 row
+						300 cell
+							301 text Область IF97 
+						302 cell
+							303 text region
+						304 cell
+							305 button Копіювати: Область IF97
+						306 cell
+							307 text 1
+						308 cell
+							309 text –
+					310 row
+						311 cell
+							312 text Ізентропний показник 
+						313 cell
+							314 text κs
+						315 cell
+							316 button Копіювати: Ізентропний показник
+						317 cell
+							318 text 769,56797
+						319 cell
+							320 text –
+					321 row
+						322 cell
+							323 text Питома енергія Гельмгольца 
+						324 cell
+							325 text a
+						326 cell
+							327 button Копіювати: Питома енергія Гельмгольца
+						328 cell
+							329 text -68,716789
+						330 cell
+							331 text kJ/kg
+					332 row
+						333 cell
+							334 text Питома енергія Гіббса 
+						335 cell
+							336 text g
+						337 cell
+							338 button Копіювати: Питома енергія Гіббса
+						339 cell
+							340 text -65,590837
+						341 cell
+							342 text kJ/kg
+					343 row
+						344 cell
+							345 text Коефіцієнт стисливості 
+						346 cell
+							347 text Z
+						348 cell
+							349 button Копіювати: Коефіцієнт стисливості
+						350 cell
+							351 text 0,018151089
+						352 cell
+							353 text –
+					354 row
+						355 cell
+							356 text Ізобарне об’ємне розширення 
+						357 cell
+							358 text α
+						359 cell
+							360 button Копіювати: Ізобарне об’ємне розширення
+						361 cell
+							362 text 0,0007459808
+						363 cell
+							364 text 1/K
+					365 row
+						366 cell
+							367 text Ізотермічна стисливість 
+						368 cell
+							369 text κT
+						370 cell
+							371 button Копіювати: Ізотермічна стисливість
+						372 cell
+							373 text 0,0004845379
+						374 cell
+							375 text 1/МПа
+					376 row
+						377 cell
+							378 text Похідна (∂v/∂T)p 
+						379 cell
+							380 text vT
+						381 cell
+							382 button Копіювати: Похідна (∂v/∂T)p
+						383 cell
+							384 text 7,7730007Е-7
+						385 cell
+							386 text м³/(кг·K)
+					387 row
+						388 cell
+							389 text Похідна (∂v/∂p)T 
+						390 cell
+							391 text vp
+						392 cell
+							393 button Копіювати: Похідна (∂v/∂p)T
+						394 cell
+							395 text -5,0488075Е-7
+						396 cell
+							397 text м³/(кг·МПа)
+					398 row
+						399 cell
+							400 text Похідна (∂p/∂T)v 
+						401 cell
+							402 text pT
+						403 cell
+							404 button Копіювати: Похідна (∂p/∂T)v
+						405 cell
+							406 text 1,5395716
+						407 cell
+							408 text МПа/K
+					409 row
+						410 cell
+							411 text Похідна (∂p/∂v)T 
+						412 cell
+							413 text pv
+						414 cell
+							415 button Копіювати: Похідна (∂p/∂v)T
+						416 cell
+							417 text -1 980 665,7
+						418 cell
+							419 text МПа·кг/м³
+					420 row
+						421 cell
+							422 text Ізотермічний коефіцієнт Джоуля–Томсона 
+						423 cell
+							424 text δT
+						425 cell
+							426 button Копіювати: Ізотермічний коефіцієнт Джоуля–Томсона
+						427 cell
+							428 text 0,75193449
+						429 cell
+							430 text кДж/(кг·МПа)
+					431 row
+						432 cell
+							433 text Коефіцієнт Джоуля–Томсона 
+						434 cell
+							435 text μJT
+						436 cell
+							437 button Копіювати: Коефіцієнт Джоуля–Томсона
+						438 cell
+							439 text -0,17860611
+						440 cell
+							441 text K/МПа
+					442 row
+						443 cell
+							444 text Статична відносна діелектрична проникність 
+						445 cell
+							446 text εr
+						447 cell
+							448 button Копіювати: Статична відносна діелектрична проникність
+						449 cell
+							450 text 55,628222
+						451 cell
+							452 text –
+					453 row
+						454 cell
+							455 button (expanded) ⊟ 3. Транспортні властивості, Secondary Actions: Collapse
+					456 row
+						457 cell
+							458 text Динамічна в’язкість 
+						459 cell
+							460 text μ
+						461 cell
+							462 button Копіювати: Динамічна в’язкість
+						463 cell
+							464 text 0,000282367
+						465 cell
+							466 text Па·с
+					467 row
+						468 cell
+							469 text Кінематична в’язкість 
+						470 cell
+							471 text ν
+						472 cell
+							473 button Копіювати: Кінематична в’язкість
+						474 cell
+							475 text 2,942219Е-7
+						476 cell
+							477 text м²/с
+					478 row
+						479 cell
+							480 text Теплопровідність 
+						481 cell
+							482 text λ
+						483 cell
+							484 button Копіювати: Теплопровідність
+						485 cell
+							486 text 0,67885877
+						487 cell
+							488 text Вт/(м·K)
+					489 row
+						490 cell
+							491 text Температуропровідність 
+						492 cell
+							493 text aT
+						494 cell
+							495 button Копіювати: Температуропровідність
+						496 cell
+							497 text 1,6801838Е-7
+						498 cell
+							499 text м²/с
+					500 row
+						501 cell
+							502 text Число Прандтля 
+						503 cell
+							504 text Pr
+						505 cell
+							506 button Копіювати: Число Прандтля
+						507 cell
+							508 text 1,7511292
+						509 cell
+							510 text –
+					511 row
+						512 cell
+							513 text Поверхневий натяг рідина–пара 
+						514 cell
+							515 text σ
+						516 cell
+							517 button (disabled) Копіювати: Поверхневий натяг рідина–пара
+						518 cell
+							519 text —
+							520 text Потрібна рівноважна межа рідина–пара на насиченні.
+						521 cell
+							522 text Н/м
+				523 button (collapsed) Константи IF97, Secondary Actions: Expand
+					524 text Константи IF97
+				525 text Діелектрична проникність: рівняння R8-97 з густиною IF97. Для P–T R8-97 рекомендує густину IAPWS-95; тут можливе відхилення від цього варіанта.
+		526 heading Історія розрахунків Згорнути панель результатів ↓ CSV поточного стану, Value: 2
+			527 text Історія розрахунків
+			528 button Згорнути панель результатів
+			529 button ↓ CSV поточного стану, ID: export-csv
+		530 table history
+			531 row
+				532 cell
+					533 text №
+				534 cell
+					535 text Назва
+				536 cell
+					537 text Дії
+				538 cell
+					539 text p [MPa]
+				540 cell
+					541 text T [°C]
+				542 cell
+					543 text v [м³/кг]
+				544 cell
+					545 text h [kJ/kg]
+				546 cell
+					547 text s [kJ/(kg K)]
+				548 cell
+					549 text u [kJ/kg]
+				550 cell
+					551 text cp [kJ/(kg K)]
+				552 cell
+					553 text cv [kJ/(kg K)]
+				554 cell
+					555 text w [м/с]
+				556 cell
+					557 text x [–]
+				558 cell
+					559 text region [–]
+				560 cell
+					561 text mu [Па·с]
+				562 cell
+					563 text lambda [Вт/(м·K)]
+				564 cell
+					565 text Модель
+			566 container history-body
+				567 row
+					568 cell
+						569 text 2
+					570 cell
+						571 combo box (settable) Назва стану 2
+					572 cell
+						573 checkbox (settable, integer) Description: Порівняти стан 2, Value: 0
+						574 button Відкрити стан 2
+						575 button Додати стан 2 до звіту
+						576 button Перерахувати копію стану 2
+						577 button Видалити стан 2
+					578 cell
+						579 text 3
+					580 cell
+						581 text 100
+					582 cell
+						583 text 0,001041984
+					584 cell
+						585 text 421,27741
+					586 cell
+						587 text 1,3047521
+					588 cell
+						589 text 418,15146
+					590 cell
+						591 text 4,2100155
+					592 cell
+						593 text 3,7634635
+					594 cell
+						595 text 1 551,0102
+					596 cell
+						597 text —
+					598 cell
+						599 text 1
+					600 cell
+						601 text 0,000282367
+					602 cell
+						603 text 0,67885877
+					604 cell
+						605 text IF97
+				606 row
+					607 cell
+						608 text 1
+					609 cell
+						610 combo box (settable) Назва стану 1
+					611 cell
+						612 checkbox (settable, integer) Description: Порівняти стан 1, Value: 0
+						613 button Відкрити стан 1
+						614 button Додати стан 1 до звіту
+						615 button Перерахувати копію стану 1
+						616 button Видалити стан 1
+					617 cell
+						618 text 3
+					619 cell
+						620 text 100
+					621 cell
+						622 text 0,001041984
+					623 cell
+						624 text 421,27741
+					625 cell
+						626 text 1,3047521
+					627 cell
+						628 text 418,15146
+					629 cell
+						630 text 4,2100155
+					631 cell
+						632 text 3,7634635
+					633 cell
+						634 text 1 551,0102
+					635 cell
+						636 text —
+					637 cell
+						638 text 1
+					639 cell
+						640 text 0,000282367
+					641 cell
+						642 text 0,67885877
+					643 cell
+						644 text IF97
+				645 row
+					646 cell
+						647 text 3
+				648 row
+					649 cell
+						650 text 4
+				651 row
+					652 cell
+						653 text 5
+				654 row
+					655 cell
+						656 text 6
+		657 button Одиниці SI
+		658 button Англійські одиниці
+		659 button (disabled) Скасувати видалення, ID: history-undo
+		660 button Очистити історію, ID: history-clear
+		661 button (disabled) Порівняти (0/5), ID: history-compare
+		662 button (disabled) Скинути вибір, ID: history-selection-clear
+		663 text Станів: 2
+		664 button ↓ CSV історії
+		665 container history-spreadsheet
+			666 pop up button (collapsed, settable) Description: Формат таблиці, Value: XLSX, ID: history-spreadsheet-format, Secondary Actions: Expand
+				667 menu
+					668 (selected) XLSX
+					669 ODS
+					670 XLS (97–2003)
+					671 CSV (UTF-8)
+			672 button Зберегти таблицю, ID: history-spreadsheet-save
+	673 container
+		674 text Модель води й пари: IF97
+		675 text Відновлено результат проєкту
+		676 container app-version
+			677 text Версія
+			678 text 1.41.0
+			679 text  ·  збірка
+			680 text a8e94fb1e643
+
+The focused UI element is 1 AXWebArea Навчальний теплофізичний калькулятор, URL: lamerroma.github.io/water-steam-if97/

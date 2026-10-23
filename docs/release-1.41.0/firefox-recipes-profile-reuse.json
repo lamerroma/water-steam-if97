@@ -1,0 +1,4 @@
+{
+  "profile": "C:/Users/coyotl/AppData/Local/Temp/thermo-recipe-cNMosA",
+  "reason": "Initial public Python package preparation did not complete within 300s; no recipe checks had started. Reuse the same disposable profile and its already verified core cache; repeat preparation with 600s bound and explicit error capture."
+}

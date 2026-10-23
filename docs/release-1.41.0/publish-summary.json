@@ -1,0 +1,271 @@
+{
+  "date": "2026-10-23",
+  "status": "published_and_verified",
+  "version": "1.41.0",
+  "build": "a8e94fb1e643",
+  "runtimeCommit": "5dc609c92fe80a7ffe050b4cc0696d6876628ac2",
+  "url": "https://lamerroma.github.io/water-steam-if97/",
+  "scope": "Named public-site regression, state migration, export, diagrams, ht/fluids recipe and cold offline scenarios in desktop Chromium/Firefox. Neither all possible inputs nor full physical/Steam97/library numerical validation.",
+  "CI": {
+    "run": 39909605587,
+    "url": "https://github.com/lamerroma/water-steam-if97/actions/runs/39909605587",
+    "status": "passed",
+    "passed": 116,
+    "total": 116,
+    "exactReportDownloaded": true,
+    "evidence": "ci-report.json",
+    "consoleChecks": 114,
+    "additionalChecks": [
+      "deterministic-build",
+      "deterministic-package"
+    ],
+    "countMethod": "Exact report when available; otherwise 114 console PASS records plus two deterministic checks inserted by the accepted verify-release source; successful job requires every report check to pass."
+  },
+  "Pages": {
+    "run": 39909605539,
+    "url": "https://github.com/lamerroma/water-steam-if97/actions/runs/39909605539",
+    "status": "passed"
+  },
+  "publicResources": 27,
+  "allPublicHashesMatch": true,
+  "browsers": {
+    "chromium": {
+      "version": "151.0.7922.34",
+      "onlineCases": 42,
+      "offlineCases": 13,
+      "uniqueNumericalComparisons": 39,
+      "comparedNumbers": 3986,
+      "expectedRejections": 1,
+      "legacyRoutes": 30,
+      "currentRoutes": 31,
+      "restoredPanels": [
+        {
+          "action": "gases",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "humid",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "ice",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "d2o",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "seawater",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "turbine",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "cycles",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "exchanger",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "coursework",
+          "status": "matched",
+          "differences": []
+        }
+      ],
+      "numericDifferences": 0,
+      "upgradeGroups": 7,
+      "spreadsheetFiles": 8,
+      "spreadsheetNumericalChecks": 24,
+      "upgradeDownloadRetry": false,
+      "legacyProjectGroups": 5,
+      "diagramCycles": 15,
+      "forcedCancellations": [
+        {
+          "phase": "online",
+          "postedRefinementRequests": 1,
+          "terminalReplies": 1,
+          "cancelledReplies": 1,
+          "workerClosesBefore": 0,
+          "workerClosesAfter": 1
+        },
+        {
+          "phase": "offline",
+          "postedRefinementRequests": 1,
+          "terminalReplies": 1,
+          "cancelledReplies": 1,
+          "workerClosesBefore": 15,
+          "workerClosesAfter": 16
+        }
+      ],
+      "recipeGroups": 15
+    },
+    "firefox": {
+      "version": "153.0",
+      "onlineCases": 42,
+      "offlineCases": 13,
+      "uniqueNumericalComparisons": 39,
+      "comparedNumbers": 3986,
+      "expectedRejections": 1,
+      "legacyRoutes": 30,
+      "currentRoutes": 31,
+      "restoredPanels": [
+        {
+          "action": "gases",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "humid",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "ice",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "d2o",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "seawater",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "turbine",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "cycles",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "exchanger",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "coursework",
+          "status": "matched",
+          "differences": []
+        }
+      ],
+      "numericDifferences": 0,
+      "upgradeGroups": 7,
+      "spreadsheetFiles": 8,
+      "spreadsheetNumericalChecks": 24,
+      "upgradeDownloadRetry": false,
+      "legacyProjectGroups": 5,
+      "diagramCycles": 15,
+      "forcedCancellations": [
+        {
+          "phase": "online",
+          "postedRefinementRequests": 1,
+          "terminalReplies": 1,
+          "cancelledReplies": 1,
+          "workerClosesBefore": 0,
+          "workerClosesAfter": 1
+        },
+        {
+          "phase": "offline",
+          "postedRefinementRequests": 1,
+          "terminalReplies": 1,
+          "cancelledReplies": 1,
+          "workerClosesBefore": 46,
+          "workerClosesAfter": 47
+        }
+      ],
+      "recipeGroups": 15
+    }
+  },
+  "limitations": [
+    "P03/P04 direct numerical Steam97Web parity remains unconfirmed: all 20 original reference attempts required registration.",
+    "P04 is an experimental caloric correction, not general chemical equilibrium.",
+    "Whole ht/fluids API, optional variants and all TANK numerical cases are not accepted by these scenarios.",
+    "Reactor cell physical-screening-failed remains unchanged.",
+    "Physical Android/iOS devices and Safari were not tested.",
+    "Earlier separate Firefox mass P08-export crash observation is not declared fixed."
+  ],
+  "observations": [
+    {
+      "type": "observed",
+      "event": "Initial public runs exceeded local-server navigation/action waits while CoolProp/cache was still loading. Original reports retained. Final unchanged numerical cases waited for complete public core cache and used bounded longer waits.",
+      "evidence": [
+        "chromium-legacy-attempt1.json",
+        "chromium-legacy-attempt2.json",
+        "firefox-legacy-attempt1.json",
+        "drivers.json"
+      ]
+    },
+    {
+      "type": "observed",
+      "event": "First Chromium upgrade driver attempted a second update click while Check for updates was already applying the release. Failure screenshot shows new 1.41.0. Driver now waits for automatic reload; calculations and app source unchanged.",
+      "evidence": "chromium-upgrade-attempt1.png"
+    },
+    {
+      "type": "observed",
+      "event": "First Firefox update attempt displayed Full download failed and retained old 1.40.1 and its inputs/history. Root cause was not established in that attempt; final retry is reported separately.",
+      "evidence": [
+        "firefox-upgrade-attempt1.json",
+        "firefox-upgrade-attempt1.png"
+      ]
+    },
+    {
+      "type": "observed",
+      "event": "A second Firefox driver navigated before waiting for the explicit project-restored message. New build and stored inputs/history were present, but UI later reported project not restored and batch did not replay. Final driver waits for actual project restoration before interaction.",
+      "evidence": [
+        "firefox-upgrade-attempt2.json",
+        "firefox-upgrade-attempt2.png"
+      ]
+    },
+    {
+      "type": "inference",
+      "event": "Early navigation is consistent with the existing restoreLocal protection against Project changed during restore. That attempt did not capture the swallowed exception, so its exact root cause is not proven."
+    },
+    {
+      "type": "observed",
+      "event": "An initial Firefox diagram run completed ten online navigation cycles and active cancellation, then exceeded its 120s cache-ready wait. Repeated with the core cache complete before navigation; identical fifteen-cycle and cancellation checks passed.",
+      "evidence": "firefox-navigation-attempt1.json"
+    },
+    {
+      "type": "observed",
+      "event": "First Firefox recipe run did not finish the separate optional package preparation within 300s. No numerical recipe checks had started. Preparation repeated in the same disposable profile with 600s bound and explicit package error capture; results are separate. This is not proof of the original timeout root cause.",
+      "evidence": [
+        "firefox-recipes-attempt1.json",
+        "firefox-recipes-profile-reuse.json"
+      ]
+    }
+  ],
+  "unitTestsCI": {
+    "node": 22,
+    "passed": 1833,
+    "failed": 0,
+    "skipped": 0,
+    "evidence": "ci-unit.log.gz"
+  },
+  "independentInverse": {
+    "passed": 4657,
+    "failed": 0,
+    "IF97": 3439,
+    "IAPWS95": 1218,
+    "evidence": "ci-inverse.log.gz"
+  }
+}

@@ -98,7 +98,7 @@ Ubuntu через HTTPS, APT timeout/retries і окремі обмежені к
 
 ## Публічне приймання завершено
 
-[Протокол публікації 1.40.1](RELEASE_STATUS_UK.md) та
+[Протокол публікації 1.40.1](release-1.40.1/REPORT_UK.md) та
 [точні дані](release-1.40.1/publish-summary.json): CI 110/110, inverse-full
 4657/4657, Pages успішний; усі 27 публічних ресурсів збігаються з runtime
 9a158c0. Публічні legacy, batch і navigation перевірки пройшли в обох

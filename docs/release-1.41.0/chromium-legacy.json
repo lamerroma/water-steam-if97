@@ -1,0 +1,903 @@
+{
+  "date": "2026-10-23T09:02:24.369Z",
+  "browser": "chromium",
+  "status": "passed",
+  "baselineCommit": "6bae91383df7085f73dd1cc2f3eb462571143867",
+  "scope": "Named legacy UI/default and branch cases, differential controls, project migration and cold offline replay. Not full physical validation or all possible inputs.",
+  "comparisons": [
+    {
+      "target": "current",
+      "id": "water-pt",
+      "status": "matched",
+      "quantities": 62,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "saturation-p",
+      "status": "matched",
+      "quantities": 56,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "saturation-table",
+      "status": "matched",
+      "quantities": 160,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "gas-real",
+      "status": "matched",
+      "quantities": 25,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "gas-ideal",
+      "status": "matched",
+      "quantities": 20,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "gas-bsw2003",
+      "status": "matched",
+      "quantities": 28,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "humid-R",
+      "status": "matched",
+      "quantities": 11,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "humid-W",
+      "status": "matched",
+      "quantities": 11,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "humid-D",
+      "status": "matched",
+      "quantities": 11,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "humid-B",
+      "status": "matched",
+      "quantities": 11,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "ice",
+      "status": "matched",
+      "quantities": 14,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "d2o-pt",
+      "status": "matched",
+      "quantities": 11,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "d2o-saturation",
+      "status": "matched",
+      "quantities": 27,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "seawater",
+      "status": "matched",
+      "quantities": 14,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "melting",
+      "status": "matched",
+      "quantities": 2,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "sublimation",
+      "status": "matched",
+      "quantities": 2,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "model-comparison",
+      "status": "matched",
+      "quantities": 36,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "custom-cycle",
+      "status": "matched",
+      "quantities": 61,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "water-process",
+      "status": "matched",
+      "quantities": 28,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "turbine",
+      "status": "matched",
+      "quantities": 14,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "flash",
+      "status": "matched",
+      "quantities": 9,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "engineering-compressor",
+      "status": "matched",
+      "quantities": 12,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "engineering-pump",
+      "status": "matched",
+      "quantities": 12,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "engineering-heat-exchanger",
+      "status": "matched",
+      "quantities": 16,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "pump-vapor-rejected",
+      "status": "expected_rejection",
+      "quantities": 0,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "cycle-rankine",
+      "status": "matched",
+      "quantities": 131,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "cycle-rankine-reheat",
+      "status": "matched",
+      "quantities": 195,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "cycle-rankine-regen",
+      "status": "matched",
+      "quantities": 232,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "cycle-brayton",
+      "status": "matched",
+      "quantities": 106,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "flow",
+      "status": "matched",
+      "quantities": 28,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "exchanger",
+      "status": "matched",
+      "quantities": 5,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "tutorial",
+      "status": "matched",
+      "quantities": 2,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "laboratory",
+      "status": "matched",
+      "quantities": 58,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "coursework-rankine",
+      "status": "matched",
+      "quantities": 32,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "coursework-stage",
+      "status": "matched",
+      "quantities": 35,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "coursework-core",
+      "status": "matched",
+      "quantities": 454,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "coursework-reactor",
+      "status": "matched",
+      "quantities": 1947,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "npp",
+      "status": "matched",
+      "quantities": 41,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "research",
+      "status": "matched",
+      "quantities": 27,
+      "differences": [],
+      "inputDifferences": []
+    },
+    {
+      "target": "current",
+      "id": "batch",
+      "status": "matched",
+      "quantities": 40,
+      "differences": [],
+      "inputDifferences": []
+    }
+  ],
+  "failedCases": 0,
+  "numericDifferences": 0,
+  "comparisonFailures": 0,
+  "targets": [
+    {
+      "name": "baseline",
+      "url": "http://127.0.0.1:53832/",
+      "routes": [
+        {
+          "action": "general",
+          "label": "Вода та пара"
+        },
+        {
+          "action": "saturation",
+          "label": "Насичення"
+        },
+        {
+          "action": "satgrid",
+          "label": "Таблиці насичення"
+        },
+        {
+          "action": "gases",
+          "label": "Гази та суміші"
+        },
+        {
+          "action": "humid",
+          "label": "Вологе повітря"
+        },
+        {
+          "action": "ice",
+          "label": "Лід"
+        },
+        {
+          "action": "d2o",
+          "label": "Важка вода"
+        },
+        {
+          "action": "seawater",
+          "label": "Морська вода"
+        },
+        {
+          "action": "boundaries",
+          "label": "Фазові межі"
+        },
+        {
+          "action": "comparison",
+          "label": "Порівняння моделей"
+        },
+        {
+          "action": "custom-cycle",
+          "label": "Редактор циклу"
+        },
+        {
+          "action": "water-process",
+          "label": "Прості процеси"
+        },
+        {
+          "action": "turbine",
+          "label": "Парова турбіна"
+        },
+        {
+          "action": "flash",
+          "label": "Флеш-випаровування"
+        },
+        {
+          "action": "engineering",
+          "label": "Інженерні процеси"
+        },
+        {
+          "action": "cycles",
+          "label": "Теплові цикли"
+        },
+        {
+          "action": "ts",
+          "label": "T–s діаграма"
+        },
+        {
+          "action": "hsdiagram",
+          "label": "h–s діаграма"
+        },
+        {
+          "action": "phdiagram",
+          "label": "P–h діаграма"
+        },
+        {
+          "action": "flow",
+          "label": "Витрати та гідравліка"
+        },
+        {
+          "action": "exchanger",
+          "label": "Площа теплообмінника"
+        },
+        {
+          "action": "tutorials",
+          "label": "Навчальні приклади"
+        },
+        {
+          "action": "laboratory",
+          "label": "Лабораторні роботи"
+        },
+        {
+          "action": "coursework",
+          "label": "Контрольні та курсові"
+        },
+        {
+          "action": "npp",
+          "label": "Схема двоконтурної АЕС"
+        },
+        {
+          "action": "research",
+          "label": "Дослідження параметрів"
+        },
+        {
+          "action": "help",
+          "label": "Довідка та джерела"
+        },
+        {
+          "action": "projects",
+          "label": "Збережені проєкти"
+        },
+        {
+          "action": "study",
+          "label": "Навчальний звіт"
+        },
+        {
+          "action": "batch",
+          "label": "Пакетні розрахунки"
+        }
+      ],
+      "errors": [],
+      "profile": "C:\\Users\\coyotl\\AppData\\Local\\Temp\\legacy-chromium-tymAxI",
+      "browserVersion": "151.0.7922.34",
+      "build": "Версія 1.35.12 · збірка 8976baaf14e1",
+      "diagrams": [
+        {
+          "action": "ts",
+          "series": [
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 102
+            },
+            {
+              "points": 101
+            },
+            {
+              "points": 101
+            },
+            {
+              "points": 181
+            },
+            {
+              "points": 181
+            },
+            {
+              "points": 2
+            },
+            {
+              "points": 2
+            },
+            {
+              "points": 7
+            }
+          ]
+        },
+        {
+          "action": "hsdiagram",
+          "series": [
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 102
+            },
+            {
+              "points": 101
+            },
+            {
+              "points": 101
+            },
+            {
+              "points": 181
+            },
+            {
+              "points": 181
+            },
+            {
+              "points": 2
+            },
+            {
+              "points": 2
+            },
+            {
+              "points": 7
+            }
+          ]
+        },
+        {
+          "action": "phdiagram",
+          "series": [
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 102
+            },
+            {
+              "points": 101
+            },
+            {
+              "points": 101
+            },
+            {
+              "points": 181
+            },
+            {
+              "points": 181
+            },
+            {
+              "points": 2
+            },
+            {
+              "points": 2
+            },
+            {
+              "points": 7
+            }
+          ]
+        }
+      ],
+      "projectExported": true,
+      "onlineCases": 41,
+      "offlineCases": 0
+    },
+    {
+      "name": "current",
+      "url": "https://lamerroma.github.io/water-steam-if97/",
+      "routes": [
+        {
+          "action": "general",
+          "label": "Вода та пара"
+        },
+        {
+          "action": "saturation",
+          "label": "Насичення"
+        },
+        {
+          "action": "satgrid",
+          "label": "Таблиці насичення"
+        },
+        {
+          "action": "gases",
+          "label": "Гази та суміші"
+        },
+        {
+          "action": "humid",
+          "label": "Вологе повітря"
+        },
+        {
+          "action": "ice",
+          "label": "Лід"
+        },
+        {
+          "action": "d2o",
+          "label": "Важка вода"
+        },
+        {
+          "action": "seawater",
+          "label": "Морська вода"
+        },
+        {
+          "action": "boundaries",
+          "label": "Фазові межі"
+        },
+        {
+          "action": "comparison",
+          "label": "Порівняння моделей"
+        },
+        {
+          "action": "custom-cycle",
+          "label": "Редактор циклу"
+        },
+        {
+          "action": "water-process",
+          "label": "Прості процеси"
+        },
+        {
+          "action": "turbine",
+          "label": "Парова турбіна"
+        },
+        {
+          "action": "flash",
+          "label": "Флеш-випаровування"
+        },
+        {
+          "action": "engineering",
+          "label": "Інженерні процеси"
+        },
+        {
+          "action": "cycles",
+          "label": "Теплові цикли"
+        },
+        {
+          "action": "ts",
+          "label": "T–s діаграма"
+        },
+        {
+          "action": "hsdiagram",
+          "label": "h–s діаграма"
+        },
+        {
+          "action": "phdiagram",
+          "label": "P–h діаграма"
+        },
+        {
+          "action": "flow",
+          "label": "Витрати та гідравліка"
+        },
+        {
+          "action": "exchanger",
+          "label": "Площа теплообмінника"
+        },
+        {
+          "action": "libraries",
+          "label": "Бібліотеки CoolProp / ht / fluids"
+        },
+        {
+          "action": "tutorials",
+          "label": "Навчальні приклади"
+        },
+        {
+          "action": "laboratory",
+          "label": "Лабораторні роботи"
+        },
+        {
+          "action": "coursework",
+          "label": "Контрольні та курсові"
+        },
+        {
+          "action": "npp",
+          "label": "Схема двоконтурної АЕС"
+        },
+        {
+          "action": "research",
+          "label": "Дослідження параметрів"
+        },
+        {
+          "action": "help",
+          "label": "Довідка та джерела"
+        },
+        {
+          "action": "projects",
+          "label": "Збережені проєкти"
+        },
+        {
+          "action": "study",
+          "label": "Навчальний звіт"
+        },
+        {
+          "action": "batch",
+          "label": "Пакетні розрахунки"
+        }
+      ],
+      "errors": [],
+      "profile": "C:\\Users\\coyotl\\AppData\\Local\\Temp\\legacy-chromium-lH2tF7",
+      "browserVersion": "151.0.7922.34",
+      "build": "Версія 1.41.0 · збірка a8e94fb1e643",
+      "waitedForCompletePublicOfflineCache": true,
+      "diagrams": [
+        {
+          "action": "ts",
+          "series": [
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 102
+            },
+            {
+              "points": 101
+            },
+            {
+              "points": 101
+            },
+            {
+              "points": 181
+            },
+            {
+              "points": 181
+            },
+            {
+              "points": 2
+            },
+            {
+              "points": 2
+            },
+            {
+              "points": 7
+            }
+          ]
+        },
+        {
+          "action": "hsdiagram",
+          "series": [
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 102
+            },
+            {
+              "points": 101
+            },
+            {
+              "points": 101
+            },
+            {
+              "points": 181
+            },
+            {
+              "points": 181
+            },
+            {
+              "points": 2
+            },
+            {
+              "points": 2
+            },
+            {
+              "points": 7
+            }
+          ]
+        },
+        {
+          "action": "phdiagram",
+          "series": [
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 112
+            },
+            {
+              "points": 102
+            },
+            {
+              "points": 101
+            },
+            {
+              "points": 101
+            },
+            {
+              "points": 181
+            },
+            {
+              "points": 181
+            },
+            {
+              "points": 2
+            },
+            {
+              "points": 2
+            },
+            {
+              "points": 7
+            }
+          ]
+        }
+      ],
+      "legacyProjectImported": true,
+      "restoredPanels": [
+        {
+          "action": "gases",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "humid",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "ice",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "d2o",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "seawater",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "turbine",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "cycles",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "exchanger",
+          "status": "matched",
+          "differences": []
+        },
+        {
+          "action": "coursework",
+          "status": "matched",
+          "differences": []
+        }
+      ],
+      "offlineProbeBlocked": true,
+      "onlineCases": 42,
+      "offlineCases": 13
+    }
+  ]
+}

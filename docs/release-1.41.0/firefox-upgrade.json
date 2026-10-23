@@ -1,0 +1,1418 @@
+{
+  "browser": "firefox",
+  "url": "https://lamerroma.github.io/water-steam-if97/",
+  "dateUTC": "2026-10-23T09:17:12.470Z",
+  "acceptedCommit": "5dc609c92fe80a7ffe050b4cc0696d6876628ac2",
+  "status": "passed",
+  "checks": [
+    "Previously installed public 1.40.1 opens cold offline; typed IF97/bar/C inputs, ten-row batch, language and prepared Python package recorded",
+    "Real public update through the normal UI preserves project title, exact inputs/units, full canonical history and language without recovery import",
+    "Ten-row batch recalculates and the previously prepared optional package remains ready",
+    "Deployed HEOS Worker computes 1 MPa / 500 K; XLSX/ODS/XLS/CSV downloads saved",
+    "Fully closed profile, unreachable proxy and offline network: project and HEOS restore; all four spreadsheet formats still export",
+    "Previously cached ht.LMTD computes the elementary counter-current control offline in a fresh Worker",
+    "Independent openpyxl/odfpy/xlrd/CSV readers verify eight downloads, release/build, absolute pressure and 24 numerical cells"
+  ],
+  "errors": [],
+  "files": [
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\publication-1.41.0\\firefox\\upgrade\\online.xlsx",
+      "format": "xlsx",
+      "sha256": "13cd10508c0a2a64fc9f1970b1430c193a7e1a711eda4217607450b49cc96414",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 1,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 500,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 2891.218298958905,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\publication-1.41.0\\firefox\\upgrade\\online.ods",
+      "format": "ods",
+      "sha256": "b24e052db7ec6a134bd9d0abb945a12f5f11dcd0f88c345bbb0c23c03dc3df05",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 1,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 500,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 2891.218298958905,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\publication-1.41.0\\firefox\\upgrade\\online.xls",
+      "format": "xls",
+      "sha256": "7814d5dd51d15cbd73cdea6ad9ef32424685fdd2a2c9d36cc4631e44e0a37166",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 1,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 500,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 2891.218298958905,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\publication-1.41.0\\firefox\\upgrade\\online.csv",
+      "format": "csv",
+      "sha256": "a2ff0dbc47ae168ebf038c511e862acda48291b511dd15b5b547d8c8063bd923",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 1,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 500,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 2891.218298958905,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\publication-1.41.0\\firefox\\upgrade\\offline.xlsx",
+      "format": "xlsx",
+      "sha256": "13cd10508c0a2a64fc9f1970b1430c193a7e1a711eda4217607450b49cc96414",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 1,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 500,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 2891.218298958905,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\publication-1.41.0\\firefox\\upgrade\\offline.ods",
+      "format": "ods",
+      "sha256": "b24e052db7ec6a134bd9d0abb945a12f5f11dcd0f88c345bbb0c23c03dc3df05",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 1,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 500,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 2891.218298958905,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\publication-1.41.0\\firefox\\upgrade\\offline.xls",
+      "format": "xls",
+      "sha256": "7814d5dd51d15cbd73cdea6ad9ef32424685fdd2a2c9d36cc4631e44e0a37166",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 1,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 500,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 2891.218298958905,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        }
+      ]
+    },
+    {
+      "file": "C:\\Users\\coyotl\\Documents\\ChatGPT\\калькулятор\\water-steam-if97\\.release\\publication-1.41.0\\firefox\\upgrade\\offline.csv",
+      "format": "csv",
+      "sha256": "a2ff0dbc47ae168ebf038c511e862acda48291b511dd15b5b547d8c8063bd923",
+      "checks": [
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "p"
+          ],
+          "column": 2,
+          "value": 1,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "T"
+          ],
+          "column": 2,
+          "value": 500,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        },
+        {
+          "sheet": "Properties",
+          "prefix": [
+            "state",
+            "h"
+          ],
+          "column": 2,
+          "value": 2891.218298958905,
+          "absolute_tolerance": 1e-07,
+          "relative_tolerance": 1e-10
+        }
+      ]
+    }
+  ],
+  "scope": "Actual previously installed 1.40.1 at real GitHub Pages origin, cloned disposable acceptance profile, штатне update to 1.41.0; cold offline, HEOS, ht and independent spreadsheet readers. Not full Steam97/numerical API acceptance.",
+  "profile": "C:\\Users\\coyotl\\AppData\\Local\\Temp\\pwa-141-upgrade-DYzyXN\\profile",
+  "sourceProfile": {
+    "path": "C:\\Users\\coyotl\\AppData\\Local\\Temp\\pwa-1401-upgrade-IzEJHO",
+    "receipt": "docs\\release-1.40.1\\firefox-upgrade.json",
+    "receiptSHA256": "e87989b6b9bbb799da34d3547f3848c44c36c3ee388df516a11262eb3a63b51f"
+  },
+  "browserVersion": "153.0",
+  "installedBefore": {
+    "project": {
+      "savedWith": {
+        "appVersion": "1.40.1",
+        "buildId": "5b5173c2a5cf",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "importedFrom": {
+        "appVersion": "1.40.0",
+        "buildId": "20fd3cb17a71",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "research": {
+        "variants": [],
+        "sweep": null
+      },
+      "study": {
+        "author": "",
+        "assignment": "",
+        "intro": "",
+        "entries": []
+      },
+      "format": "water-steam-if97",
+      "version": 1,
+      "uiUnits": {
+        "temperature": "C",
+        "pressure": "MPa",
+        "mass": "kgs",
+        "power": "kW",
+        "length": "m",
+        "energy": "kJkg",
+        "dynamicViscosity": "auto",
+        "kinematicViscosity": "auto",
+        "surfaceTension": "auto"
+      },
+      "uiInputDefaults": false,
+      "digits": 8,
+      "diagram": {
+        "tools": {
+          "crosshair": true,
+          "regions": true,
+          "isotherms": false,
+          "qualities": false,
+          "temperatureUnit": "C",
+          "temperatures": [
+            373.15,
+            473.15,
+            573.15,
+            673.15
+          ],
+          "dryness": [
+            0.1,
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ]
+        },
+        "views": {},
+        "connectHistory": false,
+        "numbers": true,
+        "order": [
+          2,
+          1,
+          0
+        ],
+        "excluded": [],
+        "pointSets": {},
+        "series": [],
+        "drawingStyle": {
+          "radius": 6,
+          "pointColor": "phase",
+          "width": 2.3,
+          "lineColor": "#8b4599"
+        }
+      },
+      "pressure": {
+        "basis": "absolute",
+        "atmosphere": 0.101325
+      },
+      "title": "Live upgrade 1.40 to 1.40.1 firefox",
+      "history": [
+        {
+          "p": 1,
+          "h": 2891.218298958905,
+          "model": "HEOS::Water",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.218298958905,
+          "model": "HEOS::Water",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        }
+      ],
+      "workspace": {
+        "active": "libraries",
+        "panels": {
+          "batch": {
+            "inputs": {
+              "batch-mode": "pt",
+              "batch-vary": "b",
+              "batch-start": "30",
+              "batch-ub": "C",
+              "batch-end": "300",
+              "batch-count": "10",
+              "batch-fixed": "3",
+              "batch-ua": "MPa",
+              "batch-text": "mode,a,b,unit_a,unit_b,name\npt,3,300,MPa,K,Рідина\npx,0.1,0.5,MPa,fraction,Суміш"
+            },
+            "calculated": true,
+            "model": "IF97",
+            "source": "range"
+          }
+        }
+      },
+      "process": null,
+      "form": {
+        "calculated": true,
+        "roundingDisplay": false,
+        "inputStyle": "advanced",
+        "inputOrder": "canonical",
+        "model": "HEOS::Water",
+        "mode": "pt",
+        "a": "10",
+        "b": "226.85",
+        "ua": "bar",
+        "ub": "C"
+      },
+      "drafts": {},
+      "ambient": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "system": "si",
+      "energy": "kJ",
+      "gray": false,
+      "scale": "1",
+      "hints": true
+    },
+    "language": "en",
+    "version": "1.40.1",
+    "build": "5b5173c2a5cf"
+  },
+  "before": {
+    "project": {
+      "savedWith": {
+        "appVersion": "1.40.1",
+        "buildId": "5b5173c2a5cf",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "importedFrom": {
+        "appVersion": "1.40.0",
+        "buildId": "20fd3cb17a71",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "research": {
+        "variants": [],
+        "sweep": null
+      },
+      "study": {
+        "author": "",
+        "assignment": "",
+        "intro": "",
+        "entries": []
+      },
+      "format": "water-steam-if97",
+      "version": 1,
+      "uiUnits": {
+        "temperature": "C",
+        "pressure": "MPa",
+        "mass": "kgs",
+        "power": "kW",
+        "length": "m",
+        "energy": "kJkg",
+        "dynamicViscosity": "auto",
+        "kinematicViscosity": "auto",
+        "surfaceTension": "auto"
+      },
+      "uiInputDefaults": false,
+      "digits": 8,
+      "diagram": {
+        "tools": {
+          "crosshair": true,
+          "regions": true,
+          "isotherms": false,
+          "qualities": false,
+          "temperatureUnit": "C",
+          "temperatures": [
+            373.15,
+            473.15,
+            573.15,
+            673.15
+          ],
+          "dryness": [
+            0.1,
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ]
+        },
+        "views": {},
+        "connectHistory": false,
+        "numbers": true,
+        "order": [
+          3,
+          2,
+          1,
+          0
+        ],
+        "excluded": [],
+        "pointSets": {},
+        "series": [],
+        "drawingStyle": {
+          "radius": 6,
+          "pointColor": "phase",
+          "width": 2.3,
+          "lineColor": "#8b4599"
+        }
+      },
+      "pressure": {
+        "basis": "absolute",
+        "atmosphere": 0.101325
+      },
+      "title": "Acceptance update 1.40.1 to 1.41.0 firefox",
+      "history": [
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.218298958905,
+          "model": "HEOS::Water",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.218298958905,
+          "model": "HEOS::Water",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        }
+      ],
+      "workspace": {
+        "active": "general",
+        "panels": {
+          "batch": {
+            "inputs": {
+              "batch-mode": "pt",
+              "batch-vary": "b",
+              "batch-start": "30",
+              "batch-ub": "C",
+              "batch-end": "300",
+              "batch-count": "10",
+              "batch-fixed": "3",
+              "batch-ua": "MPa",
+              "batch-text": "mode,a,b,unit_a,unit_b,name\npt,3,300,MPa,K,Рідина\npx,0.1,0.5,MPa,fraction,Суміш"
+            },
+            "calculated": true,
+            "model": "IF97",
+            "source": "range"
+          }
+        }
+      },
+      "process": null,
+      "form": {
+        "calculated": true,
+        "roundingDisplay": false,
+        "inputStyle": "advanced",
+        "inputOrder": "canonical",
+        "model": "IF97",
+        "mode": "pt",
+        "a": "10",
+        "b": "226.85",
+        "ua": "bar",
+        "ub": "C"
+      },
+      "drafts": {},
+      "ambient": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "system": "si",
+      "energy": "kJ",
+      "gray": false,
+      "scale": "1",
+      "hints": true
+    },
+    "language": "en",
+    "version": "1.40.1",
+    "build": "5b5173c2a5cf"
+  },
+  "cacheNamesBefore": [
+    "thermocalc-python:/water-steam-if97/|71ea1664738eb516",
+    "water-steam:/water-steam-if97/|5b5173c2a5cf"
+  ],
+  "after": {
+    "project": {
+      "savedWith": {
+        "appVersion": "1.40.1",
+        "buildId": "5b5173c2a5cf",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "importedFrom": {
+        "appVersion": "1.40.0",
+        "buildId": "20fd3cb17a71",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "research": {
+        "variants": [],
+        "sweep": null
+      },
+      "study": {
+        "author": "",
+        "assignment": "",
+        "intro": "",
+        "entries": []
+      },
+      "format": "water-steam-if97",
+      "version": 1,
+      "uiUnits": {
+        "temperature": "C",
+        "pressure": "MPa",
+        "mass": "kgs",
+        "power": "kW",
+        "length": "m",
+        "energy": "kJkg",
+        "dynamicViscosity": "auto",
+        "kinematicViscosity": "auto",
+        "surfaceTension": "auto"
+      },
+      "uiInputDefaults": false,
+      "digits": 8,
+      "diagram": {
+        "tools": {
+          "crosshair": true,
+          "regions": true,
+          "isotherms": false,
+          "qualities": false,
+          "temperatureUnit": "C",
+          "temperatures": [
+            373.15,
+            473.15,
+            573.15,
+            673.15
+          ],
+          "dryness": [
+            0.1,
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ]
+        },
+        "views": {},
+        "connectHistory": false,
+        "numbers": true,
+        "order": [
+          3,
+          2,
+          1,
+          0
+        ],
+        "excluded": [],
+        "pointSets": {},
+        "series": [],
+        "drawingStyle": {
+          "radius": 6,
+          "pointColor": "phase",
+          "width": 2.3,
+          "lineColor": "#8b4599"
+        }
+      },
+      "pressure": {
+        "basis": "absolute",
+        "atmosphere": 0.101325
+      },
+      "title": "Acceptance update 1.40.1 to 1.41.0 firefox",
+      "history": [
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.218298958905,
+          "model": "HEOS::Water",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.218298958905,
+          "model": "HEOS::Water",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        }
+      ],
+      "workspace": {
+        "active": "general",
+        "panels": {
+          "batch": {
+            "inputs": {
+              "batch-mode": "pt",
+              "batch-vary": "b",
+              "batch-start": "30",
+              "batch-ub": "C",
+              "batch-end": "300",
+              "batch-count": "10",
+              "batch-fixed": "3",
+              "batch-ua": "MPa",
+              "batch-text": "mode,a,b,unit_a,unit_b,name\npt,3,300,MPa,K,Рідина\npx,0.1,0.5,MPa,fraction,Суміш"
+            },
+            "calculated": true,
+            "model": "IF97",
+            "source": "range"
+          }
+        }
+      },
+      "process": null,
+      "form": {
+        "calculated": true,
+        "roundingDisplay": false,
+        "inputStyle": "advanced",
+        "inputOrder": "canonical",
+        "model": "IF97",
+        "mode": "pt",
+        "a": "10",
+        "b": "226.85",
+        "ua": "bar",
+        "ub": "C"
+      },
+      "drafts": {},
+      "ambient": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "system": "si",
+      "energy": "kJ",
+      "gray": false,
+      "scale": "1",
+      "hints": true
+    },
+    "language": "en",
+    "version": "1.41.0",
+    "build": "a8e94fb1e643"
+  },
+  "heosOnline": {
+    "project": {
+      "libraryRecipe": "",
+      "savedWith": {
+        "appVersion": "1.41.0",
+        "buildId": "a8e94fb1e643",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "importedFrom": {
+        "appVersion": "1.40.0",
+        "buildId": "20fd3cb17a71",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "research": {
+        "variants": [],
+        "sweep": null
+      },
+      "study": {
+        "author": "",
+        "assignment": "",
+        "intro": "",
+        "entries": []
+      },
+      "format": "water-steam-if97",
+      "version": 1,
+      "uiUnits": {
+        "temperature": "C",
+        "pressure": "MPa",
+        "mass": "kgs",
+        "power": "kW",
+        "length": "m",
+        "energy": "kJkg",
+        "dynamicViscosity": "auto",
+        "kinematicViscosity": "auto",
+        "surfaceTension": "auto"
+      },
+      "uiInputDefaults": false,
+      "digits": 8,
+      "diagram": {
+        "tools": {
+          "crosshair": true,
+          "regions": true,
+          "isotherms": false,
+          "qualities": false,
+          "temperatureUnit": "C",
+          "temperatures": [
+            373.15,
+            473.15,
+            573.15,
+            673.15
+          ],
+          "dryness": [
+            0.1,
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ]
+        },
+        "views": {},
+        "connectHistory": false,
+        "numbers": true,
+        "order": [
+          4,
+          3,
+          2,
+          1,
+          0
+        ],
+        "excluded": [],
+        "pointSets": {},
+        "series": [],
+        "drawingStyle": {
+          "radius": 6,
+          "pointColor": "phase",
+          "width": 2.3,
+          "lineColor": "#8b4599"
+        }
+      },
+      "pressure": {
+        "basis": "absolute",
+        "atmosphere": 0.101325
+      },
+      "title": "Acceptance update 1.40.1 to 1.41.0 firefox",
+      "history": [
+        {
+          "p": 1,
+          "h": 2891.218298958905,
+          "model": "HEOS::Water",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.218298958905,
+          "model": "HEOS::Water",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.218298958905,
+          "model": "HEOS::Water",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        }
+      ],
+      "workspace": {
+        "active": "general",
+        "panels": {
+          "batch": {
+            "inputs": {
+              "batch-mode": "pt",
+              "batch-vary": "b",
+              "batch-start": "30",
+              "batch-ub": "C",
+              "batch-end": "300",
+              "batch-count": "10",
+              "batch-fixed": "3",
+              "batch-ua": "MPa",
+              "batch-text": "mode,a,b,unit_a,unit_b,name\npt,3,300,MPa,K,Рідина\npx,0.1,0.5,MPa,fraction,Суміш"
+            },
+            "calculated": true,
+            "model": "IF97",
+            "source": "range"
+          }
+        }
+      },
+      "process": null,
+      "form": {
+        "calculated": true,
+        "roundingDisplay": false,
+        "inputStyle": "advanced",
+        "inputOrder": "canonical",
+        "model": "HEOS::Water",
+        "mode": "pt",
+        "a": "10",
+        "b": "226.85",
+        "ua": "bar",
+        "ub": "C"
+      },
+      "drafts": {},
+      "ambient": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "system": "si",
+      "energy": "kJ",
+      "gray": false,
+      "scale": "1",
+      "hints": true
+    },
+    "language": "en",
+    "version": "1.41.0",
+    "build": "a8e94fb1e643"
+  },
+  "offline": {
+    "project": {
+      "libraryRecipe": "",
+      "savedWith": {
+        "appVersion": "1.41.0",
+        "buildId": "a8e94fb1e643",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "importedFrom": {
+        "appVersion": "1.40.0",
+        "buildId": "20fd3cb17a71",
+        "method": "project / multiple methods",
+        "model": "per result"
+      },
+      "research": {
+        "variants": [],
+        "sweep": null
+      },
+      "study": {
+        "author": "",
+        "assignment": "",
+        "intro": "",
+        "entries": []
+      },
+      "format": "water-steam-if97",
+      "version": 1,
+      "uiUnits": {
+        "temperature": "C",
+        "pressure": "MPa",
+        "mass": "kgs",
+        "power": "kW",
+        "length": "m",
+        "energy": "kJkg",
+        "dynamicViscosity": "auto",
+        "kinematicViscosity": "auto",
+        "surfaceTension": "auto"
+      },
+      "uiInputDefaults": false,
+      "digits": 8,
+      "diagram": {
+        "tools": {
+          "crosshair": true,
+          "regions": true,
+          "isotherms": false,
+          "qualities": false,
+          "temperatureUnit": "C",
+          "temperatures": [
+            373.15,
+            473.15,
+            573.15,
+            673.15
+          ],
+          "dryness": [
+            0.1,
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ]
+        },
+        "views": {},
+        "connectHistory": false,
+        "numbers": true,
+        "order": [
+          4,
+          3,
+          2,
+          1,
+          0
+        ],
+        "excluded": [],
+        "pointSets": {},
+        "series": [],
+        "drawingStyle": {
+          "radius": 6,
+          "pointColor": "phase",
+          "width": 2.3,
+          "lineColor": "#8b4599"
+        }
+      },
+      "pressure": {
+        "basis": "absolute",
+        "atmosphere": 0.101325
+      },
+      "title": "Acceptance update 1.40.1 to 1.41.0 firefox",
+      "history": [
+        {
+          "p": 1,
+          "h": 2891.218298958905,
+          "model": "HEOS::Water",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.218298958905,
+          "model": "HEOS::Water",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.218298958905,
+          "model": "HEOS::Water",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        },
+        {
+          "p": 1,
+          "h": 2891.276564635511,
+          "model": "IF97",
+          "name": "",
+          "source": {
+            "mode": "pt",
+            "a": 1,
+            "b": 500
+          }
+        }
+      ],
+      "workspace": {
+        "active": "general",
+        "panels": {
+          "batch": {
+            "inputs": {
+              "batch-mode": "pt",
+              "batch-vary": "b",
+              "batch-start": "30",
+              "batch-ub": "C",
+              "batch-end": "300",
+              "batch-count": "10",
+              "batch-fixed": "3",
+              "batch-ua": "MPa",
+              "batch-text": "mode,a,b,unit_a,unit_b,name\npt,3,300,MPa,K,Рідина\npx,0.1,0.5,MPa,fraction,Суміш"
+            },
+            "calculated": true,
+            "model": "IF97",
+            "source": "range"
+          }
+        }
+      },
+      "process": null,
+      "form": {
+        "calculated": true,
+        "roundingDisplay": false,
+        "inputStyle": "advanced",
+        "inputOrder": "canonical",
+        "model": "HEOS::Water",
+        "mode": "pt",
+        "a": "10",
+        "b": "226.85",
+        "ua": "bar",
+        "ub": "C"
+      },
+      "drafts": {},
+      "ambient": {
+        "p": 0.101325,
+        "T": 298.15
+      },
+      "system": "si",
+      "energy": "kJ",
+      "gray": false,
+      "scale": "1",
+      "hints": true
+    },
+    "language": "en",
+    "version": "1.41.0",
+    "build": "a8e94fb1e643"
+  },
+  "networkFailures": [
+    {
+      "url": "https://lamerroma.github.io/__uncached_publication_141_1792747149881",
+      "error": "NS_ERROR_OFFLINE",
+      "expectedOffline": true
+    }
+  ],
+  "networkProbeBlocked": true,
+  "htOffline": {
+    "protocolVersion": 1,
+    "id": 1,
+    "moduleId": "ht",
+    "engineVersion": "1.2.0",
+    "implementationRevision": "beb1637c5d7826c803776b8be2e2bff9ab6d5c23c62f44ca8766095a68d81348",
+    "methodId": "call",
+    "status": "ok",
+    "result": 43.2808512266689,
+    "model": "ht 1.2.0",
+    "quantities": {
+      "result": {
+        "value": 43.2808512266689,
+        "unit": "K",
+        "status": "available",
+        "unitSource": "upstream-documentation"
+      }
+    },
+    "units": {
+      "convention": "Upstream documented units (generally SI); no automatic conversion.",
+      "inputs": [
+        {
+          "name": "Thi",
+          "unit": "K"
+        },
+        {
+          "name": "Tho",
+          "unit": "K"
+        },
+        {
+          "name": "Tci",
+          "unit": "K"
+        },
+        {
+          "name": "Tco",
+          "unit": "K"
+        },
+        {
+          "name": "counterflow",
+          "unit": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LMTD",
+          "unit": "K"
+        }
+      ]
+    },
+    "warnings": [
+      {
+        "code": "integration-only",
+        "message": "Library connected; comprehensive independent numerical acceptance is pending."
+      },
+      {
+        "code": "ht-lmtd-nearly-equal",
+        "scope": "Nearly equal positive terminal temperature differences.",
+        "message": "ht 1.2.0 LMTD can lose precision for nearly equal temperature differences. A recorded 100/99.999999999/30/30.000000002 counterflow case differs from a high-precision log-mean by about 0.000404124 K."
+      }
+    ],
+    "validity": {
+      "authority": "Pinned, unmodified upstream package. Consult the selected function documentation and its correlation domain.",
+      "units": "Upstream documented units; no automatic conversion.",
+      "numericalAcceptance": "pending",
+      "optionalDependencies": "Numba, Pint, plotting and other extras are not bundled."
+    },
+    "description": {
+      "path": "ht.LMTD",
+      "kind": "function",
+      "signature": "(Thi: 'float', Tho: 'float', Tci: 'float', Tco: 'float', counterflow: 'bool' = True) -> 'float'",
+      "parameters": [
+        {
+          "name": "Thi",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "Tho",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "Tci",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "Tco",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": true,
+          "default": null
+        },
+        {
+          "name": "counterflow",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "required": false,
+          "default": "True"
+        }
+      ],
+      "summary": "Returns the log-mean temperature difference of an ideal counterflow\nor co-current heat exchanger.",
+      "documentation": "Returns the log-mean temperature difference of an ideal counterflow\nor co-current heat exchanger.\n\n.. math::\n    \\Delta T_{LMTD}=\\frac{\\Delta T_1-\\Delta T_2}{\\ln(\\Delta T_1/\\Delta T_2)}\n\n.. math::\n    \\text{For countercurrent:      } \\\\\n    \\Delta T_1=T_{h,i}-T_{c,o}\\\\\n    \\Delta T_2=T_{h,o}-T_{c,i}\n\n.. math::\n    \\text{Parallel Flow Only:} \\\\\n    {\\Delta T_1=T_{h,i}-T_{c,i}}\\\\\n    {\\Delta T_2=T_{h,o}-T_{c,o}}\n\nParameters\n----------\nThi : float\n    Inlet temperature of hot fluid, [K]\nTho : float\n    Outlet temperature of hot fluid, [K]\nTci : float\n    Inlet temperature of cold fluid, [K]\nTco : float\n    Outlet temperature of cold fluid, [K]\ncounterflow : bool, optional\n    Whether the exchanger is counterflow or co-current\n\nReturns\n-------\nLMTD : float\n    Log-mean temperature difference [K]\n\nNotes\n-----\nAny consistent set of units produces a consistent output.\n\nFor the case where the temperature difference is the same in counterflow,\nthe arithmeric mean difference (either difference in that case) is the\ncorrect result following evaluation of the limit.\n\nFor the same problem with the co-current case, the limit evaluates to a\ntemperature difference of zero.\n\nExamples\n--------\nExample 11.1 in [1]_.\n\n>>> LMTD(100., 60., 30., 40.2)\n43.200409294131525\n>>> LMTD(100., 60., 30., 40.2, counterflow=False)\n39.75251118049003\n>>> LMTD(100., 60., 20., 60)\n40.0\n>>> LMTD(100., 60., 20., 60, counterflow=False)\n0.0\n\nReferences\n----------\n.. [1] Bergman, Theodore L., Adrienne S. Lavine, Frank P. Incropera, and\n   David P. DeWitt. Introduction to Heat Transfer. 6E. Hoboken, NJ:\n   Wiley, 2011.",
+      "documentedUnits": {
+        "Parameters": [
+          {
+            "name": "Thi",
+            "unit": "K"
+          },
+          {
+            "name": "Tho",
+            "unit": "K"
+          },
+          {
+            "name": "Tci",
+            "unit": "K"
+          },
+          {
+            "name": "Tco",
+            "unit": "K"
+          },
+          {
+            "name": "counterflow",
+            "unit": null
+          }
+        ],
+        "Returns": [
+          {
+            "name": "LMTD",
+            "unit": "K"
+          }
+        ]
+      },
+      "unitSource": "Unmodified upstream docstring; not an independently verified unit schema.",
+      "knownIssues": [
+        {
+          "code": "ht-lmtd-nearly-equal",
+          "scope": "Nearly equal positive terminal temperature differences.",
+          "message": "ht 1.2.0 LMTD can lose precision for nearly equal temperature differences. A recorded 100/99.999999999/30/30.000000002 counterflow case differs from a high-precision log-mean by about 0.000404124 K."
+        }
+      ]
+    }
+  },
+  "independentReaders": {
+    "status": "passed",
+    "files": 8,
+    "checks": 24,
+    "version": "1.41.0"
+  }
+}

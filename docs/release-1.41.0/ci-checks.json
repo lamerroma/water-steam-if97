@@ -1,0 +1,580 @@
+{
+  "run": 39909605587,
+  "headSha": "5dc609c92fe80a7ffe050b4cc0696d6876628ac2",
+  "status": "passed",
+  "source": "ci-acceptance.log",
+  "method": "Extract every timestamped PASS name (duration) emitted by verify-release; job metadata separately confirms complete success.",
+  "count": 114,
+  "checks": [
+    {
+      "name": "build",
+      "status": "passed",
+      "duration": "3.0 s"
+    },
+    {
+      "name": "documentation",
+      "status": "passed",
+      "duration": "0.1 s"
+    },
+    {
+      "name": "library-registry",
+      "status": "passed",
+      "duration": "0.2 s"
+    },
+    {
+      "name": "library-recipes",
+      "status": "passed",
+      "duration": "0.1 s"
+    },
+    {
+      "name": "fluids-pipe-reference",
+      "status": "passed",
+      "duration": "0.7 s"
+    },
+    {
+      "name": "unit",
+      "status": "passed",
+      "duration": "141.4 s"
+    },
+    {
+      "name": "water",
+      "status": "passed",
+      "duration": "36.1 s"
+    },
+    {
+      "name": "water-heos",
+      "status": "passed",
+      "duration": "158.2 s"
+    },
+    {
+      "name": "transport",
+      "status": "passed",
+      "duration": "0.3 s"
+    },
+    {
+      "name": "steam97-p09-units",
+      "status": "passed",
+      "duration": "0.2 s"
+    },
+    {
+      "name": "steam97-p03",
+      "status": "passed",
+      "duration": "15.0 s"
+    },
+    {
+      "name": "steam97-p04",
+      "status": "passed",
+      "duration": "0.5 s"
+    },
+    {
+      "name": "reactor",
+      "status": "passed",
+      "duration": "1.1 s"
+    },
+    {
+      "name": "reactor-thermal",
+      "status": "passed",
+      "duration": "0.1 s"
+    },
+    {
+      "name": "reactor-validation",
+      "status": "passed",
+      "duration": "0.8 s"
+    },
+    {
+      "name": "reactor-cell-audit",
+      "status": "passed",
+      "duration": "0.1 s"
+    },
+    {
+      "name": "browser-legacy-project-chromium",
+      "status": "passed",
+      "duration": "2.3 s"
+    },
+    {
+      "name": "browser-diagram-navigation-chromium",
+      "status": "passed",
+      "duration": "17.7 s"
+    },
+    {
+      "name": "browser-legacy-project-firefox",
+      "status": "passed",
+      "duration": "5.9 s"
+    },
+    {
+      "name": "browser-diagram-navigation-firefox",
+      "status": "passed",
+      "duration": "25.5 s"
+    },
+    {
+      "name": "browser-steam97-p04",
+      "status": "passed",
+      "duration": "7.8 s"
+    },
+    {
+      "name": "browser-steam97-p03",
+      "status": "passed",
+      "duration": "11.8 s"
+    },
+    {
+      "name": "browser-steam97-p09-units",
+      "status": "passed",
+      "duration": "19.8 s"
+    },
+    {
+      "name": "browser-steam97-p08",
+      "status": "passed",
+      "duration": "32.3 s"
+    },
+    {
+      "name": "browser-steam97-p07",
+      "status": "passed",
+      "duration": "33.6 s"
+    },
+    {
+      "name": "browser-steam97-p06",
+      "status": "passed",
+      "duration": "21.8 s"
+    },
+    {
+      "name": "browser-steam97-p05",
+      "status": "passed",
+      "duration": "15.1 s"
+    },
+    {
+      "name": "browser-steam97-p02",
+      "status": "passed",
+      "duration": "54.2 s"
+    },
+    {
+      "name": "browser-input-sensitivity",
+      "status": "passed",
+      "duration": "11.2 s"
+    },
+    {
+      "name": "browser-inverse-boundaries",
+      "status": "passed",
+      "duration": "4.9 s"
+    },
+    {
+      "name": "browser-rankine-sweep",
+      "status": "passed",
+      "duration": "6.9 s"
+    },
+    {
+      "name": "browser-rankine-regeneration",
+      "status": "passed",
+      "duration": "6.7 s"
+    },
+    {
+      "name": "browser-rankine-efficiency",
+      "status": "passed",
+      "duration": "5.2 s"
+    },
+    {
+      "name": "browser-rankine-library",
+      "status": "passed",
+      "duration": "12.0 s"
+    },
+    {
+      "name": "browser-cycle-library",
+      "status": "passed",
+      "duration": "4.1 s"
+    },
+    {
+      "name": "browser-custom-cycle",
+      "status": "passed",
+      "duration": "18.3 s"
+    },
+    {
+      "name": "browser-processes-extended",
+      "status": "passed",
+      "duration": "4.4 s"
+    },
+    {
+      "name": "browser-water-process",
+      "status": "passed",
+      "duration": "5.1 s"
+    },
+    {
+      "name": "browser-calculator-async",
+      "status": "passed",
+      "duration": "5.1 s"
+    },
+    {
+      "name": "browser-navigation",
+      "status": "passed",
+      "duration": "3.4 s"
+    },
+    {
+      "name": "browser-smart-input",
+      "status": "passed",
+      "duration": "5.5 s"
+    },
+    {
+      "name": "browser-calculator-workspace",
+      "status": "passed",
+      "duration": "4.1 s"
+    },
+    {
+      "name": "browser-state-comparison",
+      "status": "passed",
+      "duration": "5.3 s"
+    },
+    {
+      "name": "browser-study-workflow",
+      "status": "passed",
+      "duration": "6.8 s"
+    },
+    {
+      "name": "browser-task-ui",
+      "status": "passed",
+      "duration": "13.2 s"
+    },
+    {
+      "name": "browser-diagram",
+      "status": "passed",
+      "duration": "15.9 s"
+    },
+    {
+      "name": "browser-diagram-guides",
+      "status": "passed",
+      "duration": "8.3 s"
+    },
+    {
+      "name": "browser-diagram-quality",
+      "status": "passed",
+      "duration": "21.8 s"
+    },
+    {
+      "name": "browser-process-paths",
+      "status": "passed",
+      "duration": "7.6 s"
+    },
+    {
+      "name": "browser-chart-layout",
+      "status": "passed",
+      "duration": "3.4 s"
+    },
+    {
+      "name": "browser-study-workspace",
+      "status": "passed",
+      "duration": "43.1 s"
+    },
+    {
+      "name": "browser-hydraulics",
+      "status": "passed",
+      "duration": "3.2 s"
+    },
+    {
+      "name": "browser-study",
+      "status": "passed",
+      "duration": "4.5 s"
+    },
+    {
+      "name": "browser-full-sprint",
+      "status": "passed",
+      "duration": "6.6 s"
+    },
+    {
+      "name": "browser-laboratory",
+      "status": "passed",
+      "duration": "3.4 s"
+    },
+    {
+      "name": "browser-coursework",
+      "status": "passed",
+      "duration": "3.2 s"
+    },
+    {
+      "name": "browser-usability",
+      "status": "passed",
+      "duration": "3.1 s"
+    },
+    {
+      "name": "browser-reactor-course",
+      "status": "passed",
+      "duration": "3.9 s"
+    },
+    {
+      "name": "browser-reactor-validation",
+      "status": "passed",
+      "duration": "3.3 s"
+    },
+    {
+      "name": "browser-provenance",
+      "status": "passed",
+      "duration": "1.6 s"
+    },
+    {
+      "name": "browser-project-safety",
+      "status": "passed",
+      "duration": "2.6 s"
+    },
+    {
+      "name": "browser-pwa",
+      "status": "passed",
+      "duration": "12.8 s"
+    },
+    {
+      "name": "browser-pwa-package",
+      "status": "passed",
+      "duration": "6.1 s"
+    },
+    {
+      "name": "browser-lazy-assets",
+      "status": "passed",
+      "duration": "2.5 s"
+    },
+    {
+      "name": "browser-python-libraries",
+      "status": "passed",
+      "duration": "30.6 s"
+    },
+    {
+      "name": "browser-fluids-pipe",
+      "status": "passed",
+      "duration": "23.4 s"
+    },
+    {
+      "name": "browser-ui-workspace",
+      "status": "passed",
+      "duration": "3.3 s"
+    },
+    {
+      "name": "browser-cross-browser",
+      "status": "passed",
+      "duration": "16.8 s"
+    },
+    {
+      "name": "browser-library-recipes-chromium",
+      "status": "passed",
+      "duration": "41.2 s"
+    },
+    {
+      "name": "browser-library-registry-chromium",
+      "status": "passed",
+      "duration": "14.0 s"
+    },
+    {
+      "name": "browser-water-heos-chromium",
+      "status": "passed",
+      "duration": "21.5 s"
+    },
+    {
+      "name": "browser-water-heos-workspace-chromium",
+      "status": "passed",
+      "duration": "48.1 s"
+    },
+    {
+      "name": "browser-water-heos-fault-chromium",
+      "status": "passed",
+      "duration": "14.8 s"
+    },
+    {
+      "name": "browser-steam-process-worker-chromium",
+      "status": "passed",
+      "duration": "26.1 s"
+    },
+    {
+      "name": "browser-auxiliary-worker-chromium",
+      "status": "passed",
+      "duration": "64.2 s"
+    },
+    {
+      "name": "browser-library-recipes-firefox",
+      "status": "passed",
+      "duration": "55.2 s"
+    },
+    {
+      "name": "browser-library-registry-firefox",
+      "status": "passed",
+      "duration": "18.7 s"
+    },
+    {
+      "name": "browser-water-heos-firefox",
+      "status": "passed",
+      "duration": "34.5 s"
+    },
+    {
+      "name": "browser-water-heos-workspace-firefox",
+      "status": "passed",
+      "duration": "75.3 s"
+    },
+    {
+      "name": "browser-water-heos-fault-firefox",
+      "status": "passed",
+      "duration": "19.3 s"
+    },
+    {
+      "name": "browser-steam-process-worker-firefox",
+      "status": "passed",
+      "duration": "40.0 s"
+    },
+    {
+      "name": "browser-auxiliary-worker-firefox",
+      "status": "passed",
+      "duration": "101.1 s"
+    },
+    {
+      "name": "browser-steam97-p04-firefox",
+      "status": "passed",
+      "duration": "12.1 s"
+    },
+    {
+      "name": "browser-steam97-p03-firefox",
+      "status": "passed",
+      "duration": "14.7 s"
+    },
+    {
+      "name": "browser-steam97-p09-units-firefox",
+      "status": "passed",
+      "duration": "18.1 s"
+    },
+    {
+      "name": "browser-steam97-p08-firefox",
+      "status": "passed",
+      "duration": "36.6 s"
+    },
+    {
+      "name": "browser-steam97-p07-firefox",
+      "status": "passed",
+      "duration": "45.8 s"
+    },
+    {
+      "name": "browser-steam97-p06-firefox",
+      "status": "passed",
+      "duration": "36.5 s"
+    },
+    {
+      "name": "browser-steam97-p05-firefox",
+      "status": "passed",
+      "duration": "22.4 s"
+    },
+    {
+      "name": "browser-steam97-p02-firefox",
+      "status": "passed",
+      "duration": "76.6 s"
+    },
+    {
+      "name": "browser-input-sensitivity-firefox",
+      "status": "passed",
+      "duration": "16.2 s"
+    },
+    {
+      "name": "browser-inverse-boundaries-firefox",
+      "status": "passed",
+      "duration": "8.5 s"
+    },
+    {
+      "name": "browser-rankine-sweep-firefox",
+      "status": "passed",
+      "duration": "13.2 s"
+    },
+    {
+      "name": "browser-rankine-regeneration-firefox",
+      "status": "passed",
+      "duration": "11.7 s"
+    },
+    {
+      "name": "browser-rankine-efficiency-firefox",
+      "status": "passed",
+      "duration": "10.0 s"
+    },
+    {
+      "name": "browser-rankine-library-firefox",
+      "status": "passed",
+      "duration": "16.9 s"
+    },
+    {
+      "name": "browser-cycle-library-firefox",
+      "status": "passed",
+      "duration": "9.0 s"
+    },
+    {
+      "name": "browser-custom-cycle-firefox",
+      "status": "passed",
+      "duration": "25.9 s"
+    },
+    {
+      "name": "browser-processes-extended-firefox",
+      "status": "passed",
+      "duration": "8.8 s"
+    },
+    {
+      "name": "browser-water-process-firefox",
+      "status": "passed",
+      "duration": "9.5 s"
+    },
+    {
+      "name": "browser-calculator-async-firefox",
+      "status": "passed",
+      "duration": "8.0 s"
+    },
+    {
+      "name": "browser-calculator-workspace-firefox",
+      "status": "passed",
+      "duration": "7.4 s"
+    },
+    {
+      "name": "browser-smart-input-firefox",
+      "status": "passed",
+      "duration": "8.7 s"
+    },
+    {
+      "name": "browser-state-comparison-firefox",
+      "status": "passed",
+      "duration": "9.1 s"
+    },
+    {
+      "name": "browser-study-workflow-firefox",
+      "status": "passed",
+      "duration": "10.9 s"
+    },
+    {
+      "name": "browser-pwa-firefox",
+      "status": "passed",
+      "duration": "19.5 s"
+    },
+    {
+      "name": "browser-pwa-package-firefox",
+      "status": "passed",
+      "duration": "9.6 s"
+    },
+    {
+      "name": "browser-lazy-assets-firefox",
+      "status": "passed",
+      "duration": "6.2 s"
+    },
+    {
+      "name": "browser-python-libraries-firefox",
+      "status": "passed",
+      "duration": "40.9 s"
+    },
+    {
+      "name": "browser-fluids-pipe-firefox",
+      "status": "passed",
+      "duration": "31.7 s"
+    },
+    {
+      "name": "rebuild",
+      "status": "passed",
+      "duration": "3.0 s"
+    },
+    {
+      "name": "package",
+      "status": "passed",
+      "duration": "3.5 s"
+    },
+    {
+      "name": "package-integrity",
+      "status": "passed",
+      "duration": "0.4 s"
+    },
+    {
+      "name": "repackage",
+      "status": "passed",
+      "duration": "3.5 s"
+    }
+  ]
+}
