@@ -47,4 +47,3 @@ function scientificPanel(kind){
  }catch(error){panelEdited(scientificForm);$('scientific-output').replaceChildren();$('scientific-error').textContent=error.message;$('scientific-error').hidden=false;}};
  restorePanelInputs(kind,scientificForm);restorePanelResult(kind,scientificForm);
 }
-document.addEventListener('click',e=>{const kind=e.target.closest('[data-action]')?.dataset.action;if(['boundaries','comparison'].includes(kind))scientificPanel(kind);});

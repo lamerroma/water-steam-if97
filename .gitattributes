@@ -39,3 +39,6 @@ docs/development-r01/memory-evidence/** -text whitespace=-blank-at-eol,-blank-at
 # Byte-exact R02 evidence; browser profiles remain ignored.
 docs/development-r02/evidence/** -text whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
 docs/development-r02/upgrade-evidence/** -text whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+
+# Byte-exact startup restoration proof artifacts.
+docs/release-1.41.1/evidence/** -text whitespace=-blank-at-eof,-blank-at-eol,cr-at-eol

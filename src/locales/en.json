@@ -1903,5 +1903,10 @@
   "libraries.recipe.cancelled": "Scenario cancelled. Replay starts from the first step.",
   "libraries.recipe.imported": "Scenario imported; it has not been executed.",
   "libraries.recipe.fileSize": "Scenario file: maximum 400000 bytes / 100000 characters.",
-  "libraries.recipe.changed": "Scenario changed while the file was being read; import it again."
+  "libraries.recipe.changed": "Scenario changed while the file was being read; import it again.",
+  "project.starting": "Preparing the application…",
+  "project.restoring": "Restoring the saved project… Input changes you make will be kept.",
+  "project.restoringRoute": "Restoring the project… “{name}” will open when restoration finishes.",
+  "project.restoredDraft": "Project restored; changes entered during startup have been kept.",
+  "pwa.waitForProject": "Wait for project restoration to finish, then retry the update."
 }

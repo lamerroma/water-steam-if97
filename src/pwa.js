@@ -37,7 +37,7 @@
   else await register();
  };
  // Activation saves the project first; a waiting release reloads the page once it controls it.
- const applyUpdate=()=>{checkUpdate.disabled=false;saveProject();if(unsavedProject){set('saveFailed');return;}if(registration?.waiting){updating=true;registration.waiting.postMessage({type:'PWA_ACTIVATE'});}};
+ const applyUpdate=()=>{checkUpdate.disabled=false;if(!persistenceReady){set('waitForProject');return;}saveProject();if(unsavedProject){set('saveFailed');return;}if(registration?.waiting){updating=true;registration.waiting.postMessage({type:'PWA_ACTIVATE'});}};
  update.onclick=applyUpdate;
  // Explicit check: ask the server for a newer worker now, then download and apply it.
  checkUpdate.onclick=async()=>{

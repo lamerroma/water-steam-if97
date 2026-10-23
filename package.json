@@ -1,6 +1,6 @@
 {
   "name": "water-steam-if97-uk",
-  "version": "1.41.0",
+  "version": "1.41.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -93,7 +93,8 @@
     "verify:library-recipes": "node scripts/check-library-recipes.mjs",
     "test:legacy-project": "node scripts/check-legacy-project-browser.cjs",
     "test:diagram-navigation": "node scripts/check-diagram-navigation-browser.cjs",
-    "audit:pwa-legacy": "node scripts/check-legacy-parity-browser.cjs"
+    "audit:pwa-legacy": "node scripts/check-legacy-parity-browser.cjs",
+    "test:startup-restore": "node scripts/check-startup-restore-browser.cjs"
   },
   "engines": {
     "node": ">=20"

@@ -1,0 +1,6 @@
+{
+  "archive": ".release\\startup-restore-1.41.1-4ece46c0369f-2026-10-23.zip",
+  "bytes": 47346613,
+  "sha256": "9d118b13a3d2a5017dc789746e44cfcded31ab4a4914f93989e2e43961476716",
+  "includes": "Frozen 1.41.0 resources, original/diagnostic reproduction, unsuccessful driver attempts, earlier accepted candidates, final browser/legacy/diagram proof and logs. No persistent browser profiles."
+}

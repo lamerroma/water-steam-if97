@@ -75,8 +75,9 @@ try{
  if(mode!=='core'){
   if(mode==='browser'){await check('steam97-p09-units',['scripts/audit-steam97-p09-units.mjs']);await check('steam97-p03',['scripts/audit-steam97-p03.mjs']);await check('steam97-p04',['scripts/audit-steam97-p04.mjs']);}
   const env=await serve();
-  // Fail early on the two release-blocking legacy regressions.
+  // Fail early on startup restoration and the release-blocking legacy regressions.
   for(const browser of ['chromium','firefox']){
+   if(!await check('browser-startup-restore-'+browser,['scripts/check-startup-restore-browser.cjs'],{...env,BROWSER_NAME:browser,STARTUP_RESTORE_EVIDENCE:path.join(dir,'startup-restore',browser)}))throw Error('Startup restoration regression check failed; remaining browser checks skipped.');
    if(!await check('browser-legacy-project-'+browser,['scripts/check-legacy-project-browser.cjs'],{...env,BROWSER_NAME:browser,LEGACY_PROJECT_EVIDENCE:path.join(dir,'legacy-project',browser)}))throw Error('Legacy regression check failed; remaining browser checks skipped.');
    if(!await check('browser-diagram-navigation-'+browser,['scripts/check-diagram-navigation-browser.cjs'],{...env,BROWSER_NAME:browser,DIAGRAM_NAV_EVIDENCE:path.join(dir,'diagram-navigation',browser)}))throw Error('Legacy regression check failed; remaining browser checks skipped.');
   }

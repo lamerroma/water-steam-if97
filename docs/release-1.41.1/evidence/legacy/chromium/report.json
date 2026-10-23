@@ -1,0 +1,18 @@
+{
+  "browser": "chromium",
+  "url": "http://127.0.0.1:8080/",
+  "status": "passed",
+  "checks": [
+    "Original 1.35.12 multi-panel JSON project imports through the Worker and UI",
+    "Legacy range inputs recalculate and new project exports exclude the result-format selector",
+    "CSV source and exact input text survive export without derived controls",
+    "Invalid presentation values are rejected while the current batch remains intact",
+    "Closed profile and offline restart restore the CSV project and recalculate both rows"
+  ],
+  "errors": [],
+  "fixtureSHA256": "ed821caf853541a502ae9304e5933dc4fb8f73b04c821b7e376a1df0517b6d68",
+  "scope": "Legacy project migration, batch input capture, recalculation and cold offline persistence.",
+  "browserVersion": "151.0.7922.34",
+  "build": "4ece46c0369f",
+  "networkProbeBlocked": true
+}

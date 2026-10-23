@@ -91,4 +91,3 @@ function renderLearning(kind,q){uiBeforeResultRender();let entries=[],html=`<p><
  if(kind==='cycles')renderCycleTools(q);if(kind==='gases'&&q.modelId?.startsWith('BSW2003-'))renderGasTableExtras(q);
  $('learn-json').onclick=()=>downloadFile(JSON.stringify({format:'water-steam-calculation',version:1,module:kind,model:modelValue(),inputs:panelInputs($('learn-form')),result:q},null,2),'water-steam-'+kind+'.json','application/json',q.modelId?.startsWith('BSW2003-')?{model:q.model,method:'gas / BSW2003'}:{});
 }
-document.addEventListener('click',e=>{const kind=e.target.closest('[data-action]')?.dataset.action;if(['gases','humid','cycles','ice','d2o','seawater'].includes(kind))learningPanel(kind);});

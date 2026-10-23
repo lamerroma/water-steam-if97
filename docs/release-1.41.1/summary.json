@@ -1,0 +1,39 @@
+{
+  "status": "local-accepted-publication-pending",
+  "build": {
+    "version": "1.41.1",
+    "id": "4ece46c0369f"
+  },
+  "baselineCommit": "c6a846413a7e5cee9d2b96599ffda17d60f27b3e",
+  "unit": {
+    "tests": 1842,
+    "passed": 1842,
+    "failed": 0,
+    "node": "22.23.3"
+  },
+  "finalStartupUnitRetest": 9,
+  "startupBrowserGroups": {
+    "chromium": 12,
+    "firefox": 12
+  },
+  "legacyGroups": {
+    "chromium": 5,
+    "firefox": 5
+  },
+  "diagramCycles": {
+    "chromium": 15,
+    "firefox": 15
+  },
+  "otherChecks": [
+    "project-safety",
+    "navigation",
+    "ui-workspace",
+    "library-registry",
+    "library-recipes",
+    "documentation"
+  ],
+  "originalNumericalParityConfirmed": false,
+  "fullCI": "pending",
+  "publicAcceptance": "not-run",
+  "unchangedResources": "All historical resources except index.html, assets/app.js and service-worker.js, including every numerical Worker and WASM."
+}
