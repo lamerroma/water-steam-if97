@@ -2341,12 +2341,13 @@
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/engine.js",
-        "src/saturation-grid.js"
+        "src/saturation-grid.js",
+        "src/saturation-inverse.js"
       ],
       "existing_checks": [
         "tests/all-modes.test.mjs"
       ],
-      "notes": "Help mentions 15 saturation selector functions but does not enumerate them consistently; full selector inventory remains open. Having satp/satt/px/tx does not prove coverage.",
+      "notes": "Help mentions 15 saturation selector functions but does not enumerate them consistently; full selector inventory remains open. Having satp/satt/px/tx does not prove coverage. 2026-11-21: added saturation lookup from h, s, u, v or rho of the saturated liquid or vapor and from latent heat (src/saturation-inverse.js), giving 15 saturation input functions together with p, T, p-x and T-x. Steam97Web's own list is still not enumerated by its help, so parity is not claimed.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "saturation",

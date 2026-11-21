@@ -2079,5 +2079,22 @@
   "steam.formula.air-in-steam": "ps = p·(1 − yair); tmix = ts(ps) by Dalton's law.",
   "steam.formula.steam-cost": "B = (h − hfw) / (η·LHV) per kg of steam; cost per tonne = 1000·B·price + water cost.",
   "steam.formula.boiler": "η = [ṁs·(h − hfw) + ṁbd·(h′ − hfw)] / (B·LHV), ṁfw = ṁs / (1 − blowdown fraction).",
-  "steam.formula.recovery": "Savings = ṁc·τ·[(hc − hmu)/(η·LHV)·price + water cost]; payback = investment / annual savings."
+  "steam.formula.recovery": "Savings = ṁc·τ·[(hc − hmu)/(η·LHV)·price + water cost]; payback = investment / annual savings.",
+  "satinv.title": "Find saturation from another property",
+  "satinv.intro": "Enter a property of the saturated liquid (′) or vapor (″), or the latent heat. The program finds the saturation temperature and opens the usual calculation. h″ and u″ can have two solutions; pick the one you need.",
+  "satinv.property": "Known property",
+  "satinv.value": "Value",
+  "satinv.find": "Find saturation state",
+  "satinv.choose": "Two saturation states have this value. Choose one:",
+  "satinv.key.latent": "latent heat",
+  "satinv.key.h.liquid": "liquid enthalpy",
+  "satinv.key.h.vapor": "vapor enthalpy",
+  "satinv.key.s.liquid": "liquid entropy",
+  "satinv.key.s.vapor": "vapor entropy",
+  "satinv.key.u.liquid": "liquid internal energy",
+  "satinv.key.u.vapor": "vapor internal energy",
+  "satinv.key.v.liquid": "liquid specific volume",
+  "satinv.key.v.vapor": "vapor specific volume",
+  "satinv.key.rho.liquid": "liquid density",
+  "satinv.key.rho.vapor": "vapor density"
 }
