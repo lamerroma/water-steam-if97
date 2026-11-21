@@ -31,12 +31,12 @@ function calcPanelResultHTML(cfg,r){
  const rows=r.rows.map(([k,v,u])=>`<tr${u==='K'?' data-difference="true"':''}><td>${t(k)}</td><td>${escapeHTML(calcPanelFormat(cfg,v))}</td><td>${escapeHTML(u?calcPanelText(cfg,u):'')}</td></tr>`).join('');
  let html=`<table class="sat-table"><thead><tr><th>${t(cfg.i18n+'.r.name')}</th><th>${t(cfg.i18n+'.r.value')}</th><th>${t(cfg.i18n+'.r.unit')}</th></tr></thead><tbody>${rows}</tbody></table>`;
  if(r.svg)html+=`<figure class="calc-panel-chart">${r.svg}</figure>`;
- if(r.table)html+=`<div class="calc-panel-table"><table class="sat-table"><thead><tr>${r.table.columns.map(([k,u])=>`<th>${t(k)}${u?', '+escapeHTML(u):''}</th>`).join('')}</tr></thead><tbody>${r.table.rows.map(row=>`<tr>${row.map(v=>`<td>${escapeHTML(calcPanelFormat(cfg,v))}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+ if(r.table)html+=`<div class="calc-panel-table"><table class="sat-table"><thead><tr>${r.table.columns.map(([k,u])=>`<th>${t(k)}${u?', '+t(u):''}</th>`).join('')}</tr></thead><tbody>${r.table.rows.map(row=>`<tr>${row.map(v=>`<td>${escapeHTML(calcPanelFormat(cfg,v))}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
  return html+notes((r.notes||[]).map(n=>escapeHTML(calcPanelText(cfg,n))));
 }
 function calcPanelCopyText(cfg,r){
  const lines=r.rows.map(([k,v,u])=>[calcPanelText(cfg,k),calcPanelFormat(cfg,v),u?calcPanelText(cfg,u):''].join('\t'));
- if(r.table)lines.push('',r.table.columns.map(([k,u])=>calcPanelText(cfg,k)+(u?', '+u:'')).join('\t'),...r.table.rows.map(row=>row.map(v=>calcPanelFormat(cfg,v)).join('\t')));
+ if(r.table)lines.push('',r.table.columns.map(([k,u])=>calcPanelText(cfg,k)+(u?', '+calcPanelText(cfg,u):'')).join('\t'),...r.table.rows.map(row=>row.map(v=>calcPanelFormat(cfg,v)).join('\t')));
  return lines.join('\n');
 }
 function calcPanelStyle(){

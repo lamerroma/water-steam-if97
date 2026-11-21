@@ -2,6 +2,7 @@ import {pptNozzle,pptStage,pptStageSweep,pptBaumann} from './pp-turbine.js';
 import {ppcHrsg,ppcCombined,ppcSteamGenerator} from './pp-ccgt.js';
 import {ppdHeatingGraph,ppdChpTurbine} from './pp-chp.js';
 import {ppkCondenser,ppkCoolingTower} from './pp-condenser.js';
+import {ppsScheme} from './pp-scheme.js';
 import {calcPanelLineChart} from './calc-panel-ui.js';
 // Power-plant panel ("Енергоблок"): turbine elements and plant components.
 // Base units: pressure MPa (abs), temperature °C, mass flow kg/s, length m.
@@ -18,7 +19,9 @@ export const PP_FIELDS={
  ti:['ti','°C',20],toDesign:['toDesign','°C',-22],tau1:['tau1','°C',150],tau2:['tau2','°C',70],tau3:['tau3','°C',95],nRad:['nRad','',.25],tBreak:['tBreak','°C',70],toStart:['toStart','°C',8],stepT:['stepT','K',2],
  pt:['pt','МПа',.15,null,'pressure','MPa'],gt:['gt','кг/с',50,null,'mass','kgs'],etaHP:['etaHP','',.85],etaLP:['etaLP','',.8],etaEM:['etaEM','',.98],tsup:['tsup','°C',100,null,'temperature','C'],tret:['tret','°C',60,null,'temperature','C'],pnet:['pnet','МПа',1.6,null,'pressure','MPa'],etaB:['etaB','',.92],
  cD:['cD','кг/с',140,null,'mass','kgs'],cx:['cx','',.9],cW:['cW','кг/с',8000,null,'mass','kgs'],tw1:['tw1','°C',15],ck:['ck','кВт/(м²·K)',3],cF:['cF','м²',15000],
- ctL:['ctL','кг/с',1000,null,'mass','kgs'],ct1:['ct1','°C',40],ct2:['ct2','°C',28],ctG:['ctG','кг/с',900,null,'mass','kgs'],cta:['cta','°C',25],cphi:['cphi','%',60],cpa:['cpa','МПа',.101325,null,'pressure','MPa']
+ ctL:['ctL','кг/с',1000,null,'mass','kgs'],ct1:['ct1','°C',40],ct2:['ct2','°C',28],ctG:['ctG','кг/с',900,null,'mass','kgs'],cta:['cta','°C',25],cphi:['cphi','%',60],cpa:['cpa','МПа',.101325,null,'pressure','MPa'],
+ kp0:['kp0','МПа',5.88,null,'pressure','MPa'],kx0:['kx0','',.995],kpsep:['kpsep','МПа',1.2,null,'pressure','MPa'],ktrh:['ktrh','°C',250,null,'temperature','C'],kpk:['kpk','МПа',.004,null,'pressure','MPa'],kN:['kN','МВт',1000],ketaHP:['ketaHP','',.82],ketaLP:['ketaLP','',.85],kttd:['kttd','K',3],
+ fp0:['fp0','МПа',23.5,null,'pressure','MPa'],ft0:['ft0','°C',540,null,'temperature','C'],fprh:['fprh','МПа',3.9,null,'pressure','MPa'],ftrh:['ftrh','°C',540,null,'temperature','C'],fpk:['fpk','МПа',.0034,null,'pressure','MPa'],fN:['fN','МВт',300],fetaHP:['fetaHP','',.84],fetaLP:['fetaLP','',.88],fttd:['fttd','K',3]
 };
 const ppRow=(k,v,u='')=>['pp.r.'+k,v,u];
 const ppQuality=x=>x!=null&&x<1?x:null;
@@ -75,7 +78,21 @@ Object.assign(PP_CALCS,{
   const svg=calcPanelLineChart({series:[{label:uiTranslator.t('pp.chart.saturated'),color:'#c0392b',points:r.curve},{label:uiTranslator.t('pp.chart.airLine'),color:'#365e90',points:r.line}],xLabel:uiTranslator.t('pp.chart.waterT'),yLabel:uiTranslator.t('pp.chart.hAir'),yFromZero:false});
   return {rows:[ppRow('merkel',r.merkel),ppRow('range',r.range,'K'),ppRow('twb',r.twb,'°C'),ppRow('approachTower',r.approach,'K'),ppRow('ratioLG',r.ratio),ppRow('hin',r.hin,'кДж/кг'),ppRow('hout',r.hout,'кДж/кг'),ppRow('tout',r.tout,'°C'),ppRow('evaporation',r.evaporation,'кг/с'),ppRow('evaporationShare',r.evaporationShare*100,'%'),ppRow('Qtower',r.Q/1e3,'МВт')],svg,notes:['pp.note.merkel']};}}
 });
-export const PP_GROUPS=['turbine','ccgt','chp','cooling'];
+function ppSchemeResult(r){
+ const kgs=r.D0,rows=[ppRow('etaScheme',r.eta),ppRow('D0',kgs,'кг/с'),ppRow('D0t',kgs*3.6,'т/год'),ppRow('Qscheme',r.Q/1e3,'МВт'),ppRow('netWork',r.net,'кДж/кг'),ppRow('steamRate',3600/r.net,'кг/(кВт·год)'),ppRow('heatRate',3600/r.eta,'кДж/(кВт·год)'),
+  ppRow('tfwScheme',r.TfeedOut-PP_K,'°C'),ppRow('xExhaust',ppQuality(r.exhaust.x)),ppRow('condFlow',r.condFlow*kgs,'кг/с'),ppRow('pumpWork',r.pumpWork*kgs/1e3,'МВт')];
+ if(r.nuclear)rows.push(ppRow('msrSteam',r.alphaRh*kgs,'кг/с'),ppRow('sepWater',r.sepWater*kgs,'кг/с'),ppRow('xHpExhaust',ppQuality(r.hpExhaust.x)));
+ const label=h=>h.kind==='deaerator'?uiTranslator.t('pp.heater.deaerator'):uiTranslator.t('pp.heater.'+h.kind,{n:h.name.replace(/\D/g,'')});
+ const table={columns:[['pp.c.heater',''],['pp.c.p','МПа'],['pp.c.tsat','°C'],['pp.c.tout','°C'],['pp.c.alpha',''],['pp.c.flow','кг/с'],['pp.c.xExt','']],
+  rows:r.heaters.map(h=>[label(h),h.p,h.sat.T-PP_K,h.Tout-PP_K,h.alpha,h.alpha*kgs,ppQuality(h.ext.x)])};
+ const svg=calcPanelLineChart({series:[{label:uiTranslator.t('pp.chart.expansion'),color:'#365e90',points:r.line}],xLabel:uiTranslator.t('pp.chart.s'),yLabel:uiTranslator.t('pp.chart.h'),yFromZero:false});
+ return {rows,table,svg,notes:[...r.notes,'pp.note.scheme']};
+}
+Object.assign(PP_CALCS,{
+ k1000:{group:'schemes',fields:['kp0','kx0','kpsep','ktrh','kpk','kN','ketaHP','ketaLP','etaEM','etaPump','kttd'],run:v=>ppSchemeResult(ppsScheme({template:'k1000',p0:v.kp0,x0:v.kx0,pRh:v.kpsep,Trh:v.ktrh+PP_K,pk:v.kpk,power:v.kN*1e3,etaHP:v.ketaHP,etaLP:v.ketaLP,etaEM:v.etaEM,etaPump:v.etaPump,ttd:v.kttd}))},
+ k300:{group:'schemes',fields:['fp0','ft0','fprh','ftrh','fpk','fN','fetaHP','fetaLP','etaEM','etaPump','fttd'],run:v=>ppSchemeResult(ppsScheme({template:'k300',p0:v.fp0,T0:v.ft0+PP_K,pRh:v.fprh,Trh:v.ftrh+PP_K,pk:v.fpk,power:v.fN*1e3,etaHP:v.fetaHP,etaLP:v.fetaLP,etaEM:v.etaEM,etaPump:v.etaPump,ttd:v.fttd}))}
+});
+export const PP_GROUPS=['turbine','ccgt','chp','cooling','schemes'];
 export const PP_PANEL={action:'power-plant',prefix:'pp',i18n:'pp',fields:PP_FIELDS,calcs:PP_CALCS,groups:PP_GROUPS};
 function showPowerPlant(){calcPanelShow(PP_PANEL);}
 globalThis.document?.addEventListener('languagechange',()=>{if(activeSection==='power-plant'){capturePanel();showPowerPlant();}});

@@ -79,3 +79,29 @@ test('Cooling tower: Merkel number grows with closer approach; operating-line ch
  assert.ok(ppkCoolingTower({...base,t2:25}).merkel>r.merkel);
  assert.throws(()=>ppkCoolingTower({...base,t2:19}),/approach/);assert.throws(()=>ppkCoolingTower({...base,t2:28,G:200}),/airLine/);
 });
+
+import {ppsScheme} from '../src/pp-scheme.js';
+const ppsK1000={template:'k1000',p0:5.88,x0:.995,pRh:1.2,Trh:523.15,pk:.004,power:1e6,etaHP:.82,etaLP:.85};
+const ppsK300={template:'k300',p0:23.5,T0:813.15,pRh:3.9,Trh:813.15,pk:.0034,power:3e5,etaHP:.84,etaLP:.88};
+test('K-1000-60 scheme closes its energy balance and gives VVER-1000 scale numbers',()=>{
+ const r=ppsScheme(ppsK1000);
+ assert.ok(Math.abs(r.balance)<1e-6*r.qIn,'balance '+r.balance);
+ assert.ok(r.eta>.33&&r.eta<.38,'eta '+r.eta);assert.ok(r.D0*3.6>5000&&r.D0*3.6<6200,'D0 '+r.D0);
+ assert.ok(r.Q>2600e3&&r.Q<3100e3,'Q '+r.Q);assert.ok(r.TfeedOut-273.15>215&&r.TfeedOut-273.15<235);
+ assert.ok(r.alphaRh>0&&r.sepWater>0);assert.ok(r.heaters.every(h=>h.alpha>=0));assert.equal(r.heaters.length,7);
+});
+test('K-300-240 scheme closes its balance with reheat',()=>{
+ const r=ppsScheme(ppsK300);
+ assert.ok(Math.abs(r.balance)<1e-6*r.qIn,'balance '+r.balance);
+ assert.ok(r.eta>.44&&r.eta<.50,'eta '+r.eta);assert.ok(r.D0*3.6>800&&r.D0*3.6<950,'D0 '+r.D0);
+ assert.ok(r.TfeedOut-273.15>260&&r.TfeedOut-273.15<285);assert.equal(r.alphaRh,0);
+ // Higher condenser pressure lowers efficiency.
+ assert.ok(ppsScheme({...ppsK300,pk:.008}).eta<r.eta);
+});
+test('Scheme rejects inconsistent pressures',()=>{
+ assert.throws(()=>ppsScheme({...ppsK300,template:'x'}),/pp.error.template/);
+ assert.throws(()=>ppsScheme({...ppsK300,p0:5}),/pp.error.schemeP0/);
+ assert.throws(()=>ppsScheme({...ppsK300,pk:.03}),/pp.error.schemeOrder/);
+ assert.throws(()=>ppsScheme({...ppsK1000,pRh:.5}),/pp.error.schemeReheat/);
+ assert.throws(()=>ppsScheme({...ppsK300,power:0}),/pp.error.power/);
+});
