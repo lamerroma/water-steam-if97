@@ -29,14 +29,13 @@ const {openTool}=require('./browser-tools.cjs');
     await openTool(page,'general');if(width<=700)assert.ok((await page.locator('#calculate').boundingBox()).height>=44);await page.selectOption('#ui-scale','1.3');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),width);await page.selectOption('#ui-scale','1');await page.screenshot({path:path.join(evidence,`${name}-${width}-general.png`),fullPage:true});
    }
    await page.setViewportSize({width:390,height:844});
-   await openTool(page,'npp');assert.ok(!(await page.locator('#npp-form').locator('..').textContent()).includes('Вода двох'));await page.click('#npp-preset');await page.locator('#cycle-chart').waitFor();
-   await page.click('[data-study-state=S3]');await page.locator('.study-viewer').first().getByRole('button',{name:'Expand',exact:true}).click();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),390);await page.keyboard.press('Escape');assert.equal(await page.locator('.study-expanded').count(),0);assert.equal(await page.locator('.study-inspector .sat-table td').first().evaluate(e=>getComputedStyle(e).whiteSpace),'nowrap');
-   await page.screenshot({path:path.join(evidence,`${name}-390-npp.png`),fullPage:true});
+   await openTool(page,'cycles');await page.locator('#learn-form').evaluate(f=>f.requestSubmit());await page.locator('#cycle-chart').waitFor();
+   await page.locator('[data-study-state]').nth(2).click();await page.locator('.study-viewer').first().getByRole('button',{name:'Expand',exact:true}).click();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),390);await page.keyboard.press('Escape');assert.equal(await page.locator('.study-expanded').count(),0);assert.equal(await page.locator('.study-inspector .sat-table td').first().evaluate(e=>getComputedStyle(e).whiteSpace),'nowrap');
+   await page.screenshot({path:path.join(evidence,`${name}-390-cycle.png`),fullPage:true});
    await openTool(page,'ts');await page.locator('#steam-diagram').waitFor();assert.ok(await page.locator('#steam-diagram').evaluate(c=>{const chart=Chart.getChart(c);return chart&&chart.width>200&&chart.height>100;}));
    await page.screenshot({path:path.join(evidence,`${name}-390-diagram.png`),fullPage:true});
    const chartReport=await download(()=>page.click('#diagram-report'));assert.match(chartReport,/<html[^>]*lang="en"/);
-   await openTool(page,'laboratory');await page.click('#lab-example');await page.click('#lab-calculate');assert.equal(await page.locator('#lab-error').isHidden(),true);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),390);
-   assert.deepEqual(errors,[]);console.log(`${name} ${browser.version()}: calculation, errors, UK/EN, HTML/JSON, restore, all ${actions.length} sections at 320/390/768px, NPP, diagrams and laboratory PASS`);
+   assert.deepEqual(errors,[]);console.log(`${name} ${browser.version()}: calculation, errors, UK/EN, HTML/JSON, restore, all ${actions.length} sections at 320/390/768px, cycle viewer and diagrams PASS`);
   }finally{await browser.close();}
  }
 })().catch(e=>{console.error(e);process.exitCode=1;});

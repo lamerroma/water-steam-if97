@@ -7,8 +7,6 @@ function workflowStates(){
  if(activeSection==='water-process')return waterProcessResult?.input.fluid==='water'?waterProcessResult.states:[];
  if(activeSection==='engineering')return engineeringResult?engineeringStates(engineeringResult).map(([,q])=>q):[];
  if(activeSection==='cycles')return learningResult?.input?.type==='brayton'?[]:learningResult?.states||[];
- if(activeSection==='npp')return nuclearResult?.states||[];
- if(activeSection==='coursework')return courseworkResult?.states||[];
  return [];
 }
 function workflowAddHistory(event){
@@ -16,16 +14,16 @@ function workflowAddHistory(event){
  for(const [i,q] of candidates.entries()){const model=q.model||modelValue();if(historyStates.some(s=>(s.model||'IF97')===model&&s.p===q.p&&Math.abs(s.h-q.h)<1e-9))continue;historyStates.unshift({...q,model,name:q.name||uiTranslator.t('workflow.stateName',{number:i+1}),source:calculatorHistoryInput(q)});added++;}
  historyStates.splice(500);renderHistory();saveProject();if(event?.type==='click'){document.body.classList.add('ui-show-history');document.body.classList.remove('output-collapsed');document.querySelector('.output-pane').scrollIntoView({block:'start'});document.querySelector('#history-body input')?.focus({preventScroll:true});}const message=uiTranslator.t('workflow.historyAdded',{count:added});$('result-status').textContent=message;if($('ui-report-status'))$('ui-report-status').textContent=message;
 }
-function workflowTargets(){return {plot:{turbine:'process-plot',flash:'process-plot',engineering:'eng-plot',cycles:'cycle-chart',npp:'npp-hs',coursework:'cw-chart',exchanger:'hx-chart',laboratory:'lab-chart'}[activeSection],export:{turbine:'process-csv',flash:'process-csv',engineering:'eng-export',flow:'flow-csv',cycles:'learn-csv',exchanger:'hx-csv',npp:'cycle-states-csv',coursework:'cw-csv',laboratory:'lab-export'}[activeSection]};}
+function workflowTargets(){return {plot:{turbine:'process-plot',flash:'process-plot',engineering:'eng-plot',cycles:'cycle-chart',exchanger:'hx-chart'}[activeSection],export:{turbine:'process-csv',flash:'process-csv',engineering:'eng-export',flow:'flow-csv',cycles:'learn-csv',exchanger:'hx-csv'}[activeSection]};}
 function workflowResultActions(force=false){
- const form=panelForm(),eligible=['turbine','flash','engineering','flow','cycles','exchanger','npp','coursework','laboratory'].includes(activeSection);
+ const form=panelForm(),eligible=['turbine','flash','engineering','flow','cycles','exchanger'].includes(activeSection);
  if(!eligible||!form){$('ui-result-actions')?.remove();return;}if($('ui-result-actions')&&!force)return;uiRestoreWorkflowButtons();$('ui-result-actions')?.remove();
  const ready=form.dataset.calculated==='true',bar=document.createElement('div');bar.id='ui-result-actions';bar.className='ui-result-actions';bar.dataset.i18nIgnore='';bar.dataset.ready=String(ready);
  const state=document.createElement('p');state.id='workflow-result-state';state.setAttribute('role','status');state.textContent=uiTranslator.t(ready?'workflow.ready':form.dataset.workflowTouched?'workflow.stale':'workflow.empty');bar.append(state);
  const actions=document.createElement('div');actions.className='feature-actions';const targets=workflowTargets();
- const nativeReport=document.querySelector('#cw-report,#lab-report,#npp-add-report,#hx-report,#cycle-report');
+ const nativeReport=document.querySelector('#hx-report,#cycle-report');
  const add=(key,action,disabled,id,native)=>{let b;if(ready&&native){b=uiAdoptWorkflowButton(native,key);}else{b=document.createElement('button');b.type='button';b.textContent=uiTranslator.t(key);b.id=id;b.onclick=action;b.disabled=disabled;}b.dataset.workflowAction=key;actions.append(b);return b;};
- if(['turbine','flash','engineering','cycles','npp','coursework'].includes(activeSection)){const history=add('workflow.toHistory',workflowAddHistory,!ready||!workflowStates().length,'workflow-history',$('eng-history'));history.onclick=workflowAddHistory;}
+ if(['turbine','flash','engineering','cycles'].includes(activeSection)){const history=add('workflow.toHistory',workflowAddHistory,!ready||!workflowStates().length,'workflow-history',$('eng-history'));history.onclick=workflowAddHistory;}
  const report=add('workflow.toReport',captureStudyCalculation,!ready,'workflow-report',nativeReport);report.classList.add('ui-secondary-action');
  // Keep the original buttons and handlers, removing duplicate controls from the result.
  if(targets.plot&&$(targets.plot)){const native=$(targets.plot);add('workflow.toDiagram',()=>{if(native.tagName==='CANVAS'){native.tabIndex=0;native.scrollIntoView({block:'center'});native.focus({preventScroll:true});}else native.click();},!ready||native.disabled,'workflow-diagram',native.tagName==='BUTTON'?native:null);}

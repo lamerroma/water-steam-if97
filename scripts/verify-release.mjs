@@ -64,13 +64,6 @@ try{
   await check('transport',['scripts/transport-conformance.mjs',path.join(dir,'transport.json')]);
   await check('steam97-p09-units',['scripts/audit-steam97-p09-units.mjs']);
   await check('steam97-p03',['scripts/audit-steam97-p03.mjs']);await check('steam97-p04',['scripts/audit-steam97-p04.mjs']);
-  await check('reactor',['scripts/verify-reactor-reference.mjs']);
-  await check('reactor-thermal',['scripts/verify-reactor-thermal.mjs']);
-  await check('reactor-validation',['scripts/audit-reactor-validation.mjs']);
-  if(await check('reactor-cell-audit',['scripts/reactor-cell-benchmark.mjs'])){
-   const cell=JSON.parse(await readFile(path.join(dir,'reactor-cell-audit.log'),'utf8'));
-   report.physicalValidation={reactorCell:cell.status,scope:'Independent cell screening; failure blocks claims of neutron-model physical validation, separately from software acceptance.'};
-  }
  }
  if(mode!=='core'){
   if(mode==='browser'){await check('steam97-p09-units',['scripts/audit-steam97-p09-units.mjs']);await check('steam97-p03',['scripts/audit-steam97-p03.mjs']);await check('steam97-p04',['scripts/audit-steam97-p04.mjs']);}
@@ -81,7 +74,7 @@ try{
    if(!await check('browser-legacy-project-'+browser,['scripts/check-legacy-project-browser.cjs'],{...env,BROWSER_NAME:browser,LEGACY_PROJECT_EVIDENCE:path.join(dir,'legacy-project',browser)}))throw Error('Legacy regression check failed; remaining browser checks skipped.');
    if(!await check('browser-diagram-navigation-'+browser,['scripts/check-diagram-navigation-browser.cjs'],{...env,BROWSER_NAME:browser,DIAGRAM_NAV_EVIDENCE:path.join(dir,'diagram-navigation',browser)}))throw Error('Legacy regression check failed; remaining browser checks skipped.');
   }
-  for(const name of ['steam97-p04','steam97-p03','steam97-p09-units','steam97-p08','steam97-p07','steam97-p06','steam97-p05','steam97-p02','input-sensitivity','inverse-boundaries','rankine-sweep','rankine-regeneration','rankine-efficiency','rankine-library','cycle-library','custom-cycle','processes-extended','water-process','calculator-async','navigation','smart-input','calculator-workspace','state-comparison','study-workflow','task-ui','diagram','diagram-guides','diagram-quality','process-paths','chart-layout','study-workspace','hydraulics','study','full-sprint','laboratory','coursework','usability','reactor-course','reactor-validation','provenance','project-safety','pwa','pwa-package','lazy-assets','python-libraries','fluids-pipe','ui-workspace'])await check('browser-'+name,[`scripts/check-${name}-browser.cjs`],env);
+  for(const name of ['steam97-p04','steam97-p03','steam97-p09-units','steam97-p08','steam97-p07','steam97-p06','steam97-p05','steam97-p02','input-sensitivity','inverse-boundaries','rankine-sweep','rankine-regeneration','rankine-efficiency','rankine-library','cycle-library','custom-cycle','processes-extended','water-process','calculator-async','navigation','smart-input','calculator-workspace','state-comparison','study-workflow','task-ui','diagram','diagram-guides','diagram-quality','process-paths','chart-layout','study-workspace','hydraulics','study','full-sprint','usability','provenance','project-safety','pwa','pwa-package','lazy-assets','python-libraries','fluids-pipe','ui-workspace'])await check('browser-'+name,[`scripts/check-${name}-browser.cjs`],env);
   await check('browser-cross-browser',['scripts/check-cross-browser.cjs'],{...env,UI_EVIDENCE_DIR:path.join(dir,'ui')});
   for(const browser of ['chromium','firefox']){
    await check('browser-library-recipes-'+browser,['scripts/check-library-recipes-browser.cjs'],{...env,BROWSER_NAME:browser,LIBRARY_RECIPES_EVIDENCE:path.join(dir,'library-recipes',browser)});

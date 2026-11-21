@@ -313,14 +313,9 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
  tr{break-inside:avoid}
  .glossary-toggle{display:inline!important;text-decoration:none}
 }
-/* Learning tasks remain readable in the same scrolling panel as calculations. */
-#tutorial-form select{width:100%;max-width:100%}
-#tutorial-task ol,#tutorial-results ol{padding-left:1.5rem;max-width:75ch}
-#tutorial-task li,#tutorial-results li{margin:.6rem 0}
 #flow-source-note{max-width:80ch}
-#flow-form>button,#tutorial-form>button{margin:.3rem .35rem .3rem 0}
+#flow-form>button{margin:.3rem .35rem .3rem 0}
 #pressure-atmosphere{display:block;width:100%;min-width:0;margin-top:.2rem}
-
 .diagram-options{display:flex;flex-wrap:wrap;gap:.4rem 1rem;flex-shrink:0;font-size:.9rem}
 .diagram-options label,.diagram-state-table label{display:inline-flex;align-items:center;gap:.3rem}
 .diagram-options input,.diagram-state-table input{width:auto;margin:0}
@@ -329,14 +324,12 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 #process-view .diagram-state-table button{margin:.1rem;padding:.2rem .5rem}
 .diagram-state-table td:last-child{white-space:nowrap}
 #steam-diagram{touch-action:none}
-.tutorial-diagrams{margin:1rem 0}
 @media(max-width:600px){.diagram-controls label{min-width:0;flex-basis:100%}.diagram-options label{flex-basis:100%}.diagram-stage{height:23rem}}
 #process-view .diagram-state-table{table-layout:auto;min-width:48rem}
 #process-view .diagram-state-table th:first-child,#process-view .diagram-state-table td:first-child{width:2.5rem;white-space:nowrap}
 .diagram-state-table th:nth-child(2),.diagram-state-table td:nth-child(2){min-width:10rem;text-align:left}
 .diagram-state-table td:nth-child(n+3):nth-child(-n+7){white-space:nowrap;font-variant-numeric:tabular-nums}
 .diagram-stage{min-height:22rem;flex:1 0 22rem}
-
 /* Diagram workspace: only the controls needed for the graph stay in view. */
 .diagram-active .setup-pane{display:none}
 .diagram-active .desktop{grid-template-columns:1fr}
@@ -369,19 +362,16 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 .diagram-settings[open]>div{margin-top:.4rem}
 #diagram-nearby{position:absolute;left:.5rem;right:.5rem;top:.5rem;z-index:4;max-height:60%;overflow:auto}
 @media(max-width:600px){#diagram-pan{font-size:0}#diagram-pan::after{content:'↔';font-size:20px}}
-
 .saturation-grid-table{table-layout:auto;min-width:75rem}
 .saturation-grid-table td,.saturation-grid-table th{white-space:nowrap}
 .grid-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin:.75rem 0}
 #copy-result-dialog{width:min(44rem,90vw);border:1px solid var(--line);border-radius:.4rem}
 #copy-result-dialog textarea{display:block;width:100%;height:45vh;margin:1rem 0}
 #copy-result-dialog::backdrop{background:#0006}
-
 /* Chart.js owns the canvas backing-store size, including device pixel ratio. */
 .diagram-stage{border-radius:8px;overflow:hidden}
 #steam-diagram:focus-visible{outline:3px solid #5389bc;outline-offset:-3px}
 .diagram-legend button[aria-pressed="false"]{opacity:.45}
-
 .diagram-guides{margin:.65rem 0;border:1px solid #c3d1e1;border-radius:6px}
 .diagram-guide-inputs{display:flex;flex-wrap:wrap;align-items:end;gap:.5rem}
 .diagram-guide-inputs label{display:flex;flex-direction:column;gap:.3rem;flex:1;min-width:10rem}
@@ -390,14 +380,11 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 #diagram-cursor{display:block;color:#345b89;font-size:.9rem;min-height:1.2em;flex-shrink:0}
 #diagram-guide-legend{font-size:.85rem;color:#64748b}
 @media(max-width:600px){.diagram-guide-inputs label{min-width:0;flex-basis:100%}}
-
 /* Reserve readout space so hovering cannot resize the canvas beneath the cursor. */
 #diagram-cursor{line-height:1.3;height:2.6em;overflow:hidden}
 @media(max-width:600px){#diagram-cursor{height:3.9em}}
-
 .diagram-path-note{margin:.5rem 0;color:#344c65;font-size:.9rem}
 #diagram-detail-status{display:block;min-height:2.5em;font-size:.85rem;color:#53677d;margin:.4rem 0}
-
 #input-fields{display:flex;flex-direction:column}
 .smart-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:.5rem;align-items:end}
 .smart-pair label{display:flex;flex-direction:column;gap:.35rem;font-size:.85rem;min-width:0}
@@ -409,16 +396,10 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 .input-notice{padding:.6rem;border-left:3px solid #3977a6;background:#eef5fc;margin:.5rem 0}
 .input-notice p{margin:0 0 .5rem}
 @media(max-width:480px){.smart-pair{grid-template-columns:minmax(0,1fr) auto}.smart-pair label{grid-column:1}.smart-pair #smart-swap{grid-column:2;grid-row:1/3;min-height:2.75rem}}
-
 .pwa-panel{margin:8px 12px;padding:8px 12px;border:1px solid var(--border,#aac);border-radius:6px}.pwa-panel summary{cursor:pointer}.pwa-panel p{margin:8px 0;max-width:85ch}.pwa-panel button{margin:4px 8px 4px 0;min-height:40px}.pwa-panel progress{width:min(100%,320px)}
-
-#study-list fieldset{margin:12px 0}#study-list label,#process-view:has(#study-list)>section>label{display:block;margin:8px 0}#study-list input,#study-list textarea,#study-author,#study-assignment,#study-intro{display:block;width:100%;box-sizing:border-box}#npp-results svg{display:block;width:100%;height:auto}#study-add-current{width:auto;height:auto;min-height:2rem;flex-shrink:0;white-space:nowrap;font-size:.85rem;padding:.3rem .5rem}#study-status{white-space:pre-wrap}
-
+#study-list fieldset{margin:12px 0}#study-list label,#process-view:has(#study-list)>section>label{display:block;margin:8px 0}#study-list input,#study-list textarea,#study-author,#study-assignment,#study-intro{display:block;width:100%;box-sizing:border-box}#study-add-current{width:auto;height:auto;min-height:2rem;flex-shrink:0;white-space:nowrap;font-size:.85rem;padding:.3rem .5rem}#study-status{white-space:pre-wrap}
 .study-chart{position:relative;height:340px;width:100%;min-width:0;margin:16px 0}.study-cycle-tools{margin-top:20px}.study-cycle-tools>label{display:block}.feature-actions{display:flex;flex-wrap:wrap;gap:8px}#process-view:has(#library-list) label,#process-view:has(#research-form) label{display:block}#library-list fieldset,#variant-list fieldset{margin:12px 0}#library-list button,#variant-list button,#hx-results button,.study-cycle-tools button{margin:4px}#research-source{overflow-wrap:anywhere}#study-list p{overflow-wrap:anywhere}
-@media(max-width:700px){.study-chart{height:300px}#exchanger-form input,#research-form input,#library-title,#variant-title{min-height:44px;width:100%;box-sizing:border-box}.feature-actions button,#library-list button,#variant-list button{min-height:44px}}
-
-.npp-scheme{max-width:100%;overflow-x:auto;min-width:0}@media(max-width:700px){.npp-scheme svg{min-width:760px}#npp-form input,#npp-form select,#learn-form input,#learn-form select{min-height:44px}}
-
+@media(max-width:700px){.study-chart{height:300px}#exchanger-form input,#research-form input,#library-title,#variant-title{min-height:44px;width:100%;box-sizing:border-box}.feature-actions button,#library-list button,#variant-list button{min-height:44px}}@media(max-width:700px){#learn-form input,#learn-form select{min-height:44px}}
 /* Grouped tool navigation and linked study diagrams. */
 .tool-navigation{padding:.5rem;background:#e5edf9;border-bottom:1px solid var(--line);flex-shrink:0}
 .tool-group-bar,.tool-search,.recent-tools{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
@@ -427,32 +408,19 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 .recent-tools{margin-top:.4rem}.recent-tools button{font-size:.85rem;padding:.2rem .4rem}
 #tool-search-status{margin:.4rem 0}.study-state-buttons{display:flex;flex-wrap:wrap;gap:.4rem}
 .study-state-buttons button[aria-pressed=true]{background:#fff0d6;border-color:#d17613}
-.study-selected>td{background:#fff0d6!important}.npp-scheme rect[role=button]{cursor:pointer}
-.npp-scheme rect.study-selected{fill:#fff0d6;stroke:#d17613;stroke-width:3}
-.npp-scheme rect:focus-visible{outline:none;stroke:#111;stroke-width:4}.npp-scheme svg text{pointer-events:none}
+.study-selected>td{background:#fff0d6!important}
 .study-viewer{min-width:0;margin:.7rem 0;border:1px solid var(--line);border-radius:4px;padding:.5rem;background:var(--panel)}
 .study-viewer .feature-actions{display:flex;align-items:center;flex-wrap:wrap;gap:.4rem;margin-bottom:.5rem}
-.study-viewer .npp-scheme{max-height:50vh;overflow:auto}.study-viewer .npp-scheme svg{display:block;width:100%;min-width:0!important;max-width:none;height:auto}
 .study-viewer .study-chart{margin:0}.study-expanded{position:fixed;inset:1rem;z-index:1000;box-shadow:0 0 0 2rem #18364ea6;display:flex;flex-direction:column}
-.study-expanded .npp-scheme{flex:1;min-height:0;max-height:none;display:flex;align-items:flex-start}.study-expanded .npp-scheme:not(.scheme-zoomed) svg{height:100%;object-fit:contain}
 .study-expanded .study-chart{flex:1;min-height:0;height:auto}
 @media(max-width:700px){.tool-group-bar button{flex:1;min-height:40px}.tool-search input{max-width:none}.recent-tools{display:none}.study-expanded{inset:.3rem}.study-state-buttons button,.study-viewer button{min-height:44px}.study-inspector .sat-table{min-width:35rem}}
-@media print{.tool-navigation,.study-viewer .feature-actions,.study-state-buttons,.study-inspector{display:none!important}.study-expanded{position:static;box-shadow:none}.study-viewer .npp-scheme{max-height:none}}
-
-.study-viewer .npp-scheme:not(.scheme-zoomed) svg{max-height:48vh}.study-expanded .npp-scheme:not(.scheme-zoomed) svg{max-height:none}
-.study-viewer-state{margin:.3rem 0 .6rem;max-height:25vh;overflow:auto;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
-
-.lab-input-table{min-width:38rem;table-layout:auto}.lab-input-table input{width:100%;min-width:5rem;max-width:12rem}.lab-results-table{min-width:80rem;table-layout:auto}.laboratory-panel textarea{width:100%;resize:vertical}.laboratory-panel #lab-data{font-family:monospace}.laboratory-panel .feature-actions{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}.laboratory-panel input[type=file]{max-width:100%}@media(max-width:700px){.laboratory-panel input,.laboratory-panel select,.laboratory-panel button{min-height:44px}.laboratory-panel .lab-input-table{min-width:34rem}}
-
-/* Coursework tables scroll within their panel; the page stays usable on phones. */
-.coursework-panel{min-width:0;max-width:100%}.coursework-panel .sat-scroll{max-width:100%;overflow:auto;margin:12px 0}.coursework-panel table{border-collapse:collapse;font-size:.88rem;width:100%}.coursework-panel td,.coursework-panel th{padding:8px;border:1px solid #b7cbd9;text-align:left;white-space:nowrap}.coursework-panel td:nth-child(2),.coursework-panel td:nth-child(3){white-space:normal;min-width:140px}.coursework-panel details{margin:12px 0}.coursework-panel summary{cursor:pointer;font-weight:600}.coursework-panel .process-grid{margin:12px 0}.cw-summary{display:flex;flex-wrap:wrap;gap:8px 24px}.cw-summary p{margin:8px 0;font-weight:600}.course-warning{border-left:4px solid #b45309;background:#fff3dd;padding:12px;color:#713f12}.cw-triangles{overflow:auto}.cw-triangles svg{width:100%;min-width:480px;height:auto}@media(max-width:600px){.coursework-panel .process-grid{grid-template-columns:1fr}.coursework-panel input,.coursework-panel select{min-height:44px;width:100%;box-sizing:border-box}.coursework-panel .feature-actions{flex-wrap:wrap}.coursework-panel .study-chart{height:340px}}
-
+@media print{.tool-navigation,.study-viewer .feature-actions,.study-state-buttons,.study-inspector{display:none!important}.study-expanded{position:static;box-shadow:none}}
+.study-viewer-state{margin:.3rem 0 .6rem;max-height:25vh;overflow:auto;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.course-warning{border-left:4px solid #b45309;background:#fff3dd;padding:12px;color:#713f12}
 /* A compact navigator and optional catalogue replace numbered tool hunting. */
-.tool-finder{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}.tool-finder .tool-search{flex:1}.tool-search input{flex:1;min-width:140px;max-width:none}.tool-group-picker{display:none}.tool-catalog,.tool-context{margin:12px 0;padding:12px;border:1px solid var(--line);border-radius:8px;background:#f4f8fc;min-width:0}.tool-catalog h2{margin-top:0}.tool-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.tool-card{display:flex;flex-direction:column;align-items:flex-start;gap:8px;white-space:normal;text-align:left;padding:14px;min-width:0;background:#fff}.tool-card:hover,.tool-card:focus-visible{border-color:#125a88;background:#edf5fb}.tool-card>span{font-size:.9rem;line-height:1.45}.method-badge{display:inline-block;border:1px solid #8196aa;border-radius:5px;padding:3px 7px;font-size:.8rem;font-weight:600;white-space:normal;color:#314c65;background:#edf3f8}.method-badge.reference{background:#eaf5ee;color:#28513a;border-color:#85ac93}.method-badge.provisional,.method-badge.experimental{background:#fff1d9;color:#7a4511;border-color:#cba76d}.tool-context-summary{margin:0 0 8px;line-height:1.55}.tool-context details{font-size:.9rem}.tool-context details summary{cursor:pointer}.tool-workflow{font-size:.85rem;color:#49637a;margin-bottom:0}.method-limit{color:#78440f;margin:6px 0;line-height:1.5}.course-detail{margin:12px 0;padding:10px;border:1px solid var(--line);border-radius:6px}.course-detail>summary{font-weight:600;cursor:pointer}.coursework-panel details .study-chart{margin-top:12px}.tool-catalog:focus-within{scroll-margin-top:10px}
+.tool-finder{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}.tool-finder .tool-search{flex:1}.tool-search input{flex:1;min-width:140px;max-width:none}.tool-group-picker{display:none}.tool-catalog,.tool-context{margin:12px 0;padding:12px;border:1px solid var(--line);border-radius:8px;background:#f4f8fc;min-width:0}.tool-catalog h2{margin-top:0}.tool-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.tool-card{display:flex;flex-direction:column;align-items:flex-start;gap:8px;white-space:normal;text-align:left;padding:14px;min-width:0;background:#fff}.tool-card:hover,.tool-card:focus-visible{border-color:#125a88;background:#edf5fb}.tool-card>span{font-size:.9rem;line-height:1.45}.method-badge{display:inline-block;border:1px solid #8196aa;border-radius:5px;padding:3px 7px;font-size:.8rem;font-weight:600;white-space:normal;color:#314c65;background:#edf3f8}.method-badge.reference{background:#eaf5ee;color:#28513a;border-color:#85ac93}.method-badge.provisional,.method-badge.experimental{background:#fff1d9;color:#7a4511;border-color:#cba76d}.tool-context-summary{margin:0 0 8px;line-height:1.55}.tool-context details{font-size:.9rem}.tool-context details summary{cursor:pointer}.tool-workflow{font-size:.85rem;color:#49637a;margin-bottom:0}.method-limit{color:#78440f;margin:6px 0;line-height:1.5}.course-detail{margin:12px 0;padding:10px;border:1px solid var(--line);border-radius:6px}.course-detail>summary{font-weight:600;cursor:pointer}.tool-catalog:focus-within{scroll-margin-top:10px}
 @media(max-width:700px){.tool-navigation .tool-group-bar{display:none}.tool-group-picker{display:flex;align-items:center;gap:8px;margin-bottom:8px}.tool-group-picker select{flex:1;min-width:0;min-height:44px}.tool-finder{align-items:stretch}.tool-finder .tool-search{flex-basis:100%}.tool-finder button{min-height:44px;width:100%}.tool-card-grid{grid-template-columns:1fr}.tool-context,.tool-catalog{padding:10px}.method-badge{font-size:.78rem}.tool-context-summary{font-size:.9rem}.tool-card{min-height:100px}}
 @media print{.tool-context,.tool-catalog{display:none!important}.course-detail{border:0}.course-detail::details-content{display:block}}
 .tool-catalog{flex-shrink:0;max-height:45vh;overflow:auto}.tool-context{flex-shrink:0}#process-view>.tool-context{margin-top:0}.calculator-view>.tool-context{margin:8px}.tool-context details p{white-space:normal}
-
 /* Keep state values readable on phones; scroll only the inspector table. */
 @media(max-width:700px){
  #process-view .study-inspector .sat-table{min-width:35rem;table-layout:auto}
@@ -461,13 +429,10 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
  .menu-right select,.form-row input,.form-row select,.form-buttons button{min-height:44px}
  #process-view form button,#process-view form select,#process-view form input:not([type=radio]):not([type=checkbox]){min-height:44px}
 }
-
-#process-view .coursework-panel .thermal-evidence{min-width:48rem;table-layout:fixed}
-#process-view .coursework-panel .thermal-evidence th,#process-view .coursework-panel .thermal-evidence td{min-width:0;white-space:normal;overflow-wrap:anywhere}
 /* Consistent work area and quantity fields. */
 .quantity-field{min-width:0}.quantity-input{display:flex;gap:.4rem;align-items:center;min-width:0;width:100%}.quantity-input input{flex:1;min-width:0!important;width:0!important}.quantity-input select{flex:0 0 6.5rem;width:6.5rem!important;min-width:0!important}.quantity-field>.field-error{display:block}
 #process-view .process-grid,#process-form fieldset,#engineering-form fieldset{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:.85rem 1.2rem;align-items:start}
-#process-view label{min-width:0}#process-view table td{font-variant-numeric:tabular-nums}#process-view .lab-results-table{width:max-content;min-width:100%;table-layout:auto}#process-view .lab-results-table td{white-space:nowrap;overflow-wrap:normal;word-break:normal}#process-view .lab-results-table td:first-child{min-width:2rem;width:auto}
+#process-view label{min-width:0}#process-view table td{font-variant-numeric:tabular-nums}
 .ui-independent-panel:not(.diagram-active) .desktop{grid-template-columns:1fr}.ui-independent-panel .setup-pane{display:none}.ui-independent-panel .desktop,.ui-empty-history .desktop{grid-template-rows:minmax(28rem,1fr) auto}.ui-independent-panel .output-pane,.ui-empty-history .output-pane{display:none}.ui-independent-panel #output-resize,.ui-empty-history #output-resize{display:none}
 /* Explicit user actions can bring the otherwise contextual panels back. */
 .ui-show-setup .setup-pane{display:block}.ui-show-setup:not(.diagram-active) .desktop{grid-template-columns:minmax(0,1fr) 18rem}.ui-show-history .output-pane{display:block}.ui-show-history .desktop{grid-template-rows:minmax(28rem,1fr) var(--output-height)}
@@ -481,20 +446,14 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 }
 @media(min-width:701px){.mobile-app-menu{display:flex;background:linear-gradient(#e9f1fb,#bacde5)}.mobile-app-menu>summary{display:flex;align-items:center;gap:.5rem;padding:0 .5rem;font-size:0;list-style:none;order:2}.mobile-app-menu>summary label{font-size:12px}.mobile-app-menu>.menubar{flex:1;min-width:0}.mobile-app-menu>summary::-webkit-details-marker{display:none}}
 @media(max-width:700px){.mobile-app-menu>summary{display:flex;align-items:center;gap:.5rem}.mobile-app-menu>summary label{display:flex;align-items:center;gap:.3rem;font-size:0}.mobile-app-menu>summary select{font-size:13px;min-height:40px;padding:.3rem}.mobile-app-menu>summary .language-picker{margin-left:auto}}
-#process-view .coursework-panel .process-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr))}
 #input-fields .form-row:has(#smart-first),#input-fields .form-row:has(#smart-second){grid-template-columns:minmax(10rem,1.3fr) minmax(5rem,1fr) 5rem;align-items:end}#input-fields .form-row>label:has(select){display:flex;flex-direction:column;gap:.3rem;width:auto;font-size:12px}#smart-input .smart-pair{justify-content:flex-end}#smart-input .smart-pair>button{min-height:30px}
 #process-form fieldset,#engineering-form fieldset,#process-view .process-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:1100px){#process-form fieldset,#engineering-form fieldset,#process-view .process-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){#process-form fieldset,#engineering-form fieldset,#process-view .process-grid{grid-template-columns:1fr}#input-fields .form-row:has(#smart-first),#input-fields .form-row:has(#smart-second){grid-template-columns:minmax(0,1fr) 6rem}#input-fields .form-row>label:has(select){grid-column:1/-1}#input-fields .form-row input{width:100%}.input-area .product-info{display:none}}
-
 .ui-fixed-unit{padding:.4rem .6rem;background:#edf3f8;border:1px solid var(--line);border-radius:4px;white-space:nowrap;font-size:.9rem}
-
 @media(max-width:700px){body:not(.ui-show-setup) .setup-pane{display:none}}
-
 .toolbar #ui-units-toggle{width:auto;padding:0 .5rem;min-height:40px;border:1px solid var(--line);border-radius:4px}
-
 @media(min-width:901px){.calculator-view{overflow:auto}.calculator-view .results-scroll{flex:1 0 12rem}}
-
 /* Balanced chart pages: plot proportions follow their width, not spare height. */
 .diagram-workspace{display:grid;grid-template-columns:minmax(0,1fr) 16rem;gap:1rem;width:100%;max-width:92rem;margin-inline:auto;align-items:start;flex:none;min-width:0}
 .diagram-main{display:flex;flex-direction:column;gap:.6rem;min-width:0}
@@ -521,7 +480,7 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 @media(max-width:700px){
  .diagram-sidebar{display:flex}
  .diagram-stage{aspect-ratio:4/3;height:auto;min-height:20rem}
- .study-chart,.coursework-panel .study-chart{aspect-ratio:4/3;height:auto;min-height:20rem}
+ .study-chart{aspect-ratio:4/3;height:auto;min-height:20rem}
  .study-expanded .study-chart{aspect-ratio:auto;height:auto;min-height:0}
  .diagram-main .diagram-controls label{min-width:0;flex-basis:100%}
 }
@@ -565,8 +524,6 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
  .study-chart-workspace .study-expanded .study-chart{max-width:none}
 }
 @media(min-width:701px) and (max-width:1100px){#process-view .study-chart-sidebar .process-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}}
-
-#process-view .reactor-verification{table-layout:auto;min-width:60rem;font-size:.82rem}#process-view .reactor-verification td,#process-view .reactor-verification th{white-space:normal;overflow-wrap:anywhere;text-align:left}#cw-verification-checks h4{margin:.8rem 0}.reactor-verification td:nth-child(3),.reactor-verification td:nth-child(4),.reactor-verification td:nth-child(5),.reactor-verification td:nth-child(6){font-variant-numeric:tabular-nums}
 /* Primary calculator: readable results and actions close to the values. */
 #calculator-result-tools{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;padding:.6rem;background:var(--panel);border-bottom:1px solid var(--line)}
 #calculator-result-tools[hidden],#calculator-error-summary[hidden]{display:none}
@@ -655,7 +612,6 @@ body.ui-task-layout{height:auto;min-height:100dvh}
 @media print{#ui-back-to-tools{display:none!important}}
 /* Keep a rendered chart inside its task while Chart.js processes a viewport resize. */
 .ui-task-layout:not(.diagram-active) canvas{max-width:100%}
-
 /* Compact calculator: panels occupy their own space rather than covering controls. */
 .ui-task-layout .site-nav{display:none}
 .ui-task-layout:not(.diagram-active) .center-pane{grid-column:1;grid-row:1}
@@ -682,30 +638,24 @@ body.ui-task-layout{height:auto;min-height:100dvh}
  .ui-task-layout:not(.diagram-active):not(.setup-collapsed) .setup-pane{order:1;width:100%;position:static}
  .ui-task-layout:not(.diagram-active) .output-pane{order:2;width:100%}
 }
-
 .ui-task-layout .output-pane h2 .ui-history-title{display:inline;font-weight:600;font-size:.95rem;color:#254b7d}
-
 @media(min-width:901px){
  .ui-task-layout:not(.diagram-active):not(.setup-collapsed) .setup-pane{max-height:calc(100dvh - 8rem)}
  .ui-task-layout:not(.diagram-active) .setup-content{overflow:auto}
 }
 .ui-task-layout .calculator-view>.setup-pane{margin:.5rem;width:auto!important}
 .ui-task-layout:not(.diagram-active) .calculator-view>.setup-pane{order:0}
-
 .wp-plots{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:12px}.wp-plots svg{width:100%;height:auto}.water-process-panel .process-grid{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}.water-process-panel li{margin-block:8px}.wp-actions{display:flex;flex-wrap:wrap;gap:6px}
 .cc-plots{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr));gap:10px}.cc-plots svg{width:100%;height:auto}.cc-editor-table{width:100%;min-width:800px}.cc-editor-table input,.cc-editor-table select{width:100%;min-width:60px;box-sizing:border-box}.cc-editor-table td:last-child{white-space:nowrap}.cc-editor-table td{vertical-align:top}.cc-editor-table label{margin:0}.cc-field-caption{display:block;font-size:.8em;min-height:1.2em}.cc-editor-table [aria-selected=true]{background:#e3f1ff}.cc-editor-table input[data-cc-field=name]{max-width:110px}.cc-example-actions,.cc-run-actions{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.cc-plots [role=button]{cursor:pointer}.cc-plots [role=button]:focus{outline:2px solid #b04020}
 .cc-chart-workspace{margin:16px 0;border:1px solid #b5c9dc;border-radius:6px;padding:10px;min-width:0}.cc-chart-toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.cc-chart-toolbar label{display:flex;align-items:center;gap:6px;margin:0}.cc-chart-toolbar select{width:auto;min-width:80px}.cc-chart-toolbar input[type=checkbox]{width:auto}.cc-chart-toolbar button,.cc-pan-actions button{min-width:40px;min-height:40px}.cc-chart-help{font-size:.85em;color:#405c72;margin:8px 0}.cc-chart-workspace #cc-chart{display:block;touch-action:pan-y;cursor:grab;max-width:1100px;margin:auto}.cc-chart-workspace #cc-chart:active{cursor:grabbing}.cc-chart-workspace #cc-chart:focus-visible{outline:2px solid #005f99}.cc-pan-actions{display:flex;justify-content:center;gap:6px}#cc-chart-selection{font-size:.9em;overflow-wrap:anywhere;margin-bottom:0}[data-cc-result-state][aria-selected=true]{background:#e3f1ff}@media(max-width:480px){.cc-chart-workspace{padding:5px}.cc-chart-toolbar{gap:5px}.cc-chart-toolbar label{font-size:.9em}.cc-chart-help{font-size:.8em}}
 .cc-library{border:1px solid #b5c9dc;border-radius:6px;padding:10px;margin:12px 0;min-width:0}.cc-library>summary{font-weight:600;cursor:pointer}.cc-library form{margin:10px 0}.cl-personal-actions{display:flex;align-items:end;gap:8px;flex-wrap:wrap}.cl-personal-actions label{flex:1;min-width:150px}.cc-library input,.cc-library select{max-width:100%;box-sizing:border-box}.cl-overlay svg{display:block;width:100%;height:auto}.cc-library #cl-slots{overflow-wrap:anywhere}.cc-library details{margin:12px 0}.cc-library button{min-height:40px}.cc-library [hidden]{display:none!important}
-
 .cl-sweep{margin:12px 0;border:1px solid var(--line);padding:10px;min-width:0}.cs-toolbar{display:flex;align-items:end;flex-wrap:wrap;gap:8px;margin:12px 0}.cs-toolbar label{margin:0}#cs-chart svg{display:block;width:100%;max-width:1000px;height:auto}#cs-chart [role=button]{cursor:pointer}#cs-chart [role=button]:focus{outline:2px solid #a04e00}#cs-table{min-width:760px}#cs-table tr[aria-selected=true]{background:#fff0d6}#cs-selection,#cs-summary{overflow-wrap:anywhere}#cs-table td:last-child{white-space:normal;min-width:200px}@media(max-width:480px){.cl-sweep{padding:5px}.cs-toolbar button,#cs-open,#cs-run,#cs-cancel{min-height:44px}.cs-toolbar label{width:100%}}
-
 #input-sensitivity{margin:.35rem 0;padding:.3rem .45rem;border:1px solid #c8cbd2;border-radius:3px}
 #input-sensitivity summary{cursor:pointer}
 #input-sensitivity p{margin:.5rem 0;overflow-wrap:anywhere}
 .sensitivity-scroll{overflow:auto}
 .sensitivity-scroll table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
 .sensitivity-scroll th,.sensitivity-scroll td{padding:.3rem .5rem;text-align:left;border-bottom:1px solid #d9dde3}
-
 /* Compact tabular exports wrap with their existing toolbar on small screens. */
 .spreadsheet-export{display:inline-flex;align-items:center;flex-wrap:wrap;gap:.3rem;max-width:100%;vertical-align:middle}.spreadsheet-export select{width:auto;max-width:100%;min-width:5rem}.spreadsheet-export button{white-space:normal}
 .output-tabs .spreadsheet-export{order:-1;flex-basis:100%}

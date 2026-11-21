@@ -8,9 +8,9 @@ const {openTool}=require('./browser-tools.cjs');
  const view=()=>page.evaluate(()=>{const c=Chart.getChart('cycle-chart');return {xmin:c.scales.x.min,xmax:c.scales.x.max,ymin:c.scales.y.min,ymax:c.scales.y.max};});
  const settled=async()=>{await page.waitForTimeout(450);await ready();};
  await fs.mkdir('.release/chart-workspace',{recursive:true});
- for(const type of ['rankine','rankine-reheat','rankine-regen','npp']){
-  await openTool(page,type==='npp'?'npp':'cycles');
-  if(type==='npp'){await page.selectOption('#npp-mode','msr');await page.locator('#npp-form').evaluate(f=>f.requestSubmit());}else{await page.selectOption('#cycle-kind',type);await page.locator('#learn-form').evaluate(f=>f.requestSubmit());}
+ for(const type of ['rankine','rankine-reheat','rankine-regen']){
+  await openTool(page,'cycles');
+  await page.selectOption('#cycle-kind',type);await page.locator('#learn-form').evaluate(f=>f.requestSubmit());
   await ready();await settled();
   const geometry=await page.evaluate(()=>{const main=document.querySelector('.study-chart-main').getBoundingClientRect(),side=document.querySelector('.study-chart-sidebar').getBoundingClientRect(),plot=document.querySelector('#cycle-chart').getBoundingClientRect(),table=document.querySelector('.study-workspace-states').getBoundingClientRect();return {main:main.x,side:side.x,plotBottom:plot.bottom,tableTop:table.top,width:document.documentElement.scrollWidth};});
   assert.ok(geometry.side>geometry.main);assert.ok(geometry.tableTop>geometry.plotBottom);assert.equal(geometry.width,1440);
@@ -31,7 +31,7 @@ const {openTool}=require('./browser-tools.cjs');
   await page.setViewportSize({width:390,height:844});await settled();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),390);assert.equal(await page.locator('[data-study-row]').count(),canonical.length);await page.locator('.study-chart-workspace .study-viewer').scrollIntoViewIfNeeded();await page.mouse.move(0,0);await page.screenshot({path:`.release/chart-workspace/${type}-mobile.png`});await page.setViewportSize({width:1440,height:1000});await settled();assert.deepEqual(await view(),full);records.push({type,desktop:true,mobile:true,selection:true,axes:true,zoom:true,pan:true,export:true});
  }
  await page.selectOption('#language-select','en');await openTool(page,'cycles');await page.locator('#learn-form').evaluate(f=>f.requestSubmit());await ready();assert.equal(await page.locator('#cycle-view-fit').textContent(),'Fit cycle');assert.ok((await page.locator('.study-line-key').textContent()).includes('Schematic'));
- await openTool(page,'study');await page.click('#study-preview');const report=page.frameLocator('#study-preview-frame');await report.locator('h1').waitFor();assert.equal(await report.locator('img').count(),4);assert.ok((await report.locator('body').textContent()).includes('масштаб'));
+ await openTool(page,'study');await page.click('#study-preview');const report=page.frameLocator('#study-preview-frame');await report.locator('h1').waitFor();assert.equal(await report.locator('img').count(),3);assert.ok((await report.locator('body').textContent()).includes('масштаб'));
  const off=await context.newPage();off.on('pageerror',e=>errors.push(e.message));await context.setOffline(true);await require('./browser-tools.cjs').openOfflineApp(off);await off.waitForFunction(()=>!document.querySelector('#calculate').disabled);await openTool(off,'cycles');await off.locator('#learn-form').evaluate(f=>f.requestSubmit());await off.waitForFunction(()=>Chart.getChart('cycle-chart')?.$pathStatus==='ready');await off.click('#cycle-view-in');await off.waitForTimeout(450);await off.waitForFunction(()=>Chart.getChart('cycle-chart')?.$pathStatus==='ready');assert.ok(await off.evaluate(()=>Chart.getChart('cycle-chart').$studyViewport));
  assert.deepEqual(errors,[]);await fs.writeFile('.release/chart-workspace/report.json',JSON.stringify({version:'1.19.0',build:await page.locator('#app-build-value').textContent(),records,english:true,offline:true,pageErrors:errors},null,2));console.log('Four cycle scenarios: layout, linked selection, per-axis viewport, resize, zoom, back, keyboard, drag, wheel, expansion, CSV/report, UK/EN and offline PASS');
 }finally{await browser.close();}})().catch(e=>{console.error(e);process.exit(1)});

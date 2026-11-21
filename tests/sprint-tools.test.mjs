@@ -9,7 +9,6 @@ import {exportCSV} from '../src/export.js';
 import {turbine} from '../src/processes.js';
 import {readWorkspace,readCalculation} from '../src/workspace.js';
 import {printableReport} from '../src/print-report.js';
-import {TUTORIALS,solveTutorial} from '../src/tutorials.js';
 await initialize(fs.readFileSync(new URL('../vendor/seuif97_bg.wasm',import.meta.url)));
 const near=(a,b,tol=1e-10)=>assert.ok(Math.abs(a-b)<=tol*Math.max(1,Math.abs(b)),`${a} != ${b}`);
 test('gauge pressures round-trip units and allow physical vacuum readings',()=>{
@@ -37,17 +36,23 @@ test('gas working/standard volume follows absolute pressure, Kelvin temperature 
 test('engineering unit conversions retain continuity and viscosity scales',()=>{
  near(flowToSI(60,'volume','lmin'),.001);near(flowToSI(50,'diameter','mm'),.05);near(flowToSI(1,'dynamic','cP'),.001);near(flowToSI(1,'kinematic','cSt'),1e-6);near(flowFromSI(flowToSI(15,'volume','ft3min'),'volume','ft3min'),15);assert.throws(()=>flowToSI(1,'mass','ms'));
 });
-test('flow and tutorial inputs round-trip; incompatible imported units and forged results are rejected or ignored',()=>{
+test('flow inputs round-trip; incompatible imported units and forged results are rejected or ignored',()=>{
  const inputs={'flow-source':'manual','flow-kind':'volume','flow-unit':'lmin','flow-visc-kind':'kinematic','flow-visc-unit':'cSt','flow-value':'60'};
  const r=readCalculation(JSON.stringify({format:'water-steam-calculation',version:1,module:'flow',inputs,result:{Re:-999}}));assert.deepEqual(r.record.inputs,inputs);assert.equal(r.record.result,undefined);
  assert.throws(()=>readCalculation(JSON.stringify({module:'flow',inputs:{...inputs,'flow-unit':'kgs'}})));
  assert.throws(()=>readCalculation(JSON.stringify({module:'flow',inputs:{...inputs,'flow-visc-unit':'Pas'}})));
  assert.throws(()=>readCalculation(JSON.stringify({module:'flow',inputs:{'flow-kind':'standard','flow-standard':'off'}})));
- assert.equal(readWorkspace({active:'tutorials',panels:{tutorials:{inputs:{'tutorial-id':'pipe'},calculated:true}}}).panels.tutorials.inputs['tutorial-id'],'pipe');
+ // Projects saved with the removed learning section open on the main calculator without its panels.
+ const legacy=readWorkspace({active:'coursework',panels:{tutorials:{inputs:{'tutorial-id':'pipe'},calculated:true},npp:{inputs:{'npp-thermalMW':'3000'},calculated:true},flow:{inputs,calculated:true}}});
+ assert.equal(legacy.active,'general');assert.deepEqual(Object.keys(legacy.panels),['flow']);
+ assert.throws(()=>readCalculation(JSON.stringify({module:'laboratory',inputs:{}})),/Навчання/);
 });
-test('original five tutorial controls match numerical references',()=>{
- assert.equal(TUTORIALS.length,9);const refs={saturation:[179.88563239146663,762.6828443354107],wet:[2508.1011667482085,.8061143558808757],throttle:[2749.216443634458,144.54234324507888],turbine:[611.128813873354,611.128813873354,.9758551008552316],pipe:[1,.5092958178940651,25464.790894703256]};
- for(const [id,numbers] of Object.entries(refs)){const rows=solveTutorial(id);numbers.forEach((v,i)=>near(rows[i][1],v,1e-7));}assert.throws(()=>solveTutorial('unknown'));
+test('textbook water, throttling, turbine and pipe controls match numerical references',()=>{
+ const sat=calculate('satp',1,undefined,'IF97').saturation;near(sat.T-273.15,179.88563239146663,1e-7);near(sat.liquid.h,762.6828443354107,1e-7);
+ const wet=calculate('px',.2,.91,'IF97').state;near(wet.h,2508.1011667482085,1e-7);near(wet.v,.8061143558808757,1e-7);
+ const inlet=calculate('px',4.101325,.97,'IF97').state,outlet=calculate('ph',.301325,inlet.h,'IF97').state;near(inlet.h,2749.216443634458,1e-7);near(outlet.T-273.15,144.54234324507888,1e-7);
+ const t=turbine(3,673.15,.1,.85,1,'IF97');near(t.work,611.128813873354,1e-7);near(t.power,611.128813873354,1e-7);near(t.outlet.x,.9758551008552316,1e-7);
+ const pipe=pipeFlow({kind:'volume',value:.001,diameter:.05,rho:1000,viscosity:.001});near(pipe.mass,1,1e-7);near(pipe.velocity,.5092958178940651,1e-7);near(pipe.Re,25464.790894703256,1e-7);
 });
 test('gauge report records atmospheric reference and converts shown pressures while source remains absolute',()=>{
  const state=calculate('pt',.101325,300).state;state.source={mode:'pt',a:.101325,b:300};const text=printableReport('Перевірка',[state],'si','kJ',{result:{state},pressure:{basis:'gauge',atmosphere:.101325}});assert.ok(text.includes('Pатм = 0.101325'));assert.ok(text.includes('MPa (gauge)'));assert.ok(text.includes('<td>p</td><td>0</td>'));assert.ok(text.includes('a = 0.101325'));assert.ok(exportCSV({state}).includes('pressure_basis'));assert.ok(processCSV('turbine',turbine(3,673.15,.1,.85,1)).includes('pressure_basis;absolute'));
