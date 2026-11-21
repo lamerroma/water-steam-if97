@@ -6,8 +6,8 @@ import {fileURLToPath} from 'node:url';
 const root=new URL('../',import.meta.url);
 const read=path=>readFile(new URL(path,root));
 
-const README=`Навчальний теплофізичний калькулятор
-===================================
+const README=`Теплофізичний калькулятор
+=========================
 
 Як запустити:
 1. Розпакуйте цей архів у будь-яку папку.

@@ -111,7 +111,7 @@ const page=versionedTemplate.replace('</head>', '<link rel="manifest" href="mani
  .replace('<style>/* STYLES */</style>',`<link rel="stylesheet" href="assets/styles.css?v=${assetVersion(styles)}">`)
  .replace('<script>/* APPLICATION */</script>',`<script src="assets/app.js?v=${assetVersion(codeMultiFile)}" defer></script>`);
 const resources=['index.html',`assets/app.js?v=${assetVersion(codeMultiFile)}`,`assets/styles.css?v=${assetVersion(styles)}`,coolpropWasmPath,'manifest.webmanifest','assets/icon-192.png','assets/icon-512.png',calculatorWorkerPath,heosWorkerPath,pythonWorkerPath,'assets/python-package.json',spreadsheetPath];
-const manifest=JSON.stringify({id:'./',name:'Навчальний теплофізичний калькулятор',short_name:'ThermoCalc',lang:'uk',start_url:'./',scope:'./',display:'standalone',background_color:'#eef4f8',theme_color:'#125a88',icons:[192,512].map(size=>({src:`assets/icon-${size}.png`,sizes:`${size}x${size}`,type:'image/png',purpose:'any'}))},null,2);
+const manifest=JSON.stringify({id:'./',name:'Теплофізичний калькулятор',short_name:'ThermoCalc',lang:'uk',start_url:'./',scope:'./',display:'standalone',background_color:'#eef4f8',theme_color:'#125a88',icons:[192,512].map(size=>({src:`assets/icon-${size}.png`,sizes:`${size}x${size}`,type:'image/png',purpose:'any'}))},null,2);
 const coolpropWasm=await readFile(new URL('vendor/coolprop.wasm',root));
 const resourceData={'index.html':licenses+page,[resources[1]]:codeMultiFile,[resources[2]]:styles,[resources[3]]:coolpropWasm,'manifest.webmanifest':manifest};
 resourceData[spreadsheetPath]=spreadsheetCode;
