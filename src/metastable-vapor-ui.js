@@ -15,7 +15,7 @@ function metastableRender(box){
 }
 function metastableInit(){
  const form=$('calculator');if(!form||$('metastable'))return;
- const box=document.createElement('details');box.id='metastable';box.className='metastable-vapor';box.dataset.i18nIgnore='';form.after(box);metastableRender(box);
+ const box=document.createElement('details');box.id='metastable';box.className='metastable-vapor';box.dataset.i18nIgnore='';calculatorExtrasHost().append(box);metastableRender(box);
  const sync=()=>{box.hidden=$('tab-general').getAttribute('aria-selected')!=='true'||$('calculator-view').hidden;};
  new MutationObserver(sync).observe($('tab-general'),{attributes:true,attributeFilter:['aria-selected']});sync();
  document.addEventListener('languagechange',()=>{const open=box.open,p=$('metastable-p').value,T=$('metastable-t').value;metastableRender(box);box.open=open;$('metastable-p').value=p;$('metastable-t').value=T;});

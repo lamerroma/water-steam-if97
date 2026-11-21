@@ -2443,13 +2443,14 @@
       "local_evidence": [
         "src/iapws95.js",
         "src/extra-inputs.js",
-        "src/water-validity.js"
+        "src/water-validity.js",
+        "src/iapws95-extrapolation.js"
       ],
       "existing_checks": [
         "tests/iapws95.test.mjs",
         "tests/steam97-p05.test.mjs"
       ],
-      "notes": "Website help claims a wider calculation domain than our implemented bounds. Verify actual website points, phase/melting restrictions and any extrapolation separately from authoritative validity.",
+      "notes": "Website help claims a wider calculation domain than our implemented bounds. Verify actual website points, phase/melting restrictions and any extrapolation separately from authoritative validity. 2026-11-21 (author decision): added an opt-in P-T extrapolation of IAPWS-95 to 5000 K and 100 GPa (src/iapws95-extrapolation.js) with a visible warning; ice VII melting (R14-08) bounds the low-temperature side up to 715 K. Steam97Web cases still unavailable, so parity is not claimed.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "domains",

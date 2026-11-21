@@ -2112,5 +2112,22 @@
   "metastable.r.w": "Speed of sound w",
   "metastable.r.Tsat": "Saturation temperature",
   "metastable.r.subcooling": "Supercooling",
-  "metastable.r.quality": "Equilibrium vapor quality at the same P and h"
+  "metastable.r.quality": "Equilibrium vapor quality at the same P and h",
+  "ext95.title": "IAPWS-95 extrapolated to 5000 K and 100 GPa (P–T)",
+  "ext95.warning": "Warning: outside the validated IAPWS-95 range (T ≤ 1273 K, P ≤ 1000 MPa) this is an extrapolation. IAPWS only states that the equation behaves reasonably up to 5000 K and 100 GPa; its accuracy there is not established. Transport properties are not calculated. Ice (including ice VII at high pressure) is not modelled.",
+  "ext95.p": "Absolute pressure, MPa",
+  "ext95.t": "Temperature, K",
+  "ext95.run": "Calculate with extrapolation",
+  "ext95.extrapolated": "Result extrapolated beyond the validated IAPWS-95 range.",
+  "ext95.validated": "State inside the validated IAPWS-95 range: no extrapolation needed.",
+  "ext95.r.rho": "Density ρ",
+  "ext95.r.v": "Specific volume v",
+  "ext95.r.h": "Enthalpy h",
+  "ext95.r.u": "Internal energy u",
+  "ext95.r.s": "Entropy s",
+  "ext95.r.cp": "Isobaric heat capacity cp",
+  "ext95.r.cv": "Isochoric heat capacity cv",
+  "ext95.r.w": "Speed of sound w",
+  "ext95.r.Z": "Compressibility factor Z",
+  "ext95.r.isentropic": "Isentropic exponent"
 }

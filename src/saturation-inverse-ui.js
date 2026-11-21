@@ -21,9 +21,10 @@ function satInvRender(box){
   }catch(e){$('satinv-error').textContent=e.message;$('satinv-error').hidden=false;}
  };
 }
+function calculatorExtrasHost(){let host=$('calculator-extras');if(!host){const area=$('calculator').closest('.input-area')||$('calculator');host=document.createElement('div');host.id='calculator-extras';host.className='calculator-extras';area.after(host);}return host;}
 function satInvInit(){
  const form=$('calculator');if(!form||$('satinv'))return;
- const box=document.createElement('details');box.id='satinv';box.className='saturation-inverse';box.dataset.i18nIgnore='';form.after(box);satInvRender(box);
+ const box=document.createElement('details');box.id='satinv';box.className='saturation-inverse';box.dataset.i18nIgnore='';calculatorExtrasHost().append(box);satInvRender(box);
  const sync=()=>{box.hidden=$('tab-saturation').getAttribute('aria-selected')!=='true'||$('calculator-view').hidden;};
  new MutationObserver(sync).observe($('tab-saturation'),{attributes:true,attributeFilter:['aria-selected']});sync();
  document.addEventListener('languagechange',()=>{const open=box.open,key=$('satinv-key').value,value=$('satinv-value').value;satInvRender(box);box.open=open;$('satinv-key').value=key;$('satinv-key').onchange();$('satinv-value').value=value;});
