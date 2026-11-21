@@ -2,6 +2,7 @@ import {diagnoseCalculation} from './inverse-diagnostics.js';
 import {extraInputs,boundaryInputRoots} from './extra-inputs.js';
 import {calculate95} from './iapws95.js';
 import {dielectric} from './dielectric.js';
+import {withExtraWaterProperties} from './water-extra-properties.js';
 import init, {initSync,pt,px,hs,ph,ps} from '../vendor/seuif97.js';
 import {gibbs,helmholtz,pressureError97,TC,PC,RHOC,PMIN_SAT,saturationPressure,saturationPressurePair,saturationTemperature,saturationTemperaturePair,boundary23Pressure,boundary23Temperature} from './equations.js';
 import {viscosity,conductivity,surfaceTension} from './transport.js';
@@ -246,4 +247,4 @@ export function registerWaterBackend(model,backend){
  waterExtensionBackends.set(model,backend);
  if(!waterExtensionsInstalled){const native=calculate;calculate=function(mode,a,b,model='IF97',options){return waterExtensionBackends.has(model)?waterExtensionBackends.get(model)(mode,a,b,options):native(mode,a,b,model,options);};waterExtensionsInstalled=true;}
 }
-export function calculate(mode,a,b,model='IF97',options){return diagnoseCalculation(calculateRaw(mode,a,b,model),mode,a,b,options);}
+export function calculate(mode,a,b,model='IF97',options){return withExtraWaterProperties(diagnoseCalculation(calculateRaw(mode,a,b,model),mode,a,b,options));}
