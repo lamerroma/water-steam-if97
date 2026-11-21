@@ -3,7 +3,7 @@ const pw=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright');
 const assert=require('node:assert/strict'),http=require('node:http'),fs=require('node:fs/promises'),path=require('node:path'),os=require('node:os');
 const {openTool}=require('./browser-tools.cjs');
 (async()=>{
- const root=path.resolve(__dirname,'..'),name=process.env.BROWSER_NAME||'chromium',prefix='/water-steam-if97/';
+ const root=path.resolve(__dirname,'..'),site=path.join(root,'dist'),name=process.env.BROWSER_NAME||'chromium',prefix='/water-steam-if97/';
  const evidence=path.resolve(process.env.HEOS_WORKSPACE_EVIDENCE||path.join(root,'.release/water-heos-workspace',name));await fs.mkdir(evidence,{recursive:true});
  const report={browser:name,status:'running',checks:[],cases:[],workflows:[],errors:[],externalRequests:[]};
  let context,page,disconnected=false;
@@ -11,8 +11,8 @@ const {openTool}=require('./browser-tools.cjs');
   try{
    if(disconnected){res.writeHead(503);res.end();return;}
    const pathname=new URL(req.url,'http://local').pathname;if(!pathname.startsWith(prefix))throw Error('outside scope');
-   const file=decodeURIComponent(pathname.slice(prefix.length))||'index.html',target=path.resolve(root,file);
-   if(!target.startsWith(root+path.sep))throw Error('outside root');
+   const file=decodeURIComponent(pathname.slice(prefix.length))||'index.html',target=path.resolve(site,file);
+   if(!target.startsWith(site+path.sep))throw Error('outside root');
    const bytes=await fs.readFile(target);res.setHeader('Content-Type',({'.js':'text/javascript','.html':'text/html','.css':'text/css','.wasm':'application/wasm','.json':'application/json','.webmanifest':'application/manifest+json','.png':'image/png'})[path.extname(file)]||'application/octet-stream');res.end(bytes);
   }catch{res.writeHead(404);res.end();}
  });
@@ -91,7 +91,7 @@ const {openTool}=require('./browser-tools.cjs');
   await selectModel(page,'IF97');await calculate(page,'pt',3,300);await selectModel(page,HEOS);result=await calculate(page,'pt',1,500);assert.equal(result.state.model,HEOS);
   await page.selectOption('#language-select','en');await page.setViewportSize({width:390,height:900});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),390);
   await page.screenshot({path:path.join(evidence,'offline.png'),fullPage:true});mark('Closed profile and disconnected server: mixed history, selected root and fresh HEOS/default Workers restore offline; English/mobile layout');
-  assert.deepEqual(report.errors,[]);assert.deepEqual(report.externalRequests,[]);report.build=JSON.parse((await fs.readFile(path.join(root,'assets/app.js'),'utf8')).match(/const APP_BUILD = ([^\n]+);/)[1]);report.status='passed';
+  assert.deepEqual(report.errors,[]);assert.deepEqual(report.externalRequests,[]);report.build=JSON.parse((await fs.readFile(path.join(site,'assets/app.js'),'utf8')).match(/const APP_BUILD = ([^\n]+);/)[1]);report.status='passed';
   console.log(name+': HEOS main workspace '+report.checks.length+' groups PASS');
  }catch(error){report.status='failed';report.error=error.stack;if(page&&!page.isClosed()){report.pageState=await page.evaluate(key=>({status:document.querySelector('#result-status')?.textContent,error:document.querySelector('#error')?.textContent,active:document.querySelector('[role=tab][aria-selected=true]')?.dataset.action,projectReply:window.testProjectReply,project:localStorage.getItem(key)}),KEY).catch(()=>null);await page.screenshot({path:path.join(evidence,'failure.png'),fullPage:true}).catch(()=>{});}throw error;}
  finally{await context?.close();await new Promise(resolve=>server.close(resolve));await fs.writeFile(path.join(evidence,'report.json'),JSON.stringify(report,null,2)+'\n');}

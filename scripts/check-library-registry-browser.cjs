@@ -13,10 +13,10 @@ function difference(a,b,at='$'){
  return null;
 }
 (async()=>{
- const root=process.cwd(),name=process.env.BROWSER_NAME||'chromium';
+ const root=process.cwd(),site=path.join(root,'dist'),name=process.env.BROWSER_NAME||'chromium';
  const output=path.resolve(process.env.LIBRARY_REGISTRY_EVIDENCE||'.release/library-registry/'+name);await fs.mkdir(output,{recursive:true});
  const read=p=>fs.readFile(path.join(root,p),'utf8');
- const config=JSON.parse(await read('assets/python-package.json'));
+ const config=JSON.parse(await read('dist/assets/python-package.json'));
  const bridge=await read('src/python-library-bridge.py'),collector=await read('scripts/reference/library_registry_collector.py');
  const expected=JSON.parse(await read('docs/library-registry/surface.json'));
  assert.equal(hash(bridge),expected.inputs.bridgeSHA256);assert.equal(hash(collector),expected.inputs.collectorSHA256);
@@ -41,7 +41,7 @@ function difference(a,b,at='$'){
   if(uri==='/favicon.ico'){res.writeHead(204);res.end();return;}
   if(uri==='/registry-worker.js'){res.setHeader('Content-Type','text/javascript');res.end(worker);return;}
   assert.ok(resources.has(uri),'Unexpected runtime resource '+uri);
-  const file=path.resolve(root,'.'+uri);assert.ok(file.startsWith(root+path.sep));const raw=await fs.readFile(file);assert.equal(hash(raw),resources.get(uri),uri);
+  const file=path.resolve(site,'.'+uri);assert.ok(file.startsWith(site+path.sep));const raw=await fs.readFile(file);assert.equal(hash(raw),resources.get(uri),uri);
   report.requests.push(uri);res.setHeader('Content-Type',({'.mjs':'text/javascript','.js':'text/javascript','.wasm':'application/wasm','.json':'application/json'})[path.extname(file)]||'application/octet-stream');res.end(raw);
  }catch(error){report.errors.push(error.message);res.writeHead(404);res.end(error.message);}});
  await new Promise(r=>server.listen(0,'127.0.0.1',r));

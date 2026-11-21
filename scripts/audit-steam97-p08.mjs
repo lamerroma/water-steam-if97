@@ -11,7 +11,7 @@ import {fileURLToPath} from 'node:url';
 const root=fileURLToPath(new URL('../',import.meta.url)),dir=path.resolve(process.env.P08_AUDIT_DIR||'.release/steam97-p08/files');
 await mkdir(dir,{recursive:true});await initialize(await readFile(new URL('../vendor/seuif97_bg.wasm',import.meta.url)));
 const version=JSON.parse(await readFile(new URL('../package.json',import.meta.url))).version;
-const build=JSON.parse((await readFile(new URL('../service-worker.js',import.meta.url),'utf8')).match(/const BUILD=(\{[^;]+\});/)[1]);
+const build=JSON.parse((await readFile(new URL('../dist/service-worker.js',import.meta.url),'utf8')).match(/const BUILD=(\{[^;]+\});/)[1]);
 if(build.version!==version)throw Error('Build the current release before auditing exports.');
 const context={appVersion:version,buildId:build.id,model:'IF97',system:'si',energy:'kJ',p0:.101325,T0:298.15};
 const cases=[];

@@ -76,17 +76,17 @@ verify:release цього разу не запускався; виконано �
 
 ## Докази й відтворення
 
-- [Chromium: усі запити та результати](fluids-pipe/chromium-report.json),
-  [Firefox](fluids-pipe/firefox-report.json).
-- [Core release](fluids-pipe/core-report.json),
-  [10 регресій](fluids-pipe/regression-report.json),
-  [4 додаткові перевірки UI](fluids-pipe/ui-regression-report.json).
-- [Хеші джерел і збірки](fluids-pipe/artifacts.json),
+- Chromium: усі запити та результати,
+  Firefox.
+- Core release,
+  10 регресій,
+  4 додаткові перевірки UI.
+- Хеші джерел і збірки,
   [незалежна fixture](../tests/fixtures/fluids-pipe-reference.json).
-- [Chromium офлайн](fluids-pipe/chromium-offline.png),
-  [Chromium 390 px](fluids-pipe/chromium-mobile.png),
-  [Firefox офлайн](fluids-pipe/firefox-offline.png),
-  [Firefox 390 px](fluids-pipe/firefox-mobile.png).
+- Chromium офлайн,
+  Chromium 390 px,
+  Firefox офлайн,
+  Firefox 390 px.
 
 Команди й обмеження: [FLUIDS_PIPE_UK.md](FLUIDS_PIPE_UK.md).
 Повні локальні журнали залишаються у `.release/`.

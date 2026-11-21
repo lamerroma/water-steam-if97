@@ -111,7 +111,7 @@ const page=versionedTemplate.replace('</head>', '<link rel="manifest" href="mani
  .replace('<style>/* STYLES */</style>',`<link rel="stylesheet" href="assets/styles.css?v=${assetVersion(styles)}">`)
  .replace('<script>/* APPLICATION */</script>',`<script src="assets/app.js?v=${assetVersion(codeMultiFile)}" defer></script>`);
 const resources=['index.html',`assets/app.js?v=${assetVersion(codeMultiFile)}`,`assets/styles.css?v=${assetVersion(styles)}`,coolpropWasmPath,'manifest.webmanifest','assets/icon-192.png','assets/icon-512.png',calculatorWorkerPath,heosWorkerPath,pythonWorkerPath,'assets/python-package.json',spreadsheetPath];
-const manifest=JSON.stringify({id:'./',name:'Навчальний теплофізичний калькулятор',short_name:'ThermoCalc',lang:'uk',start_url:'./',scope:'./',display:'standalone',background_color:'#eef4f8',theme_color:'#125a88',icons:[192,512].map(size=>({src:`assets/icon-${size}.png`,sizes:`${size}x${size}`,type:'image/png',purpose:'any'}))},null,2);
+const manifest=JSON.stringify({id:'./',name:'Теплофізичний калькулятор',short_name:'ThermoCalc',lang:'uk',start_url:'./',scope:'./',display:'standalone',background_color:'#eef4f8',theme_color:'#125a88',icons:[192,512].map(size=>({src:`assets/icon-${size}.png`,sizes:`${size}x${size}`,type:'image/png',purpose:'any'}))},null,2);
 const coolpropWasm=await readFile(new URL('vendor/coolprop.wasm',root));
 const resourceData={'index.html':licenses+page,[resources[1]]:codeMultiFile,[resources[2]]:styles,[resources[3]]:coolpropWasm,'manifest.webmanifest':manifest};
 resourceData[spreadsheetPath]=spreadsheetCode;
@@ -122,7 +122,7 @@ resourceData['assets/python-package.json']=JSON.stringify(pythonPackage,null,2)+
 for(const size of [192,512])resourceData[`assets/icon-${size}.png`]=await readFile(new URL(`src/icons/icon-${size}.png`,root));
 const digests=Object.fromEntries(Object.entries(resourceData).map(([path,content])=>[path,createHash('sha256').update(content).digest('hex')]));
 const worker=(await read('src/service-worker.js')).replace('/* PWA_CONFIG */',`const BUILD=${JSON.stringify({version,id:buildId})};const RESOURCES=${JSON.stringify(resources)};const DIGESTS=${JSON.stringify(digests)};const PYTHON_PACKAGE=${JSON.stringify(pythonPackage)};`);
-for(const prefix of ['', 'dist/']) {
+for(const prefix of ['dist/']) {
  await mkdir(new URL(prefix+'assets/',root),{recursive:true});
  await writeFile(new URL(prefix+'index.html',root),licenses+page);
  await writeFile(new URL(prefix+'assets/styles.css',root),styles);
@@ -143,4 +143,4 @@ for(const prefix of ['', 'dist/']) {
  await writeFile(new URL(prefix+'manifest.webmanifest',root),manifest);
  for(const size of [192,512])await writeFile(new URL(prefix+`assets/icon-${size}.png`,root),await readFile(new URL(`src/icons/icon-${size}.png`,root)));
 }
-console.log(`Built offline PWA (${Buffer.byteLength(codeMultiFile)} bytes app.js + separate workers/WASM) in root and dist/.`);
+console.log(`Built offline PWA (${Buffer.byteLength(codeMultiFile)} bytes app.js + separate workers/WASM) in dist/.`);
