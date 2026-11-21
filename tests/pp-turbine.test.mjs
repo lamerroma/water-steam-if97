@@ -65,3 +65,17 @@ test('CHP turbine: power and heat balances, W and physical method',()=>{
  const none=ppdChpTurbine({p0:12.75,T0:828.15,G0:130,pt:.15,Gt:0,pk:.005,tSupply:373.15,tReturn:333.15});assert.equal(none.Qt,0);assert.equal(none.W,null);
  assert.throws(()=>ppdChpTurbine({p0:12.75,T0:828.15,G0:130,pt:.15,Gt:140,pk:.005,tSupply:373.15,tReturn:333.15}),/extraction/);
 });
+import {ppkCondenser,ppkCoolingTower,ppkSatEnthalpy,ppkHumidity} from '../src/pp-condenser.js';
+test('Psychrometrics: saturated air at 20 °C matches ASHRAE (57.5 kJ/kg, 14.7 g/kg)',()=>{close(ppkSatEnthalpy(20,.101325),57.55,.3);close(ppkHumidity(20,.101325,1),.01475,.0002);});
+test('Condenser: heat balance and terminal difference',()=>{
+ const r=ppkCondenser({D:140,x:.9,W:8000,tw1:15,k:3,F:15000});
+ close(r.Q,8000*r.cw*r.dtw,1e-6);close(r.ts,15+r.dtw+r.dt,1e-6);close(r.Q,r.NTU*8000*r.cw*r.lmtd,1e-3);
+ close(calculate('px',r.pk,0).state.T-273.15,r.ts,1e-6);assert.ok(r.pk>.003&&r.pk<.0045);
+ const more=ppkCondenser({D:140,x:.9,W:12000,tw1:15,k:3,F:15000});assert.ok(more.pk<r.pk,'more cooling water lowers the pressure');
+});
+test('Cooling tower: Merkel number grows with closer approach; operating-line check',()=>{
+ const base={L:1000,t1:40,G:900,ta:25,phi:.6},r=ppkCoolingTower({...base,t2:28});
+ close(r.twb,19.5,.3);close(r.hout-r.hin,r.ratio*4.186*12,1e-9);assert.ok(r.merkel>.8&&r.merkel<2);close(r.evaporationShare,.017,.004);
+ assert.ok(ppkCoolingTower({...base,t2:25}).merkel>r.merkel);
+ assert.throws(()=>ppkCoolingTower({...base,t2:19}),/approach/);assert.throws(()=>ppkCoolingTower({...base,t2:28,G:200}),/airLine/);
+});
