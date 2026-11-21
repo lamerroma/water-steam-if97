@@ -28,6 +28,7 @@ import {referenceState,withExergy} from './exergy.js';
 import {readProject,processCSV} from './project.js';
 import {mergeStartupDraft} from './startup-restore.js';
 import {WORKSPACE_PANELS,readWorkspace,readCalculation} from './workspace.js';
+import {encodeShareLink,decodeShareLink} from './share-link.js';
 import {modeGuidance} from './input-guidance.js';
 import {turbine,turbineInverse,flash,diagramData,processSummary,processMetricReason} from './processes.js';
 import {exportCSV} from './export.js';
@@ -98,6 +99,7 @@ const ICON_SVG={
  flask:'<path d="M9 2h6"/><path d="M10 2v6l-6 11a1.5 1.5 0 0 0 1.3 2.2h13.4a1.5 1.5 0 0 0 1.3-2.2L14 8V2"/><line x1="7.5" y1="14" x2="16.5" y2="14"/>',
  droplet:'<path d="M12 3c4 5 7 8.5 7 12a7 7 0 0 1-14 0c0-3.5 3-7 7-12z"/>',
  help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7"/><circle cx="12" cy="17" r=".75" fill="currentColor" stroke="none"/>',
+ link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
  expand:'<polyline points="4 9 4 4 9 4"/><polyline points="15 4 20 4 20 9"/><polyline points="20 15 20 20 15 20"/><polyline points="9 20 4 20 4 15"/>',
 };
 const icon=(name,size=14)=>`<svg class="icon" viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON_SVG[name]||''}</svg>`;
@@ -423,7 +425,8 @@ queueMicrotask(async()=>{
   persistenceReady=true;startupRestoring=false;projectExport.disabled=false;projectImport.disabled=false;projectFile.disabled=false;
   startupOutcome=restored===false?'recovery':'ready';renderStartupRestore();calculatorBusy(false);
   const requested=pendingStartupSection;pendingStartupSection=null;if(requested)openSection(requested);
-  if(restored!==false&&(restored?.edited||requested))saveProject();
+  const sharedOpened=restored!==false&&await applyShareLink();
+  if(restored!==false&&(restored?.edited||requested||sharedOpened))saveProject();
  }
  catch(e){$('error').textContent='Не вдалося ініціалізувати WebAssembly. Використайте сучасний браузер. '+e.message;$('error').hidden=false;$('calculate').textContent='Помилка завантаження';}
 });
@@ -693,7 +696,7 @@ async function showDiagram(kind,fit=null){
 }
 
 function inputCaption(el){const label=el.closest('label')?.cloneNode(true);if(label){label.querySelectorAll('input,select,button').forEach(n=>n.remove());return label.textContent.trim();}return document.querySelector(`label[for="${el.id}"]`)?.textContent||el.id;}
-function panelForm(){return document.querySelector('#cc-form,#wp-form,#process-form,#engineering-form,#learn-form,#scientific-form,#batch-form,#flow-form,#satgrid-form,#exchanger-form,#steam-form,#fn-form');}
+function panelForm(){return document.querySelector('#cc-form,#wp-form,#process-form,#engineering-form,#learn-form,#scientific-form,#batch-form,#flow-form,#satgrid-form,#exchanger-form,#steam-form,#fn-form,#ch-form,#pp-form');}
 function panelInputs(form){if(form.id==='cc-form')return {'cc-data':$('cc-data').value};const fields=[...form.querySelectorAll('input,select,textarea'),...(form.id==='batch-form'?[$('batch-text')]:[])].filter(Boolean);return Object.fromEntries([...fields].filter(el=>el.id&&el.type!=='file').map(el=>[el.id,uiStoredValue(el)]));}
 function capturePanel(){if(restoringWorkspace)return;const form=panelForm();if(!form||!WORKSPACE_PANELS.includes(activeSection))return;panelRecords[activeSection]={inputs:panelInputs(form),calculated:form.dataset.calculated==='true',model:form.dataset.model||modelValue(),...(form.dataset.source?{source:form.dataset.source}:{})};}
 function panelEdited(form){form.dataset.calculated='false';form.dataset.workflowTouched='true';uiResultActions(true);}
@@ -715,7 +718,7 @@ function restorePanelResult(kind,form,ready=Promise.resolve()){
  const record=panelRecords[kind];if(!record?.calculated)return;
  ready.then(()=>{if(!form.isConnected||activeSection!==kind)return;if(form.id==='batch-form'&&record.source==='csv')$('batch-import').click();else form.requestSubmit();}).catch(()=>{});
 }
-function openSection(kind){if(deferStartupSection(kind))return;cancelEngineering();cancelSteamProcess();if(kind!=='batch')cancelBatch();if(['general','saturation','help'].includes(kind))selectView(kind);else if(['ts','hsdiagram','phdiagram','turbine','flash'].includes(kind))showProcess(kind);else if(kind==='batch')showBatch();else if(kind==='satgrid')showSaturationGrid();else if(kind==='engineering')showEngineering();else if(kind==='flow')showFlow();else if(kind==='steam-system')showSteamSystem();else if(kind==='functions')showFunctions();else if(kind==='libraries')showPythonLibraries();else if(kind==='water-process')showWaterProcess();else if(kind==='custom-cycle')showCustomCycle();else if(kind==='study')showStudyReport();else if(kind==='research')showResearch();else if(kind==='exchanger')showExchanger();else if(kind==='projects')showProjectLibrary();else if(['boundaries','comparison'].includes(kind))scientificPanel(kind);else learningPanel(kind);}
+function openSection(kind){if(deferStartupSection(kind))return;cancelEngineering();cancelSteamProcess();if(kind!=='batch')cancelBatch();if(['general','saturation','help'].includes(kind))selectView(kind);else if(['ts','hsdiagram','phdiagram','turbine','flash'].includes(kind))showProcess(kind);else if(kind==='batch')showBatch();else if(kind==='satgrid')showSaturationGrid();else if(kind==='engineering')showEngineering();else if(kind==='flow')showFlow();else if(kind==='steam-system')showSteamSystem();else if(kind==='channel')showChannel();else if(kind==='power-plant')showPowerPlant();else if(kind==='functions')showFunctions();else if(kind==='libraries')showPythonLibraries();else if(kind==='water-process')showWaterProcess();else if(kind==='custom-cycle')showCustomCycle();else if(kind==='study')showStudyReport();else if(kind==='research')showResearch();else if(kind==='exchanger')showExchanger();else if(kind==='projects')showProjectLibrary();else if(['boundaries','comparison'].includes(kind))scientificPanel(kind);else learningPanel(kind);}
 const STORAGE_KEY='water-steam-if97-project-v1';
 let importedProjectMetadata=null,recoveryProjectText=null,recoveryNeedsBackup=false,projectImportSequence=0;
 const RECOVERY_KEY=STORAGE_KEY+'-recovery';
@@ -730,6 +733,42 @@ const fileMenu=document.querySelector('.menubar .menu');
 const projectExport=document.createElement('button');projectExport.id='file-project-export';projectExport.disabled=!persistenceReady;projectExport.innerHTML=icon('download')+'Експорт проєкту JSON';projectExport.onclick=()=>{try{downloadFile(JSON.stringify(projectSnapshot(),null,2),'water-steam-project.json','application/json');unsavedProject=false;$('project-save-status').textContent='JSON підготовлено для збереження';fileMenu.closest('details').open=false;}catch(e){unsavedProject=true;$('project-save-status').textContent=uiTranslator.text('Не вдалося підготувати JSON: ')+e.message;}};fileMenu.append(projectExport);
 const recoveryExport=document.createElement('button');recoveryExport.id='file-recovery';recoveryExport.textContent='Завантажити оригінал для відновлення';recoveryExport.disabled=true;recoveryExport.onclick=()=>{if(recoveryProjectText!==null)downloadFile(recoveryProjectText,'water-steam-project-recovery.json','application/json',{metadata:false});};fileMenu.append(recoveryExport);
 const projectImport=document.createElement('button');projectImport.disabled=!persistenceReady;projectImport.innerHTML=icon('upload')+'Імпорт проєкту / розрахунку JSON';const projectFile=document.createElement('input');projectFile.type='file';projectFile.accept='.json,application/json';projectFile.hidden=true;projectFile.disabled=!persistenceReady;document.body.append(projectFile);projectImport.onclick=()=>{fileMenu.closest('details').open=false;projectFile.click();};fileMenu.append(projectImport);
+// Share one calculation as a link. Inputs travel in the URL fragment only.
+const shareLinkButton=document.createElement('button');shareLinkButton.id='file-share-link';shareLinkButton.type='button';shareLinkButton.innerHTML=icon('link')+'Копіювати посилання на розрахунок';shareLinkButton.onclick=()=>{fileMenu.closest('details').open=false;copyShareLink();};fileMenu.append(shareLinkButton);
+function shareErrorText(e){return uiTranslator.t(e?.message==='share.tooLong'?'share.tooLong':e?.message==='share.csv'?'share.csv':e?.message==='share.unsupported'?'share.unsupported':'share.invalid');}
+function currentSharePayload(){
+ if(activeSection==='general'||activeSection==='saturation')return {module:'general',form:{model:modelValue(),mode:$('mode').value,a:$('input-a').value,b:$('input-b').value,ua:$('unit-a').value,ub:$('unit-b').value}};
+ if(!WORKSPACE_PANELS.includes(activeSection))throw Error('share.unsupported');
+ capturePanel();const record=panelRecords[activeSection];if(!record)throw Error('share.unsupported');
+ if(record.source==='csv')throw Error('share.csv');
+ return {module:activeSection,inputs:record.inputs,model:record.model,...(record.source?{source:record.source}:{})};
+}
+async function copyShareLink(){
+ let url;
+ try{url=encodeShareLink(currentSharePayload(),location.href);}catch(e){$('result-status').textContent=shareErrorText(e);return;}
+ try{await navigator.clipboard.writeText(url);$('result-status').textContent=uiTranslator.t('share.copied');}
+ catch{$('result-status').textContent=uiTranslator.t('share.copyFailed');history.replaceState(null,'',url);}
+}
+// Opening a link replaces only the shared tab's inputs (like importing one
+// calculation) and recomputes it. The fragment is removed so reloads do not repeat it.
+async function applyShareLink(){
+ let shared;
+ try{shared=decodeShareLink(location.hash);}catch(e){$('error').textContent=shareErrorText(e);$('error').hidden=false;history.replaceState(null,'',location.pathname+location.search);return false;}
+ if(!shared)return false;
+ history.replaceState(null,'',location.pathname+location.search);
+ if(shared.module==='general'){
+  const f=shared.form;selectModel(f.model);diagramCache=null;selectView('general');$('mode').value=f.mode;resetMode();
+  for(const [id,v] of [['input-a',f.a],['input-b',f.b]])$(id).value=v;
+  for(const [id,v] of [['unit-a',f.ua],['unit-b',f.ub]]){const before=$(id).value;$(id).value=v;if(!$(id).value)$(id).value=before;$(id).dataset.previous=$(id).value;}
+  syncSmartInput();invalidate();$('calculator').requestSubmit();
+ }else{
+  capturePanel();panelRecords[shared.module]=shared.record;
+  if(['cycles','turbine','flash','engineering','batch','flow','satgrid'].includes(shared.module)&&shared.record.model!==modelValue()){selectModel(shared.record.model);diagramCache=null;invalidate();}
+  const previousRestore=restoringWorkspace;restoringWorkspace=true;try{openSection(shared.module);}finally{restoringWorkspace=previousRestore;}
+ }
+ $('result-status').textContent=uiTranslator.t('share.opened');
+ return true;
+}
 projectFile.onchange=async()=>{const file=projectFile.files[0];if(!file)return;cancelCalculation();cancelSteamProcess();cancelEngineering();cancelCustomCycle();cancelWaterProcess();cancelGasTables();projectReader.cancel();const sequence=++projectImportSequence,before=JSON.stringify(projectSnapshot());try{if(file.size>2000000)throw Error('Файл завеликий (максимум 2 МБ).');const text=await file.text();if(sequence!==projectImportSequence)return;if(JSON.stringify(projectSnapshot())!==before)throw Error(uiTranslator.text('Проєкт змінено під час читання файлу; повторіть імпорт'));if(JSON.parse(text)?.format==='water-steam-if97'){const p=await projectReader.readProject(text);await ensureProjectWaterModel(JSON.parse(text));if(sequence!==projectImportSequence)return;if(JSON.stringify(projectSnapshot())!==before)throw Error(uiTranslator.text('Проєкт змінено під час читання файлу; повторіть імпорт'));applyProject(p);$('result-status').textContent='Проєкт імпортовано';}else{const q=readCalculation(text);await ensureProjectWaterModel(q.record);if(sequence!==projectImportSequence)return;if(JSON.stringify(projectSnapshot())!==before)throw Error(uiTranslator.text('Проєкт змінено під час читання файлу; повторіть імпорт'));capturePanel();panelRecords[q.module]=q.record;if(['cycles','turbine','flash','engineering','batch','flow','satgrid'].includes(q.module)&&q.record.model!==modelValue()){selectModel(q.record.model);diagramCache=null;invalidate();}const previousRestore=restoringWorkspace;restoringWorkspace=true;try{openSection(q.module);}finally{restoringWorkspace=previousRestore;}$('result-status').textContent='Розрахунок імпортовано; результати обчислюються з входів';}saveProject();}catch(e){if(sequence!==projectImportSequence)return;$('error').textContent='Імпорт: '+(e.code==='unavailable'?uiTranslator.t('calculator.workerFailed'):e.code==='timeout'?uiTranslator.t('calculator.timeout'):e.message);$('error').hidden=false;$('result-status').textContent='Не вдалося імпортувати проєкт';if(activeSection==='custom-cycle'&&$('cc-error')){$('cc-error').textContent=$('error').textContent;$('cc-error').hidden=false;$('cc-status').textContent=uiTranslator.language==='en'?'Project import failed; current cycle preserved.':'Імпорт не вдався; поточний цикл збережено.';}}if(sequence===projectImportSequence)projectFile.value='';};
 document.addEventListener('input',e=>{if(e.target.closest('#calculator')||e.target.id==='project-title'||e.target.closest('#process-view')){if(startupRestoring)unsavedProject=true;saveProject();}});
 document.addEventListener('change',e=>{if(e.target.type!=='file')saveProject();});document.addEventListener('click',e=>{if(e.target.closest('[data-action],[data-p]'))queueMicrotask(saveProject);});

@@ -20,6 +20,8 @@ function uiSpecFor(el){
  // Steam systems: base units of the panel fields; the panel reads canonical values.
  'steam-p':['pressure','MPa'],'steam-p1':['pressure','MPa'],'steam-p2':['pressure','MPa'],'steam-t':['temperature','C'],'steam-t0':['temperature','C'],'steam-tamb':['temperature','C'],'steam-t1':['temperature','C'],'steam-t2':['temperature','C'],'steam-feedT':['temperature','C'],'steam-condT':['temperature','C'],'steam-makeupT':['temperature','C'],'steam-flow':['mass','kgh'],'steam-liquidFlow':['mass','kgh'],'steam-d':['length','mm'],'steam-roughness':['length','mm'],'steam-orifice':['length','mm'],'steam-pipeD':['length','mm'],'steam-hole':['length','mm'],'steam-outerD':['length','mm'],'steam-insulation':['length','mm'],'steam-length':['length','m'],'steam-dp':['pressure','kPa'],'steam-dpOrifice':['pressure','kPa'],'steam-heat':['power','kW'],'steam-subcooling':['temperatureDifference','dK'],'steam-efficiency':['fraction','percent'],'steam-boilerEta':['fraction','percent'],'steam-blowdown':['fraction','percent'],'steam-airFraction':['fraction','percent']};
  if(fixed[id])return field(...fixed[id]);
+ // Generic calculator panels declare the quantity and base unit on the input.
+ if(el.dataset?.uiGroup&&el.dataset.uiBase)return field(el.dataset.uiGroup,el.dataset.uiBase);
  if(['research-start','research-end'].includes(id)){const unit=uiUnitFromLabel(researchUnit($('research-parameter')?.value).replace(/ abs/g,''));if(unit)return field(unit.group,unit.unit);}
  if(id==='cycle-high')return $('cycle-kind')?.value==='brayton'?null:field('pressure','MPa');
  if(id==='gas-b')return field(...($('gas-mode')?.value==='ph'?['energy','kJkg']:$('gas-mode')?.value==='ps'?['entropy','kJkgK']:['temperature','K']));
@@ -109,7 +111,7 @@ function uiConvertTables(){
    const heads=[...table.querySelectorAll('thead th')],rows=[...table.querySelectorAll('tbody tr')];
    const units=heads.map(h=>{const s=h.textContent,m=s.match(/\[([^\]]+)\]|,\s*(.+)$/);return m?uiUnitFromLabel(m[1]||m[2]):null;});
    const data=[];for(const row of rows){const cells=[...row.children];if(heads.length&&cells.length!==heads.length)continue;
-    if(cells.length>=3&&uiUnitFromLabel(cells.at(-1).textContent)){const value=uiParseDisplayed(cells.at(-2).textContent);if(value!=null)data.push({value,unit:cells.at(-1).textContent,valueCell:cells.at(-2),unitCell:cells.at(-1),difference:/Δ|LMTD|lmtd|напір|difference/i.test(cells[0].textContent)});}
+    if(cells.length>=3&&uiUnitFromLabel(cells.at(-1).textContent)){const value=uiParseDisplayed(cells.at(-2).textContent);if(value!=null)data.push({value,unit:cells.at(-1).textContent,valueCell:cells.at(-2),unitCell:cells.at(-1),difference:row.dataset.difference==='true'||/Δ|LMTD|lmtd|напір|difference/i.test(cells[0].textContent)});}
     else for(let i=0;i<cells.length;i++)if(units[i]&&!cells[i].querySelector('button,input')){const value=uiParseDisplayed(cells[i].textContent);if(value!=null)data.push({value,unit:UI_UNIT_GROUPS[units[i].group][units[i].unit][0],valueCell:cells[i],head:heads[i],headText:heads[i].textContent,difference:/Δ|LMTD|lmtd/.test(heads[i].textContent)});}
    }uiTableSources.set(table,data);
   }
