@@ -1,6 +1,6 @@
 import {studyViewportBounds,studyViewportZoom,studyViewportPan} from './study-viewport.js';
 
-function attachStudyChartWorkspace(q,npp,container,redraw){
+function attachStudyChartWorkspace(q,container,redraw){
  const text=featureText,canvas=$('cycle-chart'),viewer=canvas.closest('.study-viewer');
  const workspace=document.createElement('div');workspace.className='study-chart-workspace';
  const main=document.createElement('div');main.className='study-chart-main';
@@ -30,12 +30,8 @@ function attachStudyChartWorkspace(q,npp,container,redraw){
  function apply(){const c=chart(),r=views.get(kind());if(!c||!r)return;Object.assign(c.options.scales.x,{min:r.xmin,max:r.xmax});Object.assign(c.options.scales.y,{min:r.ymin,max:r.ymax});c.update('none');c.$studyViewport={...r};}
  function set(r,remember=true){if(!r||!Object.values(r).every(Number.isFinite)||r.xmax-r.xmin<1e-8||r.ymax-r.ymin<1e-6)return;if(remember){history.push({...current()});if(history.length>20)history.shift();back.disabled=false;}views.set(kind(),{...r});apply();schedule();}
  button('cycle-view-all',text('Увесь графік','Full chart'),()=>{const c=chart();set(studyViewportBounds(c.data.datasets.flatMap(d=>d.data)));});
- button('cycle-view-fit',text(npp?'Другий контур':'Показати цикл',npp?'Secondary loop':'Fit cycle'),()=>{
-  const points=chart().data.datasets.filter(d=>d.role!=='ideal').flatMap(d=>{
-   if(!npp)return d.data;
-   if(d.role==='states')return d.data.filter((_,i)=>i>=2);
-   return Number(d.edgeID.split('-')[0])<2?[]:d.data;
-  });set(studyViewportBounds(points));
+ button('cycle-view-fit',text('Показати цикл','Fit cycle'),()=>{
+  const points=chart().data.datasets.filter(d=>d.role!=='ideal').flatMap(d=>d.data);set(studyViewportBounds(points));
  });
  button('cycle-view-in','＋',()=>set(studyViewportZoom(current(),.7))).setAttribute('aria-label',text('Збільшити масштаб','Zoom in'));
  button('cycle-view-out','−',()=>set(studyViewportZoom(current(),1/.7))).setAttribute('aria-label',text('Зменшити масштаб','Zoom out'));

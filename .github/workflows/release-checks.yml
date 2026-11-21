@@ -80,8 +80,6 @@ jobs:
               build = report.get('build') or {}
               lines = [f"## Software acceptance: {report['status']}", f"Version: {report['version']} · build: {build.get('id', 'unknown')}"]
               lines += [f"- {check['name']}: {check['status']}" for check in report['checks']]
-              physical = report.get('physicalValidation', {}).get('reactorCell', 'not evaluated')
-              lines += ['', f"**Reactor cell physical validation: {physical}.**", 'Passing software checks does not validate the neutron model. It remains experimental until external benchmarks agree.']
               with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
                   summary.write('\n'.join(lines) + '\n')
           PYTHON

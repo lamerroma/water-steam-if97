@@ -38,8 +38,6 @@
 - [Матриця Steam97Web](STEAMTABLES_PARITY_MATRIX.json),
   [план відповідності](STEAMTABLES_PARITY_SPRINTS_UK.md),
   [стратегія продукту](PRODUCT_STRATEGY_UK.md).
-- [Перевірка реакторної комірки](REACTOR_CELL_VALIDATION_UK.md)
-  та [розбір нейтронної моделі](REACTOR_MODEL_REVIEW_UK.md).
 - [Ліцензії та атрибуція](../THIRD_PARTY_NOTICES.md).
 
 ## Розробка й актуальні перевірки

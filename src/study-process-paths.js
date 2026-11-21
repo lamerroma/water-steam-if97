@@ -4,12 +4,8 @@ import {refineDiagramSamples} from './diagram-refinement.js';
 
 // These are process definitions, not classifications inferred from equal endpoints.
 // Separation and open mixing remain schematic even when their pressures match.
-export function studyProcessEdges(q,npp=false){
+export function studyProcessEdges(q){
  const spec=(from,to,type,eta=null)=>({from,to,type,eta,id:from+'-'+to});
- if(npp){const a=q.input;
-  if(q.mode==='msr')return [spec(0,1,'isobaric'),spec(1,0,'isobaric'),spec(2,3,'compression',a.etaPump),spec(3,4,'isobaric'),spec(4,5,'expansion',a.etaT),spec(5,6,'separation'),spec(6,7,'isobaric'),spec(7,8,'expansion',a.etaLP),spec(8,2,'isobaric'),spec(5,9,'separation'),spec(9,11,'isenthalpic'),spec(11,2,'isobaric'),spec(4,10,'isobaric'),spec(10,12,'isenthalpic'),spec(12,2,'isobaric')];
-  return [spec(0,1,'isobaric'),spec(1,0,'isobaric'),spec(5,2,'compression',a.etaPump),spec(2,3,'isobaric'),spec(3,4,'expansion',a.etaT),spec(4,5,'isobaric')];
- }
  const a=q.input;
  if(a.type==='rankine-regen')return [spec(0,1,'expansion',a.etaT),spec(1,2,'expansion',a.etaT),spec(2,3,'isobaric'),spec(3,4,'compression',a.etaC),spec(4,5,'mixing'),spec(1,5,'mixing'),spec(5,6,'compression',a.etaC),spec(6,0,'isobaric')];
  if(a.type==='rankine-reheat')return [spec(0,1,'compression',a.etaC),spec(1,2,'isobaric'),spec(2,3,'expansion',a.etaT),spec(3,4,'isobaric'),spec(4,5,'expansion',a.etaT),spec(5,0,'isobaric')];
@@ -17,9 +13,9 @@ export function studyProcessEdges(q,npp=false){
  return [spec(0,1,'compression',a.etaC),spec(1,2,'isobaric'),spec(2,3,'expansion',a.etaT),spec(3,0,'isobaric')];
 }
 export function studyPathPoint(q,kind='ts'){return q?{x:q.s,y:kind==='ts'?q.T:q.h}:{x:NaN,y:NaN};}
-export async function buildStudyProcessPaths(q,{npp=false,kind='ts',equipment='endpoints',ideal=true,width=900,height=550,yieldFrame=()=>Promise.resolve(),budget=6000,viewport=null}={}){
+export async function buildStudyProcessPaths(q,{kind='ts',equipment='endpoints',ideal=true,width=900,height=550,yieldFrame=()=>Promise.resolve(),budget=6000,viewport=null}={}){
  if(!['ts','hs'].includes(kind)||!['endpoints','efficiency'].includes(equipment))throw Error('Unknown path display option.');
- const gas=q.input.type==='brayton',model=q.model,edges=studyProcessEdges(q,npp),stats={evaluations:0,budget,limited:false,gaps:0};
+ const gas=q.input.type==='brayton',model=q.model,edges=studyProcessEdges(q),stats={evaluations:0,budget,limited:false,gaps:0};
  const ph=(p,h)=>gas?gasInverse(p,h,'h',AIR):calculate('ph',p,h,model).state;
  const ps=(p,s)=>gas?gasInverse(p,s,'s',AIR):calculate('ps',p,s,model).state;
  async function evaluate(fn){if(stats.evaluations>=budget){stats.limited=true;return null;}stats.evaluations++;if(stats.evaluations%12===0)await yieldFrame();try{return fn()||null;}catch{return null;}}
