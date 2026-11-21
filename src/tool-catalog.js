@@ -104,7 +104,7 @@ export const TOOL_CATALOG={
   },
   "power-plant": {
     "status": "provisional",
-    "aliases": "турбіна сопло лаваля критичний тиск ступінь трикутники швидкостей u/cf лопатки ккд вологість баумана енергоблок тес аес turbine nozzle laval critical pressure stage velocity triangles blade efficiency moisture baumann power plant",
+    "aliases": "турбіна сопло лаваля критичний тиск ступінь трикутники швидкостей u/cf лопатки ккд вологість баумана енергоблок тес аес пгу парогазова котел-утилізатор піч-точка t-q парогенератор ввер тец теплофікація температурний графік тепломережа конденсатор вакуум градирня меркеля теплова схема регенерація підігрівачі пвд пнд деаератор спп к-1000 к-300 turbine nozzle laval critical pressure stage velocity triangles blade efficiency moisture baumann power plant combined cycle hrsg pinch steam generator chp district heating condenser cooling tower merkel thermal scheme feedwater heaters deaerator",
     "legacy": null
   },
   "channel": {
