@@ -129,6 +129,7 @@ footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-betw
 .method a{color:#316a9d}
 .method details{border:1px solid #b9c8dc;padding:.65rem}
 .method summary{font-weight:bold}
+.reference-comparison{border-collapse:collapse;margin:.4rem 0 .8rem;font-variant-numeric:tabular-nums}.reference-comparison th,.reference-comparison td{border:1px solid #b9c8dc;padding:.2rem .5rem;text-align:right}.reference-comparison th:first-child,.reference-comparison td:first-child{text-align:left}#reference-comparison{overflow-x:auto}
 .gray{filter:grayscale(1)}
 #process-view{overflow:auto;flex:1;min-height:0;padding:1rem;color:#294967;line-height:1.5}
 #process-view button{padding:.4rem .65rem;margin:.25rem .4rem .25rem 0}
