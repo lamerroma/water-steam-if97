@@ -2371,6 +2371,25 @@
       }
     },
     {
+      "id": "metastable-vapor",
+      "group": "saturation",
+      "feature": "Properties of metastable (supercooled) steam",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/metastable-vapor.js",
+        "tests/metastable-vapor.test.mjs"
+      ],
+      "existing_checks": [
+        "IAPWS R7-97(2012) Table 18 verification values reproduced to 5e-9"
+      ],
+      "notes": "2026-11-21: listed as an advantage in the Steam97Web help without a stated range. Implemented the IF97 supplementary metastable-vapor equation (R7-97 §6.2.3) for p ≤ 10 MPa between the saturated-vapor line and the 5 % equilibrium moisture line, in the main water tab. No Steam97Web reference cases.",
+      "p01": null,
+      "p02": null
+    },
+    {
       "id": "domain-if97",
       "group": "domains",
       "feature": "IF97 full reference domain and inverse support",

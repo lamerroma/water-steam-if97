@@ -2096,5 +2096,21 @@
   "satinv.key.v.liquid": "питомий об’єм рідини",
   "satinv.key.v.vapor": "питомий об’єм пари",
   "satinv.key.rho.liquid": "густина рідини",
-  "satinv.key.rho.vapor": "густина пари"
+  "satinv.key.rho.vapor": "густина пари",
+  "metastable.title": "Метастабільна (переохолоджена) пара IF97",
+  "metastable.intro": "Додаткове рівняння IAPWS-IF97 для пари, переохолодженої нижче температури насичення без конденсації, наприклад при швидкому розширенні в соплах і турбінах. Діє при P ≤ 10 МПа між лінією насиченої пари та лінією 5 % рівноважної вологості.",
+  "metastable.p": "Абсолютний тиск, МПа",
+  "metastable.t": "Температура, °C",
+  "metastable.run": "Розрахувати метастабільну пару",
+  "metastable.r.v": "Питомий об’єм v",
+  "metastable.r.rho": "Густина ρ",
+  "metastable.r.h": "Ентальпія h",
+  "metastable.r.u": "Внутрішня енергія u",
+  "metastable.r.s": "Ентропія s",
+  "metastable.r.cp": "Ізобарна теплоємність cp",
+  "metastable.r.cv": "Ізохорна теплоємність cv",
+  "metastable.r.w": "Швидкість звуку w",
+  "metastable.r.Tsat": "Температура насичення",
+  "metastable.r.subcooling": "Переохолодження",
+  "metastable.r.quality": "Рівноважна сухість за тих самих P і h"
 }

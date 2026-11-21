@@ -2096,5 +2096,21 @@
   "satinv.key.v.liquid": "liquid specific volume",
   "satinv.key.v.vapor": "vapor specific volume",
   "satinv.key.rho.liquid": "liquid density",
-  "satinv.key.rho.vapor": "vapor density"
+  "satinv.key.rho.vapor": "vapor density",
+  "metastable.title": "Metastable (supercooled) steam, IF97",
+  "metastable.intro": "IAPWS-IF97 supplementary equation for steam supercooled below the saturation temperature without condensing, for example during fast expansion in nozzles and turbines. Valid for P ≤ 10 MPa between the saturated-vapor line and the 5 % equilibrium moisture line.",
+  "metastable.p": "Absolute pressure, MPa",
+  "metastable.t": "Temperature, °C",
+  "metastable.run": "Calculate metastable steam",
+  "metastable.r.v": "Specific volume v",
+  "metastable.r.rho": "Density ρ",
+  "metastable.r.h": "Enthalpy h",
+  "metastable.r.u": "Internal energy u",
+  "metastable.r.s": "Entropy s",
+  "metastable.r.cp": "Isobaric heat capacity cp",
+  "metastable.r.cv": "Isochoric heat capacity cv",
+  "metastable.r.w": "Speed of sound w",
+  "metastable.r.Tsat": "Saturation temperature",
+  "metastable.r.subcooling": "Supercooling",
+  "metastable.r.quality": "Equilibrium vapor quality at the same P and h"
 }
