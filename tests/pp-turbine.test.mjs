@@ -31,3 +31,20 @@ test('Baumann: a = 0 reproduces the uncorrected line; moisture lowers the effici
  const wet=pptBaumann({...base,a:1});assert.ok(wet.work<wet.workDry&&wet.xk>wet.xks);close(wet.etaOverall,wet.work/wet.Hs,1e-12);
  const sh=pptBaumann({p0:9,T0:808.15,pk:1,eta:.85,a:1,steps:20});close(sh.work,sh.workDry,1e-9);
 });
+import {ppcHrsg,ppcCombined,ppcSteamGenerator} from '../src/pp-ccgt.js';
+test('HRSG: pinch definition, energy balances on gas and water sides',()=>{
+ const h=ppcHrsg({gasFlow:500,gasT:873.15,cpGas:1.1,p:8,steamT:813.15,feedT:333.15,pinch:10,approach:5});
+ close(h.Tpinch-h.Ts,10,1e-9);close(h.Q,500*1.1*(873.15-h.stackT),1e-6);close(h.Qsh+h.Qev,500*1.1*(873.15-h.Tpinch),1e-6);
+ close(h.Q,h.steamFlow*(h.steam.h-h.feed.h),1e-6);assert.equal(h.water.at(-1)[1],813.15);assert.ok(h.stackT>333.15);
+ assert.throws(()=>ppcHrsg({gasFlow:500,gasT:800,p:8,steamT:813.15,feedT:333.15}),/gasT/);
+});
+test('Combined cycle: Brayton temperatures and overall balance',()=>{
+ const r=ppcCombined({ambientT:288.15,ratio:17,etaC:.88,etaT:.9,tit:1573.15,airFlow:500,p:8,steamT:813.15,pk:.005});
+ close(r.T2,288.15*(1+(17**(.4/1.4)-1)/.88),1e-9);close(r.etaGT,r.Ngt/r.Q1,1e-12);close(r.eta,(r.Ngt+r.Nst)/r.Q1,1e-12);
+ assert.ok(r.eta>r.etaGT&&r.eta>.5&&r.eta<.65);close(r.hrsg.Q,r.Nst+r.condenser,1e-6);
+});
+test('VVER-1000 steam generator: about 750 MW and 1470 t/h',()=>{
+ const r=ppcSteamGenerator({p1:15.7,T1in:593.15,T1out:563.15,primaryFlow:4400,p2:6.27,Tfw:493.15,x2:.998,blowdown:.005,U:5});
+ close(r.Q,750e3,25e3);close(r.D*3.6,1460,60);close(r.Qeco+r.Qev,r.Q,1e-6);assert.ok(r.dPinch>0&&r.dPinch<r.dHot&&r.dPinch<r.dCold);close(r.area,r.UA/5,1e-9);
+ assert.throws(()=>ppcSteamGenerator({T1in:553.15,T1out:548.15}),/pinchNegative/);
+});

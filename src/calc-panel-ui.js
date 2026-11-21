@@ -71,11 +71,12 @@ function calcPanelShow(cfg){
  restorePanelInputs(cfg.action,form);layout();restorePanelResult(cfg.action,form);
 }
 // Simple line chart: series [{label, color, points:[[x,y]], dash?}], axis captions.
-export function calcPanelLineChart({series,xLabel,yLabel,width=720,height=320}){
+export function calcPanelLineChart({series,xLabel,yLabel,width=720,height=320,yFromZero=true}){
  const pts=series.flatMap(s=>s.points).filter(([x,y])=>Number.isFinite(x)&&Number.isFinite(y));
  if(!pts.length)return '';
  const m={l:58,r:16,t:12,b:70},W=width-m.l-m.r,H=height-m.t-m.b;
- let [x0,x1]=[Math.min(...pts.map(p=>p[0])),Math.max(...pts.map(p=>p[0]))],[y0,y1]=[Math.min(0,...pts.map(p=>p[1])),Math.max(...pts.map(p=>p[1]))];
+ let [x0,x1]=[Math.min(...pts.map(p=>p[0])),Math.max(...pts.map(p=>p[0]))],[y0,y1]=[Math.min(...(yFromZero?[0]:[]),...pts.map(p=>p[1])),Math.max(...pts.map(p=>p[1]))];
+ if(!yFromZero){const pad=(y1-y0)*.06||1;y0-=pad;y1+=pad;}
  if(x1===x0)x1=x0+1;if(y1===y0)y1=y0+1;
  const nice=(a,b)=>{const span=b-a,step=10**Math.floor(Math.log10(span/5)),s=[1,2,5,10].map(k=>k*step).find(k=>span/k<=6)||step*10;const out=[];for(let v=Math.ceil(a/s)*s;v<=b+s*1e-9;v+=s)out.push(+v.toPrecision(12));return out;};
  const X=x=>m.l+(x-x0)/(x1-x0)*W,Y=y=>m.t+H-(y-y0)/(y1-y0)*H,esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
