@@ -23,6 +23,7 @@
     "test:sprint": "node scripts/check-full-sprint-browser.cjs",
     "test:navigation": "node scripts/check-navigation-browser.cjs",
     "test:usability": "node scripts/check-usability-browser.cjs",
+    "test:water-functions": "node scripts/check-water-functions-browser.cjs",
     "verify:release": "node scripts/verify-release.mjs",
     "verify:release:core": "node scripts/verify-release.mjs --core",
     "test:provenance": "node scripts/check-provenance-browser.cjs",

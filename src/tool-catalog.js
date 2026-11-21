@@ -17,6 +17,11 @@ export const TOOL_CATALOG={
     "aliases": "таблиця довідник saturation table",
     "legacy": 19
   },
+  "functions": {
+    "status": "reference",
+    "aliases": "функції формули формула вираз таблиця функцій розширення ккд похідні pkw заломлення functions formula expression wsp watersteampro excel series range expansion efficiency derivative",
+    "legacy": null
+  },
   "gases": {
     "status": "mixed",
     "aliases": "повітря азот кисень газ carbon dioxide nitrogen oxygen air",
