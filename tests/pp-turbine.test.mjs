@@ -48,3 +48,20 @@ test('VVER-1000 steam generator: about 750 MW and 1470 t/h',()=>{
  close(r.Q,750e3,25e3);close(r.D*3.6,1460,60);close(r.Qeco+r.Qev,r.Q,1e-6);assert.ok(r.dPinch>0&&r.dPinch<r.dHot&&r.dPinch<r.dCold);close(r.area,r.UA/5,1e-9);
  assert.throws(()=>ppcSteamGenerator({T1in:553.15,T1out:548.15}),/pinchNegative/);
 });
+import {ppdHeatingGraph,ppdChpTurbine} from '../src/pp-chp.js';
+test('Heating graph: design point, monotonic temperatures and the break point',()=>{
+ const g=ppdHeatingGraph({ti:20,toDesign:-22,tau1:150,tau2:70,tau3:95,n:.25,tBreak:70,toStart:8,step:2}),d=g.rows.at(-1);
+ assert.equal(d.to,-22);close(d.tau1,150,1e-9);close(d.tau2,70,1e-9);close(d.tau3,95,1e-9);close(g.mixing,2.2,1e-12);
+ for(let i=1;i<g.rows.length;i++)assert.ok(g.rows[i].tau1>g.rows[i-1].tau1&&g.rows[i].tau2>g.rows[i-1].tau2);
+ assert.ok(g.toBreak>4&&g.toBreak<6);assert.equal(g.rows[0].supply,70);assert.ok(g.rows[0].broken);
+ // At 0 °C a 150/70 graph with 95 °C radiators gives about 87 / 49 °C.
+ const zero=g.rows.find(r=>r.to===0);close(zero.tau1,86.7,.2);close(zero.tau2,48.6,.2);
+});
+test('CHP turbine: power and heat balances, W and physical method',()=>{
+ const r=ppdChpTurbine({p0:12.75,T0:828.15,G0:130,pt:.15,Gt:60,pk:.005,tSupply:373.15,tReturn:333.15});
+ close(r.N,r.Nhp+r.Nlp,1e-9);close(r.W,r.Nt/r.Qt,1e-12);assert.ok(r.utilization>r.etaE&&r.etaEPhysical>r.etaE);
+ // Energy balance of the plant: fuel heat = power/ηem + heat + condenser + boiler loss.
+ close(r.Qfuel*.92,r.N/.98+r.Qt+r.Qk,r.Qfuel*1e-9);assert.deepEqual(r.notes,[]);
+ const none=ppdChpTurbine({p0:12.75,T0:828.15,G0:130,pt:.15,Gt:0,pk:.005,tSupply:373.15,tReturn:333.15});assert.equal(none.Qt,0);assert.equal(none.W,null);
+ assert.throws(()=>ppdChpTurbine({p0:12.75,T0:828.15,G0:130,pt:.15,Gt:140,pk:.005,tSupply:373.15,tReturn:333.15}),/extraction/);
+});

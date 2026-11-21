@@ -28,7 +28,7 @@ function calcPanelFieldHTML(cfg,key){
 }
 function calcPanelResultHTML(cfg,r){
  const t=k=>escapeHTML(calcPanelText(cfg,k));
- const rows=r.rows.map(([k,v,u])=>`<tr><td>${t(k)}</td><td>${escapeHTML(calcPanelFormat(cfg,v))}</td><td>${escapeHTML(u?calcPanelText(cfg,u):'')}</td></tr>`).join('');
+ const rows=r.rows.map(([k,v,u])=>`<tr${u==='K'?' data-difference="true"':''}><td>${t(k)}</td><td>${escapeHTML(calcPanelFormat(cfg,v))}</td><td>${escapeHTML(u?calcPanelText(cfg,u):'')}</td></tr>`).join('');
  let html=`<table class="sat-table"><thead><tr><th>${t(cfg.i18n+'.r.name')}</th><th>${t(cfg.i18n+'.r.value')}</th><th>${t(cfg.i18n+'.r.unit')}</th></tr></thead><tbody>${rows}</tbody></table>`;
  if(r.svg)html+=`<figure class="calc-panel-chart">${r.svg}</figure>`;
  if(r.table)html+=`<div class="calc-panel-table"><table class="sat-table"><thead><tr>${r.table.columns.map(([k,u])=>`<th>${t(k)}${u?', '+escapeHTML(u):''}</th>`).join('')}</tr></thead><tbody>${r.table.rows.map(row=>`<tr>${row.map(v=>`<td>${escapeHTML(calcPanelFormat(cfg,v))}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;

@@ -111,7 +111,7 @@ function uiConvertTables(){
    const heads=[...table.querySelectorAll('thead th')],rows=[...table.querySelectorAll('tbody tr')];
    const units=heads.map(h=>{const s=h.textContent,m=s.match(/\[([^\]]+)\]|,\s*(.+)$/);return m?uiUnitFromLabel(m[1]||m[2]):null;});
    const data=[];for(const row of rows){const cells=[...row.children];if(heads.length&&cells.length!==heads.length)continue;
-    if(cells.length>=3&&uiUnitFromLabel(cells.at(-1).textContent)){const value=uiParseDisplayed(cells.at(-2).textContent);if(value!=null)data.push({value,unit:cells.at(-1).textContent,valueCell:cells.at(-2),unitCell:cells.at(-1),difference:/Δ|LMTD|lmtd|напір|difference/i.test(cells[0].textContent)});}
+    if(cells.length>=3&&uiUnitFromLabel(cells.at(-1).textContent)){const value=uiParseDisplayed(cells.at(-2).textContent);if(value!=null)data.push({value,unit:cells.at(-1).textContent,valueCell:cells.at(-2),unitCell:cells.at(-1),difference:row.dataset.difference==='true'||/Δ|LMTD|lmtd|напір|difference/i.test(cells[0].textContent)});}
     else for(let i=0;i<cells.length;i++)if(units[i]&&!cells[i].querySelector('button,input')){const value=uiParseDisplayed(cells[i].textContent);if(value!=null)data.push({value,unit:UI_UNIT_GROUPS[units[i].group][units[i].unit][0],valueCell:cells[i],head:heads[i],headText:heads[i].textContent,difference:/Δ|LMTD|lmtd/.test(heads[i].textContent)});}
    }uiTableSources.set(table,data);
   }

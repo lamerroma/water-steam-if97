@@ -11,6 +11,9 @@ const url=process.env.CALCULATOR_URL||'http://localhost:8080/';
  const calcs=await p.$$eval('#pp-calc option',o=>o.map(x=>x.value));assert.ok(calcs.length>=3);
  for(const calc of calcs){await p.selectOption('#pp-calc',calc);await p.click('#pp-calculate');await p.waitForSelector('#pp-results table');assert.equal(await p.locator('#pp-error').isHidden(),true,calc+': '+await p.locator('#pp-error').innerText());}
  console.log(`All ${calcs.length} calculations run with defaults PASS`);
+ // Temperature differences (K) must not be converted like absolute temperatures.
+ await p.selectOption('#pp-calc','heating-graph');await p.click('#pp-calculate');await p.waitForSelector('#pp-results table');
+ assert.match(await p.locator('#pp-results tr[data-difference=true]').nth(2).innerText(),/\b25\b/);console.log('Temperature differences keep their value PASS');
  await p.selectOption('#pp-calc','stage');await p.click('#pp-calculate');await p.waitForSelector('#pp-results svg');const before=await p.locator('#pp-results').innerText();
  await p.reload();await ready();await p.waitForSelector('#pp-results svg');assert.equal(await p.inputValue('#pp-calc'),'stage');assert.equal(await p.locator('#pp-results').innerText(),before);
  console.log('Chart and project restore after reload PASS');
