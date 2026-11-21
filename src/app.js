@@ -693,7 +693,7 @@ async function showDiagram(kind,fit=null){
 }
 
 function inputCaption(el){const label=el.closest('label')?.cloneNode(true);if(label){label.querySelectorAll('input,select,button').forEach(n=>n.remove());return label.textContent.trim();}return document.querySelector(`label[for="${el.id}"]`)?.textContent||el.id;}
-function panelForm(){return document.querySelector('#cc-form,#wp-form,#process-form,#engineering-form,#learn-form,#scientific-form,#batch-form,#flow-form,#satgrid-form,#exchanger-form');}
+function panelForm(){return document.querySelector('#cc-form,#wp-form,#process-form,#engineering-form,#learn-form,#scientific-form,#batch-form,#flow-form,#satgrid-form,#exchanger-form,#steam-form');}
 function panelInputs(form){if(form.id==='cc-form')return {'cc-data':$('cc-data').value};const fields=[...form.querySelectorAll('input,select,textarea'),...(form.id==='batch-form'?[$('batch-text')]:[])].filter(Boolean);return Object.fromEntries([...fields].filter(el=>el.id&&el.type!=='file').map(el=>[el.id,uiStoredValue(el)]));}
 function capturePanel(){if(restoringWorkspace)return;const form=panelForm();if(!form||!WORKSPACE_PANELS.includes(activeSection))return;panelRecords[activeSection]={inputs:panelInputs(form),calculated:form.dataset.calculated==='true',model:form.dataset.model||modelValue(),...(form.dataset.source?{source:form.dataset.source}:{})};}
 function panelEdited(form){form.dataset.calculated='false';form.dataset.workflowTouched='true';uiResultActions(true);}

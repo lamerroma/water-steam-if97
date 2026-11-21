@@ -3,9 +3,10 @@ import {parseNumber} from './units.js';
 import {condensateLoad,separatorDryness,airInSteam,steamCost,boilerEfficiency,condensateRecovery} from './steam-plant.js';
 // Steam-system calculator panel: one selector of engineering calculations in the
 // style of steam-system calculators, each with its inputs, formula and results.
-// Fixed engineering units: pressure MPa (abs), temperature °C, mass flow kg/h,
-// diameters mm, pressure differences kPa, heat kW, time min.
-const STEAM_SYS_STORAGE='thermocalc-steam-system';
+// Base units: pressure MPa (abs), temperature °C, mass flow kg/h, diameters mm,
+// pressure differences kPa, heat kW, time min. Fields with a physical quantity get
+// the shared local unit selector; the panel always reads canonical base values.
+// Inputs, units and the calculated flag are saved in the project workspace.
 const STEAM_SYS_K=273.15;
 const steamSysFluidOptions=[['steam-sat','steam.fluid.steamSat'],['steam-sh','steam.fluid.steamSh'],['water','steam.fluid.water'],['air','steam.fluid.air']];
 const steamSysScheduleOptions=Object.entries(PIPE_SCHEDULES).map(([k,v])=>[k,v.label]);
@@ -82,8 +83,6 @@ export const STEAM_SYS_CALCS={
 };
 export const STEAM_SYS_GROUPS=['pipes','valves','condensate','costs'];
 let steamSysResult=null;
-function steamSysLoad(){try{return JSON.parse(localStorage.getItem(STEAM_SYS_STORAGE)||'{}')||{};}catch{return {};}}
-function steamSysSave(data){try{localStorage.setItem(STEAM_SYS_STORAGE,JSON.stringify(data));}catch{}}
 function steamSysFieldHTML(key){
  const [id,unit,def,opts]=STEAM_SYS_FIELDS[key],label=escapeHTML(uiTranslator.t('steam.f.'+id))+(unit?', '+escapeHTML(unit.startsWith('steam.')?uiTranslator.t(unit):unit):'');
  if(opts)return `<label data-steam-field="${key}">${label}<select id="steam-${id}">${opts.map(([v,l])=>`<option value="${v}">${escapeHTML(l.startsWith('steam.')?uiTranslator.t(l):l)}</option>`).join('')}</select></label>`;
@@ -108,13 +107,12 @@ export function steamSysRun(calc,values){return STEAM_SYS_CALCS[calc].run(values
 function steamSysFormat(value){if(value==null)return '—';if(typeof value==='string')return value.startsWith('steam.')?uiTranslator.t(value):value;return format(value);}
 function showSteamSystem(){
  selectView('panel');activeSection='steam-system';steamSysResult=null;$('calculator-view').hidden=true;$('process-view').hidden=false;document.querySelector('[role=tab][data-action=steam-system]').setAttribute('aria-selected','true');
- const saved=steamSysLoad(),t=k=>escapeHTML(uiTranslator.t(k));
+ const t=k=>escapeHTML(uiTranslator.t(k));
  const calcOptions=STEAM_SYS_GROUPS.map(g=>`<optgroup label="${t('steam.group.'+g)}">${Object.entries(STEAM_SYS_CALCS).filter(([,c])=>c.group===g).map(([id])=>`<option value="${id}">${t('steam.calc.'+id)}</option>`).join('')}</optgroup>`).join('');
  $('process-view').innerHTML=`<section class="method"><h2 data-i18n="steam.title">${t('steam.title')}</h2><p data-i18n="steam.intro">${t('steam.intro')}</p><form id="steam-form" novalidate><div class="process-grid"><label>${t('steam.f.calc')}<select id="steam-calc">${calcOptions}</select></label>${Object.keys(STEAM_SYS_FIELDS).map(steamSysFieldHTML).join('')}</div><details class="steam-formula" open><summary>${t('steam.formula')}</summary><p id="steam-formula-text"></p></details><button type="submit" id="steam-calculate">${t('steam.calculate')}</button> <button type="button" id="steam-copy" disabled>${t('steam.copy')}</button><p id="steam-error" role="alert" hidden></p></form><div id="steam-results" aria-live="polite"></div></section>`;
  const form=$('steam-form');
- for(const [k,v] of Object.entries(saved.inputs||{})){const el=$('steam-'+(STEAM_SYS_FIELDS[k]?.[0]||k));if(el&&v!=null)el.value=v;}
- if(saved.calc&&STEAM_SYS_CALCS[saved.calc])$('steam-calc').value=saved.calc;
- const raw=()=>Object.fromEntries(Object.entries(STEAM_SYS_FIELDS).map(([k,[id]])=>[k,$('steam-'+id).value]));
+ // uiStoredValue returns the value in the field's base unit whatever unit is selected.
+ const raw=()=>Object.fromEntries(Object.entries(STEAM_SYS_FIELDS).map(([k,[id]])=>[k,uiStoredValue($('steam-'+id))]));
  function layout(){
   const calc=$('steam-calc').value,spec=STEAM_SYS_CALCS[calc],r=raw();
   const fluidSelect=$('steam-fluid');for(const o of fluidSelect.options)o.disabled=!!spec.steamOnly&&!o.value.startsWith('steam');if(fluidSelect.selectedOptions[0]?.disabled)fluidSelect.value='steam-sat';
@@ -122,18 +120,20 @@ function showSteamSystem(){
   for(const label of form.querySelectorAll('[data-steam-field]')){const show=visible.includes(label.dataset.steamField);label.hidden=!show;label.querySelector('input,select').disabled=!show;}
   $('steam-formula-text').textContent=uiTranslator.t('steam.formula.'+(calc==='condensate-load'?'load.'+r.loadKind:calc));
  }
- function invalidate(){steamSysResult=null;$('steam-results').replaceChildren();$('steam-copy').disabled=true;$('steam-error').hidden=true;form.dataset.calculated='false';}
- form.addEventListener('change',()=>{layout();invalidate();steamSysSave({calc:$('steam-calc').value,inputs:raw()});});
- form.addEventListener('input',e=>{if(e.target.tagName!=='SELECT')invalidate();});
+ function invalidate(){steamSysResult=null;$('steam-results').replaceChildren();$('steam-copy').disabled=true;$('steam-error').hidden=true;}
+ function edited(){invalidate();if(!restoringWorkspace){panelEdited(form);capturePanel();saveProject();}}
+ // A unit change converts the shown number only: keep the result, save the unit.
+ form.addEventListener('change',e=>{layout();if(e.target.id.startsWith('ui-unit-')){if(!restoringWorkspace){capturePanel();saveProject();}}else edited();});
+ form.addEventListener('input',e=>{if(e.target.tagName!=='SELECT'&&e.isTrusted)edited();});
  form.onsubmit=e=>{e.preventDefault();invalidate();const calc=$('steam-calc').value;
   try{const values=steamSysValues(calc,raw()),visible=steamSysVisible(calc,values);for(const k of visible){const [, , ,opts]=STEAM_SYS_FIELDS[k];if(!opts&&!Number.isFinite(values[k]))throw Error(uiTranslator.t('steam.error.number',{field:uiTranslator.t('steam.f.'+STEAM_SYS_FIELDS[k][0])}));}
-   const r=steamSysRun(calc,values);steamSysResult={calc,values,...r};steamSysSave({calc,inputs:raw()});
+   const r=steamSysRun(calc,values);steamSysResult={calc,values,...r};
    const rows=r.rows.map(([k,v,u])=>`<tr><td>${t(k)}</td><td>${escapeHTML(steamSysFormat(v))}</td><td>${escapeHTML(u.startsWith('steam.')?uiTranslator.t(u):u)}</td></tr>`).join('');
    $('steam-results').innerHTML=`<table class="sat-table"><thead><tr><th>${t('steam.r.name')}</th><th>${t('steam.r.value')}</th><th>${t('steam.r.unit')}</th></tr></thead><tbody>${rows}</tbody></table>${notes(r.notes.map(escapeHTML))}`;
-   $('steam-copy').disabled=false;form.dataset.calculated='true';
+   $('steam-copy').disabled=false;panelCalculated(form);
   }catch(err){$('steam-error').textContent=err.message;$('steam-error').hidden=false;}
  };
  $('steam-copy').onclick=()=>{if(!steamSysResult)return;const text=steamSysResult.rows.map(([k,v,u])=>[uiTranslator.t(k),steamSysFormat(v),u.startsWith('steam.')?uiTranslator.t(u):u].join('\t')).join('\n');navigator.clipboard?.writeText(text).catch(()=>{});};
- layout();
+ restorePanelInputs('steam-system',form);layout();restorePanelResult('steam-system',form);
 }
-globalThis.document?.addEventListener('languagechange',()=>{if(activeSection==='steam-system')showSteamSystem();});
+globalThis.document?.addEventListener('languagechange',()=>{if(activeSection==='steam-system'){capturePanel();showSteamSystem();}});

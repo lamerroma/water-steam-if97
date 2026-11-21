@@ -5,7 +5,7 @@ import {WATER_PROCESS_ENDS} from './water-process.js';
 import {UI_UNIT_GROUPS} from './ui-quantities.js';
 import {batchUnits} from './batch.js';
 
-export const WORKSPACE_PANELS=['custom-cycle','water-process','turbine','flash','engineering','batch','satgrid','gases','humid','cycles','ice','d2o','seawater','boundaries','comparison','flow','exchanger'];
+export const WORKSPACE_PANELS=['custom-cycle','water-process','turbine','flash','engineering','batch','satgrid','gases','humid','cycles','ice','d2o','seawater','boundaries','comparison','flow','exchanger','steam-system'];
 // Panels of the removed learning section; older projects may still contain them.
 const REMOVED_PANELS=['tutorials','npp','laboratory','coursework'];
 const modes=['pt','ph','ps','satp','satt','px','tx','hs','th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'];
@@ -21,6 +21,7 @@ const fields={'custom-cycle':['cc-data'],'water-process':['wp-fluid','wp-n','wp-
  humid:['ha-p','ha-t','ha-mode','ha-rh'],
  cycles:['cycle-kind','cycle-low','cycle-high','cycle-mid','cycle-tmin','cycle-tmax','cycle-tmid','cycle-et','cycle-ec','cycle-flow'],
  ice:['ice-t','ice-p'],d2o:['d2o-mode','d2o-p','d2o-t'],seawater:['sw-s','sw-t','sw-p'],
+ 'steam-system':['steam-calc','steam-fluid','steam-p','steam-t','steam-flow','steam-velocity','steam-schedule','steam-d','steam-length','steam-roughness','steam-localK','steam-p1','steam-p2','steam-subcooling','steam-valveMode','steam-kv','steam-dp','steam-xT','steam-FL','steam-orifice','steam-pipeD','steam-C','steam-dpOrifice','steam-hole','steam-loadKind','steam-massPerMetre','steam-t0','steam-time','steam-outerD','steam-tamb','steam-insulation','steam-insulationK','steam-surfaceH','steam-mass','steam-cp','steam-t1','steam-t2','steam-liquidFlow','steam-airFlow','steam-heat','steam-safety','steam-x','steam-efficiency','steam-airFraction','steam-feedT','steam-boilerEta','steam-fuelPrice','steam-lhv','steam-waterCost','steam-fuelFlow','steam-blowdown','steam-condT','steam-makeupT','steam-hours','steam-investment'],
  boundaries:['phase-substance','phase-kind','phase-ice','phase-value','phase-s'],comparison:['compare-mode','compare-a','compare-b']
 };
 const choices={'wp-fluid':['water',...PROCESS_GASES],'wp-model':PROCESS_MODELS,'wp-kind':Object.keys(WATER_PROCESS_ENDS),'wp-mode':['pt','px','ph','ps'],'wp-end':['T','h','x','v','p'],'hx-arrangement':['counter','parallel'],
@@ -30,11 +31,13 @@ const choices={'wp-fluid':['water',...PROCESS_GASES],'wp-model':PROCESS_MODELS,'
  'eng-mode':['pump','compressor','heat-exchanger'],'eng-pressure':['MPa','kPa','Pa','bar','atm','psi'],'eng-temperature':['C','K','F'],'eng-mass':['kgs','kgh','lbs','lbh'],'eng-power-unit':['kW','Btuh'],
  'batch-mode':modes,'batch-vary':['a','b'],'gas-dissociation':['off','vdi4670'],'gas-combustion':['unspecified','complete-air'],'gas-model':['real','mixture','ideal','bsw2003'],'gas-fluid':species.filter(s=>s!=='NO'),'gas-mode':['pt','ph','ps'],'gas-basis':['mole','mass'],'gas-fraction-scale':['fraction','percent'],'gas-preset':['air','flue','custom',...species],
  'ha-mode':['R','W','D','B'],'cycle-kind':['rankine','rankine-reheat','rankine-regen','brayton'],'d2o-mode':['pt','sat'],
- 'phase-substance':['H2O','D2O','seawater'],'phase-kind':['melt','subl','freeze','boil'],'phase-ice':['Ih','III','V','VI','VII'],'compare-mode':['pt','ph','ps','px','tx']
+ 'phase-substance':['H2O','D2O','seawater'],'phase-kind':['melt','subl','freeze','boil'],'phase-ice':['Ih','III','V','VI','VII'],'compare-mode':['pt','ph','ps','px','tx'],
+ 'steam-calc':['pipe-size','pipe-drop','condensate-line','valve','orifice','discharge','condensate-load','separator','air-in-steam','steam-cost','boiler','recovery'],'steam-fluid':['steam-sat','steam-sh','water','air'],'steam-schedule':['ANSI-40','ANSI-80','JIS-40','DIN'],'steam-valveMode':['kv','flow','dp'],'steam-loadKind':['warmup','pipe-loss','tank','exchanger','air-heater','duty']
 };
 const record=x=>x&&typeof x==='object'&&!Array.isArray(x);
 // Keep only inputs, never imported computed properties or HTML. Results are recomputed
 // when their panel is opened, including modules whose WASM is loaded on demand.
+export const WORKSPACE_STEAM_SYSTEM={fields:fields['steam-system'],choices:Object.fromEntries(Object.entries(choices).filter(([k])=>k.startsWith('steam-')))};
 export function readWorkspace(value){
  if(value==null)return {active:'general',panels:{}};
  if(record(value)&&REMOVED_PANELS.includes(value.active))value={...value,active:'general'};
