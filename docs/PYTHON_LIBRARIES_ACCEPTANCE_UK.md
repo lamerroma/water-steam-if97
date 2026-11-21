@@ -51,16 +51,16 @@ report, не перетворюється на успішну валідацію
 
 ## Докази
 
-- [Основні перевірки](python-libraries/core-report.json).
-- [Chromium](python-libraries/chromium-report.json), [Firefox](python-libraries/firefox-report.json).
-- [18 регресій](python-libraries/regression-report.json),
-  [перша спроба](python-libraries/regression-first-attempt.json),
-  [повторення P03/P04](python-libraries/regression-retry.json).
-- [Хеші Python Worker і маніфесту](python-libraries/python-artifacts.json).
-- [Панель Chromium](python-libraries/chromium-libraries.png),
-  [офлайн Chromium](python-libraries/chromium-offline.png),
-  [панель Firefox](python-libraries/firefox-libraries.png),
-  [офлайн Firefox](python-libraries/firefox-offline.png).
+- Основні перевірки.
+- Chromium, Firefox.
+- 18 регресій,
+  перша спроба,
+  повторення P03/P04.
+- Хеші Python Worker і маніфесту.
+- Панель Chromium,
+  офлайн Chromium,
+  панель Firefox,
+  офлайн Firefox.
 
 Повні журнали залишаються в локальній `.release/`; команди відтворення й межі
 підтримки — [PYTHON_LIBRARIES_UK.md](PYTHON_LIBRARIES_UK.md).

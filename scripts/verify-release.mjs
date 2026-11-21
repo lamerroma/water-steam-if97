@@ -17,7 +17,7 @@ await mkdir(dir,{recursive:true});
 const report={started:new Date().toISOString(),mode,version:JSON.parse(await readFile(path.join(root,'package.json'),'utf8')).version,build:null,status:'running',checks:[],artifacts:{},scope:'Software acceptance only; passing does not validate every physical model or device.'};
 let server;
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
-const snapshot=async()=>Object.fromEntries(await Promise.all(['index.html','assets/app.js','assets/calculator-worker.js','assets/heos-calculator-worker.js','assets/python-worker.js','assets/python-package.json','assets/sheetjs.js','assets/styles.css','assets/coolprop.wasm','service-worker.js','manifest.webmanifest'].map(async p=>[p,hash(await readFile(path.join(root,p)))])));
+const snapshot=async()=>Object.fromEntries(await Promise.all(['index.html','assets/app.js','assets/calculator-worker.js','assets/heos-calculator-worker.js','assets/python-worker.js','assets/python-package.json','assets/sheetjs.js','assets/styles.css','assets/coolprop.wasm','service-worker.js','manifest.webmanifest'].map(async p=>[p,hash(await readFile(path.join(root,'dist',p)))])));
 async function check(name,args,env={},executable=process.execPath){
  const start=Date.now();console.log(`Starting ${name}`);
  const log=path.join(dir,name+'.log'),logFile=await open(log,'w');
@@ -40,8 +40,8 @@ async function serve(){
  const types={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.wasm':'application/wasm','.png':'image/png','.webmanifest':'application/manifest+json'};
  server=createServer(async(req,res)=>{
   try{
-   const url=new URL(req.url,'http://localhost');const target=path.resolve(root,'.'+decodeURIComponent(url.pathname==='/'?'/index.html':url.pathname));
-   if(!target.startsWith(root+path.sep)){res.writeHead(403);res.end();return;}
+   const url=new URL(req.url,'http://localhost'),site=path.join(root,'dist');const target=path.resolve(site,'.'+decodeURIComponent(url.pathname==='/'?'/index.html':url.pathname));
+   if(!target.startsWith(site+path.sep)){res.writeHead(403);res.end();return;}
    const bytes=await readFile(target);res.writeHead(200,{'Content-Type':types[path.extname(target)]||'application/octet-stream'});res.end(bytes);
   }catch{res.writeHead(404);res.end();}
  });
@@ -51,7 +51,7 @@ async function serve(){
 }
 try{
  if(!await check('build',['scripts/build.mjs']))throw Error('Build failed; dependent checks skipped.');
- report.build=JSON.parse((await readFile(path.join(root,'assets/app.js'),'utf8')).match(/const APP_BUILD = ([^\n]+);/)[1]);
+ report.build=JSON.parse((await readFile(path.join(root,'dist/assets/app.js'),'utf8')).match(/const APP_BUILD = ([^\n]+);/)[1]);
  await check('documentation',['scripts/check-docs-links.mjs']);
  await check('library-registry',['scripts/check-library-registry.mjs']);
  await check('library-recipes',['scripts/check-library-recipes.mjs']);

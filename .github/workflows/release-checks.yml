@@ -84,7 +84,7 @@ jobs:
                   summary.write('\n'.join(lines) + '\n')
           PYTHON
       - name: Check committed build is current
-        run: git diff --exit-code -- index.html assets dist service-worker.js manifest.webmanifest
+        run: git diff --exit-code -- dist
       - name: Preserve acceptance evidence
         if: always()
         uses: actions/upload-artifact@v4

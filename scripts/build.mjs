@@ -122,7 +122,7 @@ resourceData['assets/python-package.json']=JSON.stringify(pythonPackage,null,2)+
 for(const size of [192,512])resourceData[`assets/icon-${size}.png`]=await readFile(new URL(`src/icons/icon-${size}.png`,root));
 const digests=Object.fromEntries(Object.entries(resourceData).map(([path,content])=>[path,createHash('sha256').update(content).digest('hex')]));
 const worker=(await read('src/service-worker.js')).replace('/* PWA_CONFIG */',`const BUILD=${JSON.stringify({version,id:buildId})};const RESOURCES=${JSON.stringify(resources)};const DIGESTS=${JSON.stringify(digests)};const PYTHON_PACKAGE=${JSON.stringify(pythonPackage)};`);
-for(const prefix of ['', 'dist/']) {
+for(const prefix of ['dist/']) {
  await mkdir(new URL(prefix+'assets/',root),{recursive:true});
  await writeFile(new URL(prefix+'index.html',root),licenses+page);
  await writeFile(new URL(prefix+'assets/styles.css',root),styles);
@@ -143,4 +143,4 @@ for(const prefix of ['', 'dist/']) {
  await writeFile(new URL(prefix+'manifest.webmanifest',root),manifest);
  for(const size of [192,512])await writeFile(new URL(prefix+`assets/icon-${size}.png`,root),await readFile(new URL(`src/icons/icon-${size}.png`,root)));
 }
-console.log(`Built offline PWA (${Buffer.byteLength(codeMultiFile)} bytes app.js + separate workers/WASM) in root and dist/.`);
+console.log(`Built offline PWA (${Buffer.byteLength(codeMultiFile)} bytes app.js + separate workers/WASM) in dist/.`);
