@@ -33,9 +33,9 @@
 
 Для насиченої рідини при **647,0959 K** похибка cp зменшилася приблизно з **1,89e-8 до 4,20e-14** відносно. Це поліпшення чисельного розв’язання рівнянь, а не така сама експериментальна точність фізичної моделі.
 
-![Контрольоване порівняння похибок cp](accuracy-followup/quadrature-improvement.png)
 
-[Векторний PDF](accuracy-followup/quadrature-improvement.pdf), [контрольні числа](accuracy-followup/quadrature-comparison.json), [повна таблиця нових значень](accuracy-followup/after.csv), [таблиця опублікованої 1.35.1](accuracy-followup/before.csv).
+
+Векторний PDF, контрольні числа, повна таблиця нових значень, таблиця опублікованої 1.35.1.
 
 ## Незалежні методи й покриття
 
@@ -82,7 +82,7 @@ Python-залежності: iapws 1.5.5, CoolProp 8.0.0, mpmath, matplotlib. П
 
 Браузер: сервер `python3 -m http.server 8080 --bind 127.0.0.1 --directory dist`, `BROWSER_NAME=chromium` або `firefox`, скрипт `scripts/check-accuracy-followup-browser.cjs`. Chromium використовує `/usr/bin/chromium`; Firefox встановлено через Playwright у `/tmp/water-browsers`. Сервер віддає тільки dist і слухає тільки loopback.
 
-Контрольні суми й сирі результати — [NUMERICAL_PRECISION_FOLLOWUP_ACCEPTANCE.json](NUMERICAL_PRECISION_FOLLOWUP_ACCEPTANCE.json). Підсумковий статус: **passed-with-model-limits**.
+Контрольні суми й сирі результати — NUMERICAL_PRECISION_FOLLOWUP_ACCEPTANCE.json. Підсумковий статус: **passed-with-model-limits**.
 
 У початковому середовищі для локального збереження цієї роботи створювався
 архів .release/accuracy-followup/source-backup.zip, який накладався на коміт

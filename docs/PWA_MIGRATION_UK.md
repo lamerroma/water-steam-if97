@@ -64,10 +64,10 @@ Playwright 1.62.1; версії браузерів записані в дока�
 
 Докази:
 
-- [Підсумок із повторами](pwa-migration/summary.json) та [незмінений звіт першого проходу](pwa-migration/acceptance-original.json).
-- ZIP: [Chromium](pwa-migration/package-chromium.json), [Firefox](pwa-migration/package-firefox.json).
-- Скриншоти після зупинки сервера: [Chromium](pwa-migration/offline-chromium.png), [Firefox](pwa-migration/offline-firefox.png).
-- [Доказ відмови початкової бази та однакових числових джерел](pwa-migration/baseline-proof.json), [лог](pwa-migration/baseline-rankine.txt).
+- Підсумок із повторами та незмінений звіт першого проходу.
+- ZIP: Chromium, Firefox.
+- Скриншоти після зупинки сервера: Chromium, Firefox.
+- Доказ відмови початкової бази та однакових числових джерел, лог.
 - Повні логи локального прогону: `.release/2026-10-19T17-27-53-981Z/`; логи й JSON цільових повторів збережені також у `docs/pwa-migration/`.
 
 ZIP збірки d7bcd0fd3b5d мав 5718010 байтів; SHA-256: `fe86f6cc9ae5e7e7465fc5ce1bb92b88c9903ff43bb445b69c857c4772a436cc`.

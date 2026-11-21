@@ -48,8 +48,8 @@ function archive(entries){
 }
 
 async function main(){
- const app=await readFile(new URL('assets/app.js',root),'utf8'),build=JSON.parse(app.match(/const APP_BUILD = ([^\n]+);/)[1]);
- const worker=await readFile(new URL('service-worker.js',root),'utf8');
+ const app=await readFile(new URL('dist/assets/app.js',root),'utf8'),build=JSON.parse(app.match(/const APP_BUILD = ([^\n]+);/)[1]);
+ const worker=await readFile(new URL('dist/service-worker.js',root),'utf8');
  const resources=JSON.parse(worker.match(/const RESOURCES=(\[[^;]+\]);/)[1]);
  const names=[...new Set(resources.map(path=>path.split('?')[0])),'service-worker.js'];
  const python=JSON.parse(await read('dist/assets/python-package.json'));
