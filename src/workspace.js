@@ -5,7 +5,7 @@ import {WATER_PROCESS_ENDS} from './water-process.js';
 import {UI_UNIT_GROUPS} from './ui-quantities.js';
 import {batchUnits} from './batch.js';
 
-export const WORKSPACE_PANELS=['custom-cycle','water-process','turbine','flash','engineering','batch','satgrid','gases','humid','cycles','ice','d2o','seawater','boundaries','comparison','flow','exchanger','steam-system','functions','channel'];
+export const WORKSPACE_PANELS=['custom-cycle','water-process','turbine','flash','engineering','batch','satgrid','gases','humid','cycles','ice','d2o','seawater','boundaries','comparison','flow','exchanger','steam-system','functions','channel','power-plant'];
 // Panels of the removed learning section; older projects may still contain them.
 const REMOVED_PANELS=['tutorials','npp','laboratory','coursework'];
 const modes=['pt','ph','ps','satp','satt','px','tx','hs','th','ts','prho','trho','pv','tv','pu','tu','us','vs','hv','uv'];
@@ -23,6 +23,7 @@ const fields={'custom-cycle':['cc-data'],'water-process':['wp-fluid','wp-n','wp-
  ice:['ice-t','ice-p'],d2o:['d2o-mode','d2o-p','d2o-t'],seawater:['sw-s','sw-t','sw-p'],
  'steam-system':['steam-calc','steam-fluid','steam-p','steam-t','steam-flow','steam-velocity','steam-schedule','steam-d','steam-length','steam-roughness','steam-localK','steam-p1','steam-p2','steam-subcooling','steam-valveMode','steam-kv','steam-dp','steam-xT','steam-FL','steam-orifice','steam-pipeD','steam-C','steam-dpOrifice','steam-hole','steam-loadKind','steam-massPerMetre','steam-t0','steam-time','steam-outerD','steam-tamb','steam-insulation','steam-insulationK','steam-surfaceH','steam-mass','steam-cp','steam-t1','steam-t2','steam-liquidFlow','steam-airFlow','steam-heat','steam-safety','steam-x','steam-efficiency','steam-airFraction','steam-feedT','steam-boilerEta','steam-fuelPrice','steam-lhv','steam-waterCost','steam-fuelFlow','steam-blowdown','steam-condT','steam-makeupT','steam-hours','steam-investment'],
  functions:['fn-model','fn-text'],
+ 'power-plant':['pp-calc','pp-p0','pp-t0','pp-c0','pp-p1','pp-m','pp-phi','pp-mu','pp-p2','pp-reaction','pp-alpha1','pp-d','pp-n','pp-psi','pp-dBeta','pp-pk','pp-eta','pp-a','pp-steps'],
  channel:['ch-calc','ch-p','ch-G','ch-D','ch-x','ch-roughness','ch-q','ch-tin','ch-L','ch-Le','ch-qAvg','ch-shape','ch-nodes','ch-voidMethod','ch-frictionMethod','ch-boilingMethod'],
  boundaries:['phase-substance','phase-kind','phase-ice','phase-value','phase-s'],comparison:['compare-mode','compare-a','compare-b']
 };
@@ -34,6 +35,7 @@ const choices={'wp-fluid':['water',...PROCESS_GASES],'wp-model':PROCESS_MODELS,'
  'batch-mode':modes,'batch-vary':['a','b'],'gas-dissociation':['off','vdi4670'],'gas-combustion':['unspecified','complete-air'],'gas-model':['real','mixture','ideal','bsw2003'],'gas-fluid':species.filter(s=>s!=='NO'),'gas-mode':['pt','ph','ps'],'gas-basis':['mole','mass'],'gas-fraction-scale':['fraction','percent'],'gas-preset':['air','flue','custom',...species],
  'ha-mode':['R','W','D','B'],'cycle-kind':['rankine','rankine-reheat','rankine-regen','brayton'],'d2o-mode':['pt','sat'],
  'phase-substance':['H2O','D2O','seawater'],'phase-kind':['melt','subl','freeze','boil'],'phase-ice':['Ih','III','V','VI','VII'],'compare-mode':['pt','ph','ps','px','tx'],'fn-model':['IF97','IAPWS-95'],
+ 'pp-calc':['nozzle','stage','baumann'],
  'ch-calc':['two-phase','boiling','chf','channel'],'ch-shape':['cosine','uniform'],'ch-voidMethod':['homogeneous','zivi','smith','chisholm'],'ch-frictionMethod':['homogeneous','lockhart-martinelli','friedel'],'ch-boilingMethod':['jens-lottes','thom'],
  'steam-calc':['pipe-size','pipe-drop','condensate-line','valve','orifice','discharge','condensate-load','separator','air-in-steam','steam-cost','boiler','recovery'],'steam-fluid':['steam-sat','steam-sh','water','air'],'steam-schedule':['ANSI-40','ANSI-80','JIS-40','DIN'],'steam-valveMode':['kv','flow','dp'],'steam-loadKind':['warmup','pipe-loss','tank','exchanger','air-heater','duty']
 };

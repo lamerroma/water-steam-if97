@@ -102,6 +102,11 @@ export const TOOL_CATALOG={
     "aliases": "пара паропровід конденсат конденсатовідвідник клапан kv cv діафрагма сопло витікання сепаратор сухість повітря котел ккд вартість пари окупність steam pipe sizing condensate trap valve orifice leak separator dryness boiler efficiency cost payback tlv",
     "legacy": null
   },
+  "power-plant": {
+    "status": "provisional",
+    "aliases": "турбіна сопло лаваля критичний тиск ступінь трикутники швидкостей u/cf лопатки ккд вологість баумана енергоблок тес аес turbine nozzle laval critical pressure stage velocity triangles blade efficiency moisture baumann power plant",
+    "legacy": null
+  },
   "channel": {
     "status": "provisional",
     "aliases": "двофазний потік паровміст об'ємний паровміст втрати тиску локхарт мартінеллі фрідель кипіння чен том єнс лоттес криза теплообміну ктп dnbr запас реактор твел канал парогенератор two-phase void fraction pressure drop lockhart martinelli friedel boiling chen thom jens lottes critical heat flux chf biasi zuber reactor channel",
