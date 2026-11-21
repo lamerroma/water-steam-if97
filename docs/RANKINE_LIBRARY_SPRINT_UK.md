@@ -40,7 +40,7 @@
 
 ## Приймання
 
-Підсумок перевірок і збірки: [RANKINE_LIBRARY_ACCEPTANCE.json](RANKINE_LIBRARY_ACCEPTANCE.json).
+Підсумок перевірок і збірки: RANKINE_LIBRARY_ACCEPTANCE.json.
 
 Версія 1.32.0, фінальна збірка `6055ac39d780`:
 

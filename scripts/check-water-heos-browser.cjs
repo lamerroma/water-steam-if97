@@ -3,7 +3,7 @@ const pw=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright');
 const assert=require('node:assert/strict'),http=require('node:http'),fs=require('node:fs/promises'),path=require('node:path'),os=require('node:os');
 const {openTool}=require('./browser-tools.cjs');
 (async()=>{
- const root=path.resolve(__dirname,'..'),name=process.env.BROWSER_NAME||'chromium',prefix='/water-steam-if97/';
+ const root=path.resolve(__dirname,'..'),site=path.join(root,'dist'),name=process.env.BROWSER_NAME||'chromium',prefix='/water-steam-if97/';
  const evidence=path.join(root,'.release/water-heos',name);await fs.mkdir(evidence,{recursive:true});
  const report={browser:name,status:'running',checks:[],cases:[],workflows:[],errors:[],externalRequests:[]};
  let context,disconnected=false;
@@ -11,8 +11,8 @@ const {openTool}=require('./browser-tools.cjs');
   try{
    if(disconnected){res.writeHead(503);res.end();return;}
    const pathname=new URL(req.url,'http://local').pathname;if(!pathname.startsWith(prefix))throw Error('outside scope');
-   const file=decodeURIComponent(pathname.slice(prefix.length))||'index.html',target=path.resolve(root,file);
-   if(!target.startsWith(root+path.sep))throw Error('outside root');
+   const file=decodeURIComponent(pathname.slice(prefix.length))||'index.html',target=path.resolve(site,file);
+   if(!target.startsWith(site+path.sep))throw Error('outside root');
    const bytes=await fs.readFile(target);res.setHeader('Content-Type',({'.js':'text/javascript','.html':'text/html','.css':'text/css','.wasm':'application/wasm','.json':'application/json','.webmanifest':'application/manifest+json','.png':'image/png'})[path.extname(file)]||'application/octet-stream');res.end(bytes);
   }catch{res.writeHead(404);res.end();}
  });
@@ -91,7 +91,7 @@ const {openTool}=require('./browser-tools.cjs');
   reply=await invoke(page,'px',.101325,.3);assert.equal(reply.result.state.cp,null);
   assert.equal((await page.evaluate(()=>caches.keys())).some(k=>k.startsWith('thermocalc-python:')),false);
   await page.screenshot({path:path.join(evidence,'offline.png'),fullPage:true});mark('Profile restarted, server disconnected, fresh Worker initializes offline without Python');
-  const app=await fs.readFile(path.join(root,'assets/app.js'),'utf8'),workerPath=JSON.parse(app.match(/const HEOS_WORKER_URL = ("[^"\n]+");/)[1]),revision=JSON.parse(app.match(/const CALCULATION_IMPLEMENTATION_REVISION = ("[^"\n]+");/)[1]);
+  const app=await fs.readFile(path.join(site,'assets/app.js'),'utf8'),workerPath=JSON.parse(app.match(/const HEOS_WORKER_URL = ("[^"\n]+");/)[1]),revision=JSON.parse(app.match(/const CALCULATION_IMPLEMENTATION_REVISION = ("[^"\n]+");/)[1]);
   const reference=JSON.parse(await fs.readFile(path.join(root,'tests/fixtures/rankine-library-reference.json'),'utf8')).records.find(c=>c.model==='IAPWS-95'&&c.name==='dry-saturated-inlet');
   const workflow=await page.evaluate(({workerPath,revision,input})=>new Promise((resolve,reject)=>{
    const worker=new Worker(new URL(workerPath,location.href)),timer=setTimeout(()=>{worker.terminate();reject(Error('Workflow timeout'));},90000);

@@ -69,11 +69,11 @@ JS-пам'яті, не пік і не вся пам'ять процесів бр
 відповідність Steam97Web. Зокрема, наявний статус нейтронної моделі у core report
 залишається physical-screening-failed; повне числове приймання ht/fluids попереду.
 
-[До](startup-optimization/before.json), [після](startup-optimization/after.json),
-[core release](startup-optimization/core-report.json),
-[Chromium](startup-optimization/lazy-assets-chromium.json),
-[Firefox](startup-optimization/lazy-assets-firefox.json),
-[8 регресій](startup-optimization/regression-report.json).
+До, після,
+core release,
+Chromium,
+Firefox,
+8 регресій.
 Повні журнали та експорти — у локальній `.release/`.
 
 ## Що досліджувати наступним

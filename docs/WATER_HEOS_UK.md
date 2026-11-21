@@ -108,7 +108,7 @@ node scripts/check-water-heos-browser.cjs
   старого IAPWS-95 у dry-saturated-inlet циклі Ренкіна. Пілот не виправляє
   чинні workflows. Повний браузерний release-набір цього етапу не запускався.
 
-[Машиночитаний підсумок, середовища та SHA-256](water-heos/acceptance.json).
+Машиночитаний підсумок, середовища та SHA-256.
 
 Первинні джерела: [CoolProp API](https://coolprop.org/coolprop/HighLevelAPI.html),
 [водяні формуляції](https://coolprop.org/fluid_properties/IF97.html),

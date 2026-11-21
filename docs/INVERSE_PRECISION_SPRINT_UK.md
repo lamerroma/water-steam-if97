@@ -131,8 +131,8 @@ Node/Python; це підтверджено мінімальними контро
 пройшли, отже загальний результат — 4657/4657. Це не оцінка всіх можливих
 станів моделі: покриття та допуски обмежені описаною сіткою.
 
-[До](inverse-precision/before.csv), [після](inverse-precision/after.csv),
-[машинний підсумок](inverse-precision/summary.json).
+До, після,
+машинний підсумок.
 
 Після остаточного уточнення залишку h/u виконано повний повтор IF97;
 IAPWS-95 використано з повного початкового аудиту кандидата. Фіналізатор
@@ -142,4 +142,4 @@ IAPWS-95 використано з повного початкового ауд�
 scripts/audit-inverse-precision.mjs`.
 
 Остаточні хеші, unit/core і браузерні результати — у
-[INVERSE_PRECISION_ACCEPTANCE.json](INVERSE_PRECISION_ACCEPTANCE.json).
+INVERSE_PRECISION_ACCEPTANCE.json.
