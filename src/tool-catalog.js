@@ -97,26 +97,6 @@ export const TOOL_CATALOG={
     "aliases": "теплообмінник площа heat exchanger area lmtd",
     "legacy": 24
   },
-  "tutorials": {
-    "status": "educational",
-    "aliases": "приклад контроль навчання example tutorial",
-    "legacy": 18
-  },
-  "laboratory": {
-    "status": "educational",
-    "aliases": "лабораторна вимірювання похибка uncertainty measurements lab",
-    "legacy": 26
-  },
-  "coursework": {
-    "status": "mixed",
-    "aliases": "контрольна курсова ступінь лопаткова потужність трикутники твел твз активна зона реактор coursework stage velocity triangles fuel rod reactor core",
-    "legacy": 27
-  },
-  "npp": {
-    "status": "educational",
-    "aliases": "аес реактор ввер контур nuclear npp vver reactor",
-    "legacy": 21
-  },
   "research": {
     "status": "educational",
     "aliases": "залежність оптимізація дослідження sensitivity parameter study",
@@ -145,9 +125,6 @@ export const TOOL_CATALOG={
 };
 
 export function toolStatus(action,inputs={}){
- if(action==='coursework'&&inputs.kind==='reactor')return 'experimental';
- if(action==='coursework'&&inputs.kind==='core')return 'provisional';
- if(action==='coursework'&&['rankine','stage'].includes(inputs.kind))return 'educational';
  if(action==='gases'&&inputs.model==='real')return 'reference';
  if(action==='gases'&&inputs.model==='mixture')return 'experimental';
  if(action==='gases'&&inputs.model==='ideal')return 'educational';

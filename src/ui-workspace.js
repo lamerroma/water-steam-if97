@@ -16,8 +16,7 @@ function uiSpecFor(el){
  const fixed={ 'gas-p':['pressure','MPa'],'ha-p':['pressure','MPa'],'ha-t':['temperature','C'],'ice-p':['pressure','MPa'],'ice-t':['temperature','C'],'d2o-p':['pressure','MPa'],'d2o-t':['temperature','K'],'sw-p':['pressure','MPa'],'sw-t':['temperature','C'],
  'flow-p':['pressure','MPa'],'flow-t':['temperature','K'],'flow-std-p':['pressure','MPa'],'flow-std-t':['temperature','K'],'flow-height':['length','m'],'flow-eta':['fraction','percent'],
  'cycle-low':['pressure','MPa'],'cycle-mid':['pressure','MPa'],'cycle-tmin':['temperature','K'],'cycle-tmax':['temperature','K'],'cycle-tmid':['temperature','K'],'cycle-et':['fraction','fraction'],'cycle-ec':['fraction','fraction'],'cycle-flow':['mass','kgs'],
- 'npp-primaryP':['pressure','MPa'],'npp-steamP':['pressure','MPa'],'npp-condenserP':['pressure','MPa'],'npp-pMid':['pressure','MPa'],'npp-coldC':['temperature','C'],'npp-hotC':['temperature','C'],'npp-reheatC':['temperature','C'],'npp-thermalMW':['power','MW'],'npp-etaT':['fraction','fraction'],'npp-etaPump':['fraction','fraction'],'npp-etaLP':['fraction','fraction'],
- 'hx-hotIn':['temperature','K'],'hx-hotOut':['temperature','K'],'hx-coldIn':['temperature','K'],'hx-coldOut':['temperature','K'],'hx-heatKW':['power','kW'],'lab-eta-m':['fraction','percent'],'lab-eta-g':['fraction','percent']};
+ 'hx-hotIn':['temperature','K'],'hx-hotOut':['temperature','K'],'hx-coldIn':['temperature','K'],'hx-coldOut':['temperature','K'],'hx-heatKW':['power','kW']};
  if(fixed[id])return field(...fixed[id]);
  if(['research-start','research-end'].includes(id)){const unit=uiUnitFromLabel(researchUnit($('research-parameter')?.value).replace(/ abs/g,''));if(unit)return field(unit.group,unit.unit);}
  if(id==='cycle-high')return $('cycle-kind')?.value==='brayton'?null:field('pressure','MPa');
@@ -26,7 +25,6 @@ function uiSpecFor(el){
  if(id==='phase-value')return field(...($('phase-substance')?.value==='seawater'&&$('phase-kind')?.value==='freeze'?['pressure','MPa']:['temperature','K']));
  if(id==='compare-a')return field(...($('compare-mode')?.value==='tx'?['temperature','K']:['pressure','MPa']));
  if(id==='compare-b')return field(...({pt:['temperature','K'],ph:['energy','kJkg'],ps:['entropy','kJkgK'],px:['fraction','fraction'],tx:['fraction','fraction']}[$('compare-mode')?.value]||['fraction','fraction']));
- if(id.startsWith('cw-')){const row=COURSE_FIELDS[$('cw-kind')?.value]?.find(r=>'cw-'+r[0]===id);if(!row)return null;const raw=row[2].replace(/ abs/g,'').replace(/\s*\(absolute\)/g,'');const unit=uiUnitFromLabel(raw);if(unit)return field(unit.group,unit.unit);if(['etaT','etaP','plantEfficiency'].includes(row[0]))return field('fraction','fraction');}
  // Additional independent selectors supplement the existing shared selectors.
  if(/^(process|eng)-(p2|pc1|pc2|tc1|coldflow|eta)$/.test(id)){
   const prefix=id.startsWith('eng-')?'eng-':'process-',key=id.slice(prefix.length);
@@ -71,7 +69,7 @@ function uiArrangeForm(){
  for(const [input,select] of [['process-p1','process-pressure'],['process-t1','process-temperature'],['process-flow','process-mass'],['process-power','process-power-unit'],['eng-p1','eng-pressure'],['eng-t1','eng-temperature'],['eng-flow','eng-mass'],['eng-power','eng-power-unit'],['flow-rho','flow-rho-unit'],['flow-viscosity','flow-visc-unit'],['flow-value','flow-unit'],['flow-diameter','flow-diameter-unit'],['flow-length','flow-length-unit'],['flow-roughness','flow-roughness-unit'],['flow-pressure-difference','flow-pressure-difference-unit']])uiPairExisting(input,select);
  for(const el of form.querySelectorAll('input[inputmode=decimal]')){const spec=uiSpecFor(el);if(spec)uiAttachInput(el,spec);else{const old=uiInputUnits.get(el);if(old){el.value=uiStoredValue(el);old.select.remove();el.parentElement.replaceWith(el);uiInputUnits.delete(el);}}}
  for(const meta of [...form.querySelectorAll('fieldset')])if(!meta.querySelector('input,select,textarea'))meta.hidden=true;
- uiRangeUnits();uiDependentFields();uiResultActions();uiTaskLayout();
+ uiRangeUnits();uiResultActions();uiTaskLayout();
 }
 function uiRangeUnits(){
  if($('batch-start')){
@@ -85,11 +83,6 @@ function uiRangeUnits(){
 function uiRangeBadge(id,unit){const input=$(id);let badge=$('ui-range-'+id);if(!badge){badge=document.createElement('span');badge.id='ui-range-'+id;badge.className='ui-fixed-unit';badge.dataset.i18nIgnore='';let row=input.parentElement;if(!row.classList.contains('quantity-input')){row=document.createElement('span');row.className='quantity-input';input.before(row);row.append(input);}row.append(badge);}badge.textContent=unit;}
 function uiResultActions(force=false){workflowResultActions(force);}
 
-function uiDependentFields(){
- if($('cw-kind')?.value!=='reactor')return;
- const settings=[['cw-cladConductivity',$('cw-cladMethod')?.value==='constant'],['cw-gapConductivity',$('cw-gapMethod')?.value==='constant'],['cw-contactConductance',$('cw-gapMethod')?.value==='contact'],['cw-fuelConductivity',$('cw-fuelMethod')?.value==='constant'],['cw-controlLayout',['rings','coordinates'].includes($('cw-rodLayout')?.value)]];
- for(const [id,show] of settings){const el=$(id);if(el)el.closest('label').hidden=!show;}
-}
 function uiApplyInputs(){
  const changes=[];
  for(const [id,group] of [['unit-a',null],['unit-b',null]]){const el=$(id),input=$(id==='unit-a'?'input-a':'input-b'),key=Object.keys(UI_UNIT_GROUPS).find(k=>!!UI_UNIT_GROUPS[k][el.value]),next=uiPreferredUnit(key,uiUnitPreferences);if(next&&[...el.options].some(o=>o.value===next))changes.push([input,()=>{el.value=next;el.dispatchEvent(new Event('change'));}]);}
@@ -109,7 +102,7 @@ function uiConvertTables(){
  // Convert explicit value/unit rows and explicit unit-bearing columns. Store the
  // original displayed values to make repeated preference changes reversible.
  for(const table of $('process-view').querySelectorAll('table')){
-  if(table.hasAttribute('data-canonical-units')||table.closest('form')||table.classList.contains('thermal-evidence')||table.closest('#cw-steps-detail,#cw-node-detail'))continue;
+  if(table.hasAttribute('data-canonical-units')||table.closest('form'))continue;
   if(!uiTableSources.has(table)){
    const heads=[...table.querySelectorAll('thead th')],rows=[...table.querySelectorAll('tbody tr')];
    const units=heads.map(h=>{const s=h.textContent,m=s.match(/\[([^\]]+)\]|,\s*(.+)$/);return m?uiUnitFromLabel(m[1]||m[2]):null;});

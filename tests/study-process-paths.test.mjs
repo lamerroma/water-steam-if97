@@ -1,4 +1,4 @@
-import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {initialize,calculate} from '../src/engine.js';import {solveCycle,CYCLE_DEFAULT} from '../src/cycle-study.js';import {solveNuclear,NPP_MSR_DEFAULT} from '../src/nuclear.js';import {buildStudyProcessPaths,studyProcessEdges,studyPathsCSV} from '../src/study-process-paths.js';
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {initialize,calculate} from '../src/engine.js';import {solveCycle,CYCLE_DEFAULT} from '../src/cycle-study.js';import {buildStudyProcessPaths,studyProcessEdges,studyPathsCSV} from '../src/study-process-paths.js';
 await initialize(fs.readFileSync(new URL('../vendor/seuif97_bg.wasm',import.meta.url)));
 const close=(a,b,tol=1e-5)=>assert.ok(Math.abs(a-b)<tol,`${a} != ${b}`);
 for(const type of ['rankine','rankine-reheat','rankine-regen','brayton'])test(type+' paths preserve endpoints and isobaric/ideal invariants',async()=>{
@@ -9,11 +9,6 @@ for(const type of ['rankine','rankine-reheat','rankine-regen','brayton'])test(ty
   if(p.mode==='isentropic')for(const s of p.points)close(s.s,p.points[0].s);
   if(p.type==='mixing')assert.equal(p.points.length,2);
  }
-});
-test('NPP separators stay schematic, drains conserve h, first loop and steam generator conserve p',async()=>{
- const q=solveNuclear(NPP_MSR_DEFAULT),scene=await buildStudyProcessPaths(q,{npp:true,kind:'hs'});assert.equal(scene.stats.gaps,0);
- for(const p of scene.paths){if(p.type==='separation'){assert.equal(p.mode,'schematic');assert.equal(p.points.length,2);}if(p.mode==='isenthalpic'){assert.ok(p.points.length>2);for(const s of p.points)close(s.h,p.points[0].h);}if(p.mode==='isobaric')for(const s of p.points)close(s.p,p.points[0].p);}
- assert.ok(studyPathsCSV(scene).includes('p_MPa_abs'));assert.ok(studyPathsCSV(scene).includes('isenthalpic'));
 });
 test('Boiler curve explicitly passes through both phase boundaries instead of cutting across the dome',async()=>{
  const q=solveCycle(CYCLE_DEFAULT),scene=await buildStudyProcessPaths(q),boiler=scene.paths.find(p=>p.from===1&&p.to===2&&!p.reference),sat=calculate('satp',q.input.pHigh).saturation;
