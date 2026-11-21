@@ -86,7 +86,8 @@
     "test:diagram-navigation": "node scripts/check-diagram-navigation-browser.cjs",
     "audit:pwa-legacy": "node scripts/check-legacy-parity-browser.cjs",
     "test:startup-restore": "node scripts/check-startup-restore-browser.cjs",
-    "test:share-link": "node scripts/check-share-link-browser.cjs"
+    "test:share-link": "node scripts/check-share-link-browser.cjs",
+    "test:channel": "node scripts/check-channel-browser.cjs"
   },
   "engines": {
     "node": ">=20"

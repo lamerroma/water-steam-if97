@@ -20,6 +20,8 @@ function uiSpecFor(el){
  // Steam systems: base units of the panel fields; the panel reads canonical values.
  'steam-p':['pressure','MPa'],'steam-p1':['pressure','MPa'],'steam-p2':['pressure','MPa'],'steam-t':['temperature','C'],'steam-t0':['temperature','C'],'steam-tamb':['temperature','C'],'steam-t1':['temperature','C'],'steam-t2':['temperature','C'],'steam-feedT':['temperature','C'],'steam-condT':['temperature','C'],'steam-makeupT':['temperature','C'],'steam-flow':['mass','kgh'],'steam-liquidFlow':['mass','kgh'],'steam-d':['length','mm'],'steam-roughness':['length','mm'],'steam-orifice':['length','mm'],'steam-pipeD':['length','mm'],'steam-hole':['length','mm'],'steam-outerD':['length','mm'],'steam-insulation':['length','mm'],'steam-length':['length','m'],'steam-dp':['pressure','kPa'],'steam-dpOrifice':['pressure','kPa'],'steam-heat':['power','kW'],'steam-subcooling':['temperatureDifference','dK'],'steam-efficiency':['fraction','percent'],'steam-boilerEta':['fraction','percent'],'steam-blowdown':['fraction','percent'],'steam-airFraction':['fraction','percent']};
  if(fixed[id])return field(...fixed[id]);
+ // Generic calculator panels declare the quantity and base unit on the input.
+ if(el.dataset?.uiGroup&&el.dataset.uiBase)return field(el.dataset.uiGroup,el.dataset.uiBase);
  if(['research-start','research-end'].includes(id)){const unit=uiUnitFromLabel(researchUnit($('research-parameter')?.value).replace(/ abs/g,''));if(unit)return field(unit.group,unit.unit);}
  if(id==='cycle-high')return $('cycle-kind')?.value==='brayton'?null:field('pressure','MPa');
  if(id==='gas-b')return field(...($('gas-mode')?.value==='ph'?['energy','kJkg']:$('gas-mode')?.value==='ps'?['entropy','kJkgK']:['temperature','K']));
