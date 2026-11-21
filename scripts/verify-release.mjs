@@ -51,7 +51,7 @@ async function serve(){
 }
 try{
  if(!await check('build',['scripts/build.mjs']))throw Error('Build failed; dependent checks skipped.');
- report.build=JSON.parse((await readFile(path.join(root,'assets/app.js'),'utf8')).match(/const APP_BUILD = ([^\n]+);/)[1]);
+ report.build=JSON.parse((await readFile(path.join(root,'dist/assets/app.js'),'utf8')).match(/const APP_BUILD = ([^\n]+);/)[1]);
  await check('documentation',['scripts/check-docs-links.mjs']);
  await check('library-registry',['scripts/check-library-registry.mjs']);
  await check('library-recipes',['scripts/check-library-recipes.mjs']);
