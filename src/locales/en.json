@@ -2129,5 +2129,20 @@
   "ext95.r.cv": "Isochoric heat capacity cv",
   "ext95.r.w": "Speed of sound w",
   "ext95.r.Z": "Compressibility factor Z",
-  "ext95.r.isentropic": "Isentropic exponent"
+  "ext95.r.isentropic": "Isentropic exponent",
+  "prop.drhodh": "Derivative (∂ρ/∂h)p",
+  "prop.drhodph": "Derivative (∂ρ/∂p)h",
+  "prop.dpsdt": "Saturation curve slope dpₛ/dT",
+  "prop.pKw": "Ionization constant of water −lg Kw",
+  "prop.nD": "Refractive index (λ = 589.29 nm)",
+  "prop.unit.drhodh": "kg²/(m³·kJ)",
+  "prop.unit.drhodph": "kg/(m³·MPa)",
+  "prop.reason.dpsdt": "The saturation-curve slope is defined for saturated liquid, saturated vapor and two-phase mixtures.",
+  "prop.reason.pKw": "Ionization constant unavailable: IAPWS R11 is valid for 273.15…1273.15 K and p ≤ 1000 MPa.",
+  "prop.reason.nD": "Refractive index unavailable: IAPWS R9-97 is valid for 261.15…773.15 K and ρ ≤ 1060 kg/m³.",
+  "glossary.pKw": "Negative decimal logarithm of the ionization constant of water Kw = [H⁺][OH⁻] (mol²/kg²). Pure water at 25 °C has pKw ≈ 14, so neutral pH = 7; pKw changes with temperature, and so does neutral pH. Important for boiler and nuclear plant water chemistry.",
+  "glossary.nD": "How many times slower light of wavelength 589.29 nm (sodium yellow line) travels in water than in vacuum. Depends on density and temperature; used in optical sensors and refractometers.",
+  "glossary.drhodh": "How fast density changes with enthalpy at constant pressure. Needed in dynamic models of boilers and steam generators; for a two-phase mixture it equals −ρ²·Δv/Δh.",
+  "glossary.drhodph": "How fast density changes with pressure at constant enthalpy. Together with (∂ρ/∂h)p it is used in dynamic models of coolant and pipelines.",
+  "glossary.dpsdt": "Slope of the saturation curve: how much the saturation pressure rises per 1 K of heating. Computed from the Clapeyron–Clausius equation using latent heat and the phase volume difference."
 }

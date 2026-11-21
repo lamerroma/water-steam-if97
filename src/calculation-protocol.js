@@ -16,7 +16,7 @@ const calculationUnitGroups={
  x:{canonical:'fraction',accepted:['fraction','percent']}
 };
 calculationUnitGroups.u=calculationUnitGroups.h;
-const calculationOutputUnits={p:'MPa',T:'K',rho:'kg/m3',v:'m3/kg',h:'kJ/kg',u:'kJ/kg',A:'kJ/kg',G:'kJ/kg',s:'kJ/(kg K)',cp:'kJ/(kg K)',cv:'kJ/(kg K)',w:'m/s',x:'1',Z:'1',gamma:'1',caloricRatio:'1',isentropic:'1',mu:'Pa s',lambda:'W/(m K)',nu:'m2/s',diffusivity:'m2/s',Pr:'1',sigma:'N/m',dc:'1',alpha:'1/K',kappa:'1/MPa',dvdt:'m3/(kg K)',dvdp:'m3/(kg MPa)',dpdt:'MPa/K',dpdv:'MPa kg/m3',jt:'K/MPa',ijt:'kJ/(kg MPa)',latentHeat:'kJ/kg',M:'kg/kmol',R:'kJ/(kg K)',mixingEntropy:'kJ/(kg K)',excessAirLambda:'1',dissociationDeltaH:'kJ/kg',dissociationDeltaS:'kJ/(kg K)',dissociationDeltaCp:'kJ/(kg K)'};
+const calculationOutputUnits={p:'MPa',T:'K',rho:'kg/m3',v:'m3/kg',h:'kJ/kg',u:'kJ/kg',A:'kJ/kg',G:'kJ/kg',s:'kJ/(kg K)',cp:'kJ/(kg K)',cv:'kJ/(kg K)',w:'m/s',x:'1',Z:'1',gamma:'1',caloricRatio:'1',isentropic:'1',mu:'Pa s',lambda:'W/(m K)',nu:'m2/s',diffusivity:'m2/s',Pr:'1',sigma:'N/m',dc:'1',alpha:'1/K',kappa:'1/MPa',dvdt:'m3/(kg K)',dvdp:'m3/(kg MPa)',dpdt:'MPa/K',dpdv:'MPa kg/m3',drhodh:'kg2/(m3 kJ)',drhodph:'kg/(m3 MPa)',dpsdt:'MPa/K',pKw:'1',nD:'1',jt:'K/MPa',ijt:'kJ/(kg MPa)',latentHeat:'kJ/kg',M:'kg/kmol',R:'kJ/(kg K)',mixingEntropy:'kJ/(kg K)',excessAirLambda:'1',dissociationDeltaH:'kJ/kg',dissociationDeltaS:'kJ/(kg K)',dissociationDeltaCp:'kJ/(kg K)'};
 function calculationFreeze(value){if(value&&typeof value==='object'){for(const item of Object.values(value))calculationFreeze(item);Object.freeze(value);}return value;}
 export const CALCULATION_MODULES=calculationFreeze([
  {id:'water',engineVersion:'1.0.0',runtime:'javascript-wasm',methods:['calculate'],models:['IF97','IAPWS-95'],resultFormat:'water-state',

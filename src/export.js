@@ -4,7 +4,7 @@ import {englishProperty} from './units.js';
 import {propertyUnavailableReason} from './ux-display.js';
 // Unrounded canonical values; energy unit is explicitly recorded in each CSV row.
 export function resultExportRows(result,energy='kJ',ambient=null,system='si',preferences=null) {
-  const props=[['dc','–'],['ex','кДж/кг'],['h','кДж/кг'],['s','кДж/(кг·K)'],['rho','кг/м³'],['v','м³/кг'],['cp','кДж/(кг·K)'],['cv','кДж/(кг·K)'],['w','м/с'],['u','кДж/кг'],['mu','Па·с'],['lambda','Вт/(м·K)'],['A','кДж/кг'],['G','кДж/кг'],['Z','–'],['isentropic','–'],['alpha','1/K'],['kappa','1/МПа'],['dvdt','м³/(кг·K)'],['dvdp','м³/(кг·МПа)'],['dpdt','МПа/K'],['dpdv','МПа·кг/м³'],['jt','K/МПа'],['ijt','кДж/(кг·МПа)'],['nu','м²/с'],['diffusivity','м²/с'],['Pr','–'],['sigma','Н/м']];
+  const props=[['dc','–'],['ex','кДж/кг'],['h','кДж/кг'],['s','кДж/(кг·K)'],['rho','кг/м³'],['v','м³/кг'],['cp','кДж/(кг·K)'],['cv','кДж/(кг·K)'],['w','м/с'],['u','кДж/кг'],['mu','Па·с'],['lambda','Вт/(м·K)'],['A','кДж/кг'],['G','кДж/кг'],['Z','–'],['isentropic','–'],['alpha','1/K'],['kappa','1/МПа'],['dvdt','м³/(кг·K)'],['dvdp','м³/(кг·МПа)'],['dpdt','МПа/K'],['dpdv','МПа·кг/м³'],['drhodh','кг²/(м³·кДж)'],['drhodph','кг/(м³·МПа)'],['dpsdt','МПа/K'],['pKw','–'],['nD','–'],['jt','K/МПа'],['ijt','кДж/(кг·МПа)'],['nu','м²/с'],['diffusivity','м²/с'],['Pr','–'],['sigma','Н/м']];
   const rows=[['state','property','value','unit'],['reference','pressure_basis','absolute','']],states=result.state?[['state',result.state]]:[];
   if(ambient)rows.push(['reference','p0',ambient.p,'MPa'],['reference','T0',ambient.T,'K'],['reference','exergy_definition','(h-h0)-T0*(s-s0); physical flow exergy','']);
   if(result.saturation)states.push(['saturated_liquid',result.saturation.liquid],['saturated_vapor',result.saturation.vapor]);
@@ -12,7 +12,7 @@ export function resultExportRows(result,energy='kJ',ambient=null,system='si',pre
   for(const [name,s] of states) {
     rows.push([name,'p',...(system==='english'?englishProperty('p',s.p,'MPa'):[s.p,'MPa'])],[name,'T',...(system==='english'?englishProperty('T',s.T,'K'):[s.T,'K'])],[name,'model',s.model||'IF97',''],[name,'region',s.region??'',''],[name,'phase',s.phase,''],[name,'x',s.x??'','']);
     for(const [key,unit] of props) {
-      if(s[key]==null&&['mu','nu','lambda','diffusivity','Pr','dc','sigma'].includes(key))rows.push([name,key+'_unavailable_reason',propertyUnavailableReason(key,s),'']);
+      if(s[key]==null&&['mu','nu','lambda','diffusivity','Pr','dc','sigma','pKw','nD','drhodh','drhodph','dpsdt'].includes(key))rows.push([name,key+'_unavailable_reason',propertyUnavailableReason(key,s),'']);
       if(system==='english'){const [v,u]=uiTransportQuantity(key,...englishProperty(key,s[key],unit),preferences);rows.push([name,key,v??'',u]);continue;}const convert=energy==='J'&&['h','s','cp','cv','u','A','G','ijt','ex'].includes(key);const [v,u]=uiTransportQuantity(key,s[key],convert?unit.replace('кДж','Дж'):unit,preferences);rows.push([name,key,v==null?'':v*(convert?1000:1),u]);}
     if(s.inputSensitivity){rows.push([name,'rounding_response_status',s.inputSensitivity.status,'']);for(const [key,value] of Object.entries(s.inputSensitivity.response||{}))rows.push([name,'rounding_response_'+key,value,DIAGNOSTIC_UNITS[key]]);for(const [key,value] of Object.entries(s.inputSensitivity.numericalResponse||{}))rows.push([name,'numerical_response_'+key,value,DIAGNOSTIC_UNITS[key]]);}
     for(const note of s.notes||[])rows.push([name,'note',note,'']);
