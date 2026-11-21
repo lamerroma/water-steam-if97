@@ -92,6 +92,11 @@ export const TOOL_CATALOG={
     "aliases": "reynolds рейнольдс втрати тиску тертя діаметр pipe pressure drop friction",
     "legacy": 17
   },
+  "steam-system": {
+    "status": "provisional",
+    "aliases": "пара паропровід конденсат конденсатовідвідник клапан kv cv діафрагма сопло витікання сепаратор сухість повітря котел ккд вартість пари окупність steam pipe sizing condensate trap valve orifice leak separator dryness boiler efficiency cost payback tlv",
+    "legacy": null
+  },
   "exchanger": {
     "status": "educational",
     "aliases": "теплообмінник площа heat exchanger area lmtd",

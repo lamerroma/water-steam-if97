@@ -2341,12 +2341,13 @@
       "reference_source": "https://www.steamtablesonline.com/help.aspx",
       "local_evidence": [
         "src/engine.js",
-        "src/saturation-grid.js"
+        "src/saturation-grid.js",
+        "src/saturation-inverse.js"
       ],
       "existing_checks": [
         "tests/all-modes.test.mjs"
       ],
-      "notes": "Help mentions 15 saturation selector functions but does not enumerate them consistently; full selector inventory remains open. Having satp/satt/px/tx does not prove coverage.",
+      "notes": "Help mentions 15 saturation selector functions but does not enumerate them consistently; full selector inventory remains open. Having satp/satt/px/tx does not prove coverage. 2026-11-21: added saturation lookup from h, s, u, v or rho of the saturated liquid or vapor and from latent heat (src/saturation-inverse.js), giving 15 saturation input functions together with p, T, p-x and T-x. Steam97Web's own list is still not enumerated by its help, so parity is not claimed.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "saturation",
@@ -2368,6 +2369,25 @@
           "B03"
         ]
       }
+    },
+    {
+      "id": "metastable-vapor",
+      "group": "saturation",
+      "feature": "Properties of metastable (supercooled) steam",
+      "scope": "calculation",
+      "implementation": "present",
+      "parity": "requires_reference_cases",
+      "reference_source": "https://www.steamtablesonline.com/help.aspx",
+      "local_evidence": [
+        "src/metastable-vapor.js",
+        "tests/metastable-vapor.test.mjs"
+      ],
+      "existing_checks": [
+        "IAPWS R7-97(2012) Table 18 verification values reproduced to 5e-9"
+      ],
+      "notes": "2026-11-21: listed as an advantage in the Steam97Web help without a stated range. Implemented the IF97 supplementary metastable-vapor equation (R7-97 §6.2.3) for p ≤ 10 MPa between the saturated-vapor line and the 5 % equilibrium moisture line, in the main water tab. No Steam97Web reference cases.",
+      "p01": null,
+      "p02": null
     },
     {
       "id": "domain-if97",
@@ -2423,13 +2443,14 @@
       "local_evidence": [
         "src/iapws95.js",
         "src/extra-inputs.js",
-        "src/water-validity.js"
+        "src/water-validity.js",
+        "src/iapws95-extrapolation.js"
       ],
       "existing_checks": [
         "tests/iapws95.test.mjs",
         "tests/steam97-p05.test.mjs"
       ],
-      "notes": "Website help claims a wider calculation domain than our implemented bounds. Verify actual website points, phase/melting restrictions and any extrapolation separately from authoritative validity.",
+      "notes": "Website help claims a wider calculation domain than our implemented bounds. Verify actual website points, phase/melting restrictions and any extrapolation separately from authoritative validity. 2026-11-21 (author decision): added an opt-in P-T extrapolation of IAPWS-95 to 5000 K and 100 GPa (src/iapws95-extrapolation.js) with a visible warning; ice VII melting (R14-08) bounds the low-temperature side up to 715 K. Steam97Web cases still unavailable, so parity is not claimed.",
       "p01": {
         "contract_file": "steam97-p01/contracts.json",
         "contract_id": "domains",
