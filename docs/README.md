@@ -4,20 +4,20 @@
 залежності, критерії приймання, три сценарії трудомісткості й зовнішні блокери.
 [Машиночитний кошторис](DEVELOPMENT_MASTER_PLAN.json).
 
-[R00: контрольна копія й відновлення](development-r00/REPORT_UK.md) ·
-[Архів прямого збору Steam97Web](steam97-reference/README_UK.md).
+R00: контрольна копія й відновлення ·
+Архів прямого збору Steam97Web.
 
-[R01: виправлення IAPWS-95, захист WASM і ексергія у Worker](development-r01/REPORT_UK.md) ·
-[Турбіна та дроселювання у Worker](development-r01/STEAM_PROCESS_WORKER_UK.md) ·
-[Інженерні форми та діаграми у Worker](development-r01/AUXILIARY_WORKER_UK.md) ·
-[R01: приймання пам’яті та холодного запуску](development-r01/MEMORY_ACCEPTANCE_UK.md) ·
-[R02: поточне релізне приймання](development-r02/REPORT_UK.md).
+R01: виправлення IAPWS-95, захист WASM і ексергія у Worker ·
+Турбіна та дроселювання у Worker ·
+Інженерні форми та діаграми у Worker ·
+R01: приймання пам’яті та холодного запуску ·
+R02: поточне релізне приймання.
 
 Актуальна програма — багатофайлова PWA. Номер версії задає
 [`package.json`](../package.json), запущену збірку видно внизу сторінки.
 [Підтверджений стан публікації 1.41.0](RELEASE_STATUS_UK.md).
-[Протокол публічного приймання](release-1.41.0/REPORT_UK.md).
-[Кандидат 1.41.1: відновлення проєкту під час ранніх дій](release-1.41.1/REPORT_UK.md).
+Протокол публічного приймання.
+Кандидат 1.41.1: відновлення проєкту під час ранніх дій.
 
 ## Користування
 
@@ -35,7 +35,7 @@
 
 - [Газові таблиці BSW2003 / P03](STEAMTABLES_P03_UK.md).
 - [Дослідна калорична поправка дисоціації / P04](STEAMTABLES_P04_UK.md)
-  та [машиночитаний контракт](steam97-p04/contract.json).
+  та машиночитаний контракт.
 - [Матриця Steam97Web](STEAMTABLES_PARITY_MATRIX.json),
   [план відповідності](STEAMTABLES_PARITY_SPRINTS_UK.md),
   [стратегія продукту](PRODUCT_STRATEGY_UK.md).

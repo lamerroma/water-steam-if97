@@ -14,7 +14,7 @@
 
 Результат: 781/781 прямих і 390/390 зворотних сценаріїв пройшли задані допуски. Максимальна відносна різниця прямої властивості — 7.81e-09; відновлення тиску — 5.33e-07, температури — 2.15e-07 K.
 
-Повні результати: [water-conformance-results.json](water-conformance-results.json). Запуск без зовнішніх пакетів: `node scripts/water-conformance.mjs`. Перегенерація еталона потребує окремо встановлених CoolProp та iapws: `python scripts/reference-water-conformance.py`.
+Повні результати: water-conformance-results.json. Запуск без зовнішніх пакетів: `node scripts/water-conformance.mjs`. Перегенерація еталона потребує окремо встановлених CoolProp та iapws: `python scripts/reference-water-conformance.py`.
 
 Усі 340 автоматичних тестів проходять.
 

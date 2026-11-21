@@ -17,3 +17,9 @@ __pycache__/
 
 # Keep exact startup acceptance logs with their SHA-256 manifest.
 !docs/release-1.41.1/evidence/*.log
+
+# Збірка лежить лише в dist/; старі копії в корені більше не генеруються.
+/index.html
+/assets/
+/service-worker.js
+/manifest.webmanifest

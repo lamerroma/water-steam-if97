@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import crypto from 'node:crypto';
-const root=new URL('../',import.meta.url),read=p=>fs.readFileSync(new URL(p,root));
+const root=new URL('../',import.meta.url),built=p=>/^(index\.html|assets\/|service-worker\.js|manifest\.webmanifest)/.test(p)?'dist/'+p:p,read=p=>fs.readFileSync(new URL(built(p),root));
 
 test('Spreadsheet backend is an exact local asset, separately versioned and prepared offline',()=>{
  const bytes=read('assets/sheetjs.js'),code=read('assets/app.js').toString(),worker=read('service-worker.js').toString();
@@ -36,7 +36,6 @@ test('PWA page uses matching local assets and same-origin CSP',()=>{
  const version=p=>crypto.createHash('sha256').update(read(p)).digest('hex').slice(0,16);
  assert.ok(html.includes(`href="assets/styles.css?v=${version('assets/styles.css')}"`));
  assert.ok(html.includes(`src="assets/app.js?v=${version('assets/app.js')}" defer`));
- assert.deepEqual(read('assets/app.js'),read('dist/assets/app.js'));
  assert.deepEqual(read('assets/styles.css'),read('src/styles.css'));
  assert.match(html,/script-src 'self'/);assert.match(html,/style-src 'self'/);
  assert.match(html,/connect-src 'self'/);assert.match(html,/rel="manifest"/);

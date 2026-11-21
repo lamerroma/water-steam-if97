@@ -9,7 +9,7 @@ import {studyReportHTML} from '../src/study-report.js';
 import {readProject} from '../src/project.js';
 import {createLegacyCalculationRequest,createCalculationRequest,validateCalculationReply} from '../src/calculation-protocol.js';
 await initialize(await readFile(new URL('../vendor/seuif97_bg.wasm',import.meta.url)));
-const source=await readFile(new URL('../assets/calculator-worker.js',import.meta.url),'utf8');
+const source=await readFile(new URL('../dist/assets/calculator-worker.js',import.meta.url),'utf8');
 const implementationRevision=JSON.parse(source.match(/const CALCULATION_IMPLEMENTATION_REVISION = ([^\n]+);/)[1]);
 test('Built background kernel preserves all 20 modes for both water models',async()=>{
  const worker=new Worker("const {parentPort}=require('node:worker_threads');globalThis.self=globalThis;self.postMessage=data=>parentPort.postMessage(data);parentPort.on('message',data=>self.onmessage({data}));\n"+source,{eval:true});
