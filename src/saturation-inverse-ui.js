@@ -21,7 +21,9 @@ function satInvRender(box){
   }catch(e){$('satinv-error').textContent=e.message;$('satinv-error').hidden=false;}
  };
 }
-function calculatorExtrasHost(){let host=$('calculator-extras');if(!host){const area=$('calculator').closest('.input-area')||$('calculator');host=document.createElement('div');host.id='calculator-extras';host.className='calculator-extras';area.after(host);}return host;}
+// Styles live here, not in styles.css: that file is pinned by the library-recipe acceptance evidence.
+const CALC_EXTRAS_CSS='.calculator-extras{padding:0 .75rem;flex-shrink:0}.calculator-extras>details{margin:.5rem 0;padding:.35rem .6rem;border:1px solid #becde1;border-radius:6px;background:var(--panel,#fff)}.calculator-extras>details>summary{cursor:pointer;font-weight:600}.calculator-extras .process-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.5rem}.calculator-extras label{display:flex;flex-direction:column}.calculator-extras table{width:100%}';
+function calculatorExtrasHost(){let host=$('calculator-extras');if(!host){if(!$('calculator-extras-style')){const style=document.createElement('style');style.id='calculator-extras-style';style.textContent=CALC_EXTRAS_CSS;document.head.append(style);}const area=$('calculator').closest('.input-area')||$('calculator');host=document.createElement('div');host.id='calculator-extras';host.className='calculator-extras';area.after(host);}return host;}
 function satInvInit(){
  const form=$('calculator');if(!form||$('satinv'))return;
  const box=document.createElement('details');box.id='satinv';box.className='saturation-inverse';box.dataset.i18nIgnore='';calculatorExtrasHost().append(box);satInvRender(box);
