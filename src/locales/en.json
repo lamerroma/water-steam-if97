@@ -2264,5 +2264,13 @@
   "fn.error.unknownVariable": "Variable “{name}” is not defined in the lines above.",
   "fn.error.mathDomain": "Math operation “{name}” produced infinity or not-a-number.",
   "fn.error.oneRange": "Only one range is allowed per line.",
-  "fn.error.rangeAssign": "A range cannot be assigned to a variable."
+  "fn.error.rangeAssign": "A range cannot be assigned to a variable.",
+  "share.button": "Copy link to calculation",
+  "share.copied": "Link to the calculation copied. It contains only this tab's inputs.",
+  "share.copyFailed": "Could not copy automatically: the link is shown in the address bar.",
+  "share.opened": "Opened the calculation from a link; results are computed from the inputs",
+  "share.invalid": "The calculation link is damaged or was made by an incompatible version.",
+  "share.tooLong": "The calculation is too large for a link — export JSON.",
+  "share.csv": "A series from a CSV file cannot travel in a link — export JSON.",
+  "share.unsupported": "Links are not supported for this section."
 }
