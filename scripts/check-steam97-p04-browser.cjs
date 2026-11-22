@@ -1,5 +1,8 @@
 const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path'),{spawnSync}=require('node:child_process');
 const {openTool,openUnits,closeUnits}=require('./browser-tools.cjs');
+// calc() marks the previous result as stale first: submitting does not clear the old
+// output, so without the marker a cancelled-then-resubmitted run could return early
+// and json() would click a button that is about to be re-rendered (flaky in Firefox).
 (async()=>{
  const name=process.env.BROWSER_NAME||'chromium',pw=require(process.env.PLAYWRIGHT_MODULE_PATH||'playwright');
  const browser=await pw[name].launch(name==='chromium'?{...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{}),args:['--no-sandbox']}:{});
@@ -10,7 +13,7 @@ const {openTool,openUnits,closeUnits}=require('./browser-tools.cjs');
  const watch=()=>p.on('pageerror',e=>report.errors.push(e.message));watch();
  const ready=()=>p.waitForFunction(()=>document.querySelector('#calculate')?.disabled===false,{},{timeout:120000});
  const near=(a,b,tol=5e-11)=>assert.ok(Math.abs(a-b)<=tol*Math.max(1,Math.abs(b)),`${a} != ${b}`);
- async function calc(){await p.locator('#learn-form button[type=submit]').click();await p.waitForFunction(()=>!!document.querySelector('#gas-spreadsheet-save')||!document.querySelector('#learn-error')?.hidden);assert.equal(await p.locator('#learn-error').isHidden(),true,await p.locator('#learn-error').textContent());}
+ async function calc(){await p.evaluate(()=>document.querySelector('#gas-spreadsheet-save')?.setAttribute('data-stale',''));await p.locator('#learn-form button[type=submit]').click();await p.waitForFunction(()=>!!document.querySelector('#gas-spreadsheet-save:not([data-stale])')||!document.querySelector('#learn-error')?.hidden);assert.equal(await p.locator('#learn-error').isHidden(),true,await p.locator('#learn-error').textContent());}
  async function json(){const [d]=await Promise.all([p.waitForEvent('download'),p.click('#learn-json')]);const file=path.join(dir,`state-${serial++}.json`);await d.saveAs(file);return JSON.parse(await fs.readFile(file));}
  function check(q){assert.equal(q.modelId,'BSW2003-VDI4670-caloric-experimental');assert.equal(q.dissociationApplied,true);assert.equal(q.w,null);assert.equal(q.isentropic,null);near(q.T,1600);for(const key of ['cp','h','s'])near(q.dissociation.corrections[key],expected[key]);}
  async function prepare(){await openTool(p,'gases');await p.selectOption('#gas-model','bsw2003');await p.selectOption('#gas-preset','custom');for(const id of ['Ar','CO','CO2','H2O','N2','Ne','O2','SO2'])await p.fill('#fraction-'+id,String(100*(control.fractions[id]||0)));await p.selectOption('#ui-unit-gas-p','MPa');await p.fill('#gas-p','1');await p.selectOption('#ui-unit-gas-b','K');await p.fill('#gas-b','1600');await p.selectOption('#gas-dissociation','vdi4670');await p.selectOption('#gas-combustion','complete-air');await p.fill('#gas-excess-air','1.2');await calc();check((await json()).result);}
