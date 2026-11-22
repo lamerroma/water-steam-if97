@@ -17,7 +17,10 @@ exports.openTool=async(page,action)=>{
 exports.openAppMenu=async page=>{const menu=page.locator('.mobile-app-menu');if(await menu.count()&&!await menu.evaluate(e=>e.open))await menu.locator(':scope > summary').click();};
 exports.openToolFinder=async page=>{if(!await page.locator('#tool-catalog-toggle').isVisible())await page.click('#ui-search-toggle');};
 
-exports.openUnits=async page=>{if(!await page.locator('.setup-pane').isVisible())await page.click('#ui-units-toggle');};
+// Right after a (re)load the layout class that decides whether the setup pane is a
+// toggled panel can still change, so a single visibility check can open the pane
+// and then see it hidden again (seen in Firefox). Re-check until it stays open.
+exports.openUnits=async page=>{const pane=page.locator('.setup-pane');for(let attempt=0;attempt<5;attempt++){if(!await pane.isVisible())await page.click('#ui-units-toggle');try{await pane.waitFor({state:'visible',timeout:2000});await page.waitForTimeout(100);if(await pane.isVisible())return;}catch{}}throw Error('Units pane did not stay open');};
 exports.closeUnits=async page=>{if(await page.locator('.setup-pane').isVisible())await page.locator('.setup-pane [data-action=toggle-setup]').evaluate(e=>e.click());};
 exports.chooseModel=async(page,model)=>{await exports.openUnits(page);await page.locator('input[name=formulation][value="'+model+'"]').click();await page.waitForFunction(model=>document.querySelector('input[name=formulation]:checked')?.value===model,model,{timeout:120000});await exports.closeUnits(page);};
 
