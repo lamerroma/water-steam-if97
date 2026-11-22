@@ -2798,5 +2798,8 @@
   "pp.note.scheme": "Teaching model: no pressure losses in ducts and extractions, no leakage, seals or auxiliaries; heaters have the given terminal difference.",
   "pp.r.D0": "Live steam flow",
   "pp.unit.steamRate": "kg/kWh",
-  "pp.unit.heatRate": "kJ/kWh"
+  "pp.unit.heatRate": "kJ/kWh",
+  "help.channelPowerPlant": "“Channel thermal hydraulics” computes void fraction, two-phase friction, boiling, critical heat flux and DNBR along a heated channel. “Power plant” contains 12 calculations for fossil and nuclear plant components: nozzle and turbine stage, heat-recovery steam generator and combined cycle, PWR steam generator, district-heating temperature graph and CHP turbine, condenser and cooling tower, and thermal scheme templates K-1000-60 and K-300-240. Each calculation shows its formulas, sources and model limits.",
+  "help.shareLink": "A calculation link (File → Copy link to calculation) carries the current tab’s inputs in the address fragment; nothing is sent to a server.",
+  "help.sourcesChannelPowerPlant": "Channel thermal hydraulics: Zivi (1964), Smith (1969), Chisholm (1973), Lockhart–Martinelli (1949), Friedel (1979), Jens–Lottes (1951), Thom (1965), Chen (1966), Biasi (1967), Zuber (1959). Power plant: Shcheglyaev A.V., Steam Turbines; Kehlhofer R., Combined-Cycle Gas & Steam Turbine Power Plants (2009); Sokolov E.Ya., District Heating and Heat Networks (2001); Merkel F. (1925), Kröger D.G. (2004); Ryzhkin V.Ya., Thermal Power Plants (1987); Margulova T.Kh., Nuclear Power Plants (1994). Full references are in the section documentation."
 }
